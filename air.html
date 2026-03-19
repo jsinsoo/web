@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌬️ 실시간 미세먼지 현황</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --primary-blue: #007aff;
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 { margin: 0; font-size: 1.2rem; white-space: nowrap; }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #d2d2d7;
+            background-color: #fff;
+            flex-grow: 1;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.8; }
+
+        #result-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e5e5e7;
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-2px); }
+
+        .station-name { font-weight: 700; font-size: 1.1rem; }
+
+        .info-box { text-align: right; }
+
+        .values { color: var(--text-gray); font-size: 0.9rem; margin-right: 15px; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h2>📍 지역</h2>
+        <select id="sido-select">
+            <option value="서울">서울</option>
+            <option value="부산">부산</option>
+            <option value="대구">대구</option>
+            <option value="인천">인천</option>
+            <option value="광주">광주</option>
+            <option value="대전">대전</option>
+            <option value="울산">울산</option>
+            <option value="경기">경기</option>
+            <option value="강원">강원</option>
+            <option value="충북">충북</option>
+            <option value="충남">충남</option>
+            <option value="전북">전북</option>
+            <option value="전남">전남</option>
+            <option value="경북">경북</option>
+            <option value="경남">경남</option>
+            <option value="제주">제주</option>
+            <option value="세종">세종</option>
+        </select>
+        <button onclick="fetchAirQuality()">조회</button>
+    </header>
+
+    <div id="result-list">
+        </div>
+</div>
+
+<script>
+    const SERVICE_KEY = 'eb995e1b419400d31480385c6b40c859b8ade3502da6cf3823d9b84f1d69c8a6';
+
+    async function fetchAirQuality() {
+        const sido = document.getElementById('sido-select').value;
+        const resultList = document.getElementById('result-list');
+        resultList.innerHTML = '<p style="text-align:center;">데이터 로딩 중...</p>';
+
+        const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${SERVICE_KEY}&returnType=json&numOfRows=100&pageNo=1&sidoName=${encodeURI(sido)}&ver=1.0`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.response.header.resultCode === '00') {
+                const items = data.response.body.items;
+                displayResults(items);
+            } else {
+                alert("API 호출 실패: " + data.response.header.resultMsg);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("데이터를 가져오는 중 오류가 발생했습니다. (CORS 정책 또는 키 확인 필요)");
+        }
+    }
+
+    function getStatusInfo(pm10) {
+        if (!pm10 || pm10 === '-') return { text: "정보없음", color: "#8e8e93" };
+        const val = parseInt(pm10);
+        if (val <= 30) return { text: "좋음", color: "#34c759" };
+        if (val <= 80) return { text: "보통", color: "#ffcc00" };
+        if (val <= 150) return { text: "나쁨", color: "#ff9500" };
+        return { text: "매우나쁨", color: "#ff3b30" };
+    }
+
+    function displayResults(items) {
+        const resultList = document.getElementById('result-list');
+        resultList.innerHTML = '';
+
+        items.forEach(item => {
+            const status = getStatusInfo(item.pm10Value);
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            card.innerHTML = `
+                <div class="station-name">${item.stationName}</div>
+                <div class="info-box">
+                    <span class="values">미세: ${item.pm10Value || '-'} | 초미세: ${item.pm25Value || '-'}</span>
+                    <div class="status-badge" style="background-color: ${status.color}">
+                        ${status.text}
+                    </div>
+                </div>
+            `;
+            resultList.appendChild(card);
+        });
+    }
+</script>
+
+</body>
+</html>
