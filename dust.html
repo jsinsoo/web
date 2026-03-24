@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전국 시도별 미세먼지 실시간 분석기</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; background-color: #f4f7f6; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .control-panel { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; gap: 10px; align-items: center; }
+        select, button { padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ddd; }
+        button { background-color: #4CAF50; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #45a049; }
+        .chart-container { width: 80%; max-width: 900px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <h2>🌡️ 전국 시도별 미세먼지(PM10) 실시간 분석</h2>
+
+    <div class="control-panel">
+        <label for="sidoSelect">분석할 시도 선택:</label>
+        <select id="sidoSelect">
+            <option value="서울" selected>서울</option>
+            <option value="부산">부산</option>
+            <option value="대구">대구</option>
+            <option value="인천">인천</option>
+            <option value="광주">광주</option>
+            <option value="대전">대전</option>
+            <option value="울산">울산</option>
+            <option value="경기">경기</option>
+            <option value="강원">강원</option>
+            <option value="충북">충북</option>
+            <option value="충남">충남</option>
+            <option value="전북">전북</option>
+            <option value="전남">전남</option>
+            <option value="경북">경북</option>
+            <option value="경남">경남</option>
+            <option value="제주">제주</option>
+            <option value="세종">세종</option>
+        </select>
+        <button onclick="updateData()">데이터 분석 시작</button>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="airChart"></canvas>
+    </div>
+
+    <script>
+        let myChart;
+
+        async function updateData() {
+            const sido = document.getElementById('sidoSelect').value;
+            const serviceKey = 'eb995e1b419400d31480385c6b40c859b8ade3502da6cf3823d9b84f1d69c8a6'; // 노출 주의!
+            const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${serviceKey}&returnType=json&numOfRows=100&pageNo=1&sidoName=${encodeURIComponent(sido)}&ver=1.0`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const items = data.response.body.items;
+
+                if (!items || items.length === 0) {
+                    alert("데이터를 가져올 수 없습니다.");
+                    return;
+                }
+
+                // 데이터 정제 및 상위 15개 정렬
+                const processedData = items
+                    .map(item => ({
+                        station: item.stationName,
+                        value: parseInt(item.pm10Value) || 0
+                    }))
+                    .filter(item => item.value > 0)
+                    .sort((a, b) => b.value - a.value)
+                    .slice(0, 15);
+
+                renderChart(processedData, sido);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("데이터 수집 중 오류가 발생했습니다. (CORS 에러 가능성 확인)");
+            }
+        }
+
+        function renderChart(data, sido) {
+            const ctx = document.getElementById('airChart').getContext('2d');
+            
+            // 기존 차트가 있으면 삭제
+            if (myChart) { myChart.destroy(); }
+
+            const labels = data.map(d => d.station);
+            const values = data.map(d => d.value);
+            const colors = values.map(v => v > 80 ? 'rgba(255, 99, 132, 0.8)' : v > 30 ? 'rgba(255, 206, 86, 0.8)' : 'rgba(75, 192, 192, 0.8)');
+
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `${sido} 지역 미세먼지 농도 (µg/m³)`,
+                        data: values,
+                        backgroundColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        // 페이지 로드 시 초기 실행
+        window.onload = updateData;
+    </script>
+</body>
+</html>
