@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4원 연립방정식 가우스-조르단 계산기</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f3f4f6;
+            --accent-color: #e67e22;
+            --border-color: #d1d5db;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            padding: 40px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { color: #1e293b; font-size: 2rem; margin-bottom: 10px; }
+
+        /* 입력 영역 스타일 */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .matrix-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 80px) 20px 80px;
+            gap: 12px;
+            align-items: center;
+        }
+
+        input {
+            width: 80px;
+            height: 45px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        .vertical-line {
+            width: 3px;
+            height: 100%;
+            background-color: #94a3b8;
+            grid-column: 5;
+            grid-row: 1 / span 4;
+            border-radius: 2px;
+        }
+
+        /* 버튼 스타일 */
+        .btn-container { text-align: center; margin-top: 25px; }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+        button:hover { background-color: #357abd; }
+        button:active { transform: scale(0.98); }
+
+        /* 계산 과정 스타일 */
+        .step-card {
+            background: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .step-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            min-width: 75px;
+            text-align: center;
+        }
+
+        .inv-part { background-color: #f1f5f9; }
+        .result-box {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>4원 1차 연립방정식 계산기</h1>
+    <p>가우스-조르단 소거법을 통한 역행렬 도출 및 해 구하기</p>
+</header>
+
+<div class="input-section">
+    <div class="matrix-wrapper">
+        <div class="grid-container" id="matrix-grid">
+            </div>
+    </div>
+    <div class="btn-container">
+        <button onclick="calculate()">계산 실행</button>
+    </div>
+</div>
+
+<div id="output-area"></div>
+
+<script>
+    // 분수 연산 클래스
+    class Fraction {
+        constructor(n, d = 1) {
+            if (d < 0) { n = -n; d = -d; }
+            const common = this.gcd(Math.abs(n), Math.abs(d));
+            this.n = n / common;
+            this.d = d / common;
+        }
+        gcd(a, b) { return b === 0 ? a : this.gcd(b, a % b); }
+        add(f) { return new Fraction(this.n * f.d + f.n * this.d, this.d * f.d); }
+        sub(f) { return new Fraction(this.n * f.d - f.n * this.d, this.d * f.d); }
+        mul(f) { return new Fraction(this.n * f.n, this.d * f.d); }
+        div(f) { return new Fraction(this.n * f.d, this.d * f.n); }
+        toString() { return this.d === 1 ? `${this.n}` : `${this.n}/${this.d}`; }
+    }
+
+    // 초기화: 입력 필드 생성
+    const grid = document.getElementById('matrix-grid');
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            grid.innerHTML += `<input type="text" id="a${i}${j}" placeholder="A${i+1}${j+1}">`;
+        }
+        if (i === 0) grid.innerHTML += `<div class="vertical-line"></div>`;
+        grid.innerHTML += `<input type="text" id="b${i}" placeholder="B${i+1}" style="border-color: var(--accent-color)">`;
+    }
+
+    function parseInput(id) {
+        let val = document.getElementById(id).value.trim() || "0";
+        if (val.includes('/')) {
+            const [n, d] = val.split('/').map(Number);
+            return new Fraction(n, d);
+        }
+        return new Fraction(Number(val));
+    }
+
+    function renderStep(matrix, title) {
+        let html = `<div class="step-card"><div class="step-title">📍 ${title}</div><div style="overflow-x:auto"><table>`;
+        matrix.forEach(row => {
+            html += "<tr>";
+            row.forEach((cell, idx) => {
+                const cls = idx >= 4 ? 'class="inv-part"' : '';
+                html += `<td ${cls}>${cell.toString()}</td>`;
+            });
+            html += "</tr>";
+        });
+        html += "</table></div></div>";
+        document.getElementById('output-area').innerHTML += html;
+    }
+
+    function calculate() {
+        const output = document.getElementById('output-area');
+        output.innerHTML = "";
+        
+        const A = [], B = [];
+        for (let i = 0; i < 4; i++) {
+            const row = [];
+            for (let j = 0; j < 4; j++) row.push(parseInput(`a${i}${j}`));
+            A.push(row);
+            B.push(parseInput(`b${i}`));
+        }
+
+        // 첨가행렬 [A | I]
+        let mat = A.map((row, i) => [...row, ...[0,1,2,3].map(j => new Fraction(i === j ? 1 : 0))]);
+        renderStep(mat, "초기 첨가 행렬 [A | I] 설정");
+
+        for (let i = 0; i < 4; i++) {
+            let pivot = mat[i][i];
+            if (pivot.n === 0) {
+                alert("피벗이 0입니다. 계산을 중단합니다.");
+                return;
+            }
+
+            // 정규화
+            mat[i] = mat[i].map(x => x.div(pivot));
+            renderStep(mat, `${i+1}열 피벗 정규화`);
+
+            // 소거
+            for (let j = 0; j < 4; j++) {
+                if (i !== j) {
+                    let factor = mat[j][i];
+                    if (factor.n !== 0) {
+                        mat[j] = mat[j].map((x, k) => x.sub(factor.mul(mat[i][k])));
+                    }
+                }
+            }
+            renderStep(mat, `${i+1}열 소거 완료`);
+        }
+
+        // 결과 도출
+        const invA = mat.map(row => row.slice(4));
+        const X = [];
+        for (let i = 0; i < 4; i++) {
+            let sum = new Fraction(0);
+            for (let j = 0; j < 4; j++) sum = sum.add(invA[i][j].mul(B[j]));
+            X.push(sum);
+        }
+
+        output.innerHTML += `
+            <div class="result-box">
+                <h2>🎯 최종 계산 결과 (X = A⁻¹B)</h2>
+                <p>x₁ = <b>${X[0]}</b></p>
+                <p>x₂ = <b>${X[1]}</b></p>
+                <p>x₃ = <b>${X[2]}</b></p>
+                <p>x₄ = <b>${X[3]}</b></p>
+            </div>`;
+        
+        if (window.MathJax) MathJax.typeset();
+    }
+</script>
+
+</body>
+</html>
