@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python 최대공약수(GCD) 축약형 코드 분석</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2, h3 { color: #333; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
+        h2 { border-left: 5px solid #4CAF50; padding-left: 10px; }
+        .code-block { background-color: #f4f4f4; padding: 15px; border-radius: 5px; font-family: 'Consolas', monospace; white-space: pre-wrap; }
+        .question { background-color: #e9f5ff; padding: 15px; margin-bottom: 15px; border-radius: 8px; }
+        .answer { background-color: #f0f0f0; padding: 10px; margin-top: 10px; border-radius: 5px; }
+        .explanation { background-color: #fffae6; padding: 10px; margin-top: 10px; border: 1px solid #ffd566; border-radius: 5px; }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+        .options { list-style-type: none; padding-left: 0; }
+        .options li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Python 최대공약수(GCD) 축약형 코드 분석</h1>
+
+    <h2>분석 대상 코드</h2>
+    <div class="code-block">
+a,b=map(int,input('두 수 입력: ').split())
+while b: print(f"{a} ÷ {b} = {a//b} … {a%b}"); a,b=b,a%b
+print("GCD =",a)
+    </div>
+    <p><strong>코드의 목적:</strong> 사용자에게 두 정수를 입력받아, 유클리드 호제법을 사용하여 최대공약수(GCD)를 구하는 과정을 한 줄의 `while` 루프로 간결하게 표현하고 결과를 출력합니다.</p>
+
+    <hr>
+
+    <h2>[1] 상세 개념 5가지</h2>
+
+    <h3>1. 유클리드 호제법 (Euclidean Algorithm)</h3>
+    <p>
+        이 코드의 근간이 되는 수학적 원리입니다. 두 정수 a, b에 대하여 'a와 b의 최대공약수'는 'b와 a를 b로 나눈 나머지(r)의 최대공약수'와 같습니다. (<code>gcd(a, b) = gcd(b, a % b)</code>). 이 과정을 나머지가 0이 될 때까지 반복하면, 그 때의 나누는 수가 바로 최대공약수가 됩니다. 이 코드는 이 원리를 매우 압축적으로 구현한 것입니다.
+    </p>
+
+    <h3>2. Python의 '참(Truthiness)' 평가와 <code>while b:</code></h3>
+    <p>
+        이 코드의 <code>while b:</code>는 <code>while b != 0:</code>과 완전히 동일하게 동작합니다. Python에서는 숫자 <code>0</code>은 <code>False</code>(거짓)로, 0이 아닌 모든 숫자(양수, 음수 포함)는 <code>True</code>(참)로 취급합니다. 이를 'Truthiness'라고 합니다.
+        
+
+        따라서 <code>while b:</code>는 'b가 0이 아닐 동안 계속 반복하라'는 의미가 되어, 유클리드 호제법의 종료 조건을 매우 간결하게 표현합니다.
+    </p>
+    
+    <h3>3. 세미콜론(<code>;</code>)을 이용한 한 줄 표현</h3>
+    <p>
+        Python에서는 일반적으로 한 줄에 하나의 명령문만 작성하는 것을 권장하지만, 세미콜론(<code>;</code>)을 사용하면 여러 명령문을 한 줄에 이어서 작성할 수 있습니다.
+        
+
+        코드의 <code>print(...); a,b=b,a%b</code> 부분은 원래 두 줄에 걸쳐 써야 할 내용을 세미콜론을 이용해 <code>while</code> 루프의 본문을 한 줄로 만든 것입니다. 이는 코드를 매우 짧게 만들지만, 가독성을 해칠 수 있어 자주 사용되지는 않습니다.
+    </p>
+
+    <h3>4. 튜플(Tuple)을 이용한 다중 할당</h3>
+    <p>
+        <code>a,b=b,a%b</code>는 유클리드 호제법의 핵심 갱신 과정을 임시 변수 없이 한 줄로 처리하는 Python의 강력한 기능입니다. 이 구문은 우변의 <code>b</code>와 <code>a%b</code>를 먼저 모두 계산한 후, 그 결과를 좌변의 <code>a</code>와 <code>b</code>에 각각 할당합니다. 이 덕분에 값이 덮어씌워질 걱정 없이 안전하게 변수 값을 교환하고 갱신할 수 있습니다.
+    </p>
+    
+    <h3>5. F-문자열과 정수 나눗셈 연산자 (<code>//</code>, <code>%</code>)</h3>
+    <p>
+        <code>print(f"...")</code>는 Python 3.6 이상에서 사용 가능한 F-문자열(Formatted String Literal) 문법입니다. 문자열 안에서 변수를 <code>{변수명}</code> 형태로 직접 사용하여 값을 출력할 수 있어 매우 편리합니다.
+        <ul>
+            <li><code>a // b</code>: a를 b로 나눈 <strong>몫</strong>을 구합니다.</li>
+            <li><code>a % b</code>: a를 b로 나눈 <strong>나머지</strong>를 구합니다.</li>
+        </ul>
+        이 두 연산자는 유클리드 호제법의 과정을 시각적으로 보여주는 데 사용됩니다.
+    </p>
+
+    <hr>
+
+    <h2>[2] OX 퀴즈 5개</h2>
+
+    <div class="question">
+        <h3>문제 1</h3>
+        <p><code>while b:</code> 문장은 <code>b</code>가 양수일 때만 반복하고, 음수일 때는 반복하지 않는다.</p>
+        <div class="answer">
+            <strong>정답:</strong> <span class="incorrect">X</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> Python의 Truthiness 규칙에 따라, 0이 아닌 모든 숫자는 `True`로 취급됩니다. 따라서 `b`가 양수이든 음수이든 0만 아니면 `while` 루프는 계속 실행됩니다.
+        </div>
+    </div>
+
+    <div class="question">
+        <h3>문제 2</h3>
+        <p>세미콜론(<code>;</code>)은 Python에서 여러 줄의 코드를 한 줄로 표현하기 위해 공식적으로 권장되는 방법이다.</p>
+        <div class="answer">
+            <strong>정답:</strong> <span class="incorrect">X</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> 세미콜론은 문법적으로 허용되지만, Python의 스타일 가이드(PEP 8)에서는 가독성을 위해 한 줄에 하나의 명령문을 작성하는 것을 권장합니다. 코드를 인위적으로 줄이기 위한 목적 외에는 잘 사용하지 않습니다.
+        </div>
+    </div>
+
+    <div class="question">
+        <h3>문제 3</h3>
+        <p>코드가 종료되었을 때, 최대공약수는 변수 <code>b</code>에 저장되어 있다.</p>
+        <div class="answer">
+            <strong>정답:</strong> <span class="incorrect">X</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> <code>while b:</code> 루프는 `b`가 0이 되어 `False`로 평가될 때 종료됩니다. 따라서 루프 종료 시점의 `b`는 항상 0입니다. 최대공약수는 그 직전 단계의 `b` 값이었던, 현재의 `a` 값에 저장되어 있습니다.
+        </div>
+    </div>
+
+    <div class="question">
+        <h3>문제 4</h3>
+        <p>입력으로 7과 14를 주면, 첫 단계에서 순서가 자동으로 바뀌어 <code>14 \div 7</code> 연산이 수행된다.</p>
+        <div class="answer">
+            <strong>정답:</strong> <span class="incorrect">X</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> 만약 <code>a=7, b=14</code>로 시작하면, 첫 단계는 그대로 <code>7 \div 14 = 0 … 7</code>을 출력합니다. 그 다음 <code>a, b = b, a % b</code>가 실행되면서 <code>a</code>는 14, <code>b</code>는 7이 되어 두 번째 단계부터 큰 수를 작은 수로 나누게 됩니다. 즉, 첫 단계에서는 순서가 바뀌지 않습니다.
+        </div>
+    </div>
+
+    <div class="question">
+        <h3>문제 5</h3>
+        <p><code>a,b=b,a%b</code> 구문은 내부적으로 임시 변수를 사용하여 값을 안전하게 교체한다.</p>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">O</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> 사용자가 직접 임시 변수를 선언할 필요는 없지만, Python 인터프리터는 이 구문을 실행할 때 우변의 값들을 먼저 계산하여 임시 공간(튜플)에 저장했다가 좌변의 변수들에 할당하는 방식으로 동작합니다. 따라서 개념적으로 임시 저장 공간을 사용하는 것이 맞습니다.
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>[3] 5지선다형 문제 5개</h2>
+
+    <div class="question">
+        <h3>문제 1. 두 정수 54와 24를 입력했을 때, `while` 루프 안의 `print`문은 총 몇 번 실행되는가?</h3>
+        <ul class="options">
+            <li>1) 1번</li>
+            <li>2) 2번</li>
+            <li>3) 3번</li>
+            <li>4) 4번</li>
+            <li>5) 5번</li>
+        </ul>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">3번</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong>
+            <ol>
+                <li><b>(1회)</b> a=54, b=24. (b != 0) → `54 \div 24` 출력. → a=24, b=6</li>
+                <li><b>(2회)</b> a=24, b=6. (b != 0) → `24 \div 6` 출력. → a=6, b=0</li>
+                <li><b>(3회 실행 직전)</b> a=6, b=0. (b == 0) → 루프 종료.</li>
+            </ol>
+            어, 잠시만요. 다시 계산해 보겠습니다.
+            <ol>
+                <li><b>(1회)</b> a=54, b=24. (b!=0). print 실행. 다음 b는 54%24=6.</li>
+                <li><b>(2회)</b> a=24, b=6. (b!=0). print 실행. 다음 b는 24%6=0.</li>
+            </ol>
+            b가 0이 되면 다음 루프를 실행하지 않으므로, print문은 총 2번 실행됩니다.  제가 처음 계산을 잘못했네요. <strong>정답은 2번입니다.</strong>
+        </div>
+    </div>
+    
+    <div class="question">
+        <h3>문제 1 (수정). 두 정수 54와 24를 입력했을 때, `while` 루프 안의 `print`문은 총 몇 번 실행되는가?</h3>
+        <ul class="options">
+            <li>1) 1번</li>
+            <li>2) 2번</li>
+            <li>3) 3번</li>
+            <li>4) 4번</li>
+            <li>5) 5번</li>
+        </ul>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">2번</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong>
+            <ol>
+                <li><strong>1단계:</strong> `a=54, b=24`. b가 0이 아니므로 루프 실행. `54 \div 24 = 2 … 6` 출력. 다음 값은 `a=24, b=6`.</li>
+                <li><strong>2단계:</strong> `a=24, b=6`. b가 0이 아니므로 루프 실행. `24 \div 6 = 4 … 0` 출력. 다음 값은 `a=6, b=0`.</li>
+            </ol>
+            이제 `b`가 0이 되었으므로 `while b:` 조건이 거짓이 되어 루프가 종료됩니다. 따라서 `print`문은 총 2번 실행됩니다.
+        </div>
+    </div>
+
+
+    <div class="question">
+        <h3>문제 2. 다음 중 <code>while b:</code> 와 의미가 다른 코드는?</h3>
+        <ul class="options">
+            <li>1) <code>while b != 0:</code></li>
+            <li>2) <code>while bool(b):</code></li>
+            <li>3) <code>while b > 0:</code></li>
+            <li>4) <code>while b is not 0:</code></li>
+            <li>5) <code>while 0 != b:</code></li>
+        </ul>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">3번</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> <code>while b > 0:</code>는 `b`가 양수일 때만 반복합니다. 하지만 원래 코드의 <code>while b:</code>는 `b`가 0이 아닌 모든 수(음수 포함)에 대해 반복하므로, 3번만 의미가 다릅니다. 나머지 보기들은 모두 'b가 0이 아닐 동안'이라는 동일한 의미를 가집니다.
+        </div>
+    </div>
+
+    <div class="question">
+        <h3>문제 3. <code>gcd(91, 65)</code>를 이 코드로 계산할 때, 루프가 종료된 직후의 `a` 값은 얼마인가?</h3>
+        <ul class="options">
+            <li>1) 0</li>
+            <li>2) 7</li>
+            <li>3) 13</li>
+            <li>4) 26</li>
+            <li>5) 65</li>
+        </ul>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">3번</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong>
+            <ol>
+                <li>a=91, b=65 → 다음 a=65, b=26 (91%65)</li>
+                <li>a=65, b=26 → 다음 a=26, b=13 (65%26)</li>
+                <li>a=26, b=13 → 다음 a=13, b=0 (26%13)</li>
+            </ol>
+            b가 0이 되어 루프가 종료될 때, a의 값은 13입니다. 이 값이 바로 최대공약수입니다.
+        </div>
+    </div>
+
+    <div class="question">
+        <h3>문제 4. 이 코드를 아래와 같이 두 줄로 변경했을 때, 발생하는 문제점은 무엇인가?</h3>
+        <div class="code-block">
+while b:
+    a = b
+    b = a % b
+        </div>
+        <ul class="options">
+            <li>1) 아무런 문제가 없으며, 결과는 동일하다.</li>
+            <li>2) `a`의 원래 값이 사라져서 <code>a % b</code>가 항상 0이 된다.</li>
+            <li>3) `b`가 음수가 될 수 있어 에러가 발생한다.</li>
+            <li>4) 무한 루프에 빠진다.</li>
+            <li>5) 문법 오류로 실행되지 않는다.</li>
+        </ul>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">2번</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> 첫 줄 `a = b`가 실행되면, `a`는 `b`와 같은 값을 가지게 됩니다. 따라서 다음 줄 `b = a % b`는 실질적으로 `b = b % b`가 되어, `b`의 값은 항상 0이 됩니다. 그러면 루프는 단 한 번만 실행되고 끝나버려 올바른 최대공약수를 구할 수 없습니다.
+        </div>
+    </div>
+    
+    <div class="question">
+        <h3>문제 5. 만약 사용자가 입력으로 <code>19 0</code>을 주면 어떻게 되는가?</h3>
+        <ul class="options">
+            <li>1) ZeroDivisionError가 발생한다.</li>
+            <li>2) `while` 루프가 한 번 실행되고 종료된다.</li>
+            <li>3) `while` 루프에 진입하지 않고 바로 "GCD = 19"가 출력된다.</li>
+            <li>4) 무한 루프에 빠진다.</li>
+            <li>5) 아무것도 출력되지 않는다.</li>
+        </ul>
+        <div class="answer">
+            <strong>정답:</strong> <span class="correct">3번</span>
+        </div>
+        <div class="explanation">
+            <strong>상세 풀이:</strong> 초기 `b`의 값이 0이므로, <code>while b:</code> 조건은 처음부터 `False`가 됩니다. 따라서 `while` 루프는 단 한 번도 실행되지 않습니다. 프로그램은 바로 루프 다음 줄인 <code>print("GCD =", a)</code>를 실행하여, 초기 `a` 값인 19를 출력합니다.
+        </div>
+    </div>
+
+</body>
+</html>
