@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>과학고 정보 데이터 시각화 수업자료</title>
+  <style>
+    :root{
+      --bg:#f6f8fc;
+      --paper:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3f0;
+      --accent:#2563eb;
+      --accent2:#0f766e;
+      --accent3:#7c3aed;
+      --shadow:0 14px 40px rgba(37,99,235,.08);
+      --code:#0b1220;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+      background:linear-gradient(180deg,#eef4ff 0%, var(--bg) 240px);
+      color:var(--ink);
+      line-height:1.7;
+    }
+    .wrap{
+      width:min(1120px, calc(100% - 32px));
+      margin:0 auto;
+      padding:32px 0 56px;
+    }
+    .hero{
+      background:linear-gradient(135deg, rgba(37,99,235,.96), rgba(124,58,237,.92));
+      color:#fff;
+      border-radius:28px;
+      padding:34px 36px;
+      box-shadow:var(--shadow);
+      margin-bottom:22px;
+    }
+    .hero h1{
+      margin:0 0 10px;
+      font-size:clamp(28px, 4vw, 42px);
+      line-height:1.2;
+    }
+    .hero p{
+      margin:0;
+      font-size:17px;
+      opacity:.94;
+    }
+    .meta{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .meta .item{
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:18px;
+      padding:14px 16px;
+    }
+    .meta .label{
+      font-size:13px;
+      opacity:.82;
+    }
+    .meta .value{
+      font-size:18px;
+      font-weight:700;
+      margin-top:2px;
+    }
+
+    .toc, .section{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+    .toc{
+      padding:22px 26px;
+      margin-bottom:18px;
+    }
+    .toc h2, .section h2{
+      margin:0 0 12px;
+      font-size:24px;
+    }
+    .toc-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px 16px;
+    }
+    .toc a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
+      padding:10px 12px;
+      background:#f3f7ff;
+      border-radius:14px;
+      display:block;
+    }
+    .section{
+      padding:28px;
+      margin-bottom:18px;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:6px 11px;
+      border-radius:999px;
+      background:#edf4ff;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.02em;
+      margin-bottom:8px;
+    }
+    .lead{
+      color:var(--muted);
+      margin-top:-4px;
+      margin-bottom:18px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:start;
+    }
+    .card{
+      background:#fbfcff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+    .tip{
+      border-left:4px solid var(--accent2);
+      background:#f0fdfa;
+      padding:14px 16px;
+      border-radius:14px;
+      margin-top:12px;
+    }
+    ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+    pre{
+      margin:0;
+      background:var(--code);
+      color:#e5eefc;
+      padding:18px;
+      border-radius:18px;
+      overflow:auto;
+      font-size:14px;
+      line-height:1.6;
+      border:1px solid #1e293b;
+    }
+    code{
+      font-family:"Consolas","D2Coding","Courier New",monospace;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:16px;
+      font-size:15px;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:10px 12px;
+      text-align:left;
+    }
+    th{
+      background:#f4f7fd;
+    }
+    .example-box{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    .example{
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+    }
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      padding-top:8px;
+      font-size:14px;
+    }
+    @media (max-width: 900px){
+      .meta, .toc-grid, .grid2, .example-box{grid-template-columns:1fr}
+      .section{padding:22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>과학고 정보 데이터 시각화 수업자료</h1>
+      <p>선그래프, 막대그래프, 원그래프, 히스토그램, 산점도, 인포그래픽을 실생활 예제로 배우는 파이썬 수업자료</p>
+      <div class="meta">
+        <div class="item"><div class="label">수업 주제</div><div class="value">데이터 시각화</div></div>
+        <div class="item"><div class="label">도구</div><div class="value">Python · matplotlib</div></div>
+        <div class="item"><div class="label">수업 대상</div><div class="value">과학고 정보</div></div>
+      </div>
+    </section>
+
+    <section class="toc">
+      <h2>수업 목차</h2>
+      <div class="toc-grid">
+        <a href="#intro">1. 데이터 시각화란?</a>
+        <a href="#line">2. 선그래프</a>
+        <a href="#bar">3. 막대그래프</a>
+        <a href="#pie">4. 원그래프</a>
+        <a href="#hist">5. 히스토그램</a>
+        <a href="#scatter">6. 산점도</a>
+        <a href="#infographic">7. 인포그래픽</a>
+        <a href="#summary">8. 그래프 비교 정리</a>
+        <a href="#practice">9. 실습 확장 아이디어</a>
+      </div>
+    </section>
+
+    <section id="intro" class="section">
+      <div class="eyebrow">INTRO</div>
+      <h2>1. 데이터 시각화란?</h2>
+      <p class="lead">데이터를 표나 숫자만으로 보는 대신, 그래프와 도형으로 표현하여 더 빠르고 정확하게 이해하는 방법입니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>왜 필요할까?</h3>
+          <ul>
+            <li>숫자의 변화와 경향을 한눈에 볼 수 있습니다.</li>
+            <li>비교, 비율, 분포, 관계를 더 쉽게 파악할 수 있습니다.</li>
+            <li>발표와 보고서에서 전달력이 높아집니다.</li>
+          </ul>
+          <div class="tip"><strong>핵심:</strong> 같은 데이터라도 어떤 그래프로 표현하느냐에 따라 이해도가 크게 달라집니다.</div>
+        </div>
+        <div class="card">
+          <h3>오늘 배우는 그래프</h3>
+          <table>
+            <tr><th>그래프 종류</th><th>주로 보는 것</th></tr>
+            <tr><td>선그래프</td><td>시간에 따른 변화</td></tr>
+            <tr><td>막대그래프</td><td>항목 간 비교</td></tr>
+            <tr><td>원그래프</td><td>전체 중 비율</td></tr>
+            <tr><td>히스토그램</td><td>값의 분포</td></tr>
+            <tr><td>산점도</td><td>두 변수의 관계</td></tr>
+            <tr><td>인포그래픽</td><td>핵심 정보 전달</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="line" class="section">
+      <div class="eyebrow">LINE GRAPH</div>
+      <h2>2. 선그래프</h2>
+      <p class="lead">시간의 흐름에 따라 값이 어떻게 변하는지 볼 때 가장 적합합니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>실생활 예제</h3>
+          <p>하루 시간대별 기온 변화</p>
+          <ul>
+            <li>아침에는 기온이 낮고, 낮에는 올라가며, 밤에는 다시 내려갑니다.</li>
+            <li>시간에 따라 이어지는 변화를 표현하기 좋습니다.</li>
+          </ul>
+        </div>
+        <div class="card"><pre><code>import matplotlib.pyplot as plt
+import platform
+
+if platform.system() == "Windows":
+    plt.rcParams["font.family"] = "Malgun Gothic"
+elif platform.system() == "Darwin":
+    plt.rcParams["font.family"] = "AppleGothic"
+else:
+    plt.rcParams["font.family"] = "NanumGothic"
+plt.rcParams["axes.unicode_minus"] = False
+
+times = ["06시", "09시", "12시", "15시", "18시", "21시"]
+temps = [12, 15, 21, 24, 20, 16]
+
+plt.figure(figsize=(8, 4))
+plt.plot(times, temps, marker="o")
+plt.title("하루 시간대별 기온 변화")
+plt.xlabel("시간")
+plt.ylabel("기온(℃)")
+plt.grid(True)
+plt.tight_layout()
+plt.show()</code></pre></div>
+      </div>
+    </section>
+
+    <section id="bar" class="section">
+      <div class="eyebrow">BAR GRAPH</div>
+      <h2>3. 막대그래프</h2>
+      <p class="lead">서로 다른 항목의 크기를 비교할 때 가장 직관적입니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>실생활 예제</h3>
+          <p>과목별 평균 점수 비교</p>
+          <ul>
+            <li>국어, 수학, 영어, 과학, 정보 과목의 평균 점수를 비교합니다.</li>
+            <li>어떤 과목의 성취도가 높은지 바로 알 수 있습니다.</li>
+          </ul>
+        </div>
+        <div class="card"><pre><code>subjects = ["국어", "수학", "영어", "과학", "정보"]
+scores = [84, 92, 88, 95, 90]
+
+plt.figure(figsize=(8, 4))
+plt.bar(subjects, scores)
+plt.title("과목별 평균 점수")
+plt.xlabel("과목")
+plt.ylabel("평균 점수")
+plt.ylim(0, 100)
+plt.tight_layout()
+plt.show()</code></pre></div>
+      </div>
+    </section>
+
+    <section id="pie" class="section">
+      <div class="eyebrow">PIE CHART</div>
+      <h2>4. 원그래프</h2>
+      <p class="lead">전체에서 각 부분이 차지하는 비율을 보여줄 때 적합합니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>실생활 예제</h3>
+          <p>스마트폰 사용 목적 비율</p>
+          <ul>
+            <li>공부, 게임, 영상 시청, 메신저, 기타의 비율을 나타냅니다.</li>
+            <li>전체 중 어느 활동이 가장 큰 비중을 차지하는지 확인할 수 있습니다.</li>
+          </ul>
+        </div>
+        <div class="card"><pre><code>labels = ["공부", "게임", "영상 시청", "메신저", "기타"]
+sizes = [25, 20, 30, 15, 10]
+
+plt.figure(figsize=(6, 6))
+plt.pie(sizes, labels=labels, autopct="%1.1f%%", startangle=90)
+plt.title("스마트폰 사용 목적 비율")
+plt.tight_layout()
+plt.show()</code></pre></div>
+      </div>
+    </section>
+
+    <section id="hist" class="section">
+      <div class="eyebrow">HISTOGRAM</div>
+      <h2>5. 히스토그램</h2>
+      <p class="lead">값이 어느 구간에 많이 몰려 있는지, 즉 데이터의 분포를 볼 때 사용합니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>실생활 예제</h3>
+          <p>학생들의 수면 시간 분포</p>
+          <ul>
+            <li>몇 시간 자는 학생이 많은지 구간별로 확인할 수 있습니다.</li>
+            <li>평균 근처에 데이터가 몰렸는지, 넓게 퍼졌는지도 볼 수 있습니다.</li>
+          </ul>
+        </div>
+        <div class="card"><pre><code>sleep_hours = [5.5, 6, 6, 6.5, 7, 7, 7, 7.5, 8, 8, 8.5,
+               6.5, 7.2, 6.8, 7.1, 5.8, 6.3, 7.7, 8.1, 6.9]
+
+plt.figure(figsize=(8, 4))
+plt.hist(sleep_hours, bins=6, edgecolor="black")
+plt.title("학생들의 수면 시간 분포")
+plt.xlabel("수면 시간")
+plt.ylabel("학생 수")
+plt.tight_layout()
+plt.show()</code></pre></div>
+      </div>
+    </section>
+
+    <section id="scatter" class="section">
+      <div class="eyebrow">SCATTER PLOT</div>
+      <h2>6. 산점도</h2>
+      <p class="lead">두 변수 사이의 관계를 파악할 때 사용합니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>실생활 예제</h3>
+          <p>공부 시간과 시험 점수 관계</p>
+          <ul>
+            <li>공부 시간이 많을수록 점수가 높아지는지 살펴볼 수 있습니다.</li>
+            <li>점들의 퍼짐 정도를 통해 관계의 강약도 추측할 수 있습니다.</li>
+          </ul>
+        </div>
+        <div class="card"><pre><code>study_hours = [1, 2, 2.5, 3, 4, 4.5, 5, 6, 6.5, 7, 8]
+scores = [50, 55, 58, 65, 70, 72, 78, 83, 85, 90, 94]
+
+plt.figure(figsize=(8, 4))
+plt.scatter(study_hours, scores)
+plt.title("공부 시간과 시험 점수의 관계")
+plt.xlabel("공부 시간")
+plt.ylabel("시험 점수")
+plt.grid(True)
+plt.tight_layout()
+plt.show()</code></pre></div>
+      </div>
+    </section>
+
+    <section id="infographic" class="section">
+      <div class="eyebrow">INFOGRAPHIC</div>
+      <h2>7. 인포그래픽</h2>
+      <p class="lead">복잡한 그래프 대신 핵심 수치를 강하게 전달하고 싶을 때 적합합니다.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>실생활 예제</h3>
+          <p>한 학생의 하루 생활 데이터 요약</p>
+          <ul>
+            <li>공부 시간, 수면 시간, 스마트폰 사용 시간, 걸음 수를 한 화면에 표시합니다.</li>
+            <li>발표 자료나 포스터형 정리에 잘 어울립니다.</li>
+          </ul>
+        </div>
+        <div class="card"><pre><code>study_time = 5.5
+sleep_time = 7.0
+phone_time = 2.5
+steps = 8420
+
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_axes([0, 0, 1, 1])
+ax.axis("off")
+
+plt.text(0.5, 0.9, "하루 생활 데이터 인포그래픽",
+         ha="center", fontsize=20, weight="bold")
+plt.text(0.2, 0.65, "공부 시간", ha="center", fontsize=14)
+plt.text(0.2, 0.55, f"{study_time}시간", ha="center", fontsize=24, weight="bold")
+plt.text(0.5, 0.65, "수면 시간", ha="center", fontsize=14)
+plt.text(0.5, 0.55, f"{sleep_time}시간", ha="center", fontsize=24, weight="bold")
+plt.text(0.8, 0.65, "스마트폰 사용", ha="center", fontsize=14)
+plt.text(0.8, 0.55, f"{phone_time}시간", ha="center", fontsize=24, weight="bold")
+plt.text(0.5, 0.3, "걸음 수", ha="center", fontsize=14)
+plt.text(0.5, 0.2, f"{steps}보", ha="center", fontsize=28, weight="bold")
+plt.show()</code></pre></div>
+      </div>
+    </section>
+
+    <section id="summary" class="section">
+      <div class="eyebrow">SUMMARY</div>
+      <h2>8. 그래프 비교 정리</h2>
+      <table>
+        <tr><th>그래프</th><th>언제 쓰는가?</th><th>실생활 예제</th></tr>
+        <tr><td>선그래프</td><td>시간에 따른 변화</td><td>하루 기온 변화</td></tr>
+        <tr><td>막대그래프</td><td>항목 비교</td><td>과목별 평균 점수</td></tr>
+        <tr><td>원그래프</td><td>전체 중 비율</td><td>스마트폰 사용 목적</td></tr>
+        <tr><td>히스토그램</td><td>데이터 분포</td><td>수면 시간 분포</td></tr>
+        <tr><td>산점도</td><td>두 변수의 관계</td><td>공부 시간과 시험 점수</td></tr>
+        <tr><td>인포그래픽</td><td>핵심 정보 요약</td><td>하루 생활 데이터</td></tr>
+      </table>
+    </section>
+
+    <section id="practice" class="section">
+      <div class="eyebrow">PRACTICE</div>
+      <h2>9. 실습 확장 아이디어</h2>
+      <div class="example-box">
+        <div class="example">
+          <strong>학교 생활 데이터</strong>
+          <ul>
+            <li>주간 공부 시간 변화</li>
+            <li>과목별 수행평가 점수</li>
+            <li>반별 독서량 비교</li>
+          </ul>
+        </div>
+        <div class="example">
+          <strong>건강 데이터</strong>
+          <ul>
+            <li>하루 걸음 수 변화</li>
+            <li>수면 시간 분포</li>
+            <li>운동 시간과 심박수 관계</li>
+          </ul>
+        </div>
+        <div class="example">
+          <strong>디지털 생활 데이터</strong>
+          <ul>
+            <li>앱 사용 시간 비율</li>
+            <li>공부 앱 사용 증가 추세</li>
+            <li>게임 시간과 성적 관계</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip"><strong>수업 마무리 질문:</strong> 같은 데이터를 다른 그래프로 그리면 어떤 장단점이 생길까요?</div>
+    </section>
+
+    <div class="footer">과학고 정보 데이터 시각화 수업자료 · HTML 버전</div>
+  </div>
+</body>
+</html>
