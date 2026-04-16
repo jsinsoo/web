@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python map() 실전예제 20개</title>
+<style>
+body {
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
+  color: #1f2937;
+  margin: 0;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 42px 20px 80px;
+}
+header {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 34px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  margin-bottom: 28px;
+}
+h1 {
+  margin: 0 0 12px;
+  font-size: 2.2rem;
+}
+.lead {
+  margin: 0;
+  color: #4b5563;
+  font-size: 1.05rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+.card h2 {
+  margin-top: 0;
+  font-size: 1.18rem;
+  color: #1d4ed8;
+}
+.desc {
+  color: #4b5563;
+  min-height: 54px;
+}
+.block h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 14px;
+  border-radius: 14px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.tip {
+  margin-top: 28px;
+  background: #eff6ff;
+  border-left: 6px solid #2563eb;
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+code {
+  font-family: "Consolas", "D2Coding", monospace;
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Python <code>map()</code> 실전예제 20개</h1>
+      <p class="lead">
+        <code>map()</code> 함수의 핵심 활용법을 빠르게 익힐 수 있도록
+        변환, 문자열 처리, 여러 iterable 동시 처리, 입력 처리 예제를 한 번에 정리한 학습용 HTML입니다.
+      </p>
+    </header>
+
+    <div class="grid">
+      
+    <section class="card">
+      <h2>예제 1. 숫자를 제곱하기</h2>
+      <p class="desc">리스트의 각 원소에 대해 제곱 연산을 적용합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = [1, 2, 3, 4, 5]
+result = list(map(lambda x: x**2, nums))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[1, 4, 9, 16, 25]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 2. 문자열을 정수로 변환하기</h2>
+      <p class="desc">문자열 리스트의 각 값을 정수형으로 바꿉니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>data = [&#x27;10&#x27;, &#x27;20&#x27;, &#x27;30&#x27;]
+result = list(map(int, data))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[10, 20, 30]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 3. 문자열을 실수로 변환하기</h2>
+      <p class="desc">문자열 형태의 실수 데이터를 float으로 바꿉니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>data = [&#x27;3.14&#x27;, &#x27;2.71&#x27;, &#x27;1.41&#x27;]
+result = list(map(float, data))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[3.14, 2.71, 1.41]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 4. 모든 문자열을 대문자로 바꾸기</h2>
+      <p class="desc">문자열 메서드를 직접 map에 넣어 각 원소를 대문자로 변환합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>words = [&#x27;python&#x27;, &#x27;map&#x27;, &#x27;lambda&#x27;]
+result = list(map(str.upper, words))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;PYTHON&#x27;, &#x27;MAP&#x27;, &#x27;LAMBDA&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 5. 문자열 길이 구하기</h2>
+      <p class="desc">각 문자열의 길이를 구합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>words = [&#x27;apple&#x27;, &#x27;kiwi&#x27;, &#x27;banana&#x27;]
+result = list(map(len, words))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[5, 4, 6]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 6. 두 리스트의 원소 더하기</h2>
+      <p class="desc">여러 iterable을 동시에 받아 같은 위치 원소끼리 연산할 수 있습니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>a = [1, 2, 3]
+b = [10, 20, 30]
+result = list(map(lambda x, y: x + y, a, b))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[11, 22, 33]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 7. 이름과 점수 묶어서 문자열 만들기</h2>
+      <p class="desc">두 리스트를 동시에 순회하며 보기 좋은 문자열로 가공합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>names = [&#x27;민수&#x27;, &#x27;지우&#x27;, &#x27;서연&#x27;]
+scores = [90, 85, 100]
+result = list(map(lambda n, s: f&#x27;{n}: {s}점&#x27;, names, scores))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;민수: 90점&#x27;, &#x27;지우: 85점&#x27;, &#x27;서연: 100점&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 8. 공백 제거하기</h2>
+      <p class="desc">양쪽 공백을 제거할 때 자주 쓰입니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>data = [&#x27;  hello  &#x27;, &#x27;  python&#x27;, &#x27;map   &#x27;]
+result = list(map(str.strip, data))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;hello&#x27;, &#x27;python&#x27;, &#x27;map&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 9. 정수를 문자열로 바꾸기</h2>
+      <p class="desc">숫자를 문자열로 바꾸어 join 등에 활용할 수 있습니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = [1, 2, 3, 4]
+result = list(map(str, nums))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;, &#x27;4&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 10. 절댓값 구하기</h2>
+      <p class="desc">내장 함수 abs를 이용해 각 숫자의 절댓값을 구합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = [-5, -2, 0, 3]
+result = list(map(abs, nums))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[5, 2, 0, 3]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 11. 첫 글자만 추출하기</h2>
+      <p class="desc">문자열의 첫 글자만 뽑아낼 수 있습니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>words = [&#x27;star&#x27;, &#x27;tiger&#x27;, &#x27;apple&#x27;]
+result = list(map(lambda x: x[0], words))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;s&#x27;, &#x27;t&#x27;, &#x27;a&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 12. 불리언 판별 결과 만들기</h2>
+      <p class="desc">각 원소를 True/False 값으로 변환합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = [0, 1, 2, 0, 5]
+result = list(map(bool, nums))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[False, True, True, False, True]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 13. 섭씨를 화씨로 변환하기</h2>
+      <p class="desc">실생활 단위 변환에도 적합합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>celsius = [0, 10, 20, 30]
+result = list(map(lambda c: c * 9/5 + 32, celsius))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[32.0, 50.0, 68.0, 86.0]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 14. 리스트 안 튜플의 두 번째 값 추출하기</h2>
+      <p class="desc">복합 자료형의 특정 위치 원소를 추출할 수 있습니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>pairs = [(&#x27;a&#x27;, 1), (&#x27;b&#x27;, 2), (&#x27;c&#x27;, 3)]
+result = list(map(lambda x: x[1], pairs))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[1, 2, 3]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 15. 각 수를 이진수 문자열로 변환하기</h2>
+      <p class="desc">숫자 표현 방식을 바꿀 때도 유용합니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = [1, 2, 3, 4]
+result = list(map(bin, nums))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;0b1&#x27;, &#x27;0b10&#x27;, &#x27;0b11&#x27;, &#x27;0b100&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 16. 각 수를 16진수 문자열로 변환하기</h2>
+      <p class="desc">진법 변환을 한꺼번에 처리할 수 있습니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = [10, 15, 255]
+result = list(map(hex, nums))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;0xa&#x27;, &#x27;0xf&#x27;, &#x27;0xff&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 17. 세 리스트의 합 구하기</h2>
+      <p class="desc">map은 3개 이상의 iterable도 함께 처리할 수 있습니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>a = [1, 2, 3]
+b = [4, 5, 6]
+c = [7, 8, 9]
+result = list(map(lambda x, y, z: x + y + z, a, b, c))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[12, 15, 18]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 18. 문자열 뒤집기</h2>
+      <p class="desc">슬라이싱과 함께 사용하면 문자열 가공이 쉬워집니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>words = [&#x27;python&#x27;, &#x27;map&#x27;, &#x27;code&#x27;]
+result = list(map(lambda x: x[::-1], words))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;nohtyp&#x27;, &#x27;pam&#x27;, &#x27;edoc&#x27;]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 19. 입력값 여러 개를 정수로 받기</h2>
+      <p class="desc">실전에서 가장 자주 쓰이는 패턴 중 하나입니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>nums = list(map(int, input(&#x27;숫자 여러 개 입력: &#x27;).split()))
+print(nums)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>입력: 10 20 30 → [10, 20, 30]</pre>
+      </div>
+    </section>
+    
+    <section class="card">
+      <h2>예제 20. enumerate 결과를 문자열로 변환하기</h2>
+      <p class="desc">enumerate와 함께 쓰면 번호 붙이기 작업도 간단해집니다.</p>
+      <div class="block">
+        <h3>코드</h3>
+        <pre><code>fruits = [&#x27;사과&#x27;, &#x27;바나나&#x27;, &#x27;포도&#x27;]
+result = list(map(lambda x: f&#x27;{x[0]}번: {x[1]}&#x27;, enumerate(fruits, 1)))
+print(result)</code></pre>
+      </div>
+      <div class="block">
+        <h3>예상 결과</h3>
+        <pre>[&#x27;1번: 사과&#x27;, &#x27;2번: 바나나&#x27;, &#x27;3번: 포도&#x27;]</pre>
+      </div>
+    </section>
+    
+    </div>
+
+    <div class="tip">
+      <strong>핵심 정리</strong><br>
+      <code>map(함수, 반복가능객체)</code> 형태로 사용합니다.
+      결과는 <code>map 객체</code>이므로 실제 값을 보려면 보통 <code>list()</code>로 감싸서 확인합니다.
+      또한 여러 iterable을 동시에 전달하면 같은 위치의 값들을 함께 처리할 수 있습니다.
+    </div>
+  </div>
+</body>
+</html>
