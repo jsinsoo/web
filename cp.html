@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C언어 *포인터 실전문제 20개</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent2:#0f766e;
+      --line:#dbe3ee;
+      --code:#0b1020;
+      --codeText:#e5eefc;
+      --warn:#fff7ed;
+      --warnBorder:#fdba74;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; padding:0;
+      font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;
+      background:linear-gradient(180deg,#eef4ff 0%, var(--bg) 100%);
+      color:var(--text);
+      line-height:1.7;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:40px 20px 80px;}
+    header{
+      background:linear-gradient(135deg,#1d4ed8,#0f766e);
+      color:white; border-radius:24px; padding:36px 28px; box-shadow:0 18px 45px rgba(0,0,0,.14);
+    }
+    h1{margin:0 0 10px; font-size:2rem}
+    .subtitle{margin:0; opacity:.95}
+    .summary{
+      margin-top:22px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px;
+    }
+    .pill{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:14px 16px}
+    nav{
+      margin:24px 0 16px; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px 20px;
+      box-shadow:0 8px 24px rgba(16,24,40,.05);
+    }
+    nav h2{margin:0 0 10px; font-size:1.1rem; color:var(--accent)}
+    nav ol{margin:0; padding-left:22px; columns:2}
+    section.problem{
+      background:var(--card); border:1px solid var(--line); border-radius:22px; padding:24px; margin-top:20px;
+      box-shadow:0 8px 24px rgba(16,24,40,.05);
+    }
+    h2{margin:0 0 12px; font-size:1.35rem}
+    h3{margin:16px 0 8px; color:var(--accent2)}
+    pre{
+      background:var(--code); color:var(--codeText); padding:16px 18px; border-radius:16px; overflow:auto; font-size:.96rem;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+    code{font-family:"Consolas","Fira Code",monospace}
+    .answer,.explain,.point{
+      border-radius:16px; padding:14px 16px; margin-top:12px;
+    }
+    .answer{background:#eff6ff; border:1px solid #bfdbfe}
+    .explain{background:#f0fdf4; border:1px solid #bbf7d0}
+    .point{background:var(--warn); border:1px solid var(--warnBorder)}
+    ul{margin:8px 0 0 18px}
+    .footer{
+      margin-top:30px; padding:22px; background:#111827; color:#f9fafb; border-radius:22px;
+    }
+    .small{color:var(--muted); font-size:.95rem}
+    @media (max-width:720px){ nav ol{columns:1;} h1{font-size:1.7rem;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>C언어 *포인터 실전문제 20개</h1>
+      <p class="subtitle">기초 개념부터 함수, 배열, 이중 포인터까지 단계적으로 연습하는 학교 제출용 HTML 자료</p>
+      <div class="summary">
+        <div class="pill"><strong>핵심 개념</strong><br>주소, 역참조, 포인터 연산, 배열과 포인터</div>
+        <div class="pill"><strong>학습 방식</strong><br>문제 → 결과 → 상세 설명 → 시험 포인트</div>
+        <div class="pill"><strong>학습 목표</strong><br><code>*</code>와 <code>&amp;</code>를 정확히 구분하고 활용하기</div>
+      </div>
+    </header>
+
+    <nav>
+      <h2>목차</h2>
+      <ol>
+        <li>포인터 선언과 역참조</li>
+        <li>주소 출력</li>
+        <li>포인터로 값 변경</li>
+        <li>두 변수와 두 포인터</li>
+        <li>포인터 대입 방향</li>
+        <li>함수와 주소 전달</li>
+        <li>swap 함수</li>
+        <li>배열 이름과 첫 번째 원소</li>
+        <li>포인터 연산</li>
+        <li>배열 순회</li>
+        <li>문자열 포인터</li>
+        <li>문자 배열 수정</li>
+        <li>const 포인터 기초</li>
+        <li>포인터 배열</li>
+        <li>이중 포인터</li>
+        <li>malloc 기초</li>
+        <li>동적 배열 접근</li>
+        <li>함수에서 포인터 반환 주의</li>
+        <li>NULL 포인터</li>
+        <li>종합 문제</li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="problem"><h2>문제 1. 포인터 선언과 역참조</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int a = 10;
+    int *p = &amp;a;
+    printf("%d\n", *p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>10</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>p</code>에는 변수 <code>a</code>의 주소가 저장됩니다. <code>*p</code>는 그 주소에 저장된 실제 값을 뜻하므로 10이 출력됩니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> <code>&amp;a</code>는 주소, <code>*p</code>는 값입니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 2. 주소 출력</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int a = 25;
+    int *p = &amp;a;
+    printf("%p %p\n", (void*)&amp;a, (void*)p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> 두 값이 같은 주소로 출력됨</div>
+      <div class="explain"><strong>상세 설명:</strong> <code>&amp;a</code>는 변수 <code>a</code>의 주소이고, <code>p</code>에도 같은 주소가 저장되어 있습니다. 따라서 두 출력값은 같습니다. 주소는 실행할 때마다 달라질 수 있습니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 주소 출력에는 보통 <code>%p</code>를 사용하고, 관례적으로 <code>(void*)</code>로 형변환합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 3. 포인터로 값 변경</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int a = 7;
+    int *p = &amp;a;
+    *p = 99;
+    printf("%d\n", a);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>99</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>*p = 99;</code>는 포인터가 가리키는 공간에 99를 저장하라는 뜻입니다. <code>p</code>는 <code>a</code>를 가리키므로 결국 <code>a</code>의 값이 바뀝니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 포인터를 사용하면 원본 변수를 직접 수정할 수 있습니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 4. 두 변수와 두 포인터</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int x = 3, y = 8;
+    int *px = &amp;x, *py = &amp;y;
+    printf("%d %d\n", *px, *py);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>3 8</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 각각의 포인터가 서로 다른 변수를 가리킵니다. <code>*px</code>는 <code>x</code>, <code>*py</code>는 <code>y</code>의 값을 읽습니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 포인터가 어느 변수를 가리키는지 정확히 연결해서 해석해야 합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 5. 포인터 대입 방향</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int a = 5;
+    int b = 12;
+    int *p = &amp;a;
+    p = &amp;b;
+    printf("%d\n", *p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>12</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 처음에는 <code>p</code>가 <code>a</code>를 가리키지만, <code>p = &amp;b;</code> 이후에는 <code>b</code>를 가리킵니다. 따라서 <code>*p</code>는 12입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 포인터 변수 자체의 값은 "주소"이며, 다른 주소를 대입하면 가리키는 대상이 바뀝니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 6. 함수와 주소 전달</h2>
+<pre><code>#include &lt;stdio.h&gt;
+void change(int *p) {
+    *p = 50;
+}
+int main() {
+    int a = 10;
+    change(&amp;a);
+    printf("%d\n", a);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>50</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 함수로 변수의 주소를 넘기면 함수 안에서 원본 값을 바꿀 수 있습니다. <code>change(&amp;a)</code>는 <code>a</code>의 주소를 전달하고, 함수 안의 <code>*p = 50;</code>이 원본을 변경합니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> C는 기본적으로 값 복사 호출이므로, 원본 변경이 필요하면 주소를 넘겨야 합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 7. swap 함수</h2>
+<pre><code>#include &lt;stdio.h&gt;
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+int main() {
+    int x = 2, y = 9;
+    swap(&amp;x, &amp;y);
+    printf("%d %d\n", x, y);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>9 2</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 포인터 매개변수로 두 변수의 주소를 받아 서로의 값을 교환합니다. 이 패턴은 포인터 활용의 대표 예시입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 값 자체가 아니라 주소를 주고받기 때문에 함수 밖 변수도 바뀝니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 8. 배열 이름과 첫 번째 원소</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int arr[3] = {10, 20, 30};
+    printf("%d %d\n", arr[0], *arr);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>10 10</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 배열 이름 <code>arr</code>은 대부분의 표현식에서 첫 번째 원소의 주소처럼 동작합니다. 따라서 <code>*arr</code>는 <code>arr[0]</code>와 같습니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> <code>arr == &amp;arr[0]</code>처럼 이해하면 편합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 9. 포인터 연산</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int arr[3] = {10, 20, 30};
+    int *p = arr;
+    p++;
+    printf("%d\n", *p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>20</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>p</code>가 처음에는 <code>arr[0]</code>을 가리키고, <code>p++</code> 후에는 다음 원소인 <code>arr[1]</code>을 가리킵니다. 그래서 <code>*p</code>는 20입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 포인터 연산은 자료형 크기만큼 이동합니다. <code>int*</code>라면 보통 4바이트 단위로 이동합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 10. 배열 순회</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int arr[4] = {1, 2, 3, 4};
+    int *p = arr;
+    for (int i = 0; i &lt; 4; i++) {
+        printf("%d ", *(p + i));
+    }
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>1 2 3 4</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>p + i</code>는 배열의 i번째 원소 위치로 이동한 주소입니다. 여기에 <code>*</code>를 붙이면 그 위치의 값을 읽습니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> <code>arr[i]</code>와 <code>*(arr + i)</code>는 같습니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 11. 문자열 포인터</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char *s = "ABC";
+    printf("%c %c\n", *s, *(s + 1));
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>A B</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 문자열 리터럴의 시작 주소가 <code>s</code>에 저장됩니다. <code>*s</code>는 첫 글자 <code>'A'</code>, <code>*(s+1)</code>는 두 번째 글자 <code>'B'</code>입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 문자열도 결국 문자 배열처럼 연속된 메모리입니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 12. 문자 배열 수정</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char s[] = "ABC";
+    char *p = s;
+    *(p + 1) = 'Z';
+    printf("%s\n", s);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>AZC</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 이번에는 문자열 리터럴이 아니라 수정 가능한 문자 배열입니다. 두 번째 문자 위치에 <code>'Z'</code>를 넣었으므로 결과는 <code>AZC</code>입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> <code>char *s = "ABC";</code>와 <code>char s[] = "ABC";</code>는 수정 가능성에서 차이가 큽니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 13. const 포인터 기초</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int a = 10;
+    const int *p = &amp;a;
+    printf("%d\n", *p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>10</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>const int *p</code>는 "포인터를 통해 값을 바꾸지 않겠다"는 뜻입니다. 읽기는 가능하지만 <code>*p = 20;</code> 같은 수정은 허용되지 않습니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> const가 무엇을 제한하는지 해석하는 문제가 자주 나옵니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 14. 포인터 배열</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char *words[3] = {"cat", "dog", "bird"};
+    printf("%s %c\n", words[1], *words[2]);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>dog b</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>words</code>는 문자열 주소를 저장하는 포인터들의 배열입니다. <code>words[1]</code>은 <code>"dog"</code>, <code>*words[2]</code>는 <code>"bird"</code>의 첫 글자 <code>'b'</code>입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> "배열의 각 칸에 주소가 들어 있다"고 생각하면 구조가 잘 보입니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 15. 이중 포인터</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int a = 5;
+    int *p = &amp;a;
+    int **pp = &amp;p;
+    printf("%d\n", **pp);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>5</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>pp</code>는 포인터 <code>p</code>의 주소를 저장합니다. 따라서 <code>*pp</code>는 <code>p</code>, <code>**pp</code>는 결국 <code>a</code>의 값입니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 별표 개수만큼 단계적으로 따라가며 해석하면 됩니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 16. malloc 기초</h2>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main() {
+    int *p = (int*)malloc(sizeof(int));
+    *p = 77;
+    printf("%d\n", *p);
+    free(p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>77</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>malloc</code>으로 int 1개를 저장할 메모리를 동적으로 확보합니다. 그 공간에 77을 저장하고 출력한 뒤, 마지막에 <code>free</code>로 반납합니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 동적 할당 후에는 사용이 끝나면 반드시 <code>free</code>를 고려해야 합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 17. 동적 배열 접근</h2>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main() {
+    int *p = (int*)malloc(sizeof(int) * 3);
+    for (int i = 0; i &lt; 3; i++) p[i] = (i + 1) * 10;
+    printf("%d %d %d\n", *p, *(p + 1), p[2]);
+    free(p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>10 20 30</code></div>
+      <div class="explain"><strong>상세 설명:</strong> 동적 메모리도 연속 공간이므로 배열처럼 사용할 수 있습니다. <code>p[i]</code>, <code>*(p+i)</code>, <code>*p</code>는 모두 주소 계산을 바탕으로 동작합니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 포인터와 배열 표기법은 매우 밀접합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 18. 함수에서 포인터 반환 주의</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int* bad() {
+    int x = 10;
+    return &amp;x;
+}
+int main() {
+    int *p = bad();
+    printf("%p\n", (void*)p);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> 컴파일은 될 수 있으나 매우 위험한 코드</div>
+      <div class="explain"><strong>상세 설명:</strong> 함수 안의 지역변수 <code>x</code>는 함수가 끝나면 사라집니다. 그런데 그 주소를 반환하면, 이미 유효하지 않은 메모리를 가리키는 포인터가 됩니다. 이런 포인터를 <em>댕글링 포인터</em>라고 합니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 지역변수의 주소를 반환하면 안 됩니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 19. NULL 포인터</h2>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int *p = NULL;
+    if (p == NULL)
+        printf("NULL pointer\n");
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>NULL pointer</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>NULL</code>은 아무것도 가리키지 않는 포인터를 뜻합니다. 역참조하면 안 되며, 먼저 NULL인지 확인하는 습관이 중요합니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> <code>*p</code>를 하기 전에 p가 유효한 주소인지 확인해야 합니다.</div>
+    </section>
+
+    <section class="problem"><h2>문제 20. 종합 문제</h2>
+<pre><code>#include &lt;stdio.h&gt;
+void addOne(int *p) {
+    (*p)++;
+}
+int main() {
+    int arr[3] = {2, 4, 6};
+    int *p = arr;
+    addOne(p + 1);
+    printf("%d %d %d\n", arr[0], arr[1], arr[2]);
+    return 0;
+}</code></pre>
+      <div class="answer"><strong>예상 결과:</strong> <code>2 5 6</code></div>
+      <div class="explain"><strong>상세 설명:</strong> <code>p+1</code>은 두 번째 원소 <code>arr[1]</code>의 주소입니다. 이를 함수에 넘기면 함수 안의 <code>(*p)++;</code>가 그 원소만 1 증가시킵니다. 따라서 4가 5가 됩니다.</div>
+      <div class="point"><strong>시험 포인트:</strong> 배열 + 포인터 연산 + 함수 호출이 함께 섞여 있는 전형적인 응용 문제입니다.</div>
+    </section>
+
+    <div class="footer">
+      <h2 style="margin-top:0;color:#fff;">최종 핵심 정리</h2>
+      <ul>
+        <li><code>&amp;</code> : 변수의 주소를 구한다.</li>
+        <li><code>*</code> : 포인터 선언에 쓰이거나, 주소를 따라가 실제 값을 읽고 쓴다.</li>
+        <li>배열 이름은 대부분 첫 번째 원소의 주소처럼 동작한다.</li>
+        <li>원본 값을 바꾸려면 함수에 주소를 넘겨야 한다.</li>
+        <li>NULL, 댕글링 포인터, 잘못된 역참조는 반드시 주의해야 한다.</li>
+      </ul>
+      <p class="small">학습 팁: 포인터 문제는 항상 “지금 이 포인터가 누구의 주소를 들고 있는가?”를 먼저 따지면 훨씬 쉽게 풀립니다.</p>
+    </div>
+  </div>
+</body>
+</html>
