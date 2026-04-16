@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>* 언패킹 실전문제 20개</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --sub:#4b5563;
+      --line:#dbe3ee;
+      --accent:#2563eb;
+      --accent2:#0f766e;
+      --soft:#eef4ff;
+      --code:#0b1220;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      background:linear-gradient(180deg,#f8fbff 0%, #f6f8fb 100%);
+      color:var(--ink);
+      line-height:1.7;
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:40px 20px 70px;
+    }
+    header{
+      background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 55%,#0f766e 100%);
+      color:white;
+      border-radius:24px;
+      padding:34px 28px;
+      box-shadow:0 18px 45px rgba(37,99,235,.22);
+      margin-bottom:28px;
+    }
+    header h1{
+      margin:0 0 10px;
+      font-size:2.1rem;
+      line-height:1.25;
+    }
+    header p{
+      margin:8px 0;
+      opacity:.96;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:14px;
+      margin:22px 0 6px;
+    }
+    .mini{
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:16px;
+      padding:14px 16px;
+      backdrop-filter: blur(3px);
+    }
+    .section-title{
+      margin:34px 0 16px;
+      font-size:1.5rem;
+      color:#12305f;
+    }
+    .problem{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:24px;
+      margin:18px 0;
+      box-shadow:0 10px 24px rgba(15,23,42,.05);
+    }
+    .problem h3{
+      margin:0 0 14px;
+      font-size:1.2rem;
+      color:#12305f;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.82rem;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent);
+      border:1px solid #cfe0ff;
+      margin-bottom:10px;
+    }
+    pre{
+      margin:12px 0;
+      background:var(--code);
+      color:#e5eefc;
+      padding:16px 18px;
+      border-radius:14px;
+      overflow:auto;
+      font-size:.95rem;
+      line-height:1.6;
+    }
+    code{font-family:"D2Coding","Consolas","Courier New",monospace}
+    .result, .explain{
+      border-radius:14px;
+      padding:14px 16px;
+      margin-top:12px;
+    }
+    .result{
+      background:#f0fdf4;
+      border:1px solid #bbf7d0;
+    }
+    .explain{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+    }
+    .result strong{color:#166534}
+    .explain strong{color:#0f172a}
+    ul{
+      margin:8px 0 0 22px;
+    }
+    .summary{
+      background:linear-gradient(135deg,#ffffff 0%,#f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:26px;
+      margin-top:32px;
+      box-shadow:0 10px 24px rgba(15,23,42,.05);
+    }
+    .summary h2{margin-top:0;color:#12305f}
+    .point{
+      background:#eff6ff;
+      border-left:5px solid var(--accent);
+      padding:14px 16px;
+      border-radius:12px;
+      margin:12px 0;
+    }
+    footer{
+      text-align:center;
+      color:var(--sub);
+      margin-top:34px;
+      font-size:.95rem;
+    }
+    @media (max-width:640px){
+      header h1{font-size:1.65rem}
+      .wrap{padding:20px 14px 40px}
+      .problem{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>* 언패킹 실전문제 20개</h1>
+      <p><strong>주제:</strong> print에서의 언패킹, 함수 호출 시 언패킹, 리스트 결합, starred assignment, zip과의 결합, 실수하기 쉬운 포인트</p>
+      <p><strong>구성:</strong> 문제 코드 → 실행 결과 → 상세 설명 → 핵심 포인트</p>
+      <div class="grid">
+        <div class="mini"><strong>핵심 개념 1</strong><br><code>*iterable</code>은 값을 풀어서 전달합니다.</div>
+        <div class="mini"><strong>핵심 개념 2</strong><br><code>a, *b, c = ...</code>처럼 나머지를 모을 수 있습니다.</div>
+        <div class="mini"><strong>핵심 개념 3</strong><br><code>[*a, *b]</code>로 리스트를 자연스럽게 합칠 수 있습니다.</div>
+        <div class="mini"><strong>핵심 개념 4</strong><br><code>zip(*data)</code>는 행과 열을 바꾸는 대표 패턴입니다.</div>
+      </div>
+    </header>
+
+    <h2 class="section-title">1. 기초 문제</h2>
+
+    <div class="problem">
+      <div class="tag">문제 1 · 리스트 언패킹 출력</div>
+      <h3>다음 코드의 출력 결과를 쓰시오.</h3>
+      <pre><code>a = [1, 2, 3]
+print(*a)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>1 2 3</code></pre></div>
+      <div class="explain"><strong>설명:</strong> <code>*a</code>는 리스트 <code>[1, 2, 3]</code>을 각각의 값으로 풀어 <code>print(1, 2, 3)</code>처럼 전달합니다. <code>print(a)</code>와 달리 대괄호 없이 공백으로 나열됩니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 2 · 문자열 언패킹</div>
+      <h3>다음 코드의 출력 결과를 쓰시오.</h3>
+      <pre><code>word = "star"
+print(*word)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>s t a r</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 문자열도 iterable이므로 문자 하나씩 꺼낼 수 있습니다. 따라서 <code>*word</code>는 <code>'s', 't', 'a', 'r'</code>로 풀립니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 3 · 튜플 언패킹</div>
+      <h3>다음 코드의 출력 결과를 쓰시오.</h3>
+      <pre><code>t = (10, 20, 30)
+print(*t)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>10 20 30</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 튜플도 리스트와 동일하게 언패킹할 수 있습니다. 즉 <code>print(10, 20, 30)</code>과 같은 효과가 납니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 4 · print와 sep</div>
+      <h3>다음 코드의 출력 결과를 쓰시오.</h3>
+      <pre><code>a = [1, 2, 3]
+print(*a, sep=' / ')</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>1 / 2 / 3</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 언패킹으로 전달된 여러 값 사이의 구분자는 <code>sep</code>가 결정합니다. 여기서는 공백 대신 <code>' / '</code>가 들어갑니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 5 · 제너레이터 언패킹</div>
+      <h3>다음 코드의 출력 결과를 쓰시오.</h3>
+      <pre><code>print(*(x*x for x in range(4)))</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>0 1 4 9</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 괄호 안은 제너레이터 표현식입니다. <code>*</code>가 이 값을 하나씩 꺼내 <code>print</code>에 전달합니다. 따라서 제너레이터 객체 자체가 아니라 실제 값들이 출력됩니다.</div>
+    </div>
+
+    <h2 class="section-title">2. 함수 호출 시 언패킹</h2>
+
+    <div class="problem">
+      <div class="tag">문제 6 · 함수 인자 분해</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>def add(a, b, c):
+    return a + b + c
+
+nums = [3, 4, 5]
+print(add(*nums))</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>12</code></pre></div>
+      <div class="explain"><strong>설명:</strong> <code>*nums</code>는 <code>3, 4, 5</code>로 풀립니다. 따라서 함수 호출은 <code>add(3, 4, 5)</code>와 같아집니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 7 · 인자 개수 맞추기</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>def f(x, y):
+    print(x, y)
+
+pair = (100, 200)
+f(*pair)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>100 200</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 튜플의 두 값이 각각 <code>x</code>, <code>y</code>로 들어갑니다. 언패킹은 인자 수가 함수 정의와 맞아야 정상 동작합니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 8 · range와 언패킹</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>print(*range(1, 6))</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>1 2 3 4 5</code></pre></div>
+      <div class="explain"><strong>설명:</strong> <code>range(1, 6)</code>은 1부터 5까지의 값을 만듭니다. <code>*</code>가 이를 하나씩 꺼내서 출력합니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 9 · max와 언패킹</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>nums = [7, 1, 9, 4]
+print(max(*nums[:2], 8))</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>8</code></pre></div>
+      <div class="explain"><strong>설명:</strong> <code>nums[:2]</code>는 <code>[7, 1]</code>입니다. 따라서 <code>max(*nums[:2], 8)</code>은 <code>max(7, 1, 8)</code>이 되어 결과는 8입니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 10 · 에러 판단</div>
+      <h3>다음 코드는 정상 실행될까요?</h3>
+      <pre><code>def add(a, b, c):
+    return a + b + c
+
+nums = [1, 2]
+print(add(*nums))</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>TypeError 발생</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 함수는 인자 3개가 필요하지만 <code>nums</code>에는 값이 2개뿐입니다. 언패킹은 편리하지만, 함수가 요구하는 개수와 정확히 맞아야 합니다.</div>
+    </div>
+
+    <h2 class="section-title">3. 리스트 결합과 생성</h2>
+
+    <div class="problem">
+      <div class="tag">문제 11 · 리스트 합치기</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>a = [1, 2]
+b = [3, 4]
+c = [*a, *b]
+print(c)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>[1, 2, 3, 4]</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 리스트 안에서의 <code>*</code>는 다른 iterable의 원소를 풀어서 넣습니다. 따라서 <code>[*a, *b]</code>는 두 리스트를 자연스럽게 이어 붙인 새 리스트가 됩니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 12 · 중간 삽입</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>a = [2, 3]
+b = [7, 8]
+c = [0, *a, 5, *b, 9]
+print(c)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>[0, 2, 3, 5, 7, 8, 9]</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 언패킹은 리스트의 앞, 중간, 뒤 어디든 사용할 수 있습니다. 즉 값을 원하는 위치에 끼워 넣으면서 새로운 리스트를 만들 수 있습니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 13 · 문자열을 리스트로 풀기</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>letters = [*"ABC"]
+print(letters)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>['A', 'B', 'C']</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 문자열은 문자들의 순서열이므로 리스트 안에서 언패킹하면 한 글자씩 분리되어 들어갑니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 14 · 빈 리스트와 결합</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>a = []
+b = [1, 2]
+print([*a, *b])</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>[1, 2]</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 빈 리스트를 언패킹해도 추가되는 값이 없으므로 결과에는 <code>b</code>의 원소만 들어갑니다.</div>
+    </div>
+
+    <h2 class="section-title">4. starred assignment</h2>
+
+    <div class="problem">
+      <div class="tag">문제 15 · 나머지 모으기</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>a, *b = [10, 20, 30, 40]
+print(a)
+print(b)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>10
+[20, 30, 40]</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 맨 앞의 값은 <code>a</code>에 들어가고, 나머지는 모두 리스트 형태로 <code>b</code>에 모입니다. 이때 <code>b</code>는 항상 리스트입니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 16 · 가운데 모으기</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>a, *b, c = [1, 2, 3, 4, 5]
+print(a)
+print(b)
+print(c)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>1
+[2, 3, 4]
+5</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 첫 값은 <code>a</code>, 마지막 값은 <code>c</code>, 가운데 값들은 전부 <code>b</code>에 리스트로 담깁니다. 시험에서 매우 자주 나오는 형태입니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 17 · 값이 하나뿐일 때</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>a, *b = [7]
+print(a)
+print(b)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>7
+[]</code></pre></div>
+      <div class="explain"><strong>설명:</strong> 첫 값 7은 <code>a</code>에 들어갑니다. 남는 값이 없으므로 <code>b</code>는 빈 리스트가 됩니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 18 · 에러 판단</div>
+      <h3>다음 코드는 정상 실행될까요?</h3>
+      <pre><code>a, *b, c = [1]</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>ValueError 발생</code></pre></div>
+      <div class="explain"><strong>설명:</strong> <code>a</code>와 <code>c</code>에 최소 한 개씩은 값이 있어야 하는데, 리스트에는 값이 하나뿐입니다. 따라서 언패킹할 값이 부족하여 오류가 납니다.</div>
+    </div>
+
+    <h2 class="section-title">5. zip과 함께 쓰는 실전 패턴</h2>
+
+    <div class="problem">
+      <div class="tag">문제 19 · zip(*) 구조 바꾸기</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>pairs = [('a', 1), ('b', 2), ('c', 3)]
+x, y = zip(*pairs)
+print(x)
+print(y)</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>('a', 'b', 'c')
+(1, 2, 3)</code></pre></div>
+      <div class="explain"><strong>설명:</strong> <code>*pairs</code>는 <code>('a', 1), ('b', 2), ('c', 3)</code>를 각각의 인자로 전달합니다. 그러면 <code>zip</code>이 같은 위치끼리 묶어 첫 번째 요소들, 두 번째 요소들로 재구성합니다. 즉 행과 열을 바꾸는 효과가 납니다.</div>
+    </div>
+
+    <div class="problem">
+      <div class="tag">문제 20 · 실전 응용</div>
+      <h3>다음 코드의 결과를 쓰시오.</h3>
+      <pre><code>star = ['① A', '② B', '③ C', '④ D', '⑤ E']
+print(*(x for x in star if x[0] not in '①②④⑤'))</code></pre>
+      <div class="result"><strong>결과:</strong><pre><code>③ C</code></pre></div>
+      <div class="explain">
+        <strong>설명:</strong>
+        <ul>
+          <li><code>x[0]</code>는 각 문자열의 첫 글자입니다.</li>
+          <li><code>'①②④⑤'</code>에 없는 첫 글자를 가진 항목만 남깁니다.</li>
+          <li>따라서 <code>'③ C'</code>만 조건을 통과합니다.</li>
+          <li>제너레이터 표현식만 그대로 출력하면 객체 정보만 보일 수 있지만, 앞에 <code>*</code>를 붙이면 실제 값이 풀려서 출력됩니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h2>최종 핵심 정리</h2>
+      <div class="point"><strong>1.</strong> <code>print(*a)</code>는 <code>print(a)</code>와 다릅니다. 전자는 값을 풀어서 출력하고, 후자는 리스트/튜플 자체를 출력합니다.</div>
+      <div class="point"><strong>2.</strong> 함수 호출에서 <code>*</code>를 쓰면 iterable의 원소가 각각의 위치 인자로 들어갑니다.</div>
+      <div class="point"><strong>3.</strong> <code>[*a, *b]</code>는 리스트 결합의 대표 패턴입니다.</div>
+      <div class="point"><strong>4.</strong> <code>a, *b, c = ...</code>에서 별표가 붙은 변수는 남는 값을 <strong>리스트</strong>로 받습니다.</div>
+      <div class="point"><strong>5.</strong> <code>zip(*data)</code>는 행과 열을 바꾸는 매우 중요한 패턴입니다.</div>
+
+      <h2>시험에 자주 나오는 실수</h2>
+      <ul>
+        <li><code>print([1,2,3])</code>와 <code>print(*[1,2,3])</code>의 차이를 헷갈림</li>
+        <li>함수 인자 수와 언패킹된 값의 개수가 맞지 않아 <code>TypeError</code> 발생</li>
+        <li><code>a, *b, c</code>에서 값이 부족해 <code>ValueError</code> 발생</li>
+        <li>제너레이터를 그냥 출력하면서 실제 값이 보일 것이라고 착각함</li>
+      </ul>
+
+      <h2>한 줄 요약</h2>
+      <p><strong><code>*</code>는 iterable의 값을 풀어서 전달하는 기호</strong>이며, 출력·함수 호출·리스트 결합·구조 분해에서 매우 자주 사용됩니다.</p>
+    </div>
+
+    <footer>
+      수업자료용 HTML · * 언패킹 실전문제 20개 (상세 설명 포함)
+    </footer>
+  </div>
+</body>
+</html>
