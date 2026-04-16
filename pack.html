@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>파이썬 패킹 실전예제 20개</title>
+  <style>
+    :root{
+      --bg:#f6f8fc;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --sub:#4b5563;
+      --accent:#2563eb;
+      --accent2:#7c3aed;
+      --line:#dbe3f0;
+      --soft:#eef4ff;
+      --code:#0f172a;
+      --codebg:#f8fafc;
+      --good:#065f46;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+      background:linear-gradient(180deg,#eef4ff 0%,var(--bg) 220px);
+      color:var(--ink);
+      line-height:1.7;
+    }
+    .wrap{max-width:1180px;margin:0 auto;padding:40px 22px 80px}
+    .hero{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff;border-radius:24px;padding:34px 32px;box-shadow:0 18px 40px rgba(37,99,235,.18)
+    }
+    h1{margin:0 0 10px;font-size:2.2rem}
+    .hero p{margin:8px 0 0;font-size:1.04rem;opacity:.97}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:26px}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
+      box-shadow:0 8px 22px rgba(15,23,42,.05)
+    }
+    .summary{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+    h2{font-size:1.45rem;margin:0 0 12px;color:#0f172a}
+    h3{font-size:1.12rem;margin:0 0 10px;color:#0f172a}
+    .badge{
+      display:inline-block;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--accent);
+      font-weight:700;font-size:.9rem;margin-bottom:10px
+    }
+    ul{padding-left:20px;margin:8px 0}
+    li{margin:4px 0}
+    .ex{
+      margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px
+    }
+    pre{
+      margin:10px 0 0;background:var(--codebg);color:var(--code);padding:16px 18px;border-radius:14px;
+      overflow:auto;border:1px solid #e5e7eb;font-size:.96rem;line-height:1.55
+    }
+    code{font-family:"Consolas","Courier New",monospace}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .label{font-weight:800;color:var(--accent);margin-top:14px}
+    .out{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d;padding:12px 14px;border-radius:12px;margin-top:8px;white-space:pre-line}
+    .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin-top:10px}
+    .footer{margin-top:32px;color:var(--sub);font-size:.95rem;text-align:center}
+    table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem}
+    th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+    th{background:#f8fbff}
+    @media (max-width:760px){
+      .two{grid-template-columns:1fr}
+      h1{font-size:1.8rem}
+      .wrap{padding:22px 14px 60px}
+      .hero{padding:26px 22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>파이썬 패킹 실전예제 20개</h1>
+      <p>패킹(packing)은 여러 값을 하나의 변수에 모으는 기능입니다. 튜플 패킹, 리스트/딕셔너리 패킹, 함수 인자 패킹(<code>*args</code>, <code>**kwargs</code>)을 중심으로 실전에서 자주 만나는 예제를 20개로 정리했습니다.</p>
+    </section>
+
+    <section class="summary">
+      <span class="badge">핵심 정리</span>
+      <h2>패킹이란?</h2>
+      <ul>
+        <li><strong>여러 값을 하나로 묶는 것</strong>입니다.</li>
+        <li><code>a = 10, 20, 30</code> 처럼 쓰면 실제로는 <code>(10, 20, 30)</code> 튜플로 묶입니다.</li>
+        <li>함수 정의에서 <code>*args</code>는 위치 인자들을 튜플로 패킹하고, <code>**kwargs</code>는 키워드 인자들을 딕셔너리로 패킹합니다.</li>
+        <li>반대로 <code>*</code>, <code>**</code>로 풀어 꺼내는 것은 <strong>언패킹</strong>입니다.</li>
+      </ul>
+
+      <div class="two">
+        <div class="card">
+          <h3>자주 쓰는 패킹 형태</h3>
+          <table>
+            <tr><th>형태</th><th>의미</th></tr>
+            <tr><td><code>a = 1, 2, 3</code></td><td>튜플로 패킹</td></tr>
+            <tr><td><code>def f(*args)</code></td><td>위치 인자 패킹</td></tr>
+            <tr><td><code>def f(**kwargs)</code></td><td>키워드 인자 패킹</td></tr>
+            <tr><td><code>[*a, *b]</code></td><td>여러 시퀀스를 하나로 묶기</td></tr>
+            <tr><td><code>{**x, **y}</code></td><td>여러 딕셔너리 병합</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <h3>학습 포인트</h3>
+          <ul>
+            <li>튜플 패킹은 쉼표가 핵심입니다.</li>
+            <li><code>*args</code>는 개수가 정해지지 않은 값을 받을 때 유용합니다.</li>
+            <li><code>**kwargs</code>는 옵션을 유연하게 받을 때 자주 사용됩니다.</li>
+            <li>리스트·튜플·세트·딕셔너리 결합에도 패킹 문법이 널리 쓰입니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="ex"><span class="badge">예제 1</span><h2>가장 기본적인 튜플 패킹</h2><pre><code>a = 10, 20, 30
+print(a)
+print(type(a))</code></pre><div class="label">설명</div><p>쉼표로 값을 나열하면 자동으로 하나의 튜플로 묶입니다. 괄호가 없어도 패킹이 일어납니다.</p><div class="out">예상 결과
+(10, 20, 30)
+&lt;class 'tuple'&gt;</div></section>
+
+    <section class="ex"><span class="badge">예제 2</span><h2>문자열 여러 개를 하나로 패킹</h2><pre><code>words = 'python', 'is', 'fun'
+print(words)</code></pre><div class="label">설명</div><p>문자열도 마찬가지로 하나의 튜플에 묶입니다. 여러 값을 한 번에 저장하고 싶을 때 간단히 사용할 수 있습니다.</p><div class="out">예상 결과
+('python', 'is', 'fun')</div></section>
+
+    <section class="ex"><span class="badge">예제 3</span><h2>한 개짜리 튜플 패킹</h2><pre><code>x = 5,
+print(x)
+print(type(x))</code></pre><div class="label">설명</div><p>값이 하나여도 쉼표가 있으면 튜플입니다. <code>(5)</code>는 정수이지만 <code>(5,)</code> 또는 <code>5,</code>는 튜플입니다.</p><div class="out">예상 결과
+(5,)
+&lt;class 'tuple'&gt;</div></section>
+
+    <section class="ex"><span class="badge">예제 4</span><h2>입력된 값을 패킹해서 저장</h2><pre><code>name = 'Kim'
+age = 17
+grade = 2
+student = name, age, grade
+print(student)</code></pre><div class="label">설명</div><p>서로 다른 자료형도 하나의 튜플로 묶을 수 있습니다. 학생 정보, 좌표, 설정값 등에 많이 쓰입니다.</p><div class="out">예상 결과
+('Kim', 17, 2)</div></section>
+
+    <section class="ex"><span class="badge">예제 5</span><h2>함수에서 여러 반환값 만들기</h2><pre><code>def calc(a, b):
+    return a + b, a - b, a * b
+
+result = calc(8, 3)
+print(result)</code></pre><div class="label">설명</div><p>함수에서 여러 값을 반환하면 실제로는 튜플로 패킹되어 돌아옵니다. 파이썬에서 매우 자주 쓰이는 패턴입니다.</p><div class="out">예상 결과
+(11, 5, 24)</div></section>
+
+    <section class="ex"><span class="badge">예제 6</span><h2>좌표 데이터를 패킹해서 다루기</h2><pre><code>point = 3, 7
+print(f'x좌표: {point[0]}, y좌표: {point[1]}')</code></pre><div class="label">설명</div><p>좌표처럼 순서가 중요한 데이터를 하나로 묶어 저장할 때 튜플 패킹이 적합합니다.</p><div class="out">예상 결과
+x좌표: 3, y좌표: 7</div></section>
+
+    <section class="ex"><span class="badge">예제 7</span><h2>반복문에서 값들을 패킹해서 추가</h2><pre><code>pairs = []
+for i in range(1, 4):
+    pairs.append((i, i ** 2))
+print(pairs)</code></pre><div class="label">설명</div><p>반복문 안에서 관련된 값들을 튜플로 패킹하여 리스트에 저장하면 표처럼 구조화된 데이터를 만들 수 있습니다.</p><div class="out">예상 결과
+[(1, 1), (2, 4), (3, 9)]</div></section>
+
+    <section class="ex"><span class="badge">예제 8</span><h2>zip 결과를 튜플 묶음으로 보기</h2><pre><code>names = ['A', 'B', 'C']
+scores = [90, 80, 100]
+result = list(zip(names, scores))
+print(result)</code></pre><div class="label">설명</div><p><code>zip()</code>은 각 위치의 값을 모아 튜플로 만들어 줍니다. 즉, 자동 패킹이 일어나는 대표적인 예입니다.</p><div class="out">예상 결과
+[('A', 90), ('B', 80), ('C', 100)]</div></section>
+
+    <section class="ex"><span class="badge">예제 9</span><h2>*args로 위치 인자 패킹 받기</h2><pre><code>def add_all(*args):
+    print(args)
+    return sum(args)
+
+print(add_all(1, 2, 3, 4, 5))</code></pre><div class="label">설명</div><p><code>*args</code>는 전달된 위치 인자들을 하나의 튜플로 패킹합니다. 개수가 가변적인 입력을 받을 때 유용합니다.</p><div class="out">예상 결과
+(1, 2, 3, 4, 5)
+15</div></section>
+
+    <section class="ex"><span class="badge">예제 10</span><h2>*args로 최대값 찾기</h2><pre><code>def my_max(*nums):
+    return max(nums)
+
+print(my_max(7, 2, 19, 4))</code></pre><div class="label">설명</div><p>숫자 개수가 달라도 모두 튜플로 모인 뒤 함수 안에서 한꺼번에 처리할 수 있습니다.</p><div class="out">예상 결과
+19</div></section>
+
+    <section class="ex"><span class="badge">예제 11</span><h2>**kwargs로 키워드 인자 패킹 받기</h2><pre><code>def profile(**kwargs):
+    print(kwargs)
+
+profile(name='Lee', age=18, school='Science High')</code></pre><div class="label">설명</div><p><code>**kwargs</code>는 키워드 인자들을 하나의 딕셔너리로 패킹합니다. 옵션값이나 설정값을 받을 때 매우 많이 사용됩니다.</p><div class="out">예상 결과
+{'name': 'Lee', 'age': 18, 'school': 'Science High'}</div></section>
+
+    <section class="ex"><span class="badge">예제 12</span><h2>**kwargs로 옵션 처리하기</h2><pre><code>def settings(**options):
+    for k, v in options.items():
+        print(k, '=>', v)
+
+settings(theme='dark', lang='ko', font_size=14)</code></pre><div class="label">설명</div><p>미리 정해 두지 않은 다양한 옵션을 유연하게 받을 수 있다는 점이 <code>**kwargs</code>의 장점입니다.</p><div class="out">예상 결과
+theme =&gt; dark
+lang =&gt; ko
+font_size =&gt; 14</div></section>
+
+    <section class="ex"><span class="badge">예제 13</span><h2>일반 매개변수와 *args 함께 쓰기</h2><pre><code>def intro(title, *names):
+    print(title)
+    print(names)
+
+intro('참가자 목록', '민수', '서연', '지우')</code></pre><div class="label">설명</div><p>앞쪽의 일반 매개변수는 고정값을 받고, 남은 위치 인자들은 <code>*names</code>가 튜플로 패킹합니다.</p><div class="out">예상 결과
+참가자 목록
+('민수', '서연', '지우')</div></section>
+
+    <section class="ex"><span class="badge">예제 14</span><h2>일반 매개변수와 **kwargs 함께 쓰기</h2><pre><code>def make_student(name, **info):
+    print('이름:', name)
+    print('추가정보:', info)
+
+make_student('지민', age=17, club='math')</code></pre><div class="label">설명</div><p>필수 정보는 따로 받고, 추가 정보는 딕셔너리로 모아 받는 구조입니다. 실무에서도 자주 보이는 패턴입니다.</p><div class="out">예상 결과
+이름: 지민
+추가정보: {'age': 17, 'club': 'math'}</div></section>
+
+    <section class="ex"><span class="badge">예제 15</span><h2>*args와 **kwargs를 동시에 사용</h2><pre><code>def show_all(*args, **kwargs):
+    print('args =', args)
+    print('kwargs =', kwargs)
+
+show_all(1, 2, 3, name='Kim', level='A')</code></pre><div class="label">설명</div><p>위치 인자는 튜플로, 키워드 인자는 딕셔너리로 각각 패킹됩니다. 두 종류를 한 함수에서 모두 처리할 수 있습니다.</p><div class="out">예상 결과
+args = (1, 2, 3)
+kwargs = {'name': 'Kim', 'level': 'A'}</div></section>
+
+    <section class="ex"><span class="badge">예제 16</span><h2>리스트 여러 개를 하나의 리스트로 묶기</h2><pre><code>a = [1, 2]
+b = [3, 4]
+c = [*a, *b]
+print(c)</code></pre><div class="label">설명</div><p>여기서는 <code>*</code>를 이용해 각 리스트의 원소를 꺼내 새 리스트에 넣습니다. 결과적으로 여러 시퀀스를 하나로 모으는 패킹 형태로 볼 수 있습니다.</p><div class="out">예상 결과
+[1, 2, 3, 4]</div></section>
+
+    <section class="ex"><span class="badge">예제 17</span><h2>튜플과 리스트를 함께 묶기</h2><pre><code>t = (10, 20)
+lst = [30, 40]
+merged = [*t, *lst, 50]
+print(merged)</code></pre><div class="label">설명</div><p>튜플, 리스트처럼 서로 다른 시퀀스 자료형도 <code>*</code>를 사용해 같은 리스트 안으로 모을 수 있습니다.</p><div class="out">예상 결과
+[10, 20, 30, 40, 50]</div></section>
+
+    <section class="ex"><span class="badge">예제 18</span><h2>딕셔너리 여러 개를 하나로 묶기</h2><pre><code>basic = {'name': 'Yuna', 'age': 18}
+extra = {'school': 'High School', 'grade': 3}
+student = {**basic, **extra}
+print(student)</code></pre><div class="label">설명</div><p><code>**</code>를 사용하면 여러 딕셔너리의 키-값 쌍을 하나의 새 딕셔너리로 모을 수 있습니다.</p><div class="out">예상 결과
+{'name': 'Yuna', 'age': 18, 'school': 'High School', 'grade': 3}</div></section>
+
+    <section class="ex"><span class="badge">예제 19</span><h2>함수 호출용 딕셔너리 만들기</h2><pre><code>common = {'sep': ' / ', 'end': ' 끝!\n'}
+print('A', 'B', 'C', **common)</code></pre><div class="label">설명</div><p>여러 설정값을 딕셔너리로 모아 두었다가 함수 호출 때 넘기면 재사용성이 좋아집니다. 딕셔너리에 미리 패킹해 둔 옵션을 활용하는 예입니다.</p><div class="out">예상 결과
+A / B / C 끝!</div></section>
+
+    <section class="ex"><span class="badge">예제 20</span><h2>실전형 종합 예제: 주문 정보 모으기</h2><pre><code>def order_summary(customer, *items, **options):
+    print('고객:', customer)
+    print('상품들:', items)
+    print('옵션들:', options)
+
+order_summary(
+    '김인수',
+    '노트북', '마우스', '키보드',
+    payment='card',
+    delivery='express'
+)</code></pre><div class="label">설명</div><p>고객 이름은 일반 매개변수, 상품 목록은 <code>*items</code>로 튜플 패킹, 결제/배송 옵션은 <code>**options</code>로 딕셔너리 패킹합니다. 실전에서 가장 자주 보는 종합 구조입니다.</p><div class="out">예상 결과
+고객: 김인수
+상품들: ('노트북', '마우스', '키보드')
+옵션들: {'payment': 'card', 'delivery': 'express'}</div><div class="note"><strong>포인트:</strong> 패킹을 잘 이해하면 함수 설계가 훨씬 유연해지고, 여러 데이터를 구조적으로 다루기 쉬워집니다.</div></section>
+
+    <section class="summary">
+      <span class="badge">마무리</span>
+      <h2>꼭 기억할 핵심</h2>
+      <ul>
+        <li><strong>튜플 패킹:</strong> 여러 값을 쉼표로 묶는다.</li>
+        <li><strong><code>*args</code>:</strong> 위치 인자를 튜플로 받는다.</li>
+        <li><strong><code>**kwargs</code>:</strong> 키워드 인자를 딕셔너리로 받는다.</li>
+        <li><strong><code>[*a, *b]</code>, <code>{**x, **y}</code>:</strong> 여러 자료를 하나로 결합할 수 있다.</li>
+      </ul>
+      <p>패킹은 짧아 보여도 매우 강력한 문법입니다. 함수, 자료구조, 반복 처리, 옵션 설계까지 폭넓게 연결되므로 꼭 익혀 두면 좋습니다.</p>
+    </section>
+
+    <div class="footer">제작: ChatGPT · 파이썬 패킹 학습용 HTML 자료</div>
+  </div>
+</body>
+</html>
