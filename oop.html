@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파이썬 객체지향 프로그래밍 실전 예제 20개</title>
+<style>
+body{font-family:'Malgun Gothic',Arial,sans-serif;line-height:1.72;margin:0;background:#f7f8fc;color:#1f2937}
+.wrap{max-width:1100px;margin:0 auto;padding:36px 22px 60px}
+h1{font-size:2.2rem;margin:0 0 10px;color:#0f172a}
+.subtitle{color:#475569;margin-bottom:24px}
+.top{background:linear-gradient(135deg,#eef2ff,#ecfeff);border:1px solid #dbeafe;border-radius:18px;padding:20px 22px;margin-bottom:26px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 8px 24px rgba(15,23,42,.07)}
+.badge{display:inline-block;padding:5px 10px;border-radius:999px;font-size:.84rem;font-weight:700;background:#e0f2fe;color:#075985;margin-bottom:10px}
+h2{font-size:1.22rem;margin:6px 0 12px}
+.label{font-weight:700;color:#334155}
+pre{background:#0f172a;color:#e2e8f0;padding:16px;border-radius:12px;overflow:auto;font-size:.95rem;line-height:1.55}
+.result{background:#f8fafc;border-left:5px solid #22c55e;padding:12px 14px;border-radius:10px;margin-top:12px}
+.footer{margin-top:26px;color:#64748b;font-size:.95rem}
+code{background:#eef2ff;padding:2px 6px;border-radius:6px}
+ul{margin:8px 0 0 20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>파이썬 객체지향 프로그래밍 실전 예제 20개</h1>
+  <div class="subtitle">클래스, 객체, 생성자, 상속, 다형성, 캡슐화까지 한 번에 정리하는 학교 제출용 HTML 자료</div>
+  <div class="top">
+    <strong>학습 포인트</strong>
+    <ul>
+      <li><code>class</code>, <code>self</code>, <code>__init__</code>의 기본 구조 이해</li>
+      <li>인스턴스 변수 / 클래스 변수 / 클래스 메서드 / 정적 메서드 구분</li>
+      <li>상속, 오버라이딩, <code>super()</code>, 다형성 이해</li>
+      <li>학생 관리, 계좌, 쇼핑카트, 게임 캐릭터 같은 실전형 예제 적용</li>
+    </ul>
+  </div>
+
+    <div class="card">
+      <div class="badge">기초</div>
+      <h2>1. 클래스와 객체 만들기</h2>
+      <div><span class="label">핵심 개념:</span> 클래스를 정의하고 객체를 생성하는 가장 기본적인 형태입니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Dog:
+    pass
+
+d = Dog()
+print(type(d))</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>&lt;class &#x27;__main__.Dog&#x27;&gt;</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> Dog는 설계도이고, d는 그 설계도로 만든 객체(인스턴스)입니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">기초</div>
+      <h2>2. 생성자 __init__ 사용</h2>
+      <div><span class="label">핵심 개념:</span> 객체가 만들어질 때 자동으로 속성을 초기화합니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+s = Student(&quot;민수&quot;, 2)
+print(s.name, s.grade)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>민수 2</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> __init__은 객체 생성 직후 자동 실행되며, self.name처럼 인스턴스 속성을 저장합니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">기초</div>
+      <h2>3. 인스턴스 메서드 만들기</h2>
+      <div><span class="label">핵심 개념:</span> 객체에 동작을 부여하는 메서드를 정의합니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Calculator:
+    def add(self, a, b):
+        return a + b
+
+c = Calculator()
+print(c.add(3, 5))</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>8</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 메서드는 반드시 첫 번째 매개변수로 self를 받아 현재 객체 자신을 가리킵니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">기초</div>
+      <h2>4. 객체 상태 출력하기</h2>
+      <div><span class="label">핵심 개념:</span> __str__을 사용하면 객체를 print할 때 보기 좋은 문자열을 반환할 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Book:
+    def __init__(self, title):
+        self.title = title
+
+    def __str__(self):
+        return f&quot;책 제목: {self.title}&quot;
+
+b = Book(&quot;파이썬 입문&quot;)
+print(b)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>책 제목: 파이썬 입문</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> __str__은 객체를 문자열처럼 표현할 때 자동 호출됩니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">속성</div>
+      <h2>5. 클래스 변수 사용</h2>
+      <div><span class="label">핵심 개념:</span> 모든 객체가 공유하는 값을 클래스 변수로 만들 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Counter:
+    count = 0
+
+    def __init__(self):
+        Counter.count += 1
+
+a = Counter()
+b = Counter()
+print(Counter.count)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>2</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> count는 클래스 전체가 공유하는 값이며, 객체마다 따로 생기지 않습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">속성</div>
+      <h2>6. 인스턴스 변수와 클래스 변수 차이</h2>
+      <div><span class="label">핵심 개념:</span> 공유 변수와 개별 변수를 함께 비교해 봅니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Person:
+    species = &quot;human&quot;
+
+    def __init__(self, name):
+        self.name = name
+
+p1 = Person(&quot;철수&quot;)
+p2 = Person(&quot;영희&quot;)
+print(p1.species, p2.species)
+print(p1.name, p2.name)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>human human<br>철수 영희</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> species는 공유되고, name은 각 객체마다 따로 저장됩니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">메서드</div>
+      <h2>7. 클래스 메서드 @classmethod</h2>
+      <div><span class="label">핵심 개념:</span> 클래스 자체를 다루는 메서드를 만들 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class School:
+    total = 0
+
+    @classmethod
+    def add_student(cls):
+        cls.total += 1
+
+School.add_student()
+School.add_student()
+print(School.total)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>2</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> cls는 클래스 자신을 가리키며, 클래스 수준 데이터를 수정할 때 유용합니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">메서드</div>
+      <h2>8. 정적 메서드 @staticmethod</h2>
+      <div><span class="label">핵심 개념:</span> 객체나 클래스 정보 없이 독립적으로 동작하는 함수를 클래스 안에 둘 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class MathTool:
+    @staticmethod
+    def square(x):
+        return x * x
+
+print(MathTool.square(6))</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>36</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 정적 메서드는 self나 cls를 받지 않으며, 기능상 관련된 함수를 묶을 때 좋습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">캡슐화</div>
+      <h2>9. 비공개 속성 흉내내기</h2>
+      <div><span class="label">핵심 개념:</span> 언더스코어 두 개를 사용해 직접 접근을 어렵게 만들 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Account:
+    def __init__(self, money):
+        self.__money = money
+
+    def show(self):
+        return self.__money
+
+a = Account(5000)
+print(a.show())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>5000</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> __money는 이름 변경(name mangling)이 적용되어 외부 직접 접근을 어렵게 합니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">캡슐화</div>
+      <h2>10. getter / setter 스타일</h2>
+      <div><span class="label">핵심 개념:</span> 메서드를 통해 값을 안전하게 읽고 수정합니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Temperature:
+    def __init__(self):
+        self._c = 0
+
+    def set_c(self, value):
+        if value &gt;= -273:
+            self._c = value
+
+    def get_c(self):
+        return self._c
+
+t = Temperature()
+t.set_c(25)
+print(t.get_c())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>25</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> setter에서 조건 검사를 넣어 잘못된 값이 들어가지 않게 할 수 있습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">프로퍼티</div>
+      <h2>11. @property 사용</h2>
+      <div><span class="label">핵심 개념:</span> 메서드를 속성처럼 접근할 수 있게 만듭니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Circle:
+    def __init__(self, r):
+        self.r = r
+
+    @property
+    def area(self):
+        return 3.14 * self.r ** 2
+
+c = Circle(3)
+print(c.area)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>28.26</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> area()처럼 호출하지 않고 c.area처럼 속성처럼 읽을 수 있습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">상속</div>
+      <h2>12. 상속의 기본</h2>
+      <div><span class="label">핵심 개념:</span> 기존 클래스를 물려받아 새로운 클래스를 만들 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Animal:
+    def speak(self):
+        return &quot;소리를 낸다&quot;
+
+class Cat(Animal):
+    pass
+
+c = Cat()
+print(c.speak())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>소리를 낸다</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> Cat은 Animal의 메서드를 그대로 물려받습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">상속</div>
+      <h2>13. 메서드 오버라이딩</h2>
+      <div><span class="label">핵심 개념:</span> 상속받은 메서드를 자식 클래스에서 새롭게 정의할 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Animal:
+    def speak(self):
+        return &quot;...&quot;
+
+class Cat(Animal):
+    def speak(self):
+        return &quot;야옹&quot;
+
+print(Cat().speak())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>야옹</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 같은 이름의 메서드를 다시 정의하면 자식 클래스의 버전이 우선 사용됩니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">상속</div>
+      <h2>14. super()로 부모 생성자 호출</h2>
+      <div><span class="label">핵심 개념:</span> 부모 클래스의 초기화 코드를 재사용할 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Person:
+    def __init__(self, name):
+        self.name = name
+
+class Teacher(Person):
+    def __init__(self, name, subject):
+        super().__init__(name)
+        self.subject = subject
+
+t = Teacher(&quot;김선생&quot;, &quot;수학&quot;)
+print(t.name, t.subject)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>김선생 수학</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> super().__init__()을 쓰면 부모 클래스의 초기화 로직을 그대로 활용할 수 있습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">다형성</div>
+      <h2>15. 같은 메서드 이름, 다른 동작</h2>
+      <div><span class="label">핵심 개념:</span> 서로 다른 객체가 같은 메서드 이름에 대해 다르게 반응할 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Dog:
+    def speak(self):
+        return &quot;멍멍&quot;
+
+class Cat:
+    def speak(self):
+        return &quot;야옹&quot;
+
+for animal in [Dog(), Cat()]:
+    print(animal.speak())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>멍멍<br>야옹</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 둘 다 speak()를 가지고 있으므로, 같은 코드로 서로 다른 객체를 처리할 수 있습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">실전</div>
+      <h2>16. 학생 성적 관리 클래스</h2>
+      <div><span class="label">핵심 개념:</span> 리스트 속성을 가진 객체를 만들어 평균을 계산합니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Student:
+    def __init__(self, name):
+        self.name = name
+        self.scores = []
+
+    def add_score(self, score):
+        self.scores.append(score)
+
+    def average(self):
+        return sum(self.scores) / len(self.scores)
+
+s = Student(&quot;지수&quot;)
+s.add_score(90)
+s.add_score(100)
+print(s.average())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>95.0</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 객체 안에 리스트를 두면 관련 데이터를 하나로 묶어 관리하기 좋습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">실전</div>
+      <h2>17. 은행 계좌 입출금</h2>
+      <div><span class="label">핵심 개념:</span> 상태 변화가 있는 객체를 만들어 입금과 출금을 처리합니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, money):
+        self.balance += money
+
+    def withdraw(self, money):
+        if money &lt;= self.balance:
+            self.balance -= money
+
+a = BankAccount(&quot;민호&quot;, 10000)
+a.deposit(5000)
+a.withdraw(3000)
+print(a.balance)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>12000</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 객체는 현재 상태(balance)를 저장하고, 메서드로 그 상태를 변경합니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">실전</div>
+      <h2>18. 쇼핑카트 클래스</h2>
+      <div><span class="label">핵심 개념:</span> 상품 목록을 담고 총합을 계산하는 객체를 만듭니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Cart:
+    def __init__(self):
+        self.items = []
+
+    def add(self, name, price):
+        self.items.append((name, price))
+
+    def total(self):
+        return sum(price for _, price in self.items)
+
+c = Cart()
+c.add(&quot;노트&quot;, 2000)
+c.add(&quot;펜&quot;, 1000)
+print(c.total())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>3000</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 관련 데이터를 묶고 총합 계산 기능까지 제공하면 재사용성이 높은 객체가 됩니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">실전</div>
+      <h2>19. 게임 캐릭터 상속 구조</h2>
+      <div><span class="label">핵심 개념:</span> 기본 캐릭터를 만들고 전사/마법사로 확장할 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Character:
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+
+class Warrior(Character):
+    def attack(self):
+        return &quot;검 공격!&quot;
+
+class Wizard(Character):
+    def attack(self):
+        return &quot;마법 공격!&quot;
+
+print(Warrior(&quot;아더&quot;, 100).attack())
+print(Wizard(&quot;메린&quot;, 80).attack())</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>검 공격!<br>마법 공격!</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> 공통 속성(name, hp)은 부모에 두고, 직업별 행동은 자식에서 나눌 수 있습니다.</div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">실전</div>
+      <h2>20. 연산자 오버로딩 __add__</h2>
+      <div><span class="label">핵심 개념:</span> 객체끼리 + 연산을 가능하게 할 수 있습니다.</div>
+      <div class="label" style="margin-top:12px;">예시 코드</div>
+      <pre>class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+
+    def __str__(self):
+        return f&quot;({self.x}, {self.y})&quot;
+
+p1 = Point(1, 2)
+p2 = Point(3, 4)
+print(p1 + p2)</pre>
+      <div class="result"><span class="label">예상 결과:</span><br>(4, 6)</div>
+      <div style="margin-top:12px;"><span class="label">설명:</span> __add__를 정의하면 객체끼리 덧셈 연산의 의미를 직접 설계할 수 있습니다.</div>
+    </div>
+    
+  <div class="footer">
+    학습 팁: 먼저 1~10번으로 객체지향의 문법을 익히고, 11~20번으로 실제 프로그램 구조에 적용해 보세요.
+  </div>
+</div>
+</body>
+</html>
