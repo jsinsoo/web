@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>사자성어 TTS 학습기</title>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<style>
+    body {
+        font-family: "맑은 고딕", sans-serif;
+        text-align: center;
+        background: #eef2f7;
+        padding: 30px;
+    }
+
+    .container {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        display: inline-block;
+        width: 600px;
+    }
+
+    h1 { margin-bottom: 15px; }
+
+    input, button {
+        margin: 8px;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+    button {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #45a049;
+    }
+
+    /* ⭐ 핵심: 사자성어 한 줄 초대형 */
+    #hanja {
+        font-size: 110px;
+        font-weight: bold;
+        letter-spacing: 15px;   /* 글자 간격 */
+        white-space: nowrap;    /* 한 줄 유지 */
+        overflow: hidden;
+        margin-bottom: 15px;
+        font-family: "궁서", "Noto Serif KR", serif;
+        transition: transform 0.3s;
+    }
+
+    #hanja.active {
+        transform: scale(1.1);
+    }
+
+    #info {
+        font-size: 28px;
+        color: #333;
+    }
+
+    #meaning {
+        font-size: 20px;
+        color: #555;
+        margin-top: 5px;
+    }
+
+    #display {
+        margin-top: 20px;
+        background: #fff3cd;
+        padding: 25px;
+        border-radius: 10px;
+    }
+
+    #progress {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>📚 사자성어 TTS</h1>
+
+```
+<input type="file" id="fileInput" accept=".xlsx"><br>
+
+<button onclick="startReading()">▶ 전체 읽기</button>
+<button onclick="stopReading()">⏹ 정지</button>
+<button onclick="next()">⏭ 다음</button>
+<button onclick="prev()">⏮ 이전</button>
+
+<div id="display">
+    <div id="hanja">四字成語</div>
+    <div id="info">엑셀 파일을 선택하세요</div>
+    <div id="meaning"></div>
+</div>
+
+<div id="progress"></div>
+```
+
+</div>
+
+<script>
+let data = [];
+let index = 0;
+let isReading = false;
+
+document.getElementById('fileInput').addEventListener('change', handleFile, false);
+
+function handleFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        const arr = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(arr, { type: 'array' });
+
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+        data = json.slice(1);
+        index = 0;
+
+        alert("엑셀 로드 완료!");
+        showCurrent();
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+function speak(text) {
+    return new Promise(resolve => {
+        let utter = new SpeechSynthesisUtterance(text);
+        utter.lang = "ko-KR";
+        utter.rate = 0.9;
+
+        utter.onstart = () => {
+            document.getElementById("hanja").classList.add("active");
+        };
+
+        utter.onend = () => {
+            document.getElementById("hanja").classList.remove("active");
+            resolve();
+        };
+
+        speechSynthesis.speak(utter);
+    });
+}
+
+function showCurrent() {
+    if (data.length === 0) return;
+
+    let [hanja, sound, meaning] = data[index];
+
+    document.getElementById("hanja").innerText = hanja;
+    document.getElementById("info").innerText = sound;
+    document.getElementById("meaning").innerText = meaning;
+
+    document.getElementById("progress").innerText =
+        `${index + 1} / ${data.length}`;
+}
+
+async function startReading() {
+    if (data.length === 0) {
+        alert("엑셀 파일 먼저 선택!");
+        return;
+    }
+
+    isReading = true;
+
+    while (index < data.length && isReading) {
+        showCurrent();
+
+        let [hanja, sound, meaning] = data[index];
+        let text = `${hanja}, ${sound}, ${meaning}`;
+
+        await speak(text);
+        index++;
+    }
+}
+
+function stopReading() {
+    isReading = false;
+    speechSynthesis.cancel();
+}
+
+function next() {
+    if (index < data.length - 1) {
+        index++;
+        showCurrent();
+    }
+}
+
+function prev() {
+    if (index > 0) {
+        index--;
+        showCurrent();
+    }
+}
+</script>
+
+</body>
+</html>
