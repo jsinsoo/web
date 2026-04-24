@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>라이브러리 없는 고급 수학개념 20개 파이썬 수업자료</title>
+<style>
+body{margin:0;font-family:"Malgun Gothic",Arial,sans-serif;background:#f2f5fb;color:#222;line-height:1.75}
+header{background:linear-gradient(135deg,#111827,#374151);color:white;text-align:center;padding:38px 24px}
+header h1{margin:0;font-size:32px}
+section{max-width:1150px;margin:28px auto;background:white;padding:30px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h2{color:#1f2937;border-bottom:3px solid #e5e7eb;padding-bottom:8px}
+h3{color:#1d4ed8}
+pre{background:#111827;color:#f9fafb;padding:18px;border-radius:12px;overflow-x:auto;font-size:15px;line-height:1.55}
+code{font-family:Consolas,monospace}
+.concept{border-left:7px solid #2563eb;background:#eff6ff;padding:18px;margin:24px 0;border-radius:12px}
+.explain{background:#fff7ed;border-left:7px solid #f97316;padding:15px;border-radius:10px;margin-top:12px}
+.quiz{background:#f8fafc;border-left:7px solid #7c3aed;padding:15px;margin:14px 0;border-radius:10px}
+.answer{color:#047857;font-weight:bold}
+.note{background:#ecfdf5;border-left:7px solid #10b981;padding:18px;border-radius:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>라이브러리 없이 표현하는 고급 수학개념 20개</h1>
+<p>순수 파이썬 코드 · 주석 · 한 줄씩 상세 설명 · OX 퀴즈 · 5지선다형 문제</p>
+</header>
+<section>
+<h2>학습 목표</h2>
+<div class="note">
+이 자료는 <b>외부 라이브러리 없이</b> 파이썬 기본 문법만으로 고급 수학 개념을 구현하는 수업자료입니다.<br>
+주요 주제: 극한, 미분, 적분, 수치해석, 벡터, 행렬, 회귀, 통계, 거리, 다각형 넓이
+</div>
+</section>
+<section><h2>1. 고급 수학개념 20개와 파이썬 코드</h2>
+<div class="concept">
+<h3>1. 극한값 근사</h3>
+<p>x가 어떤 값에 가까워질 때 함수값이 어디에 가까워지는지 살펴보는 개념입니다.</p>
+<pre><code># 함수 f(x) = (x^2 - 1) / (x - 1)의 x -&gt; 1 극한 근사
+a = 1  # x가 가까워질 목표값
+h = 0.1  # 처음 접근 간격
+
+for i in range(6):  # h를 점점 작게 하며 6번 반복
+    x = a + h  # 1보다 조금 큰 값에서 접근
+    y = (x ** 2 - 1) / (x - 1)  # 함수값 계산
+    print(&quot;h =&quot;, h, &quot;x =&quot;, x, &quot;f(x) =&quot;, y)  # 과정 출력
+    h /= 10  # h를 10분의 1로 줄임</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. a = 1: x가 가까워질 목표값을 정합니다.<br>
+2. h = 0.1: 처음에는 1에서 0.1만큼 떨어진 곳에서 시작합니다.<br>
+3. for i in range(6): h를 점점 줄이면서 반복합니다.<br>
+4. x = a + h: 1보다 조금 큰 x값을 만듭니다.<br>
+5. y = ...: 함수값을 계산합니다.<br>
+6. h /= 10: x가 1에 더 가까워지도록 h를 줄입니다.<br>
+</div></div>
+<div class="concept">
+<h3>2. 도함수 근사</h3>
+<p>도함수는 순간변화율이며, 아주 작은 h를 이용해 기울기를 근사할 수 있습니다.</p>
+<pre><code># f(x) = x^2의 x = 3에서 도함수 근사
+x = 3  # 미분계수를 구할 위치
+h = 0.0001  # 매우 작은 변화량
+
+fx = x ** 2  # f(x)
+fxh = (x + h) ** 2  # f(x+h)
+
+derivative = (fxh - fx) / h  # 평균변화율로 순간변화율 근사
+
+print(&quot;근사 도함수 =&quot;, derivative)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. x = 3: 기울기를 구할 위치입니다.<br>
+2. h = 0.0001: 매우 작은 변화량입니다.<br>
+3. fx = x ** 2: f(3)을 계산합니다.<br>
+4. fxh = (x + h) ** 2: f(3+h)를 계산합니다.<br>
+5. derivative = ...: 변화량의 비로 도함수를 근사합니다.<br>
+</div></div>
+<div class="concept">
+<h3>3. 정적분 근사</h3>
+<p>정적분은 함수 그래프 아래 넓이를 의미하며 직사각형 합으로 근사할 수 있습니다.</p>
+<pre><code># f(x) = x^2을 0부터 1까지 적분 근사
+a = 0  # 시작점
+b = 1  # 끝점
+n = 1000  # 직사각형 개수
+dx = (b - a) / n  # 직사각형의 폭
+total = 0  # 넓이 합
+
+for i in range(n):  # n개의 직사각형을 더함
+    x = a + i * dx  # 각 직사각형의 왼쪽 x좌표
+    height = x ** 2  # 직사각형의 높이
+    total += height * dx  # 넓이 = 높이 × 폭
+
+print(&quot;정적분 근사값 =&quot;, total)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. a, b: 적분 구간의 시작과 끝입니다.<br>
+2. n: 직사각형을 몇 개로 나눌지 정합니다.<br>
+3. dx: 각 직사각형의 폭입니다.<br>
+4. total: 넓이의 합을 저장합니다.<br>
+5. height = x ** 2: 함수값을 높이로 사용합니다.<br>
+6. total += height * dx: 작은 넓이를 계속 더합니다.<br>
+</div></div>
+<div class="concept">
+<h3>4. 뉴턴 방법</h3>
+<p>방정식의 근을 반복적으로 더 정확하게 찾는 수치해석 방법입니다.</p>
+<pre><code># x^2 - 2 = 0의 근, 즉 sqrt(2) 근사
+x = 1.0  # 처음 추측값
+
+for i in range(10):  # 10번 반복하여 근을 개선
+    f = x ** 2 - 2  # 함수값
+    df = 2 * x  # 도함수값
+    x = x - f / df  # 뉴턴 방법 공식
+
+print(&quot;sqrt(2) 근사값 =&quot;, x)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. x = 1.0: 처음 추측값입니다.<br>
+2. f = x ** 2 - 2: 현재 x에서의 함수값입니다.<br>
+3. df = 2 * x: 도함수값입니다.<br>
+4. x = x - f / df: 접선을 이용해 근에 더 가까이 갑니다.<br>
+</div></div>
+<div class="concept">
+<h3>5. 이분법</h3>
+<p>부호가 바뀌는 구간을 반으로 나누며 방정식의 근을 찾는 방법입니다.</p>
+<pre><code># x^2 - 2 = 0의 근을 이분법으로 찾기
+left = 1  # 왼쪽 끝
+right = 2  # 오른쪽 끝
+
+for i in range(20):  # 20번 반복
+    mid = (left + right) / 2  # 중간값
+    if mid ** 2 - 2 &gt; 0:  # 중간값에서 함수값이 양수이면
+        right = mid  # 오른쪽 끝을 중간값으로 이동
+    else:
+        left = mid  # 왼쪽 끝을 중간값으로 이동
+
+print(&quot;근사 근 =&quot;, (left + right) / 2)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. left, right: 근이 들어 있는 구간입니다.<br>
+2. mid: 구간의 중간값입니다.<br>
+3. mid ** 2 - 2: 함수값의 부호를 확인합니다.<br>
+4. right = mid 또는 left = mid: 근이 있는 구간을 좁힙니다.<br>
+</div></div>
+<div class="concept">
+<h3>6. 벡터 내적</h3>
+<p>두 벡터의 방향 관계와 크기 관계를 나타내는 연산입니다.</p>
+<pre><code># 두 벡터의 내적
+a = [1, 2, 3]  # 첫 번째 벡터
+b = [4, 5, 6]  # 두 번째 벡터
+dot = 0  # 내적 결과
+
+for i in range(len(a)):  # 각 성분 위치를 반복
+    dot += a[i] * b[i]  # 같은 위치 성분끼리 곱해 더함
+
+print(&quot;내적 =&quot;, dot)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. a, b: 두 벡터입니다.<br>
+2. dot = 0: 결과를 저장할 변수입니다.<br>
+3. for i in range(len(a)): 각 성분을 순서대로 봅니다.<br>
+4. dot += a[i] * b[i]: 같은 위치 성분끼리 곱해 더합니다.<br>
+</div></div>
+<div class="concept">
+<h3>7. 벡터 크기</h3>
+<p>벡터의 길이는 각 성분의 제곱합의 제곱근입니다.</p>
+<pre><code># 벡터의 크기 구하기
+v = [3, 4, 12]  # 벡터
+total = 0  # 제곱합
+
+for x in v:  # 각 성분을 하나씩 꺼냄
+    total += x ** 2  # 성분의 제곱을 더함
+
+length = total ** 0.5  # 제곱근을 구함
+
+print(&quot;벡터의 크기 =&quot;, length)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. v: 벡터입니다.<br>
+2. total: 성분 제곱합입니다.<br>
+3. for x in v: 성분을 하나씩 꺼냅니다.<br>
+4. total += x ** 2: 제곱을 더합니다.<br>
+5. length = total ** 0.5: 제곱근으로 길이를 구합니다.<br>
+</div></div>
+<div class="concept">
+<h3>8. 2차원 행렬 덧셈</h3>
+<p>같은 크기의 두 행렬은 같은 위치의 원소끼리 더할 수 있습니다.</p>
+<pre><code># 2x2 행렬 덧셈
+A = [[1, 2], [3, 4]]  # 첫 번째 행렬
+B = [[5, 6], [7, 8]]  # 두 번째 행렬
+C = []  # 결과 행렬
+
+for i in range(2):  # 행 반복
+    row = []  # 한 행을 저장
+    for j in range(2):  # 열 반복
+        row.append(A[i][j] + B[i][j])  # 같은 위치 원소끼리 더함
+    C.append(row)  # 완성된 행 추가
+
+print(C)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. A, B: 더할 두 행렬입니다.<br>
+2. C: 결과 행렬입니다.<br>
+3. i: 행 번호입니다.<br>
+4. j: 열 번호입니다.<br>
+5. A[i][j] + B[i][j]: 같은 위치 원소를 더합니다.<br>
+</div></div>
+<div class="concept">
+<h3>9. 2차원 행렬 곱셈</h3>
+<p>행렬 곱셈은 앞 행렬의 행과 뒤 행렬의 열을 곱해 더합니다.</p>
+<pre><code># 2x2 행렬 곱셈
+A = [[1, 2], [3, 4]]
+B = [[5, 6], [7, 8]]
+C = [[0, 0], [0, 0]]
+
+for i in range(2):  # A의 행
+    for j in range(2):  # B의 열
+        for k in range(2):  # 곱해서 더할 위치
+            C[i][j] += A[i][k] * B[k][j]
+
+print(C)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. C를 0으로 초기화합니다.<br>
+2. i는 결과 행 번호입니다.<br>
+3. j는 결과 열 번호입니다.<br>
+4. k는 곱해서 더할 중간 인덱스입니다.<br>
+5. C[i][j]에 A의 행과 B의 열의 곱을 더합니다.<br>
+</div></div>
+<div class="concept">
+<h3>10. 행렬식</h3>
+<p>2×2 행렬의 행렬식은 평면 변환의 넓이 배율과 관련됩니다.</p>
+<pre><code># 2x2 행렬식 det = ad - bc
+A = [[3, 2], [1, 4]]  # 2x2 행렬
+
+det = A[0][0] * A[1][1] - A[0][1] * A[1][0]  # ad - bc
+
+print(&quot;행렬식 =&quot;, det)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. A는 2x2 행렬입니다.<br>
+2. A[0][0]과 A[1][1]을 곱합니다.<br>
+3. A[0][1]과 A[1][0]을 곱합니다.<br>
+4. 두 값을 빼면 행렬식입니다.<br>
+</div></div>
+<div class="concept">
+<h3>11. 일차회귀 기울기</h3>
+<p>데이터의 경향을 가장 잘 나타내는 직선의 기울기를 구합니다.</p>
+<pre><code># 간단한 일차회귀 기울기 구하기
+x = [1, 2, 3, 4, 5]  # x 데이터
+y = [2, 4, 5, 4, 6]  # y 데이터
+n = len(x)  # 데이터 개수
+
+mean_x = sum(x) / n  # x 평균
+mean_y = sum(y) / n  # y 평균
+
+top = 0  # 분자
+bottom = 0  # 분모
+
+for i in range(n):
+    top += (x[i] - mean_x) * (y[i] - mean_y)
+    bottom += (x[i] - mean_x) ** 2
+
+slope = top / bottom  # 회귀직선의 기울기
+
+print(&quot;기울기 =&quot;, slope)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. x, y: 데이터입니다.<br>
+2. mean_x, mean_y: 평균입니다.<br>
+3. top: 공분산에 해당하는 값입니다.<br>
+4. bottom: x의 분산에 해당하는 값입니다.<br>
+5. slope = top / bottom: 회귀직선 기울기입니다.<br>
+</div></div>
+<div class="concept">
+<h3>12. 분산과 표준편차</h3>
+<p>자료가 평균에서 얼마나 흩어져 있는지 나타냅니다.</p>
+<pre><code># 분산과 표준편차
+data = [2, 4, 4, 4, 5, 5, 7, 9]
+mean = sum(data) / len(data)  # 평균
+
+total = 0
+for x in data:
+    total += (x - mean) ** 2  # 평균과의 차이를 제곱해 더함
+
+variance = total / len(data)  # 분산
+std = variance ** 0.5  # 표준편차
+
+print(&quot;분산 =&quot;, variance)
+print(&quot;표준편차 =&quot;, std)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. mean: 평균입니다.<br>
+2. x - mean: 평균과의 차이입니다.<br>
+3. 제곱을 하는 이유는 음수와 양수를 모두 양수 거리로 보기 위해서입니다.<br>
+4. variance: 제곱 차이의 평균입니다.<br>
+5. std: 분산의 제곱근입니다.<br>
+</div></div>
+<div class="concept">
+<h3>13. 복리 성장</h3>
+<p>원금이 이자를 포함해 반복적으로 증가하는 구조입니다.</p>
+<pre><code># 복리 계산
+money = 1000000  # 원금
+rate = 0.05  # 연 이율 5%
+years = 10  # 기간
+
+for year in range(1, years + 1):
+    money = money * (1 + rate)  # 이자가 붙은 금액
+    print(year, &quot;년 후:&quot;, int(money), &quot;원&quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. money: 원금입니다.<br>
+2. rate: 이율입니다.<br>
+3. years: 기간입니다.<br>
+4. money * (1 + rate): 이자가 붙은 다음 금액입니다.<br>
+5. 반복할수록 이자가 다시 원금에 포함됩니다.<br>
+</div></div>
+<div class="concept">
+<h3>14. 등비급수 부분합</h3>
+<p>등비수열의 항을 계속 더한 값을 부분합이라고 합니다.</p>
+<pre><code># 등비급수 부분합
+a = 1  # 첫째항
+r = 0.5  # 공비
+n = 10  # 더할 항의 개수
+total = 0
+
+for k in range(n):
+    term = a * (r ** k)  # k번째 항
+    total += term  # 항을 더함
+    print(k + 1, &quot;번째까지 합 =&quot;, total)
+
+print(&quot;부분합 =&quot;, total)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. a: 첫째항입니다.<br>
+2. r: 공비입니다.<br>
+3. n: 더할 항의 개수입니다.<br>
+4. term = a * r^k: 각 항입니다.<br>
+5. total += term: 항을 누적합니다.<br>
+</div></div>
+<div class="concept">
+<h3>15. 시그마 계산</h3>
+<p>시그마는 일정한 규칙을 가진 값들을 모두 더하는 기호입니다.</p>
+<pre><code># sigma: 1^2 + 2^2 + ... + n^2
+n = 10
+total = 0
+
+for k in range(1, n + 1):
+    total += k ** 2  # k의 제곱을 더함
+
+print(&quot;제곱합 =&quot;, total)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. n: 마지막 숫자입니다.<br>
+2. total: 합을 저장합니다.<br>
+3. for k in range(1, n + 1): 1부터 n까지 반복합니다.<br>
+4. total += k ** 2: k의 제곱을 더합니다.<br>
+</div></div>
+<div class="concept">
+<h3>16. 팩토리얼과 조합</h3>
+<p>조합은 서로 다른 n개 중 r개를 순서 없이 고르는 경우의 수입니다.</p>
+<pre><code># nCr 조합 계산
+n = 6
+r = 2
+
+top = 1  # 분자
+bottom = 1  # 분모
+
+for i in range(n, n - r, -1):
+    top *= i  # n부터 r개 곱함
+
+for i in range(1, r + 1):
+    bottom *= i  # r! 계산
+
+comb = top // bottom
+
+print(&quot;조합 =&quot;, comb)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. n, r: n개 중 r개를 고릅니다.<br>
+2. top: n부터 r개를 곱한 값입니다.<br>
+3. bottom: r!입니다.<br>
+4. comb = top // bottom: 조합 값을 구합니다.<br>
+</div></div>
+<div class="concept">
+<h3>17. 유클리드 거리</h3>
+<p>다차원 공간에서 두 점 사이의 직선 거리를 구합니다.</p>
+<pre><code># 3차원 두 점 사이 거리
+p = [1, 2, 3]
+q = [4, 6, 8]
+total = 0
+
+for i in range(len(p)):
+    diff = q[i] - p[i]  # 각 좌표의 차
+    total += diff ** 2  # 차이의 제곱을 더함
+
+distance = total ** 0.5
+
+print(&quot;거리 =&quot;, distance)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. p, q: 두 점입니다.<br>
+2. diff: 각 좌표의 차입니다.<br>
+3. total += diff ** 2: 차이 제곱을 누적합니다.<br>
+4. distance: 제곱합의 제곱근입니다.<br>
+</div></div>
+<div class="concept">
+<h3>18. 맨해튼 거리</h3>
+<p>격자 위에서 가로·세로 이동 거리의 합을 구합니다.</p>
+<pre><code># 2차원 맨해튼 거리
+p = [1, 2]
+q = [5, 7]
+
+distance = 0
+
+for i in range(len(p)):
+    diff = q[i] - p[i]
+    if diff &lt; 0:
+        diff = -diff  # 절댓값 처리
+    distance += diff
+
+print(&quot;맨해튼 거리 =&quot;, distance)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. p, q: 두 점입니다.<br>
+2. diff: 좌표 차이입니다.<br>
+3. diff &lt; 0이면 부호를 바꿉니다.<br>
+4. distance += diff: 절댓값 차이를 더합니다.<br>
+</div></div>
+<div class="concept">
+<h3>19. n각형 넓이</h3>
+<p>좌표평면의 다각형 넓이는 신발끈 공식으로 구할 수 있습니다.</p>
+<pre><code># 신발끈 공식으로 다각형 넓이 구하기
+points = [(0, 0), (4, 0), (4, 3), (0, 3)]  # 사각형 좌표
+n = len(points)
+sum1 = 0
+sum2 = 0
+
+for i in range(n):
+    x1, y1 = points[i]  # 현재 점
+    x2, y2 = points[(i + 1) % n]  # 다음 점, 마지막 다음은 첫 점
+    sum1 += x1 * y2
+    sum2 += y1 * x2
+
+area = abs(sum1 - sum2) / 2
+
+print(&quot;다각형 넓이 =&quot;, area)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. points: 다각형의 꼭짓점입니다.<br>
+2. (i + 1) % n: 마지막 점 다음에 첫 점으로 돌아갑니다.<br>
+3. sum1: 앞쪽 곱의 합입니다.<br>
+4. sum2: 뒤쪽 곱의 합입니다.<br>
+5. area: 두 합의 차이의 절반입니다.<br>
+</div></div>
+<div class="concept">
+<h3>20. 피타고라스 정리 검증</h3>
+<p>직각삼각형에서 두 직각변의 제곱합은 빗변의 제곱과 같습니다.</p>
+<pre><code># 세 변이 직각삼각형인지 확인
+a = 3
+b = 4
+c = 5
+
+if a ** 2 + b ** 2 == c ** 2:
+    print(&quot;직각삼각형&quot;)
+else:
+    print(&quot;직각삼각형 아님&quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. a, b: 두 직각변 후보입니다.<br>
+2. c: 빗변 후보입니다.<br>
+3. a ** 2 + b ** 2: 두 변의 제곱합입니다.<br>
+4. c ** 2: 빗변의 제곱입니다.<br>
+5. 두 값이 같으면 직각삼각형입니다.<br>
+</div></div>
+</section>
+<section>
+<h2>2. OX 개념 퀴즈 10개</h2>
+<div class="quiz">1. 도함수는 순간변화율을 나타낸다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">2. 정적분 근사는 작은 직사각형 넓이들을 더하는 방식으로 할 수 있다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">3. 뉴턴 방법은 항상 한 번만 계산하면 정확한 근을 구한다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">4. 벡터 내적은 같은 위치 성분끼리 곱해 더한다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">5. 2×2 행렬식은 ad - bc로 계산할 수 있다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">6. 분산은 자료가 평균에서 얼마나 흩어져 있는지 나타낸다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">7. 맨해튼 거리는 제곱합의 제곱근으로 구한다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">8. 신발끈 공식에서 마지막 점 다음은 다시 첫 번째 점으로 연결한다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">9. 등비급수 부분합은 항들을 차례대로 더해서 구할 수 있다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">10. 이분법은 근이 들어 있는 구간을 점점 넓혀 가는 방법이다.<br><span class="answer">정답: X</span></div>
+</section>
+
+<section>
+<h2>3. 5지선다형 문제 10개</h2>
+<div class="quiz"><b>1. 도함수의 의미로 가장 알맞은 것은?</b><br>① 넓이 ② 순간변화율 ③ 평균 ④ 경우의 수 ⑤ 행렬식<br><span class="answer">정답: ② 순간변화율</span></div>
+<div class="quiz"><b>2. 정적분을 수치적으로 근사할 때 사용할 수 있는 방법은?</b><br>① 직사각형 넓이 합 ② 문자열 연결 ③ 리스트 삭제 ④ 조건문 제거 ⑤ 좌표 반전<br><span class="answer">정답: ① 직사각형 넓이 합</span></div>
+<div class="quiz"><b>3. 뉴턴 방법에서 필요한 두 값은?</b><br>① 함수값과 도함수값 ② 평균과 중앙값 ③ 행과 열 ④ 원금과 세금 ⑤ 가로와 세로<br><span class="answer">정답: ① 함수값과 도함수값</span></div>
+<div class="quiz"><b>4. 벡터 [1,2,3]과 [4,5,6]의 내적은?</b><br>① 12 ② 24 ③ 32 ④ 64 ⑤ 90<br><span class="answer">정답: ③ 32</span></div>
+<div class="quiz"><b>5. 2×2 행렬 [[a,b],[c,d]]의 행렬식은?</b><br>① ab+cd ② ad-bc ③ ac-bd ④ a+b+c+d ⑤ abc+d<br><span class="answer">정답: ② ad-bc</span></div>
+<div class="quiz"><b>6. 표준편차는 무엇의 제곱근인가?</b><br>① 평균 ② 중앙값 ③ 분산 ④ 최댓값 ⑤ 최솟값<br><span class="answer">정답: ③ 분산</span></div>
+<div class="quiz"><b>7. 일차회귀에서 기울기는 무엇을 나타내는가?</b><br>① 데이터의 증가·감소 경향 ② 점의 개수 ③ 리스트 길이만 ④ 원의 반지름 ⑤ 삼각형 높이<br><span class="answer">정답: ① 데이터의 증가·감소 경향</span></div>
+<div class="quiz"><b>8. 신발끈 공식은 주로 무엇을 구할 때 쓰는가?</b><br>① 소수 개수 ② 다각형 넓이 ③ 팩토리얼 ④ 복리 이자율 ⑤ 벡터 크기<br><span class="answer">정답: ② 다각형 넓이</span></div>
+<div class="quiz"><b>9. 복리 성장에서 매년 금액을 갱신하는 식은?</b><br>① money = money + rate ② money = money * (1 + rate) ③ money = rate / money ④ money = money - rate ⑤ money = rate ** money<br><span class="answer">정답: ② money = money * (1 + rate)</span></div>
+<div class="quiz"><b>10. 유클리드 거리는 어떤 정리와 관련이 깊은가?</b><br>① 피타고라스 정리 ② 근의 공식 ③ 드모르간 법칙 ④ 등차수열 공식 ⑤ 나머지 정리<br><span class="answer">정답: ① 피타고라스 정리</span></div>
+</section>
+
+<section>
+<h2>4. 수업 정리</h2>
+<div class="note">
+라이브러리 없이도 파이썬의 기본 연산, 조건문, 반복문, 리스트만으로 고급 수학 개념을 직접 실험할 수 있습니다.<br><br>
+<b>핵심 문법</b>: 변수, 리스트, 반복문, 조건문, 누적합, 인덱싱, 제곱, 제곱근 근사<br>
+<b>핵심 수학</b>: 극한, 미분, 적분, 수치해석, 선형대수, 통계, 회귀, 거리, 다각형 넓이
+</div>
+</section>
+</body></html>
