@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>소수·소인수분해·약수·배수 파이썬 수업자료</title>
+<style>
+body{margin:0;font-family:"Malgun Gothic",Arial,sans-serif;background:#f3f6fb;color:#222;line-height:1.75}
+header{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:white;text-align:center;padding:38px 24px}
+header h1{margin:0;font-size:32px}
+section{max-width:1150px;margin:28px auto;background:white;padding:30px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h2{color:#1e3a8a;border-bottom:3px solid #dbeafe;padding-bottom:8px}
+h3{color:#1d4ed8}
+pre{background:#111827;color:#f9fafb;padding:18px;border-radius:12px;overflow-x:auto;font-size:15px;line-height:1.55}
+code{font-family:Consolas,monospace}
+.concept{border-left:7px solid #2563eb;background:#eff6ff;padding:18px;margin:24px 0;border-radius:12px}
+.explain{background:#fff7ed;border-left:7px solid #f97316;padding:15px;border-radius:10px;margin-top:12px}
+.quiz{background:#f8fafc;border-left:7px solid #7c3aed;padding:15px;margin:14px 0;border-radius:10px}
+.answer{color:#047857;font-weight:bold}
+.note{background:#ecfdf5;border-left:7px solid #10b981;padding:18px;border-radius:12px}
+.badge{display:inline-block;background:#dbeafe;color:#1e3a8a;padding:4px 10px;border-radius:999px;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+<h1>소수 · 소인수분해 · 약수 · 배수 수업자료</h1>
+<p>수학개념 20개 + 순수 파이썬 코드 + 주석 + 한 줄 설명 + OX 퀴즈 + 5지선다형 문제</p>
+</header>
+
+<section>
+<h2>학습 목표</h2>
+<div class="note">
+이 자료는 <b>라이브러리 없이</b> 파이썬 기본 문법만으로 약수, 배수, 소수, 소인수분해, 최대공약수, 최소공배수 개념을 구현하는 수업자료입니다.
+<br>
+사용 문법: <code>변수</code>, <code>if</code>, <code>for</code>, <code>while</code>, <code>list</code>, <code>%</code>, <code>//</code>, <code>**</code>, <code>break</code>
+</div>
+</section>
+
+<section>
+<h2>1. 수학개념 20개와 파이썬 코드</h2>
+<div class="concept">
+<h3>1. 약수의 개념</h3>
+<p>어떤 수를 나누어떨어지게 하는 수를 약수라고 합니다.</p>
+<pre><code>n = 24  # 약수를 구할 수
+
+for i in range(1, n + 1):  # 1부터 n까지 하나씩 검사한다.
+    if n % i == 0:  # n을 i로 나눈 나머지가 0이면
+        print(i)  # i는 n의 약수이다.</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. n = 24: 24의 약수를 구하기 위해 변수에 저장합니다.<br>
+2. range(1, n + 1): 1부터 24까지 검사합니다.<br>
+3. n % i == 0: 나누어떨어지는지 확인합니다.<br>
+4. print(i): 조건을 만족하는 약수를 출력합니다.<br>
+</div></div>
+<div class="concept">
+<h3>2. 배수의 개념</h3>
+<p>어떤 수에 정수를 곱해서 얻는 수를 배수라고 합니다.</p>
+<pre><code>n = 7  # 기준 수
+
+for i in range(1, 11):  # 1부터 10까지 반복한다.
+    print(n * i)  # n에 i를 곱해 배수를 출력한다.</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. n = 7: 7의 배수를 구합니다.<br>
+2. for i in range(1, 11): 1부터 10까지 곱합니다.<br>
+3. n * i: 기준 수에 자연수를 곱합니다.<br>
+4. print(n * i): 배수를 출력합니다.<br>
+</div></div>
+<div class="concept">
+<h3>3. 약수의 개수 구하기</h3>
+<p>약수가 몇 개인지 세는 것은 수의 구조를 파악하는 기본 방법입니다.</p>
+<pre><code>n = 36  # 약수의 개수를 구할 수
+count = 0  # 약수 개수 저장
+
+for i in range(1, n + 1):
+    if n % i == 0:  # i가 약수이면
+        count += 1  # 약수 개수를 1 증가시킨다.
+
+print(&quot;약수의 개수:&quot;, count)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. count = 0: 약수 개수를 저장할 변수를 만듭니다.<br>
+2. 반복문으로 1부터 n까지 검사합니다.<br>
+3. 나머지가 0이면 약수입니다.<br>
+4. count += 1: 약수를 찾을 때마다 개수를 증가시킵니다.<br>
+</div></div>
+<div class="concept">
+<h3>4. 약수의 합 구하기</h3>
+<p>모든 약수를 더하면 완전수, 친화수 등 여러 수학 개념과 연결됩니다.</p>
+<pre><code>n = 28  # 약수의 합을 구할 수
+total = 0  # 약수의 합
+
+for i in range(1, n + 1):
+    if n % i == 0:  # i가 약수이면
+        total += i  # 약수를 합에 더한다.
+
+print(&quot;약수의 합:&quot;, total)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. total = 0: 약수의 합을 저장합니다.<br>
+2. 1부터 n까지 약수인지 확인합니다.<br>
+3. 약수이면 total에 더합니다.<br>
+4. 마지막에 약수의 합을 출력합니다.<br>
+</div></div>
+<div class="concept">
+<h3>5. 진약수 구하기</h3>
+<p>자기 자신을 제외한 약수를 진약수라고 합니다.</p>
+<pre><code>n = 28  # 진약수를 구할 수
+
+for i in range(1, n):  # 자기 자신 n은 제외한다.
+    if n % i == 0:  # 나누어떨어지면
+        print(i)  # 진약수 출력</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. range(1, n): 1부터 n-1까지만 검사합니다.<br>
+2. 자기 자신은 진약수에서 제외됩니다.<br>
+3. n % i == 0이면 i는 진약수입니다.<br>
+4. 진약수를 하나씩 출력합니다.<br>
+</div></div>
+<div class="concept">
+<h3>6. 완전수 판별</h3>
+<p>자기 자신을 제외한 약수의 합이 자기 자신과 같으면 완전수입니다.</p>
+<pre><code>n = 28  # 완전수인지 판별할 수
+total = 0  # 진약수의 합
+
+for i in range(1, n):
+    if n % i == 0:
+        total += i  # 진약수를 더한다.
+
+if total == n:
+    print(&quot;완전수&quot;)
+else:
+    print(&quot;완전수 아님&quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. 진약수의 합을 구합니다.<br>
+2. total == n: 진약수의 합이 원래 수와 같은지 비교합니다.<br>
+3. 같으면 완전수입니다.<br>
+4. 28은 1+2+4+7+14=28이므로 완전수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>7. 공약수 구하기</h3>
+<p>두 수를 모두 나누어떨어지게 하는 수를 공약수라고 합니다.</p>
+<pre><code>a = 24
+b = 36
+
+for i in range(1, min(a, b) + 1):  # 두 수 중 작은 수까지만 검사
+    if a % i == 0 and b % i == 0:  # 두 수 모두 나누어떨어지면
+        print(i)  # 공약수 출력</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. min(a, b): 공약수는 작은 수보다 클 수 없습니다.<br>
+2. a % i == 0: i가 a의 약수인지 확인합니다.<br>
+3. b % i == 0: i가 b의 약수인지 확인합니다.<br>
+4. 두 조건이 모두 참이면 공약수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>8. 공배수 구하기</h3>
+<p>두 수의 배수에 공통으로 들어가는 수를 공배수라고 합니다.</p>
+<pre><code>a = 4
+b = 6
+count = 0  # 찾은 공배수 개수
+i = 1  # 검사할 수
+
+while count &lt; 5:  # 공배수 5개를 찾을 때까지 반복
+    if i % a == 0 and i % b == 0:  # 두 수의 배수이면
+        print(i)  # 공배수 출력
+        count += 1
+    i += 1  # 다음 수 검사</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. count &lt; 5: 공배수 5개를 찾습니다.<br>
+2. i % a == 0: i가 a의 배수인지 확인합니다.<br>
+3. i % b == 0: i가 b의 배수인지 확인합니다.<br>
+4. 둘 다 참이면 공배수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>9. 최대공약수</h3>
+<p>공약수 중 가장 큰 수를 최대공약수라고 합니다.</p>
+<pre><code>a = 48
+b = 18
+gcd = 1  # 최대공약수 저장
+
+for i in range(1, min(a, b) + 1):
+    if a % i == 0 and b % i == 0:
+        gcd = i  # 더 큰 공약수가 나오면 갱신된다.
+
+print(&quot;최대공약수:&quot;, gcd)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. gcd = 1: 최대공약수를 저장합니다.<br>
+2. 공약수를 찾을 때마다 gcd를 갱신합니다.<br>
+3. 반복이 끝나면 가장 마지막 공약수가 가장 큽니다.<br>
+4. 그 값이 최대공약수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>10. 유클리드 호제법</h3>
+<p>두 수의 최대공약수를 빠르게 구하는 대표적인 알고리즘입니다.</p>
+<pre><code>a = 48
+b = 18
+
+while b != 0:  # 나머지가 0이 될 때까지 반복
+    a, b = b, a % b  # b와 나머지로 갱신
+
+print(&quot;최대공약수:&quot;, a)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. b가 0이 될 때까지 반복합니다.<br>
+2. a % b: a를 b로 나눈 나머지입니다.<br>
+3. a, b = b, a % b: 값을 동시에 갱신합니다.<br>
+4. 마지막에 남은 a가 최대공약수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>11. 최소공배수</h3>
+<p>공배수 중 가장 작은 수를 최소공배수라고 합니다.</p>
+<pre><code>a = 12
+b = 18
+x = a
+y = b
+
+while y != 0:  # 최대공약수 구하기
+    x, y = y, x % y
+
+gcd = x
+lcm = a * b // gcd  # 최소공배수 공식
+
+print(&quot;최소공배수:&quot;, lcm)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. 최소공배수를 구하려면 최대공약수를 먼저 구합니다.<br>
+2. gcd는 최대공약수입니다.<br>
+3. a * b // gcd: 두 수의 곱을 최대공약수로 나눕니다.<br>
+4. 그 결과가 최소공배수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>12. 소수의 개념</h3>
+<p>1과 자기 자신만을 약수로 가지는 2 이상의 자연수를 소수라고 합니다.</p>
+<pre><code>n = 29
+is_prime = True  # 처음에는 소수라고 가정한다.
+
+if n &lt; 2:
+    is_prime = False  # 2보다 작은 수는 소수가 아니다.
+else:
+    for i in range(2, n):
+        if n % i == 0:  # 중간 약수가 있으면
+            is_prime = False
+            break
+
+print(&quot;소수&quot; if is_prime else &quot;소수 아님&quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. is_prime = True: 처음에는 소수라고 가정합니다.<br>
+2. n &lt; 2: 2보다 작은 수는 소수가 아닙니다.<br>
+3. 2부터 n-1까지 약수가 있는지 확인합니다.<br>
+4. 약수가 발견되면 소수가 아닙니다.<br>
+</div></div>
+<div class="concept">
+<h3>13. 빠른 소수 판별</h3>
+<p>소수 판별은 제곱근까지만 검사해도 충분합니다.</p>
+<pre><code>n = 97
+is_prime = True
+
+if n &lt; 2:
+    is_prime = False
+else:
+    for i in range(2, int(n ** 0.5) + 1):  # 제곱근까지만 검사
+        if n % i == 0:
+            is_prime = False
+            break
+
+print(&quot;소수&quot; if is_prime else &quot;소수 아님&quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. n ** 0.5: n의 제곱근입니다.<br>
+2. 약수가 있다면 제곱근 이하의 약수도 존재합니다.<br>
+3. 그래서 n-1까지 모두 검사할 필요가 없습니다.<br>
+4. 큰 수에서 훨씬 빠릅니다.<br>
+</div></div>
+<div class="concept">
+<h3>14. 1부터 n까지 소수 출력</h3>
+<p>범위 안에 있는 소수를 모두 찾을 수 있습니다.</p>
+<pre><code>limit = 50  # 50까지의 소수를 찾는다.
+
+for n in range(2, limit + 1):
+    prime = True
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            prime = False
+            break
+    if prime:
+        print(n, end=&quot; &quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. 2부터 limit까지 수를 하나씩 검사합니다.<br>
+2. 각 n이 소수인지 판별합니다.<br>
+3. 약수가 없으면 prime은 True로 남습니다.<br>
+4. 소수이면 출력합니다.<br>
+</div></div>
+<div class="concept">
+<h3>15. 소수 개수 구하기</h3>
+<p>어떤 범위 안에 소수가 몇 개 있는지 셀 수 있습니다.</p>
+<pre><code>limit = 100
+count = 0  # 소수 개수
+
+for n in range(2, limit + 1):
+    prime = True
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            prime = False
+            break
+    if prime:
+        count += 1  # 소수 개수 증가
+
+print(&quot;소수 개수:&quot;, count)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. count = 0: 소수 개수를 저장합니다.<br>
+2. 2부터 100까지 검사합니다.<br>
+3. 소수이면 count를 1 증가시킵니다.<br>
+4. 마지막에 소수 개수를 출력합니다.<br>
+</div></div>
+<div class="concept">
+<h3>16. 에라토스테네스의 체</h3>
+<p>범위 안의 소수를 효율적으로 찾는 고전 알고리즘입니다.</p>
+<pre><code>n = 50
+sieve = [True] * (n + 1)  # 처음에는 모두 소수라고 가정
+sieve[0] = False
+sieve[1] = False
+
+for i in range(2, int(n ** 0.5) + 1):
+    if sieve[i]:  # i가 소수이면
+        for j in range(i * i, n + 1, i):  # i의 배수 제거
+            sieve[j] = False
+
+for i in range(2, n + 1):
+    if sieve[i]:
+        print(i, end=&quot; &quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. sieve 리스트는 각 수가 소수인지 저장합니다.<br>
+2. 0과 1은 소수가 아니므로 False입니다.<br>
+3. 소수 i를 찾으면 i의 배수들을 제거합니다.<br>
+4. 마지막에 True로 남은 수들이 소수입니다.<br>
+</div></div>
+<div class="concept">
+<h3>17. 소인수분해</h3>
+<p>자연수를 소수들의 곱으로 나타내는 과정입니다.</p>
+<pre><code>n = 84
+i = 2
+
+while i &lt;= n:
+    if n % i == 0:  # i로 나누어떨어지면
+        print(i, end=&quot; &quot;)  # i는 소인수
+        n //= i  # n을 i로 나눈 몫으로 바꿈
+    else:
+        i += 1  # 나누어떨어지지 않으면 다음 수 검사</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. 2부터 나누기 시작합니다.<br>
+2. 나누어떨어지면 그 수는 소인수입니다.<br>
+3. n을 몫으로 바꾸고 다시 나눕니다.<br>
+4. 더 이상 나누어지지 않으면 i를 증가시킵니다.<br>
+</div></div>
+<div class="concept">
+<h3>18. 지수형 소인수분해</h3>
+<p>같은 소인수가 여러 번 나오면 지수 형태로 표현할 수 있습니다.</p>
+<pre><code>n = 84
+original = n
+i = 2
+result = []
+
+while i * i &lt;= n:
+    count = 0  # i가 몇 번 나오는지 세기
+    while n % i == 0:
+        n //= i
+        count += 1
+
+    if count == 1:
+        result.append(str(i))
+    elif count &gt; 1:
+        result.append(f&quot;{i}^{count}&quot;)
+
+    i += 1
+
+if n &gt; 1:
+    result.append(str(n))
+
+print(original, &quot;=&quot;, &quot; × &quot;.join(result))</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. count는 같은 소인수가 몇 번 나오는지 셉니다.<br>
+2. count가 1이면 지수 없이 출력합니다.<br>
+3. count가 2 이상이면 i^count 형태로 저장합니다.<br>
+4. &#x27; × &#x27;.join(result)로 곱셈 형태를 만듭니다.<br>
+</div></div>
+<div class="concept">
+<h3>19. 서로소 판별</h3>
+<p>두 수의 최대공약수가 1이면 서로소라고 합니다.</p>
+<pre><code>a = 35
+b = 18
+x = a
+y = b
+
+while y != 0:
+    x, y = y, x % y
+
+if x == 1:
+    print(&quot;서로소&quot;)
+else:
+    print(&quot;서로소 아님&quot;)</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. 유클리드 호제법으로 최대공약수를 구합니다.<br>
+2. x가 최대공약수입니다.<br>
+3. 최대공약수가 1이면 공통 약수가 1뿐입니다.<br>
+4. 따라서 서로소입니다.<br>
+</div></div>
+<div class="concept">
+<h3>20. 약수쌍 구하기</h3>
+<p>곱해서 n이 되는 두 수의 쌍을 약수쌍이라고 볼 수 있습니다.</p>
+<pre><code>n = 36
+
+for i in range(1, int(n ** 0.5) + 1):  # 제곱근까지만 검사
+    if n % i == 0:
+        print(i, n // i)  # i와 n//i는 약수쌍</code></pre>
+<div class="explain"><b>한 줄씩 상세 설명</b><br>
+1. 제곱근까지만 검사하면 약수쌍을 효율적으로 찾을 수 있습니다.<br>
+2. n % i == 0이면 i는 약수입니다.<br>
+3. n // i는 i와 짝이 되는 약수입니다.<br>
+4. 두 수를 곱하면 n이 됩니다.<br>
+</div></div>
+
+</section>
+
+<section>
+<h2>2. OX 개념 퀴즈 10개</h2>
+<div class="quiz">1. 어떤 수를 나누어떨어지게 하는 수를 약수라고 한다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">2. 12의 배수에는 12, 24, 36이 포함된다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">3. 1은 소수이다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">4. 소수는 1과 자기 자신만을 약수로 가지는 2 이상의 자연수이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">5. 소인수분해는 자연수를 소수들의 곱으로 나타내는 것이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">6. 최대공약수는 공배수 중 가장 작은 수이다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">7. 최소공배수는 공배수 중 가장 작은 수이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">8. 두 수의 최대공약수가 1이면 서로소이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">9. 에라토스테네스의 체는 소수를 찾는 알고리즘이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">10. 84의 소인수분해 결과는 2 × 2 × 3 × 7이다.<br><span class="answer">정답: O</span></div>
+</section>
+
+<section>
+<h2>3. 5지선다형 문제 10개</h2>
+
+<div class="quiz">
+<b>1. 24의 약수가 아닌 것은?</b><br>
+① 1 ② 2 ③ 3 ④ 5 ⑤ 24<br>
+<span class="answer">정답: ④ 5</span>
+</div>
+
+<div class="quiz">
+<b>2. 7의 배수는?</b><br>
+① 12 ② 21 ③ 25 ④ 32 ⑤ 40<br>
+<span class="answer">정답: ② 21</span>
+</div>
+
+<div class="quiz">
+<b>3. 다음 중 소수는?</b><br>
+① 1 ② 9 ③ 15 ④ 17 ⑤ 21<br>
+<span class="answer">정답: ④ 17</span>
+</div>
+
+<div class="quiz">
+<b>4. 소수 판별에서 <code>n % i == 0</code>의 의미는?</b><br>
+① n이 i보다 크다 ② n이 i로 나누어떨어진다 ③ n과 i가 같다 ④ i가 소수이다 ⑤ n이 홀수이다<br>
+<span class="answer">정답: ② n이 i로 나누어떨어진다</span>
+</div>
+
+<div class="quiz">
+<b>5. 48과 18의 최대공약수는?</b><br>
+① 2 ② 3 ③ 6 ④ 9 ⑤ 12<br>
+<span class="answer">정답: ③ 6</span>
+</div>
+
+<div class="quiz">
+<b>6. 12와 18의 최소공배수는?</b><br>
+① 18 ② 24 ③ 30 ④ 36 ⑤ 72<br>
+<span class="answer">정답: ④ 36</span>
+</div>
+
+<div class="quiz">
+<b>7. 84의 지수형 소인수분해로 알맞은 것은?</b><br>
+① 2 × 3 × 14 ② 2² × 3 × 7 ③ 4 × 21 ④ 2 × 6 × 7 ⑤ 3² × 7<br>
+<span class="answer">정답: ② 2² × 3 × 7</span>
+</div>
+
+<div class="quiz">
+<b>8. 두 수가 서로소일 조건은?</b><br>
+① 합이 1이다 ② 차가 1이다 ③ 최대공약수가 1이다 ④ 최소공배수가 1이다 ⑤ 둘 다 짝수이다<br>
+<span class="answer">정답: ③ 최대공약수가 1이다</span>
+</div>
+
+<div class="quiz">
+<b>9. 에라토스테네스의 체에서 소수가 아닌 수를 제거할 때 주로 무엇을 지우는가?</b><br>
+① 소수의 배수 ② 홀수 전체 ③ 짝수 전체만 ④ 1만 ⑤ 제곱수만<br>
+<span class="answer">정답: ① 소수의 배수</span>
+</div>
+
+<div class="quiz">
+<b>10. 약수쌍의 예로 알맞은 것은? 단, 수는 36이다.</b><br>
+① (2, 19) ② (3, 12) ③ (5, 7) ④ (8, 4) ⑤ (10, 3)<br>
+<span class="answer">정답: ② (3, 12)</span>
+</div>
+</section>
+
+<section>
+<h2>4. 수업 정리</h2>
+<div class="note">
+<b>핵심 수학</b>: 약수, 배수, 공약수, 공배수, 최대공약수, 최소공배수, 소수, 소인수분해, 서로소, 완전수<br>
+<b>핵심 파이썬</b>: <code>%</code> 나머지 연산, <code>//</code> 정수 나눗셈, <code>for</code> 반복문, <code>while</code> 반복문, <code>break</code>, 리스트 활용
+<br><br>
+가장 중요한 사고방식은 <b>“나누어떨어지는가?”</b>입니다. 이 질문 하나로 약수, 배수, 소수, 소인수분해, 최대공약수까지 모두 연결됩니다.
+</div>
+</section>
+
+</body>
+</html>
