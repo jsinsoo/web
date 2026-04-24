@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>기초생물학 개념 20개 파이썬 수업자료</title>
+<style>
+body{margin:0;font-family:"Malgun Gothic",Arial,sans-serif;background:#f4f7fb;color:#222;line-height:1.75}
+header{background:linear-gradient(135deg,#14532d,#22c55e);color:white;text-align:center;padding:40px 24px}
+header h1{margin:0;font-size:32px}
+header p{font-size:17px}
+section{max-width:1150px;margin:28px auto;background:white;padding:30px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h2{color:#166534;border-bottom:3px solid #dcfce7;padding-bottom:8px}
+h3{color:#15803d}
+pre{background:#111827;color:#f9fafb;padding:18px;border-radius:12px;overflow-x:auto;font-size:15px;line-height:1.55}
+code{font-family:Consolas,monospace}
+.concept{border-left:7px solid #22c55e;background:#f0fdf4;padding:18px;margin:24px 0;border-radius:12px}
+.explain{background:#fff7ed;border-left:7px solid #f97316;padding:15px;border-radius:10px;margin-top:12px}
+.quiz{background:#f8fafc;border-left:7px solid #2563eb;padding:15px;margin:14px 0;border-radius:10px}
+.answer{color:#047857;font-weight:bold}
+.note{background:#eff6ff;border-left:7px solid #3b82f6;padding:18px;border-radius:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>기초생물학 개념 20개와 파이썬 코드</h1>
+<p>주석 포함 코드 · 한 줄씩 상세 설명 · OX 개념 퀴즈 · 5지선다형 문제</p>
+</header>
+
+<section>
+<h2>학습 목표</h2>
+<div class="note">
+이 수업자료는 <b>기초생물학 개념</b>을 파이썬 기본 문법으로 계산하고 모의실험하는 자료입니다.<br>
+사용 문법: <code>변수</code>, <code>문자열</code>, <code>리스트</code>, <code>if</code>, <code>for</code>, <code>count()</code>, <code>len()</code>
+</div>
+</section>
+
+<section>
+<h2>1. 기초생물학 개념 20개와 파이썬 코드</h2>
+<div class="concept"><h3>1. 세포 수 증가</h3><p>세포는 분열을 통해 개수가 증가할 수 있습니다.</p><pre><code>cells = 1  # 처음 세포 수
+division = 5  # 분열 횟수
+
+for i in range(division):  # 분열 횟수만큼 반복한다.
+    cells *= 2  # 한 번 분열할 때마다 세포 수가 2배가 된다.
+
+print(&quot;최종 세포 수 =&quot;, cells)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. cells = 1: 처음 세포 수를 1개로 둡니다.<br>2. division = 5: 세포 분열을 5번 한다고 정합니다.<br>3. for i in range(division): 5번 반복합니다.<br>4. cells *= 2: 세포 수를 2배로 늘립니다.<br>5. print(): 최종 세포 수를 출력합니다.<br></div></div><div class="concept"><h3>2. DNA 염기 개수 세기</h3><p>DNA는 A, T, G, C 네 종류의 염기로 이루어져 있습니다.</p><pre><code>dna = &quot;ATGCGATTA&quot;  # DNA 염기서열
+
+a = dna.count(&quot;A&quot;)  # A의 개수
+t = dna.count(&quot;T&quot;)  # T의 개수
+g = dna.count(&quot;G&quot;)  # G의 개수
+c = dna.count(&quot;C&quot;)  # C의 개수
+
+print(&quot;A:&quot;, a)
+print(&quot;T:&quot;, t)
+print(&quot;G:&quot;, g)
+print(&quot;C:&quot;, c)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. dna: DNA 염기서열을 문자열로 저장합니다.<br>2. count(&#x27;A&#x27;): A가 몇 번 나오는지 셉니다.<br>3. count(&#x27;T&#x27;): T의 개수를 셉니다.<br>4. count(&#x27;G&#x27;): G의 개수를 셉니다.<br>5. count(&#x27;C&#x27;): C의 개수를 셉니다.<br></div></div><div class="concept"><h3>3. DNA 상보적 염기쌍</h3><p>DNA에서 A는 T와, G는 C와 상보적으로 결합합니다.</p><pre><code>dna = &quot;ATGCCGTA&quot;  # 원래 DNA 가닥
+pair = &quot;&quot;  # 상보적 DNA 가닥을 저장할 문자열
+
+for base in dna:  # 염기를 하나씩 확인한다.
+    if base == &quot;A&quot;:
+        pair += &quot;T&quot;
+    elif base == &quot;T&quot;:
+        pair += &quot;A&quot;
+    elif base == &quot;G&quot;:
+        pair += &quot;C&quot;
+    elif base == &quot;C&quot;:
+        pair += &quot;G&quot;
+
+print(&quot;원래 가닥:&quot;, dna)
+print(&quot;상보 가닥:&quot;, pair)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. pair = &#x27;&#x27;: 상보 가닥을 저장할 빈 문자열입니다.<br>2. for base in dna: 염기를 하나씩 꺼냅니다.<br>3. A이면 T를 붙입니다.<br>4. T이면 A를 붙입니다.<br>5. G이면 C, C이면 G를 붙입니다.<br></div></div><div class="concept"><h3>4. RNA 전사</h3><p>DNA의 정보를 RNA로 옮길 때 T 대신 U가 사용됩니다.</p><pre><code>dna = &quot;ATGCTTACG&quot;  # DNA 염기서열
+rna = &quot;&quot;  # RNA 염기서열
+
+for base in dna:
+    if base == &quot;T&quot;:
+        rna += &quot;U&quot;  # DNA의 T는 RNA에서 U로 바뀐다.
+    else:
+        rna += base  # 나머지 염기는 그대로 둔다.
+
+print(&quot;DNA:&quot;, dna)
+print(&quot;RNA:&quot;, rna)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. dna: DNA 염기서열입니다.<br>2. rna: RNA 결과를 저장합니다.<br>3. T이면 U로 바꿉니다.<br>4. 나머지 A, G, C는 그대로 추가합니다.<br>5. 결과 RNA를 출력합니다.<br></div></div><div class="concept"><h3>5. 코돈 나누기</h3><p>RNA는 세 염기씩 묶인 코돈 단위로 해석됩니다.</p><pre><code>rna = &quot;AUGGCUUAA&quot;  # RNA 염기서열
+
+for i in range(0, len(rna), 3):  # 3칸씩 건너뛰며 반복한다.
+    codon = rna[i:i+3]  # 세 글자를 잘라 코돈으로 만든다.
+    print(codon)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. range(0, len(rna), 3): 0부터 시작해 3씩 증가합니다.<br>2. rna[i:i+3]: i부터 i+2까지 세 글자를 자릅니다.<br>3. codon: 세 염기로 된 단위입니다.<br>4. print(codon): 코돈을 출력합니다.<br></div></div><div class="concept"><h3>6. 멘델 유전 확률</h3><p>Aa와 Aa가 교배할 때 유전자형 비율을 계산할 수 있습니다.</p><pre><code>parent1 = [&quot;A&quot;, &quot;a&quot;]  # 첫 번째 부모가 만들 수 있는 생식세포
+parent2 = [&quot;A&quot;, &quot;a&quot;]  # 두 번째 부모가 만들 수 있는 생식세포
+children = []  # 자손 유전자형 저장
+
+for g1 in parent1:
+    for g2 in parent2:
+        children.append(g1 + g2)  # 두 생식세포 조합
+
+print(children)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. parent1: 첫 번째 부모의 생식세포입니다.<br>2. parent2: 두 번째 부모의 생식세포입니다.<br>3. 이중 for문으로 모든 조합을 만듭니다.<br>4. g1 + g2: 자손의 유전자형입니다.<br>5. children 리스트에 저장합니다.<br></div></div><div class="concept"><h3>7. 우성 표현형 비율</h3><p>우성 대립유전자 A가 하나라도 있으면 우성 형질이 나타난다고 가정합니다.</p><pre><code>children = [&quot;AA&quot;, &quot;Aa&quot;, &quot;aA&quot;, &quot;aa&quot;]
+dominant = 0
+
+for genotype in children:
+    if &quot;A&quot; in genotype:  # A가 하나라도 있으면 우성 표현형
+        dominant += 1
+
+ratio = dominant / len(children)
+
+print(&quot;우성 표현형 비율 =&quot;, ratio)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. children: 가능한 자손 유전자형입니다.<br>2. dominant: 우성 표현형 개수입니다.<br>3. &#x27;A&#x27; in genotype: A가 포함되어 있는지 확인합니다.<br>4. dominant += 1: 우성 표현형이면 개수를 늘립니다.<br>5. 비율은 dominant / 전체 개수입니다.<br></div></div><div class="concept"><h3>8. 개체군 증가</h3><p>개체군은 출생과 사망에 따라 증가하거나 감소합니다.</p><pre><code>population = 100  # 처음 개체 수
+birth = 30  # 태어난 개체 수
+death = 10  # 죽은 개체 수
+
+population = population + birth - death  # 개체군 변화
+
+print(&quot;현재 개체 수 =&quot;, population)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. population: 처음 개체 수입니다.<br>2. birth: 새로 태어난 개체 수입니다.<br>3. death: 죽은 개체 수입니다.<br>4. population + birth - death: 개체군 변화를 계산합니다.<br>5. 현재 개체 수를 출력합니다.<br></div></div><div class="concept"><h3>9. 지수적 개체군 증가</h3><p>환경 제한이 없으면 개체군은 일정 비율로 빠르게 증가할 수 있습니다.</p><pre><code>population = 100  # 처음 개체 수
+rate = 0.2  # 증가율 20%
+years = 5  # 기간
+
+for year in range(1, years + 1):
+    population = population * (1 + rate)  # 매년 20% 증가
+    print(year, &quot;년 후:&quot;, int(population))</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. population: 초기 개체 수입니다.<br>2. rate: 증가율입니다.<br>3. years: 관찰 기간입니다.<br>4. population * (1 + rate): 일정 비율로 증가합니다.<br>5. int(): 정수 형태로 보기 쉽게 출력합니다.<br></div></div><div class="concept"><h3>10. 먹이사슬 에너지 전달</h3><p>먹이사슬에서 다음 영양 단계로 전달되는 에너지는 일부입니다.</p><pre><code>energy = 10000  # 생산자의 에너지
+rate = 0.1  # 10%만 다음 단계로 전달
+levels = 4  # 영양 단계 수
+
+for level in range(1, levels + 1):
+    print(level, &quot;단계 에너지:&quot;, energy)
+    energy *= rate  # 다음 단계로 10% 전달</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. energy: 시작 에너지입니다.<br>2. rate: 에너지 전달 효율입니다.<br>3. levels: 영양 단계 수입니다.<br>4. 각 단계의 에너지를 출력합니다.<br>5. energy *= rate: 다음 단계 에너지를 계산합니다.<br></div></div><div class="concept"><h3>11. 효소 반응 속도</h3><p>효소 반응은 기질 농도가 증가하면 반응 속도가 증가하다가 포화됩니다.</p><pre><code>substrate = 10  # 기질 농도
+vmax = 100  # 최대 반응 속도
+km = 5  # 반응 속도가 절반이 되는 농도
+
+velocity = vmax * substrate / (km + substrate)  # 간단한 효소 반응식
+
+print(&quot;반응 속도 =&quot;, velocity)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. substrate: 기질 농도입니다.<br>2. vmax: 최대 반응 속도입니다.<br>3. km: 반응 속도 특성을 나타내는 값입니다.<br>4. velocity: 효소 반응 속도입니다.<br>5. 기질이 많아질수록 속도는 vmax에 가까워집니다.<br></div></div><div class="concept"><h3>12. 확산</h3><p>물질은 농도가 높은 곳에서 낮은 곳으로 이동하는 경향이 있습니다.</p><pre><code>left = 100  # 왼쪽 농도
+right = 20  # 오른쪽 농도
+
+diffusion = (left - right) * 0.1  # 농도 차이의 일부가 이동한다고 가정
+left -= diffusion  # 왼쪽 농도 감소
+right += diffusion  # 오른쪽 농도 증가
+
+print(&quot;왼쪽 농도:&quot;, left)
+print(&quot;오른쪽 농도:&quot;, right)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. left: 왼쪽 농도입니다.<br>2. right: 오른쪽 농도입니다.<br>3. left - right: 농도 차이입니다.<br>4. diffusion: 이동한 양입니다.<br>5. 왼쪽은 줄고 오른쪽은 증가합니다.<br></div></div><div class="concept"><h3>13. 삼투</h3><p>물은 용질 농도가 낮은 곳에서 높은 곳으로 이동합니다.</p><pre><code>inside = 30  # 세포 안 용질 농도
+outside = 80  # 세포 밖 용질 농도
+
+if outside &gt; inside:
+    print(&quot;물이 세포 밖으로 이동&quot;)
+elif outside &lt; inside:
+    print(&quot;물이 세포 안으로 이동&quot;)
+else:
+    print(&quot;물의 순이동 없음&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. inside: 세포 안 용질 농도입니다.<br>2. outside: 세포 밖 용질 농도입니다.<br>3. 밖의 농도가 높으면 물이 밖으로 이동합니다.<br>4. 안의 농도가 높으면 물이 안으로 이동합니다.<br>5. 농도가 같으면 순이동이 없습니다.<br></div></div><div class="concept"><h3>14. 체온 항상성</h3><p>생물은 체내 환경을 일정하게 유지하려고 합니다.</p><pre><code>body_temp = 38.5  # 현재 체온
+normal = 37.0  # 정상 체온
+
+if body_temp &gt; normal:
+    print(&quot;땀을 흘려 체온을 낮춘다.&quot;)
+elif body_temp &lt; normal:
+    print(&quot;몸을 떨어 체온을 높인다.&quot;)
+else:
+    print(&quot;정상 체온 유지&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. body_temp: 현재 체온입니다.<br>2. normal: 정상 체온입니다.<br>3. 현재 체온이 높으면 낮추는 반응이 나타납니다.<br>4. 현재 체온이 낮으면 높이는 반응이 나타납니다.<br>5. 같으면 정상 상태입니다.<br></div></div><div class="concept"><h3>15. 혈당 조절</h3><p>혈당은 인슐린과 글루카곤 등에 의해 조절됩니다.</p><pre><code>blood_sugar = 160  # 혈당 수치
+normal = 100  # 기준 혈당
+
+if blood_sugar &gt; normal:
+    print(&quot;인슐린 분비 증가&quot;)
+elif blood_sugar &lt; normal:
+    print(&quot;글루카곤 분비 증가&quot;)
+else:
+    print(&quot;혈당 정상&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. blood_sugar: 현재 혈당입니다.<br>2. normal: 기준 혈당입니다.<br>3. 혈당이 높으면 인슐린이 증가합니다.<br>4. 혈당이 낮으면 글루카곤이 증가합니다.<br>5. 혈당이 기준과 같으면 정상입니다.<br></div></div><div class="concept"><h3>16. 심박수 평균</h3><p>여러 번 측정한 심박수의 평균을 계산할 수 있습니다.</p><pre><code>heart_rates = [72, 75, 70, 78, 74]  # 측정한 심박수
+total = 0
+
+for h in heart_rates:
+    total += h  # 심박수를 모두 더한다.
+
+average = total / len(heart_rates)  # 평균 계산
+
+print(&quot;평균 심박수 =&quot;, average)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. heart_rates: 여러 번 측정한 심박수입니다.<br>2. total: 합계를 저장합니다.<br>3. for h in heart_rates: 값을 하나씩 꺼냅니다.<br>4. average: 합계를 개수로 나눈 값입니다.<br>5. 평균 심박수를 출력합니다.<br></div></div><div class="concept"><h3>17. 돌연변이 찾기</h3><p>DNA 염기서열에서 원래 서열과 다른 위치를 찾을 수 있습니다.</p><pre><code>normal = &quot;ATGCCGTA&quot;  # 정상 DNA
+mutant = &quot;ATGACGTA&quot;  # 변이 DNA
+
+for i in range(len(normal)):
+    if normal[i] != mutant[i]:  # 같은 위치의 염기가 다르면
+        print(i + 1, &quot;번째 염기 변이:&quot;, normal[i], &quot;-&gt;&quot;, mutant[i])</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. normal: 정상 DNA입니다.<br>2. mutant: 변이 DNA입니다.<br>3. range(len(normal)): 모든 위치를 검사합니다.<br>4. normal[i] != mutant[i]: 염기가 다른지 확인합니다.<br>5. 다른 위치와 변화 내용을 출력합니다.<br></div></div><div class="concept"><h3>18. GC 함량</h3><p>DNA에서 G와 C의 비율은 생물학적 특성을 이해하는 데 사용됩니다.</p><pre><code>dna = &quot;ATGCGCGTTA&quot;  # DNA 염기서열
+
+g = dna.count(&quot;G&quot;)  # G 개수
+c = dna.count(&quot;C&quot;)  # C 개수
+gc = (g + c) / len(dna) * 100  # GC 함량 백분율
+
+print(&quot;GC 함량 =&quot;, gc, &quot;%&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. G와 C의 개수를 각각 셉니다.<br>2. g + c: GC 염기의 총개수입니다.<br>3. len(dna): 전체 염기 수입니다.<br>4. 비율에 100을 곱해 백분율로 만듭니다.<br>5. GC 함량을 출력합니다.<br></div></div><div class="concept"><h3>19. 생존율</h3><p>생존율은 처음 개체 중 살아남은 개체의 비율입니다.</p><pre><code>start = 200  # 처음 개체 수
+survived = 150  # 살아남은 개체 수
+
+survival_rate = survived / start * 100  # 생존율 계산
+
+print(&quot;생존율 =&quot;, survival_rate, &quot;%&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. start: 처음 개체 수입니다.<br>2. survived: 살아남은 개체 수입니다.<br>3. survived / start: 생존 비율입니다.<br>4. 100을 곱해 퍼센트로 나타냅니다.<br>5. 생존율을 출력합니다.<br></div></div><div class="concept"><h3>20. 광합성 산물 계산</h3><p>광합성은 빛을 이용해 이산화탄소와 물로 포도당을 만드는 과정입니다.</p><pre><code>co2 = 6  # 이산화탄소 분자 수
+water = 6  # 물 분자 수
+
+if co2 &gt;= 6 and water &gt;= 6:
+    glucose = min(co2 // 6, water // 6)  # 만들 수 있는 포도당 분자 수
+    print(&quot;포도당 생성 가능:&quot;, glucose, &quot;개&quot;)
+else:
+    print(&quot;재료 부족&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. co2: 이산화탄소 개수입니다.<br>2. water: 물 개수입니다.<br>3. 포도당 1개에는 CO2 6개와 물 6개가 필요하다고 단순화합니다.<br>4. //는 만들 수 있는 묶음 수를 계산합니다.<br>5. min(): 부족한 재료를 기준으로 생성량을 정합니다.<br></div></div>
+</section>
+
+<section>
+<h2>2. OX 개념 퀴즈 10개</h2>
+<div class="quiz">1. DNA는 A, T, G, C 네 종류의 염기로 이루어진다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">2. DNA에서 A는 G와 상보적으로 결합한다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">3. RNA에서는 T 대신 U가 사용된다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">4. 코돈은 보통 염기 3개로 이루어진다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">5. 세포 분열을 한 번 하면 세포 수가 항상 3배가 된다고 단순화한다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">6. 개체군은 출생과 사망에 의해 변할 수 있다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">7. 먹이사슬에서 에너지는 다음 단계로 100% 모두 전달된다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">8. 항상성은 몸속 환경을 일정하게 유지하려는 성질이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">9. GC 함량은 DNA에서 G와 C가 차지하는 비율이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">10. 생존율은 살아남은 개체 수를 처음 개체 수로 나누어 구할 수 있다.<br><span class="answer">정답: O</span></div>
+</section>
+
+<section>
+<h2>3. 5지선다형 문제 10개</h2>
+
+<div class="quiz"><b>1. DNA의 염기가 아닌 것은?</b><br>
+① A ② T ③ G ④ C ⑤ U<br>
+<span class="answer">정답: ⑤ U</span></div>
+
+<div class="quiz"><b>2. DNA에서 A와 상보적으로 결합하는 염기는?</b><br>
+① A ② T ③ G ④ C ⑤ U<br>
+<span class="answer">정답: ② T</span></div>
+
+<div class="quiz"><b>3. RNA 전사에서 DNA의 T는 무엇으로 바뀌는가?</b><br>
+① A ② T ③ G ④ C ⑤ U<br>
+<span class="answer">정답: ⑤ U</span></div>
+
+<div class="quiz"><b>4. 코돈은 보통 몇 개의 염기로 이루어지는가?</b><br>
+① 1개 ② 2개 ③ 3개 ④ 4개 ⑤ 5개<br>
+<span class="answer">정답: ③ 3개</span></div>
+
+<div class="quiz"><b>5. Aa와 Aa의 교배에서 가능한 자손 유전자형으로 알맞지 않은 것은?</b><br>
+① AA ② Aa ③ aA ④ aa ⑤ GG<br>
+<span class="answer">정답: ⑤ GG</span></div>
+
+<div class="quiz"><b>6. 개체군 변화를 계산하는 기본 식으로 가장 알맞은 것은?</b><br>
+① 처음 개체 수 + 출생 - 사망 ② 처음 개체 수 - 출생 - 사망 ③ 출생 ÷ 사망 ④ 사망 ÷ 출생 ⑤ 처음 개체 수 × 0<br>
+<span class="answer">정답: ① 처음 개체 수 + 출생 - 사망</span></div>
+
+<div class="quiz"><b>7. 먹이사슬 에너지 전달에서 일반적으로 다음 단계로 전달되는 에너지는?</b><br>
+① 전부 ② 일부 ③ 항상 0 ④ 항상 50배 ⑤ 무한대<br>
+<span class="answer">정답: ② 일부</span></div>
+
+<div class="quiz"><b>8. 혈당이 높을 때 분비가 증가하는 호르몬은?</b><br>
+① 인슐린 ② 글루카곤 ③ 아드레날린 ④ 멜라토닌 ⑤ 티록신<br>
+<span class="answer">정답: ① 인슐린</span></div>
+
+<div class="quiz"><b>9. GC 함량 계산에 필요한 염기는?</b><br>
+① A와 T ② A와 G ③ G와 C ④ T와 U ⑤ A와 U<br>
+<span class="answer">정답: ③ G와 C</span></div>
+
+<div class="quiz"><b>10. 생존율 공식으로 알맞은 것은?</b><br>
+① 처음 개체 수 ÷ 살아남은 개체 수 × 100 ② 살아남은 개체 수 ÷ 처음 개체 수 × 100 ③ 죽은 개체 수 × 처음 개체 수 ④ 출생 수 ÷ 사망 수 ⑤ GC ÷ AT<br>
+<span class="answer">정답: ② 살아남은 개체 수 ÷ 처음 개체 수 × 100</span></div>
+
+</section>
+
+<section>
+<h2>4. 수업 정리</h2>
+<div class="note">
+생물학 개념도 파이썬으로 간단히 모의실험할 수 있습니다.<br><br>
+<b>핵심 코드 패턴</b><br>
+· DNA 염기 개수: <code>dna.count("A")</code><br>
+· RNA 전사: <code>T → U</code><br>
+· 코돈 나누기: <code>range(0, len(rna), 3)</code><br>
+· 개체군 변화: <code>population + birth - death</code><br>
+· 생존율: <code>survived / start * 100</code>
+</div>
+</section>
+
+</body>
+</html>
