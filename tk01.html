@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Tkinter n각형 넓이 구하기 OOP 코드 상세 설명</title>
+<style>
+    body {
+        font-family: "Malgun Gothic", Arial, sans-serif;
+        line-height: 1.75;
+        background: #f4f7fb;
+        color: #222;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        padding: 35px;
+        text-align: center;
+    }
+    section {
+        max-width: 1100px;
+        margin: 30px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+    h1, h2, h3 {
+        color: #1e3c72;
+    }
+    header h1 {
+        color: white;
+    }
+    pre {
+        background: #1e1e1e;
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        overflow-x: auto;
+        font-size: 15px;
+        line-height: 1.55;
+    }
+    code {
+        font-family: Consolas, monospace;
+    }
+    .line-box {
+        border-left: 6px solid #2a5298;
+        background: #eef4ff;
+        padding: 15px 20px;
+        margin: 14px 0;
+        border-radius: 10px;
+    }
+    .question {
+        background: #fff8e6;
+        border-left: 6px solid #f0a500;
+        padding: 15px;
+        margin: 14px 0;
+        border-radius: 10px;
+    }
+    .answer {
+        color: #0b6b2b;
+        font-weight: bold;
+    }
+    .note {
+        background: #e9f8ef;
+        border-left: 6px solid #2ea44f;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    th {
+        background: #eaf0ff;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Tkinter OOP n각형 넓이 구하기</h1>
+    <p>좌표평면 클릭 → 점 표시 → 넓이 버튼 → 신발끈 공식 계산 과정 출력</p>
+</header>
+
+<section>
+<h2>1. 전체 파이썬 코드</h2>
+<pre><code>import tkinter as tk
+
+
+class PolygonAreaApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("n각형 넓이 구하기")
+
+        self.w = 600
+        self.h = 600
+        self.scale = 20
+        self.points = []
+
+        self.canvas = tk.Canvas(root, width=self.w, height=self.h, bg="white")
+        self.canvas.pack(side=tk.LEFT)
+
+        self.text = tk.Text(root, width=45, height=35)
+        self.text.pack(side=tk.RIGHT)
+
+        self.btn_area = tk.Button(root, text="넓이 구하기", command=self.show_area)
+        self.btn_area.pack()
+
+        self.btn_clear = tk.Button(root, text="초기화", command=self.clear)
+        self.btn_clear.pack()
+
+        self.draw_plane()
+        self.canvas.bind("&lt;Button-1&gt;", self.add_point)
+
+    def to_screen(self, x, y):
+        sx = self.w / 2 + x * self.scale
+        sy = self.h / 2 - y * self.scale
+        return sx, sy
+
+    def to_math(self, sx, sy):
+        x = (sx - self.w / 2) / self.scale
+        y = (self.h / 2 - sy) / self.scale
+        return round(x, 2), round(y, 2)
+
+    def draw_plane(self):
+        self.canvas.create_line(0, self.h / 2, self.w, self.h / 2, fill="black")
+        self.canvas.create_line(self.w / 2, 0, self.w / 2, self.h, fill="black")
+
+        for i in range(0, self.w, self.scale):
+            self.canvas.create_line(i, 0, i, self.h, fill="#eeeeee")
+
+        for i in range(0, self.h, self.scale):
+            self.canvas.create_line(0, i, self.w, i, fill="#eeeeee")
+
+        self.canvas.create_text(self.w / 2 + 15, self.h / 2 + 15, text="O")
+
+    def add_point(self, event):
+        x, y = self.to_math(event.x, event.y)
+        self.points.append((x, y))
+
+        sx, sy = self.to_screen(x, y)
+        num = len(self.points)
+
+        self.canvas.create_oval(sx - 4, sy - 4, sx + 4, sy + 4, fill="red")
+
+        self.canvas.create_text(
+            sx + 35,
+            sy - 10,
+            text=f"P{num}({x}, {y})",
+            fill="blue"
+        )
+
+        if len(self.points) >= 2:
+            x1, y1 = self.points[-2]
+            x2, y2 = self.points[-1]
+            sx1, sy1 = self.to_screen(x1, y1)
+            sx2, sy2 = self.to_screen(x2, y2)
+            self.canvas.create_line(sx1, sy1, sx2, sy2, fill="green", width=2)
+
+        self.text.insert(tk.END, f"P{num} = ({x}, {y})\n")
+
+    def show_area(self):
+        if len(self.points) < 3:
+            self.text.insert(tk.END, "\n점은 3개 이상 필요합니다.\n")
+            return
+
+        x1, y1 = self.points[-1]
+        x2, y2 = self.points[0]
+        sx1, sy1 = self.to_screen(x1, y1)
+        sx2, sy2 = self.to_screen(x2, y2)
+        self.canvas.create_line(sx1, sy1, sx2, sy2, fill="green", width=2)
+
+        self.text.insert(tk.END, "\n[신발끈 공식 계산 과정]\n")
+
+        sum1 = 0
+        sum2 = 0
+        n = len(self.points)
+
+        for i in range(n):
+            x1, y1 = self.points[i]
+            x2, y2 = self.points[(i + 1) % n]
+
+            t1 = x1 * y2
+            t2 = y1 * x2
+
+            self.text.insert(tk.END, f"\nP{i+1} → P{(i+1)%n+1}\n")
+            self.text.insert(tk.END, f"{x1} × {y2} = {t1}\n")
+            self.text.insert(tk.END, f"{y1} × {x2} = {t2}\n")
+
+            sum1 += t1
+            sum2 += t2
+
+        area = abs(sum1 - sum2) / 2
+
+        self.text.insert(tk.END, "\n[합 계산]\n")
+        self.text.insert(tk.END, f"앞쪽 합 = {sum1}\n")
+        self.text.insert(tk.END, f"뒤쪽 합 = {sum2}\n")
+
+        self.text.insert(tk.END, "\n[넓이 계산]\n")
+        self.text.insert(tk.END, f"넓이 = |{sum1} - {sum2}| / 2\n")
+        self.text.insert(tk.END, f"n각형의 넓이 = {area}\n")
+
+    def clear(self):
+        self.points.clear()
+        self.canvas.delete("all")
+        self.text.delete("1.0", tk.END)
+        self.draw_plane()
+
+
+root = tk.Tk()
+app = PolygonAreaApp(root)
+root.mainloop()</code></pre>
+</section>
+
+<section>
+<h2>2. 한 줄씩 코드 상세 설명</h2>
+
+<div class="line-box"><b>import tkinter as tk</b><br>tkinter 라이브러리를 불러옵니다. GUI 창, 버튼, 캔버스, 텍스트 창을 만들 수 있습니다. <code>tk</code>라는 짧은 이름으로 사용합니다.</div>
+
+<div class="line-box"><b>class PolygonAreaApp:</b><br>n각형 넓이 구하기 프로그램 전체를 하나의 클래스로 만듭니다. 이것이 객체지향 구조입니다.</div>
+
+<div class="line-box"><b>def __init__(self, root):</b><br>객체가 만들어질 때 자동으로 실행되는 생성자입니다. 프로그램의 기본 화면과 변수를 준비합니다.</div>
+
+<div class="line-box"><b>self.root = root</b><br>메인 윈도우를 객체 안에 저장합니다.</div>
+
+<div class="line-box"><b>self.root.title("n각형 넓이 구하기")</b><br>프로그램 창의 제목을 설정합니다.</div>
+
+<div class="line-box"><b>self.w = 600 / self.h = 600</b><br>좌표평면을 그릴 캔버스의 가로와 세로 크기를 600픽셀로 정합니다.</div>
+
+<div class="line-box"><b>self.scale = 20</b><br>수학 좌표 1칸을 화면에서 20픽셀로 표현합니다.</div>
+
+<div class="line-box"><b>self.points = []</b><br>사용자가 클릭한 점들의 좌표를 저장하는 리스트입니다.</div>
+
+<div class="line-box"><b>self.canvas = tk.Canvas(...)</b><br>좌표평면과 점, 선을 그릴 캔버스를 만듭니다.</div>
+
+<div class="line-box"><b>self.canvas.pack(side=tk.LEFT)</b><br>캔버스를 창의 왼쪽에 배치합니다.</div>
+
+<div class="line-box"><b>self.text = tk.Text(...)</b><br>계산 과정과 결과를 보여줄 텍스트 상자를 만듭니다.</div>
+
+<div class="line-box"><b>self.text.pack(side=tk.RIGHT)</b><br>텍스트 상자를 창의 오른쪽에 배치합니다.</div>
+
+<div class="line-box"><b>self.btn_area = tk.Button(...)</b><br>“넓이 구하기” 버튼을 만듭니다. 버튼을 누르면 <code>show_area</code> 메서드가 실행됩니다.</div>
+
+<div class="line-box"><b>self.btn_clear = tk.Button(...)</b><br>“초기화” 버튼을 만듭니다. 버튼을 누르면 <code>clear</code> 메서드가 실행됩니다.</div>
+
+<div class="line-box"><b>self.draw_plane()</b><br>처음 화면에 좌표축과 격자를 그립니다.</div>
+
+<div class="line-box"><b>self.canvas.bind("&lt;Button-1&gt;", self.add_point)</b><br>마우스 왼쪽 버튼을 클릭하면 <code>add_point</code> 메서드가 실행되도록 연결합니다.</div>
+
+<div class="line-box"><b>def to_screen(self, x, y):</b><br>수학 좌표를 화면 좌표로 바꾸는 함수입니다.</div>
+
+<div class="line-box"><b>sx = self.w / 2 + x * self.scale</b><br>수학 좌표의 x값을 화면 x좌표로 변환합니다. 화면 가운데가 원점입니다.</div>
+
+<div class="line-box"><b>sy = self.h / 2 - y * self.scale</b><br>수학 좌표의 y값을 화면 y좌표로 변환합니다. 화면은 아래쪽이 양수이므로 y를 빼 줍니다.</div>
+
+<div class="line-box"><b>return sx, sy</b><br>변환된 화면 좌표를 반환합니다.</div>
+
+<div class="line-box"><b>def to_math(self, sx, sy):</b><br>화면 좌표를 수학 좌표로 바꾸는 함수입니다.</div>
+
+<div class="line-box"><b>x = (sx - self.w / 2) / self.scale</b><br>화면 x좌표를 수학 x좌표로 바꿉니다.</div>
+
+<div class="line-box"><b>y = (self.h / 2 - sy) / self.scale</b><br>화면 y좌표를 수학 y좌표로 바꿉니다.</div>
+
+<div class="line-box"><b>return round(x, 2), round(y, 2)</b><br>소수 둘째 자리까지 반올림해서 좌표를 반환합니다.</div>
+
+<div class="line-box"><b>def draw_plane(self):</b><br>좌표평면을 그리는 메서드입니다.</div>
+
+<div class="line-box"><b>create_line(...)</b><br>가로축과 세로축을 검은색 선으로 그립니다.</div>
+
+<div class="line-box"><b>for i in range(...)</b><br>반복문으로 세로 격자선과 가로 격자선을 그립니다.</div>
+
+<div class="line-box"><b>create_text(..., text="O")</b><br>좌표평면의 원점을 O로 표시합니다.</div>
+
+<div class="line-box"><b>def add_point(self, event):</b><br>사용자가 캔버스를 클릭했을 때 실행되는 메서드입니다. 클릭 위치 정보는 <code>event</code>에 들어 있습니다.</div>
+
+<div class="line-box"><b>x, y = self.to_math(event.x, event.y)</b><br>클릭한 화면 좌표를 수학 좌표로 변환합니다.</div>
+
+<div class="line-box"><b>self.points.append((x, y))</b><br>변환된 좌표를 점 리스트에 추가합니다.</div>
+
+<div class="line-box"><b>num = len(self.points)</b><br>현재 점이 몇 번째 점인지 구합니다.</div>
+
+<div class="line-box"><b>create_oval(..., fill="red")</b><br>클릭한 위치에 빨간 점을 찍습니다.</div>
+
+<div class="line-box"><b>create_text(...)</b><br>점 옆에 P1, P2 같은 이름과 좌표를 표시합니다.</div>
+
+<div class="line-box"><b>if len(self.points) &gt;= 2:</b><br>점이 2개 이상이면 이전 점과 현재 점을 선으로 연결합니다.</div>
+
+<div class="line-box"><b>self.points[-2], self.points[-1]</b><br><code>-2</code>는 바로 이전 점, <code>-1</code>은 마지막으로 클릭한 점입니다.</div>
+
+<div class="line-box"><b>create_line(..., fill="green")</b><br>두 점 사이를 초록색 선으로 연결합니다.</div>
+
+<div class="line-box"><b>self.text.insert(tk.END, ...)</b><br>오른쪽 텍스트 창의 끝부분에 좌표 정보를 추가합니다.</div>
+
+<div class="line-box"><b>def show_area(self):</b><br>넓이 구하기 버튼을 눌렀을 때 실행되는 메서드입니다.</div>
+
+<div class="line-box"><b>if len(self.points) &lt; 3:</b><br>점이 3개 미만이면 다각형을 만들 수 없으므로 경고문을 출력합니다.</div>
+
+<div class="line-box"><b>self.points[-1] / self.points[0]</b><br>마지막 점과 첫 번째 점을 가져옵니다.</div>
+
+<div class="line-box"><b>마지막 점과 첫 점 연결</b><br>다각형을 완성하기 위해 마지막 점에서 첫 번째 점까지 선을 그립니다.</div>
+
+<div class="line-box"><b>sum1 = 0 / sum2 = 0</b><br>신발끈 공식의 앞쪽 합과 뒤쪽 합을 저장할 변수입니다.</div>
+
+<div class="line-box"><b>n = len(self.points)</b><br>현재 점의 개수를 n으로 저장합니다.</div>
+
+<div class="line-box"><b>for i in range(n):</b><br>모든 점을 하나씩 돌면서 다음 점과 곱셈을 계산합니다.</div>
+
+<div class="line-box"><b>self.points[(i + 1) % n]</b><br>다음 점을 의미합니다. 마지막 점 다음에는 첫 번째 점으로 돌아갑니다.</div>
+
+<div class="line-box"><b>t1 = x1 * y2</b><br>신발끈 공식의 앞쪽 곱을 계산합니다.</div>
+
+<div class="line-box"><b>t2 = y1 * x2</b><br>신발끈 공식의 뒤쪽 곱을 계산합니다.</div>
+
+<div class="line-box"><b>sum1 += t1 / sum2 += t2</b><br>계산한 값을 각각 앞쪽 합과 뒤쪽 합에 더합니다.</div>
+
+<div class="line-box"><b>area = abs(sum1 - sum2) / 2</b><br>신발끈 공식으로 n각형의 넓이를 구합니다. 절댓값을 사용해 넓이를 양수로 만듭니다.</div>
+
+<div class="line-box"><b>def clear(self):</b><br>초기화 버튼을 눌렀을 때 실행됩니다.</div>
+
+<div class="line-box"><b>self.points.clear()</b><br>저장된 점 좌표를 모두 삭제합니다.</div>
+
+<div class="line-box"><b>self.canvas.delete("all")</b><br>캔버스에 그려진 모든 그림을 지웁니다.</div>
+
+<div class="line-box"><b>self.text.delete("1.0", tk.END)</b><br>텍스트 창의 내용을 모두 지웁니다.</div>
+
+<div class="line-box"><b>root = tk.Tk()</b><br>Tkinter 메인 창을 생성합니다.</div>
+
+<div class="line-box"><b>app = PolygonAreaApp(root)</b><br>프로그램 객체를 생성합니다.</div>
+
+<div class="line-box"><b>root.mainloop()</b><br>창이 계속 실행되도록 이벤트 반복 상태에 들어갑니다.</div>
+
+</section>
+
+<section>
+<h2>3. 핵심 수학 개념: 신발끈 공식</h2>
+<div class="note">
+n개의 점이 클릭 순서대로 주어졌을 때, n각형의 넓이는 다음 방식으로 계산합니다.
+<br><br>
+<b>넓이 = |앞쪽 곱의 합 - 뒤쪽 곱의 합| ÷ 2</b>
+<br><br>
+앞쪽 곱: x₁y₂ + x₂y₃ + ... + xₙy₁<br>
+뒤쪽 곱: y₁x₂ + y₂x₃ + ... + yₙx₁
+</div>
+</section>
+
+<section>
+<h2>4. OX 개념 퀴즈 10개</h2>
+
+<div class="question">1. Tkinter에서 Canvas는 그림을 그릴 수 있는 공간이다. <br><span class="answer">정답: O</span></div>
+<div class="question">2. 이 코드에서 점이 2개만 있어도 n각형의 넓이를 구할 수 있다. <br><span class="answer">정답: X</span></div>
+<div class="question">3. <code>self.points</code>는 클릭한 점들의 좌표를 저장하는 리스트이다. <br><span class="answer">정답: O</span></div>
+<div class="question">4. <code>self.points[-1]</code>은 첫 번째 점을 의미한다. <br><span class="answer">정답: X</span></div>
+<div class="question">5. <code>self.points[0]</code>은 첫 번째 점을 의미한다. <br><span class="answer">정답: O</span></div>
+<div class="question">6. <code>abs()</code>는 넓이가 음수로 나오는 것을 방지한다. <br><span class="answer">정답: O</span></div>
+<div class="question">7. <code>bind("&lt;Button-1&gt;", ...)</code>는 마우스 왼쪽 클릭 이벤트를 연결한다. <br><span class="answer">정답: O</span></div>
+<div class="question">8. <code>to_screen()</code>은 화면 좌표를 수학 좌표로 바꾸는 함수이다. <br><span class="answer">정답: X</span></div>
+<div class="question">9. <code>(i + 1) % n</code>은 마지막 점 다음에 첫 번째 점으로 돌아가기 위해 사용한다. <br><span class="answer">정답: O</span></div>
+<div class="question">10. <code>clear()</code> 메서드는 좌표평면, 점, 텍스트 내용을 초기화한다. <br><span class="answer">정답: O</span></div>
+
+</section>
+
+<section>
+<h2>5. 5지선다형 문제 10개</h2>
+
+<div class="question">
+<b>1. 이 코드에서 프로그램 전체를 관리하는 클래스 이름은?</b><br>
+① CanvasApp ② TkArea ③ PolygonAreaApp ④ PointApp ⑤ AreaButton<br>
+<span class="answer">정답: ③ PolygonAreaApp</span>
+</div>
+
+<div class="question">
+<b>2. 클릭한 점들의 좌표를 저장하는 변수는?</b><br>
+① self.root ② self.points ③ self.canvas ④ self.scale ⑤ self.text<br>
+<span class="answer">정답: ② self.points</span>
+</div>
+
+<div class="question">
+<b>3. 수학 좌표를 화면 좌표로 변환하는 메서드는?</b><br>
+① to_math ② to_screen ③ draw_plane ④ clear ⑤ show_area<br>
+<span class="answer">정답: ② to_screen</span>
+</div>
+
+<div class="question">
+<b>4. 화면 좌표를 수학 좌표로 변환하는 메서드는?</b><br>
+① to_math ② to_screen ③ insert ④ pack ⑤ bind<br>
+<span class="answer">정답: ① to_math</span>
+</div>
+
+<div class="question">
+<b>5. n각형 넓이 계산에 사용된 공식은?</b><br>
+① 피타고라스 정리 ② 근의 공식 ③ 신발끈 공식 ④ 등차수열 합 공식 ⑤ 원의 넓이 공식<br>
+<span class="answer">정답: ③ 신발끈 공식</span>
+</div>
+
+<div class="question">
+<b>6. 다음 코드의 역할은?<br><code>self.canvas.bind("&lt;Button-1&gt;", self.add_point)</code></b><br>
+① 창 종료 ② 좌표축 삭제 ③ 왼쪽 클릭 시 점 추가 ④ 넓이 계산 ⑤ 텍스트 초기화<br>
+<span class="answer">정답: ③ 왼쪽 클릭 시 점 추가</span>
+</div>
+
+<div class="question">
+<b>7. 다음 코드의 의미로 가장 알맞은 것은?<br><code>self.points[(i + 1) % n]</code></b><br>
+① 이전 점 선택 ② 다음 점 선택, 마지막 다음은 첫 점 ③ 모든 점 삭제 ④ 점 개수 계산 ⑤ 좌표 반올림<br>
+<span class="answer">정답: ② 다음 점 선택, 마지막 다음은 첫 점</span>
+</div>
+
+<div class="question">
+<b>8. 점이 3개 미만일 때 넓이를 계산하지 않는 이유는?</b><br>
+① 좌표가 너무 커서 ② 선을 그릴 수 없어서 ③ 다각형을 만들 수 없어서 ④ 색이 없어서 ⑤ 버튼이 없어서<br>
+<span class="answer">정답: ③ 다각형을 만들 수 없어서</span>
+</div>
+
+<div class="question">
+<b>9. <code>area = abs(sum1 - sum2) / 2</code>에서 <code>abs</code>를 쓰는 이유는?</b><br>
+① 소수를 정수로 바꾸려고 ② 음수를 양수로 바꾸려고 ③ 좌표를 삭제하려고 ④ 버튼을 만들려고 ⑤ 글자를 출력하려고<br>
+<span class="answer">정답: ② 음수를 양수로 바꾸려고</span>
+</div>
+
+<div class="question">
+<b>10. <code>clear()</code> 메서드가 하는 일로 옳지 않은 것은?</b><br>
+① 점 리스트 삭제 ② 캔버스 그림 삭제 ③ 텍스트 삭제 ④ 좌표평면 다시 그림 ⑤ 프로그램 창 완전 종료<br>
+<span class="answer">정답: ⑤ 프로그램 창 완전 종료</span>
+</div>
+
+</section>
+
+<section>
+<h2>6. 수업 정리</h2>
+<div class="note">
+이 프로그램은 파이썬의 객체지향 개념과 수학의 좌표평면, 다각형 넓이 공식을 함께 학습할 수 있는 예제입니다.
+<br><br>
+핵심 문법: <code>class</code>, <code>__init__</code>, <code>self</code>, <code>list</code>, <code>for</code>, <code>if</code>, <code>Canvas</code>, <code>Button</code>, <code>Text</code>
+<br>
+핵심 수학: 좌표평면, 점의 좌표, n각형, 신발끈 공식, 절댓값
+</div>
+</section>
+
+</body>
+</html>
