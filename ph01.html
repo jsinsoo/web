@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>기초물리학 개념 20개 파이썬 수업자료</title>
+<style>
+body{margin:0;font-family:"Malgun Gothic",Arial,sans-serif;background:#f4f7fb;color:#222;line-height:1.75}
+header{background:linear-gradient(135deg,#0f172a,#2563eb);color:white;text-align:center;padding:40px 24px}
+header h1{margin:0;font-size:32px}
+header p{font-size:17px}
+section{max-width:1150px;margin:28px auto;background:white;padding:30px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h2{color:#1d4ed8;border-bottom:3px solid #dbeafe;padding-bottom:8px}
+h3{color:#1e40af}
+pre{background:#111827;color:#f9fafb;padding:18px;border-radius:12px;overflow-x:auto;font-size:15px;line-height:1.55}
+code{font-family:Consolas,monospace}
+.concept{border-left:7px solid #2563eb;background:#eff6ff;padding:18px;margin:24px 0;border-radius:12px}
+.explain{background:#fff7ed;border-left:7px solid #f97316;padding:15px;border-radius:10px;margin-top:12px}
+.quiz{background:#f8fafc;border-left:7px solid #7c3aed;padding:15px;margin:14px 0;border-radius:10px}
+.answer{color:#047857;font-weight:bold}
+.note{background:#ecfdf5;border-left:7px solid #10b981;padding:18px;border-radius:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>기초물리학 개념 20개와 파이썬 코드</h1>
+<p>주석 포함 코드 · 한 줄씩 상세 설명 · OX 개념 퀴즈 · 5지선다형 문제</p>
+</header>
+
+<section>
+<h2>학습 목표</h2>
+<div class="note">
+이 수업자료는 <b>기초물리학 개념</b>을 파이썬 기본 문법으로 계산하고 이해하는 자료입니다.<br>
+사용 문법: <code>변수</code>, <code>사칙연산</code>, <code>거듭제곱 **</code>, <code>print()</code>, <code>if</code>, <code>for</code>
+</div>
+</section>
+
+<section>
+<h2>1. 기초물리학 개념 20개와 파이썬 코드</h2>
+<div class="concept"><h3>1. 속력</h3><p>속력은 이동 거리를 걸린 시간으로 나눈 값입니다.</p><pre><code>distance = 100  # 이동 거리, 단위: m
+time = 20  # 걸린 시간, 단위: s
+
+speed = distance / time  # 속력 = 거리 / 시간
+
+print(&quot;속력 =&quot;, speed, &quot;m/s&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. distance = 100: 이동 거리를 100m로 저장합니다.<br>2. time = 20: 걸린 시간을 20초로 저장합니다.<br>3. speed = distance / time: 속력 공식을 적용합니다.<br>4. print(): 계산된 속력을 출력합니다.<br></div></div><div class="concept"><h3>2. 속도</h3><p>속도는 변위와 방향을 함께 가지는 물리량입니다.</p><pre><code>position1 = 2  # 처음 위치, 단위: m
+position2 = 12  # 나중 위치, 단위: m
+time = 5  # 걸린 시간, 단위: s
+
+displacement = position2 - position1  # 변위 = 나중 위치 - 처음 위치
+velocity = displacement / time  # 속도 = 변위 / 시간
+
+print(&quot;변위 =&quot;, displacement, &quot;m&quot;)
+print(&quot;속도 =&quot;, velocity, &quot;m/s&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. position1: 처음 위치입니다.<br>2. position2: 나중 위치입니다.<br>3. displacement: 위치 변화량입니다.<br>4. velocity: 변위를 시간으로 나눈 값입니다.<br></div></div><div class="concept"><h3>3. 가속도</h3><p>가속도는 속도가 시간에 따라 얼마나 변하는지를 나타냅니다.</p><pre><code>v1 = 0  # 처음 속도, 단위: m/s
+v2 = 20  # 나중 속도, 단위: m/s
+time = 4  # 걸린 시간, 단위: s
+
+acceleration = (v2 - v1) / time  # 가속도 = 속도 변화량 / 시간
+
+print(&quot;가속도 =&quot;, acceleration, &quot;m/s^2&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. v1: 처음 속도입니다.<br>2. v2: 나중 속도입니다.<br>3. v2 - v1: 속도 변화량입니다.<br>4. acceleration: 속도 변화량을 시간으로 나눈 값입니다.<br></div></div><div class="concept"><h3>4. 등가속도 운동 거리</h3><p>처음 속도와 가속도가 일정할 때 이동 거리를 구할 수 있습니다.</p><pre><code>v0 = 5  # 처음 속도, 단위: m/s
+a = 2  # 가속도, 단위: m/s^2
+t = 4  # 시간, 단위: s
+
+s = v0 * t + 0.5 * a * t ** 2  # 등가속도 운동 거리 공식
+
+print(&quot;이동 거리 =&quot;, s, &quot;m&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. v0: 처음 속도입니다.<br>2. a: 일정한 가속도입니다.<br>3. t: 운동 시간입니다.<br>4. s = v0*t + 0.5*a*t**2: 등가속도 거리 공식입니다.<br></div></div><div class="concept"><h3>5. 힘</h3><p>힘은 질량과 가속도의 곱입니다.</p><pre><code>mass = 10  # 질량, 단위: kg
+acceleration = 3  # 가속도, 단위: m/s^2
+
+force = mass * acceleration  # 힘 = 질량 × 가속도
+
+print(&quot;힘 =&quot;, force, &quot;N&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 물체의 질량입니다.<br>2. acceleration: 물체의 가속도입니다.<br>3. force = mass * acceleration: 뉴턴의 운동 제2법칙입니다.<br>4. 단위 N은 뉴턴입니다.<br></div></div><div class="concept"><h3>6. 무게</h3><p>무게는 중력에 의해 물체가 받는 힘입니다.</p><pre><code>mass = 50  # 질량, 단위: kg
+g = 9.8  # 중력가속도, 단위: m/s^2
+
+weight = mass * g  # 무게 = 질량 × 중력가속도
+
+print(&quot;무게 =&quot;, weight, &quot;N&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 질량입니다.<br>2. g: 지구의 중력가속도입니다.<br>3. weight = mass * g: 무게를 계산합니다.<br>4. 무게의 단위는 N입니다.<br></div></div><div class="concept"><h3>7. 운동량</h3><p>운동량은 질량과 속도의 곱입니다.</p><pre><code>mass = 2  # 질량, 단위: kg
+velocity = 10  # 속도, 단위: m/s
+
+momentum = mass * velocity  # 운동량 = 질량 × 속도
+
+print(&quot;운동량 =&quot;, momentum, &quot;kg·m/s&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 물체의 질량입니다.<br>2. velocity: 물체의 속도입니다.<br>3. momentum: 질량과 속도의 곱입니다.<br>4. 운동량은 방향을 가지는 물리량입니다.<br></div></div><div class="concept"><h3>8. 충격량</h3><p>충격량은 힘과 힘이 작용한 시간의 곱입니다.</p><pre><code>force = 20  # 힘, 단위: N
+time = 0.5  # 힘이 작용한 시간, 단위: s
+
+impulse = force * time  # 충격량 = 힘 × 시간
+
+print(&quot;충격량 =&quot;, impulse, &quot;N·s&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. force: 작용한 힘입니다.<br>2. time: 힘이 작용한 시간입니다.<br>3. impulse: 힘과 시간의 곱입니다.<br>4. 충격량은 운동량 변화량과 같습니다.<br></div></div><div class="concept"><h3>9. 일</h3><p>일은 힘이 물체를 이동시킬 때 전달되는 에너지입니다.</p><pre><code>force = 30  # 힘, 단위: N
+distance = 5  # 이동 거리, 단위: m
+
+work = force * distance  # 일 = 힘 × 이동 거리
+
+print(&quot;일 =&quot;, work, &quot;J&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. force: 물체에 작용한 힘입니다.<br>2. distance: 힘의 방향으로 이동한 거리입니다.<br>3. work: 힘과 거리의 곱입니다.<br>4. 단위 J은 줄입니다.<br></div></div><div class="concept"><h3>10. 일률</h3><p>일률은 단위 시간 동안 한 일의 양입니다.</p><pre><code>work = 200  # 일, 단위: J
+time = 10  # 시간, 단위: s
+
+power = work / time  # 일률 = 일 / 시간
+
+print(&quot;일률 =&quot;, power, &quot;W&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. work: 한 일의 양입니다.<br>2. time: 걸린 시간입니다.<br>3. power = work / time: 일률을 계산합니다.<br>4. 단위 W는 와트입니다.<br></div></div><div class="concept"><h3>11. 운동에너지</h3><p>운동에너지는 움직이는 물체가 가지는 에너지입니다.</p><pre><code>mass = 2  # 질량, 단위: kg
+velocity = 10  # 속도, 단위: m/s
+
+kinetic_energy = 0.5 * mass * velocity ** 2  # 운동에너지 공식
+
+print(&quot;운동에너지 =&quot;, kinetic_energy, &quot;J&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 질량입니다.<br>2. velocity: 속도입니다.<br>3. velocity ** 2: 속도의 제곱입니다.<br>4. 0.5 * mass * velocity ** 2: 운동에너지 공식입니다.<br></div></div><div class="concept"><h3>12. 위치에너지</h3><p>위치에너지는 높은 곳에 있는 물체가 가지는 에너지입니다.</p><pre><code>mass = 3  # 질량, 단위: kg
+g = 9.8  # 중력가속도, 단위: m/s^2
+height = 10  # 높이, 단위: m
+
+potential_energy = mass * g * height  # 위치에너지 = mgh
+
+print(&quot;위치에너지 =&quot;, potential_energy, &quot;J&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 질량입니다.<br>2. g: 중력가속도입니다.<br>3. height: 기준면으로부터의 높이입니다.<br>4. mass * g * height: 위치에너지 공식입니다.<br></div></div><div class="concept"><h3>13. 밀도</h3><p>밀도는 단위 부피당 질량입니다.</p><pre><code>mass = 100  # 질량, 단위: g
+volume = 25  # 부피, 단위: cm^3
+
+density = mass / volume  # 밀도 = 질량 / 부피
+
+print(&quot;밀도 =&quot;, density, &quot;g/cm^3&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 물체의 질량입니다.<br>2. volume: 물체의 부피입니다.<br>3. density = mass / volume: 밀도를 계산합니다.<br>4. 밀도가 클수록 같은 부피에서 더 무겁습니다.<br></div></div><div class="concept"><h3>14. 압력</h3><p>압력은 단위 면적에 작용하는 힘입니다.</p><pre><code>force = 100  # 힘, 단위: N
+area = 5  # 면적, 단위: m^2
+
+pressure = force / area  # 압력 = 힘 / 면적
+
+print(&quot;압력 =&quot;, pressure, &quot;Pa&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. force: 면에 작용하는 힘입니다.<br>2. area: 힘이 작용하는 면적입니다.<br>3. pressure: 힘을 면적으로 나눈 값입니다.<br>4. 단위 Pa는 파스칼입니다.<br></div></div><div class="concept"><h3>15. 주파수와 주기</h3><p>주파수는 1초 동안의 진동 횟수이고 주기는 한 번 진동하는 데 걸리는 시간입니다.</p><pre><code>frequency = 5  # 주파수, 단위: Hz
+
+period = 1 / frequency  # 주기 = 1 / 주파수
+
+print(&quot;주기 =&quot;, period, &quot;s&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. frequency: 1초 동안 진동하는 횟수입니다.<br>2. period: 한 번 진동하는 데 걸리는 시간입니다.<br>3. period = 1 / frequency: 주기와 주파수의 관계식입니다.<br></div></div><div class="concept"><h3>16. 파동 속력</h3><p>파동의 속력은 파장과 주파수의 곱입니다.</p><pre><code>wavelength = 2  # 파장, 단위: m
+frequency = 3  # 주파수, 단위: Hz
+
+wave_speed = wavelength * frequency  # 파동 속력 = 파장 × 주파수
+
+print(&quot;파동 속력 =&quot;, wave_speed, &quot;m/s&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. wavelength: 파장의 길이입니다.<br>2. frequency: 1초 동안의 진동 횟수입니다.<br>3. wave_speed: 파장이 1초에 이동하는 거리입니다.<br>4. 파동 속력은 파장과 주파수의 곱입니다.<br></div></div><div class="concept"><h3>17. 옴의 법칙</h3><p>전압은 전류와 저항의 곱입니다.</p><pre><code>current = 2  # 전류, 단위: A
+resistance = 5  # 저항, 단위: Ω
+
+voltage = current * resistance  # 전압 = 전류 × 저항
+
+print(&quot;전압 =&quot;, voltage, &quot;V&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. current: 전류입니다.<br>2. resistance: 저항입니다.<br>3. voltage = current * resistance: 옴의 법칙입니다.<br>4. 단위 V는 볼트입니다.<br></div></div><div class="concept"><h3>18. 전력</h3><p>전력은 전압과 전류의 곱입니다.</p><pre><code>voltage = 220  # 전압, 단위: V
+current = 2  # 전류, 단위: A
+
+power = voltage * current  # 전력 = 전압 × 전류
+
+print(&quot;전력 =&quot;, power, &quot;W&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. voltage: 전압입니다.<br>2. current: 전류입니다.<br>3. power: 전압과 전류의 곱입니다.<br>4. 전력의 단위는 W입니다.<br></div></div><div class="concept"><h3>19. 열량</h3><p>열량은 물질의 질량, 비열, 온도 변화량의 곱입니다.</p><pre><code>mass = 2  # 질량, 단위: kg
+specific_heat = 4200  # 물의 비열, 단위: J/(kg·℃)
+delta_temp = 10  # 온도 변화, 단위: ℃
+
+heat = mass * specific_heat * delta_temp  # 열량 = 질량 × 비열 × 온도 변화
+
+print(&quot;열량 =&quot;, heat, &quot;J&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. mass: 물질의 질량입니다.<br>2. specific_heat: 비열입니다.<br>3. delta_temp: 온도 변화량입니다.<br>4. heat: 필요한 열량입니다.<br></div></div><div class="concept"><h3>20. 부력</h3><p>부력은 유체가 물체를 위로 밀어 올리는 힘입니다.</p><pre><code>fluid_density = 1000  # 물의 밀도, 단위: kg/m^3
+volume = 0.02  # 잠긴 부피, 단위: m^3
+g = 9.8  # 중력가속도, 단위: m/s^2
+
+buoyant_force = fluid_density * volume * g  # 부력 = 유체밀도 × 부피 × 중력가속도
+
+print(&quot;부력 =&quot;, buoyant_force, &quot;N&quot;)</code></pre><div class="explain"><b>한 줄씩 코드 상세 설명</b><br>1. fluid_density: 유체의 밀도입니다.<br>2. volume: 물체가 유체 속에 잠긴 부피입니다.<br>3. g: 중력가속도입니다.<br>4. buoyant_force: 유체가 위로 미는 힘입니다.<br></div></div>
+</section>
+
+<section>
+<h2>2. OX 개념 퀴즈 10개</h2>
+<div class="quiz">1. 속력은 이동 거리를 시간으로 나눈 값이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">2. 속도는 방향과 관계없는 물리량이다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">3. 가속도는 속도 변화량을 시간으로 나눈 값이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">4. 힘은 질량과 가속도의 곱으로 계산할 수 있다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">5. 무게의 단위는 kg만 사용한다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">6. 운동에너지는 속도의 제곱에 비례한다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">7. 일률은 일을 시간으로 나눈 값이다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">8. 주기는 주파수와 같은 값이다.<br><span class="answer">정답: X</span></div>
+<div class="quiz">9. 옴의 법칙은 전압 = 전류 × 저항으로 표현된다.<br><span class="answer">정답: O</span></div>
+<div class="quiz">10. 압력은 힘을 면적으로 나눈 값이다.<br><span class="answer">정답: O</span></div>
+</section>
+
+<section>
+<h2>3. 5지선다형 문제 10개</h2>
+
+<div class="quiz"><b>1. 속력의 공식으로 알맞은 것은?</b><br>
+① 시간 ÷ 거리 ② 거리 ÷ 시간 ③ 질량 × 가속도 ④ 힘 × 거리 ⑤ 전류 × 저항<br>
+<span class="answer">정답: ② 거리 ÷ 시간</span></div>
+
+<div class="quiz"><b>2. 가속도의 단위로 알맞은 것은?</b><br>
+① m ② s ③ m/s ④ m/s² ⑤ kg<br>
+<span class="answer">정답: ④ m/s²</span></div>
+
+<div class="quiz"><b>3. 힘을 구하는 공식은?</b><br>
+① F = ma ② W = mg ③ P = IV ④ v = fλ ⑤ Q = mcΔT<br>
+<span class="answer">정답: ① F = ma</span></div>
+
+<div class="quiz"><b>4. 질량 50kg인 물체의 무게를 구할 때 사용하는 값은?</b><br>
+① 속력 ② 파장 ③ 중력가속도 ④ 전류 ⑤ 주파수<br>
+<span class="answer">정답: ③ 중력가속도</span></div>
+
+<div class="quiz"><b>5. 운동량의 공식은?</b><br>
+① 질량 × 속도 ② 질량 × 높이 ③ 힘 ÷ 면적 ④ 전압 × 전류 ⑤ 파장 × 주파수<br>
+<span class="answer">정답: ① 질량 × 속도</span></div>
+
+<div class="quiz"><b>6. 일의 단위는?</b><br>
+① N ② J ③ W ④ Pa ⑤ Hz<br>
+<span class="answer">정답: ② J</span></div>
+
+<div class="quiz"><b>7. 운동에너지 공식으로 알맞은 것은?</b><br>
+① mgh ② 1/2mv² ③ F/A ④ IV ⑤ 1/f<br>
+<span class="answer">정답: ② 1/2mv²</span></div>
+
+<div class="quiz"><b>8. 파동 속력 공식은?</b><br>
+① v = fλ ② F = ma ③ P = W/t ④ V = IR ⑤ ρ = m/V<br>
+<span class="answer">정답: ① v = fλ</span></div>
+
+<div class="quiz"><b>9. 옴의 법칙에서 전압 V는?</b><br>
+① I + R ② I - R ③ I × R ④ I ÷ R ⑤ R ÷ I<br>
+<span class="answer">정답: ③ I × R</span></div>
+
+<div class="quiz"><b>10. 밀도의 공식은?</b><br>
+① 질량 ÷ 부피 ② 부피 ÷ 질량 ③ 힘 ÷ 면적 ④ 거리 ÷ 시간 ⑤ 일 ÷ 시간<br>
+<span class="answer">정답: ① 질량 ÷ 부피</span></div>
+
+</section>
+
+<section>
+<h2>4. 수업 정리</h2>
+<div class="note">
+기초물리학은 대부분 <b>공식의 의미를 변수와 연산으로 표현</b>하면서 이해할 수 있습니다.<br><br>
+<b>핵심 코드 패턴</b><br>
+· 속력: <code>distance / time</code><br>
+· 힘: <code>mass * acceleration</code><br>
+· 운동에너지: <code>0.5 * mass * velocity ** 2</code><br>
+· 위치에너지: <code>mass * g * height</code><br>
+· 옴의 법칙: <code>current * resistance</code>
+</div>
+</section>
+
+</body>
+</html>
