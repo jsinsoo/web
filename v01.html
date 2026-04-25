@@ -1,0 +1,1393 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>b111.py 원본 코드와 상세 설명</title>
+<style>
+body{margin:0;background:#f3f6fb;color:#1f2937;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;line-height:1.65}
+header{background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:white;padding:42px 28px;text-align:center}
+header h1{margin:0;font-size:34px}
+header p{margin:10px auto 0;max-width:900px;font-size:17px;opacity:.95}
+main{max-width:1200px;margin:28px auto;padding:0 18px}
+.card{background:white;border-radius:22px;padding:26px;margin:24px 0;box-shadow:0 12px 30px rgba(15,23,42,.08);border:1px solid #e5e7eb}
+h2{margin:0 0 10px;color:#111827;font-size:25px;border-left:8px solid #2563eb;padding-left:12px}
+h3{margin-top:22px;color:#1e3a8a}
+.badge{display:inline-block;background:#eef2ff;color:#3730a3;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px}
+pre{background:#0f172a;color:#e5e7eb;padding:18px;border-radius:16px;overflow:auto;font-size:14px;line-height:1.55}
+code{font-family:Consolas,Menlo,monospace}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+th{background:#dbeafe;color:#0f172a}
+td,th{border:1px solid #d1d5db;padding:9px;vertical-align:top}
+td:first-child{text-align:center;font-weight:bold;width:48px;background:#f8fafc}
+td:nth-child(2){width:45%;background:#f9fafb}
+.note{background:#fff7ed;border-left:8px solid #f97316;padding:18px;border-radius:14px;margin:18px 0}
+.toc{columns:2;background:white;border-radius:20px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.toc a{color:#1d4ed8;text-decoration:none}
+footer{text-align:center;color:#6b7280;padding:30px}
+@media(max-width:800px){.toc{columns:1} table{font-size:12px} header h1{font-size:26px}}
+</style>
+</head>
+<body>
+<header>
+<h1>b111.py 원본 코드 + 각각의 코드 상세 설명</h1>
+<p>Seaborn, Matplotlib, Pandas, NumPy, Plotly를 활용한 데이터 분석 시각화 예제입니다. 각 예제는 원본 코드를 먼저 보여 주고, 줄별로 어떤 역할을 하는지 설명합니다.</p>
+</header>
+<main>
+<div class="note"><b>학습 목표:</b> 그래프 코드의 구조를 이해하고, 데이터 로드 → 스타일 설정 → 그래프 그리기 → 제목·축 설정 → 출력의 흐름을 설명할 수 있습니다.</div>
+
+<section class="card">
+  <h2>예제 1: Visual Analysis - Graph 25</h2>
+  <div class="badge">핵심 그래프: KDE</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 한글 폰트 설정 예시 (Windows 기준)
+plt.rcParams[&#x27;font.family&#x27;] = &#x27;Malgun Gothic&#x27;
+plt.rcParams[&#x27;axes.unicode_minus&#x27;] = False
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. 2D KDE 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.kdeplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,
+            thresh=0.05,       # 하위 5% 밀도 영역은 제외 (선택 사항)
+            levels=10,         # 등고선 층의 개수
+            color=&quot;tab:blue&quot;)  # 선 색상
+
+# 3. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 25&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 한글 폰트 설정 예시 (Windows 기준)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>plt.rcParams[&#x27;font.family&#x27;] = &#x27;Malgun Gothic&#x27;</code></td><td>그래프에서 한글이 깨지지 않도록 사용할 글꼴을 설정합니다.</td></tr><tr><td>6</td><td><code>plt.rcParams[&#x27;axes.unicode_minus&#x27;] = False</code></td><td>마이너스 기호가 깨지지 않도록 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>10</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 2. 2D KDE 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>14</td><td><code>sns.kdeplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,</code></td><td>KDE 밀도 그래프를 그립니다. 데이터가 어느 구간에 많이 몰려 있는지 부드러운 곡선이나 등고선으로 보여줍니다.</td></tr><tr><td>15</td><td><code>            thresh=0.05,       # 하위 5% 밀도 영역은 제외 (선택 사항)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>16</td><td><code>            levels=10,         # 등고선 층의 개수</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>17</td><td><code>            color=&quot;tab:blue&quot;)  # 선 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code># 3. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>20</td><td><code>plt.title(&quot;Visual Analysis - Graph 25&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>21</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>22</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>23</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>24</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 2: Visual Analysis - Graph 13</h2>
+  <div class="badge">핵심 그래프: ECDF</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# ECDF 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.ecdfplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 13&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;Proportion&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># ECDF 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.ecdfplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)</code></td><td>ECDF 누적분포 그래프를 그립니다. x값 이하의 데이터 비율이 얼마나 되는지 보여줍니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 13&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;Proportion&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 3: Visual Analysis - Graph 6</h2>
+  <div class="badge">핵심 그래프: KDE</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# KDE 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.kdeplot(data=tips, x=&quot;total_bill&quot;,
+            fill=True,           # 곡선 아래 색상 채우기
+            color=&quot;tab:blue&quot;,    # 선과 채우기 색상
+            alpha=0.2)           # 채우기 투명도 조절
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 6&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;Density&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># KDE 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.kdeplot(data=tips, x=&quot;total_bill&quot;,</code></td><td>KDE 밀도 그래프를 그립니다. 데이터가 어느 구간에 많이 몰려 있는지 부드러운 곡선이나 등고선으로 보여줍니다.</td></tr><tr><td>11</td><td><code>            fill=True,           # 곡선 아래 색상 채우기</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>            color=&quot;tab:blue&quot;,    # 선과 채우기 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>            alpha=0.2)           # 채우기 투명도 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 6&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;Density&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 4: Visual Analysis - Graph 22</h2>
+  <div class="badge">핵심 그래프: Count Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 가로 막대 그래프 그리기
+plt.figure(figsize=(10, 7))
+sns.countplot(data=tips, y=&quot;day&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 22&quot;)
+plt.xlabel(&quot;count&quot;)
+plt.ylabel(&quot;day&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 가로 막대 그래프 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.countplot(data=tips, y=&quot;day&quot;, color=&quot;tab:blue&quot;)</code></td><td>범주형 데이터의 개수를 세어 막대그래프로 나타냅니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 22&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;count&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;day&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 5: Visual Analysis - Graph 24</h2>
+  <div class="badge">핵심 그래프: Histogram</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. 가로 막대 그래프 그리기
+plt.figure(figsize=(10, 7))
+sns.histplot(data=tips, y=&quot;day&quot;,
+             shrink=.8,           # 막대 사이의 간격 조절
+             color=&quot;tab:blue&quot;,    # 막대 색상
+             edgecolor=&quot;black&quot;,   # 막대 테두리 색상
+             alpha=0.7)           # 투명도
+
+# 3. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 24&quot;)
+plt.xlabel(&quot;Count&quot;)
+plt.ylabel(&quot;day&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 가로 막대 그래프 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.histplot(data=tips, y=&quot;day&quot;,</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>11</td><td><code>             shrink=.8,           # 막대 사이의 간격 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>             color=&quot;tab:blue&quot;,    # 막대 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>             edgecolor=&quot;black&quot;,   # 막대 테두리 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>             alpha=0.7)           # 투명도</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>15</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>16</td><td><code># 3. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>17</td><td><code>plt.title(&quot;Visual Analysis - Graph 24&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.xlabel(&quot;Count&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>plt.ylabel(&quot;day&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>20</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>21</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 6: Visual Analysis - Graph 21</h2>
+  <div class="badge">핵심 그래프: Histogram</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 계층형 히스토그램 그리기
+plt.figure(figsize=(10, 7))
+sns.histplot(data=tips, x=&quot;total_bill&quot;, hue=&quot;sex&quot;,
+             element=&quot;step&quot;,       # 계단식 테두리 설정
+             palette=&quot;tab10&quot;,      # 이미지와 유사한 색상 팔레트
+             alpha=0.2)            # 내부 색상 투명도
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 21&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;Count&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 계층형 히스토그램 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.histplot(data=tips, x=&quot;total_bill&quot;, hue=&quot;sex&quot;,</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>11</td><td><code>             element=&quot;step&quot;,       # 계단식 테두리 설정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>             palette=&quot;tab10&quot;,      # 이미지와 유사한 색상 팔레트</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>             alpha=0.2)            # 내부 색상 투명도</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 21&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;Count&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 7: Visual Analysis - Graph 4</h2>
+  <div class="badge">핵심 그래프: Scatter Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 그룹화된 산점도 그리기
+plt.figure(figsize=(10, 7))
+sns.scatterplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;sex&quot;,
+                palette={&quot;Male&quot;: &quot;tab:blue&quot;, &quot;Female&quot;: &quot;tab:orange&quot;}, # 이미지와 색상 맞춤
+                alpha=0.9, s=40) # 투명도와 점 크기 설정
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 4&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+plt.legend(title=&quot;sex&quot;) # 범례 제목 설정
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 그룹화된 산점도 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.scatterplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;sex&quot;,</code></td><td>산점도를 그려 두 수치 변수 사이의 관계를 점으로 표현합니다.</td></tr><tr><td>11</td><td><code>                palette={&quot;Male&quot;: &quot;tab:blue&quot;, &quot;Female&quot;: &quot;tab:orange&quot;}, # 이미지와 색상 맞춤</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>                alpha=0.9, s=40) # 투명도와 점 크기 설정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>14</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>15</td><td><code>plt.title(&quot;Visual Analysis - Graph 4&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>16</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.legend(title=&quot;sex&quot;) # 범례 제목 설정</code></td><td>범례를 표시하거나 범례 제목을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 8: 시각화 코드</h2>
+  <div class="badge">핵심 그래프: Histogram, Scatter Plot, Box Plot, Violin Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터 준비
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;whitegrid&quot;) # 배경을 좀 더 깔끔한 그리드 스타일로 변경 가능
+
+# 2x2 레이아웃 설정
+fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+
+# Graph 1: 분포 (Histogram + KDE)
+sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, ax=axes[0, 0])
+axes[0, 0].set_title(&quot;1. Total Bill Distribution&quot;)
+
+# Graph 2: 비교 (Box Plot)
+sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, ax=axes[0, 1])
+axes[0, 1].set_title(&quot;2. Bill by Day (Outliers)&quot;)
+
+# Graph 3: 밀도 비교 (Violin Plot)
+sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, ax=axes[1, 0])
+axes[1, 0].set_title(&quot;3. Tip Density by Time&quot;)
+
+# Graph 4: 관계 및 그룹화 (Scatter Plot with Hue)
+sns.scatterplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;sex&quot;, ax=axes[1, 1])
+axes[1, 1].set_title(&quot;4. Bill vs Tip by Gender&quot;)
+
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터 준비</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;whitegrid&quot;) # 배경을 좀 더 깔끔한 그리드 스타일로 변경 가능</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2x2 레이아웃 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>fig, axes = plt.subplots(2, 2, figsize=(16, 12))</code></td><td>여러 그래프를 한 화면에 배치하기 위해 서브플롯 격자를 만듭니다.</td></tr><tr><td>10</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>11</td><td><code># Graph 1: 분포 (Histogram + KDE)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>12</td><td><code>sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, ax=axes[0, 0])</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>13</td><td><code>axes[0, 0].set_title(&quot;1. Total Bill Distribution&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># Graph 2: 비교 (Box Plot)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, ax=axes[0, 1])</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr><tr><td>17</td><td><code>axes[0, 1].set_title(&quot;2. Bill by Day (Outliers)&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code># Graph 3: 밀도 비교 (Violin Plot)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>20</td><td><code>sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, ax=axes[1, 0])</code></td><td>바이올린 플롯을 그려 범주별 분포 모양과 밀도를 함께 보여줍니다.</td></tr><tr><td>21</td><td><code>axes[1, 0].set_title(&quot;3. Tip Density by Time&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>22</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>23</td><td><code># Graph 4: 관계 및 그룹화 (Scatter Plot with Hue)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>24</td><td><code>sns.scatterplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;sex&quot;, ax=axes[1, 1])</code></td><td>산점도를 그려 두 수치 변수 사이의 관계를 점으로 표현합니다.</td></tr><tr><td>25</td><td><code>axes[1, 1].set_title(&quot;4. Bill vs Tip by Gender&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>26</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>27</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>28</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 9: Visual Analysis - Graph 26</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. 데이터 재구조화 (요일별 성별 빈도 계산)
+stacked_data = pd.crosstab(tips[&#x27;day&#x27;], tips[&#x27;sex&#x27;])
+
+# 3. 누적 막대 그래프 그리기
+# color: 이미지와 유사한 파란색(tab:blue)과 주황색(tab:orange) 적용
+ax = stacked_data.plot(kind=&#x27;bar&#x27;, stacked=True, figsize=(10, 7),
+                       color=[&#x27;tab:blue&#x27;, &#x27;tab:orange&#x27;])
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 26&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;Count&quot;) # 이미지의 y축 데이터 성격에 맞춰 설정
+plt.legend(title=&#x27;sex&#x27;)
+plt.xticks(rotation=90) # x축 라벨을 세로로 회전
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>import pandas as pd</code></td><td>pandas를 pd라는 이름으로 불러와 표 형태의 데이터를 만들고 가공할 수 있게 합니다.</td></tr><tr><td>4</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>5</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>6</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>7</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>8</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>9</td><td><code># 2. 데이터 재구조화 (요일별 성별 빈도 계산)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>10</td><td><code>stacked_data = pd.crosstab(tips[&#x27;day&#x27;], tips[&#x27;sex&#x27;])</code></td><td>요일과 성별의 조합별 빈도표를 만들어 누적 막대그래프의 입력 데이터로 사용합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 3. 누적 막대 그래프 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code># color: 이미지와 유사한 파란색(tab:blue)과 주황색(tab:orange) 적용</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>14</td><td><code>ax = stacked_data.plot(kind=&#x27;bar&#x27;, stacked=True, figsize=(10, 7),</code></td><td>pandas의 plot 기능으로 누적 막대그래프를 그립니다.</td></tr><tr><td>15</td><td><code>                       color=[&#x27;tab:blue&#x27;, &#x27;tab:orange&#x27;])</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>18</td><td><code>plt.title(&quot;Visual Analysis - Graph 26&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>19</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>20</td><td><code>plt.ylabel(&quot;Count&quot;) # 이미지의 y축 데이터 성격에 맞춰 설정</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>21</td><td><code>plt.legend(title=&#x27;sex&#x27;)</code></td><td>범례를 표시하거나 범례 제목을 설정합니다.</td></tr><tr><td>22</td><td><code>plt.xticks(rotation=90) # x축 라벨을 세로로 회전</code></td><td>x축 눈금 글자의 방향이나 모양을 조절합니다.</td></tr><tr><td>23</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>24</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 10: Visual Analysis - Graph 29</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. 라인 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.lineplot(data=tips, x=&quot;size&quot;, y=&quot;total_bill&quot;,
+             marker=&#x27;o&#x27;,          # 각 데이터 포인트에 마커 표시
+             color=&#x27;tab:blue&#x27;,    # 선 색상
+             linewidth=2)         # 선 두께
+
+# 3. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 29&quot;)
+plt.xlabel(&quot;size&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 라인 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.lineplot(data=tips, x=&quot;size&quot;, y=&quot;total_bill&quot;,</code></td><td>선 그래프를 그려 값의 변화 흐름이나 평균 경향을 보여줍니다.</td></tr><tr><td>11</td><td><code>             marker=&#x27;o&#x27;,          # 각 데이터 포인트에 마커 표시</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>             color=&#x27;tab:blue&#x27;,    # 선 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>             linewidth=2)         # 선 두께</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 3. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 29&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;size&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 11: Visual Analysis - Graph 14</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 러그 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.rugplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;, height=0.05)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 14&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+
+# y축 범위를 이미지와 유사하게 조정 (선분만 보이도록)
+plt.ylim(-0.06, 0.06)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 러그 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.rugplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;, height=0.05)</code></td><td>러그 플롯을 그려 실제 데이터 위치를 축 위의 짧은 선으로 표시합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 14&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>16</td><td><code># y축 범위를 이미지와 유사하게 조정 (선분만 보이도록)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>17</td><td><code>plt.ylim(-0.06, 0.06)</code></td><td>그래프의 x축 또는 y축 표시 범위를 조절합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 12: Combined Distribution Analysis</h2>
+  <div class="badge">핵심 그래프: Histogram</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>plt.figure(figsize=(10, 7))
+# 히스토그램과 KDE를 배경으로 그림
+sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, color=&quot;lightblue&quot;, alpha=0.5)
+# 바닥에 실제 데이터 위치(Rug) 표시
+sns.rugplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)
+
+plt.title(&quot;Combined Distribution Analysis&quot;)
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>2</td><td><code># 히스토그램과 KDE를 배경으로 그림</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>3</td><td><code>sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, color=&quot;lightblue&quot;, alpha=0.5)</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>4</td><td><code># 바닥에 실제 데이터 위치(Rug) 표시</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>sns.rugplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)</code></td><td>러그 플롯을 그려 실제 데이터 위치를 축 위의 짧은 선으로 표시합니다.</td></tr><tr><td>6</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>7</td><td><code>plt.title(&quot;Combined Distribution Analysis&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>8</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 13: Visual Analysis - Graph 20</h2>
+  <div class="badge">핵심 그래프: KDE</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# KDE + Rug Plot 결합 그리기
+plt.figure(figsize=(10, 7))
+sns.kdeplot(data=tips, x=&quot;total_bill&quot;,
+            fill=True,           # 곡선 아래 색상 채우기
+            color=&quot;tab:blue&quot;,
+            alpha=0.2,
+            warn_singular=False)
+
+# 바닥에 러그(Rug) 추가
+sns.rugplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 20&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;Density&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># KDE + Rug Plot 결합 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.kdeplot(data=tips, x=&quot;total_bill&quot;,</code></td><td>KDE 밀도 그래프를 그립니다. 데이터가 어느 구간에 많이 몰려 있는지 부드러운 곡선이나 등고선으로 보여줍니다.</td></tr><tr><td>11</td><td><code>            fill=True,           # 곡선 아래 색상 채우기</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>            color=&quot;tab:blue&quot;,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>            alpha=0.2,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>            warn_singular=False)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>15</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>16</td><td><code># 바닥에 러그(Rug) 추가</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>17</td><td><code>sns.rugplot(data=tips, x=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)</code></td><td>러그 플롯을 그려 실제 데이터 위치를 축 위의 짧은 선으로 표시합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>20</td><td><code>plt.title(&quot;Visual Analysis - Graph 20&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>21</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>22</td><td><code>plt.ylabel(&quot;Density&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>23</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>24</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 14: Visual Analysis - Graph 27</h2>
+  <div class="badge">핵심 그래프: Regression Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. LOWESS(Locally Weighted Scatterplot Smoothing) 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.regplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,
+            lowess=True,             # 비선형 매끄러운 곡선 적용
+            scatter_kws={&#x27;s&#x27;: 15},   # 산점도 점 크기 조절
+            line_kws={&#x27;color&#x27;: &#x27;tab:blue&#x27;, &#x27;lw&#x27;: 2.5}) # 선 스타일 조절
+
+# 3. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 27&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. LOWESS(Locally Weighted Scatterplot Smoothing) 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.regplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,</code></td><td>산점도와 회귀선을 함께 그려 두 변수 사이의 관계 추세를 보여줍니다.</td></tr><tr><td>11</td><td><code>            lowess=True,             # 비선형 매끄러운 곡선 적용</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>            scatter_kws={&#x27;s&#x27;: 15},   # 산점도 점 크기 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>            line_kws={&#x27;color&#x27;: &#x27;tab:blue&#x27;, &#x27;lw&#x27;: 2.5}) # 선 스타일 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 3. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 27&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 15: Visual Analysis - Graph 5</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 막대 그래프 그리기
+plt.figure(figsize=(10, 7))
+sns.barplot(data=tips, x=&quot;day&quot;, y=&quot;tip&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 5&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 막대 그래프 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.barplot(data=tips, x=&quot;day&quot;, y=&quot;tip&quot;, color=&quot;tab:blue&quot;)</code></td><td>막대그래프를 그려 범주별 평균값과 불확실성을 비교합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 5&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 16: 시각화 코드</h2>
+  <div class="badge">핵심 그래프: Histogram, Scatter Plot, Box Plot, Violin Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2행 3열의 서브플롯 구성 (마지막 칸은 비워둠)
+fig, axes = plt.subplots(2, 3, figsize=(20, 12))
+
+# Graph 1: 히스토그램 + KDE (분포)
+sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, ax=axes[0, 0])
+axes[0, 0].set_title(&quot;Graph 1: Distribution&quot;)
+
+# Graph 2: 박스 플롯 (사분위수 및 이상치)
+sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, ax=axes[0, 1], color=&quot;tab:blue&quot;)
+axes[0, 1].set_title(&quot;Graph 2: Box Plot&quot;)
+
+# Graph 3: 바이올린 플롯 (밀도 추정)
+sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, ax=axes[0, 2], color=&quot;tab:blue&quot;)
+axes[0, 2].set_title(&quot;Graph 3: Violin Plot&quot;)
+
+# Graph 4: 그룹화된 산점도 (성별 구분)
+sns.scatterplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;sex&quot;, ax=axes[1, 0])
+axes[1, 0].set_title(&quot;Graph 4: Scatter with Hue&quot;)
+
+# Graph 5: 막대 그래프 (평균 및 신뢰구간)
+sns.barplot(data=tips, x=&quot;day&quot;, y=&quot;tip&quot;, ax=axes[1, 1], color=&quot;tab:blue&quot;)
+axes[1, 1].set_title(&quot;Graph 5: Bar Plot&quot;)
+
+# 마지막 빈 칸 제거 및 레이아웃 조정
+fig.delaxes(axes[1, 2])
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2행 3열의 서브플롯 구성 (마지막 칸은 비워둠)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>fig, axes = plt.subplots(2, 3, figsize=(20, 12))</code></td><td>여러 그래프를 한 화면에 배치하기 위해 서브플롯 격자를 만듭니다.</td></tr><tr><td>10</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>11</td><td><code># Graph 1: 히스토그램 + KDE (분포)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>12</td><td><code>sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, ax=axes[0, 0])</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>13</td><td><code>axes[0, 0].set_title(&quot;Graph 1: Distribution&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># Graph 2: 박스 플롯 (사분위수 및 이상치)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, ax=axes[0, 1], color=&quot;tab:blue&quot;)</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr><tr><td>17</td><td><code>axes[0, 1].set_title(&quot;Graph 2: Box Plot&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code># Graph 3: 바이올린 플롯 (밀도 추정)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>20</td><td><code>sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, ax=axes[0, 2], color=&quot;tab:blue&quot;)</code></td><td>바이올린 플롯을 그려 범주별 분포 모양과 밀도를 함께 보여줍니다.</td></tr><tr><td>21</td><td><code>axes[0, 2].set_title(&quot;Graph 3: Violin Plot&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>22</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>23</td><td><code># Graph 4: 그룹화된 산점도 (성별 구분)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>24</td><td><code>sns.scatterplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;sex&quot;, ax=axes[1, 0])</code></td><td>산점도를 그려 두 수치 변수 사이의 관계를 점으로 표현합니다.</td></tr><tr><td>25</td><td><code>axes[1, 0].set_title(&quot;Graph 4: Scatter with Hue&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>26</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>27</td><td><code># Graph 5: 막대 그래프 (평균 및 신뢰구간)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>28</td><td><code>sns.barplot(data=tips, x=&quot;day&quot;, y=&quot;tip&quot;, ax=axes[1, 1], color=&quot;tab:blue&quot;)</code></td><td>막대그래프를 그려 범주별 평균값과 불확실성을 비교합니다.</td></tr><tr><td>29</td><td><code>axes[1, 1].set_title(&quot;Graph 5: Bar Plot&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>30</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>31</td><td><code># 마지막 빈 칸 제거 및 레이아웃 조정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>32</td><td><code>fig.delaxes(axes[1, 2])</code></td><td>사용하지 않는 빈 서브플롯 칸을 삭제합니다.</td></tr><tr><td>33</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>34</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 17: Visual Analysis - Graph 3</h2>
+  <div class="badge">핵심 그래프: Violin Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 바이올린 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 3&quot;)
+plt.xlabel(&quot;time&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 바이올린 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, color=&quot;tab:blue&quot;)</code></td><td>바이올린 플롯을 그려 범주별 분포 모양과 밀도를 함께 보여줍니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 3&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;time&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 18: Visual Analysis - Graph 1</h2>
+  <div class="badge">핵심 그래프: Histogram, Box Plot, Violin Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. 서브플롯 설정 (1행 3열)
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+# --- Graph 1: Histogram + KDE ---
+sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, ax=axes[0], color=&quot;tab:blue&quot;)
+axes[0].set_title(&quot;Visual Analysis - Graph 1&quot;)
+
+# --- Graph 2: Box Plot ---
+sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, ax=axes[1], color=&quot;tab:blue&quot;)
+axes[1].set_title(&quot;Visual Analysis - Graph 2&quot;)
+
+# --- Graph 3: Violin Plot ---
+sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, ax=axes[2], color=&quot;tab:blue&quot;)
+axes[2].set_title(&quot;Visual Analysis - Graph 3&quot;)
+
+# 레이아웃 조정 및 출력
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 서브플롯 설정 (1행 3열)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>fig, axes = plt.subplots(1, 3, figsize=(18, 6))</code></td><td>여러 그래프를 한 화면에 배치하기 위해 서브플롯 격자를 만듭니다.</td></tr><tr><td>10</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>11</td><td><code># --- Graph 1: Histogram + KDE ---</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>12</td><td><code>sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True, ax=axes[0], color=&quot;tab:blue&quot;)</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>13</td><td><code>axes[0].set_title(&quot;Visual Analysis - Graph 1&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># --- Graph 2: Box Plot ---</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, ax=axes[1], color=&quot;tab:blue&quot;)</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr><tr><td>17</td><td><code>axes[1].set_title(&quot;Visual Analysis - Graph 2&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code># --- Graph 3: Violin Plot ---</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>20</td><td><code>sns.violinplot(data=tips, x=&quot;time&quot;, y=&quot;tip&quot;, ax=axes[2], color=&quot;tab:blue&quot;)</code></td><td>바이올린 플롯을 그려 범주별 분포 모양과 밀도를 함께 보여줍니다.</td></tr><tr><td>21</td><td><code>axes[2].set_title(&quot;Visual Analysis - Graph 3&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>22</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>23</td><td><code># 레이아웃 조정 및 출력</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>24</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>25</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 19: Visual Analysis - Graph 11</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 박센 플롯(Letter-value plot) 그리기
+plt.figure(figsize=(10, 7))
+sns.boxenplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,
+              color=&quot;tab:blue&quot;) # 이미지와 동일한 색상 설정
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 11&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 박센 플롯(Letter-value plot) 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.boxenplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,</code></td><td>박센 플롯을 그려 데이터 분포를 박스플롯보다 더 세밀한 분위수 구조로 보여줍니다.</td></tr><tr><td>11</td><td><code>              color=&quot;tab:blue&quot;) # 이미지와 동일한 색상 설정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>13</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>14</td><td><code>plt.title(&quot;Visual Analysis - Graph 11&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>17</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>18</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 20: Visual Analysis - Graph 28</h2>
+  <div class="badge">핵심 그래프: Box Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+plt.figure(figsize=(10, 7))
+
+# 2. 박스 플롯 그리기
+# tips[&#x27;tip&#x27;] 데이터의 분포를 시각화
+plt.boxplot(tips[&#x27;tip&#x27;])
+
+# 3. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 28&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>2</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 박스 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code># tips[&#x27;tip&#x27;] 데이터의 분포를 시각화</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>10</td><td><code>plt.boxplot(tips[&#x27;tip&#x27;])</code></td><td>matplotlib 방식으로 박스플롯을 그려 중앙값, 사분위수, 이상치를 확인합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 3. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 28&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>16</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 21: Visual Analysis - Graph 2</h2>
+  <div class="badge">핵심 그래프: Box Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# 2. 그래프 스타일 설정
+sns.set_style(&quot;ticks&quot;)
+
+# 3. 박스 플롯 그리기
+plt.figure(figsize=(10, 7))
+
+sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,
+            color=&quot;tab:blue&quot;, # 상자 색상을 이미지와 유사한 파란색으로 지정
+            flierprops={&quot;marker&quot;: &quot;o&quot;}) # 이상치 모양을 원형으로 설정
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 2&quot;, fontsize=14)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+# 5. 그래프 출력
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>7</td><td><code># 2. 그래프 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>8</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>9</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>10</td><td><code># 3. 박스 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>11</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>12</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>13</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr><tr><td>14</td><td><code>            color=&quot;tab:blue&quot;, # 상자 색상을 이미지와 유사한 파란색으로 지정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>15</td><td><code>            flierprops={&quot;marker&quot;: &quot;o&quot;}) # 이상치 모양을 원형으로 설정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>18</td><td><code>plt.title(&quot;Visual Analysis - Graph 2&quot;, fontsize=14)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>19</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>20</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>21</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>22</td><td><code># 5. 그래프 출력</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>23</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>24</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 22: 시각화 코드</h2>
+  <div class="badge">핵심 그래프: Box Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, palette=&quot;Set2&quot;)</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, palette=&quot;Set2&quot;)</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 23: 시각화 코드</h2>
+  <div class="badge">핵심 그래프: Box Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# 2. 그래프 스타일 설정
+sns.set_style(&quot;ticks&quot;)
+
+# 3. 박스 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, palette=&quot;Set2&quot;)</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>7</td><td><code># 2. 그래프 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>8</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>9</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>10</td><td><code># 3. 박스 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>11</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>12</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, palette=&quot;Set2&quot;)</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 24: Visual Analysis - Graph 2</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code># 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 2&quot;, fontsize=14)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+# 5. 그래프 출력
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>2</td><td><code>plt.title(&quot;Visual Analysis - Graph 2&quot;, fontsize=14)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>3</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>4</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>5</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>6</td><td><code># 5. 그래프 출력</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>7</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>8</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 25: Visual Analysis - Graph 23</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 준비
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# 2. 그래프 스타일 설정
+sns.set_style(&quot;ticks&quot;)
+plt.figure(figsize=(10, 7))
+
+# 3. 버블 차트 그리기
+# s: 점의 크기 (size 변수에 비례하도록 설정, 시각화를 위해 50배 확대)
+# alpha: 점들이 겹칠 때 잘 보이도록 투명도 조절
+plt.scatter(tips[&#x27;total_bill&#x27;], tips[&#x27;tip&#x27;],
+            s=tips[&#x27;size&#x27;] * 50,
+            alpha=0.5,
+            color=&#x27;tab:blue&#x27;,
+            edgecolors=&#x27;tab:blue&#x27;)
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 23&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import pandas as pd</code></td><td>pandas를 pd라는 이름으로 불러와 표 형태의 데이터를 만들고 가공할 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>3</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>4</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>5</td><td><code># 1. 데이터 준비</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>6</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 그래프 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>10</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 3. 버블 차트 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code># s: 점의 크기 (size 변수에 비례하도록 설정, 시각화를 위해 50배 확대)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>14</td><td><code># alpha: 점들이 겹칠 때 잘 보이도록 투명도 조절</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>15</td><td><code>plt.scatter(tips[&#x27;total_bill&#x27;], tips[&#x27;tip&#x27;],</code></td><td>산점도 또는 버블 차트를 그립니다. x, y 위치와 점의 크기로 정보를 표현합니다.</td></tr><tr><td>16</td><td><code>            s=tips[&#x27;size&#x27;] * 50,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>17</td><td><code>            alpha=0.5,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>18</td><td><code>            color=&#x27;tab:blue&#x27;,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>19</td><td><code>            edgecolors=&#x27;tab:blue&#x27;)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>20</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>21</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>22</td><td><code>plt.title(&quot;Visual Analysis - Graph 23&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>23</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>24</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>25</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>26</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 26: Visual Analysis - Graph 22</h2>
+  <div class="badge">핵심 그래프: Violin Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 분할 바이올린 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.violinplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, hue=&quot;sex&quot;,
+               split=True,       # 하나의 바이올린을 반으로 나눔
+               inner=&quot;quart&quot;,    # 내부 사분위수 표시
+               palette=&quot;tab10&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 22&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 분할 바이올린 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.violinplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, hue=&quot;sex&quot;,</code></td><td>바이올린 플롯을 그려 범주별 분포 모양과 밀도를 함께 보여줍니다.</td></tr><tr><td>11</td><td><code>               split=True,       # 하나의 바이올린을 반으로 나눔</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>               inner=&quot;quart&quot;,    # 내부 사분위수 표시</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>               palette=&quot;tab10&quot;)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 22&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 27: Visual Analysis - Graph 10</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 스웜 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.swarmplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,
+              color=&quot;tab:blue&quot;,
+              size=5) # 점의 크기를 적절히 조절하여 겹침 방지
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 10&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 스웜 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.swarmplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,</code></td><td>스웜 플롯을 그려 점들이 겹치지 않게 배치하면서 실제 데이터 분포를 보여줍니다.</td></tr><tr><td>11</td><td><code>              color=&quot;tab:blue&quot;,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>              size=5) # 점의 크기를 적절히 조절하여 겹침 방지</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>14</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>15</td><td><code>plt.title(&quot;Visual Analysis - Graph 10&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>16</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>19</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 28: Visual Analysis - Graph 20</h2>
+  <div class="badge">핵심 그래프: Box Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, color=&quot;lightgray&quot;) # 배경에 연한 박스
+sns.swarmplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, color=&quot;tab:blue&quot;, size=4) # 그 위에 점들
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 1. 가상의 데이터 생성
+x = np.arange(10)
+y1 = [2, 3, 7, 6, 2, 6, 2, 2, 2, 3] # 파란색 영역 데이터
+y2 = [2, 4, 9, 6, 1, 8, 7, 3, 1, 5] # 주황색 영역 데이터
+
+# 2. 그래프 그리기
+plt.figure(figsize=(10, 7))
+plt.stackplot(x, y1, y2, labels=[&#x27;Series 1&#x27;, &#x27;Series 2&#x27;], colors=[&#x27;tab:blue&#x27;, &#x27;tab:orange&#x27;])
+
+# 3. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 20&quot;)
+plt.xlim(0, 9)
+plt.ylim(0, 16.5) # 이미지의 Y축 범위와 유사하게 설정
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>sns.boxplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, color=&quot;lightgray&quot;) # 배경에 연한 박스</code></td><td>박스플롯을 그려 범주별 데이터의 중앙값, 사분위수, 이상치를 비교합니다.</td></tr><tr><td>2</td><td><code>sns.swarmplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, color=&quot;tab:blue&quot;, size=4) # 그 위에 점들</code></td><td>스웜 플롯을 그려 점들이 겹치지 않게 배치하면서 실제 데이터 분포를 보여줍니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>5</td><td><code>import numpy as np</code></td><td>numpy를 np라는 이름으로 불러와 수치 계산, 배열, 난수 생성 등을 할 수 있게 합니다.</td></tr><tr><td>6</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>7</td><td><code># 1. 가상의 데이터 생성</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>8</td><td><code>x = np.arange(10)</code></td><td>0부터 9까지의 정수 배열을 만들어 x축 값으로 사용합니다.</td></tr><tr><td>9</td><td><code>y1 = [2, 3, 7, 6, 2, 6, 2, 2, 2, 3] # 파란색 영역 데이터</code></td><td>누적 영역 그래프에 사용할 예시 데이터 목록을 만듭니다.</td></tr><tr><td>10</td><td><code>y2 = [2, 4, 9, 6, 1, 8, 7, 3, 1, 5] # 주황색 영역 데이터</code></td><td>누적 영역 그래프에 사용할 예시 데이터 목록을 만듭니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 2. 그래프 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>14</td><td><code>plt.stackplot(x, y1, y2, labels=[&#x27;Series 1&#x27;, &#x27;Series 2&#x27;], colors=[&#x27;tab:blue&#x27;, &#x27;tab:orange&#x27;])</code></td><td>누적 영역 그래프를 그려 여러 값의 합과 구성 비율 변화를 보여줍니다.</td></tr><tr><td>15</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>16</td><td><code># 3. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>17</td><td><code>plt.title(&quot;Visual Analysis - Graph 20&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.xlim(0, 9)</code></td><td>그래프의 x축 또는 y축 표시 범위를 조절합니다.</td></tr><tr><td>19</td><td><code>plt.ylim(0, 16.5) # 이미지의 Y축 범위와 유사하게 설정</code></td><td>그래프의 x축 또는 y축 표시 범위를 조절합니다.</td></tr><tr><td>20</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>21</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 29: Visual Analysis - Graph 9</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 스트립 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.stripplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,
+              color=&quot;tab:blue&quot;,
+              jitter=True,  # 점들이 겹치지 않게 좌우로 살짝 퍼뜨림
+              size=4)       # 점의 크기 조절
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 9&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 스트립 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.stripplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;,</code></td><td>스트립 플롯을 그려 범주별 실제 데이터 점들을 흩뿌려 표시합니다.</td></tr><tr><td>11</td><td><code>              color=&quot;tab:blue&quot;,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>              jitter=True,  # 점들이 겹치지 않게 좌우로 살짝 퍼뜨림</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>              size=4)       # 점의 크기 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 9&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 30: Visual Analysis - Graph 7</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 시계열 샘플 데이터 생성
+np.random.seed(42)
+dates = pd.date_range(start=&quot;2023-01-01&quot;, end=&quot;2023-09-01&quot;, freq=&quot;D&quot;)
+values = np.random.randn(len(dates)).cumsum() # 누적 합계를 통해 흐름 생성
+
+df = pd.DataFrame({&quot;date&quot;: dates, &quot;value&quot;: values})
+
+# 2. 그래프 스타일 설정
+sns.set_style(&quot;ticks&quot;)
+plt.figure(figsize=(10, 7))
+
+# 3. 라인 플롯 그리기
+sns.lineplot(data=df, x=&quot;date&quot;, y=&quot;value&quot;, color=&quot;tab:blue&quot;)
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 7&quot;)
+plt.xlabel(&quot;date&quot;)
+plt.ylabel(&quot;value&quot;)
+
+# 5. 그래프 출력
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import pandas as pd</code></td><td>pandas를 pd라는 이름으로 불러와 표 형태의 데이터를 만들고 가공할 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import numpy as np</code></td><td>numpy를 np라는 이름으로 불러와 수치 계산, 배열, 난수 생성 등을 할 수 있게 합니다.</td></tr><tr><td>3</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>4</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>5</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>6</td><td><code># 1. 시계열 샘플 데이터 생성</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>7</td><td><code>np.random.seed(42)</code></td><td>난수 결과가 매번 같게 나오도록 기준값을 고정합니다.</td></tr><tr><td>8</td><td><code>dates = pd.date_range(start=&quot;2023-01-01&quot;, end=&quot;2023-09-01&quot;, freq=&quot;D&quot;)</code></td><td>시작일과 종료일 사이의 날짜 데이터를 일정 간격으로 생성합니다.</td></tr><tr><td>9</td><td><code>values = np.random.randn(len(dates)).cumsum() # 누적 합계를 통해 흐름 생성</code></td><td>무작위 값을 만든 뒤 누적합을 구해 시간에 따라 움직이는 값처럼 만듭니다.</td></tr><tr><td>10</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>11</td><td><code>df = pd.DataFrame({&quot;date&quot;: dates, &quot;value&quot;: values})</code></td><td>날짜와 값을 묶어 표 형태의 데이터프레임을 만듭니다.</td></tr><tr><td>12</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>13</td><td><code># 2. 그래프 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>14</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code># 3. 라인 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>18</td><td><code>sns.lineplot(data=df, x=&quot;date&quot;, y=&quot;value&quot;, color=&quot;tab:blue&quot;)</code></td><td>선 그래프를 그려 값의 변화 흐름이나 평균 경향을 보여줍니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>21</td><td><code>plt.title(&quot;Visual Analysis - Graph 7&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>22</td><td><code>plt.xlabel(&quot;date&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>23</td><td><code>plt.ylabel(&quot;value&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>24</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>25</td><td><code># 5. 그래프 출력</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>26</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>27</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 31: Visual Analysis - Graph 17</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 잔차 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.residplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,
+              scatter_kws={&#x27;alpha&#x27;: 0.7}) # 점의 투명도 조절
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 17&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 잔차 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.residplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,</code></td><td>잔차 플롯을 그려 회귀모형이 설명하지 못한 오차 패턴을 확인합니다.</td></tr><tr><td>11</td><td><code>              scatter_kws={&#x27;alpha&#x27;: 0.7}) # 점의 투명도 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>12</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>13</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>14</td><td><code>plt.title(&quot;Visual Analysis - Graph 17&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>17</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>18</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 32: Visual Analysis - Graph 26</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 로드 및 스타일 설정
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 2. 조인트 플롯 그리기
+# kind=&quot;scatter&quot; (기본값): 산점도와 히스토그램 결합
+# height: 그래프의 크기 조절
+g = sns.jointplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,
+                  color=&quot;tab:blue&quot;, height=8)
+
+# 3. 제목 설정 (전체 제목은 g.fig를 통해 설정해야 합니다)
+g.fig.suptitle(&quot;Visual Analysis - Graph 26&quot;, y=1.02)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 로드 및 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 조인트 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code># kind=&quot;scatter&quot; (기본값): 산점도와 히스토그램 결합</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>10</td><td><code># height: 그래프의 크기 조절</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>11</td><td><code>g = sns.jointplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;,</code></td><td>그래프 객체를 변수에 저장해 이후 제목이나 세부 설정을 조정할 수 있게 합니다.</td></tr><tr><td>12</td><td><code>                  color=&quot;tab:blue&quot;, height=8)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>14</td><td><code># 3. 제목 설정 (전체 제목은 g.fig를 통해 설정해야 합니다)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>15</td><td><code>g.fig.suptitle(&quot;Visual Analysis - Graph 26&quot;, y=1.02)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 33: Visual Analysis - Graph 8</h2>
+  <div class="badge">핵심 그래프: Count Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 카운트 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.countplot(data=tips, x=&quot;size&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 8&quot;)
+plt.xlabel(&quot;size&quot;)
+plt.ylabel(&quot;count&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 카운트 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.countplot(data=tips, x=&quot;size&quot;, color=&quot;tab:blue&quot;)</code></td><td>범주형 데이터의 개수를 세어 막대그래프로 나타냅니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 8&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;size&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;count&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 34: Visual Analysis - Graph 15</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 준비 (tips 데이터셋 활용)
+tips = sns.load_dataset(&quot;tips&quot;)
+# 요일별 데이터 개수 카운트
+day_counts = tips[&#x27;day&#x27;].value_counts()
+
+# 2. 파이 차트 그리기
+plt.figure(figsize=(10, 7))
+plt.pie(day_counts,
+        labels=day_counts.index,
+        autopct=&#x27;%1.0f%%&#x27;, # 소수점 없이 퍼센트 표시
+        colors=sns.color_palette(&quot;tab10&quot;), # 이미지와 유사한 다채로운 색상
+        startangle=0) # 시작 각도 설정
+
+# 3. 제목 설정
+plt.title(&quot;Visual Analysis - Graph 15&quot;)
+
+# 4. 출력
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import pandas as pd</code></td><td>pandas를 pd라는 이름으로 불러와 표 형태의 데이터를 만들고 가공할 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>3</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>4</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>5</td><td><code># 1. 데이터 준비 (tips 데이터셋 활용)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>6</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>7</td><td><code># 요일별 데이터 개수 카운트</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>8</td><td><code>day_counts = tips[&#x27;day&#x27;].value_counts()</code></td><td>범주별 등장 횟수를 계산합니다.</td></tr><tr><td>9</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>10</td><td><code># 2. 파이 차트 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>11</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>12</td><td><code>plt.pie(day_counts,</code></td><td>파이 차트를 그려 범주별 비율을 원형 조각으로 표현합니다.</td></tr><tr><td>13</td><td><code>        labels=day_counts.index,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>        autopct=&#x27;%1.0f%%&#x27;, # 소수점 없이 퍼센트 표시</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>15</td><td><code>        colors=sns.color_palette(&quot;tab10&quot;), # 이미지와 유사한 다채로운 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>16</td><td><code>        startangle=0) # 시작 각도 설정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>17</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>18</td><td><code># 3. 제목 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>19</td><td><code>plt.title(&quot;Visual Analysis - Graph 15&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>20</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>21</td><td><code># 4. 출력</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>22</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 35: Visual Analysis - Graph 19</h2>
+  <div class="badge">핵심 그래프: Pair Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 페어 플롯 그리기
+# hue=&quot;sex&quot; 옵션을 추가하면 성별에 따라 색상을 구분하여 더 깊은 분석이 가능합니다.
+g = sns.pairplot(tips, corner=True) # corner=True는 중복되는 상단 삼각형을 숨겨줍니다.
+
+# 전체 제목 설정 (상단 여백 조정 필요)
+g.fig.suptitle(&quot;Visual Analysis - Graph 19&quot;, y=1.02)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 페어 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code># hue=&quot;sex&quot; 옵션을 추가하면 성별에 따라 색상을 구분하여 더 깊은 분석이 가능합니다.</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>10</td><td><code>g = sns.pairplot(tips, corner=True) # corner=True는 중복되는 상단 삼각형을 숨겨줍니다.</code></td><td>그래프 객체를 변수에 저장해 이후 제목이나 세부 설정을 조정할 수 있게 합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 전체 제목 설정 (상단 여백 조정 필요)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>g.fig.suptitle(&quot;Visual Analysis - Graph 19&quot;, y=1.02)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 36: Visual Analysis - Graph 12</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터셋 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 포인트 플롯 그리기
+plt.figure(figsize=(10, 7))
+sns.pointplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 12&quot;)
+plt.xlabel(&quot;day&quot;)
+plt.ylabel(&quot;total_bill&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터셋 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 포인트 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.pointplot(data=tips, x=&quot;day&quot;, y=&quot;total_bill&quot;, color=&quot;tab:blue&quot;)</code></td><td>포인트 플롯을 그려 범주별 평균과 변화 경향을 점과 선으로 표현합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 12&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;day&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;total_bill&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 37: Visual Analysis - Graph 18</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 준비
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# 2. 그래프 스타일 및 크기 설정
+sns.set_style(&quot;ticks&quot;)
+plt.figure(figsize=(10, 7))
+
+# 3. 헥스빈 플롯 그리기
+# gridsize: 육각형의 크기 결정 (값이 클수록 육각형이 작아짐)
+# cmap: 색상 지도 (YlGnBu는 노란색-초록색-파란색 조합)
+hb = plt.hexbin(tips[&#x27;total_bill&#x27;], tips[&#x27;tip&#x27;],
+                gridsize=15,
+                cmap=&#x27;YlGnBu&#x27;,
+                mincnt=1) # 데이터가 없는 구간은 그리지 않음
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 18&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import pandas as pd</code></td><td>pandas를 pd라는 이름으로 불러와 표 형태의 데이터를 만들고 가공할 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>3</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>4</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>5</td><td><code># 1. 데이터 준비</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>6</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 2. 그래프 스타일 및 크기 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>10</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 3. 헥스빈 플롯 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code># gridsize: 육각형의 크기 결정 (값이 클수록 육각형이 작아짐)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>14</td><td><code># cmap: 색상 지도 (YlGnBu는 노란색-초록색-파란색 조합)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>15</td><td><code>hb = plt.hexbin(tips[&#x27;total_bill&#x27;], tips[&#x27;tip&#x27;],</code></td><td>헥스빈 그래프 객체를 변수에 저장합니다.</td></tr><tr><td>16</td><td><code>                gridsize=15,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>17</td><td><code>                cmap=&#x27;YlGnBu&#x27;,</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>18</td><td><code>                mincnt=1) # 데이터가 없는 구간은 그리지 않음</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>21</td><td><code>plt.title(&quot;Visual Analysis - Graph 18&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>22</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>23</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>24</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>25</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 38: Visual Analysis - Graph 0</h2>
+  <div class="badge">핵심 그래프: Regression Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 기본 데이터셋 로드 (이미지와 동일한 &#x27;tips&#x27; 데이터)
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# 2. 그래프 스타일 설정
+sns.set_style(&quot;ticks&quot;) # 그래프 테두리와 눈금 스타일
+
+# 3. 회귀선이 포함된 산점도 그리기
+plt.figure(figsize=(10, 7)) # 이미지와 비슷한 비율로 설정
+sns.regplot(x=&#x27;total_bill&#x27;, y=&#x27;tip&#x27;, data=tips,
+            scatter_kws={&#x27;s&#x27;: 15}, # 점의 크기 조절
+            line_kws={&#x27;color&#x27;: &#x27;tab:blue&#x27;}) # 선 색상 유지
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 0&quot;, fontsize=14)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+# 5. 그래프 표시
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 기본 데이터셋 로드 (이미지와 동일한 &#x27;tips&#x27; 데이터)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>7</td><td><code># 2. 그래프 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>8</td><td><code>sns.set_style(&quot;ticks&quot;) # 그래프 테두리와 눈금 스타일</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>9</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>10</td><td><code># 3. 회귀선이 포함된 산점도 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>11</td><td><code>plt.figure(figsize=(10, 7)) # 이미지와 비슷한 비율로 설정</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>12</td><td><code>sns.regplot(x=&#x27;total_bill&#x27;, y=&#x27;tip&#x27;, data=tips,</code></td><td>산점도와 회귀선을 함께 그려 두 변수 사이의 관계 추세를 보여줍니다.</td></tr><tr><td>13</td><td><code>            scatter_kws={&#x27;s&#x27;: 15}, # 점의 크기 조절</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>            line_kws={&#x27;color&#x27;: &#x27;tab:blue&#x27;}) # 선 색상 유지</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>15</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>16</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>17</td><td><code>plt.title(&quot;Visual Analysis - Graph 0&quot;, fontsize=14)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>20</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>21</td><td><code># 5. 그래프 표시</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>22</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>23</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 39: Visual Analysis - Graph 0</h2>
+  <div class="badge">핵심 그래프: 데이터 시각화</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import plotly.express as px
+
+df = px.data.tips()
+fig = px.scatter(df, x=&quot;total_bill&quot;, y=&quot;tip&quot;, trendline=&quot;ols&quot;,
+                 title=&quot;Visual Analysis - Graph 0&quot;)
+fig.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import plotly.express as px</code></td><td>plotly express를 px라는 이름으로 불러와 인터랙티브 그래프를 만들 수 있게 합니다.</td></tr><tr><td>2</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>3</td><td><code>df = px.data.tips()</code></td><td>plotly에 내장된 tips 데이터셋을 불러와 df 변수에 저장합니다.</td></tr><tr><td>4</td><td><code>fig = px.scatter(df, x=&quot;total_bill&quot;, y=&quot;tip&quot;, trendline=&quot;ols&quot;,</code></td><td>그래프 객체를 변수에 저장해 이후 제목이나 세부 설정을 조정할 수 있게 합니다.</td></tr><tr><td>5</td><td><code>                 title=&quot;Visual Analysis - Graph 0&quot;)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>6</td><td><code>fig.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 40: Visual Analysis - Graph 19</h2>
+  <div class="badge">핵심 그래프: Regression Plot</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 데이터 로드
+tips = sns.load_dataset(&quot;tips&quot;)
+sns.set_style(&quot;ticks&quot;)
+
+# 회귀선이 포함된 산점도 그리기
+plt.figure(figsize=(10, 7))
+sns.regplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, color=&quot;tab:blue&quot;)
+
+# 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 19&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;tip&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 데이터 로드</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>7</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>8</td><td><code># 회귀선이 포함된 산점도 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>9</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>10</td><td><code>sns.regplot(data=tips, x=&quot;total_bill&quot;, y=&quot;tip&quot;, color=&quot;tab:blue&quot;)</code></td><td>산점도와 회귀선을 함께 그려 두 변수 사이의 관계 추세를 보여줍니다.</td></tr><tr><td>11</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>12</td><td><code># 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>13</td><td><code>plt.title(&quot;Visual Analysis - Graph 19&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>14</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>15</td><td><code>plt.ylabel(&quot;tip&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 41: Visual Analysis - Graph 1</h2>
+  <div class="badge">핵심 그래프: Histogram</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터셋 로드 (동일한 &#x27;tips&#x27; 데이터셋의 &#x27;total_bill&#x27; 변수 사용)
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# 2. 그래프 스타일 설정
+sns.set_style(&quot;ticks&quot;)
+
+# 3. 히스토그램 + KDE 곡선 그리기
+# kde=True 옵션이 파란색 부드러운 곡선을 생성합니다.
+sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True,
+             color=&quot;tab:blue&quot;, alpha=0.5) # alpha는 막대의 투명도입니다.
+
+# 4. 제목 및 라벨 설정
+plt.title(&quot;Visual Analysis - Graph 1&quot;)
+plt.xlabel(&quot;total_bill&quot;)
+plt.ylabel(&quot;Count&quot;)
+
+# 5. 그래프 출력
+plt.tight_layout()
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터셋 로드 (동일한 &#x27;tips&#x27; 데이터셋의 &#x27;total_bill&#x27; 변수 사용)</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>7</td><td><code># 2. 그래프 스타일 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>8</td><td><code>sns.set_style(&quot;ticks&quot;)</code></td><td>그래프의 배경, 눈금, 테두리 스타일을 설정합니다.</td></tr><tr><td>9</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>10</td><td><code># 3. 히스토그램 + KDE 곡선 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>11</td><td><code># kde=True 옵션이 파란색 부드러운 곡선을 생성합니다.</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>12</td><td><code>sns.histplot(data=tips, x=&quot;total_bill&quot;, kde=True,</code></td><td>히스토그램을 그려 값의 분포와 빈도를 보여줍니다.</td></tr><tr><td>13</td><td><code>             color=&quot;tab:blue&quot;, alpha=0.5) # alpha는 막대의 투명도입니다.</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>15</td><td><code># 4. 제목 및 라벨 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>16</td><td><code>plt.title(&quot;Visual Analysis - Graph 1&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>17</td><td><code>plt.xlabel(&quot;total_bill&quot;)</code></td><td>x축 이름을 설정합니다.</td></tr><tr><td>18</td><td><code>plt.ylabel(&quot;Count&quot;)</code></td><td>y축 이름을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code># 5. 그래프 출력</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>21</td><td><code>plt.tight_layout()</code></td><td>그래프 요소들이 겹치지 않도록 여백을 자동 조정합니다.</td></tr><tr><td>22</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+<section class="card">
+  <h2>예제 42: Visual Analysis - Graph 16</h2>
+  <div class="badge">핵심 그래프: Heatmap</div>
+  <h3>① 원본 코드</h3>
+  <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 로드 및 상관계수 계산
+tips = sns.load_dataset(&quot;tips&quot;)
+# 수치형 데이터만 선택하여 상관계수 행렬 생성
+corr = tips[[&#x27;total_bill&#x27;, &#x27;tip&#x27;, &#x27;size&#x27;]].corr()
+
+# 2. 히트맵 그리기
+plt.figure(figsize=(10, 7))
+sns.heatmap(corr,
+            annot=True,       # 칸 안에 숫자 표시
+            cmap=&#x27;coolwarm&#x27;,  # 빨간색(양)과 파란색(음)의 대비 색상
+            fmt=&quot;.2g&quot;,        # 숫자 포맷 설정
+            center=0.7)       # 색상 기준점 설정 (이미지와 유사하게 조정)
+
+# 3. 제목 설정
+plt.title(&quot;Visual Analysis - Graph 16&quot;)
+
+plt.show()</code></pre>
+  <h3>② 코드 상세 설명</h3>
+  <table>
+    <thead><tr><th>줄</th><th>원본 코드</th><th>설명</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>import seaborn as sns</code></td><td>seaborn 라이브러리를 sns라는 짧은 이름으로 불러와 통계 그래프를 쉽게 그릴 수 있게 합니다.</td></tr><tr><td>2</td><td><code>import matplotlib.pyplot as plt</code></td><td>matplotlib의 pyplot을 plt라는 이름으로 불러와 그래프 크기, 제목, 축 이름, 출력 등을 제어합니다.</td></tr><tr><td>3</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>4</td><td><code># 1. 데이터 로드 및 상관계수 계산</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>5</td><td><code>tips = sns.load_dataset(&quot;tips&quot;)</code></td><td>seaborn에 내장된 tips 데이터셋을 불러와 tips 변수에 저장합니다.</td></tr><tr><td>6</td><td><code># 수치형 데이터만 선택하여 상관계수 행렬 생성</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>7</td><td><code>corr = tips[[&#x27;total_bill&#x27;, &#x27;tip&#x27;, &#x27;size&#x27;]].corr()</code></td><td>선택한 수치형 변수들 사이의 상관계수 행렬을 계산합니다.</td></tr><tr><td>8</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>9</td><td><code># 2. 히트맵 그리기</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>10</td><td><code>plt.figure(figsize=(10, 7))</code></td><td>새 그래프 영역을 만들고, figsize로 가로·세로 크기를 지정합니다.</td></tr><tr><td>11</td><td><code>sns.heatmap(corr,</code></td><td>히트맵을 그려 숫자 표나 상관계수를 색상으로 빠르게 비교합니다.</td></tr><tr><td>12</td><td><code>            annot=True,       # 칸 안에 숫자 표시</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>13</td><td><code>            cmap=&#x27;coolwarm&#x27;,  # 빨간색(양)과 파란색(음)의 대비 색상</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>14</td><td><code>            fmt=&quot;.2g&quot;,        # 숫자 포맷 설정</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>15</td><td><code>            center=0.7)       # 색상 기준점 설정 (이미지와 유사하게 조정)</code></td><td>이 줄은 그래프의 데이터, 축, 색상, 크기, 투명도, 범례 등 세부 옵션을 설정합니다.</td></tr><tr><td>16</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>17</td><td><code># 3. 제목 설정</code></td><td>주석: 실행되지는 않지만, 아래 코드가 하는 일을 설명합니다.</td></tr><tr><td>18</td><td><code>plt.title(&quot;Visual Analysis - Graph 16&quot;)</code></td><td>그래프 제목을 설정합니다.</td></tr><tr><td>19</td><td><code>&nbsp;</code></td><td>빈 줄: 코드 구간을 나누어 읽기 쉽게 합니다.</td></tr><tr><td>20</td><td><code>plt.show()</code></td><td>완성된 그래프를 화면에 출력합니다.</td></tr></tbody>
+  </table>
+  <h3>③ 해석 포인트</h3>
+  <p>이 코드는 <b>tips 데이터셋</b>을 이용해 변수의 분포, 범주별 차이, 두 변수의 관계, 또는 여러 그래프의 조합을 시각적으로 분석하는 예제입니다. 제목, 축 이름, 색상, 투명도, 그래프 크기 같은 옵션은 그래프를 더 읽기 쉽게 만드는 역할을 합니다.</p>
+</section>
+
+</main>
+<footer>생성 자료: b111.py 코드 상세 설명 HTML</footer>
+</body>
+</html>
