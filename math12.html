@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 정수론 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --navy:#172554; --blue:#2563eb; --purple:#7c3aed; --ink:#172033;
+  --green:#ecfdf5; --yellow:#fff7d6; --line:#dbeafe; --rose:#fff1f2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;
+  background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);
+  color:var(--ink);
+  line-height:1.82;
+}
+header{
+  background:radial-gradient(circle at top left,#60a5fa,transparent 28%),
+             linear-gradient(135deg,var(--navy),var(--purple));
+  color:white;
+  text-align:center;
+  padding:54px 24px;
+}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(37,99,235,.13);
+  border-radius:24px;
+  padding:30px;
+  margin:28px 0;
+  box-shadow:0 16px 38px rgba(15,23,42,.12);
+}
+h2{
+  color:#1e3a8a;
+  border-bottom:3px solid var(--line);
+  padding-bottom:10px;
+  margin-top:8px;
+}
+.badge{
+  display:inline-block;
+  background:#ede9fe;
+  color:#5b21b6;
+  padding:6px 13px;
+  border-radius:999px;
+  font-weight:800;
+}
+.sec{
+  font-weight:900;
+  color:#9a3412;
+  margin-top:24px;
+  font-size:1.12rem;
+}
+.box,.use,.note{
+  border-radius:16px;
+  padding:16px 19px;
+  overflow-x:auto;
+}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{
+  background:#f8fafc;
+  border-radius:16px;
+  padding:16px 38px;
+}
+li{margin:8px 0}
+pre{
+  background:#0f172a;
+  color:#e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  overflow:auto;
+  line-height:1.65;
+  font-size:.95rem;
+  border:1px solid #334155;
+}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.quiz{
+  background:var(--rose);
+  border-left:7px solid #e11d48;
+  border-radius:16px;
+  padding:16px 19px;
+}
+mjx-container[jax="SVG"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){
+  header h1{font-size:1.72rem}
+  main{padding:16px}
+  .card{padding:20px}
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 정수론 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+정수론의 대표 정리를 이해하고, 증명 아이디어와 파이썬 코드를 통해 소수, 약수, 합동식, 최대공약수의 구조를 탐구한다.
+수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>유클리드의 소수 무한 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">소수는 유한 개가 아니라 무한히 많이 존재한다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>소수가 유한 개뿐이라고 가정하고, 그 목록을 \(p_1,p_2,\dots,p_n\)이라고 하자.</li><li>새로운 수 \(N=p_1p_2\cdots p_n+1\)을 만든다.</li><li>\(N\)은 어떤 \(p_i\)로 나누어도 나머지가 \(1\)이다.</li><li>따라서 \(N\)은 기존 목록에 없는 새로운 소수를 약수로 가져야 한다.</li><li>이는 모든 소수를 이미 적었다는 가정과 모순이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">암호학, RSA, 소수 생성 알고리즘의 이론적 출발점이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># n 이하의 소수 구하기
+n = 100
+primes = []
+
+for x in range(2, n + 1):
+    is_prime = True
+    for d in range(2, int(x**0.5) + 1):
+        if x % d == 0:
+            is_prime = False
+            break
+    if is_prime:
+        primes.append(x)
+
+print(primes)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`n = 100` : 100 이하의 소수를 찾겠다는 뜻이다.</li><li>`primes = []` : 찾은 소수를 저장할 빈 리스트를 만든다.</li><li>`for x in range(2, n + 1)` : 2부터 100까지 하나씩 검사한다.</li><li>`is_prime = True` : 처음에는 x가 소수라고 가정한다.</li><li>`int(x**0.5) + 1` : x의 제곱근 이하의 수까지만 나누어 본다.</li><li>`x % d == 0` : x가 d로 나누어떨어지면 소수가 아니다.</li><li>`break` : 약수를 찾았으므로 더 이상 검사하지 않는다.</li><li>`primes.append(x)` : 소수로 판정된 x를 리스트에 추가한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>산술의 기본정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">모든 \(1\)보다 큰 자연수는 소수들의 곱으로 나타낼 수 있으며, 그 표현은 순서를 제외하면 유일하다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>존재성: 어떤 합성수도 더 작은 두 자연수의 곱으로 나눌 수 있다.</li><li>이 과정을 계속하면 더 이상 쪼갤 수 없는 소수들의 곱이 된다.</li><li>유일성: 두 가지 서로 다른 소인수분해가 있다고 가정한다.</li><li>한쪽의 소수 \(p\)가 다른 쪽의 곱을 나누면, 유클리드 보조정리에 의해 그 곱의 어떤 소인수를 나누어야 한다.</li><li>소수끼리는 같을 때만 나누어떨어지므로 같은 소수를 하나씩 지워 나갈 수 있다.</li><li>결국 두 분해는 순서만 다르고 같다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">약수 개수, 최대공약수, 최소공배수, 암호학, 정수 알고리즘의 핵심이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 소인수분해
+n = 360
+factors = []
+
+d = 2
+while d * d &lt;= n:
+    while n % d == 0:
+        factors.append(d)
+        n //= d
+    d += 1
+
+if n &gt; 1:
+    factors.append(n)
+
+print(factors)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`n = 360` : 소인수분해할 수를 정한다.</li><li>`factors = []` : 소인수를 저장할 리스트이다.</li><li>`d = 2` : 가장 작은 소수 후보 2부터 나누기 시작한다.</li><li>`while d * d <= n` : d가 n의 제곱근 이하일 때까지만 검사한다.</li><li>`while n % d == 0` : d로 계속 나누어떨어지는 동안 반복한다.</li><li>`factors.append(d)` : d가 소인수이므로 저장한다.</li><li>`n //= d` : n을 d로 나누어 더 작은 수로 만든다.</li><li>`if n > 1` : 마지막에 남은 수가 1보다 크면 그것도 소수이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>유클리드 호제법</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">두 자연수 \(a,b\)에 대해 \[\gcd(a,b)=\gcd(b,a\bmod b)\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(a=bq+r\)라고 하자. 여기서 \(r=a\bmod b\)이다.</li><li>\(a\)와 \(b\)의 공약수는 \(a-bq=r\)도 나눈다.</li><li>반대로 \(b\)와 \(r\)의 공약수는 \(bq+r=a\)도 나눈다.</li><li>따라서 두 쌍 \((a,b)\), \((b,r)\)의 공약수 집합이 같다.</li><li>그러므로 최대공약수도 같다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">최대공약수 계산, 분수 약분, 모듈러 역원, 암호 알고리즘에서 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유클리드 호제법으로 최대공약수 구하기
+a = 33537
+b = 20727
+
+while b != 0:
+    a, b = b, a % b
+
+print(&quot;최대공약수:&quot;, a)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`a = 33537`, `b = 20727` : 최대공약수를 구할 두 수이다.</li><li>`while b != 0` : 나머지가 0이 될 때까지 반복한다.</li><li>`a, b = b, a % b` : 기존 b와 나머지 a % b로 문제를 줄인다.</li><li>`a % b` : a를 b로 나눈 나머지이다.</li><li>`b`가 0이 되면 `a`가 최대공약수이다.</li><li>`print()` : 최종 최대공약수를 출력한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>베주 항등식</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">정수 \(a,b\)에 대해 어떤 정수 \(x,y\)가 존재하여 \[ax+by=\gcd(a,b)\] 를 만족한다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(a\)와 \(b\)의 정수 선형결합 \(ax+by\) 중 양수인 것들의 집합을 생각한다.</li><li>그중 가장 작은 양수를 \(d\)라고 하자.</li><li>나눗셈 알고리즘으로 \(a=dq+r\)라 쓰면 \(r\)도 \(a,b\)의 선형결합이다.</li><li>\(0\le r<d\)인데 \(d\)가 가장 작은 양수이므로 \(r=0\)이다.</li><li>따라서 \(d\)는 \(a\)를 나누고, 같은 방식으로 \(b\)도 나눈다.</li><li>결국 \(d=\gcd(a,b)\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">모듈러 역원, 선형 디오판토스 방정식, RSA 복호화 지수 계산에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 확장 유클리드 알고리즘
+def extended_gcd(a, b):
+    if b == 0:
+        return a, 1, 0
+
+    g, x1, y1 = extended_gcd(b, a % b)
+    x = y1
+    y = x1 - (a // b) * y1
+    return g, x, y
+
+a = 30
+b = 18
+g, x, y = extended_gcd(a, b)
+
+print(&quot;gcd:&quot;, g)
+print(&quot;x, y:&quot;, x, y)
+print(&quot;확인:&quot;, a*x + b*y)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`extended_gcd(a, b)` : 최대공약수와 베주 계수 x, y를 함께 구하는 함수이다.</li><li>`if b == 0` : 재귀의 종료 조건이다.</li><li>`return a, 1, 0` : \(a\cdot1+b\cdot0=a\)이므로 성립한다.</li><li>`extended_gcd(b, a % b)` : 더 작은 문제로 바꾸어 계산한다.</li><li>`x = y1` : 이전 단계의 계수를 현재 단계로 변환한다.</li><li>`y = x1 - (a // b) * y1` : 나눗셈 관계를 이용해 새 계수를 계산한다.</li><li>`a*x + b*y` : 실제로 최대공약수가 나오는지 확인한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>유클리드 보조정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">소수 \(p\)가 곱 \(ab\)를 나누면, \(p\mid a\) 또는 \(p\mid b\)이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(p\mid a\)이면 증명은 끝난다.</li><li>\(p\nmid a\)라고 하자.</li><li>\(p\)가 소수이므로 \(\gcd(p,a)=1\)이다.</li><li>베주 항등식에 의해 어떤 정수 \(x,y\)가 존재하여 \(px+ay=1\)이다.</li><li>양변에 \(b\)를 곱하면 \(pbx+aby=b\)이다.</li><li>\(p\mid pbx\)이고 \(p\mid ab\)이므로 \(p\mid b\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">산술의 기본정리의 유일성 증명, 소인수분해 이론에 필수이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유클리드 보조정리 확인
+p = 7
+a = 14
+b = 5
+
+divides_product = (a * b) % p == 0
+divides_a = a % p == 0
+divides_b = b % p == 0
+
+print(&quot;p가 ab를 나누는가?&quot;, divides_product)
+print(&quot;p가 a 또는 b를 나누는가?&quot;, divides_a or divides_b)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`p = 7` : 검사할 소수이다.</li><li>`a = 14`, `b = 5` : 두 정수이다.</li><li>`(a * b) % p == 0` : p가 ab를 나누는지 확인한다.</li><li>`a % p == 0` : p가 a를 나누는지 확인한다.</li><li>`b % p == 0` : p가 b를 나누는지 확인한다.</li><li>`divides_a or divides_b` : 둘 중 하나라도 참이면 정리의 결론이 성립한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>페르마의 소정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">소수 \(p\)와 \(p\nmid a\)인 정수 \(a\)에 대해 \[a^{p-1}\equiv 1 \pmod p\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(1,2,\dots,p-1\)에 각각 \(a\)를 곱한 수들을 생각한다.</li><li>\(a,2a,\dots,(p-1)a\)는 \(p\)로 나눈 나머지가 모두 서로 다르다.</li><li>또한 어느 것도 \(0\)이 아니다.</li><li>따라서 이 나머지들은 \(1,2,\dots,p-1\)을 순서만 바꾼 것이다.</li><li>양쪽을 모두 곱하면 \(a^{p-1}(p-1)!\equiv (p-1)! \pmod p\)이다.</li><li>\((p-1)!\)은 \(p\)와 서로소이므로 약분하여 \(a^{p-1}\equiv1\pmod p\)를 얻는다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">소수 판별, 모듈러 거듭제곱, RSA 암호의 기초 원리에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 페르마의 소정리 확인
+a = 3
+p = 11
+
+result = pow(a, p - 1, p)
+
+print(result)
+print(result == 1)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`a = 3` : 밑이 되는 정수이다.</li><li>`p = 11` : 소수 p이다.</li><li>`pow(a, p - 1, p)` : \(a^{p-1}\)을 p로 나눈 나머지를 빠르게 계산한다.</li><li>`result == 1` : 페르마의 소정리 결론과 같은지 확인한다.</li><li>`pow()`의 세 번째 인자는 모듈러 연산을 뜻한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>중국인의 나머지 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">서로소인 \(m,n\)에 대해 \[x\equiv a\pmod m,\qquad x\equiv b\pmod n\] 을 만족하는 해는 \(\pmod{mn}\)에서 유일하게 존재한다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(\gcd(m,n)=1\)이므로 베주 항등식에 의해 \(ms+nt=1\)인 정수 \(s,t\)가 존재한다.</li><li>\(x=bms+ant\)라고 두자.</li><li>\(\pmod m\)에서 \(ms\)는 0이고 \(nt\equiv1\)이므로 \(x\equiv a\pmod m\)이다.</li><li>\(\pmod n\)에서 \(nt\)는 0이고 \(ms\equiv1\)이므로 \(x\equiv b\pmod n\)이다.</li><li>두 해의 차는 \(m\)과 \(n\) 모두로 나누어떨어지므로 \(mn\)으로 나누어떨어진다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">달력 계산, 암호학, 분산 계산, 모듈러 방정식 풀이에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 중국인의 나머지 정리 예제
+# x ≡ 2 (mod 3), x ≡ 3 (mod 5)
+
+for x in range(3 * 5):
+    if x % 3 == 2 and x % 5 == 3:
+        print(&quot;해:&quot;, x)
+        break</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`range(3 * 5)` : 해는 0부터 14 사이에서 하나 존재한다.</li><li>`x % 3 == 2` : 첫 번째 합동식을 확인한다.</li><li>`x % 5 == 3` : 두 번째 합동식을 확인한다.</li><li>`and` : 두 조건이 동시에 참이어야 한다.</li><li>`print()` : 조건을 만족하는 x를 출력한다.</li><li>`break` : 첫 번째 해를 찾으면 반복을 멈춘다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>오일러 피 함수 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">\(\gcd(a,n)=1\)이면 \[a^{\varphi(n)}\equiv1\pmod n\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(n\)과 서로소인 나머지들의 집합을 생각한다.</li><li>이 집합의 원소 개수는 \(\varphi(n)\)이다.</li><li>\(\gcd(a,n)=1\)이면 각 원소에 \(a\)를 곱해도 여전히 \(n\)과 서로소이다.</li><li>곱한 결과는 기존 집합의 순서만 바뀐 것이다.</li><li>모든 원소를 곱한 식에서 공통 곱을 약분하면 \(a^{\varphi(n)}\equiv1\pmod n\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">RSA 암호, 모듈러 역원, 정수론 알고리즘에서 핵심적으로 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 오일러 피 함수와 오일러 정리 확인
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def phi(n):
+    count = 0
+    for k in range(1, n + 1):
+        if gcd(k, n) == 1:
+            count += 1
+    return count
+
+a = 5
+n = 12
+
+print(&quot;phi(n):&quot;, phi(n))
+print(pow(a, phi(n), n))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`gcd(a, b)` : 유클리드 호제법으로 최대공약수를 구한다.</li><li>`phi(n)` : 1부터 n까지 n과 서로소인 수의 개수를 센다.</li><li>`gcd(k, n) == 1` : k와 n이 서로소인지 확인한다.</li><li>`count += 1` : 서로소인 수를 하나 찾았으므로 개수를 늘린다.</li><li>`pow(a, phi(n), n)` : \(a^{arphi(n)}\)을 n으로 나눈 나머지를 구한다.</li><li>결과가 1이면 오일러 정리를 확인한 것이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>윌슨 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">자연수 \(p>1\)에 대해 \(p\)가 소수일 필요충분조건은 \[(p-1)!\equiv -1\pmod p\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(p\)가 소수라고 하자.</li><li>\(1,2,\dots,p-1\)에서 각 수는 곱셈 역원을 가진다.</li><li>자기 자신이 역원인 수는 \(x^2\equiv1\pmod p\), 즉 \(x\equiv1\) 또는 \(x\equiv-1\)뿐이다.</li><li>나머지 수들은 서로 역원끼리 짝지어 곱이 \(1\)이 된다.</li><li>따라서 전체 곱 \((p-1)!\)은 \(1\cdot(-1)\equiv-1\pmod p\)이다.</li><li>반대로 합성수이면 \((p-1)!\)은 보통 \(p\)의 약수를 포함하여 \(-1\)이 될 수 없다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">소수 판별의 이론적 기준이지만, 계산량이 커서 실제 대형 소수 판별에는 잘 쓰이지 않는다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 윌슨 정리로 소수 확인
+p = 7
+fact = 1
+
+for k in range(1, p):
+    fact *= k
+
+print(&quot;나머지:&quot;, fact % p)
+print(&quot;소수 조건 만족:&quot;, fact % p == p - 1)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`p = 7` : 검사할 수이다.</li><li>`fact = 1` : 팩토리얼 계산의 시작값이다.</li><li>`for k in range(1, p)` : 1부터 p-1까지 곱한다.</li><li>`fact *= k` : 현재 값에 k를 곱한다.</li><li>`fact % p` : \((p-1)!\)을 p로 나눈 나머지이다.</li><li>`p - 1` : 모듈러에서 \(-1\)과 같은 값이다.</li><li>`fact % p == p - 1` : 윌슨 정리의 조건을 확인한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>제곱수의 약수 개수 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">자연수 \(n\)이 완전제곱수일 필요충분조건은 \(n\)의 양의 약수 개수가 홀수인 것이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>일반적으로 약수는 \(d\)와 \(\frac{n}{d}\)처럼 쌍으로 나타난다.</li><li>예를 들어 \(d\neq \frac{n}{d}\)이면 두 약수가 서로 짝을 이룬다.</li><li>하지만 \(d=\frac{n}{d}\)이면 \(d^2=n\)이므로 \(n\)은 완전제곱수이다.</li><li>완전제곱수에서는 가운데 약수 \(\sqrt n\)이 자기 자신과 짝을 이루므로 약수 개수가 홀수가 된다.</li><li>반대로 약수 개수가 홀수라면 짝이 남는 약수가 있어야 하므로 \(n\)은 완전제곱수이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">약수 개수 문제, 수열 문제, 알고리즘 최적화, 제곱수 판별에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 약수 개수와 완전제곱수 판별
+n = 36
+divisors = []
+
+for d in range(1, n + 1):
+    if n % d == 0:
+        divisors.append(d)
+
+print(&quot;약수:&quot;, divisors)
+print(&quot;약수 개수:&quot;, len(divisors))
+print(&quot;완전제곱수인가?&quot;, len(divisors) % 2 == 1)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`n = 36` : 검사할 자연수이다.</li><li>`divisors = []` : 약수를 저장할 리스트이다.</li><li>`for d in range(1, n + 1)` : 1부터 n까지 약수 후보를 검사한다.</li><li>`n % d == 0` : d가 n을 나누면 d는 약수이다.</li><li>`divisors.append(d)` : 약수를 리스트에 추가한다.</li><li>`len(divisors)` : 약수의 개수를 구한다.</li><li>`len(divisors) % 2 == 1` : 약수 개수가 홀수인지 확인한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="quiz">
+정수론의 매력은 단순한 자연수 안에 매우 깊은 구조가 숨어 있다는 점이다.
+소수, 최대공약수, 합동식, 약수 개수 정리는 모두 암호학, 알고리즘, 컴퓨터 과학과 직접 연결된다.
+</div>
+</section>
+</main>
+<footer>매력적인 정수론 정리 10개 HTML 수업자료</footer>
+</body>
+</html>
