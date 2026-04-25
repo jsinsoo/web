@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>깨지지 않는 예쁜 수식 - 매력적인 수학 정리 10개</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --navy:#172554; --blue:#2563eb; --purple:#7c3aed; --ink:#172033;
+  --soft:#f8fbff; --paper:#ffffff; --line:#dbeafe; --green:#ecfdf5; --yellow:#fff7d6;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;
+  background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%); color:var(--ink); line-height:1.82;
+}
+header{
+  background:radial-gradient(circle at top left,#60a5fa,transparent 28%),
+             linear-gradient(135deg,var(--navy),var(--purple));
+  color:white; text-align:center; padding:52px 24px;
+}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.05rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{
+  background:rgba(255,255,255,.96); border:1px solid rgba(37,99,235,.12);
+  border-radius:24px; padding:30px; margin:28px 0;
+  box-shadow:0 16px 38px rgba(15,23,42,.12);
+}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}
+.box,.use,.note{
+  border-radius:16px; padding:16px 19px; overflow-x:auto;
+}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}
+li{margin:8px 0}
+pre{
+  background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;
+  overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155;
+}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.formula{
+  margin:14px 0; padding:14px 16px; background:#ffffff; border:1px solid #dbeafe;
+  border-radius:14px; text-align:center; overflow-x:auto;
+}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+footer{text-align:center;color:#64748b;padding:30px}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+@media(max-width:640px){
+  header h1{font-size:1.75rem}
+  main{padding:16px}
+  .card{padding:20px}
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    renderActions: {
+      addMenu: []
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 수학 정리 10개</h1>
+<p>Math input error 방지 MathJax 수식 · 증명 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">유명한 수학 정리의 의미를 이해하고, 증명 아이디어와 파이썬 계산 예제를 통해 수학 개념을 코드로 확인한다.</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>피타고라스 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">직각삼각형에서 두 직각변을 \(a,b\), 빗변을 \(c\)라 하면 \[a^2+b^2=c^2\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>한 변의 길이가 \(a+b\)인 큰 정사각형을 생각한다.</li><li>그 안에 합동인 직각삼각형 4개를 배치하면 가운데에 한 변이 \(c\)인 정사각형이 생긴다.</li><li>큰 정사각형의 넓이는 \((a+b)^2\), 삼각형 4개의 넓이는 \(4\cdot\frac{ab}{2}=2ab\)이다.</li><li>따라서 가운데 정사각형 넓이는 \((a+b)^2-2ab=a^2+b^2\)이고, 동시에 \(c^2\)이다.</li><li>그러므로 \(a^2+b^2=c^2\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">두 점 사이 거리, 건축, 지도, 컴퓨터 그래픽에서 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 피타고라스 정리로 빗변 구하기
+a = 3
+b = 4
+
+c = (a**2 + b**2) ** 0.5
+
+print(&quot;빗변:&quot;, c)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`a = 3` : 첫 번째 직각변의 길이를 저장한다.</li><li>`b = 4` : 두 번째 직각변의 길이를 저장한다.</li><li>`a**2` : \(a^2\), 즉 a의 제곱을 계산한다.</li><li>`b**2` : \(b^2\), 즉 b의 제곱을 계산한다.</li><li>`** 0.5` : 제곱근을 구한다.</li><li>`print()` : 계산 결과를 화면에 출력한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>소수의 무한성</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">소수는 유한 개가 아니라 무한히 많이 존재한다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>소수가 유한 개라고 가정하고 \(p_1,p_2,\dots,p_n\)이라고 하자.</li><li>새 수 \(N=p_1p_2\cdots p_n+1\)을 만든다.</li><li>\(N\)은 어떤 \(p_i\)로 나누어도 나머지가 \(1\)이다.</li><li>따라서 \(N\)은 기존 소수 목록에 없는 새로운 소수를 약수로 가진다.</li><li>이는 소수가 유한 개라는 가정과 모순이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">암호학, 보안, RSA 공개키 암호에서 중요하다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># n 이하의 소수 구하기
+n = 50
+primes = []
+
+for x in range(2, n + 1):
+    ok = True
+    for d in range(2, int(x**0.5) + 1):
+        if x % d == 0:
+            ok = False
+            break
+    if ok:
+        primes.append(x)
+
+print(primes)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`n = 50` : 50 이하의 수를 검사한다.</li><li>`primes = []` : 찾은 소수를 저장할 리스트이다.</li><li>`for x in range(2, n + 1)` : 2부터 50까지 검사한다.</li><li>`ok = True` : 처음에는 소수라고 가정한다.</li><li>`int(x**0.5) + 1` : \(x\)의 제곱근 이하까지만 약수를 검사한다.</li><li>`x % d == 0` : 나누어떨어지면 약수가 있다는 뜻이다.</li><li>`break` : 소수가 아님을 알았으므로 반복을 멈춘다.</li><li>`append()` : 소수로 판정된 수를 리스트에 추가한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>삼각형 내각의 합 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">유클리드 평면에서 삼각형의 세 내각의 합은 \[180^\circ\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>삼각형의 한 꼭짓점을 지나고 반대편 변과 평행한 직선을 긋는다.</li><li>평행선의 엇각 성질로 다른 두 각을 직선 위의 각으로 옮길 수 있다.</li><li>세 각이 한 직선 위에 놓인다.</li><li>직선 위의 각의 합은 \(180^\circ\)이므로 삼각형의 내각의 합도 \(180^\circ\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">도형 문제, 건축 설계, 삼각측량에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 두 각을 알 때 나머지 각 구하기
+angle1 = 65
+angle2 = 45
+
+angle3 = 180 - angle1 - angle2
+
+print(&quot;세 번째 각:&quot;, angle3)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`angle1 = 65` : 첫 번째 각을 저장한다.</li><li>`angle2 = 45` : 두 번째 각을 저장한다.</li><li>`180 - angle1 - angle2` : 전체 \(180^\circ\)에서 두 각을 뺀다.</li><li>`angle3` : 세 번째 각을 저장한다.</li><li>`print()` : 결과를 출력한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>오일러 공식</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\[e^{i\theta}=\cos\theta+i\sin\theta\] 특히 \(\theta=\pi\)이면 \[e^{i\pi}+1=0\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>지수함수의 전개식은 \(e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots\)이다.</li><li>\(x=i\theta\)를 대입한다.</li><li>\(i^2=-1,\;i^3=-i,\;i^4=1\)의 반복 성질을 이용한다.</li><li>실수 부분은 \(\cos\theta\), 허수 부분은 \(i\sin\theta\)가 된다.</li><li>따라서 \(e^{i\theta}=\cos\theta+i\sin\theta\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">전기공학, 파동, 푸리에 변환, 양자역학에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 오일러 공식 확인
+import cmath
+
+theta = 3.1415926535
+z = cmath.exp(1j * theta)
+
+print(z)
+print(z + 1)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`import cmath` : 복소수 계산 모듈을 불러온다.</li><li>`theta` : \(\pi\)에 가까운 값을 저장한다.</li><li>`1j` : 파이썬에서 허수 단위 \(i\)를 뜻한다.</li><li>`cmath.exp()` : 지수함수 값을 계산한다.</li><li>`z + 1` : \(e^{i\pi}+1\)이 0에 가까운지 확인한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>무한등비급수 공식</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\(|r|<1\)일 때 \[a+ar+ar^2+ar^3+\cdots=\frac{a}{1-r}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>합을 \(S=a+ar+ar^2+\cdots\)라고 둔다.</li><li>양변에 \(r\)을 곱하면 \(rS=ar+ar^2+ar^3+\cdots\)이다.</li><li>두 식을 빼면 \(S-rS=a\)이다.</li><li>따라서 \(S(1-r)=a\)이고 \(S=\frac{a}{1-r}\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">금융 할인, 프랙털, 확률, 감쇠 현상에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 무한등비급수 근사
+a = 1
+r = 0.5
+terms = 20
+
+partial = sum(a * r**k for k in range(terms))
+exact = a / (1 - r)
+
+print(partial)
+print(exact)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`a` : 첫째항이다.</li><li>`r` : 공비이다.</li><li>`terms` : 더할 항의 개수이다.</li><li>`r**k` : \(r^k\)를 계산한다.</li><li>`sum()` : 여러 항을 모두 더한다.</li><li>`exact` : 공식 \(\frac{a}{1-r}\)로 구한 값이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>이항정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\[(a+b)^n=\sum_{k=0}^{n}\binom{n}{k}a^{\,n-k}b^k\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>\((a+b)^n\)은 \(n\)개의 괄호를 곱한 것이다.</li><li>각 괄호에서 \(a\) 또는 \(b\)를 선택한다.</li><li>\(b\)를 정확히 \(k\)번 선택하면 \(a^{n-k}b^k\)가 만들어진다.</li><li>그 선택 방법 수는 \(\binom{n}{k}\)이다.</li><li>모든 \(k\)에 대해 더하면 이항정리가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">확률, 조합론, 다항식 전개, 통계학에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 이항계수 구하기
+def comb(n, k):
+    result = 1
+    for i in range(1, k + 1):
+        result = result * (n - i + 1) // i
+    return result
+
+n = 5
+print([comb(n, k) for k in range(n + 1)])</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`comb(n, k)` : 조합 \(\binom{n}{k}\)를 계산하는 함수이다.</li><li>`result = 1` : 곱셈 누적값의 시작이다.</li><li>`for i in range(1, k + 1)` : 1부터 \(k\)까지 반복한다.</li><li>`//` : 정수 나눗셈이다.</li><li>리스트 컴프리헨션으로 \(k=0\)부터 \(n\)까지의 계수를 모두 구한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>평균값 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f\)가 \([a,b]\)에서 연속이고 \((a,b)\)에서 미분 가능하면, 어떤 \(c\in(a,b)\)가 존재하여 \[f'(c)=\frac{f(b)-f(a)}{b-a}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>두 끝점을 잇는 직선의 기울기는 평균 변화율이다.</li><li>함수에서 이 직선을 뺀 보조함수를 만든다.</li><li>보조함수는 양 끝값이 같아 롤의 정리를 적용할 수 있다.</li><li>어떤 점 \(c\)에서 보조함수의 도함수가 \(0\)이 된다.</li><li>이를 정리하면 \(f'(c)=\frac{f(b)-f(a)}{b-a}\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">속도, 변화율, 함수 증가·감소 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f(x)=x^2에서 평균값 정리 확인
+def f(x):
+    return x**2
+
+a = 1
+b = 3
+
+avg = (f(b) - f(a)) / (b - a)
+c = avg / 2
+
+print(&quot;평균 변화율:&quot;, avg)
+print(&quot;c:&quot;, c)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)` : \(f(x)=x^2\) 함수를 정의한다.</li><li>`a`, `b` : 구간의 양 끝이다.</li><li>`avg` : 평균 변화율 \(\frac{f(b)-f(a)}{b-a}\)이다.</li><li>\(f'(x)=2x\)이므로 \(2c=avg\)이다.</li><li>`c = avg / 2` : 조건을 만족하는 \(c\)를 계산한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>미적분학의 기본정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\(F'(x)=f(x)\)이면 \[\int_a^b f(x)\,dx=F(b)-F(a)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>정적분은 작은 직사각형 넓이의 극한이다.</li><li>\(F'(x)=f(x)\)이면 작은 구간에서 \(F(x+\Delta x)-F(x)\approx f(x)\Delta x\)이다.</li><li>이 작은 변화량들을 모두 더하면 중간 항들이 사라진다.</li><li>결국 전체 변화량 \(F(b)-F(a)\)만 남는다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">넓이, 거리, 누적량, 일, 확률밀도 계산에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 정적분 수치 근사
+def f(x):
+    return x**2
+
+a = 0
+b = 3
+n = 10000
+
+dx = (b - a) / n
+area = sum(f(a + i * dx) * dx for i in range(n))
+exact = b**3 / 3 - a**3 / 3
+
+print(area)
+print(exact)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)` : 적분할 함수 \(x^2\)이다.</li><li>`a`, `b` : 적분 구간이다.</li><li>`n` : 구간을 나누는 개수이다.</li><li>`dx` : 작은 직사각형의 폭이다.</li><li>`f(a + i * dx) * dx` : 작은 직사각형 하나의 넓이이다.</li><li>`sum()` : 모든 작은 넓이를 더한다.</li><li>`exact` : 원시함수 \(F(x)=\frac{x^3}{3}\)로 구한 정확한 값이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>베이즈 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\[P(A\mid B)=\frac{P(B\mid A)P(A)}{P(B)}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>조건부확률 정의에 의해 \(P(A\mid B)=\frac{P(A\cap B)}{P(B)}\)이다.</li><li>또한 \(P(B\mid A)=\frac{P(A\cap B)}{P(A)}\)이다.</li><li>두 번째 식에서 \(P(A\cap B)=P(B\mid A)P(A)\)를 얻는다.</li><li>이를 첫 번째 식에 대입하면 베이즈 정리가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">의료 검사, 스팸 필터, 인공지능, 의사결정에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 양성 판정 후 실제 질병일 확률
+p_disease = 0.01
+p_pos_disease = 0.99
+p_pos_no = 0.05
+
+p_no = 1 - p_disease
+p_pos = p_pos_disease * p_disease + p_pos_no * p_no
+answer = p_pos_disease * p_disease / p_pos
+
+print(answer)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`p_disease` : 질병 사전확률이다.</li><li>`p_pos_disease` : 질병이 있을 때 양성 확률이다.</li><li>`p_pos_no` : 질병이 없을 때 양성 확률이다.</li><li>`p_no` : 질병이 없을 확률이다.</li><li>`p_pos` : 전체 양성 확률이다.</li><li>`answer` : 양성일 때 실제 질병일 확률이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>오일러 다면체 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">볼록다면체에서 꼭짓점 수 \(V\), 모서리 수 \(E\), 면 수 \(F\)에 대해 \[V-E+F=2\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>다면체의 한 면을 제거하고 나머지를 평면에 펼친다.</li><li>펼친 도형은 연결된 평면 그래프가 된다.</li><li>삼각형 분할을 해도 \(V-E+F\) 값은 변하지 않는다.</li><li>단순한 도형까지 줄이면 값이 \(2\)임을 확인할 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">위상수학, 그래프 이론, 3D 모델링, 분자 구조에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 정육면체 확인
+V = 8
+E = 12
+F = 6
+
+result = V - E + F
+
+print(result)
+print(result == 2)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`V = 8` : 정육면체의 꼭짓점 수이다.</li><li>`E = 12` : 정육면체의 모서리 수이다.</li><li>`F = 6` : 정육면체의 면 수이다.</li><li>`result = V - E + F` : 오일러 식을 계산한다.</li><li>`result == 2` : 정리를 만족하는지 참/거짓으로 확인한다.</li></ol>
+</section>
+
+</main>
+<footer>깨지지 않는 예쁜 수식 HTML 수업자료</footer>
+</body>
+</html>
