@@ -1,0 +1,172 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>매력적인 적분법 정리 10개</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff,#fff7ed);color:#172033;line-height:1.82}
+header{background:linear-gradient(135deg,#172554,#7c3aed);color:white;text-align:center;padding:50px 24px}
+header h1{margin:0;font-size:2.2rem} main{max-width:1120px;margin:auto;padding:28px}
+.card{background:white;border-radius:24px;padding:28px;margin:26px 0;box-shadow:0 14px 34px rgba(15,23,42,.12);border:1px solid #dbeafe}
+h2{color:#1e3a8a;border-bottom:3px solid #dbeafe;padding-bottom:10px}.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:22px;font-size:1.1rem}.box{background:#eff6ff;border-left:7px solid #2563eb;border-radius:16px;padding:15px 18px;overflow-x:auto}.use{background:#fff7d6;border-left:7px solid #f59e0b;border-radius:16px;padding:15px 18px}.note{background:#f0fdf4;border-left:7px solid #10b981;border-radius:16px;padding:15px 18px}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}.explain{background:#ecfdf5}li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}.summary{background:#fff1f2;border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.08em!important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em!important}mjx-merror{display:none!important}
+footer{text-align:center;color:#64748b;padding:30px}@media(max-width:640px){header h1{font-size:1.6rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true,processEnvironments:true,packages:{'[+]':['ams']}},loader:{load:['[tex]/ams']},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+<header><h1>사람들이 가장 좋아하는 매력적인 적분법 정리 10개</h1><p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p></header><main>
+<section class="card"><h2>학습 목표</h2><div class="note">적분법의 핵심 정리를 이해하고, 넓이·누적량·원시함수·이상적분을 파이썬 코드로 직접 계산한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.</div></section><section class="card"><span class="badge">정리 1</span><h2>부정적분과 원시함수</h2>
+<div class="sec">① 정리 설명</div><div class="box">함수 \(f\)의 원시함수 \(F\)가 \(F'(x)=f(x)\)를 만족하면 \[\int f(x)\,dx=F(x)+C\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>적분은 미분의 역과정으로 볼 수 있다.</li><li>\(F'(x)=f(x)\)이면 \(F\)를 \(f\)의 원시함수라고 한다.</li><li>상수 \(C\)를 더해도 미분하면 0이 되므로 같은 도함수를 가진다.</li><li>그래서 부정적분에는 항상 적분상수 \(C\)가 붙는다.</li><li>부정적분은 함수의 모든 원시함수 집합을 나타낸다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">속도에서 위치 구하기, 변화율에서 누적량 구하기, 미분방정식의 기본 풀이에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># f(x)=2x의 원시함수 F(x)=x^2 확인
+def f(x):
+    return 2*x
+
+def F(x):
+    return x**2
+
+x = 3
+h = 1e-6
+derivative = (F(x + h) - F(x)) / h
+
+print(&quot;F&#x27;(x) 근사:&quot;, derivative)
+print(&quot;f(x):&quot;, f(x))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f(x)`는 적분할 함수 \(2x\)이다.</li><li>`F(x)`는 원시함수 후보 \(x^2\)이다.</li><li>차분몫으로 \(F'(x)\)를 근사한다.</li><li>`F'(3)`은 약 6이고 `f(3)`도 6이다.</li><li>따라서 \(F\)는 \(f\)의 원시함수임을 확인할 수 있다.</li></ol></section><section class="card"><span class="badge">정리 2</span><h2>거듭제곱 적분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">\(n\ne -1\)일 때 \[\int x^n\,dx=\frac{x^{n+1}}{n+1}+C\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>거듭제곱 미분법 \(rac{d}{dx}x^{n+1}=(n+1)x^n\)에서 출발한다.</li><li>\(x^{n+1}\)을 미분하면 계수 \(n+1\)이 생긴다.</li><li>이를 없애기 위해 \(rac{1}{n+1}\)을 곱한다.</li><li>따라서 \(rac{x^{n+1}}{n+1}\)의 도함수는 \(x^n\)이다.</li><li>단, \(n=-1\)일 때는 로그함수 적분이 된다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">다항함수 적분, 넓이 계산, 물리량 누적 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># x^n 적분 공식 계산
+def power_integral(x, n):
+    return x**(n + 1) / (n + 1)
+
+x = 2
+n = 3
+
+print(&quot;x^3의 원시함수값:&quot;, power_integral(x, n))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`power_integral(x, n)`은 \(rac{x^{n+1}}{n+1}\)을 계산한다.</li><li>`n = 3`이면 \(x^3\)의 원시함수는 \(rac{x^4}{4}\)이다.</li><li>`x = 2`를 대입하면 \(16/4=4\)가 나온다.</li></ol></section><section class="card"><span class="badge">정리 3</span><h2>정적분의 넓이 해석</h2>
+<div class="sec">① 정리 설명</div><div class="box">연속함수 \(f(x)\ge0\)에 대해 정적분 \[\int_a^b f(x)\,dx\] 는 \(x=a\)부터 \(x=b\)까지 그래프 아래의 넓이를 의미한다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>구간을 작은 조각으로 나눈다.</li><li>각 조각에서 함수값을 높이로 하는 직사각형을 만든다.</li><li>직사각형들의 넓이를 모두 더하면 그래프 아래 넓이의 근사가 된다.</li><li>조각의 폭을 0에 가깝게 줄이면 정확한 넓이에 가까워진다.</li><li>이 극한이 정적분이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">면적 계산, 거리 계산, 누적 생산량, 확률밀도 함수 해석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 리만 합으로 integral_0^1 x^2 dx 근사
+def f(x):
+    return x**2
+
+a = 0
+b = 1
+n = 10000
+dx = (b - a) / n
+
+area = sum(f(a + i*dx) * dx for i in range(n))
+
+print(&quot;넓이 근사:&quot;, area)
+print(&quot;정확값:&quot;, 1/3)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f(x)`는 적분할 함수 \(x^2\)이다.</li><li>`dx`는 작은 직사각형의 폭이다.</li><li>`f(a+i*dx)*dx`는 작은 직사각형 하나의 넓이다.</li><li>`sum(...)`은 모든 직사각형 넓이를 더한다.</li><li>결과는 \(\int_0^1x^2dx=rac13\)에 가까워진다.</li></ol></section><section class="card"><span class="badge">정리 4</span><h2>미적분의 기본정리 1</h2>
+<div class="sec">① 정리 설명</div><div class="box">\(F(x)=\int_a^x f(t)\,dt\)로 정의하면, \(f\)가 연속일 때 \[F'(x)=f(x)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>\(F(x)\)는 \(a\)부터 \(x\)까지의 누적 넓이를 나타낸다.</li><li>\(x\)가 조금 증가하면 새로 추가되는 넓이는 대략 \(f(x)\Delta x\)이다.</li><li>따라서 \(F(x+\Delta x)-F(x)\)는 \(f(x)\Delta x\)에 가깝다.</li><li>이를 \(\Delta x\)로 나누면 \(f(x)\)에 가까워진다.</li><li>극한을 취하면 \(F'(x)=f(x)\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">누적량 함수의 변화율 계산, 면적 함수 해석, 물리학의 위치-속도 관계에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># F(x)=integral_0^x 2t dt = x^2의 도함수 확인
+def F(x):
+    return x**2
+
+def f(x):
+    return 2*x
+
+x = 4
+h = 1e-6
+Fp = (F(x + h) - F(x)) / h
+
+print(&quot;F&#x27;(x) 근사:&quot;, Fp)
+print(&quot;f(x):&quot;, f(x))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`F(x)=x**2`는 \(\int_0^x2t\,dt\)와 같다.</li><li>차분몫으로 \(F'(x)\)를 근사한다.</li><li>기본정리에 따르면 \(F'(x)=2x\)이다.</li><li>`x=4`에서 두 값은 약 8로 같다.</li></ol></section><section class="card"><span class="badge">정리 5</span><h2>미적분의 기본정리 2</h2>
+<div class="sec">① 정리 설명</div><div class="box">\(F'(x)=f(x)\)이면 \[\int_a^b f(x)\,dx=F(b)-F(a)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>정적분은 작은 변화량들의 합이다.</li><li>\(F'(x)=f(x)\)이면 작은 구간에서 \(F(x+\Delta x)-F(x)pprox f(x)\Delta x\)이다.</li><li>작은 변화량들을 모두 더하면 중간 항들이 서로 소거된다.</li><li>결국 시작값과 끝값의 차이 \(F(b)-F(a)\)만 남는다.</li><li>따라서 정적분은 원시함수의 끝값 차이로 계산된다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">넓이 계산, 누적 변화량 계산, 물리학의 일과 에너지 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># integral_1^3 2x dx = x^2 | 1 to 3
+def F(x):
+    return x**2
+
+a = 1
+b = 3
+
+integral = F(b) - F(a)
+
+print(&quot;정적분값:&quot;, integral)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`F(x)=x**2`는 \(2x\)의 원시함수이다.</li><li>`a`, `b`는 적분 구간이다.</li><li>`F(b)-F(a)`로 정적분을 계산한다.</li><li>결과는 \(9-1=8\)이다.</li></ol></section><section class="card"><span class="badge">정리 6</span><h2>치환적분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">미분 가능한 \(u=g(x)\)에 대해 \[\int f(g(x))g'(x)\,dx=\int f(u)\,du\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>치환적분은 연쇄법칙의 역과정이다.</li><li>복잡한 함수 안쪽을 \(u\)로 둔다.</li><li>안쪽 함수의 미분 \(g'(x)\,dx\)가 함께 있으면 \(du\)로 바꿀 수 있다.</li><li>그러면 적분식이 더 단순해진다.</li><li>적분 후 다시 \(u=g(x)\)를 대입한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">합성함수 적분, 삼각함수 적분, 지수함수 적분, 넓이 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># integral 2x*cos(x^2) dx의 원시함수는 sin(x^2)
+import math
+
+def F(x):
+    return math.sin(x**2)
+
+x = 1
+h = 1e-6
+derivative = (F(x + h) - F(x)) / h
+original = 2*x*math.cos(x**2)
+
+print(&quot;원시함수 미분 근사:&quot;, derivative)
+print(&quot;원래 integrand:&quot;, original)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`F(x)=sin(x**2)`이다.</li><li>연쇄법칙으로 미분하면 \(2x\cos(x^2)\)가 된다.</li><li>따라서 \(\int2x\cos(x^2)dx=\sin(x^2)+C\)이다.</li><li>코드는 원시함수를 미분해 원래 함수가 나오는지 확인한다.</li></ol></section><section class="card"><span class="badge">정리 7</span><h2>부분적분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">미분 가능한 함수 \(u,v\)에 대해 \[\int u\,dv=uv-\int v\,du\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>부분적분은 곱의 미분법에서 나온다.</li><li>곱의 미분법은 \((uv)'=u'v+uv'\)이다.</li><li>양변을 적분하면 \(uv=\int u'v\,dx+\int uv'\,dx\)이다.</li><li>이를 정리하면 \(\int u\,dv=uv-\int v\,du\)가 된다.</li><li>곱 형태의 적분을 더 쉬운 적분으로 바꿀 때 사용한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">로그함수 적분, \(xe^x\), \(x\sin x\) 적분, 물리학 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># integral x*e^x dx = e^x(x-1)+C 확인
+import math
+
+def F(x):
+    return math.exp(x) * (x - 1)
+
+def integrand(x):
+    return x * math.exp(x)
+
+x = 2
+h = 1e-6
+derivative = (F(x + h) - F(x)) / h
+
+print(&quot;원시함수 미분 근사:&quot;, derivative)
+print(&quot;원래 integrand:&quot;, integrand(x))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`F(x)=e^x(x-1)`은 \(xe^x\)의 원시함수이다.</li><li>차분몫으로 \(F'(x)\)를 계산한다.</li><li>`integrand(x)`는 원래 적분할 함수 \(xe^x\)이다.</li><li>두 값이 같으면 부분적분 결과를 확인한 것이다.</li></ol></section><section class="card"><span class="badge">정리 8</span><h2>정적분의 평균값 정리</h2>
+<div class="sec">① 정리 설명</div><div class="box">연속함수 \(f\)에 대해 어떤 \(c\in[a,b]\)가 존재하여 \[\int_a^b f(x)\,dx=f(c)(b-a)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>연속함수는 닫힌구간에서 최댓값과 최솟값을 가진다.</li><li>정적분값은 그 사이의 어떤 높이를 가진 직사각형 넓이로 표현될 수 있다.</li><li>그 높이가 함수의 평균값이다.</li><li>연속성 때문에 평균 높이에 해당하는 실제 점 \(c\)가 존재한다.</li><li>따라서 적분값은 \(f(c)(b-a)\)로 쓸 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">평균온도, 평균속도, 평균농도, 데이터 평균 해석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># f(x)=x^2 on [0,3]의 평균값
+def F(x):
+    return x**3 / 3
+
+a = 0
+b = 3
+
+integral = F(b) - F(a)
+average_value = integral / (b - a)
+
+print(&quot;정적분:&quot;, integral)
+print(&quot;함수의 평균값:&quot;, average_value)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`F(x)=x**3/3`은 \(x^2\)의 원시함수이다.</li><li>`integral`은 \(\int_0^3x^2dx\)이다.</li><li>`average_value`는 적분값을 구간 길이로 나눈 값이다.</li><li>이는 함수의 평균 높이를 의미한다.</li></ol></section><section class="card"><span class="badge">정리 9</span><h2>이상적분</h2>
+<div class="sec">① 정리 설명</div><div class="box">무한구간이나 함수가 무한대로 발산하는 점을 포함한 적분은 극한으로 정의한다. 예를 들어 \[\int_1^\infty \frac{1}{x^2}\,dx=\lim_{b\to\infty}\int_1^b\frac{1}{x^2}\,dx\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>일반 정적분은 유한한 구간과 유계함수에서 정의된다.</li><li>무한구간에서는 끝점을 무한대로 보내는 극한을 사용한다.</li><li>함수가 어떤 점에서 무한히 커지는 경우도 극한으로 정의한다.</li><li>극한이 유한하면 이상적분은 수렴한다.</li><li>극한이 무한하거나 존재하지 않으면 발산한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">확률분포, 물리학의 무한 영역 계산, 수렴성 판정에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># integral_1^B 1/x^2 dx가 1에 가까워지는지 확인
+def F(x):
+    return -1/x
+
+for B in [10, 100, 1000, 10000]:
+    value = F(B) - F(1)
+    print(B, value)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`F(x)=-1/x`는 \(1/x^2\)의 원시함수이다.</li><li>상한 `B`를 점점 크게 한다.</li><li>`F(B)-F(1)`은 \(\int_1^B1/x^2dx\)이다.</li><li>`B`가 커질수록 값은 1에 가까워진다.</li><li>따라서 \(\int_1^\infty1/x^2dx=1\)이다.</li></ol></section><section class="card"><span class="badge">정리 10</span><h2>적분과 넓이 사이의 부호</h2>
+<div class="sec">① 정리 설명</div><div class="box">정적분은 부호 있는 넓이이다. \(f(x)\lt0\)인 구간에서는 \[\int_a^b f(x)\,dx\] 가 음수로 계산될 수 있다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>정적분은 단순한 기하학적 넓이와 다르게 부호를 가진다.</li><li>그래프가 \(x\)축 위에 있으면 양의 넓이로 더해진다.</li><li>그래프가 \(x\)축 아래에 있으면 음의 넓이로 더해진다.</li><li>실제 기하학적 넓이를 구하려면 \(\int_a^b |f(x)|\,dx\)를 계산해야 한다.</li><li>따라서 정적분과 면적을 구분해야 한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">변위와 이동거리 구분, 순변화량 계산, 그래프 해석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># f(x)=x를 [-1,1]에서 적분하면 부호가 상쇄됨
+def F(x):
+    return x**2 / 2
+
+a = -1
+b = 1
+
+signed_area = F(b) - F(a)
+
+print(&quot;부호 있는 넓이:&quot;, signed_area)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f(x)=x`는 원점 기준으로 대칭이다.</li><li>\([-1,0]\)에서는 함수값이 음수이다.</li><li>\([0,1]\)에서는 함수값이 양수이다.</li><li>두 부호 있는 넓이가 서로 상쇄된다.</li><li>그래서 정적분값은 0이다.</li></ol></section><section class="card"><h2>마무리 핵심 정리</h2><div class="summary">적분법은 변화율을 누적량으로 바꾸는 언어이다. 부정적분은 원시함수를 찾는 과정이고, 정적분은 부호 있는 넓이와 누적 변화량을 의미한다. 미적분의 기본정리는 미분과 적분이 서로 역관계임을 보여 주며, 치환적분과 부분적분은 복잡한 적분을 단순화하는 강력한 도구이다.</div></section></main><footer>매력적인 적분법 정리 10개 HTML 수업자료</footer></body></html>

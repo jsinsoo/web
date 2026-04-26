@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>학교 제출용 초고급 고급미적분 정리 10개</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg1:#f8fbff; --bg2:#fff7ed; --navy:#172554; --blue:#2563eb;
+  --purple:#7c3aed; --ink:#172033; --muted:#64748b; --line:#dbeafe;
+  --green:#ecfdf5; --yellow:#fff7d6; --rose:#fff1f2; --code:#0f172a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 5%, rgba(96,165,250,.20), transparent 30%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:var(--ink);
+  line-height:1.86;
+}
+header{
+  color:white;
+  text-align:center;
+  padding:62px 24px 54px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.20), transparent 25%),
+    linear-gradient(135deg,var(--navy),var(--purple));
+}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.055em}
+header p{margin:14px 0 0;opacity:.95;font-size:1.08rem}
+main{max-width:1160px;margin:auto;padding:32px 24px}
+.card{
+  background:rgba(255,255,255,.98);
+  border:1px solid rgba(37,99,235,.16);
+  border-radius:28px;
+  padding:30px;
+  margin:30px 0;
+  box-shadow:0 18px 42px rgba(15,23,42,.12);
+}
+.card:hover{box-shadow:0 24px 56px rgba(15,23,42,.16)}
+h2{
+  color:#1e3a8a;
+  border-bottom:3px solid var(--line);
+  padding-bottom:12px;
+  margin:8px 0 18px;
+  letter-spacing:-.035em;
+}
+.badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#ede9fe,#dbeafe);
+  color:#5b21b6;
+  padding:7px 14px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:.92rem;
+}
+.sec{
+  font-weight:900;
+  color:#9a3412;
+  margin:24px 0 10px;
+  font-size:1.12rem;
+}
+.box,.use,.note,.formula-panel,.summary{
+  border-radius:18px;
+  padding:18px 20px;
+  overflow-x:auto;
+}
+.box{background:#eff6ff;border-left:8px solid var(--blue)}
+.formula-panel{
+  background:linear-gradient(135deg,#eef6ff,#f8fbff);
+  border:1px solid #bfdbfe;
+  border-left:8px solid #2563eb;
+  text-align:center;
+}
+.use{background:var(--yellow);border-left:8px solid #f59e0b}
+.note{background:#f0fdf4;border-left:8px solid #10b981}
+.summary{background:var(--rose);border-left:8px solid #e11d48}
+ol{
+  background:#f8fafc;
+  border-radius:18px;
+  padding:18px 40px;
+  border:1px solid #e2e8f0;
+}
+li{margin:8px 0}
+pre{
+  background:var(--code);
+  color:#e5e7eb;
+  border-radius:20px;
+  padding:22px;
+  overflow:auto;
+  line-height:1.7;
+  font-size:.95rem;
+  border:1px solid #334155;
+}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.toc a{
+  display:block;
+  color:#1e3a8a;
+  text-decoration:none;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:10px 13px;
+  font-weight:700;
+}
+.toc a:hover{background:#eff6ff}
+mjx-container[jax="SVG"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+}
+mjx-container[jax="SVG"][display="true"]{font-size:1.16em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.98em !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+mjx-merror{display:none !important}
+footer{text-align:center;color:var(--muted);padding:32px}
+@media(max-width:760px){
+  header h1{font-size:1.72rem}
+  main{padding:18px}
+  .card{padding:22px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {'[+]': ['ams', 'noerrors', 'noundefined']}
+  },
+  loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined']},
+  svg: {
+    fontCache: 'global',
+    mtextInheritFont: true
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    renderActions: {
+      addMenu: []
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+</head>
+<body>
+<header>
+  <h1>사람들이 가장 좋아하는 매력적인 고급미적분 정리 10개</h1>
+  <p>학교 제출용 초고급 템플릿 · MathJax 최적화 · 깨지지 않는 예쁜 수식 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+  <h2>학습 목표</h2>
+  <div class="note">
+    고급미적분의 핵심 정리인 테일러 정리, 로피탈 정리, 다변수 연쇄법칙, 라그랑주 승수법, 푸비니 정리,
+    그린 정리, 발산정리, 스토크스 정리, 균등수렴과 적분 교환, 야코비안 치환 공식을 이해하고
+    파이썬 코드로 대표 예제를 확인한다.
+  </div>
+</section>
+<section class="card toc">
+  <h2>목차</h2>
+  <div class="grid">
+<a href="#sec1">1. 테일러 정리</a>
+<a href="#sec2">2. 로피탈 정리</a>
+<a href="#sec3">3. 다변수 연쇄법칙</a>
+<a href="#sec4">4. 라그랑주 승수법</a>
+<a href="#sec5">5. 중적분과 푸비니 정리</a>
+<a href="#sec6">6. 그린 정리</a>
+<a href="#sec7">7. 발산정리</a>
+<a href="#sec8">8. 스토크스 정리</a>
+<a href="#sec9">9. 균등수렴과 적분 교환</a>
+<a href="#sec10">10. 야코비안 치환 공식</a>
+</div></section>
+
+<section class="card" id="sec1">
+  <span class="badge">정리 1</span>
+  <h2>테일러 정리</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">충분히 미분 가능한 함수는 한 점 근처에서 다항식과 나머지항으로 표현할 수 있다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+f(x)
+=
+\sum_{k=0}^{n}
+\frac{f^{(k)}(a)}{k!}(x-a)^k
++
+R_n(x)
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>함수값뿐 아니라 여러 차수의 도함수값까지 점 \(a\)에서 일치하는 다항식을 만든다.</li><li>\(k\)차 항의 계수는 \(\frac{f^{(k)}(a)}{k!}\)로 정해진다.</li><li>다항식으로 설명되지 않는 부분은 나머지항 \(R_n(x)\)로 둔다.</li><li>차수가 커질수록 점 \(a\) 근처에서 더 정밀한 근사가 된다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">지수함수·삼각함수 근사, 물리학의 작은 진동 근사, 계산기 알고리즘, 수치해석에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># e^x의 테일러 근사
+def exp_taylor(x, n):
+    total = 0
+    factorial = 1
+
+    for k in range(n + 1):
+        if k &gt; 0:
+            factorial *= k
+        total += x**k / factorial
+
+    return total
+
+print(exp_taylor(1, 10))</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>`total`은 테일러 급수 항들의 합을 저장한다.</li><li>`factorial`은 \(k!\) 값을 저장한다.</li><li>`x**k / factorial`은 \(\frac{x^k}{k!}\) 항이다.</li><li>반복문으로 \(k=0\)부터 \(n\)까지 더해 \(e^x\)를 근사한다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec2">
+  <span class="badge">정리 2</span>
+  <h2>로피탈 정리</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">\(0/0\) 또는 \(\infty/\infty\) 꼴의 극한에서 조건이 맞으면 분자와 분모를 각각 미분해 극한을 계산할 수 있다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\lim_{x\to a}\frac{f(x)}{g(x)}
+=
+\lim_{x\to a}\frac{f'(x)}{g'(x)}
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>분자와 분모가 동시에 0으로 가거나 동시에 무한대로 가는 부정형을 다룬다.</li><li>코시 평균값 정리를 적용해 함수값의 비를 도함수의 비와 연결한다.</li><li>도함수 비의 극한이 존재하면 원래 함수 비의 극한도 같은 값이 된다.</li><li>단, 미분 가능성, 분모 도함수가 0이 아님, 극한 존재 조건을 확인해야 한다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">삼각함수 극한, 지수·로그 극한, 부정형 극한 계산에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># sin(x)/x의 x=0 극한을 수치적으로 확인
+import math
+
+for x in [1, 0.1, 0.01, 0.001]:
+    print(x, math.sin(x) / x)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>`math.sin(x) / x`는 \(\frac{\sin x}{x}\)를 계산한다.</li><li>\(x\)를 0에 가깝게 줄이면 값이 1에 가까워진다.</li><li>로피탈 정리를 쓰면 \(\frac{\cos 0}{1}=1\)이다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec3">
+  <span class="badge">정리 3</span>
+  <h2>다변수 연쇄법칙</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">\(z=f(x,y)\), \(x=x(t)\), \(y=y(t)\)이면 \(z\)의 전체 변화율은 각 경로의 변화율을 더한 것이다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\frac{dz}{dt}
+=
+\frac{\partial f}{\partial x}\frac{dx}{dt}
++
+\frac{\partial f}{\partial y}\frac{dy}{dt}
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>\(z\)는 \(x\)와 \(y\)에 의존하고, \(x,y\)는 다시 \(t\)에 의존한다.</li><li>\(x\) 방향 변화가 \(z\)에 미치는 영향은 \(\frac{\partial f}{\partial x}\frac{dx}{dt}\)이다.</li><li>\(y\) 방향 변화가 \(z\)에 미치는 영향은 \(\frac{\partial f}{\partial y}\frac{dy}{dt}\)이다.</li><li>두 영향의 합이 \(\frac{dz}{dt}\)가 된다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">온도장 속 이동 물체의 온도 변화, 다변수 최적화, 머신러닝 역전파에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># z=x^2+y^2, x=t, y=2t일 때 dz/dt
+t = 3
+x = t
+y = 2*t
+
+fx = 2*x
+fy = 2*y
+dxdt = 1
+dydt = 2
+
+dzdt = fx*dxdt + fy*dydt
+print(&quot;dz/dt:&quot;, dzdt)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>\(z=x^2+y^2\)이므로 \(f_x=2x\), \(f_y=2y\)이다.</li><li>`x=t`이므로 \(dx/dt=1\)이다.</li><li>`y=2t`이므로 \(dy/dt=2\)이다.</li><li>공식에 대입해 전체 변화율을 계산한다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec4">
+  <span class="badge">정리 4</span>
+  <h2>라그랑주 승수법</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">제약조건 \(g(x,y)=0\) 아래에서 \(f(x,y)\)가 극값을 가지면 보통 두 기울기 벡터가 서로 평행하다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\nabla f = \lambda \nabla g
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>제약곡선 위에서 움직일 수 있는 방향은 제약곡선의 접선 방향이다.</li><li>극값에서는 \(f\)가 그 접선 방향으로 더 이상 증가하거나 감소하지 않는다.</li><li>따라서 \(\nabla f\)는 제약곡선의 접선에 수직이다.</li><li>\(\nabla g\)도 제약곡선에 수직이다.</li><li>결국 두 벡터는 평행하므로 \(\nabla f=\lambda\nabla g\)가 된다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">제약 최적화, 경제학 효용 극대화, 물리학 에너지 최소화, 머신러닝 제약 문제에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># x+y 최대, 제약 x^2+y^2=1에서 대칭해 확인
+import math
+
+x = 1 / math.sqrt(2)
+y = 1 / math.sqrt(2)
+
+f = x + y
+constraint = x**2 + y**2
+
+print(&quot;f 값:&quot;, f)
+print(&quot;제약조건:&quot;, constraint)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>목표함수는 \(f=x+y\)이다.</li><li>제약조건은 \(x^2+y^2=1\)이다.</li><li>대칭성에 의해 최대점은 \(x=y\)에서 나타난다.</li><li>\(x=y=1/\sqrt2\)를 대입해 제약조건을 확인한다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec5">
+  <span class="badge">정리 5</span>
+  <h2>중적분과 푸비니 정리</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">적절한 조건에서 직사각형 영역 위의 중적분은 반복적분으로 계산할 수 있다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\iint_R f(x,y)\,dA
+=
+\int_a^b\int_c^d f(x,y)\,dy\,dx
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>영역을 작은 직사각형 조각으로 나눈다.</li><li>각 조각에서 함수값과 면적을 곱해 누적한다.</li><li>한 방향으로 먼저 더하고, 다른 방향으로 다시 더할 수 있다.</li><li>함수가 충분히 좋으면 적분 순서를 바꾸어도 값이 같다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">면적, 질량, 확률밀도, 열분포, 영상 데이터 누적 계산에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># f(x,y)=x+y를 [0,1]x[0,1]에서 수치 중적분
+n = 200
+dx = 1 / n
+dy = 1 / n
+total = 0
+
+for i in range(n):
+    for j in range(n):
+        x = i * dx
+        y = j * dy
+        total += (x + y) * dx * dy
+
+print(&quot;중적분 근사:&quot;, total)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>`dx`, `dy`는 작은 직사각형의 가로·세로 길이이다.</li><li>`(x+y)*dx*dy`는 작은 부피 조각이다.</li><li>이중 반복문으로 모든 조각을 더해 중적분을 근사한다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec6">
+  <span class="badge">정리 6</span>
+  <h2>그린 정리</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">평면 영역의 경계선 위 선적분은 영역 내부의 회전량에 대한 이중적분과 연결된다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\oint_{\partial D} P\,dx + Q\,dy
+=
+\iint_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)
+dA
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>영역을 작은 직사각형들로 나눈다.</li><li>작은 직사각형들의 경계 적분을 모두 더하면 내부 경계는 서로 반대 방향으로 상쇄된다.</li><li>결국 바깥 경계만 남는다.</li><li>내부에 누적되는 양은 \(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\)이다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">평면 벡터장 순환, 면적 계산, 유체 회전 분석, 전자기학에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># 단위원 넓이: P=-y/2, Q=x/2이면 선적분이 넓이
+import math
+
+N = 10000
+area = 0
+
+for k in range(N):
+    t1 = 2*math.pi*k/N
+    t2 = 2*math.pi*(k+1)/N
+    x1, y1 = math.cos(t1), math.sin(t1)
+    x2, y2 = math.cos(t2), math.sin(t2)
+    dx, dy = x2-x1, y2-y1
+    P, Q = -y1/2, x1/2
+    area += P*dx + Q*dy
+
+print(&quot;넓이 근사:&quot;, area)
+print(&quot;pi:&quot;, math.pi)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>\(P=-y/2\), \(Q=x/2\)이면 \(\partial Q/\partial x-\partial P/\partial y=1\)이다.</li><li>따라서 선적분은 영역의 넓이가 된다.</li><li>단위원 경계를 작은 선분으로 나누어 근사한다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec7">
+  <span class="badge">정리 7</span>
+  <h2>발산정리</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">공간 내부의 총 발산량은 경계면을 통과하는 총 플럭스와 같다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\iiint_V \nabla\cdot\vec{F}\,dV
+=
+\iint_S \vec{F}\cdot\vec{n}\,dS
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>입체 영역을 작은 부피 조각으로 나눈다.</li><li>각 조각의 표면 플럭스를 더하면 내부 면에서 흐름이 서로 상쇄된다.</li><li>전체 바깥 경계면을 통과하는 흐름만 남는다.</li><li>그 결과 내부 발산의 부피적분과 경계 플럭스가 같아진다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">유체 흐름, 전기장 가우스 법칙, 열전달, 보존법칙에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># F=(x,y,z)의 발산은 3, 단위정육면체 부피는 1
+divergence = 3
+volume = 1
+
+flux = divergence * volume
+print(&quot;총 플럭스:&quot;, flux)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>\(\vec{F}=(x,y,z)\)의 발산은 \(1+1+1=3\)이다.</li><li>단위정육면체의 부피는 1이다.</li><li>총 플럭스는 발산과 부피의 곱이다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec8">
+  <span class="badge">정리 8</span>
+  <h2>스토크스 정리</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">곡면 내부의 회전량을 모두 더하면 경계곡선을 따라 도는 순환량과 같다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\iint_S(\nabla\times\vec{F})\cdot\vec{n}\,dS
+=
+\oint_{\partial S}\vec{F}\cdot d\vec{r}
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>스토크스 정리는 그린 정리의 3차원 일반화이다.</li><li>곡면을 작은 조각으로 나누면 내부 경계는 서로 반대 방향으로 상쇄된다.</li><li>결국 전체 경계곡선만 남는다.</li><li>내부 회전량의 면적분과 경계 순환 선적분이 같아진다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">전자기학, 유체 소용돌이, 회전장 분석, 곡면 위 적분 계산에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># F=(-y/2, x/2, 0)의 curl z성분은 1
+import math
+
+curl_z = 1
+area = math.pi * 1**2
+surface_integral = curl_z * area
+
+print(&quot;스토크스 정리 면적분 값:&quot;, surface_integral)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>\(\vec{F}=(-y/2,x/2,0)\)의 회전은 z방향으로 1이다.</li><li>단위원판의 넓이는 \(\pi\)이다.</li><li>면적분 값은 \(1\cdot\pi\)이다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec9">
+  <span class="badge">정리 9</span>
+  <h2>균등수렴과 적분 교환</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">함수열이 균등수렴하면 적절한 조건에서 극한과 적분을 교환할 수 있다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+\lim_{n\to\infty}\int_a^b f_n(x)\,dx
+=
+\int_a^b \lim_{n\to\infty}f_n(x)\,dx
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>점별수렴만으로는 적분과 극한을 항상 바꿀 수 없다.</li><li>균등수렴은 모든 \(x\)에서 동시에 오차가 작아지는 강한 조건이다.</li><li>\(|f_n-f|\)가 전체 구간에서 작으면 적분 오차도 작다.</li><li>구간 길이를 곱해 오차를 제어할 수 있어 극한과 적분을 교환할 수 있다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">함수열, 푸리에 급수, 수치근사, 확률밀도 근사에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># f_n(x)=x/n이 0으로 균등수렴할 때 적분도 0으로 감
+for n in [1, 2, 5, 10, 100]:
+    integral = 1 / (2*n)
+    print(n, integral)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>\(f_n(x)=x/n\)은 \([0,1]\)에서 0으로 균등수렴한다.</li><li>\(\int_0^1 x/n\,dx=1/(2n)\)이다.</li><li>\(n\)이 커질수록 적분값은 0으로 간다.</li>
+  </ol>
+</section>
+
+<section class="card" id="sec10">
+  <span class="badge">정리 10</span>
+  <h2>야코비안 치환 공식</h2>
+
+  <div class="sec">① 정리 설명</div>
+  <div class="box">다변수 적분에서 좌표를 바꾸면 면적요소는 야코비안 절댓값만큼 확대 또는 축소된다.</div>
+
+  <div class="sec">② 핵심 수식</div>
+  <div class="formula-panel">
+\[
+dx\,dy
+=
+\left|
+\frac{\partial(x,y)}{\partial(u,v)}
+\right|
+du\,dv
+\]
+</div>
+
+  <div class="sec">③ 증명 핵심 아이디어</div>
+  <ol>
+    <li>변수변환은 작은 \(du\,dv\) 조각을 \(xy\)-평면의 작은 평행사변형으로 보낸다.</li><li>그 평행사변형의 넓이 비율이 야코비안이다.</li><li>극좌표에서는 \(x=r\cos\theta\), \(y=r\sin\theta\)이다.</li><li>이때 야코비안은 \(r\)이므로 \(dx\,dy=r\,dr\,d\theta\)가 된다.</li>
+  </ol>
+
+  <div class="sec">④ 활용 예제</div>
+  <div class="use">극좌표 적분, 원판 넓이, 확률분포 변환, 물리학 좌표변환에 활용된다.</div>
+
+  <div class="sec">⑤ 파이썬 코드</div>
+  <pre><code># 극좌표로 반지름 R인 원의 넓이
+import math
+
+R = 3
+area = math.pi * R**2
+
+print(&quot;원의 넓이:&quot;, area)</code></pre>
+
+  <div class="sec">⑥ 코드 상세 설명</div>
+  <ol class="explain">
+    <li>극좌표에서 면적요소는 \(r\,dr\,d\theta\)이다.</li><li>반지름 \(R\)인 원판의 넓이는 \(\pi R^2\)이다.</li><li>`R=3`이면 넓이는 \(9\pi\)이다.</li>
+  </ol>
+</section>
+
+<section class="card">
+  <h2>마무리 핵심 정리</h2>
+  <div class="summary">
+    고급미적분은 단순한 미분과 적분을 넘어 함수의 근사, 다변수 변화율, 제약 최적화, 면적·부피 누적,
+    벡터장의 흐름과 회전을 다룬다. 테일러 정리는 함수를 다항식으로 근사하고,
+    그린 정리·발산정리·스토크스 정리는 경계와 내부의 정보를 연결한다.
+  </div>
+</section>
+</main>
+<footer>학교 제출용 초고급 고급미적분 HTML 수업자료</footer>
+</body>
+</html>

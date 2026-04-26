@@ -1,0 +1,128 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>매력적인 미분법 정리 10개</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff,#fff7ed);color:#172033;line-height:1.82}
+header{background:linear-gradient(135deg,#172554,#7c3aed);color:white;text-align:center;padding:50px 24px}
+header h1{margin:0;font-size:2.2rem} main{max-width:1120px;margin:auto;padding:28px}
+.card{background:white;border-radius:24px;padding:28px;margin:26px 0;box-shadow:0 14px 34px rgba(15,23,42,.12);border:1px solid #dbeafe}
+h2{color:#1e3a8a;border-bottom:3px solid #dbeafe;padding-bottom:10px}.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:22px;font-size:1.1rem}.box{background:#eff6ff;border-left:7px solid #2563eb;border-radius:16px;padding:15px 18px;overflow-x:auto}.use{background:#fff7d6;border-left:7px solid #f59e0b;border-radius:16px;padding:15px 18px}.note{background:#f0fdf4;border-left:7px solid #10b981;border-radius:16px;padding:15px 18px}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}.explain{background:#ecfdf5}li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}.summary{background:#fff1f2;border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.08em!important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em!important}mjx-merror{display:none!important}
+footer{text-align:center;color:#64748b;padding:30px}@media(max-width:640px){header h1{font-size:1.6rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true,processEnvironments:true,packages:{'[+]':['ams']}},loader:{load:['[tex]/ams']},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+<header><h1>사람들이 가장 좋아하는 매력적인 미분법 정리 10개</h1><p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p></header><main>
+<section class="card"><h2>학습 목표</h2><div class="note">미분법의 핵심 정리를 이해하고, 각 정리의 증명 아이디어와 파이썬 계산 예제를 통해 변화율을 직접 확인한다.</div></section><section class="card"><span class="badge">정리 1</span><h2>도함수의 극한 정의</h2>
+<div class="sec">① 정리 설명</div><div class="box">함수 \(f\)의 한 점 \(a\)에서의 도함수는 \[f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}\] 로 정의된다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>도함수는 한 점에서의 순간변화율이다.</li><li>평균변화율에서 \(h\)를 0에 가깝게 보내면 순간변화율이 된다.</li><li>극한이 존재하면 그 점에서 미분 가능하다.</li><li>그래프에서는 접선의 기울기를 의미한다.</li><li>속도와 성장률을 분석하는 기본 도구이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">순간속도, 접선 기울기, 함수 변화율 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>def f(x):
+    return x**2
+
+a = 3
+h = 1e-6
+derivative = (f(a + h) - f(a)) / h
+print(&quot;미분계수 근사:&quot;, derivative)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f(x)`는 \(x^2\) 함수이다.</li><li>`a`는 미분계수를 구할 점이다.</li><li>`h`는 0에 가까운 작은 수이다.</li><li>차분몫 `(f(a+h)-f(a))/h`를 계산한다.</li><li>결과는 \(f'(3)=6\)에 가까워진다.</li></ol></section><section class="card"><span class="badge">정리 2</span><h2>상수함수 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">상수 \(c\)에 대해 \[\frac{d}{dx}c=0\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>상수함수는 입력이 변해도 출력이 변하지 않는다.</li><li>변화량이 항상 0이다.</li><li>평균변화율도 0이다.</li><li>따라서 순간변화율인 도함수도 0이다.</li><li>그래프는 수평선이며 기울기는 0이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">수평선 기울기, 변하지 않는 물체의 속도, 함수 단순화에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>def f(x):
+    return 7
+
+a = 10
+h = 1e-6
+derivative = (f(a + h) - f(a)) / h
+print(&quot;상수함수의 미분:&quot;, derivative)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f(x)`는 항상 7을 반환한다.</li><li>`f(a+h)`와 `f(a)`가 같다.</li><li>분자 `f(a+h)-f(a)`가 0이다.</li><li>따라서 미분계수는 0이다.</li></ol></section><section class="card"><span class="badge">정리 3</span><h2>거듭제곱 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">실수 \(n\)에 대해 적절한 범위에서 \[\frac{d}{dx}x^n=nx^{n-1}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>자연수 \(n\)의 경우 이항정리로 증명할 수 있다.</li><li>\((x+h)^n-x^n\)을 전개한다.</li><li>첫 주요 항은 \(nx^{n-1}h\)이다.</li><li>\(h\)로 나눈 뒤 \(h	o0\)을 보내면 나머지 항은 사라진다.</li><li>결과적으로 \(nx^{n-1}\)이 남는다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">다항함수 미분, 속도·가속도 계산, 최적화에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>def power_derivative(x, n):
+    return n * x**(n - 1)
+
+x = 2
+n = 5
+print(&quot;x^5의 x=2에서 도함수값:&quot;, power_derivative(x, n))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`power_derivative`는 \(x^n\)의 도함수값을 계산한다.</li><li>`n * x**(n-1)`은 공식 \(nx^{n-1}\)이다.</li><li>\(x=2,n=5\)이면 \(5\cdot2^4=80\)이다.</li></ol></section><section class="card"><span class="badge">정리 4</span><h2>상수배와 합의 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">미분 가능한 함수 \(f,g\)와 상수 \(c\)에 대해 \[(cf)'=cf',\qquad (f+g)'=f'+g'\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>함수값을 \(c\)배 하면 변화량도 \(c\)배가 된다.</li><li>두 함수의 합의 변화량은 각각의 변화량의 합이다.</li><li>극한의 선형성에 의해 성립한다.</li><li>다항함수를 항별로 미분할 수 있게 해 준다.</li><li>미분 계산을 크게 단순화한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">다항식 미분, 물리량 합성, 비용함수 변화율 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>def derivative(x):
+    return 6*x + 2
+
+x = 4
+print(&quot;도함수값:&quot;, derivative(x))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>함수 \(3x^2+2x\)를 항별로 미분한다.</li><li>\(3x^2\)의 미분은 \(6x\)이다.</li><li>\(2x\)의 미분은 2이다.</li><li>도함수는 \(6x+2\)이다.</li><li>`derivative(4)`는 26을 출력한다.</li></ol></section><section class="card"><span class="badge">정리 5</span><h2>곱의 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">미분 가능한 함수 \(f,g\)에 대해 \[(fg)'=f'g+fg'\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>곱 \(fg\)의 변화는 \(f\)의 변화와 \(g\)의 변화가 함께 반영된다.</li><li>\((f+\Delta f)(g+\Delta g)-fg\)를 전개한다.</li><li>주요 항은 \(g\Delta f+f\Delta g\)이다.</li><li>\(\Delta f\Delta g\)는 더 작은 항이므로 극한에서 사라진다.</li><li>따라서 \(f'g+fg'\)가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">면적 변화율, 물리량 곱의 변화, 함수 곱 미분에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>import math
+
+x = 1
+f = x**2
+g = math.sin(x)
+fp = 2*x
+gp = math.cos(x)
+derivative = fp*g + f*gp
+
+print(&quot;도함수값:&quot;, derivative)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f=x**2`, `g=sin(x)`이다.</li><li>`fp=2*x`는 \(f'\)이다.</li><li>`gp=cos(x)`는 \(g'\)이다.</li><li>`fp*g + f*gp`는 곱의 미분법이다.</li></ol></section><section class="card"><span class="badge">정리 6</span><h2>몫의 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">미분 가능한 함수 \(f,g\)와 \(g(x)\ne0\)에 대해 \[\left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>몫은 \(f\cdot g^{-1}\)로 볼 수 있다.</li><li>곱의 미분법과 연쇄법칙을 적용한다.</li><li>분자는 \(f'g-fg'\)가 된다.</li><li>분모는 \(g^2\)가 된다.</li><li>분모가 0인 점에서는 사용할 수 없다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">비율 변화율, 평균값 변화, 농도비 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>x = 2
+f = x**2 + 1
+g = x + 1
+fp = 2*x
+gp = 1
+
+derivative = (fp*g - f*gp) / g**2
+print(&quot;도함수값:&quot;, derivative)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`f`는 분자 \(x^2+1\)이다.</li><li>`g`는 분모 \(x+1\)이다.</li><li>`fp`, `gp`는 각각의 도함수이다.</li><li>공식 \((f'g-fg')/g^2\)를 적용한다.</li></ol></section><section class="card"><span class="badge">정리 7</span><h2>연쇄법칙</h2>
+<div class="sec">① 정리 설명</div><div class="box">합성함수 \(y=f(g(x))\)에 대해 \[\frac{dy}{dx}=f'(g(x))g'(x)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>합성함수는 함수 안에 함수가 들어간 형태이다.</li><li>겉함수의 변화율과 속함수의 변화율이 함께 작용한다.</li><li>겉함수를 속함수 값에 대해 미분한다.</li><li>속함수를 \(x\)에 대해 미분한다.</li><li>두 결과를 곱한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">복잡한 함수 미분, 신경망 역전파, 최적화에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>x = 2
+inner = 3*x + 1
+inner_derivative = 3
+outer_derivative = 4 * inner**3
+dy_dx = outer_derivative * inner_derivative
+
+print(&quot;도함수값:&quot;, dy_dx)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`inner`는 속함수 \(3x+1\)이다.</li><li>`inner_derivative`는 속함수의 도함수 3이다.</li><li>`outer_derivative`는 \(u^4\)의 도함수 \(4u^3\)이다.</li><li>두 값을 곱해 합성함수의 도함수를 구한다.</li></ol></section><section class="card"><span class="badge">정리 8</span><h2>역함수 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">함수 \(y=f(x)\)가 역함수를 가지고 \(f'(x)\ne0\)이면 \[\frac{d}{dy}f^{-1}(y)=\frac{1}{f'(x)}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>역함수는 입력과 출력을 서로 바꾼다.</li><li>\(y=f(x)\)이면 \(x=f^{-1}(y)\)이다.</li><li>양변을 \(y\)에 대해 미분한다.</li><li>\(1=f'(x)rac{dx}{dy}\)가 된다.</li><li>따라서 역함수의 기울기는 원래 함수 기울기의 역수이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">로그함수, 아크삼각함수, 좌표 변환 미분에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>y = 8
+x = y ** (1/3)
+inverse_derivative = 1 / (3 * x**2)
+
+print(&quot;역함수 미분값:&quot;, inverse_derivative)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>원래 함수는 \(f(x)=x^3\)이다.</li><li>역함수는 \(x=\sqrt[3]{y}\)이다.</li><li>원래 함수의 도함수는 \(3x^2\)이다.</li><li>역함수 미분값은 그 역수이다.</li></ol></section><section class="card"><span class="badge">정리 9</span><h2>음함수 미분법</h2>
+<div class="sec">① 정리 설명</div><div class="box">방정식 \(F(x,y)=0\)으로 주어진 관계에서 \(y\)를 \(x\)의 함수로 보고 양변을 미분할 수 있다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>모든 함수가 \(y=f(x)\)로 풀리는 것은 아니다.</li><li>원 \(x^2+y^2=25\)처럼 관계식으로 주어질 수 있다.</li><li>\(y\)를 \(x\)의 함수로 생각한다.</li><li>\(y\)가 들어간 항은 연쇄법칙으로 미분한다.</li><li>정리하면 접선의 기울기를 구할 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">원과 타원의 접선, 기하 문제, 관계식 변화율에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>x = 3
+y = 4
+dy_dx = -x / y
+
+print(&quot;접선 기울기:&quot;, dy_dx)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>원 \(x^2+y^2=25\)를 미분한다.</li><li>\(2x+2yrac{dy}{dx}=0\)이다.</li><li>정리하면 \(rac{dy}{dx}=-x/y\)이다.</li><li>점 \((3,4)\)에서 기울기를 계산한다.</li></ol></section><section class="card"><span class="badge">정리 10</span><h2>평균값 정리</h2>
+<div class="sec">① 정리 설명</div><div class="box">함수 \(f\)가 \([a,b]\)에서 연속이고 \((a,b)\)에서 미분 가능하면, 어떤 \(c\in(a,b)\)가 존재하여 \[f'(c)=\frac{f(b)-f(a)}{b-a}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div><ol><li>구간 전체의 평균변화율은 두 끝점을 잇는 직선의 기울기이다.</li><li>평균값 정리는 어떤 내부점에서 순간변화율이 평균변화율과 같다고 말한다.</li><li>증명은 롤의 정리를 이용한다.</li><li>함수에서 두 끝점을 잇는 직선을 뺀 보조함수를 만든다.</li><li>그 보조함수에 롤의 정리를 적용한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">평균속도와 순간속도, 증가·감소 판정, 오차 추정에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code>def f(x):
+    return x**2
+
+a = 1
+b = 3
+average_rate = (f(b) - f(a)) / (b - a)
+c = average_rate / 2
+
+print(&quot;평균 변화율:&quot;, average_rate)
+print(&quot;조건을 만족하는 c:&quot;, c)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`average_rate`는 \([1,3]\)에서의 평균변화율이다.</li><li>\(f'(x)=2x\)이다.</li><li>\(2c=average_rate\)를 만족해야 한다.</li><li>`c = average_rate / 2`로 평균값 정리의 점을 찾는다.</li></ol></section><section class="card"><h2>마무리 핵심 정리</h2><div class="summary">미분법은 변화율을 계산하는 언어이다. 극한 정의에서 출발하여 거듭제곱, 합, 곱, 몫, 연쇄법칙으로 복잡한 함수를 체계적으로 미분할 수 있다. 역함수와 음함수 미분은 명시적으로 풀기 어려운 관계에서도 변화율을 계산하게 해 준다.</div></section></main><footer>매력적인 미분법 정리 10개 HTML 수업자료</footer></body></html>
