@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1910년대 한국현대소설 10선 수업자료</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--paper:#fffdf8;--ink:#202020;--accent:#68452f;--line:#eadfce;--code:#1f2937;--codebg:#f4f7fb}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(135deg,#fff6df,#eef3f8);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;line-height:1.78}
+.wrap{max-width:1200px;margin:auto;padding:38px 20px 90px}
+.hero{background:linear-gradient(120deg,#342117,#755035,#a77c54);color:white;padding:46px;border-radius:30px;box-shadow:0 24px 55px #0003}
+.hero h1{margin:0;font-size:clamp(30px,5vw,55px);letter-spacing:-.045em} .hero p{font-size:18px;color:#fff3e4;max-width:930px}
+.badge{display:inline-block;border:1px solid #ffffff66;border-radius:999px;padding:6px 12px;margin:5px 7px 0 0;background:#ffffff18}
+.toc,.card{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:28px;margin-top:24px;box-shadow:0 16px 38px #6d451f12}
+.toc ol{columns:2;column-gap:45px} .toc a{color:var(--accent);font-weight:800;text-decoration:none}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px} .pill{background:#f0e2d2;border:1px solid #dfc8ad;color:#5b3d28;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
+.card h2{font-size:30px;margin:0 0 6px;color:#3b281b;letter-spacing:-.03em} .card h3{color:#6b4a31;margin-top:23px}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px} .box{background:#fbf7f1;border:1px solid var(--line);border-radius:19px;padding:18px}
+.story{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px} .stage{background:#fff;border:1px solid #eadfce;border-radius:16px;padding:14px} .stage b{display:block;color:#7b4b27;margin-bottom:5px}
+.formula{background:#fff;border-left:7px solid #9b6a3d;padding:14px 18px;border-radius:15px;margin:15px 0}
+.codeblock{background:var(--codebg);border:1px solid #dce5f0;border-radius:18px;overflow:hidden;margin-top:14px} .codeblock .bar{background:#e7edf5;color:#45556a;font-weight:800;padding:9px 14px;font-size:13px} .codeblock pre{margin:0;padding:18px;overflow:auto;color:var(--code);font-family:'Cascadia Code','Consolas','D2Coding',monospace;font-size:14px;line-height:1.62}
+.explain li{margin:.38em 0} .note{font-size:14px;color:#666} table{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden} th,td{border:1px solid #eadfce;padding:10px;vertical-align:top} th{background:#efe1d1;color:#4b3020}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.92em!important}
+@media(max-width:900px){.grid,.story{grid-template-columns:1fr}.toc ol{columns:1}.hero{padding:30px}.card{padding:20px}}
+</style>
+</head>
+<body><main class="wrap">
+<section class="hero">
+<h1>1910년대 한국현대소설 10선</h1>
+<p>1910년대 본격 근대소설과 그 형성에 영향을 준 신소설 과도기 작품을 함께 정리한 수업자료입니다. 각 작품마다 도입·전개·절정·결말, 작가 생애와 사상, 파이썬 코드 설명을 넣었습니다.</p>
+<span class="badge">UTF-8 글자 깨짐 방지</span><span class="badge">MathJax 예쁜 수식</span><span class="badge">신소설 → 근대소설</span><span class="badge">문학 × 파이썬 융합</span>
+</section>
+<section class="toc"><h2>목차</h2><ol><li><a href="#n1">이광수, 「무정」</a></li><li><a href="#n2">이광수, 「개척자」</a></li><li><a href="#n3">이광수, 「소년의 비애」</a></li><li><a href="#n4">이광수, 「어린 벗에게」</a></li><li><a href="#n5">이광수, 「윤광호」</a></li><li><a href="#n6">김동인, 「약한 자의 슬픔」</a></li><li><a href="#n7">김동인, 「마음이 옅은 자여」</a></li><li><a href="#n8">이인직, 「혈의 누」</a></li><li><a href="#n9">이해조, 「자유종」</a></li><li><a href="#n10">안국선, 「금수회의록」</a></li></ol></section>
+<section class="card"><h2>시대 배경</h2><div class="box"><p>1910년대 한국 소설은 신소설의 계몽성과 본격 근대소설의 심리·현실 인식이 교차하는 시기입니다. 특히 「무정」은 근대 장편소설의 출발점으로 자주 설명되며, 1919년 『창조』의 등장은 근대적 문예 동인지와 단편소설 형식의 발전을 보여 줍니다.</p><div class="formula">근대소설 형성 모델:\[M = E + R + I\] \(E\): 계몽성, \(R\): 현실 인식, \(I\): 개인의 내면</div></div></section>
+
+<section class="card" id="n1">
+<h2>1. 이광수, 「무정」</h2>
+<div class="meta"><span class="pill">1917</span><span class="pill">근대 장편·계몽주의</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>형식이 부모 세대의 혼인 질서와 새 교육 사이에서 갈등한다.</div>
+<div class="stage"><b>전개</b>형식·영채·선형의 관계가 얽히며 사랑, 교육, 민족의 문제가 함께 제기된다.</div>
+<div class="stage"><b>절정</b>영채의 고난과 선형의 근대적 여성상, 형식의 선택이 충돌한다.</div>
+<div class="stage"><b>결말</b>수해 구제 장면을 통해 개인의 사랑보다 민족과 사회를 위한 계몽의 길이 강조된다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이광수는 근대 문학 형성기의 대표 작가로, 교육·문명개화·민족 계몽을 중시했다. 그의 초기 사상은 개인의 자유연애와 신교육을 통해 낡은 관습을 넘어서는 데 초점이 있었다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>choice = {'사랑':7,'교육':9,'민족':10}
+for k,v in choice.items():
+    print(k, '★'*v)</code></pre></div>
+<ol class="explain">
+<li>딕셔너리에 작품의 핵심 가치를 넣고, 별표로 강조 정도를 시각화합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n2">
+<h2>2. 이광수, 「개척자」</h2>
+<div class="meta"><span class="pill">1917~1918</span><span class="pill">계몽주의·과학주의</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>주인공들은 낡은 사회의 관습 속에서 새로운 삶의 방향을 찾으려 한다.</div>
+<div class="stage"><b>전개</b>과학, 교육, 연애, 결혼 문제가 얽히며 근대적 인간상이 제시된다.</div>
+<div class="stage"><b>절정</b>이상과 현실의 차이가 커지면서 인물들은 선택의 기로에 선다.</div>
+<div class="stage"><b>결말</b>작품은 새 시대를 여는 ‘개척자’가 필요하다는 계몽적 메시지를 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이광수의 사상은 개인의 각성과 민족의 발전을 연결한다. 그는 무지와 관습을 극복하기 위해 교육과 과학적 태도를 강조했다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>values = ['과학','교육','개척','자유']
+for i,x in enumerate(values,1):
+    print(i,x)</code></pre></div>
+<ol class="explain">
+<li>리스트에 사상 키워드를 넣고 번호를 붙여 출력합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n3">
+<h2>3. 이광수, 「소년의 비애」</h2>
+<div class="meta"><span class="pill">1917</span><span class="pill">초기 단편·청년의 내면</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>소년은 성장 과정에서 사랑과 현실의 벽을 경험한다.</div>
+<div class="stage"><b>전개</b>이상적 감정과 실제 사회의 규범이 어긋나며 내면의 고통이 커진다.</div>
+<div class="stage"><b>절정</b>순수한 마음이 좌절되면서 청년기의 비애가 뚜렷해진다.</div>
+<div class="stage"><b>결말</b>작품은 성장의 아픔과 근대적 자아의 불안을 보여 준다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이광수의 초기 단편은 자전적 요소와 관념적 문체가 강하다. 그는 청년의 내면을 통해 자유, 사랑, 개성의 문제를 탐구했다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>feelings = ['기대','설렘','갈등','비애']
+print(' → '.join(feelings))</code></pre></div>
+<ol class="explain">
+<li>감정의 흐름을 리스트로 저장한 뒤 화살표로 연결합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n4">
+<h2>4. 이광수, 「어린 벗에게」</h2>
+<div class="meta"><span class="pill">1917</span><span class="pill">서간체·자유연애</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>화자는 어린 벗에게 자신의 감정과 생각을 고백하듯 말한다.</div>
+<div class="stage"><b>전개</b>우정과 사랑, 개인의 해방, 새 시대의 가치가 논설적으로 전개된다.</div>
+<div class="stage"><b>절정</b>관습적 윤리와 자유로운 감정 사이의 긴장이 커진다.</div>
+<div class="stage"><b>결말</b>작품은 자유연애와 개성 해방을 주장하는 계몽적 목소리로 끝난다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이광수는 초기 작품에서 자유연애와 개성의 해방, 민족주의 계몽을 반복적으로 주장했다. 문학을 사회를 깨우는 도구로 보았다는 점이 중요하다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>keywords = '자유 사랑 개성 계몽 자유'
+count = {}
+for w in keywords.split():
+    count[w] = count.get(w,0)+1
+print(count)</code></pre></div>
+<ol class="explain">
+<li>문자열을 단어로 나누고, 같은 단어가 몇 번 나오는지 셉니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n5">
+<h2>5. 이광수, 「윤광호」</h2>
+<div class="meta"><span class="pill">1918</span><span class="pill">초기 단편·자전적 성격</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>윤광호는 근대적 감수성을 지닌 청년으로 등장한다.</div>
+<div class="stage"><b>전개</b>청년의 감정, 우정, 사랑, 이상이 현실과 부딪힌다.</div>
+<div class="stage"><b>절정</b>내면의 고백이 깊어지며 인물의 불안과 고독이 드러난다.</div>
+<div class="stage"><b>결말</b>작품은 청년 지식인의 섬세한 자의식을 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이광수는 청년 지식인의 내면을 통해 근대적 자아의 탄생을 보여 주었다. 그의 사상은 낡은 공동체보다 개인의 각성과 자기표현을 중시했다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>inner = {'고독':8,'이상':7,'불안':6}
+print(max(inner, key=inner.get))</code></pre></div>
+<ol class="explain">
+<li>감정 점수를 딕셔너리에 넣고 가장 큰 값을 가진 감정을 찾습니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n6">
+<h2>6. 김동인, 「약한 자의 슬픔」</h2>
+<div class="meta"><span class="pill">1919</span><span class="pill">근대 단편·여성 수난</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>엘리자베스는 부모 없이 남작 집에서 가정교사로 살아간다.</div>
+<div class="stage"><b>전개</b>남작에게 억압적 관계를 당하고 임신까지 하며 사회적 약자의 처지에 놓인다.</div>
+<div class="stage"><b>절정</b>재판과 유산을 겪으며 제도와 권력 앞의 약함을 절감한다.</div>
+<div class="stage"><b>결말</b>그녀는 약한 자로만 살지 않고 사랑을 통해 강해지겠다고 결심한다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>김동인은 한국 근대 단편소설 형식 확립에 큰 역할을 했다. 초기에는 서술 방식과 문체 실험을 통해 개인의 심리와 힘의 관계를 드러냈다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>power = {'남작':10,'엘리자베스':2}
+gap = power['남작'] - power['엘리자베스']
+print('권력 차이:', gap)</code></pre></div>
+<ol class="explain">
+<li>두 인물의 힘을 숫자로 두고 권력 차이를 계산합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n7">
+<h2>7. 김동인, 「마음이 옅은 자여」</h2>
+<div class="meta"><span class="pill">1919</span><span class="pill">심리소설·자의식</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>주인공은 사랑과 감정의 문제 앞에서 흔들리는 내면을 보인다.</div>
+<div class="stage"><b>전개</b>상대와의 거리, 자기 합리화, 불안한 감정이 이어진다.</div>
+<div class="stage"><b>절정</b>감정의 깊이와 책임 사이에서 인물의 ‘옅은 마음’이 드러난다.</div>
+<div class="stage"><b>결말</b>작품은 근대 지식인의 분열된 자의식과 미성숙함을 보여 준다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>김동인은 인간 심리를 분석적으로 포착하려 했다. 도덕적 교훈보다 인물의 의식 흐름과 감정의 모순을 드러내는 데 관심을 두었다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>mind = ['망설임','회피','그리움','자의식']
+for word in mind:
+    print(word, len(word))</code></pre></div>
+<ol class="explain">
+<li>감정 단어를 하나씩 출력하고 글자 수를 함께 확인합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n8">
+<h2>8. 이인직, 「혈의 누」</h2>
+<div class="meta"><span class="pill">1906</span><span class="pill">신소설·1910년대 전 단계</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>청일전쟁 속에서 옥련은 가족과 헤어지는 비극을 겪는다.</div>
+<div class="stage"><b>전개</b>옥련은 여러 고난을 지나며 신교육과 새로운 세계를 접한다.</div>
+<div class="stage"><b>절정</b>개인의 가족 비극이 국가와 문명개화의 문제로 확대된다.</div>
+<div class="stage"><b>결말</b>작품은 교육과 개화의 필요성을 강조하며 신소설적 계몽성을 보여 준다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이인직은 신소설의 대표 작가다. 그의 작품은 근대적 교육, 문명개화, 여성 교육을 강조했지만 고전소설적 우연성과 계몽 담론도 강하다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>themes = ['전쟁','이별','교육','개화']
+print(', '.join(themes))</code></pre></div>
+<ol class="explain">
+<li>주제를 리스트로 저장하고 쉼표로 연결해 출력합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n9">
+<h2>9. 이해조, 「자유종」</h2>
+<div class="meta"><span class="pill">1910</span><span class="pill">신소설·토론체</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>여러 인물이 모여 나라와 사회의 문제를 토론한다.</div>
+<div class="stage"><b>전개</b>교육, 여성, 사회 개혁, 국가의 장래에 대한 의견이 제시된다.</div>
+<div class="stage"><b>절정</b>낡은 풍속과 새 제도의 충돌이 논쟁 속에서 드러난다.</div>
+<div class="stage"><b>결말</b>작품은 자유로운 토론과 계몽을 통해 사회 개혁의 필요성을 말한다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>이해조는 신소설 작가로 개화기 사회 개혁과 계몽에 관심을 두었다. 특히 토론 형식을 통해 새 시대의 사상을 직접 전달하려 했다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>issues = ['교육','여성','사회개혁']
+for issue in issues:
+    print('토론 주제:', issue)</code></pre></div>
+<ol class="explain">
+<li>토론 주제를 리스트에 넣고 반복문으로 하나씩 출력합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card" id="n10">
+<h2>10. 안국선, 「금수회의록」</h2>
+<div class="meta"><span class="pill">1908</span><span class="pill">우화소설·풍자</span></div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>동물들이 회의를 열어 인간 사회의 문제를 비판한다.</div>
+<div class="stage"><b>전개</b>각 동물은 인간의 탐욕, 위선, 부도덕을 풍자한다.</div>
+<div class="stage"><b>절정</b>인간보다 동물이 더 도덕적이라는 역전된 구도가 강한 비판을 만든다.</div>
+<div class="stage"><b>결말</b>작품은 인간 사회의 타락을 반성하라는 계몽적 결론을 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>안국선은 개화기 지식인으로, 우화와 풍자를 통해 사회 개혁 의식을 드러냈다. 그의 사상은 도덕적 각성, 민족의 자강, 부패한 현실에 대한 비판으로 요약된다.</p>
+<div class="formula">작품 분석 모델:
+\[
+A = C + P + T
+\]
+\(C\): 시대 상황, \(P\): 인물의 심리, \(T\): 작품의 주제 의식
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>animals = {'까마귀':'탐욕 비판','여우':'간사함 비판','개구리':'허세 비판'}
+for a,msg in animals.items():
+    print(a, '→', msg)</code></pre></div>
+<ol class="explain">
+<li>동물과 풍자 의미를 딕셔너리로 묶어 출력합니다.</li>
+<li><code>for</code>, <code>dict</code>, <code>list</code> 같은 기초 문법으로 문학 개념을 데이터처럼 정리합니다.</li>
+<li>작품의 주제·인물·갈등을 숫자나 단어로 모델링해 볼 수 있습니다.</li>
+</ol>
+</div>
+</div>
+</section>
+<section class="card"><h2>비교 정리표</h2><table><thead><tr><th>갈래</th><th>작품</th><th>핵심 특징</th></tr></thead><tbody><tr><td>본격 근대소설</td><td>무정, 개척자</td><td>교육·연애·민족 계몽</td></tr><tr><td>초기 단편</td><td>소년의 비애, 어린 벗에게, 윤광호</td><td>청년의 내면, 자유연애, 개성</td></tr><tr><td>근대 단편 형성</td><td>약한 자의 슬픔, 마음이 옅은 자여</td><td>개인 심리, 서술 방식, 힘의 관계</td></tr><tr><td>신소설 과도기</td><td>혈의 누, 자유종, 금수회의록</td><td>개화·토론·풍자·계몽</td></tr></tbody></table></section>
+<section class="card"><h2>활용 안내</h2><p class="note">이 자료는 1910년대 한국현대소설 수업을 위해 구성한 학습용 요약입니다. 일부 신소설은 정확히 1910년대 발표작은 아니지만, 1910년대 근대소설 형성 배경을 이해하기 위한 과도기 작품으로 포함했습니다.</p></section>
+</main></body></html>
