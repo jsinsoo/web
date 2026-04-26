@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 현대대수학 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --navy:#172554; --blue:#2563eb; --purple:#7c3aed; --ink:#172033;
+  --green:#ecfdf5; --yellow:#fff7d6; --line:#dbeafe; --rose:#fff1f2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;
+  background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);
+  color:var(--ink);
+  line-height:1.82;
+}
+header{
+  background:radial-gradient(circle at top left,#60a5fa,transparent 28%),
+             linear-gradient(135deg,var(--navy),var(--purple));
+  color:white;
+  text-align:center;
+  padding:54px 24px;
+}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(37,99,235,.13);
+  border-radius:24px;
+  padding:30px;
+  margin:28px 0;
+  box-shadow:0 16px 38px rgba(15,23,42,.12);
+}
+h2{
+  color:#1e3a8a;
+  border-bottom:3px solid var(--line);
+  padding-bottom:10px;
+  margin-top:8px;
+}
+.badge{
+  display:inline-block;
+  background:#ede9fe;
+  color:#5b21b6;
+  padding:6px 13px;
+  border-radius:999px;
+  font-weight:800;
+}
+.sec{
+  font-weight:900;
+  color:#9a3412;
+  margin-top:24px;
+  font-size:1.12rem;
+}
+.box,.use,.note{
+  border-radius:16px;
+  padding:16px 19px;
+  overflow-x:auto;
+}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{
+  background:#f8fafc;
+  border-radius:16px;
+  padding:16px 38px;
+}
+li{margin:8px 0}
+pre{
+  background:#0f172a;
+  color:#e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  overflow:auto;
+  line-height:1.65;
+  font-size:.95rem;
+  border:1px solid #334155;
+}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{
+  background:var(--rose);
+  border-left:7px solid #e11d48;
+  border-radius:16px;
+  padding:16px 19px;
+}
+mjx-container[jax="SVG"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){
+  header h1{font-size:1.72rem}
+  main{padding:16px}
+  .card{padding:20px}
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 현대대수학 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+현대대수학의 핵심 주제인 군, 부분군, 정규부분군, 몫군, 환, 아이디얼, 체, 동형정리를 이해하고,
+파이썬 코드로 추상 구조를 구체적으로 실험한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>라그랑주 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">유한군 \(G\)의 부분군 \(H\)에 대해 \[|H|\mid |G|\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>군 \(G\)를 부분군 \(H\)의 왼쪽 잉여류 \(aH\)들로 나눈다.</li><li>서로 다른 잉여류들은 겹치지 않고, 모든 원소는 어떤 잉여류에 속한다.</li><li>각 잉여류 \(aH\)의 원소 개수는 \(H\)의 원소 개수와 같다.</li><li>따라서 \(G\)는 같은 크기의 잉여류 여러 개로 분할된다.</li><li>그러므로 \(|G|=[G:H]|H|\)이고, \(|H|\)는 \(|G|\)를 나눈다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">부분군의 가능한 크기 판정, 군의 구조 분석, 순환군·대칭군 학습의 기본 도구이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_12의 부분군 &lt;4&gt;의 크기 확인
+n = 12
+generator = 4
+
+subgroup = set()
+x = 0
+
+while x not in subgroup:
+    subgroup.add(x)
+    x = (x + generator) % n
+
+print(&quot;부분군:&quot;, sorted(subgroup))
+print(&quot;|G|:&quot;, n)
+print(&quot;|H|:&quot;, len(subgroup))
+print(&quot;|H|가 |G|를 나누는가?&quot;, n % len(subgroup) == 0)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`n = 12` : 군 \(Z_{12}\)의 원소 개수이다.</li><li>`generator = 4` : 부분군을 생성할 원소이다.</li><li>`subgroup = set()` : 중복 없이 부분군 원소를 저장한다.</li><li>`x = (x + generator) % n` : \(Z_{12}\)에서 덧셈을 반복한다.</li><li>`while x not in subgroup` : 이미 나온 원소가 다시 나오면 순환이 끝난다.</li><li>`len(subgroup)` : 부분군의 크기를 구한다.</li><li>`n % len(subgroup) == 0` : 라그랑주 정리처럼 부분군의 크기가 군의 크기를 나누는지 확인한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>원소의 위수 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">유한군 \(G\)의 원소 \(a\)의 위수 \(\operatorname{ord}(a)\)는 \(|G|\)를 나눈다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>원소 \(a\)가 생성하는 부분군을 \(\langle a\rangle\)라고 하자.</li><li>\(\langle a\rangle=\{e,a,a^2,\dots\}\)이고 그 크기가 \(\operatorname{ord}(a)\)이다.</li><li>\(\langle a\rangle\)는 \(G\)의 부분군이다.</li><li>라그랑주 정리에 의해 \(|\langle a\rangle|\mid |G|\)이다.</li><li>따라서 \(\operatorname{ord}(a)\mid |G|\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">원소의 가능한 주기 계산, 순환군 구조 분석, 암호학의 모듈러 거듭제곱 주기 분석에 쓰인다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_15에서 원소 6의 위수 구하기
+n = 15
+a = 6
+
+x = 0
+order = 0
+
+while True:
+    order += 1
+    x = (x + a) % n
+    if x == 0:
+        break
+
+print(&quot;원소의 위수:&quot;, order)
+print(&quot;군의 크기를 나누는가?&quot;, n % order == 0)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`n = 15` : 덧셈군 \(Z_{15}\)의 크기이다.</li><li>`a = 6` : 위수를 구할 원소이다.</li><li>`x = (x + a) % n` : 원소 \(a\)를 반복해서 더한다.</li><li>`order += 1` : 몇 번 더했는지 센다.</li><li>`if x == 0` : 항등원 0으로 돌아오면 반복을 멈춘다.</li><li>`n % order == 0` : 원소의 위수가 군의 크기를 나누는지 확인한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>군 동형 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">두 군 \(G,H\) 사이에 연산을 보존하는 전단사 함수 \(\varphi:G\to H\)가 존재하면 \(G\cong H\)이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>동형사상 \(\varphi\)는 \(\varphi(ab)=\varphi(a)\varphi(b)\)를 만족한다.</li><li>전단사이므로 \(G\)의 모든 원소와 \(H\)의 모든 원소가 정확히 하나씩 대응된다.</li><li>연산표의 구조가 \(\varphi\)를 통해 그대로 보존된다.</li><li>따라서 두 군은 이름만 다르고 대수적 구조는 같다.</li><li>이를 \(G\cong H\)라고 쓴다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">서로 다르게 보이는 구조가 실제로 같은지 판별하고, 복잡한 군을 더 단순한 군으로 바꾸어 분석할 때 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_4와 {1, i, -1, -i}의 곱셈 구조 대응
+Z4 = [0, 1, 2, 3]
+complex_group = [1, 1j, -1, -1j]
+
+def phi(k):
+    return complex_group[k]
+
+ok = True
+for a in Z4:
+    for b in Z4:
+        left = phi((a + b) % 4)
+        right = phi(a) * phi(b)
+        if abs(left - right) &gt; 1e-9:
+            ok = False
+
+print(&quot;연산 보존:&quot;, ok)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`Z4` : 덧셈군 \(Z_4\)의 원소이다.</li><li>`complex_group` : 네 개의 복소수 \(1,i,-1,-i\)로 이루어진 곱셈군이다.</li><li>`phi(k)` : \(k\)를 \(i^k\)에 대응시키는 함수이다.</li><li>`phi((a + b) % 4)` : \(Z_4\)에서 먼저 더한 뒤 대응시킨 값이다.</li><li>`phi(a) * phi(b)` : 대응시킨 뒤 복소수 곱셈을 한 값이다.</li><li>두 결과가 항상 같으면 연산을 보존하므로 동형의 핵심 조건을 확인한 것이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>제1 동형정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">군 준동형 \(\varphi:G\to H\)에 대해 \[G/\ker(\varphi)\cong \operatorname{Im}(\varphi)\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(G/\ker(\varphi)\)의 원소는 잉여류 \(g\ker(\varphi)\)이다.</li><li>함수 \(\psi(g\ker(\varphi))=\varphi(g)\)를 정의한다.</li><li>같은 잉여류의 대표원을 골라도 \(\varphi\)값이 같으므로 잘 정의된다.</li><li>\(\psi\)는 연산을 보존한다.</li><li>\(\psi\)의 상은 \(\operatorname{Im}(\varphi)\)이고 핵은 자명하다.</li><li>따라서 \(G/\ker(\varphi)\)와 \(\operatorname{Im}(\varphi)\)는 동형이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">몫군을 실제 이미지 구조와 연결해 복잡한 군을 단순화하는 핵심 정리이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_12 -&gt; Z_3, phi(x)=x mod 3
+G = list(range(12))
+
+def phi(x):
+    return x % 3
+
+kernel = [x for x in G if phi(x) == 0]
+image = sorted(set(phi(x) for x in G))
+
+print(&quot;kernel:&quot;, kernel)
+print(&quot;image:&quot;, image)
+print(&quot;|G| / |kernel|:&quot;, len(G) // len(kernel))
+print(&quot;|image|:&quot;, len(image))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`G = list(range(12))` : \(Z_{12}\)의 원소를 만든다.</li><li>`phi(x) = x % 3` : \(Z_{12}\)에서 \(Z_3\)로 가는 준동형 예시이다.</li><li>`kernel` : \(arphi(x)=0\)이 되는 원소들의 집합이다.</li><li>`image` : 실제로 나오는 함수값들의 집합이다.</li><li>`len(G) // len(kernel)` : 몫군의 크기를 계산한다.</li><li>`len(image)` : 상의 크기이다.</li><li>두 크기가 같으면 제1 동형정리의 크기 관계를 확인할 수 있다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>정규부분군과 몫군 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">부분군 \(N\)이 정규부분군이면, 잉여류들의 집합 \(G/N\)은 자연스럽게 군이 된다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>몫집합 \(G/N\)의 원소는 \(gN\) 꼴의 잉여류이다.</li><li>연산을 \((aN)(bN)=(ab)N\)으로 정의한다.</li><li>이 연산이 대표원 선택과 무관하려면 \(N\)이 정규부분군이어야 한다.</li><li>정규성 \(gN=Ng\) 때문에 연산이 잘 정의된다.</li><li>항등원은 \(N\), 역원은 \(a^{-1}N\)이 된다.</li><li>따라서 \(G/N\)은 군이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">대칭을 축약하여 새로운 구조를 만들 때 사용되며, 동형정리와 군 분류 이론의 핵심이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_12 / &lt;4&gt;의 잉여류 만들기
+n = 12
+N = {0, 4, 8}
+
+cosets = []
+seen = set()
+
+for a in range(n):
+    coset = frozenset((a + x) % n for x in N)
+    if coset not in seen:
+        seen.add(coset)
+        cosets.append(sorted(coset))
+
+print(&quot;몫군의 잉여류:&quot;)
+for c in cosets:
+    print(c)
+
+print(&quot;몫군의 원소 개수:&quot;, len(cosets))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`N = {0, 4, 8}` : \(Z_{12}\)의 부분군이다.</li><li>`coset` : \(a+N\) 형태의 잉여류이다.</li><li>`(a + x) % n` : \(Z_{12}\)에서 덧셈을 계산한다.</li><li>`frozenset` : 집합을 다시 집합의 원소처럼 저장하기 위해 사용한다.</li><li>`seen` : 이미 나온 잉여류를 중복 저장하지 않기 위한 집합이다.</li><li>`len(cosets)` : 몫군의 원소 개수를 의미한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>케일리 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">모든 군 \(G\)는 어떤 대칭군 \(S_G\)의 부분군과 동형이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>각 \(g\in G\)에 대해 왼쪽 곱셈 함수 \(L_g(x)=gx\)를 생각한다.</li><li>\(L_g\)는 \(G\)에서 \(G\)로 가는 전단사 함수이므로 순열이다.</li><li>\(g\mapsto L_g\)라는 함수를 정의한다.</li><li>\(L_{gh}=L_g\circ L_h\)이므로 연산을 보존한다.</li><li>\(L_g\)가 항등순열이면 \(g=e\)이므로 이 함수는 단사이다.</li><li>따라서 \(G\)는 순열군의 부분군과 동형이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">추상적인 군을 순열로 구체화하여 계산 가능하게 만드는 강력한 정리이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_3의 원소를 순열로 표현
+G = [0, 1, 2]
+
+def left_action(g):
+    return [(g + x) % 3 for x in G]
+
+for g in G:
+    print(g, &quot;-&gt;&quot;, left_action(g))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`G = [0, 1, 2]` : 덧셈군 \(Z_3\)의 원소이다.</li><li>`left_action(g)` : 원소 g가 모든 x를 \(g+x\)로 보내는 순열을 만든다.</li><li>`(g + x) % 3` : \(Z_3\)에서의 덧셈이다.</li><li>출력된 리스트는 각 원소가 어디로 이동하는지를 나타낸다.</li><li>각 g는 하나의 순열에 대응되므로 케일리 정리의 아이디어를 확인할 수 있다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>실로우 제1정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">유한군 \(G\)의 크기가 \(|G|=p^k m\), \(p\nmid m\)이면, \(G\)에는 크기 \(p^k\)인 부분군이 존재한다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>군 \(G\)가 어떤 집합 위에 작용하는 상황을 만든다.</li><li>궤도-안정자 정리와 조합적 계산을 이용한다.</li><li>\(p\)-거듭제곱 크기를 갖는 부분구조가 반드시 존재함을 보인다.</li><li>그 부분구조가 \(G\)의 부분군이 된다.</li><li>이 부분군을 실로우 \(p\)-부분군이라고 한다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">유한군의 구조 분류, 부분군 존재성 판정, 군론 고급 문제의 핵심 도구이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># |G| = 12일 때 실로우 p-부분군의 가능한 크기
+group_order = 12
+
+def highest_power_of_p(n, p):
+    power = 1
+    while n % p == 0:
+        power *= p
+        n //= p
+    return power
+
+for p in [2, 3]:
+    print(&quot;p =&quot;, p, &quot;실로우 p-부분군 크기:&quot;, highest_power_of_p(group_order, p))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`group_order = 12` : 군의 크기이다.</li><li>`highest_power_of_p(n, p)` : n을 나누는 가장 큰 \(p\)의 거듭제곱을 찾는다.</li><li>`while n % p == 0` : p로 계속 나누어떨어지는 동안 반복한다.</li><li>`power *= p` : \(p\)-거듭제곱 크기를 키운다.</li><li>`n //= p` : n에서 p 인수를 제거한다.</li><li>`p = 2`일 때 크기 4, `p = 3`일 때 크기 3의 실로우 부분군이 존재해야 한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>아이디얼과 몫환 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">환 \(R\)의 부분집합 \(I\)가 아이디얼이면, 몫집합 \(R/I\)는 자연스럽게 환이 된다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>몫집합 \(R/I\)의 원소는 \(a+I\) 꼴의 잉여류이다.</li><li>덧셈을 \((a+I)+(b+I)=(a+b)+I\)로 정의한다.</li><li>곱셈을 \((a+I)(b+I)=ab+I\)로 정의한다.</li><li>아이디얼 조건 때문에 대표원을 바꾸어도 결과가 같다.</li><li>따라서 연산이 잘 정의되고, 환의 공리들이 \(R\)로부터 내려온다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">모듈러 산술, 다항식 몫환, 대수기하, 코딩이론, 암호학에서 널리 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 정수환 Z에서 5Z로 나눈 몫환 Z/5Z
+mod = 5
+
+elements = list(range(mod))
+
+add_table = [[(a + b) % mod for b in elements] for a in elements]
+mul_table = [[(a * b) % mod for b in elements] for a in elements]
+
+print(&quot;덧셈표&quot;)
+for row in add_table:
+    print(row)
+
+print(&quot;곱셈표&quot;)
+for row in mul_table:
+    print(row)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`mod = 5` : 몫환 \(\mathbb Z/5\mathbb Z\)를 만든다.</li><li>`elements = list(range(mod))` : 대표원 0,1,2,3,4를 사용한다.</li><li>`(a + b) % mod` : 몫환에서의 덧셈이다.</li><li>`(a * b) % mod` : 몫환에서의 곱셈이다.</li><li>`add_table` : 덧셈표를 만든다.</li><li>`mul_table` : 곱셈표를 만든다.</li><li>몫환에서는 같은 나머지를 갖는 정수들을 하나의 원소처럼 다룬다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>체의 곱셈군 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">체 \(F\)에서 \(0\)이 아닌 원소들의 집합 \(F^\times\)는 곱셈에 대해 군을 이룬다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>체의 정의에 의해 \(0\)이 아닌 두 원소의 곱은 다시 \(0\)이 아니다.</li><li>곱셈 결합법칙은 체의 곱셈에서 이미 성립한다.</li><li>곱셈 항등원 \(1\)은 \(F^\times\)에 속한다.</li><li>체에서는 \(0\)이 아닌 모든 원소가 곱셈 역원을 가진다.</li><li>따라서 \(F^\times\)는 군이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">유한체 암호학, 타원곡선 암호, 모듈러 역원, 다항식 계산에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_7에서 0이 아닌 원소들의 곱셈 역원 찾기
+p = 7
+elements = range(1, p)
+
+for a in elements:
+    for b in elements:
+        if (a * b) % p == 1:
+            print(a, &quot;의 역원:&quot;, b)
+            break</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`p = 7` : 소수 7에 대한 체 \(\mathbb Z_7\)을 생각한다.</li><li>`range(1, p)` : 0이 아닌 원소 1부터 6까지 검사한다.</li><li>`(a * b) % p == 1` : b가 a의 곱셈 역원인지 확인한다.</li><li>`print()` : 각 원소의 역원을 출력한다.</li><li>소수 mod에서는 0이 아닌 모든 원소가 곱셈 역원을 가진다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>중국인의 나머지 정리의 환 버전</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">\(\gcd(m,n)=1\)이면 \[\mathbb Z/(mn)\mathbb Z\cong \mathbb Z/m\mathbb Z\times \mathbb Z/n\mathbb Z\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>함수 \(\varphi:\mathbb Z/(mn)\mathbb Z\to \mathbb Z/m\mathbb Z\times\mathbb Z/n\mathbb Z\)를 \(\varphi(x)=(x\bmod m,x\bmod n)\)으로 정의한다.</li><li>이 함수는 덧셈과 곱셈을 모두 보존한다.</li><li>\(\gcd(m,n)=1\)이면 중국인의 나머지 정리에 의해 모든 쌍 \((a,b)\)에 대해 해 \(x\)가 존재한다.</li><li>또한 그 해는 \(mn\)을 법으로 유일하다.</li><li>따라서 \(\varphi\)는 전단사 환 준동형이고 동형이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">큰 모듈러 계산을 작은 모듈러 계산으로 분해하는 데 사용되며, 암호학과 계산대수에 중요하다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># Z_15와 Z_3 x Z_5의 대응 확인
+m = 3
+n = 5
+
+pairs = {}
+
+for x in range(m * n):
+    pairs[x] = (x % m, x % n)
+
+for x, pair in pairs.items():
+    print(x, &quot;-&gt;&quot;, pair)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`m = 3`, `n = 5` : 서로소인 두 법이다.</li><li>`range(m * n)` : \(Z_{15}\)의 대표원 0부터 14까지 검사한다.</li><li>`(x % m, x % n)` : \(x\)를 두 작은 나머지 정보로 보낸다.</li><li>`pairs[x]` : \(Z_{15}\)의 원소와 \(Z_3	imes Z_5\)의 원소를 대응시킨다.</li><li>모든 쌍이 한 번씩 나오면 두 구조가 동형임을 확인할 수 있다.</li>
+</ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+현대대수학의 매력은 계산 대상이 숫자에서 구조로 확장된다는 점이다.
+군은 대칭을, 환은 덧셈과 곱셈의 결합 구조를, 체는 나눗셈까지 가능한 세계를 설명한다.
+동형정리는 서로 달라 보이는 구조가 사실상 같은 구조임을 보여 주는 현대대수학의 핵심 언어이다.
+</div>
+</section>
+</main>
+<footer>매력적인 현대대수학 정리 10개 HTML 수업자료</footer>
+</body>
+</html>

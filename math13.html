@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 선형대수학 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --navy:#172554; --blue:#2563eb; --purple:#7c3aed; --ink:#172033;
+  --green:#ecfdf5; --yellow:#fff7d6; --line:#dbeafe; --rose:#fff1f2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;
+  background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);
+  color:var(--ink);
+  line-height:1.82;
+}
+header{
+  background:radial-gradient(circle at top left,#60a5fa,transparent 28%),
+             linear-gradient(135deg,var(--navy),var(--purple));
+  color:white;
+  text-align:center;
+  padding:54px 24px;
+}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(37,99,235,.13);
+  border-radius:24px;
+  padding:30px;
+  margin:28px 0;
+  box-shadow:0 16px 38px rgba(15,23,42,.12);
+}
+h2{
+  color:#1e3a8a;
+  border-bottom:3px solid var(--line);
+  padding-bottom:10px;
+  margin-top:8px;
+}
+.badge{
+  display:inline-block;
+  background:#ede9fe;
+  color:#5b21b6;
+  padding:6px 13px;
+  border-radius:999px;
+  font-weight:800;
+}
+.sec{
+  font-weight:900;
+  color:#9a3412;
+  margin-top:24px;
+  font-size:1.12rem;
+}
+.box,.use,.note{
+  border-radius:16px;
+  padding:16px 19px;
+  overflow-x:auto;
+}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{
+  background:#f8fafc;
+  border-radius:16px;
+  padding:16px 38px;
+}
+li{margin:8px 0}
+pre{
+  background:#0f172a;
+  color:#e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  overflow:auto;
+  line-height:1.65;
+  font-size:.95rem;
+  border:1px solid #334155;
+}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{
+  background:var(--rose);
+  border-left:7px solid #e11d48;
+  border-radius:16px;
+  padding:16px 19px;
+}
+mjx-container[jax="SVG"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){
+  header h1{font-size:1.72rem}
+  main{padding:16px}
+  .card{padding:20px}
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 선형대수학 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+선형대수학의 핵심 정리를 이해하고, 벡터·행렬·행렬식·고유값·직교화·최소제곱의 구조를 파이썬 코드로 확인한다.
+수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>행렬식과 가역성 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">정사각행렬 \(A\)에 대해 \(\det(A)\ne 0\)이면 \(A\)는 가역행렬이고, \(\det(A)=0\)이면 가역행렬이 아니다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>행렬 \(A\)가 가역이면 어떤 행렬 \(A^{-1}\)가 존재하여 \(AA^{-1}=I\)이다.</li><li>행렬식의 곱셈 성질에 의해 \(\det(AA^{-1})=\det(A)\det(A^{-1})\)이다.</li><li>\(\det(I)=1\)이므로 \(\det(A)\det(A^{-1})=1\)이다.</li><li>따라서 \(\det(A)\ne0\)이다.</li><li>반대로 \(\det(A)\ne0\)이면 여인수행렬을 이용해 \(A^{-1}=\frac{1}{\det(A)}\operatorname{adj}(A)\)를 만들 수 있다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">연립방정식의 해 존재 여부, 좌표 변환, 컴퓨터 그래픽스, 데이터 변환에서 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 2x2 행렬의 행렬식과 가역성 확인
+A = [[2, 1],
+     [5, 3]]
+
+det = A[0][0] * A[1][1] - A[0][1] * A[1][0]
+
+print(&quot;det(A):&quot;, det)
+print(&quot;가역행렬인가?&quot;, det != 0)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A` : 2행 2열 행렬을 리스트 안의 리스트로 표현한다.</li><li>`A[0][0] * A[1][1]` : 주대각선 원소의 곱이다.</li><li>`A[0][1] * A[1][0]` : 부대각선 원소의 곱이다.</li><li>`det` : 2x2 행렬식 \(ad-bc\)를 저장한다.</li><li>`det != 0` : 행렬식이 0이 아니면 가역행렬이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>랭크-널리티 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">선형변환 \(T:V\to W\)에 대해 \[\dim V=\operatorname{rank}(T)+\operatorname{nullity}(T)\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(\ker(T)\)의 기저를 먼저 잡는다.</li><li>이 기저를 \(V\) 전체의 기저로 확장한다.</li><li>\(\ker(T)\)에 속한 기저벡터들은 \(T\)에 의해 \(0\)으로 간다.</li><li>나머지 기저벡터들의 상은 \(\operatorname{Im}(T)\)의 기저가 된다.</li><li>따라서 전체 차원은 핵의 차원과 상의 차원의 합이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">해공간 차원 계산, 선형시스템 자유변수 개수, 데이터 차원 축소에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 간단한 행렬의 rank와 nullity 계산
+A = [
+    [1, 2, 3],
+    [2, 4, 6]
+]
+
+# 두 번째 행은 첫 번째 행의 2배이므로 rank는 1
+rank = 1
+number_of_columns = 3
+nullity = number_of_columns - rank
+
+print(&quot;rank:&quot;, rank)
+print(&quot;nullity:&quot;, nullity)
+print(&quot;rank + nullity:&quot;, rank + nullity)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A` : 2행 3열 행렬이다.</li><li>`[2,4,6]`은 `[1,2,3]`의 2배이므로 독립인 행은 1개이다.</li><li>`rank = 1` : 행렬의 랭크를 1로 저장한다.</li><li>`number_of_columns = 3` : 정의역 차원은 열의 개수와 같다.</li><li>`nullity = number_of_columns - rank` : 랭크-널리티 정리로 영공간 차원을 구한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>기저 표현의 유일성</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">\(B=\{v_1,\dots,v_n\}\)가 벡터공간 \(V\)의 기저이면, 모든 \(v\in V\)는 \[v=c_1v_1+\cdots+c_nv_n\] 꼴로 유일하게 표현된다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>기저는 \(V\)를 생성하므로 모든 벡터는 기저벡터들의 선형결합으로 표현된다.</li><li>두 표현이 있다고 가정하자.</li><li>\(v=c_1v_1+\cdots+c_nv_n=d_1v_1+\cdots+d_nv_n\)이다.</li><li>양변을 빼면 \((c_1-d_1)v_1+\cdots+(c_n-d_n)v_n=0\)이다.</li><li>기저벡터들은 선형독립이므로 모든 \(c_i-d_i=0\)이다.</li><li>따라서 \(c_i=d_i\)이고 표현은 유일하다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">좌표계, 벡터 표현, 컴퓨터 그래픽스, 머신러닝 특징 벡터 표현에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 표준기저에서 벡터 표현
+v = [3, -2]
+
+e1 = [1, 0]
+e2 = [0, 1]
+
+c1 = v[0]
+c2 = v[1]
+
+reconstructed = [c1 * e1[0] + c2 * e2[0],
+                 c1 * e1[1] + c2 * e2[1]]
+
+print(&quot;좌표:&quot;, c1, c2)
+print(&quot;복원된 벡터:&quot;, reconstructed)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`v = [3, -2]` : 표현하려는 벡터이다.</li><li>`e1`, `e2` : 2차원 표준기저이다.</li><li>`c1 = v[0]`, `c2 = v[1]` : 표준기저에서의 좌표는 벡터의 각 성분이다.</li><li>`reconstructed` : \(c_1e_1+c_2e_2\)를 계산해 원래 벡터를 복원한다.</li><li>출력값이 원래 벡터와 같으면 표현이 제대로 된 것이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>선형독립과 행렬식 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">\(\mathbb{R}^n\)의 벡터 \(v_1,\dots,v_n\)을 열벡터로 갖는 행렬 \(A\)에 대해 \(\det(A)\ne0\)이면 이 벡터들은 선형독립이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>벡터들이 선형종속이면 어떤 영이 아닌 계수벡터 \(x\)가 존재하여 \(Ax=0\)이다.</li><li>그러면 동차연립방정식 \(Ax=0\)이 자명하지 않은 해를 가진다.</li><li>이는 \(A\)가 가역이 아니라는 뜻이다.</li><li>가역이 아니면 \(\det(A)=0\)이다.</li><li>따라서 \(\det(A)\ne0\)이면 선형종속일 수 없고 선형독립이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">벡터 집합이 좌표계를 만들 수 있는지, 면적·부피가 0인지 판별하는 데 쓰인다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 두 벡터의 선형독립 확인
+v1 = [1, 2]
+v2 = [3, 4]
+
+det = v1[0] * v2[1] - v2[0] * v1[1]
+
+print(&quot;det:&quot;, det)
+print(&quot;선형독립인가?&quot;, det != 0)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`v1`, `v2` : 두 개의 2차원 벡터이다.</li><li>`det` : 두 벡터를 열로 놓은 2x2 행렬의 행렬식이다.</li><li>`det != 0` : 행렬식이 0이 아니면 두 벡터는 한 직선 위에 있지 않다.</li><li>따라서 두 벡터는 선형독립이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>행렬식의 곱셈 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">같은 크기의 정사각행렬 \(A,B\)에 대해 \[\det(AB)=\det(A)\det(B)\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>행렬곱 \(AB\)는 먼저 \(B\)로 변환하고 그 다음 \(A\)로 변환하는 합성이다.</li><li>행렬식은 공간의 부피가 몇 배로 변하는지를 나타낸다.</li><li>\(B\)가 부피를 \(\det(B)\)배로 바꾸고, \(A\)가 다시 \(\det(A)\)배로 바꾼다.</li><li>따라서 합성변환 \(AB\)의 부피 배율은 \(\det(A)\det(B)\)이다.</li><li>그래서 \(\det(AB)=\det(A)\det(B)\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">좌표 변환의 부피 변화, 행렬 가역성, 선형변환 합성 분석에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 2x2 행렬식의 곱셈 정리 확인
+A = [[1, 2],
+     [3, 4]]
+
+B = [[2, 0],
+     [1, 5]]
+
+def det2(M):
+    return M[0][0] * M[1][1] - M[0][1] * M[1][0]
+
+AB = [
+    [A[0][0]*B[0][0] + A[0][1]*B[1][0],
+     A[0][0]*B[0][1] + A[0][1]*B[1][1]],
+    [A[1][0]*B[0][0] + A[1][1]*B[1][0],
+     A[1][0]*B[0][1] + A[1][1]*B[1][1]]
+]
+
+print(det2(AB))
+print(det2(A) * det2(B))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A`, `B` : 두 개의 2x2 행렬이다.</li><li>`det2(M)` : 2x2 행렬의 행렬식을 계산하는 함수이다.</li><li>`AB` : 행렬곱 \(AB\)를 직접 계산한 결과이다.</li><li>`det2(AB)` : 곱한 행렬의 행렬식이다.</li><li>`det2(A) * det2(B)` : 각각의 행렬식을 곱한 값이다.</li><li>두 값이 같으면 행렬식의 곱셈 정리를 확인한 것이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>고유값과 고유벡터 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">영벡터가 아닌 벡터 \(v\)가 \(Av=\lambda v\)를 만족하면, \(\lambda\)는 고유값이고 \(v\)는 고유벡터이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(Av=\lambda v\)는 \(A\)가 \(v\)의 방향을 바꾸지 않고 크기만 \(\lambda\)배 한다는 뜻이다.</li><li>이를 정리하면 \((A-\lambda I)v=0\)이다.</li><li>영벡터가 아닌 \(v\)가 존재하려면 행렬 \(A-\lambda I\)가 가역이 아니어야 한다.</li><li>따라서 \(\det(A-\lambda I)=0\)을 만족해야 한다.</li><li>이 방정식을 특성방정식이라고 한다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">진동 분석, 주성분 분석 PCA, 마르코프 체인, 양자역학, 데이터 압축에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 대각행렬의 고유값과 고유벡터 확인
+A = [[3, 0],
+     [0, 2]]
+
+v = [1, 0]
+lambda_value = 3
+
+Av = [A[0][0]*v[0] + A[0][1]*v[1],
+      A[1][0]*v[0] + A[1][1]*v[1]]
+
+lambda_v = [lambda_value * v[0],
+            lambda_value * v[1]]
+
+print(&quot;Av:&quot;, Av)
+print(&quot;lambda v:&quot;, lambda_v)
+print(&quot;고유벡터 조건:&quot;, Av == lambda_v)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A` : 대각행렬이다.</li><li>`v = [1, 0]` : 고유벡터 후보이다.</li><li>`lambda_value = 3` : 고유값 후보이다.</li><li>`Av` : 행렬 \(A\)와 벡터 \(v\)의 곱이다.</li><li>`lambda_v` : 벡터 \(v\)를 \(\lambda\)배 한 결과이다.</li><li>`Av == lambda_v` : 두 결과가 같으면 고유벡터 조건을 만족한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>스펙트럼 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">실대칭행렬 \(A=A^T\)는 서로 직교하는 고유벡터들로 이루어진 직교기저를 가지며, 직교대각화할 수 있다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>실대칭행렬의 고유값은 모두 실수이다.</li><li>서로 다른 고유값에 대응하는 고유벡터들은 서로 직교한다.</li><li>각 고유공간 안에서 그람-슈미트 과정을 적용해 정규직교기저를 만들 수 있다.</li><li>이 고유벡터들을 모으면 전체 공간의 정규직교기저가 된다.</li><li>따라서 어떤 직교행렬 \(Q\)와 대각행렬 \(D\)에 대해 \(A=QDQ^T\)로 쓸 수 있다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">PCA, 이차형식, 물리학 에너지 분석, 데이터 압축, 그래프 라플라시안 분석에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 대칭행렬의 서로 직교하는 고유벡터 예시
+A = [[2, 0],
+     [0, 5]]
+
+v1 = [1, 0]
+v2 = [0, 1]
+
+dot = v1[0] * v2[0] + v1[1] * v2[1]
+
+print(&quot;내적:&quot;, dot)
+print(&quot;직교하는가?&quot;, dot == 0)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A` : 대칭인 대각행렬이다.</li><li>`v1`, `v2` : 각각 x축, y축 방향의 고유벡터이다.</li><li>`dot` : 두 벡터의 내적을 계산한다.</li><li>`dot == 0` : 내적이 0이면 두 벡터는 직교한다.</li><li>대칭행렬에서는 서로 다른 고유값의 고유벡터가 직교한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>그람-슈미트 직교화 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">선형독립인 벡터 \(v_1,\dots,v_n\)으로부터 같은 부분공간을 생성하는 직교기저 \(u_1,\dots,u_n\)을 만들 수 있다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>첫 번째 벡터는 \(u_1=v_1\)로 둔다.</li><li>두 번째 벡터에서 \(u_1\) 방향 성분을 빼면 \(u_1\)과 직교하는 벡터가 된다.</li><li>일반적으로 \(v_k\)에서 이전 \(u_1,\dots,u_{k-1}\) 방향의 정사영을 모두 뺀다.</li><li>그러면 새 벡터 \(u_k\)는 이전 모든 \(u_i\)와 직교한다.</li><li>선형독립성이 있으므로 \(u_k\)는 영벡터가 되지 않는다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">QR 분해, 최소제곱법, 직교좌표계 생성, 수치해석에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 2차원 그람-슈미트 직교화
+v1 = [1, 1]
+v2 = [1, 0]
+
+def dot(a, b):
+    return a[0]*b[0] + a[1]*b[1]
+
+def scale(c, v):
+    return [c*v[0], c*v[1]]
+
+def sub(a, b):
+    return [a[0]-b[0], a[1]-b[1]]
+
+u1 = v1
+projection = scale(dot(v2, u1) / dot(u1, u1), u1)
+u2 = sub(v2, projection)
+
+print(&quot;u1:&quot;, u1)
+print(&quot;u2:&quot;, u2)
+print(&quot;내적:&quot;, dot(u1, u2))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`v1`, `v2` : 직교화할 두 벡터이다.</li><li>`dot(a, b)` : 두 벡터의 내적을 계산한다.</li><li>`scale(c, v)` : 벡터 \(v\)를 \(c\)배 한다.</li><li>`sub(a, b)` : 벡터 \(a-b\)를 계산한다.</li><li>`projection` : \(v_2\)의 \(u_1\) 방향 정사영이다.</li><li>`u2 = sub(v2, projection)` : \(v_2\)에서 정사영을 빼 직교 성분만 남긴다.</li><li>`dot(u1, u2)`가 0이면 두 벡터는 직교한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>최소제곱 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">과잉결정 선형시스템 \(Ax\approx b\)의 최소제곱해는 정규방정식 \[A^TAx=A^Tb\] 를 만족한다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>오차벡터를 \(r=b-Ax\)라고 하자.</li><li>최소제곱법은 \(\|r\|^2\)를 최소화하는 \(x\)를 찾는다.</li><li>최소점에서는 오차 \(r\)가 \(A\)의 열공간에 수직이어야 한다.</li><li>즉 \(A^T r=0\)이다.</li><li>\(r=b-Ax\)를 대입하면 \(A^T(b-Ax)=0\)이다.</li><li>정리하면 \(A^TAx=A^Tb\)가 된다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">회귀분석, 데이터 피팅, 머신러닝, 실험값 근사, 통계 모델링에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># y = mx 형태의 최소제곱 기울기 구하기
+x_data = [1, 2, 3]
+y_data = [2, 2, 4]
+
+numerator = sum(x*y for x, y in zip(x_data, y_data))
+denominator = sum(x*x for x in x_data)
+
+m = numerator / denominator
+
+print(&quot;최소제곱 기울기 m:&quot;, m)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`x_data`, `y_data` : 관측 데이터이다.</li><li>`zip(x_data, y_data)` : x와 y를 한 쌍씩 묶는다.</li><li>`sum(x*y ...)` : \(A^Tb\)에 해당하는 값을 계산한다.</li><li>`sum(x*x ...)` : \(A^TA\)에 해당하는 값을 계산한다.</li><li>`m = numerator / denominator` : 정규방정식으로 기울기를 구한다.</li><li>`print()` : 최소제곱 직선의 기울기를 출력한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>케일리-해밀턴 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">정사각행렬 \(A\)는 자기 자신의 특성다항식 \(p(\lambda)=\det(\lambda I-A)\)을 만족한다. 즉 \[p(A)=0\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>스칼라 \(\lambda\)에 대해 \((\lambda I-A)\operatorname{adj}(\lambda I-A)=p(\lambda)I\)가 성립한다.</li><li>이 식은 \(\lambda\)에 대한 행렬 다항식 항등식이다.</li><li>\(\lambda\) 대신 행렬 \(A\)를 대입하는 다항식 계산을 생각한다.</li><li>왼쪽에는 \(AI-A=0\)에 해당하는 인자가 나타난다.</li><li>따라서 \(p(A)=0\)이 된다.</li><li>엄밀한 증명은 행렬 다항식과 수반행렬의 항등식을 이용한다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">행렬 거듭제곱 계산, 선형점화식, 제어이론, 행렬함수 계산에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 2x2 행렬의 케일리-해밀턴 정리 확인
+A = [[1, 2],
+     [3, 4]]
+
+trace = A[0][0] + A[1][1]
+det = A[0][0]*A[1][1] - A[0][1]*A[1][0]
+
+A2 = [
+    [A[0][0]*A[0][0] + A[0][1]*A[1][0],
+     A[0][0]*A[0][1] + A[0][1]*A[1][1]],
+    [A[1][0]*A[0][0] + A[1][1]*A[1][0],
+     A[1][0]*A[0][1] + A[1][1]*A[1][1]]
+]
+
+result = [
+    [A2[0][0] - trace*A[0][0] + det, A2[0][1] - trace*A[0][1]],
+    [A2[1][0] - trace*A[1][0], A2[1][1] - trace*A[1][1] + det]
+]
+
+print(result)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`trace` : 행렬의 대각합이다.</li><li>`det` : 2x2 행렬의 행렬식이다.</li><li>2x2 행렬의 특성다항식은 \(\lambda^2-\operatorname{tr}(A)\lambda+\det(A)\)이다.</li><li>`A2` : 행렬 \(A^2\)를 직접 계산한다.</li><li>`result` : \(A^2-\operatorname{tr}(A)A+\det(A)I\)를 계산한다.</li><li>결과가 영행렬이면 케일리-해밀턴 정리를 확인한 것이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+선형대수학은 벡터공간의 구조를 이해하는 언어이다. 
+행렬식은 변환의 부피 변화, 랭크는 정보의 차원, 고유값은 변환의 본질적 방향, 직교화와 최소제곱은 데이터 분석의 핵심 도구가 된다.
+</div>
+</section>
+</main>
+<footer>매력적인 선형대수학 정리 10개 HTML 수업자료</footer>
+</body>
+</html>
