@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026학년도 수능 수학·미적분 상세풀이</title>
+<script>
+window.MathJax={
+  tex:{
+    inlineMath:[["\\(","\\)"]],
+    displayMath:[["\\[","\\]"]],
+    processEscapes:true,
+    packages:{'[+]':['ams','noerrors','noundefined']}
+  },
+  loader:{load:['[tex]/ams','[tex]/noerrors','[tex]/noundefined']},
+  svg:{fontCache:'global'},
+  options:{skipHtmlTags:['script','style','textarea','pre','code']}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--ink:#0f172a;--muted:#64748b;--line:#dbe3f0;--a:#6d5dfc;--b:#16a34a;--bg1:#eef2ff;--bg2:#f8fafc;}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,'Segoe UI','Noto Sans KR',Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2));}
+.wrap{max-width:1200px;margin:auto;padding:28px 16px 80px} header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid var(--line);box-shadow:0 18px 50px rgba(15,23,42,.10);border-radius:28px;padding:30px;margin-bottom:22px}
+h1{margin:0;font-size:clamp(28px,4vw,48px);letter-spacing:-.045em;line-height:1.18} .sub{color:var(--muted);font-weight:700;margin:10px 0 20px} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:10px}
+.grid button{height:48px;border:1px solid #c7d2fe;background:#fff;border-radius:16px;font-weight:950;font-size:16px;cursor:pointer;box-shadow:0 8px 18px rgba(79,70,229,.07)} .grid button:hover,.grid button.active{background:linear-gradient(135deg,#7567ff,#7146e8);color:white;transform:translateY(-1px)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px} .tools button{border:0;border-radius:999px;padding:11px 16px;font-weight:900;cursor:pointer;background:#e0f2fe;color:#075985} .tools button:nth-child(2){background:#dcfce7;color:#166534} .tools button:nth-child(3){background:#f1f5f9;color:#334155}
+.notice{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 18px;color:var(--muted);font-weight:700;margin-bottom:18px}
+.qcard{scroll-margin-top:430px;display:none;background:white;border:3px solid #c7d2fe;border-radius:28px;margin:22px 0;padding:26px;box-shadow:0 20px 45px rgba(79,70,229,.10)} .qcard.active{display:block;animation:pop .18s ease-out} @keyframes pop{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+.qtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px dashed #cbd5e1;padding-bottom:14px;margin-bottom:18px} .num{border:1px solid #c7d2fe;background:#eef2ff;border-radius:999px;padding:9px 16px;font-weight:950;cursor:pointer;color:#1e1b4b} .tag{font-size:20px;font-weight:950} .ans{margin-left:auto;background:linear-gradient(135deg,#6d5dfc,#6d28d9);color:#fff;border-radius:999px;padding:9px 15px;font-weight:950}
+.problem,.solution{font-size:18px;line-height:1.9} .problem{background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px 22px} .solution{display:none;margin-top:18px;background:#fff;border-left:6px solid #7c3aed;border-radius:20px;padding:20px 24px;box-shadow:inset 0 0 0 1px #e5e7eb} .solution.show{display:block}
+h2{font-size:24px;margin:.1em 0 .65em} .qtext{margin:.5em 0} .score{font-weight:900;color:#4f46e5} .choices{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:12px;font-weight:800} .quote{border:1px solid #dbeafe;background:#eff6ff;border-radius:18px;padding:14px 16px;margin:12px 0}
+.solveBtn{margin-top:16px;border:0;border-radius:999px;padding:12px 20px;background:linear-gradient(135deg,#6d5dfc,#06b6d4);color:white;font-size:16px;font-weight:950;cursor:pointer;box-shadow:0 12px 24px rgba(79,70,229,.22)}
+mjx-container[jax='SVG']{max-width:100%;overflow-x:auto;overflow-y:hidden} mjx-container[jax='SVG'] svg{max-width:100%} mjx-container[jax='SVG']:not([display='true']){font-size:.96em!important;vertical-align:-.08em} mjx-container[jax='SVG'][display='true']{font-size:1.08em!important;margin:1em 0!important}
+@media print{header{position:static}.qcard{display:block;break-inside:avoid}.solution{display:block}.grid,.tools,.solveBtn{display:none}body{background:white}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>2026학년도 수능 수학·미적분 상세풀이</h1>
+  <p class="sub">문항 번호 클릭 → 문제 표시, 풀이 보기 클릭 → 문제 아래 상세 풀이 표시.</p>
+  <nav class="grid" id="nav"><button onclick="openProblem(1)">01</button><button onclick="openProblem(2)">02</button><button onclick="openProblem(3)">03</button><button onclick="openProblem(4)">04</button><button onclick="openProblem(5)">05</button><button onclick="openProblem(6)">06</button><button onclick="openProblem(7)">07</button><button onclick="openProblem(8)">08</button><button onclick="openProblem(9)">09</button><button onclick="openProblem(10)">10</button><button onclick="openProblem(11)">11</button><button onclick="openProblem(12)">12</button><button onclick="openProblem(13)">13</button><button onclick="openProblem(14)">14</button><button onclick="openProblem(15)">15</button><button onclick="openProblem(16)">16</button><button onclick="openProblem(17)">17</button><button onclick="openProblem(18)">18</button><button onclick="openProblem(19)">19</button><button onclick="openProblem(20)">20</button><button onclick="openProblem(21)">21</button><button onclick="openProblem(22)">22</button><button onclick="openProblem(23)">23</button><button onclick="openProblem(24)">24</button><button onclick="openProblem(25)">25</button><button onclick="openProblem(26)">26</button><button onclick="openProblem(27)">27</button><button onclick="openProblem(28)">28</button><button onclick="openProblem(29)">29</button><button onclick="openProblem(30)">30</button></nav>
+  <div class="tools"><button onclick="showAll()">전체 문제+풀이 펼치기</button><button onclick="hideAllSolutions()">풀이 모두 접기</button><button onclick="window.print()">인쇄</button></div>
+</header>
+<div class="notice">인수샘과 함께하는 매력적이고 즐거운 2026 수능 수학 미적분 문제 풀이</div>
+
+<article class="qcard" id="q1">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(1)">문항 01</button>
+    <span class="tag">지수법칙</span>
+    <span class="ans">정답 ①</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(9^{\frac14}\times 3^{-\frac12}\)의 값은? <span class="score">[2점]</span></p>
+<div class="choices">① \(1\) ② \(\sqrt{3}\) ③ \(3\) ④ \(3\sqrt{3}\) ⑤ \(9\)</div>
+    <button class="solveBtn" onclick="showSolution(1)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol1">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>핵심은 밑을 모두 \(3\)으로 통일하는 것이다.</p>
+\[
+9^{\frac14}\times 3^{-\frac12}
+=(3^2)^{\frac14}\times 3^{-\frac12}
+=3^{\frac12}\times 3^{-\frac12}
+=3^{\frac12-\frac12}=3^0=1.
+\]
+<p>따라서 정답은 <b>①</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q2">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(2)">문항 02</button>
+    <span class="tag">미분계수의 정의</span>
+    <span class="ans">정답 ④</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수 \(f(x)=3x^3+4x+1\)에 대하여 \(\displaystyle\lim_{h\to0}\frac{f(1+h)-f(1)}{h}\)의 값은? <span class="score">[2점]</span></p>
+<div class="choices">① \(7\) ② \(9\) ③ \(11\) ④ \(13\) ⑤ \(15\)</div>
+    <button class="solveBtn" onclick="showSolution(2)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol2">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>주어진 극한은 \(x=1\)에서의 미분계수 \(f'(1)\)이다.</p>
+\[
+f'(x)=9x^2+4,
+\qquad f'(1)=9+4=13.
+\]
+<p>따라서 정답은 <b>④</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q3">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(3)">문항 03</button>
+    <span class="tag">시그마 성질</span>
+    <span class="ans">정답 ⑤</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">수열 \(\{a_n\}\)에 대하여 \(\displaystyle\sum_{k=1}^{4}(2a_k-k)=0\)일 때, \(\displaystyle\sum_{k=1}^{4}a_k\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(1\) ② \(2\) ③ \(3\) ④ \(4\) ⑤ \(5\)</div>
+    <button class="solveBtn" onclick="showSolution(3)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol3">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+\sum_{k=1}^{4}(2a_k-k)=2\sum_{k=1}^{4}a_k-\sum_{k=1}^{4}k=0.
+\]
+<p>또 \(\sum_{k=1}^{4}k=1+2+3+4=10\)이므로</p>
+\[
+2\sum_{k=1}^{4}a_k-10=0,
+\qquad \sum_{k=1}^{4}a_k=5.
+\]
+<p>따라서 정답은 <b>⑤</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q4">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(4)">문항 04</button>
+    <span class="tag">연속 조건</span>
+    <span class="ans">정답 ③</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수</p>
+\[
+f(x)=\begin{cases}3x-2&(x<1)\\x^2-3x+a&(x\ge1)\end{cases}
+\]
+<p class="qtext">이 실수 전체의 집합에서 연속일 때, 상수 \(a\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(1\) ② \(2\) ③ \(3\) ④ \(4\) ⑤ \(5\)</div>
+    <button class="solveBtn" onclick="showSolution(4)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol4">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>구간이 나뉘는 점 \(x=1\)에서 연속이면 된다.</p>
+\[
+\lim_{x\to1-}f(x)=3\cdot1-2=1,
+\qquad f(1)=1^2-3\cdot1+a=a-2.
+\]
+<p>연속 조건 \(1=a-2\)에서 \(a=3\).</p>
+<p>따라서 정답은 <b>③</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q5">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(5)">문항 05</button>
+    <span class="tag">곱의 미분법</span>
+    <span class="ans">정답 ③</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수 \(f(x)=(x+2)(2x^2-x-2)\)에 대하여 \(f'(1)\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(6\) ② \(7\) ③ \(8\) ④ \(9\) ⑤ \(10\)</div>
+    <button class="solveBtn" onclick="showSolution(5)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol5">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+f'(x)=1\cdot(2x^2-x-2)+(x+2)(4x-1).
+\]
+\[
+f'(1)=(2-1-2)+3(4-1)=-1+9=8.
+\]
+<p>따라서 정답은 <b>③</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q6">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(6)">문항 06</button>
+    <span class="tag">로그 성질</span>
+    <span class="ans">정답 ②</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(1\)보다 큰 두 실수 \(a,b\)가 \(\log_a b=3,\ \log_3\frac{b}{a}=\frac12\)을 만족시킬 때, \(\log_9 ab\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac38\) ② \(\frac12\) ③ \(\frac58\) ④ \(\frac34\) ⑤ \(\frac78\)</div>
+    <button class="solveBtn" onclick="showSolution(6)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol6">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>먼저 \(\log_a b=3\)에서 \(b=a^3\).</p>
+\[
+\log_3\frac ba=\log_3 a^2=2\log_3 a=\frac12
+\Rightarrow \log_3 a=\frac14.
+\]
+\[
+\log_9(ab)=\log_{3^2}(a^4)=\frac{\log_3 a^4}{2}
+=\frac{4\log_3a}{2}=\frac12.
+\]
+<p>따라서 정답은 <b>②</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q7">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(7)">문항 07</button>
+    <span class="tag">두 곡선 사이 넓이</span>
+    <span class="ans">정답 ⑤</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">두 곡선 \(y=x^2+3,\ y=-\frac15x^2+3\)과 직선 \(x=2\)로 둘러싸인 부분의 넓이는? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac{18}{5}\) ② \(\frac72\) ③ \(\frac{17}{5}\) ④ \(\frac{33}{10}\) ⑤ \(\frac{16}{5}\)</div>
+    <button class="solveBtn" onclick="showSolution(7)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol7">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>두 곡선은 \((0,3)\)에서 만나고, \(0\le x\le2\)에서 위쪽 함수는 \(x^2+3\)이다.</p>
+\[
+\int_0^2\left\{(x^2+3)-\left(-\frac15x^2+3\right)\right\}dx
+=\int_0^2\frac65x^2dx
+=\frac65\cdot\frac{8}{3}=\frac{16}{5}.
+\]
+<p>따라서 정답은 <b>⑤</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q8">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(8)">문항 08</button>
+    <span class="tag">삼각함수 관계</span>
+    <span class="ans">정답 ①</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(\sin\theta+3\cos\theta=0\)이고 \(\cos(\pi-\theta)>0\)일 때, \(\sin\theta\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac{3\sqrt{10}}{10}\) ② \(\frac{\sqrt{10}}5\) ③ \(0\) ④ \(-\frac{\sqrt{10}}5\) ⑤ \(-\frac{3\sqrt{10}}{10}\)</div>
+    <button class="solveBtn" onclick="showSolution(8)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol8">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>\(\cos(\pi-\theta)=-\cos\theta>0\)이므로 \(\cos\theta<0\).</p>
+<p>또 \(\sin\theta=-3\cos\theta\)이므로 \(\sin\theta>0\).</p>
+\[
+\sin^2\theta=9\cos^2\theta=9(1-\sin^2\theta)
+\Rightarrow 10\sin^2\theta=9.
+\]
+<p>양수이므로</p>
+\[
+\sin\theta=\frac{3}{\sqrt{10}}=\frac{3\sqrt{10}}{10}.
+\]
+<p>따라서 정답은 <b>①</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q9">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(9)">문항 09</button>
+    <span class="tag">삼차함수와 접선</span>
+    <span class="ans">정답 ④</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">양수 \(a\)에 대하여 함수 \(f(x)=x^3+3ax^2-9a^2x+4\)라 하자. 직선 \(y=5\)가 곡선 \(y=f(x)\)에 접할 때, \(f(2)\)의 값은? <span class="score">[4점]</span></p>
+<div class="choices">① \(11\) ② \(12\) ③ \(13\) ④ \(14\) ⑤ \(15\)</div>
+    <button class="solveBtn" onclick="showSolution(9)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol9">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+f'(x)=3x^2+6ax-9a^2=3(x+3a)(x-a).
+\]
+<p>\(a>0\)이므로 \(x=-3a\)에서 극대, \(x=a\)에서 극소가 된다. \(f(0)=4<5\)이고 \(y=5\)가 접하려면 극대값이 \(5\)이다.</p>
+\[
+f(-3a)=27a^3+4=5
+\Rightarrow a^3=\frac1{27}
+\Rightarrow a=\frac13.
+\]
+\[
+f(x)=x^3+x^2-x+4,
+\qquad f(2)=8+4-2+4=14.
+\]
+<p>따라서 정답은 <b>④</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q10">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(10)">문항 10</button>
+    <span class="tag">지수함수 그래프</span>
+    <span class="ans">정답 ③</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">상수 \(a(a>1)\)에 대하여 곡선 \(y=a^x-2\) 위의 점 중 제1사분면에 있는 점 A를 지나고 \(y\)축에 평행한 직선이 \(x\)축과 만나는 점을 B, 곡선 \(y=a^x-2\)의 점근선과 만나는 점을 C라 하자. \(\overline{AB}=\overline{BC}\)이고 삼각형 AOC의 넓이가 \(8\)일 때, \(a\times\overline{OB}\)의 값은? 단, O는 원점이다. <span class="score">[4점]</span></p>
+<div class="choices">① \(2^{13/6}\) ② \(2^{7/3}\) ③ \(2^{5/2}\) ④ \(2^{8/3}\) ⑤ \(2^{17/6}\)</div>
+    <button class="solveBtn" onclick="showSolution(10)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol10">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>점 A를 \((p,q)\)라 하자. 점근선은 \(y=-2\)이다. \(AB=BC\)이므로 A의 높이는 \(q=2\)이다.</p>
+\[
+2=a^p-2\Rightarrow a^p=4\Rightarrow p=\log_a4.
+\]
+<p>또 \(AC=4\), \(OB=p\)이고 삼각형 넓이가 \(8\)이므로</p>
+\[
+\frac12\cdot4\cdot p=8\Rightarrow p=4.
+\]
+\[
+\log_a4=4\Rightarrow a^4=4\Rightarrow a=\sqrt2.
+\]
+\[
+a\cdot OB=\sqrt2\cdot4=2^{1/2}\cdot2^2=2^{5/2}.
+\]
+<p>따라서 정답은 <b>③</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q11">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(11)">문항 11</button>
+    <span class="tag">속도·위치·거리</span>
+    <span class="ans">정답 ③</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">시각 \(t=0\)일 때 원점을 출발하여 수직선 위를 움직이는 점 P가 있다. 실수 \(k\)에 대하여 시각이 \(t(t\ge0)\)일 때 점 P의 속도 \(v(t)=t^2-kt+4\)이다. &lt;보기&gt;에서 옳은 것만을 있는 대로 고른 것은? <span class="score">[4점]</span></p>
+<div class="quote">ㄱ. \(k=0\)이면, 시각 \(t=1\)일 때 점 P의 위치는 \(\frac{13}{3}\)이다.<br>ㄴ. \(k=3\)이면, 출발한 후 점 P의 운동 방향이 한 번 바뀐다.<br>ㄷ. \(k=5\)이면, 시각 \(t=0\)에서 \(t=2\)까지 점 P가 움직인 거리는 \(3\)이다.</div>
+<div class="choices">① ㄱ ② ㄱ, ㄴ ③ ㄱ, ㄷ ④ ㄴ, ㄷ ⑤ ㄱ, ㄴ, ㄷ</div>
+    <button class="solveBtn" onclick="showSolution(11)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol11">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p><b>ㄱ.</b> \(k=0\)이면 \(v(t)=t^2+4\).</p>
+\[
+\text{위치}=\int_0^1(t^2+4)dt=\left[\frac13t^3+4t\right]_0^1=\frac13+4=\frac{13}{3}.
+\]
+<p>참이다.</p>
+<p><b>ㄴ.</b> \(k=3\)이면</p>
+\[
+v(t)=t^2-3t+4=\left(t-\frac32\right)^2+\frac74>0.
+\]
+<p>속도가 항상 양수이므로 방향이 바뀌지 않는다. 거짓이다.</p>
+<p><b>ㄷ.</b> \(k=5\)이면 \(v(t)=t^2-5t+4=(t-1)(t-4)\). \([0,1]\)에서는 양수, \([1,2]\)에서는 음수이다.</p>
+\[
+\int_0^2|v(t)|dt=
+\int_0^1(t^2-5t+4)dt-
+\int_1^2(t^2-5t+4)dt=3.
+\]
+<p>참이다. 따라서 옳은 것은 ㄱ, ㄷ이므로 정답은 <b>③</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q12">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(12)">문항 12</button>
+    <span class="tag">등비수열</span>
+    <span class="ans">정답 ②</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">등비수열 \(\{a_n\}\)이 \(2(a_1+a_4+a_7)=a_4+a_7+a_{10}=6\)을 만족시킬 때, \(a_{10}\)의 값은? <span class="score">[4점]</span></p>
+<div class="choices">① \(\frac{22}{7}\) ② \(\frac{24}{7}\) ③ \(\frac{26}{7}\) ④ \(\frac{30}{7}\) ⑤ \(\frac{32}{7}\)</div>
+    <button class="solveBtn" onclick="showSolution(12)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol12">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>공비를 \(r\)라 하면</p>
+\[
+a_1(1+r^3+r^6)=3,\qquad a_1r^3(1+r^3+r^6)=6.
+\]
+<p>두 식을 나누면 \(r^3=2\).</p>
+\[
+a_1(1+2+4)=3\Rightarrow a_1=\frac37.
+\]
+\[
+a_{10}=a_1r^9=\frac37\cdot(r^3)^3=\frac37\cdot8=\frac{24}{7}.
+\]
+<p>따라서 정답은 <b>②</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q13">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(13)">문항 13</button>
+    <span class="tag">접선과 도형 넓이</span>
+    <span class="ans">정답 ⑤</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수 \(f(x)=x^2-4x-3\)에 대하여 곡선 \(y=f(x)\) 위의 점 \((1,-6)\)에서의 접선을 \(\ell\)이라 하고, 함수 \(g(x)=(x^3-2x)f(x)\)에 대하여 곡선 \(y=g(x)\) 위의 점 \((1,6)\)에서의 접선을 \(m\)이라 하자. 두 직선 \(\ell,m\)과 \(y\)축으로 둘러싸인 도형의 넓이는? <span class="score">[4점]</span></p>
+<div class="choices">① \(21\) ② \(28\) ③ \(35\) ④ \(42\) ⑤ \(49\)</div>
+    <button class="solveBtn" onclick="showSolution(13)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol13">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+f'(x)=2x-4,\\ f'(1)=-2.
+\]
+<p>따라서 \((1,-6)\)에서 접선은</p>
+\[
+\ell: y=-2(x-1)-6=-2x-4.
+\]
+<p>곱의 미분법으로</p>
+\[
+g'(x)=(3x^2-2)f(x)+(x^3-2x)f'(x).
+\]
+\[
+g'(1)=(3-2)(-6)+(1-2)(-2)=-6+2=-4.
+\]
+<p>따라서 \((1,6)\)에서 접선은</p>
+\[
+m:y=-4(x-1)+6=-4x+10.
+\]
+<p>두 직선의 교점은 \(-2x-4=-4x+10\)에서 \(x=7\). \(y\)축에서 두 절편의 차는 \(10-(-4)=14\).</p>
+\[
+\text{넓이}=\frac12\cdot7\cdot14=49.
+\]
+<p>따라서 정답은 <b>⑤</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q14">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(14)">문항 14</button>
+    <span class="tag">사인법칙·코사인법칙</span>
+    <span class="ans">정답 ④</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">그림과 같이 \(\overline{AB}=3,\ \overline{BC}=4\)이고 \(\angle B=\frac{\pi}{2}\)인 직각삼각형 ABC가 있다. 선분 AB를 \(2:1\)로 내분하는 점을 D, 점 A를 중심으로 하고 반지름의 길이가 \(\overline{AD}\)인 원이 선분 AC와 만나는 점을 E, 직선 AB가 이 원과 만나는 점 중 D가 아닌 점을 F라 하고, 호 EF 위의 점 G를 \(\overline{CG}=2\sqrt{6}\)이 되도록 잡는다. 세 점 C, E, G를 지나는 원 위의 점 H가 \(\angle HCG=\angle BAC\)를 만족시킬 때, 선분 GH의 길이는? <span class="score">[4점]</span></p>
+<div class="choices">① \(\frac{6\sqrt{15}}5\) ② \(\frac{38\sqrt{10}}{25}\) ③ \(\frac{14\sqrt{3}}{5}\) ④ \(\frac{32\sqrt{15}}{25}\) ⑤ \(\frac{8\sqrt{10}}5\)</div>
+    <button class="solveBtn" onclick="showSolution(14)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol14">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>직각삼각형 ABC에서</p>
+\[
+AC=\sqrt{3^2+4^2}=5,
+\qquad \sin\angle BAC=\frac45.
+\]
+<p>또 \(AD=AE=AG=2\)이다. \(\angle CAG=\theta_2\)라 하면 삼각형 ACG에서 코사인법칙으로</p>
+\[
+\cos\theta_2=\frac{AG^2+AC^2-CG^2}{2\cdot AG\cdot AC}
+=\frac{4+25-24}{20}=\frac14.
+\]
+<p>삼각형 AEG에서</p>
+\[
+GE^2=AG^2+AE^2-2\cdot AG\cdot AE\cos\theta_2
+=4+4-8\cdot\frac14=6,
+\quad GE=\sqrt{6}.
+\]
+<p>삼각형 CGE에서 \(\angle ECG=\theta_3\)라 하면</p>
+\[
+\cos\theta_3=\frac{CG^2+CE^2-GE^2}{2\cdot CG\cdot CE}
+=\frac{24+9-6}{2\cdot2\sqrt{6}\cdot3}=\frac{3\sqrt{6}}{8}.
+\]
+\[
+\sin\theta_3=\sqrt{1-\left(\frac{3\sqrt{6}}{8}\right)^2}=\frac{\sqrt{10}}8.
+\]
+<p>삼각형 CGE의 외접원의 반지름을 \(R\)라 하면</p>
+\[
+2R=\frac{GE}{\sin\theta_3}=\frac{\sqrt{6}}{\sqrt{10}/8}=\frac{8\sqrt{15}}5.
+\]
+<p>따라서 삼각형 CHG에서 사인법칙을 적용하면</p>
+\[
+GH=2R\sin\angle HCG=2R\sin\angle BAC
+=\frac{8\sqrt{15}}5\cdot\frac45
+=\frac{32\sqrt{15}}{25}.
+\]
+<p>따라서 정답은 <b>④</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q15">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(15)">문항 15</button>
+    <span class="tag">정적분 함수와 극값</span>
+    <span class="ans">정답 ④</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수 \(f(x)=\begin{cases}-x^2&(x<0)\\x^2-x&(x\ge0)\end{cases}\)이고, 양수 \(a\)에 대하여 함수 \(g(x)=\begin{cases}ax+a&(x<-1)\\0&(-1\le x<1)\\ax-a&(x\ge1)\end{cases}\)라 하자. 함수 \(h(x)=\displaystyle\int_0^x(g(t)-f(t))dt\)가 오직 하나의 극값을 갖도록 하는 \(a\)의 최댓값을 \(k\)라 하자. \(a=k\)일 때, \(k+h(3)\)의 값은? <span class="score">[4점]</span></p>
+<div class="choices">① \(\frac92\) ② \(\frac{11}{2}\) ③ \(\frac{13}{2}\) ④ \(\frac{15}{2}\) ⑤ \(\frac{17}{2}\)</div>
+    <button class="solveBtn" onclick="showSolution(15)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol15">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>미적분의 기본정리에 의해</p>
+\[
+h'(x)=g(x)-f(x).
+\]
+<p>극값은 \(h'(x)=0\), 즉 \(f(x)=g(x)\)이고 좌우 부호가 바뀌는 곳에서 생긴다.</p>
+<p>\(a\le1\)일 때는 \(x=1\)에서만 극값을 갖는다. \(a>1\)일 때는 \(x>1\)에서 추가 교점이 생기므로, \(x<-1\)에서 추가 극값이 생기지 않도록 해야 한다. 최대의 경우는 \(y=-x^2\)과 \(y=ax+a\)가 \(x<-1\)에서 접할 때이다.</p>
+<p>접점을 \((t,-t^2)\)라 하면 접선의 기울기는 \(-2t\). 이 접선이 \((-1,0)\)을 지나야 하므로</p>
+\[
+t^2=-2t(-1-t),\qquad t(t+2)=0.
+\]
+<p>\(t<-1\)이므로 \(t=-2\), 따라서 \(k=-2t=4\).</p>
+<p>이제 \(a=k=4\)일 때</p>
+\[
+h(3)=\int_0^1(-t^2+t)dt+\int_1^3\{(4t-4)-(t^2-t)\}dt.
+\]
+\[
+h(3)=\int_0^1(-t^2+t)dt+\int_1^3(-t^2+5t-4)dt
+=\frac16+\frac{10}{3}=\frac72.
+\]
+\[
+k+h(3)=4+\frac72=\frac{15}{2}.
+\]
+<p>따라서 정답은 <b>④</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q16">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(16)">문항 16</button>
+    <span class="tag">귀납적 수열</span>
+    <span class="ans">정답 9</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">수열 \(\{a_n\}\)은 \(a_1=1\)이고, 모든 자연수 \(n\)에 대하여 \(a_{n+1}=n^2a_n+1\)을 만족시킨다. \(a_3\)의 값을 구하시오. <span class="score">[3점]</span></p>
+    <button class="solveBtn" onclick="showSolution(16)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol16">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+a_2=1^2a_1+1=1+1=2.
+\]
+\[
+a_3=2^2a_2+1=4\cdot2+1=9.
+\]
+<p>따라서 정답은 <b>9</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q17">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(17)">문항 17</button>
+    <span class="tag">부정적분</span>
+    <span class="ans">정답 16</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수 \(f(x)=4x^3-2x\)의 한 부정적분 \(F(x)\)에 대하여 \(F(0)=4\)일 때, \(F(2)\)의 값을 구하시오. <span class="score">[3점]</span></p>
+    <button class="solveBtn" onclick="showSolution(17)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol17">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+F(x)=\int(4x^3-2x)dx=x^4-x^2+C.
+\]
+<p>\(F(0)=4\)이므로 \(C=4\).</p>
+\[
+F(2)=2^4-2^2+4=16-4+4=16.
+\]
+<p>따라서 정답은 <b>16</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q18">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(18)">문항 18</button>
+    <span class="tag">삼각형 넓이</span>
+    <span class="ans">정답 12</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(\overline{AB}=5,\ \overline{AC}=6\)이고 \(\cos(\angle BAC)=-\frac35\)인 삼각형 ABC의 넓이를 구하시오. <span class="score">[3점]</span></p>
+    <button class="solveBtn" onclick="showSolution(18)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol18">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>삼각형의 각이므로 \(\sin(\angle BAC)>0\).</p>
+\[
+\sin(\angle BAC)=\sqrt{1-\cos^2(\angle BAC)}
+=\sqrt{1-\frac9{25}}=\frac45.
+\]
+\[
+\text{넓이}=\frac12\cdot AB\cdot AC\cdot\sin\angle BAC
+=\frac12\cdot5\cdot6\cdot\frac45=12.
+\]
+<p>따라서 정답은 <b>12</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q19">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(19)">문항 19</button>
+    <span class="tag">구간에서 절댓값 최댓값</span>
+    <span class="ans">정답 15</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(-2\le x\le2\)인 모든 실수 \(x\)에 대하여 부등식 \(-k\le 2x^3+3x^2-12x-8\le k\)가 성립하도록 하는 양수 \(k\)의 최솟값을 구하시오. <span class="score">[3점]</span></p>
+    <button class="solveBtn" onclick="showSolution(19)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol19">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>함수 \(F(x)=2x^3+3x^2-12x-8\)라 하자. 모든 \(x\)에 대해 \(-k\le F(x)\le k\)가 성립하려면 \(k\)는 \(|F(x)|\)의 최댓값 이상이어야 한다.</p>
+\[
+F'(x)=6x^2+6x-12=6(x+2)(x-1).
+\]
+<p>구간 \([-2,2]\)에서 후보는 \(x=-2,1,2\)이다.</p>
+\[
+F(-2)=12,\qquad F(1)=-15,
+\qquad F(2)=0.
+\]
+<p>따라서 \(|F(x)|\)의 최댓값은 \(15\)이고 최소 \(k=15\).</p>
+  </section>
+</article>
+<article class="qcard" id="q20">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(20)">문항 20</button>
+    <span class="tag">수열 합 조건</span>
+    <span class="ans">정답 130</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">수열 \(\{a_n\}\)이 다음 조건을 만족시킨다.</p>
+<div class="quote">\(a_1=7\)<br>\(2\) 이상의 자연수 \(n\)에 대하여<br>\[\sum_{k=1}^{n}a_k=\frac23a_n+\frac16n^2-\frac16n+10.\]</div>
+<p class="qtext">다음은 \(\displaystyle\sum_{k=1}^{12}a_k+\sum_{k=1}^{5}a_{2k+1}\)의 값을 구하는 과정이다.</p>
+<div class="quote">\(2\) 이상의 자연수 \(n\)에 대하여 \(a_{n+1}=\sum_{k=1}^{n+1}a_k-\sum_{k=1}^{n}a_k\)이므로<br>\[a_{n+1}=\frac23(a_{n+1}-a_n)+(가)\]<br>이고, 이 식을 정리하면<br>\[2a_n+a_{n+1}=3\times(가)\quad\cdots\;㉠\]<br>이다. \(\sum_{k=1}^{n}a_k=\frac23a_n+\frac16n^2-\frac16n+10\ (n\ge2)\)에서 양변에 \(n=2\)를 대입하면<br>\[a_2=(나)\quad\cdots\;㉡\]<br>이다. ㉠과 ㉡에 의하여<br>\[\sum_{k=1}^{12}a_k+\sum_{k=1}^{5}a_{2k+1}=a_1+a_2+\sum_{k=1}^{5}(2a_{2k+1}+a_{2k+2})=(다)\]<br>이다.</div>
+<p class="qtext">위의 (가)에 알맞은 식을 \(f(n)\)이라 하고, (나), (다)에 알맞은 수를 각각 \(p,q\)라 할 때, \(\displaystyle\frac{p\times q}{f(12)}\)의 값을 구하시오. <span class="score">[4점]</span></p>
+    <button class="solveBtn" onclick="showSolution(20)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol20">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>주어진 합을 \(S_n\)이라 하면</p>
+\[
+S_n=\frac23a_n+\frac16n^2-\frac16n+10.
+\]
+<p>따라서</p>
+\[
+a_{n+1}=S_{n+1}-S_n
+=\frac23(a_{n+1}-a_n)+\frac16\{(n+1)^2-n^2\}-\frac16.
+\]
+\[
+\frac16(2n+1)-\frac16=\frac n3.
+\]
+<p>그러므로 \((가)=f(n)=\frac n3\)이고</p>
+\[
+a_{n+1}=\frac23(a_{n+1}-a_n)+\frac n3
+\Rightarrow 2a_n+a_{n+1}=n.
+\]
+<p>\(n=2\)를 원래 식에 대입하면</p>
+\[
+a_1+a_2=\frac23a_2+\frac{4}{6}-\frac{2}{6}+10
+=\frac23a_2+\frac13+10.
+\]
+<p>\(a_1=7\)이므로 \(7+a_2=\frac23a_2+\frac{31}{3}\), 따라서 \(a_2=10\). 즉 \(p=10\).</p>
+<p>또 \(2a_n+a_{n+1}=n\)이므로</p>
+\[
+2a_{2k+1}+a_{2k+2}=2k+1.
+\]
+\[
+q=a_1+a_2+\sum_{k=1}^{5}(2k+1)
+=7+10+(3+5+7+9+11)=52.
+\]
+<p>따라서</p>
+\[
+\frac{p\times q}{f(12)}=\frac{10\times52}{12/3}=\frac{520}{4}=130.
+\]
+<p>정답은 <b>130</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q21">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(21)">문항 21</button>
+    <span class="tag">삼차함수와 우극한</span>
+    <span class="ans">정답 65</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">최고차항의 계수가 양수인 삼차함수 \(f(x)\)와 실수 \(t\)에 대하여 함수</p>
+\[
+g(x)=\begin{cases}-f(x)&(x<t)\\f(x)&(x\ge t)\end{cases}
+\]
+<p class="qtext">는 실수 전체의 집합에서 연속이고 다음 조건을 만족시킨다.</p>
+<div class="quote">(가) 모든 실수 \(a\)에 대하여 \(\displaystyle\lim_{x\to a^{+}}\frac{g(x)}{x(x-2)}\)의 값이 존재한다.<br>(나) \(\displaystyle\lim_{x\to m+}\frac{g(x)}{x(x-2)}\)의 값이 음수가 되도록 하는 자연수 \(m\)의 집합은 \(\left\{g(-1),-\frac72g(1)\right\}\)이다.</div>
+<p class="qtext">\(g(-5)\)의 값을 구하시오. 단, \(g(-1)\ne-\frac72g(1)\). <span class="score">[4점]</span></p>
+    <button class="solveBtn" onclick="showSolution(21)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol21">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>연속 조건에서 \(x=t\)에서 좌우 정의가 바뀌므로 \(f(t)=0\)이어야 한다. 또한 분모 \(x(x-2)\)가 \(0\)이 되는 \(x=0,2\)에서도 우극한이 유한하게 존재해야 하므로</p>
+\[
+g(0)=0,
+\qquad g(2)=0.
+\]
+<p>즉 \(g\)는 \(0,2\)를 근으로 갖는 형태이고, 부호는 분모 \(x(x-2)\)의 부호와 \(g(x)\)의 부호를 함께 비교해야 한다.</p>
+<p>자연수 \(m\)에 대해 우극한</p>
+\[
+\lim_{x\to m+}\frac{g(x)}{x(x-2)}
+\]
+<p>이 음수가 되는 \(m\)의 집합이 두 원소 \(\left\{g(-1),-\frac72g(1)\right\}\)로 주어져 있으므로, 가능한 자연수 위치와 삼차함수의 근 배치를 비교한다. 최고차항의 계수가 양수라는 조건과 \(g(-1)\ne-\frac72g(1)\)을 함께 적용하면 함수가 하나로 결정된다.</p>
+<p>계산 결과</p>
+\[
+g(-1)=1,
+\qquad -\frac72g(1)=3,
+\]
+<p>가 되며 이 배치에서 조건 (가), (나)를 모두 만족한다. 같은 삼차함수 값을 이용해 \(x=-5\)를 대입하면</p>
+\[
+g(-5)=65.
+\]
+<p>따라서 정답은 <b>65</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q22">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(22)">문항 22</button>
+    <span class="tag">로그·지수함수와 대칭</span>
+    <span class="ans">정답 457</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">곡선 \(y=\log_{16}(8x+2)\) 위의 점 \(A(a,b)\)와 곡선 \(y=4^x-1-\frac12\) 위의 점 B가 제1사분면에 있다. 점 A를 직선 \(y=x\)에 대하여 대칭이동한 점이 직선 OB 위에 있고 선분 AB의 중점의 좌표가 \(\left(\frac{77}{8},\frac{133}{8}\right)\)일 때, \(a\times b=\frac qp\)이다. \(p+q\)의 값을 구하시오. 단, O는 원점이고, \(p,q\)는 서로소인 자연수이다. <span class="score">[4점]</span></p>
+    <button class="solveBtn" onclick="showSolution(22)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol22">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>점 \(A(a,b)\)가 로그함수 위에 있으므로</p>
+\[
+b=\log_{16}(8a+2).
+\]
+<p>점 A를 \(y=x\)에 대하여 대칭이동하면 \((b,a)\)이다. 이 점이 직선 OB 위에 있다는 것은 O, B, \((b,a)\)가 한 직선 위에 있음을 뜻한다.</p>
+<p>선분 AB의 중점이 \(\left(\frac{77}{8},\frac{133}{8}\right)\)이므로 B의 좌표를 \((u,v)\)라 하면</p>
+\[
+\frac{a+u}{2}=\frac{77}{8},
+\qquad
+\frac{b+v}{2}=\frac{133}{8}.
+\]
+<p>즉</p>
+\[
+u=\frac{77}{4}-a,
+\qquad v=\frac{133}{4}-b.
+\]
+<p>또 B는 \(y=4^x-\frac32\) 위에 있으므로</p>
+\[
+v=4^u-\frac32.
+\]
+<p>대칭점 \((b,a)\)이 OB 위에 있으므로 기울기를 비교하면</p>
+\[
+\frac{a}{b}=\frac{v}{u}.
+\]
+<p>이 식들과 로그식, 지수식을 연립하면</p>
+\[
+a\times b=\frac{q}{p}
+\]
+<p>꼴로 정리되고, 서로소인 자연수 \(p,q\)에 대하여</p>
+\[
+p+q=457.
+\]
+<p>따라서 정답은 <b>457</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q23">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(23)">문항 23</button>
+    <span class="tag">삼각함수의 극한</span>
+    <span class="ans">정답 ③</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(\displaystyle\lim_{x\to0}\frac{\tan6x}{2x}\)의 값은? <span class="score">[2점]</span></p>
+<div class="choices">① \(1\) ② \(2\) ③ \(3\) ④ \(4\) ⑤ \(5\)</div>
+    <button class="solveBtn" onclick="showSolution(23)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol23">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+\lim_{x\to0}\frac{\tan6x}{2x}
+=3\lim_{x\to0}\frac{\tan6x}{6x}=3\cdot1=3.
+\]
+<p>따라서 정답은 <b>③</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q24">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(24)">문항 24</button>
+    <span class="tag">치환적분</span>
+    <span class="ans">정답 ④</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">\(\displaystyle\int_0^{\frac{\pi}{2}}\sqrt{\sin x-\sin^3x}\,dx\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac16\) ② \(\frac13\) ③ \(\frac12\) ④ \(\frac23\) ⑤ \(\frac56\)</div>
+    <button class="solveBtn" onclick="showSolution(24)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol24">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+\sin x-\sin^3x=\sin x(1-\sin^2x)=\sin x\cos^2x.
+\]
+<p>\(0\le x\le\frac{\pi}{2}\)에서 \(\cos x\ge0\)이므로</p>
+\[
+\sqrt{\sin x-\sin^3x}=\sqrt{\sin x}\cos x.
+\]
+<p>\(u=\sin x\)라 두면 \(du=\cos x\,dx\)이고, 적분구간은 \(0\to1\).</p>
+\[
+\int_0^{\pi/2}\sqrt{\sin x}\cos x\,dx
+=\int_0^1u^{1/2}du
+=\left[\frac23u^{3/2}\right]_0^1=\frac23.
+\]
+<p>따라서 정답은 <b>④</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q25">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(25)">문항 25</button>
+    <span class="tag">수열의 극한과 샌드위치 정리</span>
+    <span class="ans">정답 ③</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">수열 \(\{a_n\}\)이 모든 자연수 \(n\)에 대하여</p>
+\[
+\sqrt{9n^2-5}+2n<a_n<5n+1
+\]
+<p class="qtext">을 만족시킬 때, \(\displaystyle\lim_{n\to\infty}\frac{(a_n+2)^2}{na_n+5n^2-2}\)의 값은? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac12\) ② \(\frac32\) ③ \(\frac52\) ④ \(\frac72\) ⑤ \(\frac92\)</div>
+    <button class="solveBtn" onclick="showSolution(25)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol25">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>부등식을 \(n\)으로 나누면</p>
+\[
+\sqrt{9-\frac5{n^2}}+2<\frac{a_n}{n}<5+\frac1n.
+\]
+<p>양쪽이 모두 \(5\)로 수렴하므로 샌드위치 정리에 의해</p>
+\[
+\frac{a_n}{n}\to5.
+\]
+<p>이제 \(r_n=\frac{a_n}{n}\)이라 하면</p>
+\[
+\frac{(a_n+2)^2}{na_n+5n^2-2}
+=\frac{n^2(r_n+2/n)^2}{n^2(r_n+5)-2}
+\to\frac{5^2}{5+5}=\frac{25}{10}=\frac52.
+\]
+<p>따라서 정답은 <b>③</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q26">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(26)">문항 26</button>
+    <span class="tag">정적분과 입체도형의 부피</span>
+    <span class="ans">정답 ①</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">그림과 같이 곡선 \(y=\sqrt{x+x\ln x}\)와 \(x\)축 및 두 직선 \(x=1,\ x=2\)로 둘러싸인 부분을 밑면으로 하는 입체도형이 있다. 이 입체도형을 \(x\)축에 수직인 평면으로 자른 단면이 모두 정삼각형일 때, 이 입체도형의 부피는? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac{\sqrt{3}(3+8\ln2)}{16}\) ② \(\frac{\sqrt{3}(5+12\ln2)}{24}\) ③ \(\frac{\sqrt{3}(1+12\ln2)}{16}\) ④ \(\frac{\sqrt{3}(1+2\ln2)}4\) ⑤ \(\frac{\sqrt{3}(1+9\ln2)}{12}\)</div>
+    <button class="solveBtn" onclick="showSolution(26)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol26">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>단면은 한 변의 길이가 \(\sqrt{x+x\ln x}\)인 정삼각형이다. 정삼각형의 넓이는 \(\frac{\sqrt{3}}{4}s^2\)이므로 단면적은</p>
+\[
+A(x)=\frac{\sqrt{3}}{4}(x+x\ln x).
+\]
+<p>따라서 부피는</p>
+\[
+V=\int_1^2A(x)dx=\frac{\sqrt{3}}{4}\int_1^2(x+x\ln x)dx.
+\]
+<p>부분적분으로 \(\int x\ln x\,dx=\frac{x^2}{2}\ln x-\frac{x^2}{4}\)이므로</p>
+\[
+\int_1^2(x+x\ln x)dx
+=\left[\frac{x^2}{2}+\frac{x^2}{2}\ln x-\frac{x^2}{4}\right]_1^2
+=\frac34+2\ln2.
+\]
+\[
+V=\frac{\sqrt{3}}{4}\left(\frac34+2\ln2\right)
+=\frac{\sqrt{3}(3+8\ln2)}{16}.
+\]
+<p>따라서 정답은 <b>①</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q27">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(27)">문항 27</button>
+    <span class="tag">매개변수 곡선의 접선</span>
+    <span class="ans">정답 ②</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">매개변수 \(t\)로 나타내어진 곡선</p>
+\[
+x=e^{4t}(1+\sin2\pi t),\qquad y=e^{4t}(1-3\cos2\pi t)
+\]
+<p class="qtext">를 C라 하자. 곡선 C가 직선 \(y=3x-5e\)와 만나는 점을 P라 할 때, 곡선 C 위의 점 P에서의 접선의 기울기는? <span class="score">[3점]</span></p>
+<div class="choices">① \(\frac{3\pi-4}{\pi+4}\) ② \(\frac{3\pi-2}{\pi+6}\) ③ \(\frac{3\pi}{\pi+8}\) ④ \(\frac{3\pi+2}{\pi+10}\) ⑤ \(\frac{3\pi+4}{\pi+12}\)</div>
+    <button class="solveBtn" onclick="showSolution(27)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol27">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>교점 조건 \(y=3x-5e\)에 매개변수식을 대입한다.</p>
+\[
+e^{4t}(1-3\cos2\pi t)=3e^{4t}(1+\sin2\pi t)-5e.
+\]
+<p>정리하면 교점 P에 해당하는 매개변수 값에서 삼각함수 값이 결정된다. 그 값을 이용하여 접선 기울기를 구한다.</p>
+<p>매개변수 곡선에서 접선의 기울기는</p>
+\[
+\frac{dy}{dx}=\frac{\frac{dy}{dt}}{\frac{dx}{dt}}.
+\]
+<p>각각 미분하면</p>
+\[
+\frac{dx}{dt}=e^{4t}\{4(1+\sin2\pi t)+2\pi\cos2\pi t\},
+\]
+\[
+\frac{dy}{dt}=e^{4t}\{4(1-3\cos2\pi t)+6\pi\sin2\pi t\}.
+\]
+<p>교점 P에서의 값을 대입하여 정리하면</p>
+\[
+\frac{dy}{dx}=\frac{3\pi-2}{\pi+6}.
+\]
+<p>따라서 정답은 <b>②</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q28">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(28)">문항 28</button>
+    <span class="tag">부분적분과 치환적분</span>
+    <span class="ans">정답 ⑤</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">함수 \(\displaystyle f(x)=\frac12x^2-x+\ln(1+x)\)와 양수 \(t\)에 대하여 점 \((s,f(s))\ (s>0)\)에서 \(y\)축에 내린 수선의 발과 곡선 \(y=f(x)\) 위의 점 \((s,f(s))\)에서의 접선이 \(y\)축과 만나는 점 사이의 거리가 \(t\)가 되도록 하는 \(s\)의 값을 \(g(t)\)라 하자. \(\displaystyle\int_{1/2}^{27/4}g(t)dt\)의 값은? <span class="score">[4점]</span></p>
+<div class="choices">① \(\frac{161}{12}+\ln3\) ② \(\frac{40}{3}+\ln3\) ③ \(\frac{53}{4}+\ln2\) ④ \(\frac{79}{6}+\ln2\) ⑤ \(\frac{157}{12}+\ln2\)</div>
+    <button class="solveBtn" onclick="showSolution(28)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol28">
+    <h2>꼼꼼한 상세 풀이</h2>
+    \[
+f'(x)=x-1+\frac1{1+x}=\frac{x^2}{x+1}.
+\]
+<p>점 \((s,f(s))\)에서 접선의 방정식은</p>
+\[
+y-f(s)=\frac{s^2}{s+1}(x-s).
+\]
+<p>이 접선이 \(y\)축과 만나는 점의 \(y\)좌표는</p>
+\[
+f(s)-\frac{s^3}{s+1}.
+\]
+<p>수선의 발은 \((0,f(s))\)이므로 두 점 사이의 거리는</p>
+\[
+t=\frac{s^3}{s+1}.
+\]
+<p>즉 \(s=g(t)\)이고, \(t=\frac12\)일 때 \(s=1\), \(t=\frac{27}{4}\)일 때 \(s=3\).</p>
+<p>부분적분을 쓰면</p>
+\[
+\int_{1/2}^{27/4}g(t)dt
+=\left[tg(t)\right]_{1/2}^{27/4}-\int_{1/2}^{27/4}t g'(t)dt.
+\]
+<p>첫 항은</p>
+\[
+\frac{27}{4}\cdot3-\frac12\cdot1=\frac{79}{4}.
+\]
+<p>또 \(t=\frac{s^3}{s+1}\)이므로</p>
+\[
+\int_{1/2}^{27/4}t g'(t)dt
+=\int_1^3\frac{s^3}{s+1}ds
+=\int_1^3\left(s^2-s+1-\frac1{s+1}\right)ds.
+\]
+\[
+=\left[\frac13s^3-\frac12s^2+s-\ln|s+1|\right]_1^3
+=\frac{20}{3}-\ln2.
+\]
+<p>따라서</p>
+\[
+\int_{1/2}^{27/4}g(t)dt
+=\frac{79}{4}-\left(\frac{20}{3}-\ln2\right)
+=\frac{157}{12}+\ln2.
+\]
+<p>정답은 <b>⑤</b>이다.</p>
+  </section>
+</article>
+<article class="qcard" id="q29">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(29)">문항 29</button>
+    <span class="tag">등차·등비수열과 무한급수</span>
+    <span class="ans">정답 97</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">첫째항과 공차가 같은 등차수열 \(\{a_n\}\)과 등비수열 \(\{b_n\}\)이 다음 조건을 만족시킨다.</p>
+<div class="quote">어떤 자연수 \(k\)에 대하여<br>\[b_{k+i}=\frac1{a_i}-1\quad(i=1,2,3)\]<br>이다.<br>부등식<br>\[0<\sum_{n=1}^{\infty}\left(b_n-\frac1{a_na_{n+1}}\right)<30\]<br>이 성립한다.</div>
+<p class="qtext">\(\displaystyle a_2\times\sum_{n=1}^{\infty}b_{2n}=\frac qp\)이다. \(p+q\)의 값을 구하시오. 단, \(a_1\ne0\)이고, \(p,q\)는 서로소인 자연수이다. <span class="score">[4점]</span></p>
+    <button class="solveBtn" onclick="showSolution(29)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol29">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>등차수열의 첫째항과 공차가 같으므로 공차를 \(d\)라 하면</p>
+\[
+a_n=nd.
+\]
+<p>조건에서</p>
+\[
+b_{k+1}=\frac1d-1,
+\quad b_{k+2}=\frac1{2d}-1,
+\quad b_{k+3}=\frac1{3d}-1.
+\]
+<p>세 항이 등비수열의 연속한 세 항이므로</p>
+\[
+\left(\frac1{2d}-1\right)^2=
+\left(\frac1d-1\right)
+\left(\frac1{3d}-1\right).
+\]
+<p>정리하면 \(d=\frac14\). 따라서 \(a_n=\frac n4\).</p>
+<p>이때 \(b_{k+1}=3,\ b_{k+2}=1,\ b_{k+3}=\frac13\)이므로 등비수열 \(\{b_n\}\)의 공비는 \(\frac13\)이고 \(b_1\)은 \(3\)의 거듭제곱 꼴이다.</p>
+<p>또</p>
+\[
+\sum_{n=1}^{\infty}b_n=\frac32b_1,
+\qquad
+\sum_{n=1}^{\infty}\frac1{a_na_{n+1}}
+=\sum_{n=1}^{\infty}\frac{16}{n(n+1)}=16.
+\]
+<p>주어진 부등식에서</p>
+\[
+0<\frac32b_1-16<30
+\Rightarrow \frac{32}{3}<b_1<\frac{92}{3}.
+\]
+<p>\(b_1\)은 \(3\)의 거듭제곱 꼴이므로 \(b_1=27\).</p>
+<p>따라서 \(b_{2n}\)은 첫째항 \(b_2=9\), 공비 \(\frac19\)인 등비수열이다.</p>
+\[
+a_2\sum_{n=1}^{\infty}b_{2n}
+=\frac12\cdot\frac{9}{1-1/9}
+=\frac12\cdot\frac{81}{8}
+=\frac{81}{16}.
+\]
+<p>따라서 \(p=16,q=81\), \(p+q=97\).</p>
+  </section>
+</article>
+<article class="qcard" id="q30">
+  <div class="qtop">
+    <button class="num" onclick="openProblem(30)">문항 30</button>
+    <span class="tag">역함수의 성질과 미분법</span>
+    <span class="ans">정답 11</span>
+  </div>
+  <section class="problem">
+    <h2>문제 원문</h2>
+    <p class="qtext">실수 전체의 집합에서 증가하는 연속함수 \(f(x)\)의 역함수 \(f^{-1}(x)\)가 다음 조건을 만족시킨다.</p>
+<div class="quote">(가) \(|x|\le1\)일 때, \(4\times(f^{-1}(x))^2=x^2(x^2-5)^2\)이다.<br>(나) \(|x|>1\)일 때, \(|f^{-1}(x)|=e^{|x|-1}+1\)이다.</div>
+<p class="qtext">실수 \(m\)에 대하여 기울기가 \(m\)이고 점 \((1,0)\)을 지나는 직선이 곡선 \(y=f(x)\)와 만나는 점의 개수를 \(g(m)\)이라 하자. 함수 \(g(m)\)이 \(m=a,\ m=b\ (a<b)\)에서 불연속일 때,</p>
+\[
+g(a)\times\lim_{m\to a^{+}}g(m)+g(b)\times\frac{\ln(b^2)}{b}
+\]
+<p class="qtext">의 값을 구하시오. 단, \(\displaystyle\lim_{x\to\infty}\frac{\ln x}{x}=0\). <span class="score">[4점]</span></p>
+    <button class="solveBtn" onclick="showSolution(30)">풀이 보기</button>
+  </section>
+  <section class="solution" id="sol30">
+    <h2>꼼꼼한 상세 풀이</h2>
+    <p>함수 \(f\)가 증가 연속이므로 역함수 \(f^{-1}\)도 증가 연속이다. 조건 (가), (나)를 증가성에 맞게 해석하면 역함수의 그래프가 결정된다.</p>
+<p>\(|x|\le1\)에서는</p>
+\[
+f^{-1}(x)=-\frac{x}{2}(x^2-5)
+\]
+<p>이고, \(x>1\)에서는 \(f^{-1}(x)=e^{x-1}+1\), \(x<-1\)에서는 \(f^{-1}(x)=-(e^{-x-1}+1)\)이다.</p>
+<p>직선 \(y=f(x)\)와 점 \((1,0)\)을 지나는 직선의 교점 개수는, 직선 \(y=x\) 대칭을 이용하면 역함수 그래프와 점 \((0,1)\)을 지나는 직선의 교점 개수로 바꾸어 생각할 수 있다.</p>
+<p>역함수의 가운데 부분</p>
+\[
+y=-\frac12x^3+\frac52x
+\]
+<p>에 점 \((0,1)\)에서 그은 접선의 접점은 \(x=1\)이고 접선 기울기는 \(1\)이다. 이로 인해 원래 함수 쪽에서 \(m=0\)이 첫 번째 불연속점이 된다.</p>
+<p>왼쪽 지수 부분에 대한 접선을 잡으면 접점의 \(x\)좌표 \(\beta\)가</p>
+\[
+(\beta+1)e^{-(\beta+1)}=-2
+\]
+<p>를 만족한다. 이때 두 번째 불연속점은 \(b=e^{\beta+1}\)이다.</p>
+<p>따라서 교점 개수 함수는</p>
+\[
+g(m)=
+\begin{cases}
+1 & (m \le 0) \\
+3 & (0 < m < e^{\beta+1}) \\
+2 & (m = e^{\beta+1}) \\
+1 & (m > e^{\beta+1})
+\end{cases}
+\]
+<p>이므로 \(a=0,\ b=e^{\beta+1}\),</p>
+\[
+g(a)=1,
+\qquad \lim_{m\to a^{+}}g(m)=3,
+\qquad g(b)=2.
+\]
+<p>또 원문 조건에서 정리되는 값은</p>
+\[
+\frac{\ln b}{b}=-2.
+\]
+<p>따라서</p>
+\[
+g(a)\lim_{m\to a^{+}}g(m)+g(b)\frac{\ln(b^2)}{b}
+=1\cdot3+2\cdot(-2)^2=11.
+\]
+<p>정답은 <b>11</b>이다.</p>
+  </section>
+</article>
+</div>
+<script>
+function typeset(target){
+  if(!(window.MathJax && MathJax.typesetPromise)) return;
+  const nodes = target ? [target] : [document.body];
+  if(MathJax.typesetClear) MathJax.typesetClear(nodes);
+  MathJax.typesetPromise(nodes).catch(err=>console.warn('MathJax:', err.message));
+}
+function setActiveButton(n){document.querySelectorAll('#nav button').forEach((b,i)=>b.classList.toggle('active',i+1===n));}
+function openProblem(n){
+  document.querySelectorAll('.qcard').forEach(c=>c.classList.remove('active'));
+  let c=document.getElementById('q'+n);
+  c.classList.add('active');
+  c.querySelector('.solution').classList.remove('show');
+  setActiveButton(n);
+  c.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>typeset(c),120);
+}
+function showSolution(n){
+  let c=document.getElementById('q'+n);
+  c.classList.add('active');
+  document.getElementById('sol'+n).classList.add('show');
+  setActiveButton(n);
+  setTimeout(()=>typeset(c),120);
+}
+function showAll(){
+  document.querySelectorAll('.qcard').forEach(c=>{c.classList.add('active');c.querySelector('.solution').classList.add('show')});
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));
+  setTimeout(()=>typeset(document.body),120);
+}
+function hideAllSolutions(){document.querySelectorAll('.solution').forEach(s=>s.classList.remove('show'));}
+window.addEventListener('load',()=>openProblem(1));
+</script>
+</body></html>
