@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 위상수학 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}
+.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}
+li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){header h1{font-size:1.72rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 위상수학 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+위상수학의 핵심 정리인 열린집합, 연속성, 컴팩트성, 연결성, 고정점, 기본군의 아이디어를 이해하고,
+파이썬 코드로 위상적 개념의 직관을 실험한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>열린집합과 닫힌집합의 여집합 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">위상공간 \(X\)에서 집합 \(A\)가 닫힌집합일 필요충분조건은 \(X\setminus A\)가 열린집합인 것이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>위상공간에서 닫힌집합은 열린집합의 여집합으로 정의된다.</li><li>따라서 \(A\)가 닫힌집합이면 어떤 열린집합 \(U\)가 존재하여 \(A=X\setminus U\)이다.</li><li>그러면 \(X\setminus A=U\)이므로 \(X\setminus A\)는 열린집합이다.</li><li>반대로 \(X\setminus A\)가 열린집합이면 \(A\)는 열린집합의 여집합이므로 닫힌집합이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">위상수학의 기본 언어이며, 해석학에서 닫힌구간, 극한점, 연속함수의 성질을 설명할 때 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유한 집합에서 여집합 확인
+X = {1, 2, 3, 4, 5}
+A = {2, 3}
+
+complement = X - A
+
+print(&quot;전체집합 X:&quot;, X)
+print(&quot;집합 A:&quot;, A)
+print(&quot;A의 여집합:&quot;, complement)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`X` : 전체공간 역할을 하는 유한집합이다.</li><li>`A` : 전체공간의 부분집합이다.</li><li>`X - A` : \(X\setminus A\), 즉 A의 여집합을 계산한다.</li><li>`complement` : A에 속하지 않는 원소들의 집합이다.</li><li>위상수학에서는 열린집합과 닫힌집합을 여집합 관계로 연결한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>연속함수의 역상 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f:X\to Y\)가 연속일 필요충분조건은 \(Y\)의 모든 열린집합 \(U\)에 대해 \(f^{-1}(U)\)가 \(X\)에서 열린집합인 것이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>거리공간에서는 연속성이 작은 변화가 작은 변화를 만든다는 뜻이다.</li><li>위상수학에서는 이 개념을 열린집합의 역상으로 일반화한다.</li><li>\(Y\)에서 열린집합 \(U\)를 잡으면, \(U\) 안으로 들어가는 \(X\)의 점들의 모임이 \(f^{-1}(U)\)이다.</li><li>연속이면 \(U\)에 들어가는 조건이 \(X\)에서도 열린 조건으로 유지된다.</li><li>따라서 모든 열린집합의 역상이 열린집합이면 함수는 위상적으로 연속이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">해석학, 미분기하, 함수공간, 데이터 변환에서 연속성을 가장 일반적으로 정의할 때 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 함수의 역상 계산
+X = set(range(-5, 6))
+
+def f(x):
+    return x * x
+
+U = {0, 1, 4, 9}
+
+preimage = {x for x in X if f(x) in U}
+
+print(&quot;U:&quot;, U)
+print(&quot;f의 역상:&quot;, preimage)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`X` : 정의역으로 사용할 정수 샘플 집합이다.</li><li>`f(x)` : 함수 \(f(x)=x^2\)를 정의한다.</li><li>`U` : 공역 쪽의 부분집합이다.</li><li>`{x for x in X if f(x) in U}` : \(f(x)\)가 U에 들어가는 x들을 모은다.</li><li>`preimage` : \(f^{-1}(U)\), 즉 U의 역상이다.</li><li>위상수학의 연속성은 이런 역상이 열린집합을 보존하는지로 판단한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>하이네-보렐 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\(\mathbb R^n\)의 부분집합 \(K\)가 컴팩트일 필요충분조건은 \(K\)가 닫혀 있고 유계인 것이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>\(\mathbb R^n\)에서는 닫히고 유계인 집합의 모든 수열이 수렴 부분수열을 가진다.</li><li>볼차노-바이어슈트라스 정리에 의해 유계수열은 수렴 부분수열을 가진다.</li><li>집합이 닫혀 있으면 그 부분수열의 극한도 집합 안에 남는다.</li><li>따라서 수열적 컴팩트성을 가진다.</li><li>\(\mathbb R^n\)에서는 수열적 컴팩트성과 열린덮개 컴팩트성이 동치이므로 컴팩트하다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">최대·최소값 존재, 최적화, 해석학, 수치해석, 기계학습의 매개변수 공간 제한에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 닫히고 유계인 구간 [a,b]에서 최대값 찾기
+def f(x):
+    return -(x - 2)**2 + 5
+
+a = 0
+b = 4
+n = 1000
+
+xs = [a + (b - a) * i / n for i in range(n + 1)]
+values = [f(x) for x in xs]
+
+max_value = max(values)
+max_x = xs[values.index(max_value)]
+
+print(&quot;최대값 근사:&quot;, max_value)
+print(&quot;최대가 되는 x 근사:&quot;, max_x)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)` : 닫힌구간에서 검사할 함수이다.</li><li>`a = 0`, `b = 4` : 닫히고 유계인 구간 \([0,4]\)를 만든다.</li><li>`n = 1000` : 구간을 1000개로 잘게 나눈다.</li><li>`xs` : 구간 안의 많은 표본점을 만든다.</li><li>`values` : 각 x에서의 함수값이다.</li><li>`max(values)` : 표본점 중 가장 큰 함수값을 찾는다.</li><li>컴팩트 집합 위의 연속함수는 최대값과 최소값을 가진다는 사실을 실험적으로 보여 준다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>극값정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">컴팩트 공간 \(K\)에서 실수값 연속함수 \(f:K\to\mathbb R\)는 최대값과 최소값을 가진다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>연속함수는 컴팩트 집합의 상을 컴팩트 집합으로 보낸다.</li><li>따라서 \(f(K)\subset\mathbb R\)는 컴팩트이다.</li><li>\(\mathbb R\)에서 컴팩트 집합은 닫혀 있고 유계이다.</li><li>유계이므로 상한과 하한이 존재한다.</li><li>닫혀 있으므로 상한과 하한이 실제로 \(f(K)\) 안에 포함된다.</li><li>따라서 \(f\)는 최대값과 최소값을 가진다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">최적화 문제, 물리학의 안정상태, 경제학의 효용 극대화, 머신러닝 손실함수 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 닫힌구간에서 최소값 찾기
+def f(x):
+    return (x - 3)**2 + 1
+
+a = 0
+b = 5
+n = 1000
+
+xs = [a + (b - a) * i / n for i in range(n + 1)]
+pairs = [(x, f(x)) for x in xs]
+
+min_pair = min(pairs, key=lambda t: t[1])
+
+print(&quot;최소가 되는 x 근사:&quot;, min_pair[0])
+print(&quot;최소값 근사:&quot;, min_pair[1])</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)` : 최소값을 찾을 연속함수이다.</li><li>`[a,b]` : 닫히고 유계인 구간이므로 컴팩트하다.</li><li>`xs` : 구간 안의 표본점들이다.</li><li>`pairs` : 각 x와 함수값 \(f(x)\)를 묶은 리스트이다.</li><li>`min(..., key=lambda t: t[1])` : 함수값이 가장 작은 쌍을 찾는다.</li><li>극값정리는 이런 최소값이 실제로 존재함을 보장한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>중간값 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">연속함수 \(f:[a,b]\to\mathbb R\)에 대해 \(f(a)\)와 \(f(b)\) 사이의 모든 값 \(L\)에 대해 어떤 \(c\in[a,b]\)가 존재하여 \(f(c)=L\)이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>닫힌구간 \([a,b]\)는 연결공간이다.</li><li>연속함수는 연결공간을 연결공간으로 보낸다.</li><li>따라서 \(f([a,b])\)는 \(\mathbb R\)의 연결부분집합이다.</li><li>\(\mathbb R\)의 연결부분집합은 구간이다.</li><li>그러므로 \(f(a)\)와 \(f(b)\) 사이의 모든 값을 포함한다.</li><li>따라서 원하는 \(c\)가 존재한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">방정식의 해 존재성, 이분법, 수치해석, 그래프 해석, 물리량의 연속 변화 분석에 쓰인다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 중간값 정리를 이용한 이분법
+def f(x):
+    return x**2 - 2
+
+left = 1
+right = 2
+
+for _ in range(30):
+    mid = (left + right) / 2
+    if f(left) * f(mid) &lt;= 0:
+        right = mid
+    else:
+        left = mid
+
+print(&quot;sqrt(2) 근사:&quot;, (left + right) / 2)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x) = x**2 - 2` : 해 \(x=\sqrt2\)를 갖는 함수이다.</li><li>`left = 1`, `right = 2` : \(f(1)<0\), \(f(2)>0\)인 구간이다.</li><li>`mid` : 현재 구간의 중간점이다.</li><li>`f(left) * f(mid) <= 0` : 왼쪽 절반에 부호 변화가 있는지 확인한다.</li><li>부호가 바뀌는 구간에는 중간값 정리에 의해 해가 존재한다.</li><li>반복하면 \(\sqrt2\)에 가까운 값을 얻는다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>연결공간의 연속상 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">연결공간 \(X\)와 연속함수 \(f:X\to Y\)에 대해 \(f(X)\)는 연결공간이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>반대로 \(f(X)\)가 연결되지 않는다고 가정한다.</li><li>그러면 \(f(X)\)는 서로 떨어진 두 열린부분집합으로 분리된다.</li><li>이 두 집합의 역상을 \(X\)에서 생각한다.</li><li>연속성에 의해 두 역상은 \(X\)에서 열린집합이다.</li><li>또한 두 역상은 서로소이고 \(X\) 전체를 덮는다.</li><li>이는 \(X\)가 연결이라는 가정과 모순이다.</li><li>따라서 \(f(X)\)는 연결이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">연속 변형이 끊어짐을 만들 수 없다는 사실을 설명하며, 그래프·곡선·이미지 처리에 쓰인다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 연속 함수가 구간 샘플을 구간처럼 보낸다는 예시
+def f(x):
+    return x**2
+
+xs = [i / 10 for i in range(-10, 11)]
+ys = [f(x) for x in xs]
+
+print(&quot;x 표본:&quot;, xs)
+print(&quot;f(x) 표본:&quot;, ys)
+print(&quot;최솟값:&quot;, min(ys))
+print(&quot;최댓값:&quot;, max(ys))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`xs` : 연결된 구간 \([-1,1]\)의 표본점이다.</li><li>`f(x)=x^2` : 연속함수이다.</li><li>`ys` : 함수값들의 표본이다.</li><li>`min(ys)`, `max(ys)` : 상의 범위를 확인한다.</li><li>실제로 \(x^2\)는 \([-1,1]\)을 연결된 구간 \([0,1]\)로 보낸다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>컴팩트공간의 연속상 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">컴팩트공간 \(X\)와 연속함수 \(f:X\to Y\)에 대해 \(f(X)\)는 컴팩트이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>\(f(X)\)의 열린덮개를 잡는다.</li><li>그 열린집합들의 역상을 취하면 \(X\)의 열린덮개가 된다.</li><li>\(X\)가 컴팩트이므로 유한 부분덮개를 고를 수 있다.</li><li>그 유한 부분덮개에 대응하는 원래 열린집합들은 \(f(X)\)를 덮는다.</li><li>따라서 \(f(X)\)도 컴팩트이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">극값정리, 이미지 변환, 데이터 압축, 최적화 문제에서 해의 존재성을 보장하는 데 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 컴팩트 구간의 연속상 근사
+def f(x):
+    return 2*x + 1
+
+a = 0
+b = 3
+n = 20
+
+xs = [a + (b - a) * i / n for i in range(n + 1)]
+ys = [f(x) for x in xs]
+
+print(&quot;정의역 구간:&quot;, (a, b))
+print(&quot;상 범위 근사:&quot;, (min(ys), max(ys)))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`[a,b]` : 닫히고 유계인 컴팩트 구간이다.</li><li>`f(x)=2x+1` : 연속함수이다.</li><li>`xs` : 정의역 구간의 표본점이다.</li><li>`ys` : 각 표본점의 함수값이다.</li><li>`min(ys), max(ys)` : 상의 범위를 근사한다.</li><li>컴팩트공간의 연속상은 다시 컴팩트하므로 닫히고 유계인 구간이 된다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>하우스도르프 공간에서 컴팩트집합은 닫힘</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">하우스도르프 공간 \(X\)에서 컴팩트 부분집합 \(K\)는 닫힌집합이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>\(x\notin K\)인 점을 하나 잡는다.</li><li>하우스도르프 조건에 의해 각 \(y\in K\)에 대해 \(x\)와 \(y\)를 분리하는 서로소 열린집합을 잡을 수 있다.</li><li>\(K\)의 각 점 \(y\) 주변 열린집합들은 \(K\)의 열린덮개를 이룬다.</li><li>\(K\)가 컴팩트이므로 유한 부분덮개를 고를 수 있다.</li><li>그 유한 개에 대응하는 \(x\) 주변 열린집합들의 교집합은 여전히 열린집합이다.</li><li>이 열린집합은 \(K\)와 만나지 않는다.</li><li>따라서 \(X\setminus K\)는 열린집합이고, \(K\)는 닫힌집합이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">일반위상수학에서 컴팩트성과 분리공리의 관계를 설명하며, 해석학의 닫힘 성질을 일반화한다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유한 거리공간에서는 모든 부분집합이 컴팩트처럼 작동하는 예시
+X = {1, 2, 3, 4, 5}
+K = {2, 3}
+
+complement = X - K
+
+print(&quot;K:&quot;, K)
+print(&quot;X - K:&quot;, complement)
+print(&quot;여집합이 존재하므로 K를 닫힌집합처럼 다룰 수 있음&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`X` : 유한한 전체공간이다.</li><li>`K` : 부분집합이다.</li><li>`X - K` : K의 여집합이다.</li><li>유한 이산공간에서는 모든 부분집합이 열린집합이자 닫힌집합이다.</li><li>이는 하우스도르프 공간에서 컴팩트집합이 닫힌집합이 되는 현상을 단순화한 예시이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>브라우어 고정점 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">닫힌 원판 \(D^n\)에서 자기 자신으로 가는 연속함수 \(f:D^n\to D^n\)는 적어도 하나의 고정점 \(x\)를 가진다. 즉 \[f(x)=x\] 인 \(x\)가 존재한다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>일반적인 증명은 대수적 위상수학을 사용한다.</li><li>고정점이 없다고 가정하면, 각 점 \(x\)에서 \(f(x)\)를 지나 원판의 경계로 향하는 연속적인 사영을 만들 수 있다.</li><li>이 사영은 원판 전체를 경계구면으로 접어 보내면서 경계에서는 항등처럼 작동한다.</li><li>하지만 원판이 경계구면으로 수축될 수 없다는 위상적 사실과 모순된다.</li><li>따라서 고정점이 반드시 존재한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">게임이론의 내쉬균형, 경제학 균형, 미분방정식, 동역학, 컴퓨터 그래픽과 최적화 이론에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 1차원 고정점 반복 예시: f(x)=cos(x)
+import math
+
+def f(x):
+    return math.cos(x)
+
+x = 0.5
+
+for _ in range(30):
+    x = f(x)
+
+print(&quot;고정점 근사:&quot;, x)
+print(&quot;f(x):&quot;, f(x))
+print(&quot;차이:&quot;, abs(f(x) - x))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)=cos(x)` : 구간 안에서 자기 자신으로 가는 연속함수의 예시이다.</li><li>`x = 0.5` : 반복을 시작할 초기값이다.</li><li>`for _ in range(30)` : 함수를 30번 반복 적용한다.</li><li>`x = f(x)` : 현재 값을 함수값으로 갱신한다.</li><li>`abs(f(x) - x)` : \(f(x)=x\)에 얼마나 가까운지 확인한다.</li><li>출력값은 \(x=\cos x\)의 고정점 근사이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>기본군의 호모토피 불변성</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">두 위상공간 \(X,Y\)가 호모토피 동치이면 기본군이 동형이다. 즉 \[\pi_1(X)\cong\pi_1(Y)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>호모토피 동치란 \(f:X\to Y\), \(g:Y\to X\)가 존재하여 \(g\circ f\)와 \(f\circ g\)가 각각 항등함수와 호모토픽인 경우이다.</li><li>연속함수는 닫힌 경로를 닫힌 경로로 보내므로 기본군 사이의 준동형을 만든다.</li><li>호모토픽한 함수들은 기본군에서 같은 준동형을 유도한다.</li><li>따라서 \(f\)와 \(g\)가 유도하는 준동형은 서로 역함수 관계가 된다.</li><li>그러므로 기본군은 동형이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">도넛과 원, 구멍의 개수, 로봇 경로 계획, 형상 분석, 데이터의 위상적 특징 추출에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 닫힌 경로를 격자 점들의 리스트로 표현
+path = [(0,0), (1,0), (1,1), (0,1), (0,0)]
+
+is_closed = path[0] == path[-1]
+
+print(&quot;경로:&quot;, path)
+print(&quot;닫힌 경로인가?&quot;, is_closed)
+print(&quot;경로 길이:&quot;, len(path) - 1)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`path` : 평면 위의 점들을 순서대로 나열한 경로이다.</li><li>`path[0]` : 시작점이다.</li><li>`path[-1]` : 끝점이다.</li><li>`path[0] == path[-1]` : 시작점과 끝점이 같으면 닫힌 경로이다.</li><li>기본군은 이런 닫힌 경로들을 연속적으로 변형하는 관계로 분류한다.</li><li>코드는 기본군의 아주 단순한 직관을 보여 준다.</li></ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+위상수학은 모양을 길이나 각도가 아니라 연결성, 컴팩트성, 연속변형, 구멍의 구조로 이해하는 수학이다.
+연속함수는 열린집합의 역상을 보존하고, 컴팩트성과 연결성은 연속함수 아래에서도 유지된다.
+이러한 관점은 해석학, 기하학, 데이터 분석, 로봇 경로 계획, 물리학까지 넓게 이어진다.
+</div>
+</section>
+</main>
+<footer>매력적인 위상수학 정리 10개 HTML 수업자료</footer>
+</body>
+</html>

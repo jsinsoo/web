@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 실해석학 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}
+.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}
+li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+.math-safe{word-break:keep-all}
+
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){header h1{font-size:1.72rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 실해석학 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · Math input error 방지 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+실해석학의 핵심 정리인 완비성, 수열의 수렴, 연속성, 미분, 적분, 균등수렴의 구조를 이해하고,
+파이썬 코드로 극한과 근사 계산을 실험한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>단조수렴정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">실수열 \((a_n)\)이 단조증가하고 위로 유계이면 \((a_n)\)은 수렴한다. 단조감소하고 아래로 유계인 경우도 수렴한다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>단조증가수열 \((a_n)\)이 위로 유계라고 하자.</li><li>집합 \(A=\{a_n\mid n\in\mathbb N\}\)는 공집합이 아니고 위로 유계이다.</li><li>실수의 완비성에 의해 \(A\)는 상한 \(L=\sup A\)를 가진다.</li><li>상한의 정의에 의해 임의의 \(\varepsilon\gt0\)에 대해 \(L-\varepsilon \lt a_N\le L\)인 \(N\)이 존재한다.</li><li>단조증가성이 있으므로 \(n\ge N\)이면 \(a_N\le a_n\le L\)이다.</li><li>따라서 \(|a_n-L|\lt\varepsilon\)이고, \(a_n\to L\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">수열의 극한 존재성 판단, 반복 알고리즘의 수렴성, 수치해석의 안정성 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 단조증가하고 위로 유계인 수열 예시: a_n = 1 - 1/n
+values = []
+
+for n in range(1, 21):
+    a_n = 1 - 1/n
+    values.append(a_n)
+
+print(values)
+print(&quot;마지막 값:&quot;, values[-1])
+print(&quot;1에 가까워지는가?&quot;, abs(values[-1] - 1) &lt; 0.1)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`values = []` : 수열의 항들을 저장할 리스트이다.</li><li>`for n in range(1, 21)` : \(n=1\)부터 \(20\)까지 계산한다.</li><li>`a_n = 1 - 1/n` : 수열 \(a_n=1-\frac{1}{n}\)의 n번째 항이다.</li><li>`values.append(a_n)` : 계산한 항을 리스트에 추가한다.</li><li>이 수열은 증가하면서 1보다 작으므로 위로 유계이다.</li><li>`abs(values[-1] - 1)` : 마지막 항이 극한 1에 얼마나 가까운지 확인한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>볼차노-바이어슈트라스 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\(\mathbb R^n\)의 모든 유계수열은 수렴하는 부분수열을 가진다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>먼저 실수열의 경우를 생각한다.</li><li>유계수열은 어떤 닫힌구간 안에 모두 들어간다.</li><li>그 구간을 절반으로 나누면, 둘 중 하나에는 수열의 항이 무한히 많이 들어 있다.</li><li>그 절반구간을 다시 절반으로 나누고, 무한히 많은 항이 들어 있는 구간을 계속 선택한다.</li><li>이렇게 얻은 중첩구간의 길이는 \(0\)으로 간다.</li><li>각 단계에서 항 하나씩 골라 부분수열을 만들면 이 부분수열은 한 점으로 수렴한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">해석학의 컴팩트성, 최적화, 수열의 극한점 존재성, 함수열 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유계수열 sin(n)에서 일부 항 관찰
+import math
+
+values = [math.sin(n) for n in range(1, 51)]
+
+print(&quot;최솟값:&quot;, min(values))
+print(&quot;최댓값:&quot;, max(values))
+print(&quot;앞의 10개 항:&quot;, values[:10])</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`import math` : 삼각함수 계산을 위해 math 모듈을 불러온다.</li><li>`math.sin(n)` : \(\sin n\) 값을 계산한다.</li><li>`values` : \(\sin n\)의 앞 50개 항이다.</li><li>`min(values)`, `max(values)` : 값들이 일정 범위 안에 있음을 확인한다.</li><li>\(\sin n\)은 항상 \(-1\)과 \(1\) 사이에 있으므로 유계수열이다.</li><li>볼차노-바이어슈트라스 정리는 이 수열에 수렴 부분수열이 존재함을 보장한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>코시 수열 수렴 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">실수열 \((a_n)\)이 코시 수열이면 \((a_n)\)은 수렴한다. 즉 \(\mathbb R\)은 완비공간이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>코시 수열은 충분히 뒤로 가면 모든 항들이 서로 매우 가까운 수열이다.</li><li>코시 수열은 먼저 유계임을 보일 수 있다.</li><li>유계수열이므로 볼차노-바이어슈트라스 정리에 의해 수렴 부분수열을 가진다.</li><li>그 부분수열의 극한을 \(L\)이라고 하자.</li><li>코시 조건에 의해 전체 수열의 뒤쪽 항들은 부분수열의 뒤쪽 항들과도 가깝다.</li><li>따라서 전체 수열도 같은 \(L\)로 수렴한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">실수의 완비성, 급수 수렴판정, 함수공간, 수치계산의 오차 안정성에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 코시 수열 예시: a_n = 1/n
+values = [1/n for n in range(1, 101)]
+
+epsilon = 0.05
+tail = values[50:]
+
+max_difference = max(abs(x - y) for x in tail for y in tail)
+
+print(&quot;꼬리 부분 최대 차이:&quot;, max_difference)
+print(&quot;코시처럼 보이는가?&quot;, max_difference &lt; epsilon)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`values` : 수열 \(a_n=\frac{1}{n}\)의 앞 100개 항이다.</li><li>`epsilon = 0.05` : 가까움을 판단할 기준이다.</li><li>`tail = values[50:]` : 충분히 뒤쪽 항들만 모은다.</li><li>`abs(x - y)` : 두 항 사이의 거리를 계산한다.</li><li>`max(...)` : 꼬리 부분 항들 사이의 최대 차이를 구한다.</li><li>뒤쪽 항들이 서로 가까우면 코시 수열의 성질을 실험적으로 확인할 수 있다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>중간값 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">연속함수 \(f:[a,b]\to\mathbb R\)에 대해 \(f(a)\)와 \(f(b)\) 사이의 모든 값 \(L\)에 대해 어떤 \(c\in[a,b]\)가 존재하여 \(f(c)=L\)이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(f(a)\lt L\lt f(b)\)라고 하자.</li>
+<li>집합 \(S=\{x\in[a,b]\mid f(x)\lt L\}\)를 생각한다.</li>
+<li>\(S\)는 공집합이 아니며 위로 유계이다.</li>
+<li>실수의 완비성에 의해 \(c=\sup S\)가 존재한다.</li>
+<li>연속성을 이용하면 \(f(c)\lt L\)도 \(f(c)\gt L\)도 모순임을 보일 수 있다.</li>
+<li>따라서 \(f(c)=L\)이다.</li>
+</ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">방정식의 해 존재성, 이분법, 그래프 해석, 수치해석의 기본 원리이다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 중간값 정리를 이용한 이분법: x^3 - x - 2 = 0
+def f(x):
+    return x**3 - x - 2
+
+left = 1
+right = 2
+
+for _ in range(40):
+    mid = (left + right) / 2
+    if f(left) * f(mid) &lt;= 0:
+        right = mid
+    else:
+        left = mid
+
+root = (left + right) / 2
+
+print(&quot;근의 근사값:&quot;, root)
+print(&quot;f(root):&quot;, f(root))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)` : 방정식 \(x^3-x-2=0\)의 왼쪽 함수이다.</li><li>`left = 1`, `right = 2` : 이 구간에서 함수값의 부호가 바뀐다.</li><li>`mid` : 현재 구간의 중점이다.</li><li>`f(left) * f(mid) <= 0` : 왼쪽 절반에 근이 있는지 확인한다.</li><li>부호가 바뀌는 구간에는 중간값 정리에 의해 근이 존재한다.</li><li>`root` : 반복 후 얻은 근의 근사값이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>극값 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">연속함수 \(f:[a,b]\to\mathbb R\)는 닫힌구간 \([a,b]\)에서 최대값과 최소값을 가진다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>닫힌구간 \([a,b]\)는 실수에서 컴팩트하다.</li><li>연속함수는 컴팩트 집합을 컴팩트 집합으로 보낸다.</li><li>따라서 \(f([a,b])\)는 \(\mathbb R\)의 컴팩트 부분집합이다.</li><li>\(\mathbb R\)에서 컴팩트 집합은 닫혀 있고 유계이다.</li><li>유계이므로 상한과 하한이 있고, 닫혀 있으므로 그 값들이 실제로 포함된다.</li><li>따라서 최대값과 최소값이 존재한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">최적화, 물리학의 에너지 최소화, 경제학의 효용 극대화, 머신러닝 손실함수 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 닫힌구간에서 최대값과 최소값 근사
+def f(x):
+    return x**3 - 3*x
+
+a = -2
+b = 2
+n = 2000
+
+xs = [a + (b - a) * i / n for i in range(n + 1)]
+values = [f(x) for x in xs]
+
+print(&quot;최댓값 근사:&quot;, max(values))
+print(&quot;최솟값 근사:&quot;, min(values))
+print(&quot;최대 위치 근사:&quot;, xs[values.index(max(values))])
+print(&quot;최소 위치 근사:&quot;, xs[values.index(min(values))])</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)` : 분석할 연속함수이다.</li><li>`a`, `b` : 닫힌구간의 양 끝이다.</li><li>`n = 2000` : 구간을 잘게 나누는 개수이다.</li><li>`xs` : 구간 안의 표본점이다.</li><li>`values` : 각 표본점에서의 함수값이다.</li><li>`max(values)`, `min(values)` : 최대값과 최소값을 근사한다.</li><li>`index(...)` : 최대값 또는 최소값이 나타난 표본점의 위치를 찾는다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>롤의 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f\)가 \([a,b]\)에서 연속, \((a,b)\)에서 미분 가능하고 \(f(a)=f(b)\)이면, 어떤 \(c\in(a,b)\)가 존재하여 \[f'(c)=0\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>극값 정리에 의해 \(f\)는 \([a,b]\)에서 최대값과 최소값을 가진다.</li><li>만약 함수가 상수함수이면 모든 내부점에서 \(f'(c)=0\)이다.</li><li>상수함수가 아니면 최대값 또는 최소값 중 하나는 내부점에서 나타난다.</li><li>내부점에서 미분 가능한 함수가 극값을 가지면 도함수는 \(0\)이다.</li><li>따라서 어떤 \(c\in(a,b)\)에서 \(f'(c)=0\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">평균값 정리의 핵심 보조정리이며, 함수 그래프의 접선 기울기 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 롤의 정리 예시: f(x)=x^2-1 on [-1,1]
+def f(x):
+    return x**2 - 1
+
+def derivative(x):
+    return 2*x
+
+a = -1
+b = 1
+c = 0
+
+print(&quot;f(a):&quot;, f(a))
+print(&quot;f(b):&quot;, f(b))
+print(&quot;f&#x27;(c):&quot;, derivative(c))</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)=x**2-1` : 양 끝에서 같은 값을 갖는 함수이다.</li><li>`derivative(x)=2*x` : \(f'(x)=2x\)를 코드로 표현한다.</li><li>`a = -1`, `b = 1` : 닫힌구간의 양 끝이다.</li><li>`f(a)`와 `f(b)`가 같으므로 롤의 정리 조건을 만족한다.</li><li>`c = 0` : 내부점이다.</li><li>`derivative(c)`가 0이므로 롤의 정리 결론을 확인한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>평균값 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f\)가 \([a,b]\)에서 연속이고 \((a,b)\)에서 미분 가능하면, 어떤 \(c\in(a,b)\)가 존재하여 \[f'(c)=\frac{f(b)-f(a)}{b-a}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>두 점 \((a,f(a))\), \((b,f(b))\)를 잇는 직선의 기울기를 생각한다.</li><li>보조함수 \(g(x)=f(x)-\frac{f(b)-f(a)}{b-a}(x-a)\)를 정의한다.</li><li>이 함수는 \([a,b]\)에서 연속이고 \((a,b)\)에서 미분 가능하다.</li><li>또한 \(g(a)=g(b)\)가 되도록 설계되어 있다.</li><li>롤의 정리를 적용하면 어떤 \(c\)에 대해 \(g'(c)=0\)이다.</li><li>이를 정리하면 \(f'(c)=\frac{f(b)-f(a)}{b-a}\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">속도와 평균속도, 증가·감소 판정, 오차 추정, 미분학의 핵심 원리이다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 평균값 정리 예시: f(x)=x^2 on [1,3]
+def f(x):
+    return x**2
+
+a = 1
+b = 3
+
+average_rate = (f(b) - f(a)) / (b - a)
+
+# f&#x27;(x)=2x 이므로 2c = average_rate
+c = average_rate / 2
+
+print(&quot;평균 변화율:&quot;, average_rate)
+print(&quot;조건을 만족하는 c:&quot;, c)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)=x**2` : 함수 \(f(x)=x^2\)를 정의한다.</li><li>`a`, `b` : 구간의 양 끝이다.</li><li>`f(b) - f(a)` : 함수값의 변화량이다.</li><li>`b - a` : 입력값의 변화량이다.</li><li>`average_rate` : 평균 변화율이다.</li><li>\(f'(x)=2x\)이므로 평균 변화율과 같은 순간 변화율을 갖는 \(c\)는 `average_rate / 2`이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>테일러 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f\)가 충분히 미분 가능하면, \(a\) 근처에서 \[f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots+R_n(x)\] 로 표현된다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>먼저 다항식 \(P_n(x)\)가 \(a\)에서 함수값과 여러 차수의 도함수값을 같게 갖도록 만든다.</li><li>나머지 \(R_n(x)=f(x)-P_n(x)\)를 생각한다.</li><li>롤의 정리를 반복적으로 적용하면 나머지항의 형태를 얻을 수 있다.</li><li>라그랑주 나머지항은 어떤 \(\xi\)에 대해 \(\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}\) 꼴로 나타난다.</li><li>따라서 함수는 다항식과 오차항으로 근사된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">함수 근사, 물리학의 작은 진동, 수치해석, 계산기 내부 알고리즘, 머신러닝의 근사 분석에 쓰인다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># e^x의 테일러 근사
+def exp_taylor(x, terms):
+    total = 0
+    factorial = 1
+
+    for n in range(terms):
+        if n &gt; 0:
+            factorial *= n
+        total += x**n / factorial
+
+    return total
+
+x = 1
+approx = exp_taylor(x, 10)
+
+print(&quot;e의 근사값:&quot;, approx)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`exp_taylor(x, terms)` : \(e^x\)의 테일러 다항식 근사를 계산하는 함수이다.</li><li>`total = 0` : 항들의 합을 저장한다.</li><li>`factorial = 1` : \(n!\) 계산을 위한 변수이다.</li><li>`for n in range(terms)` : 지정한 항 개수만큼 더한다.</li><li>`factorial *= n` : 팩토리얼 값을 갱신한다.</li><li>`x**n / factorial` : 테일러 급수의 한 항 \(\frac{x^n}{n!}\)이다.</li><li>`approx` : \(e^1\)의 근사값이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>리만 적분 가능성 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">닫힌구간 \([a,b]\)에서 유계함수 \(f\)가 연속이면 \(f\)는 리만 적분 가능하다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>연속함수는 닫힌구간에서 균등연속이다.</li><li>따라서 충분히 작은 구간에서는 함수값의 진동이 임의로 작아진다.</li><li>구간을 잘게 분할하면 각 작은 구간의 상한과 하한의 차이가 작아진다.</li><li>상합과 하합의 차이를 원하는 만큼 작게 만들 수 있다.</li><li>따라서 리만 적분 가능하다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">넓이 계산, 물리학의 일과 질량중심, 확률밀도, 수치적분에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 리만 합으로 적분 근사: integral_0^1 x^2 dx
+def f(x):
+    return x**2
+
+a = 0
+b = 1
+n = 10000
+dx = (b - a) / n
+
+riemann_sum = sum(f(a + i*dx) * dx for i in range(n))
+
+print(&quot;리만 합 근사:&quot;, riemann_sum)
+print(&quot;정확한 값:&quot;, 1/3)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)=x**2` : 적분할 연속함수이다.</li><li>`a`, `b` : 적분 구간이다.</li><li>`n` : 구간을 나눌 개수이다.</li><li>`dx` : 작은 구간의 폭이다.</li><li>`f(a + i*dx) * dx` : 작은 직사각형의 넓이이다.</li><li>`sum(...)` : 모든 작은 넓이를 더해 리만 합을 만든다.</li><li>\(\int_0^1 x^2\,dx=\frac{1}{3}\)이므로 근사값과 비교한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>균등수렴과 연속성 보존 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">연속함수열 \(f_n:X\to\mathbb R\)이 \(f\)로 균등수렴하면, 극한함수 \(f\)도 연속이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>\(f_n\to f\)가 균등수렴한다는 것은 모든 \(x\)에 대해 동시에 \(f_n(x)\)와 \(f(x)\)가 가까워진다는 뜻이다.</li><li>임의의 \(\varepsilon\gt0\)을 잡는다.</li><li>균등수렴에 의해 충분히 큰 \(N\)에 대해 모든 \(x\)에서 \(|f_N(x)-f(x)|\lt\varepsilon/3\)이다.</li><li>\(f_N\)은 연속이므로 \(x\)와 \(y\)가 가까우면 \(|f_N(x)-f_N(y)|\lt\varepsilon/3\)이다.</li><li>삼각부등식을 이용하면 \(|f(x)-f(y)|\lt\varepsilon\)을 얻는다.</li><li>따라서 \(f\)는 연속이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">함수열의 극한을 다룰 때 매우 중요하며, 급수로 정의된 함수의 연속성 보장에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f_n(x)=x/n 이 0으로 균등수렴하는 모습
+xs = [i / 10 for i in range(11)]
+
+for n in [1, 2, 5, 10, 100]:
+    max_error = max(abs(x / n - 0) for x in xs)
+    print(&quot;n =&quot;, n, &quot;최대오차 =&quot;, max_error)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`xs` : 구간 \([0,1]\)의 표본점이다.</li><li>`x / n` : 함수열 \(f_n(x)=\frac{x}{n}\)이다.</li><li>`0` : 극한함수 \(f(x)=0\)이다.</li><li>`abs(x / n - 0)` : 각 점에서의 오차이다.</li><li>`max(...)` : 전체 표본점에서 가장 큰 오차를 구한다.</li><li>n이 커질수록 최대오차가 0으로 가므로 균등수렴의 직관을 보여 준다.</li></ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+실해석학은 미적분학의 직관을 엄밀한 논리로 세우는 분야이다.
+완비성은 수렴의 토대가 되고, 연속성과 컴팩트성은 함수의 극값과 중간값을 보장한다.
+미분 정리들은 변화율을, 적분 정리는 넓이와 누적량을 엄밀하게 다루며,
+균등수렴은 함수열의 극한에서 연속성이 어떻게 보존되는지를 설명한다.
+</div>
+</section>
+</main>
+<footer>매력적인 실해석학 정리 10개 HTML 수업자료</footer>
+</body>
+</html>

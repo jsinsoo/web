@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 고전물리학 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}
+.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}
+li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){header h1{font-size:1.72rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 고전물리학 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+고전물리학의 핵심 법칙인 뉴턴 역학, 보존법칙, 단진동, 천체역학, 전자기학의 기본 정리를 이해하고,
+파이썬 코드로 물리량을 계산한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>뉴턴의 제2법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">물체에 작용하는 알짜힘 \(\vec F\)는 질량 \(m\)과 가속도 \(\vec a\)의 곱이다. \[\vec F=m\vec a\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>힘은 물체의 운동 상태를 변화시키는 원인이다.</li><li>같은 힘을 가하면 질량이 큰 물체일수록 가속도가 작다.</li><li>같은 질량에서는 힘이 클수록 가속도가 크다.</li><li>따라서 가속도는 힘에 비례하고 질량에 반비례한다.</li><li>이를 정리하면 \(\vec F=m\vec a\)가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">자동차 가속, 엘리베이터 운동, 로켓 발사, 충돌 분석, 기계 설계에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 뉴턴의 제2법칙: F = m*a
+m = 5       # 질량 kg
+a = 3       # 가속도 m/s^2
+
+F = m * a
+
+print(&quot;힘 F =&quot;, F, &quot;N&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`m = 5` : 물체의 질량을 kg 단위로 저장한다.</li><li>`a = 3` : 물체의 가속도를 \(m/s^2\) 단위로 저장한다.</li><li>`F = m * a` : 뉴턴의 제2법칙 \(F=ma\)를 계산한다.</li><li>`print()` : 힘의 크기를 뉴턴 단위로 출력한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>일-에너지 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">물체에 한 알짜일 \(W\)는 운동에너지 변화량과 같다. \[W=\Delta K=\frac12mv^2-\frac12mv_0^2\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>일은 힘과 이동거리의 곱으로 정의된다.</li><li>일차원 운동에서 \(W=Fs\)이다.</li><li>뉴턴의 제2법칙에 의해 \(F=ma\)이다.</li><li>등가속도 운동식 \(v^2-v_0^2=2as\)를 사용한다.</li><li>따라서 \(W=mas=m\frac{v^2-v_0^2}{2}=\frac12mv^2-\frac12mv_0^2\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">자동차 제동거리, 낙하 운동, 놀이기구 속도, 기계 에너지 계산에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 일-에너지 정리
+m = 2
+v0 = 3
+v = 7
+
+delta_K = 0.5*m*v**2 - 0.5*m*v0**2
+
+print(&quot;운동에너지 변화량:&quot;, delta_K, &quot;J&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`m` : 물체의 질량이다.</li><li>`v0` : 처음 속도이다.</li><li>`v` : 나중 속도이다.</li><li>`0.5*m*v**2` : 나중 운동에너지이다.</li><li>`0.5*m*v0**2` : 처음 운동에너지이다.</li><li>`delta_K` : 운동에너지 변화량이며, 알짜일과 같다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>역학적 에너지 보존 법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">마찰이 없고 보존력만 작용하면 역학적 에너지 \(E=K+U\)는 일정하다. \[\frac12mv^2+mgh=\text{constant}\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>중력 같은 보존력에서는 위치에너지 \(U\)를 정의할 수 있다.</li><li>보존력이 한 일은 위치에너지 감소량과 같다.</li><li>일-에너지 정리에 의해 보존력이 한 일은 운동에너지 증가량과 같다.</li><li>따라서 운동에너지 증가량과 위치에너지 감소량이 서로 상쇄된다.</li><li>그러므로 \(K+U\)는 일정하다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">롤러코스터, 진자 운동, 낙하 속도, 수력발전, 궤도 운동에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 높이 h에서 떨어진 물체의 속도
+g = 9.8
+h = 10
+
+v = (2*g*h) ** 0.5
+
+print(&quot;바닥에 도달하기 직전 속도:&quot;, v, &quot;m/s&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`g = 9.8` : 중력가속도이다.</li><li>`h = 10` : 처음 높이이다.</li><li>`mgh = 1/2 mv^2`에서 질량 \(m\)은 약분된다.</li><li>`v = (2*g*h) ** 0.5` : 에너지 보존으로 속도를 구한다.</li><li>`** 0.5` : 제곱근을 의미한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>운동량 보존 법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">외력이 없으면 계의 전체 운동량은 보존된다. \[\sum_i m_i\vec v_i=\text{constant}\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>두 물체가 서로 힘을 주고받을 때 작용과 반작용은 크기가 같고 방향이 반대이다.</li><li>따라서 내부힘들의 합은 0이 된다.</li><li>뉴턴의 제2법칙을 운동량 형태로 쓰면 \(\vec F=\frac{d\vec p}{dt}\)이다.</li><li>외력이 0이면 전체 운동량의 시간변화율도 0이다.</li><li>따라서 전체 운동량은 일정하다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">충돌 문제, 로켓 추진, 당구공 운동, 폭발 현상, 입자물리 실험에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 완전비탄성 충돌 후 속도
+m1 = 2
+v1 = 5
+m2 = 3
+v2 = -1
+
+v_final = (m1*v1 + m2*v2) / (m1 + m2)
+
+print(&quot;충돌 후 공통 속도:&quot;, v_final, &quot;m/s&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`m1`, `m2` : 두 물체의 질량이다.</li><li>`v1`, `v2` : 충돌 전 속도이다.</li><li>`m1*v1 + m2*v2` : 충돌 전 전체 운동량이다.</li><li>`m1 + m2` : 붙어서 움직일 때 전체 질량이다.</li><li>`v_final` : 운동량 보존으로 구한 충돌 후 속도이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>각운동량 보존 법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">외부 토크가 0이면 계의 전체 각운동량은 보존된다. \[\vec L=I\vec\omega=\text{constant}\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>회전 운동에서 토크는 각운동량을 변화시키는 원인이다.</li><li>관계식은 \(\vec\tau=\frac{d\vec L}{dt}\)이다.</li><li>외부 토크 \(\vec\tau\)가 0이면 \(\frac{d\vec L}{dt}=0\)이다.</li><li>따라서 각운동량 \(\vec L\)은 시간에 따라 변하지 않는다.</li><li>관성모멘트 \(I\)가 작아지면 각속도 \(\omega\)가 커진다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">피겨스케이팅 회전, 행성 궤도, 자이로스코프, 회전 운동 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 관성모멘트가 줄어들 때 각속도 증가
+I1 = 4
+omega1 = 2
+I2 = 1
+
+omega2 = I1 * omega1 / I2
+
+print(&quot;나중 각속도:&quot;, omega2, &quot;rad/s&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`I1` : 처음 관성모멘트이다.</li><li>`omega1` : 처음 각속도이다.</li><li>`I2` : 나중 관성모멘트이다.</li><li>`I1 * omega1` : 처음 각운동량이다.</li><li>`omega2 = I1 * omega1 / I2` : 각운동량 보존으로 나중 각속도를 구한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>훅의 법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">스프링의 복원력은 변위에 비례하고 방향은 반대이다. \[F=-kx\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>작은 변형 범위에서는 물체의 변형과 복원력이 거의 비례한다.</li><li>스프링을 더 많이 늘릴수록 더 큰 복원력이 생긴다.</li><li>복원력은 항상 평형 위치로 되돌리려는 방향이다.</li><li>따라서 변위 \(x\)와 반대 방향이므로 음의 부호가 붙는다.</li><li>비례상수 \(k\)를 스프링 상수라고 한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">스프링 저울, 자동차 서스펜션, 진동 분석, 탄성체 모델링에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 훅의 법칙
+k = 100     # N/m
+x = 0.05    # m
+
+F = -k * x
+
+print(&quot;복원력:&quot;, F, &quot;N&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`k` : 스프링 상수이다.</li><li>`x` : 평형 위치에서 늘어난 길이이다.</li><li>`F = -k * x` : 훅의 법칙을 계산한다.</li><li>음수 부호는 힘이 변위와 반대 방향임을 의미한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>단진동 주기 공식</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">질량 \(m\)이 스프링 상수 \(k\)인 스프링에 매달려 단진동할 때 주기는 \[T=2\pi\sqrt{\frac{m}{k}}\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>훅의 법칙에 의해 힘은 \(F=-kx\)이다.</li><li>뉴턴의 제2법칙 \(F=ma\)를 쓰면 \(m\frac{d^2x}{dt^2}=-kx\)이다.</li><li>정리하면 \(\frac{d^2x}{dt^2}+\frac{k}{m}x=0\)이다.</li><li>이 미분방정식의 해는 사인 또는 코사인 형태이다.</li><li>각진동수는 \(\omega=\sqrt{\frac{k}{m}}\)이고, 주기는 \(T=\frac{2\pi}{\omega}\)이다.</li><li>따라서 \(T=2\pi\sqrt{\frac{m}{k}}\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">스프링 진자, 진동계, 지진계, 자동차 충격흡수 장치, 센서 설계에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 스프링 단진동 주기 계산
+import math
+
+m = 2
+k = 50
+
+T = 2 * math.pi * (m / k) ** 0.5
+
+print(&quot;주기:&quot;, T, &quot;s&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`import math` : 원주율 \(\pi\)를 사용하기 위해 불러온다.</li><li>`m` : 진동하는 물체의 질량이다.</li><li>`k` : 스프링 상수이다.</li><li>`(m / k) ** 0.5` : \(\sqrt{m/k}\)를 계산한다.</li><li>`T` : 단진동의 주기이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>케플러 제3법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">같은 중심천체를 도는 행성의 공전주기 \(T\)와 궤도긴반지름 \(a\)는 \[T^2\propto a^3\] 를 만족한다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>원궤도 근사에서 중력은 구심력 역할을 한다.</li><li>만유인력은 \(F=\frac{GMm}{r^2}\)이다.</li><li>구심력은 \(F=\frac{mv^2}{r}\)이다.</li><li>두 식을 같게 두면 \(v^2=\frac{GM}{r}\)이다.</li><li>원운동에서 \(v=\frac{2\pi r}{T}\)이다.</li><li>이를 대입하면 \(T^2=\frac{4\pi^2}{GM}r^3\)이므로 \(T^2\propto r^3\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">행성 궤도, 인공위성 주기 계산, 천체물리학, 우주탐사 궤도 설계에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 케플러 제3법칙: 지구 기준 상대 공전주기
+# a가 AU 단위이면 T^2 = a^3, T는 년 단위
+a = 4       # 궤도 반지름 AU
+
+T = (a**3) ** 0.5
+
+print(&quot;공전주기:&quot;, T, &quot;년&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`a = 4` : 궤도긴반지름을 AU 단위로 둔다.</li><li>`a**3` : \(a^3\)을 계산한다.</li><li>`T = (a**3) ** 0.5` : \(T=\sqrt{a^3}\)을 계산한다.</li><li>태양 주위 행성에 대해 AU와 년 단위를 쓰면 \(T^2=a^3\)으로 단순화된다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>가우스 법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">닫힌면을 지나는 전기선속은 내부 전하량에 비례한다. \[\oint_S \vec E\cdot d\vec A=\frac{Q_{\mathrm{in}}}{\varepsilon_0}\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>점전하의 전기장은 거리의 제곱에 반비례한다.</li><li>전하를 중심으로 하는 구면을 생각하면 전기장은 구면 전체에서 같은 크기이고 방사형이다.</li><li>전기선속은 \(E\cdot 4\pi r^2\)이다.</li><li>쿨롱 법칙의 전기장 \(E=\frac{1}{4\pi\varepsilon_0}\frac{Q}{r^2}\)를 대입한다.</li><li>그러면 선속은 \(\frac{Q}{\varepsilon_0}\)가 된다.</li><li>더 일반적인 닫힌면에서도 같은 결과가 성립한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">대칭적인 전기장 계산, 구대칭·원통대칭·평면대칭 전하분포 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 점전하를 둘러싼 구면의 전기선속
+epsilon0 = 8.854e-12
+Q = 1e-9
+
+flux = Q / epsilon0
+
+print(&quot;전기선속:&quot;, flux)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`epsilon0` : 진공 유전율이다.</li><li>`Q` : 닫힌면 내부의 전하량이다.</li><li>`flux = Q / epsilon0` : 가우스 법칙으로 전기선속을 계산한다.</li><li>전기선속은 닫힌면의 모양이 아니라 내부 전하량에 의해 결정된다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>패러데이 전자기 유도 법칙</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">회로에 유도되는 기전력은 자기선속의 시간 변화율의 음수이다. \[\mathcal E=-\frac{d\Phi_B}{dt}\]</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>자기선속 \(\Phi_B\)는 자기장이 회로를 얼마나 통과하는지 나타낸다.</li><li>자기선속이 시간에 따라 변하면 회로에 전기장이 유도된다.</li><li>유도 전기장은 전하를 움직여 기전력을 만든다.</li><li>렌츠 법칙에 의해 유도 전류는 자기선속의 변화를 방해하는 방향으로 흐른다.</li><li>따라서 음의 부호가 붙어 \(\mathcal E=-\frac{d\Phi_B}{dt}\)가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">발전기, 변압기, 무선충전, 전자기 브레이크, 인덕터 회로에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 자기선속 변화로 유도기전력 계산
+phi_initial = 0.02   # Wb
+phi_final = 0.08     # Wb
+dt = 0.5             # s
+
+emf = -(phi_final - phi_initial) / dt
+
+print(&quot;유도기전력:&quot;, emf, &quot;V&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`phi_initial` : 처음 자기선속이다.</li><li>`phi_final` : 나중 자기선속이다.</li><li>`dt` : 변화가 일어난 시간이다.</li><li>`(phi_final - phi_initial) / dt` : 자기선속의 변화율이다.</li><li>`emf` : 패러데이 법칙에 따른 유도기전력이다.</li><li>음수 부호는 렌츠 법칙에 따른 방향을 나타낸다.</li></ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+고전물리학은 자연 현상을 힘, 에너지, 운동량, 장의 관점에서 설명한다.
+뉴턴 법칙은 운동의 원인을, 보존법칙은 변하지 않는 물리량을, 전자기 법칙은 전기장과 자기장의 관계를 보여 준다.
+파이썬 계산을 함께 사용하면 공식이 실제 수치 문제에서 어떻게 작동하는지 직접 확인할 수 있다.
+</div>
+</section>
+</main>
+<footer>매력적인 고전물리학 정리 10개 HTML 수업자료</footer>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 집합론 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --navy:#172554; --blue:#2563eb; --purple:#7c3aed; --ink:#172033;
+  --green:#ecfdf5; --yellow:#fff7d6; --line:#dbeafe; --rose:#fff1f2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;
+  background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);
+  color:var(--ink);
+  line-height:1.82;
+}
+header{
+  background:radial-gradient(circle at top left,#60a5fa,transparent 28%),
+             linear-gradient(135deg,var(--navy),var(--purple));
+  color:white;
+  text-align:center;
+  padding:54px 24px;
+}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(37,99,235,.13);
+  border-radius:24px;
+  padding:30px;
+  margin:28px 0;
+  box-shadow:0 16px 38px rgba(15,23,42,.12);
+}
+h2{
+  color:#1e3a8a;
+  border-bottom:3px solid var(--line);
+  padding-bottom:10px;
+  margin-top:8px;
+}
+.badge{
+  display:inline-block;
+  background:#ede9fe;
+  color:#5b21b6;
+  padding:6px 13px;
+  border-radius:999px;
+  font-weight:800;
+}
+.sec{
+  font-weight:900;
+  color:#9a3412;
+  margin-top:24px;
+  font-size:1.12rem;
+}
+.box,.use,.note{
+  border-radius:16px;
+  padding:16px 19px;
+  overflow-x:auto;
+}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{
+  background:#f8fafc;
+  border-radius:16px;
+  padding:16px 38px;
+}
+li{margin:8px 0}
+pre{
+  background:#0f172a;
+  color:#e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  overflow:auto;
+  line-height:1.65;
+  font-size:.95rem;
+  border:1px solid #334155;
+}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{
+  background:var(--rose);
+  border-left:7px solid #e11d48;
+  border-radius:16px;
+  padding:16px 19px;
+}
+mjx-container[jax="SVG"]{
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){
+  header h1{font-size:1.72rem}
+  main{padding:16px}
+  .card{padding:20px}
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 집합론 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+집합론의 핵심 정리와 법칙을 이해하고, 합집합·교집합·여집합·멱집합·동치류·무한집합의 구조를 파이썬 코드로 확인한다.
+수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>드모르간 법칙</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">전체집합 \(U\)의 부분집합 \(A,B\)에 대해 \[(A\cup B)^c=A^c\cap B^c,\qquad (A\cap B)^c=A^c\cup B^c\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>원소 \(x\)가 \((A\cup B)^c\)에 속한다고 하자.</li><li>그러면 \(x\notin A\cup B\)이므로 \(x\notin A\)이고 \(x\notin B\)이다.</li><li>따라서 \(x\in A^c\)이고 \(x\in B^c\), 즉 \(x\in A^c\cap B^c\)이다.</li><li>반대 방향도 같은 논리로 증명된다.</li><li>두 번째 식도 합집합과 교집합의 역할을 바꾸어 같은 방식으로 증명한다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">논리 회로, 조건문 부정, 데이터 필터링, 확률 사건의 여집합 계산에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 드모르간 법칙 확인
+U = set(range(1, 11))
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+
+left = U - (A | B)
+right = (U - A) &amp; (U - B)
+
+print(&quot;왼쪽:&quot;, left)
+print(&quot;오른쪽:&quot;, right)
+print(&quot;같은가?&quot;, left == right)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`U` : 전체집합을 1부터 10까지의 수로 만든다.</li><li>`A`, `B` : 비교할 두 부분집합이다.</li><li>`A | B` : 합집합 \(A\cup B\)이다.</li><li>`U - (A | B)` : 합집합의 여집합이다.</li><li>`U - A` : \(A^c\), 즉 A의 여집합이다.</li><li>`&` : 교집합 연산이다.</li><li>`left == right` : 두 집합이 같은지 확인한다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>분배법칙</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">집합 \(A,B,C\)에 대해 \[A\cap(B\cup C)=(A\cap B)\cup(A\cap C)\] 이고 \[A\cup(B\cap C)=(A\cup B)\cap(A\cup C)\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>원소 \(x\in A\cap(B\cup C)\)라고 하자.</li><li>그러면 \(x\in A\)이고, \(x\in B\) 또는 \(x\in C\)이다.</li><li>따라서 \(x\in A\cap B\) 또는 \(x\in A\cap C\)이다.</li><li>즉 \(x\in (A\cap B)\cup(A\cap C)\)이다.</li><li>반대 방향도 원소 포함 관계를 거꾸로 추적하면 성립한다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">복잡한 조건식을 단순화하거나, 검색 조건과 데이터 필터를 정리할 때 유용하다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 집합의 분배법칙 확인
+A = {1, 2, 3, 4}
+B = {3, 4, 5}
+C = {4, 5, 6}
+
+left = A &amp; (B | C)
+right = (A &amp; B) | (A &amp; C)
+
+print(left)
+print(right)
+print(left == right)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A`, `B`, `C` : 세 개의 집합이다.</li><li>`B | C` : \(B\cup C\)를 구한다.</li><li>`A & (B | C)` : \(A\cap(B\cup C)\)를 계산한다.</li><li>`A & B` : \(A\cap B\)이다.</li><li>`A & C` : \(A\cap C\)이다.</li><li>`(A & B) | (A & C)` : 오른쪽 식을 계산한다.</li><li>두 결과가 같으면 분배법칙이 확인된다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>포함배제 원리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">유한집합 \(A,B\)에 대해 \[|A\cup B|=|A|+|B|-|A\cap B|\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(|A|+|B|\)를 계산하면 \(A\cap B\)에 속한 원소들이 두 번 세어진다.</li><li>합집합의 크기는 각 원소를 한 번만 세어야 한다.</li><li>따라서 중복으로 한 번 더 세어진 \(|A\cap B|\)를 빼야 한다.</li><li>그러므로 \(|A\cup B|=|A|+|B|-|A\cap B|\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">확률, 경우의 수, 설문조사 분석, 데이터 중복 제거에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 포함배제 원리 확인
+A = {&quot;수학&quot;, &quot;과학&quot;, &quot;영어&quot;, &quot;코딩&quot;}
+B = {&quot;코딩&quot;, &quot;음악&quot;, &quot;수학&quot;}
+
+union_count = len(A | B)
+formula_count = len(A) + len(B) - len(A &amp; B)
+
+print(&quot;합집합 크기:&quot;, union_count)
+print(&quot;공식 결과:&quot;, formula_count)
+print(&quot;같은가?&quot;, union_count == formula_count)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A`, `B` : 두 집합이다.</li><li>`A | B` : 합집합이다.</li><li>`len(A | B)` : 합집합의 원소 개수를 구한다.</li><li>`len(A)`와 `len(B)` : 각각의 집합 크기이다.</li><li>`A & B` : 두 집합의 교집합이다.</li><li>`len(A) + len(B) - len(A & B)` : 포함배제 공식이다.</li><li>두 값이 같으면 공식이 확인된다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>멱집합의 크기 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">유한집합 \(A\)의 원소 개수가 \(|A|=n\)이면, 멱집합의 크기는 \[|\mathcal P(A)|=2^n\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>멱집합은 \(A\)의 모든 부분집합들의 집합이다.</li><li>각 원소는 부분집합에 포함되거나 포함되지 않는 두 가지 선택을 가진다.</li><li>원소가 \(n\)개이면 독립적인 선택이 \(n\)번 일어난다.</li><li>따라서 가능한 부분집합의 수는 \(2\cdot2\cdots2=2^n\)이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">조합론, 알고리즘의 부분집합 탐색, 경우의 수 문제, 이산수학에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 멱집합 만들기
+A = [1, 2, 3]
+power_set = [[]]
+
+for x in A:
+    new_sets = [subset + [x] for subset in power_set]
+    power_set += new_sets
+
+print(power_set)
+print(&quot;멱집합 크기:&quot;, len(power_set))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A = [1, 2, 3]` : 원래 집합의 원소를 리스트로 표현한다.</li><li>`power_set = [[]]` : 공집합부터 시작한다.</li><li>`for x in A` : 각 원소를 하나씩 처리한다.</li><li>`subset + [x]` : 기존 부분집합에 x를 추가한 새 부분집합을 만든다.</li><li>`power_set += new_sets` : 기존 부분집합과 새 부분집합을 합친다.</li><li>`len(power_set)` : 멱집합의 크기를 구한다.</li><li>원소가 3개이면 멱집합 크기는 \(2^3=8\)이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>칸토어 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">어떤 집합 \(A\)에 대해서도 \[|A|<|\mathcal P(A)|\] 이다. 즉 집합은 자기 자신의 멱집합과 일대일 대응될 수 없다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(A\)에서 \(\mathcal P(A)\)로 가는 임의의 함수 \(f\)를 생각한다.</li><li>대각선 집합 \(D=\{x\in A\mid x\notin f(x)\}\)를 정의한다.</li><li>\(D\)는 \(A\)의 부분집합이므로 \(D\in\mathcal P(A)\)이다.</li><li>만약 \(f(a)=D\)인 \(a\in A\)가 있다고 하자.</li><li>\(a\in D\)이면 정의에 의해 \(a\notin f(a)=D\)가 되어 모순이다.</li><li>\(a\notin D\)이면 정의에 의해 \(a\in f(a)=D\)가 되어 모순이다.</li><li>따라서 \(f\)는 전사일 수 없고, \(\mathcal P(A)\)가 더 크다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">무한의 크기 비교, 실수의 비가산성, 현대 집합론과 논리학의 핵심 아이디어이다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유한집합에서 멱집합이 더 큰지 확인
+A = [1, 2, 3, 4]
+
+power_size = 2 ** len(A)
+
+print(&quot;|A|:&quot;, len(A))
+print(&quot;|P(A)|:&quot;, power_size)
+print(&quot;멱집합이 더 큰가?&quot;, power_size &gt; len(A))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A` : 원소 4개짜리 집합을 리스트로 표현한다.</li><li>`len(A)` : 원래 집합의 크기를 구한다.</li><li>`2 ** len(A)` : 멱집합의 크기 \(2^n\)을 계산한다.</li><li>`power_size > len(A)` : 멱집합의 크기가 더 큰지 확인한다.</li><li>유한집합에서는 이 사실이 숫자로 바로 확인된다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>슈뢰더-베른슈타인 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">두 집합 \(A,B\)에 대해 \(A\)에서 \(B\)로 가는 단사함수와 \(B\)에서 \(A\)로 가는 단사함수가 모두 존재하면 \[|A|=|B|\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(A\)가 \(B\) 안에 들어갈 수 있고, \(B\)도 \(A\) 안에 들어갈 수 있다고 생각한다.</li><li>두 단사함수는 서로를 부분집합처럼 끼워 넣는 역할을 한다.</li><li>원소들을 사슬 형태로 분류한다.</li><li>각 사슬에서 어느 쪽 대응을 선택할지 정해 전단사함수를 만든다.</li><li>결국 \(A\)와 \(B\) 사이에 전단사함수가 존재하므로 두 집합의 크기는 같다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">무한집합의 크기를 비교할 때 매우 중요하며, 직접 전단사함수를 만들기 어려울 때 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 같은 크기인 두 유한집합 사이의 일대일 대응
+A = {&quot;a&quot;, &quot;b&quot;, &quot;c&quot;}
+B = {1, 2, 3}
+
+bijection = dict(zip(sorted(A), sorted(B)))
+
+print(bijection)
+print(&quot;전단사 크기 확인:&quot;, len(A) == len(B) == len(bijection))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A`, `B` : 비교할 두 유한집합이다.</li><li>`sorted(A)`, `sorted(B)` : 대응을 보기 쉽게 정렬한다.</li><li>`zip(...)` : 두 집합의 원소를 하나씩 짝짓는다.</li><li>`dict(...)` : 짝지은 결과를 함수처럼 표현한다.</li><li>`len(bijection)` : 실제 대응쌍의 개수이다.</li><li>크기가 같고 모든 원소가 한 번씩 쓰이면 전단사 대응이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>가산합집합 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">가산집합들의 가산 개 합집합은 가산집합이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>각 가산집합을 \(A_1,A_2,A_3,\dots\)라고 하자.</li><li>각 \(A_i\)의 원소들을 무한 행렬처럼 한 줄에 나열한다.</li><li>첫 번째 집합의 첫 원소, 두 번째 집합의 첫 원소와 첫 번째 집합의 두 번째 원소처럼 대각선 순서로 센다.</li><li>이미 나온 원소는 건너뛰면 된다.</li><li>이렇게 하면 합집합의 모든 원소를 자연수 순서로 나열할 수 있다.</li><li>따라서 합집합은 가산집합이다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">유리수의 가산성, 무한 데이터 목록화, 수학적 무한의 계층 이해에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 여러 유한집합의 합집합 만들기
+sets = [
+    {1, 2, 3},
+    {3, 4, 5},
+    {5, 6, 7}
+]
+
+union = set()
+
+for S in sets:
+    union |= S
+
+print(&quot;합집합:&quot;, sorted(union))
+print(&quot;크기:&quot;, len(union))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`sets` : 여러 개의 집합을 리스트에 담은 것이다.</li><li>`union = set()` : 합집합을 저장할 빈 집합이다.</li><li>`for S in sets` : 각 집합을 하나씩 꺼낸다.</li><li>`union |= S` : 현재 합집합에 S의 원소를 모두 추가한다.</li><li>`sorted(union)` : 결과를 정렬해서 보기 좋게 출력한다.</li><li>가산합집합 정리의 유한 버전을 코드로 확인하는 예시이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>관계의 동치류 분할 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">집합 \(A\) 위의 동치관계 \(\sim\)은 \(A\)를 서로 겹치지 않는 동치류들의 분할로 나눈다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>각 원소 \(a\in A\)에 대해 동치류 \([a]=\{x\in A\mid x\sim a\}\)를 만든다.</li><li>반사성 때문에 \(a\in[a]\)이므로 모든 원소는 어떤 동치류에 속한다.</li><li>두 동치류가 공통 원소를 가지면, 대칭성과 추이성에 의해 두 동치류는 완전히 같다.</li><li>따라서 서로 다른 동치류들은 겹치지 않는다.</li><li>결국 동치류들은 \(A\)를 분할한다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">나머지 분류, 몫집합, 군론의 몫군, 데이터 그룹화, 분류 알고리즘에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># mod 3 동치관계로 동치류 만들기
+A = set(range(10))
+classes = {}
+
+for x in A:
+    key = x % 3
+    if key not in classes:
+        classes[key] = []
+    classes[key].append(x)
+
+for key, group in classes.items():
+    print(&quot;나머지&quot;, key, &quot;:&quot;, group)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`A = set(range(10))` : 0부터 9까지의 집합이다.</li><li>`x % 3` : x를 3으로 나눈 나머지이다.</li><li>`key` : 같은 나머지를 갖는 원소들을 묶는 기준이다.</li><li>`classes[key] = []` : 새 동치류를 담을 리스트를 만든다.</li><li>`classes[key].append(x)` : 같은 나머지를 가진 원소를 해당 동치류에 넣는다.</li><li>결과적으로 집합 A가 나머지 0, 1, 2인 세 동치류로 분할된다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>함수의 역상 정리</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f:X\to Y\)와 \(Y\)의 부분집합 \(A,B\)에 대해 \[f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B)\] 이고 \[f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B)\] 이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>\(x\in f^{-1}(A\cup B)\)라고 하자.</li><li>그러면 \(f(x)\in A\cup B\)이다.</li><li>즉 \(f(x)\in A\) 또는 \(f(x)\in B\)이다.</li><li>따라서 \(x\in f^{-1}(A)\) 또는 \(x\in f^{-1}(B)\)이다.</li><li>이는 \(x\in f^{-1}(A)\cup f^{-1}(B)\)와 같다.</li><li>교집합의 경우도 ‘또는’을 ‘그리고’로 바꾸면 같은 방식으로 증명된다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">함수와 집합 연산의 관계, 위상수학의 연속성, 데이터 필터링 조건 변환에 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 함수의 역상과 합집합 확인
+X = set(range(1, 11))
+
+def f(x):
+    return x % 5
+
+A = {0, 1}
+B = {2}
+
+pre_union = {x for x in X if f(x) in (A | B)}
+union_pre = {x for x in X if f(x) in A} | {x for x in X if f(x) in B}
+
+print(pre_union)
+print(union_pre)
+print(pre_union == union_pre)</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`X` : 함수의 정의역이다.</li><li>`f(x)` : x를 5로 나눈 나머지를 반환하는 함수이다.</li><li>`A`, `B` : 공역 쪽의 부분집합이다.</li><li>`A | B` : 공역에서의 합집합이다.</li><li>`{x for x in X if f(x) in (A | B)}` : 합집합의 역상이다.</li><li>`{x for x in X if f(x) in A}` : A의 역상이다.</li><li>`|`로 두 역상을 합치면 오른쪽 식이 된다.</li><li>두 집합이 같으면 역상이 합집합을 보존함을 확인한 것이다.</li>
+</ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>무한집합과 데데킨트 무한성</h2>
+
+<div class="sec">① 정리 설명</div>
+<div class="box">집합 \(A\)가 자기 자신의 진부분집합과 일대일 대응될 수 있으면 \(A\)는 데데킨트 무한집합이다.</div>
+
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol>
+<li>자연수 집합 \(\mathbb N\)을 생각하자.</li><li>함수 \(f(n)=n+1\)은 \(\mathbb N\)에서 \(\mathbb N\setminus\{0\}\)로 가는 전단사함수이다.</li><li>\(\mathbb N\setminus\{0\}\)은 \(\mathbb N\)의 진부분집합이다.</li><li>따라서 \(\mathbb N\)은 자기 자신의 진부분집합과 같은 크기를 가진다.</li><li>이 성질은 유한집합에서는 불가능하므로 무한집합의 특징을 보여 준다.</li>
+</ol>
+
+<div class="sec">③ 활용 예제</div>
+<div class="use">무한집합의 직관을 엄밀하게 만들고, 자연수와 정수의 크기 비교를 이해하는 데 사용된다.</div>
+
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 자연수 일부에서 n -&gt; n+1 대응 확인
+N_sample = list(range(10))
+image = [n + 1 for n in N_sample]
+
+print(&quot;원래:&quot;, N_sample)
+print(&quot;이동 후:&quot;, image)
+print(&quot;서로 다른 값 개수:&quot;, len(set(image)))</code></pre>
+
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain">
+<li>`N_sample` : 자연수의 앞부분을 유한하게 샘플로 만든 것이다.</li><li>`image = [n + 1 for n in N_sample]` : 각 수를 하나씩 오른쪽으로 민다.</li><li>`set(image)` : 중복이 있는지 확인하기 위해 집합으로 바꾼다.</li><li>`len(set(image))` : 서로 다른 이미지의 개수이다.</li><li>무한집합에서는 \(n\mapsto n+1\)이 자기 자신의 진부분집합과의 대응을 만든다.</li><li>코드는 그 아이디어를 유한 샘플로 보여 준다.</li>
+</ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+집합론은 현대수학의 언어이다. 집합 연산의 법칙은 논리와 조건문을 설명하고,
+멱집합과 칸토어 정리는 무한의 크기가 하나가 아니라 여러 층위로 존재한다는 놀라운 사실을 보여 준다.
+동치관계와 분할은 수학적 분류의 기본 원리이며, 함수의 역상은 해석학과 위상수학으로 이어지는 핵심 개념이다.
+</div>
+</section>
+</main>
+<footer>매력적인 집합론 정리 10개 HTML 수업자료</footer>
+</body>
+</html>

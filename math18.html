@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>매력적인 복소해석학 정리 10개와 파이썬 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.35rem;letter-spacing:-.04em}
+header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}
+.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}
+.box{background:#eff6ff;border-left:7px solid var(--blue)}
+.use{background:var(--yellow);border-left:7px solid #f59e0b}
+.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}
+li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.explain{background:var(--green)}
+.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}
+mjx-merror{display:none !important}
+mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:640px){header h1{font-size:1.72rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {'[+]': ['ams']}
+  },
+  loader: {load: ['[tex]/ams']},
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header>
+<h1>사람들이 가장 좋아하는 매력적인 복소해석학 정리 10개</h1>
+<p>깨지지 않는 예쁜 수식 · 증명 아이디어 · 활용 예제 · 파이썬 코드 상세 설명</p>
+</header>
+<main>
+<section class="card">
+<h2>학습 목표</h2>
+<div class="note">
+복소해석학의 핵심 정리인 코시-리만 방정식, 코시 적분정리, 코시 적분공식, 리우빌 정리, 최대절댓값 원리, 유수정리의 의미를 이해하고,
+파이썬 코드로 복소수 계산과 선적분의 직관을 실험한다. 수식의 부등호는 LaTeX 명령으로 처리하여 HTML 깨짐과 Math input error를 최소화했다.
+</div>
+</section>
+
+<section class="card">
+<span class="badge">정리 1</span>
+<h2>코시-리만 방정식</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">복소함수 \(f(z)=u(x,y)+iv(x,y)\)가 복소미분 가능하면, 적절한 조건에서 \[u_x=v_y,\qquad u_y=-v_x\] 를 만족한다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>복소미분 가능하다는 것은 극한 \(\lim_{h\to0}\frac{f(z+h)-f(z)}{h}\)가 \(h\)의 접근 방향과 무관하게 존재한다는 뜻이다.</li><li>먼저 \(h\)를 실수 방향으로 보내면 미분값은 \(u_x+iv_x\)가 된다.</li><li>다음 \(h\)를 순허수 방향으로 보내면 미분값은 \(v_y-iu_y\)가 된다.</li><li>두 값이 같아야 하므로 실수부와 허수부를 비교한다.</li><li>따라서 \(u_x=v_y\), \(u_y=-v_x\)가 성립한다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">복소미분 가능성 판정, 해석함수 확인, 유체역학의 포텐셜 흐름, 전기장 해석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f(z)=z^2의 코시-리만 방정식 확인
+# z=x+iy, f(z)=z^2=(x^2-y^2)+i(2xy)
+
+x = 2
+y = 3
+
+u_x = 2*x
+u_y = -2*y
+v_x = 2*y
+v_y = 2*x
+
+print(&quot;u_x =&quot;, u_x, &quot;v_y =&quot;, v_y)
+print(&quot;u_y =&quot;, u_y, &quot;-v_x =&quot;, -v_x)
+print(&quot;코시-리만 만족:&quot;, u_x == v_y and u_y == -v_x)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(z)=z^2`를 \(z=x+iy\)로 전개하면 실수부는 \(u=x^2-y^2\), 허수부는 \(v=2xy\)이다.</li><li>`u_x = 2*x` : \(u\)를 \(x\)로 편미분한 값이다.</li><li>`u_y = -2*y` : \(u\)를 \(y\)로 편미분한 값이다.</li><li>`v_x = 2*y` : \(v\)를 \(x\)로 편미분한 값이다.</li><li>`v_y = 2*x` : \(v\)를 \(y\)로 편미분한 값이다.</li><li>`u_x == v_y and u_y == -v_x` : 코시-리만 방정식을 만족하는지 확인한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 2</span>
+<h2>코시 적분정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">단순연결 영역 \(D\)에서 \(f\)가 해석적이면, \(D\) 안의 닫힌곡선 \(\gamma\)에 대해 \[\int_\gamma f(z)\,dz=0\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>해석함수는 코시-리만 방정식을 만족한다.</li><li>복소선적분을 실수부와 허수부의 선적분으로 나눈다.</li><li>그린 정리를 적용하면 닫힌곡선 적분이 영역 내부의 편도함수 적분으로 바뀐다.</li><li>코시-리만 방정식 때문에 내부 적분항들이 서로 상쇄된다.</li><li>따라서 닫힌곡선 위의 복소적분은 \(0\)이 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">복소적분 계산 단순화, 경로 독립성, 코시 적분공식과 유수정리의 출발점이다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f(z)=z 를 단위원 위에서 수치 적분
+import cmath
+import math
+
+N = 10000
+total = 0j
+
+for k in range(N):
+    t1 = 2*math.pi*k/N
+    t2 = 2*math.pi*(k+1)/N
+    z1 = cmath.exp(1j*t1)
+    z2 = cmath.exp(1j*t2)
+    dz = z2 - z1
+    total += z1 * dz
+
+print(total)
+print(&quot;0에 가까운가?&quot;, abs(total) &lt; 1e-3)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`cmath.exp(1j*t)` : 단위원 위의 점 \(e^{it}\)를 만든다.</li><li>`z1`, `z2` : 곡선 위의 이웃한 두 점이다.</li><li>`dz = z2 - z1` : 작은 경로 조각이다.</li><li>`total += z1 * dz` : \(\int z\,dz\)를 리만합처럼 근사한다.</li><li>`abs(total)` : 적분값의 크기를 확인한다.</li><li>코시 적분정리에 의해 해석함수 \(f(z)=z\)의 닫힌곡선 적분은 0이어야 한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 3</span>
+<h2>코시 적분공식</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\(f\)가 단순닫힌곡선 \(\gamma\) 내부와 위에서 해석적이고 \(a\)가 내부점이면 \[f(a)=\frac{1}{2\pi i}\int_\gamma \frac{f(z)}{z-a}\,dz\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>\(\frac{f(z)-f(a)}{z-a}\)는 \(a\)에서 제거가능한 특이점을 갖고, 전체 내부에서 해석적으로 확장된다.</li><li>코시 적분정리에 의해 그 함수의 닫힌곡선 적분은 \(0\)이다.</li><li>따라서 \(\int_\gamma\frac{f(z)}{z-a}\,dz=f(a)\int_\gamma\frac{1}{z-a}\,dz\)가 된다.</li><li>원점 중심의 작은 원으로 변형하여 계산하면 \(\int_\gamma\frac{1}{z-a}\,dz=2\pi i\)이다.</li><li>정리하면 코시 적분공식이 나온다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">함수값을 경계값으로 표현, 복소해석학의 강력한 계산법, 테일러 전개와 유수정리의 기초이다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 코시 적분공식 예시: f(z)=z^2, a=0, 단위원
+import cmath
+import math
+
+N = 20000
+total = 0j
+a = 0j
+
+for k in range(N):
+    t1 = 2*math.pi*k/N
+    t2 = 2*math.pi*(k+1)/N
+    z1 = cmath.exp(1j*t1)
+    z2 = cmath.exp(1j*t2)
+    dz = z2 - z1
+    fz = z1**2
+    total += fz / (z1 - a) * dz
+
+value = total / (2*math.pi*1j)
+
+print(&quot;적분공식 결과:&quot;, value)
+print(&quot;f(0):&quot;, a**2)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(z)=z**2` : 사용할 해석함수이다.</li><li>`a = 0j` : 함수값을 구할 내부점이다.</li><li>`fz / (z1 - a)` : 코시 적분공식의 integrand \(rac{f(z)}{z-a}\)이다.</li><li>`total` : 단위원 위 적분의 수치 근사이다.</li><li>`total / (2*math.pi*1j)` : \(rac{1}{2\pi i}\)를 곱한 값이다.</li><li>결과는 \(f(0)=0\)에 가까워야 한다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 4</span>
+<h2>코시 미분공식</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">\(f\)가 \(\gamma\) 내부와 위에서 해석적이면 \[f^{(n)}(a)=\frac{n!}{2\pi i}\int_\gamma\frac{f(z)}{(z-a)^{n+1}}\,dz\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>코시 적분공식은 \(f(a)\)를 경계 적분으로 표현한다.</li><li>이 공식에서 \(a\)에 대해 미분할 수 있다.</li><li>적분 안의 함수가 충분히 좋으므로 미분과 적분을 교환할 수 있다.</li><li>한 번 미분하면 \((z-a)^{-2}\)가 나타난다.</li><li>이를 \(n\)번 반복하면 계수 \(n!\)와 \((z-a)^{-(n+1)}\)가 생긴다.</li><li>따라서 코시 미분공식이 얻어진다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">해석함수가 무한 번 미분 가능함을 보여 주며, 테일러 급수와 계수 추정에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f(z)=z^3에서 f&#x27;(0)=0 확인
+import cmath
+import math
+
+N = 20000
+a = 0j
+total = 0j
+
+for k in range(N):
+    t1 = 2*math.pi*k/N
+    t2 = 2*math.pi*(k+1)/N
+    z1 = cmath.exp(1j*t1)
+    z2 = cmath.exp(1j*t2)
+    dz = z2 - z1
+    total += (z1**3) / ((z1 - a)**2) * dz
+
+derivative = total / (2*math.pi*1j)
+
+print(&quot;f&#x27;(0) 근사:&quot;, derivative)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(z)=z**3` : 사용할 함수이다.</li><li>`((z1 - a)**2)` : \(n=1\)인 미분공식의 분모 \((z-a)^2\)이다.</li><li>`total` : 선적분을 수치적으로 더한 값이다.</li><li>`derivative = total / (2*pi*i)` : \(f'(a)\)를 계산한다.</li><li>\(f'(z)=3z^2\)이므로 \(f'(0)=0\)이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 5</span>
+<h2>리우빌 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">전해석함수 \(f:\mathbb C\to\mathbb C\)가 유계이면 \(f\)는 상수함수이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>코시 미분공식을 사용하면 \(f'(a)\)를 원 \(C_R\) 위의 적분으로 표현할 수 있다.</li><li>\(|f(z)|\le M\)이라고 하자.</li><li>코시 추정에 의해 \(|f'(a)|\le \frac{M}{R}\)가 된다.</li><li>\(R\)은 임의로 크게 잡을 수 있으므로 \(R\to\infty\)를 보내면 \(f'(a)=0\)이다.</li><li>모든 \(a\)에서 \(f'(a)=0\)이므로 \(f\)는 상수함수이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">대수학의 기본정리 증명, 전해석함수의 성장성 분석, 복소함수 이론의 핵심 도구이다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 유계처럼 보이는 함수와 유계가 아닌 함수 비교 샘플
+import cmath
+
+def f(z):
+    return cmath.exp(z)
+
+samples = [complex(x, 0) for x in range(0, 6)]
+values = [abs(f(z)) for z in samples]
+
+print(values)
+print(&quot;값이 커지는가?&quot;, values[-1] &gt; values[0])</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`cmath.exp(z)` : 복소 지수함수 \(e^z\)이다.</li><li>`samples` : 실수축 위의 표본점이다.</li><li>`abs(f(z))` : 복소수 함수값의 절댓값이다.</li><li>`values[-1] > values[0]` : 값이 커지는지 확인한다.</li><li>리우빌 정리에 따르면 상수가 아닌 전해석함수는 전체 복소평면에서 유계일 수 없다.</li><li>\(e^z\)는 전해석이지만 유계가 아니다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 6</span>
+<h2>최대절댓값 원리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">영역 \(D\)에서 해석적인 비상수 함수 \(f\)는 내부점에서 \(|f|\)의 최대값을 가질 수 없다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>만약 내부점 \(a\)에서 \(|f|\)가 최대라고 하자.</li><li>코시 적분공식은 \(f(a)\)가 작은 원 위 함수값들의 평균으로 표현됨을 보여 준다.</li><li>평균의 절댓값이 원 위 모든 값의 최대와 같으려면 원 위 값들이 같은 방향과 같은 크기를 가져야 한다.</li><li>따라서 작은 원 위에서 함수가 상수처럼 행동한다.</li><li>해석함수의 항등정리에 의해 함수는 영역 전체에서 상수이다.</li><li>비상수라는 가정과 모순이므로 내부 최대는 불가능하다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">복소함수의 크기 제어, 조화함수, 편미분방정식, 안정성 분석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f(z)=z의 절댓값은 단위원판 내부보다 경계에서 크다
+points = [complex(x/10, y/10) for x in range(-9, 10) for y in range(-9, 10)
+          if (x/10)**2 + (y/10)**2 &lt;= 1]
+
+max_abs = max(abs(z) for z in points)
+
+print(&quot;샘플 내부 최대 절댓값:&quot;, max_abs)
+print(&quot;경계 최대값 1에 가까운가?&quot;, abs(max_abs - 1) &lt; 0.2)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`points` : 단위원판 안의 격자점 샘플이다.</li><li>`abs(z)` : 복소수 \(z\)의 절댓값이다.</li><li>`max(abs(z) for z in points)` : 샘플 중 가장 큰 절댓값을 찾는다.</li><li>\(f(z)=z\)는 해석함수이고 \(|f(z)|=|z|\)이다.</li><li>최대절댓값은 내부가 아니라 경계 \(|z|=1\)에서 나타난다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 7</span>
+<h2>항등정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">영역 \(D\)에서 해석적인 두 함수 \(f,g\)가 \(D\) 안의 축적점을 갖는 집합에서 같으면, \(D\) 전체에서 \(f=g\)이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>함수 \(h=f-g\)를 생각한다.</li><li>\(h\)는 해석함수이고, 축적점을 갖는 무한한 영점들을 가진다.</li><li>해석함수의 영점은 함수가 영함수가 아닌 한 고립되어야 한다.</li><li>그런데 영점들이 축적점을 가지므로 고립되어 있지 않다.</li><li>따라서 \(h\equiv0\)이고 \(f=g\)이다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">해석함수의 강한 결정성, 급수 전개, 복소함수 방정식, 해석적 연속에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 두 다항식이 많은 점에서 같으면 같은지 확인하는 직관
+def f(x):
+    return x**2 + 2*x + 1
+
+def g(x):
+    return (x + 1)**2
+
+points = range(-5, 6)
+same_all = all(f(x) == g(x) for x in points)
+
+print(&quot;샘플 점들에서 모두 같은가?&quot;, same_all)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(x)`와 `g(x)` : 서로 다르게 쓰였지만 같은 다항식이다.</li><li>`points` : 여러 검사점이다.</li><li>`all(...)` : 모든 점에서 같은지 확인한다.</li><li>복소해석학의 항등정리는 해석함수가 축적점을 갖는 무한집합에서 같으면 전체에서 같다고 말한다.</li><li>코드는 그 직관을 다항식 예시로 보여 준다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 8</span>
+<h2>로랑 전개 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">함수 \(f\)가 환형영역 \(r\lt |z-a|\lt R\)에서 해석적이면 \[f(z)=\sum_{n=-\infty}^{\infty}c_n(z-a)^n\] 으로 전개된다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>환형영역 안에서 점 \(z\)를 둘러싸는 두 원을 잡는다.</li><li>코시 적분공식을 안쪽 경계와 바깥쪽 경계에 적용한다.</li><li>각 적분핵 \(\frac{1}{\zeta-z}\)를 적절한 기하급수로 전개한다.</li><li>바깥쪽 경계에서는 양의 거듭제곱 항들이 생기고, 안쪽 경계에서는 음의 거듭제곱 항들이 생긴다.</li><li>두 부분을 합치면 로랑 급수가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">특이점 분석, 유수 계산, 복소적분, 물리학의 장론과 신호 해석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 1/(1-z)의 테일러 전개 일부 확인: |z|&lt;1
+z = 0.5
+partial_sum = 0
+
+for n in range(10):
+    partial_sum += z**n
+
+exact = 1 / (1 - z)
+
+print(&quot;부분합:&quot;, partial_sum)
+print(&quot;정확값:&quot;, exact)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`z = 0.5` : \(|z|<1\)인 값을 고른다.</li><li>`partial_sum += z**n` : 기하급수 \(1+z+z^2+\cdots\)의 일부를 더한다.</li><li>`exact = 1 / (1 - z)` : 원래 함수값이다.</li><li>로랑 전개는 테일러 전개를 음의 거듭제곱까지 확장한 것이다.</li><li>이 예시는 양의 거듭제곱만 있는 간단한 경우이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 9</span>
+<h2>유수정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">닫힌곡선 \(\gamma\) 내부의 고립특이점들이 \(a_1,\dots,a_n\)이면 \[\int_\gamma f(z)\,dz=2\pi i\sum_{k=1}^{n}\operatorname{Res}(f,a_k)\] 이다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>각 특이점 주변에서 \(f\)를 로랑 전개한다.</li><li>로랑 전개에서 \((z-a)^{-1}\) 항의 계수를 유수라고 한다.</li><li>닫힌곡선 적분에서 \((z-a)^m\) 항은 \(m\ne -1\)일 때 적분이 \(0\)이다.</li><li>\((z-a)^{-1}\) 항만 적분값 \(2\pi i\)를 만든다.</li><li>여러 특이점의 기여를 모두 더하면 유수정리가 된다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">복잡한 실적분 계산, 물리학의 푸리에 적분, 라플라스 변환, 안정성 해석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># f(z)=1/z 를 단위원 위에서 적분하면 2*pi*i
+import cmath
+import math
+
+N = 20000
+total = 0j
+
+for k in range(N):
+    t1 = 2*math.pi*k/N
+    t2 = 2*math.pi*(k+1)/N
+    z1 = cmath.exp(1j*t1)
+    z2 = cmath.exp(1j*t2)
+    dz = z2 - z1
+    total += (1/z1) * dz
+
+print(&quot;적분 근사:&quot;, total)
+print(&quot;2*pi*i:&quot;, 2*math.pi*1j)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`f(z)=1/z` : 원점에 단순극을 갖는 함수이다.</li><li>`cmath.exp(1j*t)` : 단위원 위의 점을 만든다.</li><li>`dz` : 작은 경로 조각이다.</li><li>`total += (1/z1) * dz` : 선적분을 수치적으로 근사한다.</li><li>원점에서의 유수는 1이므로 유수정리에 의해 적분값은 \(2\pi i\)이다.</li></ol>
+</section>
+
+<section class="card">
+<span class="badge">정리 10</span>
+<h2>루셰 정리</h2>
+<div class="sec">① 정리 설명</div>
+<div class="box">단순닫힌곡선 \(\gamma\) 위에서 \(|g(z)|\lt |f(z)|\)이면, \(f\)와 \(f+g\)는 \(\gamma\) 내부에서 같은 개수의 영점을 가진다.</div>
+<div class="sec">② 증명 핵심 아이디어</div>
+<ol><li>곡선 위에서 \(f\)가 \(g\)보다 크므로 \(f+t g\)는 \(0\le t\le1\) 동안 경계에서 영점을 갖지 않는다.</li><li>따라서 \(f+t g\)의 경계 위 winding number는 변하지 않는다.</li><li>논변원리에 의해 이 winding number는 내부 영점의 개수와 같다.</li><li>그러므로 \(t=0\)인 \(f\)와 \(t=1\)인 \(f+g\)는 내부 영점 개수가 같다.</li></ol>
+<div class="sec">③ 활용 예제</div>
+<div class="use">다항식의 영점 개수 판정, 대수학의 기본정리, 안정성 해석에 사용된다.</div>
+<div class="sec">④ 파이썬 코드</div>
+<pre><code># 루셰 정리 직관: z^3 + 작은 상수는 단위원 내부에 영점 3개
+# 여기서는 반지름과 계수 크기 조건만 확인
+r = 1
+small_constant = 0.2
+
+# |g(z)| = 0.2, |f(z)| = |z^3| = 1 on |z|=1
+condition = small_constant &lt; r**3
+
+print(&quot;경계에서 |g| &lt; |f| 조건:&quot;, condition)
+print(&quot;따라서 z^3과 z^3+0.2는 내부 영점 개수가 같다.&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div>
+<ol class="explain"><li>`r = 1` : 단위원 경계를 생각한다.</li><li>`small_constant = 0.2` : 작은 교란항 \(g(z)=0.2\)이다.</li><li>`r**3` : 경계 \(|z|=1\)에서 \(|z^3|=1\)이다.</li><li>`small_constant < r**3` : 루셰 정리 조건 \(|g|<|f|\)를 확인한다.</li><li>\(z^3\)은 원점에 3중근을 가지므로 \(z^3+0.2\)도 단위원 내부에 영점 3개를 가진다.</li></ol>
+</section>
+
+<section class="card">
+<h2>마무리 핵심 정리</h2>
+<div class="summary">
+복소해석학은 복소미분 가능성 하나만으로도 매우 강력한 결론이 따라오는 분야이다.
+코시 적분정리와 적분공식은 함수값과 미분값을 경계 적분으로 결정하고,
+리우빌 정리와 최대절댓값 원리는 해석함수의 성장을 강하게 제한한다.
+로랑 전개와 유수정리는 특이점을 분석하여 어려운 적분을 간단한 계수 계산으로 바꾸어 준다.
+</div>
+</section>
+</main>
+<footer>매력적인 복소해석학 정리 10개 HTML 수업자료</footer>
+</body>
+</html>
