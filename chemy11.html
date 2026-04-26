@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>매력적인 유기화학 개념정리 20개</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box} body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.25rem;letter-spacing:-.04em} header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}.box{background:#eff6ff;border-left:7px solid var(--blue)}.use{background:var(--yellow);border-left:7px solid #f59e0b}.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}li{margin:8px 0}pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}code{font-family:Consolas,'D2Coding','Courier New',monospace}.explain{background:var(--green)}.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}mjx-merror{display:none !important}mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}@media(max-width:640px){header h1{font-size:1.65rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true,processEnvironments:true,packages:{'[+]':['ams']}},loader:{load:['[tex]/ams']},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head>
+<body><header><h1>사람들이 가장 좋아하는 매력적인 유기화학 개념정리 20개</h1><p>깨지지 않는 예쁜 수식 · 개념 상세 설명 · 활용 예제 · 파이썬 코드 상세 설명</p></header><main>
+<section class="card"><h2>학습 목표</h2><div class="note">유기화학의 핵심인 탄소 결합, 작용기, 탄화수소, 이성질체, 입체화학, 반응 메커니즘, 치환·제거·첨가 반응, 방향족성, 산염기 개념을 이해하고 파이썬 코드로 간단한 규칙을 확인한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.</div></section>
+
+<section class="card"><span class="badge">개념 1</span><h2>탄소의 4가 결합</h2>
+<div class="sec">① 핵심 개념</div><div class="box">탄소는 원자가전자 \(4\)개를 가져 보통 네 개의 공유결합을 형성한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>탄소는 생명체와 유기화합물의 중심 원소이다.</li><li>탄소는 다른 탄소와도 안정한 결합을 만들 수 있다.</li><li>단일결합, 이중결합, 삼중결합을 형성할 수 있다.</li><li>사슬, 고리, 가지 구조를 만들 수 있어 다양한 분자가 가능하다.</li><li>유기화학의 다양성은 탄소의 결합 능력에서 나온다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">탄화수소 구조 이해, 고분자, 생체분자, 약물 구조 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 탄소 수에 따른 알케인 분자식 계산: C_n H_(2n+2)
+n = 5
+H = 2*n + 2
+formula = f&quot;C{n}H{H}&quot;
+print(&quot;알케인 분자식:&quot;, formula)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`n`은 탄소 원자 수이다.</li><li>알케인의 일반식은 \(C_nH_{2n+2}\)이다.</li><li>`H = 2*n + 2`로 수소 수를 계산한다.</li><li>`f-string`으로 분자식을 만든다.</li><li>탄소 수가 바뀌면 알케인 분자식도 규칙적으로 바뀐다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 2</span><h2>작용기</h2>
+<div class="sec">① 핵심 개념</div><div class="box">작용기는 유기분자의 성질과 반응성을 결정하는 특정 원자단이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>작용기는 분자의 화학적 성격을 좌우한다.</li><li>하이드록시기 \(-OH\)가 있으면 알코올 성질을 보인다.</li><li>카복실기 \(-COOH\)가 있으면 산성을 나타낼 수 있다.</li><li>아미노기 \(-NH_2\)는 염기성을 가질 수 있다.</li><li>같은 탄소 골격이라도 작용기가 다르면 성질이 크게 달라진다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">약물 설계, 분자 분류, 반응 예측, 생체분자 기능 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 간단한 작용기 판별
+molecule = &quot;CH3CH2OH&quot;
+
+if &quot;OH&quot; in molecule:
+    group = &quot;알코올&quot;
+elif &quot;COOH&quot; in molecule:
+    group = &quot;카복실산&quot;
+else:
+    group = &quot;기타&quot;
+
+print(&quot;분자 분류:&quot;, group)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`molecule`은 분자식을 문자열로 표현한 것이다.</li><li>`if 'OH' in molecule`은 하이드록시기가 있는지 확인한다.</li><li>`elif 'COOH' in molecule`은 카복실기가 있는지 확인한다.</li><li>조건에 따라 분자의 작용기 분류를 한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 3</span><h2>알케인</h2>
+<div class="sec">① 핵심 개념</div><div class="box">알케인은 탄소-탄소 단일결합만 가지는 포화 탄화수소이며 일반식은 \[C_nH_{2n+2}\] 이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>알케인은 포화 탄화수소이다.</li><li>탄소 사이에는 모두 단일결합이 있다.</li><li>반응성은 비교적 낮지만 연소 반응을 잘 한다.</li><li>메테인, 에테인, 프로페인, 부테인이 대표적이다.</li><li>연료와 석유화학의 기본 물질이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">연료 계산, 석유화학, 연소 반응, 유기화학 명명법에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 알케인 이름 일부 출력
+names = [&quot;메테인&quot;, &quot;에테인&quot;, &quot;프로페인&quot;, &quot;부테인&quot;, &quot;펜테인&quot;]
+
+for i, name in enumerate(names, 1):
+    formula = f&quot;C{i}H{2*i+2}&quot;
+    print(name, formula)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`names`는 알케인 이름 목록이다.</li><li>`enumerate(names, 1)`은 탄소 수를 1부터 붙인다.</li><li>`C{i}H{2*i+2}`는 일반식으로 분자식을 만든다.</li><li>반복문으로 여러 알케인을 한 번에 출력한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 4</span><h2>알켄</h2>
+<div class="sec">① 핵심 개념</div><div class="box">알켄은 탄소-탄소 이중결합 \(C=C\)을 가지는 불포화 탄화수소이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>알켄은 하나 이상의 탄소-탄소 이중결합을 가진다.</li><li>이중결합은 단일결합보다 전자가 풍부하여 반응성이 크다.</li><li>알켄은 첨가 반응을 잘 일으킨다.</li><li>에텐은 폴리에틸렌의 원료이다.</li><li>이중결합 때문에 기하 이성질체가 생길 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">플라스틱 합성, 첨가 반응, 석유화학, 고분자화학에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 알켄 일반식 C_n H_2n
+n = 4
+formula = f&quot;C{n}H{2*n}&quot;
+print(&quot;알켄 분자식:&quot;, formula)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`n`은 탄소 원자 수이다.</li><li>알켄 하나의 이중결합이 있을 때 일반식은 \(C_nH_{2n}\)이다.</li><li>`2*n`으로 수소 수를 계산한다.</li><li>결과는 해당 탄소 수의 알켄 분자식이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 5</span><h2>알카인</h2>
+<div class="sec">① 핵심 개념</div><div class="box">알카인은 탄소-탄소 삼중결합 \(C\equiv C\)을 가지는 불포화 탄화수소이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>알카인은 삼중결합을 가진다.</li><li>삼중결합은 하나의 시그마 결합과 두 개의 파이 결합으로 이루어진다.</li><li>알카인은 직선형 구조를 가지기 쉽다.</li><li>에타인은 아세틸렌이라고도 하며 용접에 쓰인다.</li><li>알카인은 첨가 반응과 산염기 반응을 보일 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">아세틸렌 용접, 유기합성, 불포화도 계산, 반응성 비교에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 알카인 일반식 C_n H_(2n-2)
+n = 3
+formula = f&quot;C{n}H{2*n-2}&quot;
+print(&quot;알카인 분자식:&quot;, formula)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`n`은 탄소 수이다.</li><li>알카인 하나의 삼중결합이 있을 때 일반식은 \(C_nH_{2n-2}\)이다.</li><li>`2*n-2`로 수소 수를 계산한다.</li><li>알카인은 같은 탄소 수의 알켄보다 수소가 더 적다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 6</span><h2>이성질체</h2>
+<div class="sec">① 핵심 개념</div><div class="box">이성질체는 분자식은 같지만 원자 배열이나 공간 배치가 다른 화합물이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>구조 이성질체는 원자 연결 순서가 다르다.</li><li>입체 이성질체는 연결은 같지만 공간 배치가 다르다.</li><li>이성질체는 물리적 성질과 생물학적 작용이 다를 수 있다.</li><li>같은 분자식이라도 끓는점, 냄새, 반응성이 달라질 수 있다.</li><li>약물에서는 입체 이성질체 차이가 매우 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">약물 개발, 향료, 고분자, 물성 비교, 생체분자 인식에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 같은 분자식을 가진 예시 분류
+compounds = {
+    &quot;에탄올&quot;: &quot;C2H6O&quot;,
+    &quot;디메틸에터&quot;: &quot;C2H6O&quot;
+}
+
+same_formula = compounds[&quot;에탄올&quot;] == compounds[&quot;디메틸에터&quot;]
+
+print(&quot;분자식이 같은가?&quot;, same_formula)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`compounds`는 물질 이름과 분자식을 저장한 딕셔너리이다.</li><li>에탄올과 디메틸에터는 같은 분자식 \(C_2H_6O\)를 가진다.</li><li>`==`는 두 분자식이 같은지 비교한다.</li><li>분자식은 같지만 구조가 다르면 이성질체이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 7</span><h2>입체화학</h2>
+<div class="sec">① 핵심 개념</div><div class="box">입체화학은 분자의 3차원 공간 배치와 그에 따른 성질을 연구한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>분자는 평면 그림보다 실제로는 3차원 구조를 가진다.</li><li>입체 배치가 달라지면 반응성과 생물학적 작용이 달라질 수 있다.</li><li>카이랄 중심은 네 가지 서로 다른 치환기를 가진 탄소에서 자주 나타난다.</li><li>거울상 이성질체는 서로 겹쳐지지 않는 거울상 관계이다.</li><li>효소와 수용체는 특정 입체구조를 선택적으로 인식한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">의약품, 효소 반응, 향료, 당과 아미노산 구조 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 카이랄 중심 단순 판별: 네 치환기가 모두 다른가?
+substituents = [&quot;H&quot;, &quot;CH3&quot;, &quot;OH&quot;, &quot;Cl&quot;]
+
+is_chiral_center = len(set(substituents)) == 4
+
+print(&quot;카이랄 중심인가?&quot;, is_chiral_center)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`substituents`는 중심 탄소에 붙은 네 치환기이다.</li><li>`set(substituents)`는 중복을 제거한다.</li><li>네 치환기가 모두 다르면 집합 크기가 4이다.</li><li>`is_chiral_center`는 카이랄 중심 가능성을 나타낸다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 8</span><h2>친핵체와 친전자체</h2>
+<div class="sec">① 핵심 개념</div><div class="box">친핵체는 전자쌍을 주는 종이고, 친전자체는 전자쌍을 받는 종이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>친핵체는 전자가 풍부한 화학종이다.</li><li>친전자체는 전자가 부족하거나 양전하를 띠기 쉬운 부분이다.</li><li>유기 반응은 친핵체가 친전자체를 공격하는 방식으로 설명되는 경우가 많다.</li><li>반응 메커니즘에서 화살표는 전자쌍의 이동을 나타낸다.</li><li>작용기의 극성은 친핵성·친전자성 판단에 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">반응 메커니즘 예측, 치환 반응, 첨가 반응, 유기합성 설계에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 전하에 따른 친핵체 후보 판별
+species = {&quot;OH-&quot;: -1, &quot;H+&quot;: 1, &quot;NH3&quot;: 0}
+
+for name, charge in species.items():
+    if charge &lt; 0:
+        role = &quot;강한 친핵체 후보&quot;
+    elif charge &gt; 0:
+        role = &quot;친전자체 후보&quot;
+    else:
+        role = &quot;중성 분자&quot;
+    print(name, role)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`species`는 화학종과 전하를 저장한다.</li><li>음전하는 전자가 풍부해 친핵체 후보가 될 수 있다.</li><li>양전하는 전자를 받기 쉬워 친전자체 후보가 될 수 있다.</li><li>실제 친핵성은 용매, 크기, 전기음성도 등도 영향을 준다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 9</span><h2>SN1 반응</h2>
+<div class="sec">① 핵심 개념</div><div class="box">\(S_N1\) 반응은 속도 결정 단계에 기질 하나가 관여하는 친핵성 치환 반응이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>SN1 반응은 두 단계로 진행된다.</li><li>먼저 이탈기가 떨어져 카보양이온이 형성된다.</li><li>그 다음 친핵체가 카보양이온을 공격한다.</li><li>속도 결정 단계는 카보양이온 형성이다.</li><li>따라서 반응속도는 주로 기질 농도에 의존한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">알킬 할라이드 반응, 용매 효과, 카보양이온 안정성, 반응속도론 학습에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># SN1 속도식: rate = k[substrate]
+k = 0.02
+substrate = 0.5
+
+rate = k * substrate
+
+print(&quot;SN1 반응속도:&quot;, rate)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`k`는 반응속도상수이다.</li><li>`substrate`는 기질 농도이다.</li><li>SN1 속도식은 \(rate=k[substrate]\)이다.</li><li>친핵체 농도는 속도 결정 단계에 직접 들어가지 않는다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 10</span><h2>SN2 반응</h2>
+<div class="sec">① 핵심 개념</div><div class="box">\(S_N2\) 반응은 친핵체와 기질이 동시에 관여하는 한 단계 치환 반응이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>SN2 반응은 한 단계로 진행된다.</li><li>친핵체가 이탈기의 반대쪽에서 공격한다.</li><li>동시에 이탈기가 떨어져 나간다.</li><li>속도는 기질과 친핵체 농도 모두에 의존한다.</li><li>입체 반전이 일어나는 것이 특징이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">알킬 할라이드 치환, 입체화학, 반응속도 비교, 유기합성에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># SN2 속도식: rate = k[substrate][nucleophile]
+k = 0.03
+substrate = 0.5
+nucleophile = 0.8
+
+rate = k * substrate * nucleophile
+
+print(&quot;SN2 반응속도:&quot;, rate)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`k`는 반응속도상수이다.</li><li>`substrate`는 기질 농도이다.</li><li>`nucleophile`은 친핵체 농도이다.</li><li>SN2 속도식은 두 농도의 곱에 비례한다.</li><li>친핵체가 직접 속도 결정 단계에 참여한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 11</span><h2>E1 제거 반응</h2>
+<div class="sec">① 핵심 개념</div><div class="box">E1 반응은 먼저 이탈기가 떨어져 카보양이온이 생기고, 이후 양성자가 제거되어 알켄이 형성된다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>E1 반응은 두 단계 제거 반응이다.</li><li>첫 단계에서 이탈기가 떨어져 카보양이온이 생성된다.</li><li>두 번째 단계에서 염기가 수소를 제거한다.</li><li>그 결과 이중결합이 생기며 알켄이 만들어진다.</li><li>SN1과 마찬가지로 카보양이온 안정성이 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">알켄 합성, 알코올 탈수, 반응 경쟁 이해, 유기합성에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># E1 속도식은 기질 농도에 비례
+k = 0.01
+substrate = 0.7
+
+rate = k * substrate
+
+print(&quot;E1 반응속도:&quot;, rate)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`k`는 속도상수이다.</li><li>`substrate`는 기질 농도이다.</li><li>E1의 속도 결정 단계는 카보양이온 형성이다.</li><li>따라서 속도는 기질 농도에 주로 비례한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 12</span><h2>E2 제거 반응</h2>
+<div class="sec">① 핵심 개념</div><div class="box">E2 반응은 염기가 수소를 제거하는 동시에 이탈기가 떨어지는 한 단계 제거 반응이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>E2 반응은 한 단계로 진행된다.</li><li>강한 염기가 베타 수소를 제거한다.</li><li>이탈기가 동시에 떨어져 나간다.</li><li>탄소-탄소 이중결합이 형성된다.</li><li>반응속도는 기질과 염기 농도 모두에 의존한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">알켄 합성, 강염기 반응, 입체화학적 제거, 유기합성에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># E2 속도식
+k = 0.04
+substrate = 0.4
+base = 0.6
+
+rate = k * substrate * base
+
+print(&quot;E2 반응속도:&quot;, rate)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`base`는 염기 농도이다.</li><li>E2 반응은 기질과 염기가 동시에 관여한다.</li><li>`rate = k * substrate * base`는 E2 속도식을 나타낸다.</li><li>염기가 강할수록 제거 반응이 잘 일어날 수 있다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 13</span><h2>알켄의 첨가 반응</h2>
+<div class="sec">① 핵심 개념</div><div class="box">알켄의 \(\pi\) 결합은 반응성이 커서 원자나 작용기가 이중결합에 첨가될 수 있다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>알켄은 전자가 풍부한 이중결합을 가진다.</li><li>친전자체가 먼저 이중결합을 공격할 수 있다.</li><li>그 뒤 친핵체가 결합하여 첨가 생성물을 만든다.</li><li>수소화, 할로젠화, 수화 반응이 대표적이다.</li><li>첨가 반응은 불포화 결합을 포화 결합으로 바꿀 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">플라스틱 원료 변환, 알코올 합성, 유지 수소화, 유기합성에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 이중결합 수에 따른 수소 첨가량 계산
+double_bonds = 2
+hydrogen_needed = double_bonds * 2
+
+print(&quot;필요한 H 원자 수:&quot;, hydrogen_needed)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`double_bonds`는 이중결합 개수이다.</li><li>이중결합 하나를 포화시키려면 수소 원자 2개가 필요하다.</li><li>`hydrogen_needed`는 필요한 수소 원자 수이다.</li><li>수소화 반응은 이중결합을 단일결합으로 바꾼다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 14</span><h2>마르코프니코프 법칙</h2>
+<div class="sec">① 핵심 개념</div><div class="box">비대칭 알켄에 \(HX\)가 첨가될 때, 수소는 이미 수소가 더 많은 탄소에 주로 결합한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>비대칭 알켄에 할로젠화수소가 첨가될 때 위치 선택성이 나타난다.</li><li>반응은 더 안정한 카보양이온 중간체를 만들기 쉬운 방향으로 진행된다.</li><li>수소는 수소가 더 많은 탄소에 붙는다.</li><li>할로젠은 더 치환된 탄소에 붙는 경우가 많다.</li><li>이는 카보양이온 안정성과 관련된다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">알켄 첨가 반응 생성물 예측, 유기합성 경로 설계에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 마르코프니코프 방향 단순 판단
+carbon1_H = 2
+carbon2_H = 1
+
+if carbon1_H &gt; carbon2_H:
+    H_adds_to = &quot;탄소1&quot;
+else:
+    H_adds_to = &quot;탄소2&quot;
+
+print(&quot;수소가 주로 붙는 위치:&quot;, H_adds_to)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`carbon1_H`, `carbon2_H`는 이중결합 양쪽 탄소에 붙은 수소 수이다.</li><li>수소가 더 많은 탄소에 새 수소가 붙는 경향을 반영한다.</li><li>조건문으로 마르코프니코프 방향을 단순 판단한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 15</span><h2>방향족성</h2>
+<div class="sec">① 핵심 개념</div><div class="box">방향족 화합물은 고리형, 평면형, 연속적인 \(p\) 오비탈을 가지며 \(4n+2\)개의 \(\pi\) 전자를 가진다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>벤젠은 대표적인 방향족 화합물이다.</li><li>방향족성은 분자를 특별히 안정하게 만든다.</li><li>휘켈 규칙은 \(4n+2\)개의 파이 전자를 요구한다.</li><li>고리가 평면이고 연속적인 p 오비탈을 가져야 한다.</li><li>방향족 화합물은 첨가 반응보다 치환 반응을 선호하는 경향이 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">벤젠 반응, 염료, 의약품, 고분자, 유기반도체에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 휘켈 규칙 확인: pi 전자 수가 4n+2인가?
+pi_electrons = 6
+
+is_aromatic_count = any(4*n + 2 == pi_electrons for n in range(10))
+
+print(&quot;휘켈 전자 수 조건 만족?&quot;, is_aromatic_count)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`pi_electrons`는 파이 전자 수이다.</li><li>휘켈 규칙은 \(4n+2\)개의 파이 전자를 요구한다.</li><li>`any(...)`는 가능한 n 중 조건을 만족하는지 확인한다.</li><li>6개의 파이 전자를 가진 벤젠은 조건을 만족한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 16</span><h2>벤젠의 친전자성 방향족 치환</h2>
+<div class="sec">① 핵심 개념</div><div class="box">벤젠은 방향족 안정성을 유지하기 위해 주로 친전자성 방향족 치환 반응을 한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>벤젠의 파이 전자는 친전자체와 반응할 수 있다.</li><li>처음에는 방향족성이 일시적으로 깨진 중간체가 생긴다.</li><li>이후 양성자가 제거되면서 방향족성이 회복된다.</li><li>전체적으로 수소 하나가 다른 치환기로 바뀐다.</li><li>첨가보다 치환이 유리한 이유는 방향족 안정성을 보존하기 때문이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">니트로화, 할로젠화, 프리델-크래프츠 반응, 의약품 합성에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 치환된 벤젠 이름 단순 생성
+benzene = &quot;benzene&quot;
+substituent = &quot;nitro&quot;
+
+product = substituent + benzene
+
+print(&quot;생성물 이름 예시:&quot;, product)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`benzene`은 벤젠 골격을 나타낸다.</li><li>`substituent`는 도입되는 치환기이다.</li><li>문자열을 결합해 치환 벤젠 이름 예시를 만든다.</li><li>실제 명명법은 치환기 위치와 우선순위도 고려한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 17</span><h2>카보양이온 안정성</h2>
+<div class="sec">① 핵심 개념</div><div class="box">카보양이온은 보통 \(3^\circ \gt 2^\circ \gt 1^\circ \gt methyl\) 순서로 안정하다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>카보양이온은 양전하를 가진 탄소 중간체이다.</li><li>알킬기는 전자 밀도를 밀어 주어 양전하를 안정화한다.</li><li>치환기가 많을수록 하이퍼콘쥬게이션 효과가 커진다.</li><li>따라서 3차 카보양이온이 1차보다 안정하다.</li><li>카보양이온 안정성은 SN1, E1, 알켄 첨가 반응에서 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">반응 경로 예측, 재배열 반응, SN1/E1 반응성 비교에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 카보양이온 안정성 점수
+degree = 3
+
+stability_score = degree
+
+print(&quot;카보양이온 안정성 점수:&quot;, stability_score)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`degree`는 카보양이온 탄소에 연결된 탄소 수이다.</li><li>3차 카보양이온은 보통 가장 안정하다.</li><li>`stability_score`는 단순화한 안정성 점수이다.</li><li>실제 안정성은 공명, 유도 효과도 함께 고려한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 18</span><h2>공명</h2>
+<div class="sec">① 핵심 개념</div><div class="box">공명은 전자 배치를 여러 구조식으로 표현해야 하는 비편재화 현상이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>공명 구조는 실제 분자가 여러 구조 사이를 오가는 뜻이 아니다.</li><li>실제 구조는 가능한 공명 구조들의 혼성에 가깝다.</li><li>전자 비편재화는 분자를 안정화한다.</li><li>카복실산 음이온, 벤젠, 아마이드에서 공명이 중요하다.</li><li>공명은 결합 길이와 반응성을 설명한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">방향족성, 산성도, 반응성, 단백질 펩타이드 결합 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 공명 구조 수에 따른 안정화 단순 지표
+resonance_forms = 3
+
+stabilization_index = resonance_forms ** 0.5
+
+print(&quot;공명 안정화 지표:&quot;, stabilization_index)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`resonance_forms`는 가능한 공명 구조 수이다.</li><li>공명 구조가 많을수록 전자가 더 넓게 퍼질 수 있다.</li><li>`** 0.5`는 단순 안정화 지표를 만들기 위한 계산이다.</li><li>실제 안정화는 구조의 기여도에 따라 다르다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 19</span><h2>유기 산과 염기</h2>
+<div class="sec">① 핵심 개념</div><div class="box">유기산의 세기는 \(pK_a\)로 비교하며, \(pK_a\)가 작을수록 더 강한 산이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>산은 양성자 \(H^+\)를 줄 수 있는 물질이다.</li><li>염기는 양성자 \(H^+\)를 받을 수 있는 물질이다.</li><li>\(pK_a\)가 낮으면 양성자를 더 쉽게 내놓는다.</li><li>공명 안정화가 큰 짝염기는 산성을 증가시킨다.</li><li>전기음성도가 큰 원자와 유도 효과도 산성도에 영향을 준다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">유기반응 방향 예측, 약물 이온화, 추출 실험, 생화학 pH 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># pKa로 산의 세기 비교
+acid_A_pKa = 4.8
+acid_B_pKa = 16.0
+
+stronger = &quot;A&quot; if acid_A_pKa &lt; acid_B_pKa else &quot;B&quot;
+
+print(&quot;더 강한 산:&quot;, stronger)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`acid_A_pKa`, `acid_B_pKa`는 두 산의 pKa 값이다.</li><li>pKa가 작을수록 더 강한 산이다.</li><li>조건 표현식으로 더 강한 산을 고른다.</li><li>카복실산은 보통 알코올보다 훨씬 강한 산이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 20</span><h2>고분자화</h2>
+<div class="sec">① 핵심 개념</div><div class="box">작은 단량체들이 반복적으로 연결되어 큰 고분자를 만드는 반응을 고분자화라고 한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>고분자는 많은 단량체가 연결된 큰 분자이다.</li><li>첨가중합은 이중결합이 열리며 단량체가 연결된다.</li><li>축합중합은 작은 분자가 빠져나가며 결합이 형성된다.</li><li>폴리에틸렌, 나일론, 폴리에스터가 대표적이다.</li><li>고분자의 성질은 단량체 구조와 사슬 길이에 따라 달라진다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">플라스틱, 섬유, 고무, 생체고분자, 재료과학에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 단량체 수에 따른 고분자 분자량 계산
+monomer_mass = 28
+n = 1000
+
+polymer_mass = monomer_mass * n
+
+print(&quot;고분자 분자량 근사:&quot;, polymer_mass)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`monomer_mass`는 단량체 하나의 분자량이다.</li><li>`n`은 반복 단위 수이다.</li><li>`polymer_mass`는 고분자 분자량의 근사값이다.</li><li>실제 축합중합에서는 빠져나가는 작은 분자 질량도 고려해야 한다.</li></ol></section>
+<section class="card"><h2>마무리 핵심 정리</h2><div class="summary">유기화학은 탄소 화합물의 구조와 반응을 이해하는 학문이다. 작용기는 분자의 성질을 결정하고, 이성질체와 입체화학은 같은 분자식이라도 다른 성질을 만들며, 친핵체·친전자체 개념은 반응 메커니즘을 예측하는 핵심 도구가 된다.</div></section></main><footer>매력적인 유기화학 개념정리 20개 HTML 수업자료</footer></body></html>

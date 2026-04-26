@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>매력적인 지구과학 개념정리 20개</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box} body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.25rem;letter-spacing:-.04em} header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}.box{background:#eff6ff;border-left:7px solid var(--blue)}.use{background:var(--yellow);border-left:7px solid #f59e0b}.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}li{margin:8px 0}pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}code{font-family:Consolas,'D2Coding','Courier New',monospace}.explain{background:var(--green)}.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}mjx-merror{display:none !important}mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}@media(max-width:640px){header h1{font-size:1.65rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true,processEnvironments:true,packages:{'[+]':['ams']}},loader:{load:['[tex]/ams']},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head>
+<body><header><h1>사람들이 가장 좋아하는 매력적인 지구과학 개념정리 20개</h1><p>깨지지 않는 예쁜 수식 · 개념 상세 설명 · 활용 예제 · 파이썬 코드 상세 설명</p></header><main>
+<section class="card"><h2>학습 목표</h2><div class="note">지구과학의 핵심 영역인 지질, 대기, 해양, 기후, 천문 개념을 이해하고, 각 개념을 간단한 파이썬 계산과 조건문으로 확인한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.</div></section>
+
+<section class="card"><span class="badge">개념 1</span><h2>지구의 층상 구조</h2>
+<div class="sec">① 핵심 개념</div><div class="box">지구는 지각, 맨틀, 외핵, 내핵으로 나뉘며 깊이에 따라 밀도와 온도가 증가한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>지각은 우리가 사는 가장 바깥쪽의 얇은 고체층이다.</li><li>맨틀은 지각 아래의 두꺼운 층이며 천천히 흐를 수 있다.</li><li>외핵은 액체 상태의 철과 니켈이 주성분이며 지구 자기장 형성에 중요하다.</li><li>내핵은 높은 압력 때문에 고체 상태로 존재한다.</li><li>지구 내부 구조는 지진파의 속도 변화로 밝혀졌다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">지진파 분석, 화산 활동 이해, 판구조론, 지구 자기장 연구에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 지구 내부 층의 두께 비율 계산
+layers = {&quot;지각&quot;: 35, &quot;맨틀&quot;: 2900, &quot;외핵&quot;: 2200, &quot;내핵&quot;: 1220}
+total = sum(layers.values())
+
+for name, thickness in layers.items():
+    ratio = thickness / total * 100
+    print(name, &quot;비율:&quot;, round(ratio, 2), &quot;%&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`layers`는 지구 내부 층 이름과 두께를 저장한 딕셔너리이다.</li><li>`sum(layers.values())`는 전체 두께를 계산한다.</li><li>`for name, thickness in layers.items()`는 각 층을 하나씩 꺼낸다.</li><li>`thickness / total * 100`은 전체에서 차지하는 비율이다.</li><li>`round(ratio, 2)`는 소수 둘째 자리까지 반올림한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 2</span><h2>판구조론</h2>
+<div class="sec">① 핵심 개념</div><div class="box">지구의 암석권은 여러 판으로 나뉘며, 판의 이동이 지진, 화산, 산맥 형성의 원인이 된다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>판은 맨틀 위를 매우 느리게 이동한다.</li><li>발산형 경계에서는 해령과 새로운 해양지각이 만들어진다.</li><li>수렴형 경계에서는 섭입대, 화산호, 산맥이 형성된다.</li><li>보존형 경계에서는 판이 서로 스쳐 지나가며 지진이 발생한다.</li><li>판구조론은 지질 현상을 통합적으로 설명한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">지진대 예측, 화산 분포 설명, 산맥 형성, 대륙 이동 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 판 이동 거리 계산
+speed_cm_per_year = 5
+years = 1000000
+distance_cm = speed_cm_per_year * years
+distance_km = distance_cm / 100000
+print(&quot;이동 거리:&quot;, distance_km, &quot;km&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`speed_cm_per_year`는 1년 동안 판이 이동하는 거리이다.</li><li>`years`는 이동한 시간이다.</li><li>`distance_cm`는 cm 단위 전체 이동 거리이다.</li><li>`distance_km`는 cm를 km로 바꾼 값이다.</li><li>판은 느리게 움직이지만 긴 시간에는 큰 거리를 이동한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 3</span><h2>지진 규모와 에너지</h2>
+<div class="sec">① 핵심 개념</div><div class="box">지진 규모가 \(1\) 증가하면 지진파 진폭은 \(10\)배, 방출 에너지는 약 \(31.6\)배 증가한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>지진 규모는 로그 척도이다.</li><li>규모 차이가 작아 보여도 에너지 차이는 매우 크다.</li><li>규모 6 지진은 규모 5 지진보다 약 31.6배 많은 에너지를 방출한다.</li><li>피해는 규모, 진원 깊이, 거리, 지반 조건에 따라 달라진다.</li><li>규모는 지진 자체의 크기이고 진도는 흔들림 정도이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">지진 에너지 비교, 방재 교육, 지진 위험도 설명에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 지진 규모 차이에 따른 에너지 비율
+M1 = 5
+M2 = 7
+energy_ratio = 31.6 ** (M2 - M1)
+print(&quot;에너지 비율:&quot;, energy_ratio)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`M1`, `M2`는 비교할 지진 규모이다.</li><li>`M2 - M1`은 규모 차이이다.</li><li>`31.6 ** (M2 - M1)`은 에너지 증가 비율이다.</li><li>규모 7은 규모 5보다 약 \(31.6^2\)배 큰 에너지를 낸다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 4</span><h2>화산 활동과 마그마 점성</h2>
+<div class="sec">① 핵심 개념</div><div class="box">마그마의 점성이 클수록 가스가 빠져나가기 어려워 폭발적인 분출이 일어나기 쉽다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>마그마는 지하 암석이 녹아 생긴 고온 물질이다.</li><li>실리카 함량이 많은 마그마는 점성이 크다.</li><li>점성이 큰 마그마는 가스를 잘 가두어 압력이 커진다.</li><li>압력이 한계에 이르면 폭발적 분출이 일어난다.</li><li>현무암질 마그마는 비교적 조용한 용암류를 만들기 쉽다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">화산 분출 양상 예측, 화산재 위험 분석, 화산 지형 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 마그마 점성에 따른 폭발성 분류
+silica_percent = 70
+
+if silica_percent &gt;= 65:
+    explosivity = &quot;높음&quot;
+elif silica_percent &gt;= 52:
+    explosivity = &quot;중간&quot;
+else:
+    explosivity = &quot;낮음&quot;
+
+print(&quot;분출 폭발성:&quot;, explosivity)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`silica_percent`는 실리카 함량이다.</li><li>`if silica_percent >= 65`는 점성이 큰 경우이다.</li><li>`elif`는 중간 조건이다.</li><li>`else`는 폭발성이 낮은 경우이다.</li><li>실리카 함량이 높을수록 폭발적 분출 가능성이 커진다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 5</span><h2>암석의 순환</h2>
+<div class="sec">① 핵심 개념</div><div class="box">암석은 화성암, 퇴적암, 변성암 사이를 풍화, 침식, 퇴적, 열, 압력, 용융 과정을 통해 순환한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>화성암은 마그마나 용암이 식어 굳은 암석이다.</li><li>퇴적암은 퇴적물이 쌓이고 굳어져 만들어진다.</li><li>변성암은 기존 암석이 열과 압력을 받아 변한 암석이다.</li><li>모든 암석은 풍화와 침식을 통해 퇴적물이 될 수 있다.</li><li>암석 순환은 지표와 지구 내부의 상호작용을 보여 준다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">지질 조사, 광물 자원 탐사, 지형 형성, 지구 역사 해석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 생성 과정에 따른 암석 분류
+process = &quot;magma_cooling&quot;
+
+if process == &quot;magma_cooling&quot;:
+    rock = &quot;화성암&quot;
+elif process == &quot;sediment_compaction&quot;:
+    rock = &quot;퇴적암&quot;
+elif process == &quot;heat_pressure&quot;:
+    rock = &quot;변성암&quot;
+else:
+    rock = &quot;분류 불가&quot;
+
+print(&quot;암석 종류:&quot;, rock)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`process`는 암석 생성 과정이다.</li><li>`magma_cooling`은 마그마 냉각을 뜻한다.</li><li>조건문으로 암석 종류를 분류한다.</li><li>`rock`은 분류 결과를 저장한다.</li><li>암석은 생성 과정에 따라 세 종류로 나뉜다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 6</span><h2>상대습도</h2>
+<div class="sec">① 핵심 개념</div><div class="box">상대습도는 현재 수증기량이 포화 수증기량의 몇 퍼센트인지를 나타낸다. \[\mathrm{RH}=\frac{e}{e_s}\times100\%\]</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>공기는 온도에 따라 포함할 수 있는 수증기량이 달라진다.</li><li>따뜻한 공기는 더 많은 수증기를 포함할 수 있다.</li><li>상대습도 100%는 포화 상태를 뜻한다.</li><li>상대습도가 높으면 구름, 안개, 이슬이 생기기 쉽다.</li><li>기온이 내려가면 상대습도는 증가할 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">날씨 예보, 안개 예측, 실내 습도 관리, 농업과 건강 관리에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 상대습도 계산
+actual_vapor = 12
+saturation_vapor = 20
+RH = actual_vapor / saturation_vapor * 100
+print(&quot;상대습도:&quot;, RH, &quot;%&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`actual_vapor`는 현재 수증기량이다.</li><li>`saturation_vapor`는 포화 수증기량이다.</li><li>두 값을 나누면 포화 상태에 대한 비율이 나온다.</li><li>`* 100`은 퍼센트 변환이다.</li><li>`RH`는 상대습도이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 7</span><h2>단열 변화와 구름 형성</h2>
+<div class="sec">① 핵심 개념</div><div class="box">공기 덩어리가 상승하면 팽창하고 온도가 내려가며, 이슬점에 도달하면 구름이 형성될 수 있다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>상승하는 공기는 주변 기압이 낮아져 팽창한다.</li><li>팽창하면서 내부 에너지를 사용해 온도가 내려간다.</li><li>온도가 이슬점에 도달하면 수증기가 응결한다.</li><li>응결된 물방울이나 얼음 결정이 구름이 된다.</li><li>산악 상승기류와 저기압에서 구름이 잘 만들어진다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">구름 생성, 강수 예측, 산악 기상, 대기 안정도 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 고도 상승에 따른 기온 감소 근사
+surface_temp = 25
+lapse_rate = 6.5
+height_km = 2
+temp_at_height = surface_temp - lapse_rate * height_km
+print(&quot;고도&quot;, height_km, &quot;km의 기온:&quot;, temp_at_height, &quot;℃&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`surface_temp`는 지표면 기온이다.</li><li>`lapse_rate`는 고도 1 km당 기온 감소율이다.</li><li>`height_km`는 고도이다.</li><li>기온은 `surface_temp - lapse_rate * height_km`로 근사한다.</li><li>상승한 공기는 차가워져 구름을 만들 수 있다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 8</span><h2>대기압과 고도</h2>
+<div class="sec">① 핵심 개념</div><div class="box">대기압은 고도가 높아질수록 감소하며, 단순 모형에서는 \[P=P_0e^{-h/H}\] 로 나타낼 수 있다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>대기압은 위에 쌓인 공기의 무게 때문에 생긴다.</li><li>높은 곳에서는 위에 있는 공기량이 줄어 기압이 낮다.</li><li>기압은 대략 지수적으로 감소한다.</li><li>\(H\)는 규모고도이며 대기가 희박해지는 정도를 나타낸다.</li><li>기압 변화는 날씨와 산악 활동에 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">고산 기압 계산, 항공기 고도, 날씨 분석, 산악 안전 교육에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 고도에 따른 대기압 근사
+import math
+P0 = 1013.25
+H = 8.5
+h = 3
+P = P0 * math.exp(-h / H)
+print(&quot;고도&quot;, h, &quot;km의 기압:&quot;, P, &quot;hPa&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`P0`는 해수면 기준 기압이다.</li><li>`H`는 규모고도이다.</li><li>`h`는 고도이다.</li><li>`math.exp(-h / H)`는 지수적 감소를 계산한다.</li><li>`P`는 해당 고도의 기압 근사값이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 9</span><h2>전향력</h2>
+<div class="sec">① 핵심 개념</div><div class="box">지구 자전 때문에 움직이는 물체는 북반구에서 오른쪽, 남반구에서 왼쪽으로 휘어지는 것처럼 보인다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>전향력은 회전하는 지구 좌표계에서 나타나는 겉보기 힘이다.</li><li>바람과 해류는 전향력의 영향을 크게 받는다.</li><li>북반구에서는 운동 방향의 오른쪽으로 휘어진다.</li><li>남반구에서는 운동 방향의 왼쪽으로 휘어진다.</li><li>전향력은 태풍 회전과 대기 대순환 이해에 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">태풍 회전, 해류 방향, 대기 대순환, 항공 경로 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 위도에 따른 전향력 계수
+import math
+latitude_deg = 45
+omega = 7.292e-5
+f = 2 * omega * math.sin(math.radians(latitude_deg))
+print(&quot;전향력 계수 f:&quot;, f)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`latitude_deg`는 위도이다.</li><li>`omega`는 지구 자전 각속도이다.</li><li>`math.radians()`는 도를 라디안으로 바꾼다.</li><li>`math.sin()`은 위도 효과를 계산한다.</li><li>`f`는 코리올리 매개변수이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 10</span><h2>해륙풍</h2>
+<div class="sec">① 핵심 개념</div><div class="box">낮에는 바다에서 육지로 해풍이 불고, 밤에는 육지에서 바다로 육풍이 분다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>육지는 바다보다 빨리 데워지고 빨리 식는다.</li><li>낮에는 육지 위 공기가 따뜻해져 상승한다.</li><li>바다 쪽 공기가 육지로 이동하면서 해풍이 분다.</li><li>밤에는 육지가 더 빨리 식는다.</li><li>밤에는 육지에서 바다로 육풍이 분다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">해안 지역 날씨, 바람 예측, 항해, 해안 도시 열환경 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 낮과 밤의 바람 방향 판단
+time = &quot;day&quot;
+
+if time == &quot;day&quot;:
+    wind = &quot;바다에서 육지로 부는 해풍&quot;
+else:
+    wind = &quot;육지에서 바다로 부는 육풍&quot;
+
+print(wind)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`time`은 낮 또는 밤을 나타낸다.</li><li>낮이면 해풍 조건이다.</li><li>밤이면 육풍 조건이다.</li><li>`wind`는 바람 방향 설명이다.</li><li>해륙풍은 육지와 바다의 비열 차이 때문에 생긴다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 11</span><h2>해수의 염분</h2>
+<div class="sec">① 핵심 개념</div><div class="box">해수의 평균 염분은 약 \(35\permil\)이며, 증발이 강하면 증가하고 강수·하천 유입이 많으면 감소한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>염분은 해수 1 kg에 녹아 있는 염류의 g 수로 나타낼 수 있다.</li><li>평균 해수 염분은 약 35 퍼밀이다.</li><li>증발이 강하면 물만 빠져나가 염분이 높아진다.</li><li>강수나 하천 유입은 바닷물을 희석해 염분을 낮춘다.</li><li>염분은 해수 밀도와 해양 순환에 영향을 준다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">해양 순환, 어장 환경, 기후 시스템, 담수 유입 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 염분 계산
+salt_g = 35
+water_kg = 1
+salinity = salt_g / water_kg
+print(&quot;염분:&quot;, salinity, &quot;퍼밀&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`salt_g`는 녹아 있는 염류의 질량이다.</li><li>`water_kg`는 해수의 질량이다.</li><li>`salinity`는 kg당 g 단위의 염분이다.</li><li>해수 1 kg에 염류 35 g이 있으면 약 35 퍼밀이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 12</span><h2>심층 순환</h2>
+<div class="sec">① 핵심 개념</div><div class="box">해수의 밀도 차이는 깊은 바다의 순환을 만들며, 밀도는 주로 수온과 염분의 영향을 받는다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>차갑고 염분이 높은 해수는 밀도가 크다.</li><li>고위도 해역에서는 차가운 해수가 침강한다.</li><li>침강한 물은 심층수로 전 세계 바다를 순환한다.</li><li>심층 순환은 열과 물질을 지구 규모로 운반한다.</li><li>기후 변화는 심층 순환에 영향을 줄 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">기후 조절, 탄소 순환, 해양 생태계, 장기 기후 변화 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 단순 밀도 지수 계산
+temperature = 2
+salinity = 35
+density_index = salinity - 0.2 * temperature
+print(&quot;밀도 지수:&quot;, density_index)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`temperature`는 수온이다.</li><li>`salinity`는 염분이다.</li><li>염분이 높고 수온이 낮을수록 밀도가 커진다.</li><li>`density_index`는 경향을 보여 주는 단순 지수이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 13</span><h2>조석</h2>
+<div class="sec">① 핵심 개념</div><div class="box">조석은 달과 태양의 중력, 그리고 지구-달 계의 운동 때문에 해수면이 주기적으로 오르내리는 현상이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>달의 중력은 지구의 바닷물을 끌어당긴다.</li><li>달 방향과 반대 방향에 만조가 생기기 쉽다.</li><li>태양도 조석에 영향을 준다.</li><li>달과 태양이 일직선이면 사리가 나타난다.</li><li>달과 태양이 직각이면 조금이 나타난다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">항해, 갯벌 체험, 해안 공학, 조력 발전, 어업 활동 계획에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 간단한 조석 높이 모형
+import math
+time_hour = 6
+period = 12.4
+height = math.sin(2 * math.pi * time_hour / period)
+print(&quot;상대 조석 높이:&quot;, height)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`time_hour`는 기준 시각 이후 시간이다.</li><li>`period`는 조석의 대략적인 주기이다.</li><li>`math.sin()`은 주기적 변화를 표현한다.</li><li>`height`는 상대적인 조석 높이이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 14</span><h2>탄소 순환</h2>
+<div class="sec">① 핵심 개념</div><div class="box">탄소는 대기, 해양, 생물, 암석권 사이를 이동하며 지구 기후와 생명 활동에 큰 영향을 준다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>식물은 광합성으로 이산화탄소를 흡수한다.</li><li>호흡과 분해는 이산화탄소를 방출한다.</li><li>해양은 많은 이산화탄소를 흡수하고 저장한다.</li><li>화석연료 연소는 오래 저장된 탄소를 빠르게 방출한다.</li><li>탄소 순환 변화는 지구 온난화와 관련된다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">기후 변화 분석, 탄소중립, 생태계 연구, 해양 산성화 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 대기 중 탄소량 변화 단순 모델
+carbon = 100
+emission = 5
+absorption = 3
+
+for year in range(1, 11):
+    carbon += emission - absorption
+    print(year, &quot;년 후 탄소량:&quot;, carbon)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`carbon`은 초기 탄소량이다.</li><li>`emission`은 매년 배출량이다.</li><li>`absorption`은 매년 흡수량이다.</li><li>`carbon += emission - absorption`은 순증가량을 반영한다.</li><li>배출량이 흡수량보다 크면 탄소량은 증가한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 15</span><h2>온실효과</h2>
+<div class="sec">① 핵심 개념</div><div class="box">온실기체는 지표가 방출하는 적외선을 흡수·재방출하여 지구 평균 기온을 높인다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>태양 복사는 주로 가시광선으로 지표에 도달한다.</li><li>지표는 흡수한 에너지를 적외선으로 방출한다.</li><li>온실기체는 적외선을 흡수한다.</li><li>흡수된 에너지는 다시 여러 방향으로 방출된다.</li><li>자연적 온실효과는 생명체가 살 수 있는 온도를 유지한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">기후 변화, 지구 평균기온, 탄소 배출 정책, 에너지 교육에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 온실기체 증가에 따른 온도 상승 단순 모델
+co2_increase = 100
+sensitivity = 0.01
+temp_increase = co2_increase * sensitivity
+print(&quot;예상 온도 상승:&quot;, temp_increase, &quot;℃&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`co2_increase`는 이산화탄소 증가량이다.</li><li>`sensitivity`는 단순화한 온도 민감도이다.</li><li>`temp_increase`는 예상 온도 상승량이다.</li><li>실제 기후 시스템은 더 복잡하다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 16</span><h2>별의 밝기와 거리</h2>
+<div class="sec">① 핵심 개념</div><div class="box">별의 겉보기 밝기 \(b\)는 광도 \(L\)에 비례하고 거리 \(d\)의 제곱에 반비례한다. \[b=\frac{L}{4\pi d^2}\]</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>별은 모든 방향으로 빛을 방출한다.</li><li>별빛은 거리 \(d\)에서 구면 전체로 퍼진다.</li><li>구면 넓이는 \(4\pi d^2\)이다.</li><li>같은 광도라도 멀리 있으면 어둡게 보인다.</li><li>이 관계로 별의 거리나 광도를 추정할 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">별 거리 측정, 천체 관측, 은하 밝기 분석, 천문학 기초 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 별의 겉보기 밝기 계산
+import math
+L = 3.8e26
+d = 1.5e11
+b = L / (4 * math.pi * d**2)
+print(&quot;겉보기 밝기:&quot;, b)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`L`은 별의 광도이다.</li><li>`d`는 별까지의 거리이다.</li><li>`4 * math.pi * d**2`는 빛이 퍼지는 구면 넓이이다.</li><li>`b`는 단위 면적당 도달하는 에너지이다.</li><li>거리가 2배가 되면 밝기는 4분의 1이 된다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 17</span><h2>허블 법칙</h2>
+<div class="sec">① 핵심 개념</div><div class="box">멀리 있는 은하는 거리 \(d\)에 비례하는 후퇴속도 \(v\)를 가진다. \[v=H_0d\]</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>은하 스펙트럼에서 적색편이가 관측된다.</li><li>적색편이는 은하가 멀어지고 있음을 의미한다.</li><li>허블은 거리와 후퇴속도가 비례함을 발견했다.</li><li>이는 우주 팽창의 중요한 증거이다.</li><li>허블 상수는 현재 우주의 팽창률을 나타낸다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">우주 팽창, 은하 거리 추정, 빅뱅 우주론, 우주 나이 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 허블 법칙으로 은하 후퇴속도 계산
+H0 = 70
+d = 100
+v = H0 * d
+print(&quot;후퇴속도:&quot;, v, &quot;km/s&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`H0`는 허블 상수이다.</li><li>`d`는 은하까지의 거리이다.</li><li>`v = H0 * d`는 허블 법칙이다.</li><li>거리가 먼 은하일수록 더 빠르게 멀어진다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 18</span><h2>달의 위상</h2>
+<div class="sec">① 핵심 개념</div><div class="box">달의 위상은 태양빛을 받는 달의 절반 중 지구에서 보이는 부분이 달라져 생긴다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>달은 스스로 빛을 내지 않고 태양빛을 반사한다.</li><li>항상 달의 절반은 태양빛을 받는다.</li><li>달이 공전하면서 밝은 부분의 비율이 달라진다.</li><li>삭, 상현, 보름, 하현이 나타난다.</li><li>달의 위상 주기는 약 29.5일이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">음력, 조석 이해, 천체 관측, 달의 공전 교육에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 달 위상 주기에서 밝은 비율 근사
+import math
+day = 7.4
+period = 29.5
+phase = (1 - math.cos(2 * math.pi * day / period)) / 2
+print(&quot;밝은 부분 비율:&quot;, phase)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`day`는 삭 이후 지난 날짜이다.</li><li>`period`는 달의 위상 주기이다.</li><li>`math.cos()`는 주기적 변화를 표현한다.</li><li>`phase`는 밝은 부분 비율이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 19</span><h2>계절 변화</h2>
+<div class="sec">① 핵심 개념</div><div class="box">계절은 지구의 자전축이 공전궤도면에 대해 약 \(23.5^\circ\) 기울어져 있기 때문에 생긴다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>지구는 태양 주위를 공전하면서 자전축 방향을 거의 유지한다.</li><li>자전축이 기울어져 태양 고도가 계절에 따라 달라진다.</li><li>태양 고도가 높고 낮이 길면 여름이다.</li><li>태양 고도가 낮고 낮이 짧으면 겨울이다.</li><li>계절 변화의 주된 원인은 태양과의 거리 변화가 아니라 자전축 기울기이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">계절별 기온 변화, 낮 길이 변화, 농업, 기후 교육, 태양고도 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 정오 태양고도 근사
+latitude = 37.5
+declination = 23.5
+solar_altitude = 90 - abs(latitude - declination)
+print(&quot;정오 태양고도:&quot;, solar_altitude, &quot;도&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`latitude`는 관측자의 위도이다.</li><li>`declination`은 태양 적위이다.</li><li>`abs(latitude - declination)`은 위도와 태양 적위 차이이다.</li><li>`90 - ...`는 정오 태양고도 근사이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 20</span><h2>태양계 행성의 공전</h2>
+<div class="sec">① 핵심 개념</div><div class="box">행성은 태양의 중력에 의해 타원 궤도를 따라 공전하며, 가까울수록 대체로 더 빠르게 공전한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>태양의 중력은 행성을 태양 쪽으로 끌어당긴다.</li><li>행성의 전진 운동과 중력이 결합해 궤도가 만들어진다.</li><li>케플러 법칙에 따르면 행성 궤도는 타원이다.</li><li>태양에 가까운 행성일수록 공전주기가 짧다.</li><li>행성 궤도는 중력 법칙을 이해하는 핵심 자료이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">행성 위치 예측, 우주 탐사 궤도 설계, 천문 관측, 태양계 교육에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 케플러 제3법칙으로 공전주기 근사
+a = 4
+T = (a**3) ** 0.5
+print(&quot;공전주기:&quot;, T, &quot;년&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`a`는 태양으로부터의 평균 거리이다.</li><li>`a**3`은 거리의 세제곱이다.</li><li>`T = (a**3) ** 0.5`는 \(T^2=a^3\)에서 \(T\)를 계산한다.</li><li>AU와 년 단위를 쓰면 케플러 제3법칙을 간단히 적용할 수 있다.</li></ol></section>
+<section class="card"><h2>마무리 핵심 정리</h2><div class="summary">지구과학은 지구 내부, 대기, 해양, 기후, 우주를 하나의 연결된 시스템으로 이해하는 과학이다. 판의 이동은 지진과 화산을 만들고, 대기와 해양의 순환은 날씨와 기후를 조절하며, 천문 현상은 지구의 계절과 달의 위상, 우주의 팽창까지 설명한다.</div></section></main><footer>매력적인 지구과학 개념정리 20개 HTML 수업자료</footer></body></html>

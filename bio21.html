@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>매력적인 생화학 개념정리 20개</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--navy:#172554;--blue:#2563eb;--purple:#7c3aed;--ink:#172033;--green:#ecfdf5;--yellow:#fff7d6;--line:#dbeafe;--rose:#fff1f2}
+*{box-sizing:border-box} body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff 0%,#fff7ed 100%);color:var(--ink);line-height:1.82}
+header{background:radial-gradient(circle at top left,#60a5fa,transparent 28%),linear-gradient(135deg,var(--navy),var(--purple));color:white;text-align:center;padding:54px 24px}
+header h1{margin:0;font-size:2.25rem;letter-spacing:-.04em} header p{opacity:.94;font-size:1.06rem}
+main{max-width:1120px;margin:auto;padding:30px}.card{background:rgba(255,255,255,.97);border:1px solid rgba(37,99,235,.13);border-radius:24px;padding:30px;margin:28px 0;box-shadow:0 16px 38px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid var(--line);padding-bottom:10px;margin-top:8px}.badge{display:inline-block;background:#ede9fe;color:#5b21b6;padding:6px 13px;border-radius:999px;font-weight:800}
+.sec{font-weight:900;color:#9a3412;margin-top:24px;font-size:1.12rem}.box,.use,.note{border-radius:16px;padding:16px 19px;overflow-x:auto}.box{background:#eff6ff;border-left:7px solid var(--blue)}.use{background:var(--yellow);border-left:7px solid #f59e0b}.note{background:#f0fdf4;border-left:7px solid #10b981}
+ol{background:#f8fafc;border-radius:16px;padding:16px 38px}li{margin:8px 0}pre{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:20px;overflow:auto;line-height:1.65;font-size:.95rem;border:1px solid #334155}code{font-family:Consolas,'D2Coding','Courier New',monospace}.explain{background:var(--green)}.summary{background:var(--rose);border-left:7px solid #e11d48;border-radius:16px;padding:16px 19px}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.08em !important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.95em !important}mjx-merror{display:none !important}mjx-container[jax="SVG"] svg{max-width:100%}
+footer{text-align:center;color:#64748b;padding:30px}@media(max-width:640px){header h1{font-size:1.65rem}main{padding:16px}.card{padding:20px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true,processEnvironments:true,packages:{'[+]':['ams']}},loader:{load:['[tex]/ams']},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head>
+<body><header><h1>사람들이 가장 좋아하는 매력적인 생화학 개념정리 20개</h1><p>깨지지 않는 예쁜 수식 · 개념 상세 설명 · 활용 예제 · 파이썬 코드 상세 설명</p></header><main>
+<section class="card"><h2>학습 목표</h2><div class="note">생화학의 핵심 영역인 단백질, 효소, ATP, 대사, 탄수화물, 지질, 핵산, pH와 완충용액을 이해하고, 각 개념을 간단한 파이썬 계산과 조건문으로 확인한다. 수식은 MathJax LaTeX 방식으로 작성하여 깨짐과 Math input error를 최소화했다.</div></section>
+
+<section class="card"><span class="badge">개념 1</span><h2>생체분자</h2>
+<div class="sec">① 핵심 개념</div><div class="box">생명체를 이루는 주요 생체분자는 탄수화물, 지질, 단백질, 핵산이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>탄수화물은 주로 에너지원과 구조 물질로 사용된다.</li><li>지질은 세포막 구성, 에너지 저장, 호르몬 생성에 관여한다.</li><li>단백질은 효소, 수송체, 구조 단백질, 신호 단백질로 작용한다.</li><li>핵산은 유전 정보를 저장하고 전달한다.</li><li>생화학은 이러한 분자들이 생명현상을 어떻게 만드는지 연구한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">영양소 분석, 의학 검사, 세포 기능 이해, 생명공학 기초에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 생체분자 목록 분류
+biomolecules = [&quot;탄수화물&quot;, &quot;지질&quot;, &quot;단백질&quot;, &quot;핵산&quot;]
+
+for i, name in enumerate(biomolecules, 1):
+    print(i, name)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`biomolecules`는 주요 생체분자 이름을 저장한 리스트이다.</li><li>`enumerate(..., 1)`은 번호를 1부터 붙인다.</li><li>`for`문은 각 생체분자를 하나씩 출력한다.</li><li>생화학의 기본 출발점은 생체분자의 종류와 기능을 구분하는 것이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 2</span><h2>아미노산</h2>
+<div class="sec">① 핵심 개념</div><div class="box">아미노산은 아미노기 \(-NH_2\), 카복실기 \(-COOH\), 곁사슬 \(R\)을 가진 단백질의 기본 단위이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>아미노산은 단백질을 구성하는 단량체이다.</li><li>중심 탄소에는 아미노기, 카복실기, 수소, 곁사슬이 결합한다.</li><li>곁사슬의 성질에 따라 아미노산의 극성, 전하, 소수성이 달라진다.</li><li>아미노산은 펩타이드 결합으로 연결되어 단백질을 만든다.</li><li>생명체는 주로 20종의 표준 아미노산을 사용한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">단백질 구조 예측, 영양학, 효소 기능 이해, 질병 돌연변이 분석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 아미노산 개수 세기
+sequence = &quot;MKTLLV&quot;
+length = len(sequence)
+
+print(&quot;아미노산 서열:&quot;, sequence)
+print(&quot;아미노산 개수:&quot;, length)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`sequence`는 아미노산 서열을 한 글자 코드로 표현한 문자열이다.</li><li>`len(sequence)`는 서열의 길이, 즉 아미노산 개수를 구한다.</li><li>단백질은 아미노산이 순서대로 연결된 고분자이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 3</span><h2>펩타이드 결합</h2>
+<div class="sec">① 핵심 개념</div><div class="box">두 아미노산은 탈수축합 반응으로 펩타이드 결합을 형성한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>한 아미노산의 카복실기와 다른 아미노산의 아미노기가 반응한다.</li><li>이때 물 한 분자가 빠져나가는 탈수축합이 일어난다.</li><li>형성된 결합을 펩타이드 결합이라고 한다.</li><li>여러 아미노산이 펩타이드 결합으로 연결되면 폴리펩타이드가 된다.</li><li>단백질의 1차 구조는 아미노산의 연결 순서이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">단백질 합성, 리보솜 작용, 단백질 분해효소 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 펩타이드 결합 수 계산
+amino_acids = 8
+peptide_bonds = amino_acids - 1
+
+print(&quot;아미노산 수:&quot;, amino_acids)
+print(&quot;펩타이드 결합 수:&quot;, peptide_bonds)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`amino_acids`는 연결된 아미노산 개수이다.</li><li>선형 펩타이드에서 결합 수는 아미노산 수보다 1개 적다.</li><li>`peptide_bonds = amino_acids - 1`로 펩타이드 결합 수를 계산한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 4</span><h2>단백질 구조</h2>
+<div class="sec">① 핵심 개념</div><div class="box">단백질 구조는 1차, 2차, 3차, 4차 구조로 설명할 수 있다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>1차 구조는 아미노산 서열이다.</li><li>2차 구조는 알파 나선과 베타 병풍 같은 국소 구조이다.</li><li>3차 구조는 하나의 폴리펩타이드 전체 입체 구조이다.</li><li>4차 구조는 여러 폴리펩타이드 소단위체가 모인 구조이다.</li><li>단백질 구조는 기능과 밀접하게 연결된다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">효소 활성, 항체 결합, 단백질 변성, 신약 개발에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 단백질 서열에서 소수성 아미노산 비율 계산
+sequence = &quot;MALWMRLLPLL&quot;
+hydrophobic = set(&quot;AILMFWV&quot;)
+
+count = sum(1 for aa in sequence if aa in hydrophobic)
+ratio = count / len(sequence)
+
+print(&quot;소수성 아미노산 비율:&quot;, ratio)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`sequence`는 단백질 아미노산 서열이다.</li><li>`hydrophobic`은 소수성 아미노산 집합이다.</li><li>`sum(1 for aa in sequence if aa in hydrophobic)`은 소수성 아미노산 개수를 센다.</li><li>소수성 아미노산은 단백질 접힘에 큰 영향을 준다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 5</span><h2>효소</h2>
+<div class="sec">① 핵심 개념</div><div class="box">효소는 활성화 에너지 \(E_a\)를 낮추어 반응 속도를 증가시키는 생체 촉매이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>효소는 대부분 단백질로 이루어진 촉매이다.</li><li>효소는 반응 전후에 소모되지 않는다.</li><li>효소는 특정 기질과 결합하는 활성부위를 가진다.</li><li>효소는 반응의 활성화 에너지를 낮춘다.</li><li>온도와 pH가 지나치게 변하면 효소가 변성될 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">소화, 대사, 의약품 개발, 산업용 효소, 질병 진단에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 효소가 반응속도를 증가시키는 단순 모델
+rate_without = 1
+catalytic_factor = 1000
+
+rate_with = rate_without * catalytic_factor
+
+print(&quot;효소 없는 속도:&quot;, rate_without)
+print(&quot;효소 있는 속도:&quot;, rate_with)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`rate_without`은 효소가 없을 때의 반응속도이다.</li><li>`catalytic_factor`는 효소에 의한 속도 증가 배율이다.</li><li>`rate_with`는 효소가 있을 때의 반응속도이다.</li><li>효소는 반응을 빠르게 하지만 평형 자체를 바꾸지는 않는다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 6</span><h2>미하엘리스-멘텐 식</h2>
+<div class="sec">① 핵심 개념</div><div class="box">효소 반응속도는 기질 농도 \([S]\)에 따라 \[v=\frac{V_{\max}[S]}{K_m+[S]}\] 로 근사할 수 있다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>기질 농도가 낮을 때는 기질이 늘수록 반응속도가 크게 증가한다.</li><li>기질 농도가 높아지면 효소 활성부위가 포화된다.</li><li>포화 상태에서는 속도가 \(V_{\max}\)에 가까워진다.</li><li>\(K_m\)은 반응속도가 \(V_{\max}/2\)가 되는 기질 농도이다.</li><li>이 식은 효소 반응의 기본 모델이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">효소 활성 측정, 약물 저해 분석, 생화학 실험 데이터 해석에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 미하엘리스-멘텐 식 계산
+Vmax = 100
+Km = 2
+S = 5
+
+v = Vmax * S / (Km + S)
+
+print(&quot;반응속도:&quot;, v)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`Vmax`는 최대 반응속도이다.</li><li>`Km`은 미하엘리스 상수이다.</li><li>`S`는 기질 농도이다.</li><li>`v = Vmax * S / (Km + S)`는 미하엘리스-멘텐 식이다.</li><li>기질 농도가 높아질수록 속도는 \(V_{\max}\)에 가까워진다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 7</span><h2>ATP</h2>
+<div class="sec">① 핵심 개념</div><div class="box">ATP는 세포의 에너지 화폐이며, 가수분해될 때 에너지를 방출한다. \[\mathrm{ATP}+H_2O\to \mathrm{ADP}+P_i+\text{energy}\]</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>ATP는 아데닌, 리보스, 세 개의 인산기로 이루어진다.</li><li>인산기 사이 결합이 가수분해되면 에너지가 방출된다.</li><li>세포는 이 에너지를 근육 수축, 능동수송, 생합성에 사용한다.</li><li>ATP는 계속 분해되고 다시 합성된다.</li><li>ATP는 에너지 저장량이 크다기보다 빠르게 쓰고 재생하기 좋은 분자이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">근육 운동, 세포막 능동수송, 대사 경로, 세포 에너지 계산에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># ATP 분해로 얻는 에너지 근사
+atp_count = 1000
+energy_per_atp = 30.5  # kJ/mol 단순값
+
+total_energy = atp_count * energy_per_atp
+
+print(&quot;상대적 총 에너지:&quot;, total_energy)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`atp_count`는 ATP 개수를 단순화한 값이다.</li><li>`energy_per_atp`는 ATP 1단위당 방출 에너지로 둔 값이다.</li><li>`total_energy`는 전체 에너지이다.</li><li>실제 세포에서는 ATP 양과 조건에 따라 에너지 값이 달라질 수 있다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 8</span><h2>해당과정</h2>
+<div class="sec">① 핵심 개념</div><div class="box">해당과정은 포도당 \(1\)분자를 피루브산 \(2\)분자로 분해하며 ATP와 NADH를 만든다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>해당과정은 세포질에서 일어난다.</li><li>산소가 없어도 진행될 수 있다.</li><li>포도당은 여러 단계의 효소 반응을 거쳐 피루브산이 된다.</li><li>순수하게 ATP 2개와 NADH 2개가 생성된다.</li><li>해당과정은 세포호흡의 첫 단계이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">운동 생리, 발효, 암세포 대사, 당 대사 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 포도당 개수에 따른 해당과정 ATP 순생산
+glucose = 6
+net_atp_per_glucose = 2
+
+net_atp = glucose * net_atp_per_glucose
+
+print(&quot;순생산 ATP:&quot;, net_atp)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`glucose`는 분해되는 포도당 분자 수이다.</li><li>`net_atp_per_glucose`는 포도당 1개당 순생산 ATP이다.</li><li>`net_atp`는 전체 ATP 순생산량이다.</li><li>해당과정은 포도당 1개당 ATP 2개를 순생산한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 9</span><h2>TCA 회로</h2>
+<div class="sec">① 핵심 개념</div><div class="box">TCA 회로는 아세틸-CoA를 산화하여 \(CO_2\), NADH, FADH\(_2\)를 만든다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>TCA 회로는 미토콘드리아 기질에서 일어난다.</li><li>아세틸-CoA가 옥살아세트산과 결합해 시트르산을 만든다.</li><li>여러 단계의 산화 반응을 통해 \(CO_2\)가 방출된다.</li><li>NADH와 FADH2는 전자전달계로 전자를 운반한다.</li><li>TCA 회로는 탄수화물, 지방, 단백질 대사의 중심 허브이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">세포호흡, 에너지 대사, 대사질환, 운동 생리학에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 아세틸-CoA 개수에 따른 NADH 생산
+acetyl_coa = 4
+nadh_per_turn = 3
+
+nadh = acetyl_coa * nadh_per_turn
+
+print(&quot;생성 NADH:&quot;, nadh)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`acetyl_coa`는 TCA 회로에 들어가는 아세틸-CoA 수이다.</li><li>`nadh_per_turn`은 회로 1회전당 생성되는 NADH 수이다.</li><li>`nadh`는 전체 NADH 생성량이다.</li><li>NADH는 전자전달계에서 ATP 생산에 사용된다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 10</span><h2>전자전달계</h2>
+<div class="sec">① 핵심 개념</div><div class="box">전자전달계는 NADH와 FADH\(_2\)의 전자를 이용해 양성자 기울기를 만들고 ATP를 합성한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>전자전달계는 미토콘드리아 내막에 있다.</li><li>NADH와 FADH2는 고에너지 전자를 전달한다.</li><li>전자 이동 에너지는 양성자를 막 사이 공간으로 펌프질하는 데 쓰인다.</li><li>양성자 기울기는 ATP 합성효소를 돌려 ATP를 만든다.</li><li>산소는 최종 전자수용체로 물을 형성한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">세포 에너지 생산, 미토콘드리아 질환, 독성 물질 작용, 운동 대사에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># NADH와 FADH2로부터 ATP 생산량 근사
+NADH = 10
+FADH2 = 2
+
+ATP = NADH * 2.5 + FADH2 * 1.5
+
+print(&quot;예상 ATP:&quot;, ATP)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`NADH`와 `FADH2`는 전자운반체의 수이다.</li><li>NADH 1개는 대략 ATP 2.5개 생산에 기여한다고 근사한다.</li><li>FADH2 1개는 대략 ATP 1.5개 생산에 기여한다고 근사한다.</li><li>`ATP`는 예상 ATP 생산량이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 11</span><h2>산화와 환원</h2>
+<div class="sec">① 핵심 개념</div><div class="box">산화는 전자를 잃는 과정이고 환원은 전자를 얻는 과정이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>생화학 반응에서 전자의 이동은 에너지 흐름과 연결된다.</li><li>산화되는 물질은 전자를 잃는다.</li><li>환원되는 물질은 전자를 얻는다.</li><li>NAD+는 전자를 받아 NADH로 환원된다.</li><li>세포호흡은 포도당을 산화하고 산소를 환원하는 과정이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">세포호흡, 광합성, 항산화 반응, 대사 경로 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># NAD+가 전자를 받아 NADH가 되는 과정 표현
+NAD_plus = 5
+electrons_available = 3
+
+NADH = min(NAD_plus, electrons_available)
+
+print(&quot;생성 가능한 NADH:&quot;, NADH)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`NAD_plus`는 전자를 받을 수 있는 NAD+ 수이다.</li><li>`electrons_available`은 사용 가능한 전자쌍 수로 단순화한 값이다.</li><li>`min()`은 둘 중 더 적은 값만큼 반응할 수 있음을 나타낸다.</li><li>NAD+는 환원되어 NADH가 된다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 12</span><h2>완충용액</h2>
+<div class="sec">① 핵심 개념</div><div class="box">완충용액은 산이나 염기가 조금 첨가되어도 pH 변화를 작게 유지한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>완충용액은 약산과 그 짝염기 또는 약염기와 그 짝산으로 이루어진다.</li><li>산이 들어오면 짝염기가 이를 받아 pH 변화를 줄인다.</li><li>염기가 들어오면 약산이 이를 중화한다.</li><li>혈액은 탄산-중탄산 완충계를 이용해 pH를 조절한다.</li><li>pH 조절은 단백질 구조와 효소 기능 유지에 중요하다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">혈액 pH 조절, 생화학 실험, 세포 배양액, 의약품 제조에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 헨더슨-하셀바흐 식
+import math
+
+pKa = 6.1
+base = 24
+acid = 1.2
+
+pH = pKa + math.log10(base / acid)
+
+print(&quot;pH:&quot;, pH)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`pKa`는 약산의 산해리상수에 대응하는 값이다.</li><li>`base`는 짝염기의 농도이다.</li><li>`acid`는 약산의 농도이다.</li><li>`math.log10(base / acid)`는 농도비의 로그이다.</li><li>헨더슨-하셀바흐 식으로 pH를 근사한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 13</span><h2>pH</h2>
+<div class="sec">① 핵심 개념</div><div class="box">pH는 수소 이온 농도 \([H^+]\)를 로그 척도로 나타낸 값이다. \[\mathrm{pH}=-\log_{10}[H^+]\]</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>pH가 낮을수록 산성이 강하다.</li><li>pH가 높을수록 염기성이 강하다.</li><li>pH 7은 대략 중성이다.</li><li>pH는 로그 척도이므로 pH가 1 차이 나면 수소 이온 농도는 10배 차이 난다.</li><li>효소와 세포는 적절한 pH 범위에서 정상 작동한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">혈액 검사, 효소 활성, 식품 산도, 수질 검사에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 수소 이온 농도로 pH 계산
+import math
+
+H = 1e-7
+pH = -math.log10(H)
+
+print(&quot;pH:&quot;, pH)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`H`는 수소 이온 농도이다.</li><li>`math.log10(H)`는 10을 밑으로 하는 로그이다.</li><li>음수를 붙여 pH를 계산한다.</li><li>수소 이온 농도 \(10^{-7}\)이면 pH는 7이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 14</span><h2>탄수화물</h2>
+<div class="sec">① 핵심 개념</div><div class="box">탄수화물은 주로 \(C\), \(H\), \(O\)로 이루어진 에너지원이며 단당류, 이당류, 다당류로 나뉜다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>포도당은 대표적인 단당류이다.</li><li>설탕은 포도당과 과당으로 이루어진 이당류이다.</li><li>녹말과 글리코겐은 포도당이 많이 연결된 다당류이다.</li><li>탄수화물은 빠른 에너지원으로 사용된다.</li><li>식물의 셀룰로스는 구조 탄수화물이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">영양학, 혈당 조절, 운동 에너지, 식품 과학에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 탄수화물 칼로리 계산
+grams = 50
+kcal_per_gram = 4
+
+energy = grams * kcal_per_gram
+
+print(&quot;에너지:&quot;, energy, &quot;kcal&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`grams`는 탄수화물 섭취량 g이다.</li><li>`kcal_per_gram`은 탄수화물 1 g당 에너지이다.</li><li>`energy`는 총 에너지이다.</li><li>탄수화물은 1 g당 약 4 kcal를 제공한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 15</span><h2>지질</h2>
+<div class="sec">① 핵심 개념</div><div class="box">지질은 물에 잘 녹지 않는 생체분자로 에너지 저장, 세포막 구성, 신호 전달에 관여한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>지질은 소수성이 큰 분자이다.</li><li>중성지방은 에너지 저장에 중요하다.</li><li>인지질은 세포막의 기본 구성 성분이다.</li><li>스테로이드는 호르몬과 세포막 안정성에 관여한다.</li><li>지질은 탄수화물보다 단위 질량당 더 많은 에너지를 저장한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">영양학, 세포막 연구, 호르몬 생합성, 대사질환 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 지방 칼로리 계산
+grams = 20
+kcal_per_gram = 9
+
+energy = grams * kcal_per_gram
+
+print(&quot;에너지:&quot;, energy, &quot;kcal&quot;)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`grams`는 지방 섭취량 g이다.</li><li>`kcal_per_gram`은 지방 1 g당 에너지이다.</li><li>`energy`는 총 에너지이다.</li><li>지질은 1 g당 약 9 kcal를 제공한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 16</span><h2>인지질 이중층</h2>
+<div class="sec">① 핵심 개념</div><div class="box">인지질은 친수성 머리와 소수성 꼬리를 가지며, 물속에서 이중층을 형성한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>인지질의 머리 부분은 물과 잘 상호작용한다.</li><li>꼬리 부분은 물을 피하는 소수성이다.</li><li>물속에서 소수성 꼬리끼리 안쪽을 향해 모인다.</li><li>이 구조가 세포막의 기본 골격이다.</li><li>막 단백질이 함께 작용해 물질 수송과 신호 전달을 수행한다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">세포막 구조, 약물 전달, 리포좀, 막 단백질 연구에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 막 통과 가능성 단순 판단
+molecule = {&quot;size&quot;: &quot;small&quot;, &quot;polar&quot;: False}
+
+can_cross = molecule[&quot;size&quot;] == &quot;small&quot; and not molecule[&quot;polar&quot;]
+
+print(&quot;인지질 이중층 통과 가능?&quot;, can_cross)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`molecule`은 분자 특성을 저장한 딕셔너리이다.</li><li>작고 비극성이면 막을 통과하기 쉽다.</li><li>`and`는 두 조건이 모두 참인지 확인한다.</li><li>`can_cross`는 막 통과 가능성을 나타낸다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 17</span><h2>핵산</h2>
+<div class="sec">① 핵심 개념</div><div class="box">핵산은 뉴클레오타이드가 연결된 고분자로 DNA와 RNA가 대표적이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>DNA는 유전 정보를 안정적으로 저장한다.</li><li>RNA는 단백질 합성과 유전자 발현 조절에 관여한다.</li><li>뉴클레오타이드는 당, 인산, 염기로 이루어진다.</li><li>DNA에는 A, T, G, C가 있고 RNA에는 A, U, G, C가 있다.</li><li>핵산 서열은 생명정보의 기본 코드이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">유전체 분석, PCR, RNA 백신, 유전자 발현 연구에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># DNA를 RNA로 전사하기
+dna = &quot;ATGCTTACG&quot;
+rna = dna.replace(&quot;T&quot;, &quot;U&quot;)
+
+print(&quot;DNA:&quot;, dna)
+print(&quot;RNA:&quot;, rna)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`dna`는 DNA 염기서열이다.</li><li>RNA에서는 T 대신 U를 사용한다.</li><li>`replace('T', 'U')`는 T를 U로 바꾼다.</li><li>`rna`는 전사된 RNA 서열이다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 18</span><h2>대사 경로</h2>
+<div class="sec">① 핵심 개념</div><div class="box">대사 경로는 여러 효소 반응이 순서대로 연결되어 물질을 합성하거나 분해하는 과정이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>대사는 동화작용과 이화작용으로 나뉜다.</li><li>동화작용은 작은 분자를 큰 분자로 합성하며 에너지를 사용한다.</li><li>이화작용은 큰 분자를 분해하며 에너지를 방출한다.</li><li>대사 경로는 효소에 의해 정교하게 조절된다.</li><li>피드백 억제는 최종 산물이 앞 단계 효소를 억제하는 조절 방식이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">약물 작용, 유전 대사 질환, 영양 대사, 세포 에너지 연구에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 피드백 억제 단순 모델
+product = 80
+threshold = 50
+
+if product &gt; threshold:
+    enzyme_activity = &quot;억제됨&quot;
+else:
+    enzyme_activity = &quot;활성&quot;
+
+print(&quot;효소 상태:&quot;, enzyme_activity)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`product`는 최종 산물의 양이다.</li><li>`threshold`는 억제가 시작되는 기준값이다.</li><li>최종 산물이 많으면 효소가 억제된다.</li><li>피드백 억제는 대사 균형을 유지한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 19</span><h2>막수송</h2>
+<div class="sec">① 핵심 개념</div><div class="box">물질은 확산, 촉진확산, 능동수송을 통해 세포막을 이동한다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>단순확산은 농도 기울기를 따라 이동한다.</li><li>촉진확산은 막 단백질을 이용하지만 에너지를 쓰지 않는다.</li><li>능동수송은 ATP를 사용해 농도 기울기에 거슬러 이동한다.</li><li>이온 펌프는 대표적인 능동수송이다.</li><li>막수송은 세포 내부 환경 유지에 필수적이다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">신경세포 전위, 영양분 흡수, 신장 기능, 약물 이동 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 농도 기울기에 따른 확산 방향
+inside = 2
+outside = 8
+
+if outside &gt; inside:
+    direction = &quot;밖에서 안으로 확산&quot;
+elif inside &gt; outside:
+    direction = &quot;안에서 밖으로 확산&quot;
+else:
+    direction = &quot;순확산 없음&quot;
+
+print(direction)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`inside`는 세포 안 농도이다.</li><li>`outside`는 세포 밖 농도이다.</li><li>물질은 보통 높은 농도에서 낮은 농도로 확산한다.</li><li>조건문으로 확산 방향을 판단한다.</li></ol></section>
+
+<section class="card"><span class="badge">개념 20</span><h2>신호전달</h2>
+<div class="sec">① 핵심 개념</div><div class="box">세포 신호전달은 외부 신호가 수용체와 결합하여 세포 내부 반응으로 이어지는 과정이다.</div>
+<div class="sec">② 개념 상세 설명</div><ol><li>호르몬이나 신경전달물질은 신호분자로 작용한다.</li><li>수용체는 특정 신호분자를 인식한다.</li><li>신호가 결합하면 세포 내부 전달 경로가 활성화된다.</li><li>2차 전달자가 신호를 증폭할 수 있다.</li><li>신호전달 오류는 암, 당뇨, 면역질환과 관련될 수 있다.</li></ol>
+<div class="sec">③ 활용 예제</div><div class="use">호르몬 작용, 약물 표적, 암 신호 경로, 면역 반응 이해에 활용된다.</div>
+<div class="sec">④ 파이썬 코드</div><pre><code># 신호 증폭 단순 모델
+signal = 1
+amplification = 3
+
+for step in range(5):
+    signal *= amplification
+    print(step + 1, signal)</code></pre>
+<div class="sec">⑤ 코드 상세 설명</div><ol class="explain"><li>`signal`은 초기 신호 크기이다.</li><li>`amplification`은 단계별 증폭 배율이다.</li><li>반복될수록 신호가 커진다.</li><li>세포 신호전달은 작은 신호를 큰 반응으로 증폭할 수 있다.</li></ol></section>
+<section class="card"><h2>마무리 핵심 정리</h2><div class="summary">생화학은 생명현상을 분자 수준에서 설명하는 과학이다. 효소는 반응을 빠르게 하고, ATP는 에너지 전달의 중심이며, 탄수화물·지질·단백질·핵산은 세포 구조와 기능을 만든다. 대사 경로와 신호전달은 세포가 환경에 반응하고 생명을 유지하는 핵심 체계이다.</div></section></main><footer>매력적인 생화학 개념정리 20개 HTML 수업자료</footer></body></html>
