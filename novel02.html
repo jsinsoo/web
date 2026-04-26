@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2020년대 한국현대소설 10선 수업자료</title>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']]},
+  svg: {fontCache: 'global'}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --paper:#fffdf8;--ink:#202020;--muted:#666;--accent:#503a2a;--accent2:#8a603e;
+  --line:#eadfce;--code:#1f2937;--codebg:#f4f7fb;--soft:#fbf7f1;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at top left,#fff7df 0,#f4efe7 36%,#eaf2f7 100%);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;
+  line-height:1.78;
+}
+.wrap{max-width:1220px;margin:auto;padding:38px 20px 90px}
+.hero{
+  background:linear-gradient(120deg,#2f2119,#634733 58%,#9c744c);
+  color:white;padding:46px;border-radius:30px;box-shadow:0 24px 55px #0003;
+}
+.hero h1{margin:0;font-size:clamp(30px,5vw,55px);letter-spacing:-.045em}
+.hero p{font-size:18px;color:#fff2e1;max-width:980px}
+.badge{display:inline-block;border:1px solid #ffffff66;border-radius:999px;padding:6px 12px;margin:5px 7px 0 0;background:#ffffff18}
+.toc,.card{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:28px;margin-top:24px;box-shadow:0 16px 38px #6d451f12}
+.toc ol{columns:2;column-gap:45px}
+.toc a{color:var(--accent);font-weight:800;text-decoration:none}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.pill{background:#f0e2d2;border:1px solid #dfc8ad;color:#5b3d28;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
+.card h2{font-size:30px;margin:0 0 6px;color:#3b281b;letter-spacing:-.03em}
+.card h3{color:#6b4a31;margin-top:23px}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px}
+.box{background:var(--soft);border:1px solid var(--line);border-radius:19px;padding:18px}
+.story{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.stage{background:#fff;border:1px solid #eadfce;border-radius:16px;padding:14px}
+.stage b{display:block;color:#7b4b27;margin-bottom:5px}
+.formula{background:#fff;border-left:7px solid #9b6a3d;padding:14px 18px;border-radius:15px;margin:15px 0}
+.codeblock{background:var(--codebg);border:1px solid #dce5f0;border-radius:18px;overflow:hidden;margin-top:14px}
+.codeblock .bar{background:#e7edf5;color:#45556a;font-weight:800;padding:9px 14px;font-size:13px}
+.codeblock pre{margin:0;padding:18px;overflow:auto;color:var(--code);font-family:'Cascadia Code','Consolas','D2Coding',monospace;font-size:14px;line-height:1.62}
+.explain li{margin:.38em 0}
+.note{font-size:14px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden}
+th,td{border:1px solid #eadfce;padding:10px;vertical-align:top}
+th{background:#efe1d1;color:#4b3020}
+mjx-container[jax="SVG"]:not([display="true"]){font-size:.92em!important}
+@media(max-width:900px){.grid,.story{grid-template-columns:1fr}.toc ol{columns:1}.hero{padding:30px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="hero">
+<h1>2020년대 한국현대소설 10선</h1>
+<p>기후위기, 팬데믹 이후의 돌봄, 여성 가족사, 국가폭력의 기억, 청년과 공동체, SF와 포스트휴먼 상상력을 중심으로 작품별 도입·전개·절정·결말 줄거리와 작가의 생애·사상, 파이썬 코드 설명을 정리한 HTML 수업자료입니다.</p>
+<span class="badge">UTF-8 글자 깨짐 방지</span>
+<span class="badge">MathJax 예쁜 수식</span>
+<span class="badge">기후위기·돌봄·SF·기억·가족</span>
+<span class="badge">문학 × 파이썬 융합</span>
+</section>
+
+<section class="toc"><h2>목차</h2><ol><li><a href="#n1">정세랑, 「시선으로부터,」</a></li>
+<li><a href="#n2">김초엽, 「지구 끝의 온실」</a></li>
+<li><a href="#n3">최은영, 「밝은 밤」</a></li>
+<li><a href="#n4">한강, 「작별하지 않는다」</a></li>
+<li><a href="#n5">김호연, 「불편한 편의점」</a></li>
+<li><a href="#n6">정지아, 「아버지의 해방일지」</a></li>
+<li><a href="#n7">천선란, 「랑과 나의 사막」</a></li>
+<li><a href="#n8">최은영, 「아주 희미한 빛으로도」</a></li>
+<li><a href="#n9">구병모, 「파쇄」</a></li>
+<li><a href="#n10">김애란, 「이중 하나는 거짓말」</a></li></ol></section>
+
+<section class="card">
+<h2>2020년대 문학 배경</h2>
+<div class="box">
+<p>2020년대 한국소설은 코로나19 이후의 고립과 돌봄, 기후위기와 생태 감수성, 여성 가족사의 재구성, 국가폭력의 기억, 지역과 공동체, SF와 장르문학의 대중화, 비인간 존재와 함께 사는 윤리를 폭넓게 다룹니다. 아직 문학사가 완전히 정리된 시기는 아니므로, 이 자료는 대중적 인기와 문학적 영향력을 함께 고려한 수업용 선정입니다.</p>
+<div class="formula">
+2020년대 소설의 핵심 구조:
+\[
+N = C + S + F + M
+\]
+\(C\): 기후와 재난, \(S\): SF 상상력, \(F\): 가족과 돌봄, \(M\): 기억과 애도
+</div>
+</div>
+</section>
+
+
+<section class="card" id="n1">
+<h2>1. 정세랑, 「시선으로부터,」</h2>
+<div class="meta">
+<span class="pill">2020</span>
+<span class="pill">장편소설·여성 가족사·탈가부장 서사</span>
+<span class="pill">여성 계보·가족사·탈가부장·기억의 재구성</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>화가이자 작가였던 심시선이 세상을 떠난 뒤, 가족들은 그의 10주기를 특별한 방식으로 기리기로 한다.</div>
+<div class="stage"><b>전개</b>가족들은 하와이로 떠나 각자 심시선의 삶과 자신들의 기억을 다시 읽는다.</div>
+<div class="stage"><b>절정</b>심시선의 삶은 한 여성 개인의 전기가 아니라, 식민지·전쟁·이주·가부장제를 통과한 여성의 역사로 드러난다.</div>
+<div class="stage"><b>결말</b>가족들은 제사를 새롭게 재구성하며, 여성의 삶과 기억을 남성 중심 가족사 밖에서 다시 세운다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>정세랑은 SF, 판타지, 가족 서사, 사회적 상상력을 부드럽고 경쾌하게 결합하는 작가이다. 그의 작품은 다정함, 돌봄, 다양성, 여성의 계보를 중요하게 다룬다. 「시선으로부터,」는 한 여성의 삶을 중심으로 가족 제사와 기억의 방식을 새롭게 상상한다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>memory = {&#x27;심시선&#x27;: &#x27;여성 예술가&#x27;, &#x27;하와이&#x27;: &#x27;기억의 장소&#x27;, &#x27;제사&#x27;: &#x27;새로운 애도&#x27;}
+for key, value in memory.items():
+    print(key, &#x27;→&#x27;, value)</code></pre></div>
+<ol class="explain">
+<li>작품의 핵심 상징을 딕셔너리로 저장합니다.</li>
+<li>인물·공간·의례의 의미를 연결합니다.</li>
+<li>가족사가 여성의 기억으로 재구성되는 과정을 이해합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n2">
+<h2>2. 김초엽, 「지구 끝의 온실」</h2>
+<div class="meta">
+<span class="pill">2021</span>
+<span class="pill">SF 장편소설·기후위기·생태 서사</span>
+<span class="pill">기후위기·생태·돌봄·SF적 상상력</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>더스트로 황폐해진 미래 이후, 연구자 아영은 수상한 식물 모스바나의 흔적을 추적한다.</div>
+<div class="stage"><b>전개</b>이야기는 더스트 시대의 생존 공동체 프림 빌리지와 현재의 조사 서사를 오가며 전개된다.</div>
+<div class="stage"><b>절정</b>프림 빌리지의 비밀과 모스바나의 확산은 파괴된 세계 속에서 누군가가 남긴 돌봄과 희망의 흔적으로 드러난다.</div>
+<div class="stage"><b>결말</b>작품은 생태 재난 이후에도 인간과 비인간 생명이 서로 기대어 살아갈 가능성을 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>김초엽은 과학적 상상력과 감정의 윤리, 장애·차이·돌봄의 문제를 결합한 작가이다. 그의 SF는 기술의 경이보다 배제된 존재, 연결의 가능성, 생태적 책임을 더 깊게 탐구한다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>future = {&#x27;더스트&#x27;: 10, &#x27;온실&#x27;: 8, &#x27;모스바나&#x27;: 9, &#x27;돌봄&#x27;: 10}
+for key, value in future.items():
+    print(key, &#x27;중요도:&#x27;, value)</code></pre></div>
+<ol class="explain">
+<li>작품의 핵심 소재를 딕셔너리로 저장합니다.</li>
+<li>재난과 희망의 요소를 숫자로 비교합니다.</li>
+<li>SF가 생태 윤리와 연결되는 방식을 정리합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n3">
+<h2>3. 최은영, 「밝은 밤」</h2>
+<div class="meta">
+<span class="pill">2021</span>
+<span class="pill">장편소설·여성 가족사·회복 서사</span>
+<span class="pill">여성 서사·세대 기억·회복·공감</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>이혼 후 지연은 희령으로 내려가 할머니와 다시 가까워진다.</div>
+<div class="stage"><b>전개</b>할머니와 증조모의 이야기가 펼쳐지며, 여성들이 겪은 전쟁, 가난, 이별, 우정의 기억이 이어진다.</div>
+<div class="stage"><b>절정</b>지연은 자기 상처가 개인만의 것이 아니라 여러 세대 여성의 고통과 연결되어 있음을 깨닫는다.</div>
+<div class="stage"><b>결말</b>작품은 여성들이 서로의 이야기를 들어 주는 행위가 상처를 견디는 힘이 될 수 있음을 보여 준다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>최은영은 관계의 윤리, 여성 간의 우정, 상처의 기억, 조심스러운 공감의 가능성을 섬세하게 그리는 작가이다. 그의 문학은 큰 사건보다 누군가의 이야기를 끝까지 듣는 태도를 중요하게 여긴다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>generations = [&#x27;증조모&#x27;, &#x27;할머니&#x27;, &#x27;엄마&#x27;, &#x27;지연&#x27;]
+for i, name in enumerate(generations, 1):
+    print(i, name)</code></pre></div>
+<ol class="explain">
+<li>여성 세대의 흐름을 리스트로 저장합니다.</li>
+<li>enumerate()로 세대 순서를 붙입니다.</li>
+<li>가족사가 여러 여성의 기억으로 이어지는 구조를 확인합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n4">
+<h2>4. 한강, 「작별하지 않는다」</h2>
+<div class="meta">
+<span class="pill">2021</span>
+<span class="pill">장편소설·역사 기억·제주 4·3</span>
+<span class="pill">제주 4·3·기억·애도·국가폭력</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>경하는 친구 인선의 부탁을 받고 눈 내리는 제주로 향한다.</div>
+<div class="stage"><b>전개</b>인선 가족의 역사와 제주 4·3의 기억이 조금씩 드러나며, 개인의 고통은 국가폭력의 역사와 연결된다.</div>
+<div class="stage"><b>절정</b>사라진 사람들, 살아남은 사람들, 기억하는 사람들의 목소리가 겹치며 폭력의 깊이가 드러난다.</div>
+<div class="stage"><b>결말</b>작품은 죽은 이들과 작별하지 않는 방식으로 기억과 애도의 윤리를 끝까지 붙든다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>한강은 폭력, 기억, 몸, 침묵, 인간 존엄을 탐구하는 작가이다. 「작별하지 않는다」는 제주 4·3을 직접적 사건 재현보다 눈, 새, 꿈, 기억의 이미지로 감각화하며, 역사적 애도의 가능성을 묻는다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>memory = [&#x27;눈&#x27;, &#x27;새&#x27;, &#x27;제주&#x27;, &#x27;죽은 이들&#x27;, &#x27;애도&#x27;]
+print(&#x27; → &#x27;.join(memory))</code></pre></div>
+<ol class="explain">
+<li>작품의 이미지와 주제를 리스트로 저장합니다.</li>
+<li>join()으로 상징의 흐름을 연결합니다.</li>
+<li>역사 기억이 이미지로 전개되는 방식을 이해합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n5">
+<h2>5. 김호연, 「불편한 편의점」</h2>
+<div class="meta">
+<span class="pill">2021</span>
+<span class="pill">장편소설·힐링 서사·도시 공동체</span>
+<span class="pill">도시 공동체·회복·친절·힐링 서사</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>서울역 노숙인 독고는 편의점 주인 염 여사와 인연을 맺고 야간 아르바이트를 하게 된다.</div>
+<div class="stage"><b>전개</b>편의점에 오는 손님들은 각자의 외로움과 문제를 안고 있으며, 독고는 서툴지만 따뜻하게 그들과 관계를 맺는다.</div>
+<div class="stage"><b>절정</b>독고의 잃어버린 과거와 주변 인물들의 상처가 드러나며, 편의점은 단순한 가게가 아니라 회복의 공간이 된다.</div>
+<div class="stage"><b>결말</b>작품은 아주 평범한 공간에서도 사람을 살리는 작은 친절과 관계가 가능하다는 희망을 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>김호연은 대중적 서사와 따뜻한 인물 구축에 강한 작가이다. 「불편한 편의점」은 코로나19 이후의 외로움과 도시 생활의 피로 속에서 독자들에게 위로와 공동체적 감각을 제공하며 큰 사랑을 받았다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>store = {&#x27;독고&#x27;: &#x27;회복하는 사람&#x27;, &#x27;편의점&#x27;: &#x27;만남의 공간&#x27;, &#x27;손님들&#x27;: &#x27;각자의 상처&#x27;}
+for key, value in store.items():
+    print(key, &#x27;→&#x27;, value)</code></pre></div>
+<ol class="explain">
+<li>인물과 공간의 의미를 딕셔너리로 정리합니다.</li>
+<li>편의점이 공동체적 장소가 되는 방식을 확인합니다.</li>
+<li>힐링 서사의 구조를 코드로 표현합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n6">
+<h2>6. 정지아, 「아버지의 해방일지」</h2>
+<div class="meta">
+<span class="pill">2022</span>
+<span class="pill">장편소설·현대사·가족 서사</span>
+<span class="pill">이념 갈등·가족 기억·현대사·화해</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>화자는 빨치산 출신 아버지의 죽음을 계기로 장례를 치르게 된다.</div>
+<div class="stage"><b>전개</b>장례식장에 모인 사람들의 말과 기억을 통해 아버지의 이념, 인간성, 지역 공동체의 역사가 드러난다.</div>
+<div class="stage"><b>절정</b>딸은 자신이 미워하거나 이해하지 못했던 아버지를 타인의 기억 속에서 새롭게 마주한다.</div>
+<div class="stage"><b>결말</b>아버지의 죽음은 끝이 아니라, 한국 현대사의 상처와 한 인간의 삶을 다시 이해하는 과정이 된다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>정지아는 한국 현대사의 이념 갈등과 가족의 기억을 지역적 언어와 생생한 인물로 풀어내는 작가이다. 그의 문학은 거대한 역사 속에서 이념의 이름으로만 분류되었던 사람들을 다시 인간으로 바라보려 한다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>father = {&#x27;이념&#x27;: 8, &#x27;가족&#x27;: 9, &#x27;장례&#x27;: 7, &#x27;이해&#x27;: 10}
+for key, value in father.items():
+    print(key, value)</code></pre></div>
+<ol class="explain">
+<li>아버지를 둘러싼 핵심 요소를 딕셔너리로 저장합니다.</li>
+<li>이념보다 이해의 중요도를 높게 설정합니다.</li>
+<li>가족 서사가 역사 이해로 확장되는 방식을 분석합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n7">
+<h2>7. 천선란, 「랑과 나의 사막」</h2>
+<div class="meta">
+<span class="pill">2022</span>
+<span class="pill">SF 장편소설·로봇·돌봄</span>
+<span class="pill">비인간·로봇·돌봄·포스트휴먼</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>인간이 사라졌거나 희미해진 세계에서 로봇 고고와 랑은 사막을 건너며 여정을 시작한다.</div>
+<div class="stage"><b>전개</b>두 존재는 인간의 흔적, 기억, 생존의 의미를 마주하며 서로에게 의지한다.</div>
+<div class="stage"><b>절정</b>인간이 남긴 세계의 폐허 속에서 비인간 존재들이 오히려 돌봄과 관계의 가능성을 보여 준다.</div>
+<div class="stage"><b>결말</b>작품은 인간 중심의 세계관을 넘어, 로봇과 동물적 존재가 함께 만드는 다정한 생존 윤리를 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>천선란은 SF를 통해 비인간 존재, 약한 존재, 돌봄과 공존의 윤리를 탐구하는 작가이다. 그의 작품은 기술 자체보다 생명과 관계, 느림과 회복의 감각을 중시한다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>beings = {&#x27;고고&#x27;: &#x27;로봇&#x27;, &#x27;랑&#x27;: &#x27;동행자&#x27;, &#x27;사막&#x27;: &#x27;폐허와 여정&#x27;}
+for key, value in beings.items():
+    print(key, &#x27;→&#x27;, value)</code></pre></div>
+<ol class="explain">
+<li>비인간 존재와 공간의 의미를 딕셔너리로 저장합니다.</li>
+<li>각 존재가 서사에서 맡는 역할을 출력합니다.</li>
+<li>SF가 인간 중심 사고를 넘어서는 방식을 이해합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n8">
+<h2>8. 최은영, 「아주 희미한 빛으로도」</h2>
+<div class="meta">
+<span class="pill">2023</span>
+<span class="pill">소설집·여성 서사·관계의 윤리</span>
+<span class="pill">관계 윤리·희미한 빛·여성 서사·공감</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>여러 단편 속 인물들은 관계, 배움, 상처, 돌봄의 장면에서 서로를 바라본다.</div>
+<div class="stage"><b>전개</b>여성 인물들은 가족, 학교, 사회 속에서 말하기 어려웠던 감정과 기억을 조금씩 드러낸다.</div>
+<div class="stage"><b>절정</b>아주 약한 빛처럼 보이는 말과 관심이 누군가에게는 삶을 지탱하는 힘이 됨이 드러난다.</div>
+<div class="stage"><b>결말</b>작품집은 큰 구원보다 희미하지만 사라지지 않는 관계의 빛을 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>최은영은 타인의 고통을 함부로 단정하지 않고, 조심스러운 공감과 듣기의 윤리를 보여 주는 작가이다. 그의 문학은 여성들의 관계, 배움, 상처, 기억을 섬세하게 이어 간다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>light = {&#x27;말&#x27;: 7, &#x27;관심&#x27;: 8, &#x27;기억&#x27;: 9, &#x27;공감&#x27;: 10}
+for key, value in light.items():
+    print(key, &#x27;빛의 세기:&#x27;, value)</code></pre></div>
+<ol class="explain">
+<li>작품집의 핵심 정서를 딕셔너리로 저장합니다.</li>
+<li>공감의 값을 가장 높게 두어 작품의 윤리를 표현합니다.</li>
+<li>관계의 작은 힘을 수치화해 봅니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n9">
+<h2>9. 구병모, 「파쇄」</h2>
+<div class="meta">
+<span class="pill">2023</span>
+<span class="pill">중편소설·킬러 서사·여성 노년</span>
+<span class="pill">여성 노년·장르문학·몸·폭력</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>전설적인 여성 킬러 조각은 늙어 가는 몸을 느끼며 여전히 위험한 세계에 놓여 있다.</div>
+<div class="stage"><b>전개</b>조각의 과거와 현재가 교차하며, 폭력의 세계에서 살아남은 여성의 몸과 기술이 드러난다.</div>
+<div class="stage"><b>절정</b>늙음은 약점으로만 보이지 않는다. 조각은 자신의 방식으로 끝까지 움직이며 기존 액션 서사의 기준을 뒤흔든다.</div>
+<div class="stage"><b>결말</b>작품은 여성 노년의 몸을 주변화하지 않고, 날카로운 존재감과 존엄을 가진 인물로 남긴다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>구병모는 장르적 상상력, 기괴함, 우화성, 날카로운 문체로 현실의 폭력과 인간의 욕망을 드러내는 작가이다. 「파쇄」는 여성 노년과 액션 장르를 결합해 독특한 긴장감을 만든다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>killer = {&#x27;기술&#x27;: 10, &#x27;늙음&#x27;: 8, &#x27;고독&#x27;: 7, &#x27;존엄&#x27;: 9}
+print(max(killer, key=killer.get))</code></pre></div>
+<ol class="explain">
+<li>조각을 설명하는 요소를 딕셔너리에 저장합니다.</li>
+<li>max()로 가장 강한 요소를 찾습니다.</li>
+<li>노년의 몸이 약함만이 아니라 기술과 존엄을 가짐을 표현합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="card" id="n10">
+<h2>10. 김애란, 「이중 하나는 거짓말」</h2>
+<div class="meta">
+<span class="pill">2024</span>
+<span class="pill">장편소설·청소년·비밀과 관계</span>
+<span class="pill">청소년·비밀·거짓말·성장</span>
+</div>
+<div class="grid">
+<div class="box">
+<h3>도입·전개·절정·결말 줄거리</h3>
+<div class="story">
+<div class="stage"><b>도입</b>세 인물은 각자 말하지 못한 비밀과 상처를 안고 서로의 삶에 가까워진다.</div>
+<div class="stage"><b>전개</b>학교와 가족, 친구 관계 속에서 인물들은 진실과 거짓 사이에서 자신을 보호하려 한다.</div>
+<div class="stage"><b>절정</b>감춰 둔 말과 사실들이 드러나며, 거짓말은 단순한 속임수가 아니라 상처 입은 사람이 살아남는 방식이기도 함이 드러난다.</div>
+<div class="stage"><b>결말</b>작품은 진실을 말한다는 것, 누군가를 믿는다는 것, 함께 성장한다는 것의 의미를 묻는다.</div>
+</div>
+<h3>작가의 생애와 사상</h3>
+<p>김애란은 청년과 가족, 가난, 상실, 유머와 슬픔이 섞인 문체로 사랑받는 작가이다. 그의 작품은 작고 구체적인 생활의 장면에서 한 세대의 감정과 상처를 포착한다.</p>
+<div class="formula">
+작품 분석 모델:
+\[
+A = C + M + R + E
+\]
+\(C\): 기후·재난·사회 변화, \(M\): 기억과 애도, \(R\): 관계와 돌봄, \(E\): 윤리적 질문
+</div>
+</div>
+<div class="box">
+<h3>파이썬 코드 예제</h3>
+<div class="codeblock"><div class="bar">Python</div><pre><code>truth = {&#x27;진실&#x27;: 8, &#x27;거짓말&#x27;: 7, &#x27;비밀&#x27;: 9, &#x27;신뢰&#x27;: 10}
+for key, value in truth.items():
+    print(key, value)</code></pre></div>
+<ol class="explain">
+<li>작품의 핵심 갈등어를 딕셔너리로 저장합니다.</li>
+<li>거짓말과 진실을 단순 대립이 아니라 관계 속 요소로 봅니다.</li>
+<li>성장소설의 윤리적 질문을 정리합니다.</li>
+<li>문학 작품의 주제·상징·갈등을 파이썬 자료구조로 바꾸는 연습입니다.</li>
+</ol>
+</div>
+</div>
+</section>
+
+
+<section class="card">
+<h2>비교 정리표</h2>
+<table>
+<thead><tr><th>흐름</th><th>대표 작품</th><th>핵심 특징</th></tr></thead>
+<tbody>
+<tr><td>여성 가족사와 기억</td><td>「시선으로부터,」, 「밝은 밤」</td><td>여성의 계보, 가족사 재구성, 세대 간 회복</td></tr>
+<tr><td>기후위기와 SF</td><td>「지구 끝의 온실」, 「랑과 나의 사막」</td><td>생태 재난, 비인간 존재, 돌봄과 생존</td></tr>
+<tr><td>역사 기억과 애도</td><td>「작별하지 않는다」, 「아버지의 해방일지」</td><td>제주 4·3, 현대사, 이념 갈등, 가족의 재해석</td></tr>
+<tr><td>대중적 회복 서사</td><td>「불편한 편의점」</td><td>도시 공동체, 친절, 상처 회복</td></tr>
+<tr><td>관계의 윤리</td><td>「아주 희미한 빛으로도」</td><td>여성 서사, 공감, 작은 관심의 힘</td></tr>
+<tr><td>장르와 몸</td><td>「파쇄」, 「이중 하나는 거짓말」</td><td>여성 노년, 액션, 비밀, 청소년 성장</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="card">
+<h2>종합 파이썬 활동</h2>
+<div class="box">
+<p>아래 코드는 2020년대 대표작을 연도순으로 정리하고, 핵심 주제를 출력하는 예제입니다.</p>
+<div class="codeblock"><div class="bar">Python</div><pre><code>novels = [
+    (2020, "시선으로부터,", "여성 가족사"),
+    (2021, "지구 끝의 온실", "기후위기와 SF"),
+    (2021, "밝은 밤", "세대 기억과 회복"),
+    (2021, "작별하지 않는다", "제주 4·3과 애도"),
+    (2021, "불편한 편의점", "도시 공동체와 회복"),
+    (2022, "아버지의 해방일지", "현대사와 가족"),
+    (2022, "랑과 나의 사막", "비인간과 돌봄"),
+    (2023, "아주 희미한 빛으로도", "관계의 윤리"),
+    (2023, "파쇄", "여성 노년과 장르"),
+    (2024, "이중 하나는 거짓말", "비밀과 성장")
+]
+
+for year, title, theme in novels:
+    print(f"{year}년 - {title}: {theme}")</code></pre></div>
+<ol class="explain">
+<li><code>novels</code>는 연도, 제목, 주제를 튜플로 저장합니다.</li>
+<li><code>for year, title, theme in novels</code>는 각 튜플을 세 변수로 나누어 꺼냅니다.</li>
+<li><code>f-string</code>으로 문학사 흐름을 보기 좋게 출력합니다.</li>
+</ol>
+</div>
+</section>
+
+<section class="card">
+<h2>참고 자료 및 주의</h2>
+<p class="note">2020년대는 현재 진행 중인 시기라 문학사적 평가는 계속 변할 수 있습니다. 선정은 대중적 인기, 문학상·평론·출판계 주목도, 시대 대표성을 함께 고려했습니다.</p>
+<p class="note">작품 발표 연도와 설명은 출판사 소개, 주요 서점 베스트셀러·추천 자료, 문학 관련 공개 자료를 바탕으로 학습용으로 재구성했습니다. 줄거리는 원문 전체를 대체하지 않는 수업용 요약입니다.</p>
+</section>
+</main>
+</body>
+</html>
