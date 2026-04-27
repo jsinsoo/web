@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>알고리즘의 5가지 조건과 파이썬 코드</title>
+<style>
+    :root {
+        --bg: #f4f7fb;
+        --card: #ffffff;
+        --main: #2563eb;
+        --sub: #0f172a;
+        --soft: #e0ecff;
+        --good: #16a34a;
+        --bad: #dc2626;
+        --text: #334155;
+        --code-bg: #0f172a;
+        --code-text: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+        background: linear-gradient(135deg, #eff6ff, #f8fafc);
+        color: var(--text);
+        line-height: 1.75;
+    }
+
+    header {
+        padding: 60px 24px 45px;
+        text-align: center;
+        color: white;
+        background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        letter-spacing: -1px;
+    }
+
+    header p {
+        margin-top: 18px;
+        font-size: 1.15rem;
+        opacity: 0.95;
+    }
+
+    main {
+        max-width: 1100px;
+        margin: -28px auto 60px;
+        padding: 0 20px;
+    }
+
+    .summary {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+        margin-bottom: 28px;
+    }
+
+    .summary h2 {
+        margin-top: 0;
+        color: var(--sub);
+        font-size: 1.7rem;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+    }
+
+    .mini {
+        padding: 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+
+    .mini strong {
+        display: block;
+        color: var(--main);
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    section.card {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 30px;
+        margin: 26px 0;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        border-left: 8px solid var(--main);
+    }
+
+    .badge {
+        display: inline-block;
+        background: var(--soft);
+        color: #1d4ed8;
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    h2 {
+        color: var(--sub);
+        margin: 8px 0 14px;
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        color: #1e293b;
+        margin-top: 24px;
+    }
+
+    .concept {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 18px;
+        margin: 18px 0;
+    }
+
+    .good {
+        color: var(--good);
+        font-weight: 800;
+    }
+
+    .bad {
+        color: var(--bad);
+        font-weight: 800;
+    }
+
+    pre {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 20px;
+        border-radius: 16px;
+        overflow-x: auto;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    code {
+        font-family: "Consolas", "D2Coding", monospace;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+        overflow: hidden;
+        border-radius: 14px;
+        background: white;
+    }
+
+    th, td {
+        border: 1px solid #e2e8f0;
+        padding: 14px;
+        text-align: center;
+    }
+
+    th {
+        background: #dbeafe;
+        color: #1e3a8a;
+    }
+
+    .quiz {
+        background: #fff7ed;
+        border-left: 8px solid #f97316;
+    }
+
+    .answer {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin: 12px 0;
+    }
+
+    footer {
+        text-align: center;
+        padding: 35px 20px;
+        background: #0f172a;
+        color: #cbd5e1;
+    }
+
+    .highlight {
+        font-weight: 800;
+        color: #7c3aed;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>알고리즘의 5가지 조건</h1>
+    <p>입력 · 출력 · 명확성 · 유한성 · 유효성을 파이썬 코드로 이해하기</p>
+</header>
+
+<main>
+    <div class="summary">
+        <h2>알고리즘이란?</h2>
+        <p>
+            알고리즘은 어떤 문제를 해결하기 위해 정해진 순서대로 실행하는 <span class="highlight">명확한 절차</span>입니다.
+            좋은 알고리즘은 단순히 코드가 실행되는 것뿐만 아니라, 반드시 일정한 조건을 만족해야 합니다.
+        </p>
+
+        <div class="grid">
+            <div class="mini"><strong>1. 입력</strong>문제를 해결하기 위한 자료</div>
+            <div class="mini"><strong>2. 출력</strong>문제 해결 결과</div>
+            <div class="mini"><strong>3. 명확성</strong>단계가 분명함</div>
+            <div class="mini"><strong>4. 유한성</strong>반드시 종료됨</div>
+            <div class="mini"><strong>5. 유효성</strong>실행 가능한 연산</div>
+        </div>
+    </div>
+
+    <section class="card">
+        <span class="badge">조건 1</span>
+        <h2>입력 Input</h2>
+        <div class="concept">
+            <p><strong>의미:</strong> 알고리즘은 문제 해결에 필요한 값을 <strong>0개 이상</strong> 입력받을 수 있어야 합니다.</p>
+            <p>입력은 사용자가 직접 넣을 수도 있고, 이미 정해진 데이터일 수도 있습니다.</p>
+        </div>
+
+        <h3><span class="good">좋은 예</span> : 두 수를 입력받아 합 구하기</h3>
+<pre><code>a = int(input("첫 번째 숫자 입력: "))
+b = int(input("두 번째 숫자 입력: "))
+
+result = a + b
+print("두 수의 합:", result)</code></pre>
+
+        <p>이 코드는 사용자가 입력한 두 수를 받아서 계산하므로 <strong>입력 조건</strong>을 만족합니다.</p>
+
+        <h3>코드 설명</h3>
+        <ul>
+            <li><code>input()</code> : 사용자로부터 값을 입력받습니다.</li>
+            <li><code>int()</code> : 입력받은 문자열을 정수로 바꿉니다.</li>
+            <li><code>a + b</code> : 두 수를 더합니다.</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <span class="badge">조건 2</span>
+        <h2>출력 Output</h2>
+        <div class="concept">
+            <p><strong>의미:</strong> 알고리즘은 문제를 해결한 뒤 <strong>최소 1개 이상의 결과</strong>를 출력해야 합니다.</p>
+            <p>출력이 없다면 계산을 해도 결과를 확인할 수 없습니다.</p>
+        </div>
+
+        <h3><span class="good">좋은 예</span> : 평균 출력하기</h3>
+<pre><code>score1 = 80
+score2 = 90
+score3 = 100
+
+average = (score1 + score2 + score3) / 3
+print("평균 점수:", average)</code></pre>
+
+        <p><code>print()</code>를 사용하여 평균 점수를 보여 주므로 <strong>출력 조건</strong>을 만족합니다.</p>
+
+        <h3><span class="bad">나쁜 예</span> : 계산만 하고 출력하지 않음</h3>
+<pre><code>score1 = 80
+score2 = 90
+score3 = 100
+
+average = (score1 + score2 + score3) / 3</code></pre>
+
+        <p>평균을 계산했지만 결과를 출력하지 않기 때문에 사용자가 결과를 확인할 수 없습니다.</p>
+    </section>
+
+    <section class="card">
+        <span class="badge">조건 3</span>
+        <h2>명확성 Definiteness</h2>
+        <div class="concept">
+            <p><strong>의미:</strong> 알고리즘의 각 단계는 모호하지 않고 <strong>분명하게 정의</strong>되어야 합니다.</p>
+            <p>누가 실행해도 같은 방식으로 이해할 수 있어야 합니다.</p>
+        </div>
+
+        <h3><span class="good">좋은 예</span> : 짝수와 홀수 판별</h3>
+<pre><code>num = 7
+
+if num % 2 == 0:
+    print("짝수입니다.")
+else:
+    print("홀수입니다.")</code></pre>
+
+        <p><code>num % 2 == 0</code>이라는 조건이 명확하므로 결과가 분명하게 결정됩니다.</p>
+
+        <h3><span class="bad">나쁜 표현</span></h3>
+<pre><code># num이 적당히 큰 수이면 출력한다.
+# num이 괜찮은 수이면 통과시킨다.</code></pre>
+
+        <p>“적당히”, “괜찮은” 같은 표현은 기준이 불분명하므로 알고리즘의 명확성을 만족하지 못합니다.</p>
+    </section>
+
+    <section class="card">
+        <span class="badge">조건 4</span>
+        <h2>유한성 Finiteness</h2>
+        <div class="concept">
+            <p><strong>의미:</strong> 알고리즘은 반드시 <strong>한정된 단계 안에서 종료</strong>되어야 합니다.</p>
+            <p>끝나지 않는 절차는 결과를 얻을 수 없기 때문에 좋은 알고리즘이 아닙니다.</p>
+        </div>
+
+        <h3><span class="good">좋은 예</span> : 5번만 반복하기</h3>
+<pre><code>for i in range(1, 6):
+    print(i)</code></pre>
+
+        <p><code>range(1, 6)</code>은 1부터 5까지만 반복하므로 반드시 종료됩니다.</p>
+
+        <h3><span class="bad">나쁜 예</span> : 무한 반복</h3>
+<pre><code>while True:
+    print("계속 반복됩니다.")</code></pre>
+
+        <p>종료 조건이 없으므로 프로그램이 계속 실행됩니다. 따라서 <strong>유한성</strong>을 만족하지 못합니다.</p>
+    </section>
+
+    <section class="card">
+        <span class="badge">조건 5</span>
+        <h2>유효성 Effectiveness</h2>
+        <div class="concept">
+            <p><strong>의미:</strong> 알고리즘의 각 단계는 실제로 수행할 수 있는 <strong>기본적이고 실행 가능한 연산</strong>이어야 합니다.</p>
+            <p>컴퓨터가 처리할 수 없는 모호하거나 불가능한 명령은 유효하지 않습니다.</p>
+        </div>
+
+        <h3><span class="good">좋은 예</span> : 나눗셈의 몫과 나머지 구하기</h3>
+<pre><code>x = 17
+y = 5
+
+quotient = x // y
+remainder = x % y
+
+print("몫:", quotient)
+print("나머지:", remainder)</code></pre>
+
+        <p><code>//</code>와 <code>%</code>는 파이썬에서 실제로 수행 가능한 연산이므로 유효성을 만족합니다.</p>
+
+        <h3><span class="bad">나쁜 표현</span></h3>
+<pre><code># 컴퓨터가 알아서 가장 완벽한 답을 상상해서 구한다.
+# 순간이동해서 정답을 가져온다.</code></pre>
+
+        <p>이런 명령은 컴퓨터가 실제로 실행할 수 없으므로 유효성을 만족하지 못합니다.</p>
+    </section>
+
+    <section class="card">
+        <span class="badge">종합 예제</span>
+        <h2>5가지 조건을 모두 만족하는 파이썬 알고리즘</h2>
+        <p>다음 코드는 정수 하나를 입력받아 그 수가 소수인지 판별합니다.</p>
+
+<pre><code>n = int(input("정수 입력: "))
+
+if n &lt; 2:
+    print("소수가 아닙니다.")
+else:
+    is_prime = True
+
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            is_prime = False
+            break
+
+    if is_prime:
+        print("소수입니다.")
+    else:
+        print("소수가 아닙니다.")</code></pre>
+
+        <table>
+            <tr>
+                <th>조건</th>
+                <th>코드에서 확인되는 부분</th>
+            </tr>
+            <tr>
+                <td>입력</td>
+                <td><code>input()</code>으로 정수 입력</td>
+            </tr>
+            <tr>
+                <td>출력</td>
+                <td><code>print()</code>로 결과 출력</td>
+            </tr>
+            <tr>
+                <td>명확성</td>
+                <td><code>n % i == 0</code>처럼 판단 기준이 분명함</td>
+            </tr>
+            <tr>
+                <td>유한성</td>
+                <td><code>for</code> 반복 범위가 정해져 있음</td>
+            </tr>
+            <tr>
+                <td>유효성</td>
+                <td>나머지 연산, 비교 연산 등 실제 실행 가능</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="card quiz">
+        <span class="badge">확인 문제</span>
+        <h2>OX 문제</h2>
+
+        <p><strong>1.</strong> 알고리즘은 반드시 출력이 있어야 한다. ( O / X )</p>
+        <div class="answer">정답: O — 결과가 없으면 문제 해결 여부를 확인할 수 없습니다.</div>
+
+        <p><strong>2.</strong> 무한 반복되는 프로그램도 항상 좋은 알고리즘이다. ( O / X )</p>
+        <div class="answer">정답: X — 알고리즘은 유한성을 만족해야 하므로 반드시 종료되어야 합니다.</div>
+
+        <p><strong>3.</strong> “적당히 계산한다”라는 표현은 명확한 알고리즘 단계이다. ( O / X )</p>
+        <div class="answer">정답: X — 기준이 모호하므로 명확성을 만족하지 못합니다.</div>
+
+        <p><strong>4.</strong> <code>print()</code>는 출력 조건과 관련이 있다. ( O / X )</p>
+        <div class="answer">정답: O — <code>print()</code>는 결과를 화면에 보여 주는 출력 명령입니다.</div>
+
+        <p><strong>5.</strong> 컴퓨터가 실제로 수행할 수 없는 명령은 유효성을 만족하지 못한다. ( O / X )</p>
+        <div class="answer">정답: O — 알고리즘의 각 단계는 실행 가능해야 합니다.</div>
+    </section>
+</main>
+
+<footer>
+    알고리즘의 5가지 조건: 입력 · 출력 · 명확성 · 유한성 · 유효성<br />
+    Python Algorithm Learning Material
+</footer>
+
+</body>
+</html>
