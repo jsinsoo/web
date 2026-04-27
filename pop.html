@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Python pop() 코드 예제 20개 + 고난도 5지선다 문제</title>
+<style>
+    :root{
+        --bg:#f4f7fb;
+        --card:#ffffff;
+        --ink:#1f2937;
+        --muted:#64748b;
+        --main:#2563eb;
+        --sub:#7c3aed;
+        --ok:#059669;
+        --warn:#dc2626;
+        --code:#0f172a;
+        --line:#dbeafe;
+    }
+    *{box-sizing:border-box;}
+    body{
+        margin:0;
+        font-family:"Segoe UI","Noto Sans KR",Arial,sans-serif;
+        background:linear-gradient(135deg,#eef6ff,#f8f5ff 45%,#f7fbff);
+        color:var(--ink);
+        line-height:1.75;
+    }
+    header{
+        padding:46px 24px 32px;
+        text-align:center;
+        background:linear-gradient(135deg,#1d4ed8,#7c3aed);
+        color:white;
+    }
+    header h1{
+        margin:0;
+        font-size:34px;
+        letter-spacing:-1px;
+    }
+    header p{
+        margin:14px auto 0;
+        max-width:920px;
+        font-size:17px;
+        opacity:.96;
+    }
+    main{
+        max-width:1180px;
+        margin:0 auto;
+        padding:28px 18px 80px;
+    }
+    .summary{
+        background:white;
+        border-radius:22px;
+        padding:24px;
+        box-shadow:0 16px 40px rgba(15,23,42,.08);
+        border:1px solid #e5e7eb;
+        margin-bottom:24px;
+    }
+    .summary-grid{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+        gap:14px;
+    }
+    .mini{
+        background:#f8fafc;
+        border:1px solid #e2e8f0;
+        border-radius:16px;
+        padding:16px;
+    }
+    .mini b{color:var(--main);}
+    .lesson{
+        background:var(--card);
+        border-radius:22px;
+        margin:24px 0;
+        box-shadow:0 16px 40px rgba(15,23,42,.08);
+        border:1px solid #e5e7eb;
+        overflow:hidden;
+    }
+    .lesson-title{
+        padding:20px 24px;
+        background:linear-gradient(90deg,#eff6ff,#faf5ff);
+        border-bottom:1px solid #e5e7eb;
+    }
+    .lesson-title h2{
+        margin:0;
+        font-size:23px;
+        color:#111827;
+    }
+    .lesson-title .tag{
+        display:inline-block;
+        margin-top:8px;
+        padding:3px 10px;
+        border-radius:999px;
+        background:#dbeafe;
+        color:#1d4ed8;
+        font-size:13px;
+        font-weight:700;
+    }
+    .content{
+        padding:24px;
+    }
+    .concept{
+        border-left:5px solid var(--main);
+        background:#f8fafc;
+        padding:14px 16px;
+        border-radius:12px;
+        margin-bottom:16px;
+    }
+    pre{
+        margin:14px 0;
+        background:var(--code);
+        color:#e5e7eb;
+        padding:18px;
+        border-radius:16px;
+        overflow:auto;
+        font-size:14.5px;
+        line-height:1.55;
+    }
+    code{font-family:"Consolas","Courier New",monospace;}
+    .result{
+        background:#ecfdf5;
+        border:1px solid #bbf7d0;
+        color:#064e3b;
+        padding:12px 15px;
+        border-radius:14px;
+        margin:12px 0 18px;
+        font-family:"Consolas","Courier New",monospace;
+        white-space:pre-wrap;
+    }
+    .question{
+        margin-top:18px;
+        padding:18px;
+        border-radius:18px;
+        background:#fff7ed;
+        border:1px solid #fed7aa;
+    }
+    .question h3{
+        margin-top:0;
+        color:#9a3412;
+    }
+    ol.choices{
+        margin:10px 0 0;
+        padding-left:25px;
+    }
+    .answer{
+        margin-top:14px;
+        background:#f0fdf4;
+        border:1px solid #bbf7d0;
+        border-radius:14px;
+        padding:13px 15px;
+    }
+    .answer b{color:var(--ok);}
+    .warning{
+        color:var(--warn);
+        font-weight:700;
+    }
+    .footer{
+        text-align:center;
+        color:var(--muted);
+        margin-top:40px;
+        font-size:14px;
+    }
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:12px;
+        overflow:hidden;
+        border-radius:14px;
+    }
+    th,td{
+        border:1px solid #e5e7eb;
+        padding:10px;
+        text-align:left;
+    }
+    th{background:#eff6ff;}
+</style>
+</head>
+<body>
+<header>
+    <h1>Python <code>pop()</code> 코드 예제 20개 + 고난도 5지선다 문제</h1>
+    <p>리스트, 딕셔너리, 스택, 큐, 반복문, 조건문, 중첩 리스트까지 <code>pop()</code>의 핵심 동작을 코드와 문제로 완전 정리합니다.</p>
+</header>
+
+<main>
+<section class="summary">
+    <h2>핵심 개념 정리</h2>
+    <div class="summary-grid">
+        <div class="mini"><b>list.pop()</b><br>기본값은 마지막 원소 제거 후 반환</div>
+        <div class="mini"><b>list.pop(index)</b><br>해당 인덱스의 원소를 제거하고 반환</div>
+        <div class="mini"><b>dict.pop(key)</b><br>해당 key의 value를 제거하고 반환</div>
+        <div class="mini"><b>dict.pop(key, default)</b><br>key가 없으면 오류 대신 default 반환</div>
+    </div>
+    <table>
+        <tr><th>표현</th><th>의미</th><th>주의점</th></tr>
+        <tr><td><code>a.pop()</code></td><td>리스트 마지막 원소 제거 및 반환</td><td>빈 리스트면 오류</td></tr>
+        <tr><td><code>a.pop(0)</code></td><td>리스트 첫 원소 제거 및 반환</td><td>큰 리스트에서는 느릴 수 있음</td></tr>
+        <tr><td><code>d.pop("x")</code></td><td>딕셔너리 key "x" 제거 및 value 반환</td><td>key가 없으면 오류</td></tr>
+        <tr><td><code>d.pop("x", 0)</code></td><td>key가 없으면 0 반환</td><td>딕셔너리는 변하지 않음</td></tr>
+    </table>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>01. 리스트 마지막 원소 꺼내기</h2>
+        <span class="tag">list 기본 pop</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> pop()은 리스트의 마지막 원소를 제거하면서 그 값을 반환한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [10, 20, 30, 40]
+x = a.pop()
+
+print(x)
+print(a)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">40
+[10, 20, 30]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 1</h3>
+            <p>다음 코드 실행 후 변수 x와 리스트 a의 값으로 옳은 것은?</p>
+            <ol class="choices">
+                <li>x = 10, a = [20, 30, 40]</li>
+                <li>x = 40, a = [10, 20, 30]</li>
+                <li>x = None, a = [10, 20, 30]</li>
+                <li>x = 40, a = [10, 20, 30, 40]</li>
+                <li>오류가 발생한다</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> pop()은 삭제된 값을 반환하므로 x는 40이고, 리스트에서는 40이 제거된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>02. 특정 인덱스 원소 꺼내기</h2>
+        <span class="tag">list.pop(index)</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> pop(1)은 인덱스 1의 원소를 제거한다. 리스트 인덱스는 0부터 시작한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = ['A', 'B', 'C', 'D']
+x = a.pop(1)
+
+print(x)
+print(a)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">B
+['A', 'C', 'D']</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 2</h3>
+            <p>위 코드의 출력 결과로 옳은 것은?</p>
+            <ol class="choices">
+                <li>A와 ['B','C','D']</li>
+                <li>B와 ['A','C','D']</li>
+                <li>C와 ['A','B','D']</li>
+                <li>D와 ['A','B','C']</li>
+                <li>IndexError</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> 인덱스 1은 'B'이다. 따라서 'B'가 반환되고 리스트에서는 삭제된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>03. 음수 인덱스 pop</h2>
+        <span class="tag">negative index</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 음수 인덱스는 뒤에서부터 센다. -1은 마지막, -2는 뒤에서 두 번째이다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [5, 10, 15, 20, 25]
+x = a.pop(-2)
+
+print(x)
+print(a)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">20
+[5, 10, 15, 25]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 3</h3>
+            <p>위 코드에서 x의 값은 무엇인가?</p>
+            <ol class="choices">
+                <li>10</li>
+                <li>15</li>
+                <li>20</li>
+                <li>25</li>
+                <li>IndexError</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> -2는 뒤에서 두 번째 원소이므로 20이 제거되고 반환된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>04. while문으로 역순 출력</h2>
+        <span class="tag">stack behavior</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 리스트의 끝에서 계속 pop하면 나중에 들어간 값부터 나온다. 이것이 스택의 LIFO 구조이다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [1, 2, 3, 4]
+
+while a:
+    print(a.pop())</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">4
+3
+2
+1</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 4</h3>
+            <p>출력 순서로 옳은 것은?</p>
+            <ol class="choices">
+                <li>1 2 3 4</li>
+                <li>4 3 2 1</li>
+                <li>1 3 2 4</li>
+                <li>4 2 3 1</li>
+                <li>무한 반복</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> pop()은 매번 마지막 원소를 꺼내므로 4, 3, 2, 1 순서로 출력된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>05. 스택 구현</h2>
+        <span class="tag">append + pop</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> append로 뒤에 넣고 pop으로 뒤에서 꺼내면 스택 구조가 된다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>stack = []
+stack.append('HTML')
+stack.append('CSS')
+stack.append('Python')
+
+print(stack.pop())
+print(stack.pop())
+print(stack)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">Python
+CSS
+['HTML']</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 5</h3>
+            <p>최종적으로 stack에 남는 값은?</p>
+            <ol class="choices">
+                <li>[]</li>
+                <li>['HTML']</li>
+                <li>['Python']</li>
+                <li>['HTML', 'CSS']</li>
+                <li>['CSS', 'Python']</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> Python과 CSS가 차례로 제거되므로 HTML만 남는다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>06. 큐처럼 첫 원소 제거</h2>
+        <span class="tag">pop(0)</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> pop(0)은 첫 번째 원소를 제거한다. 큐처럼 사용할 수 있지만 큰 리스트에서는 비효율적일 수 있다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>q = ['첫째', '둘째', '셋째']
+x = q.pop(0)
+
+print(x)
+print(q)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">첫째
+['둘째', '셋째']</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 6</h3>
+            <p>위 코드 설명으로 옳은 것은?</p>
+            <ol class="choices">
+                <li>마지막 원소가 제거된다</li>
+                <li>첫 번째 원소가 제거된다</li>
+                <li>중간 원소가 무작위로 제거된다</li>
+                <li>문자열은 pop할 수 없다</li>
+                <li>리스트가 정렬된다</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> pop(0)은 인덱스 0의 원소를 제거한다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>07. 빈 리스트 pop 오류</h2>
+        <span class="tag">IndexError</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 빈 리스트에서 pop()을 실행하면 IndexError가 발생한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = []
+
+# print(a.pop())
+print("빈 리스트에서는 pop()을 바로 쓰면 오류")</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">빈 리스트에서는 pop()을 바로 쓰면 오류</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 7</h3>
+            <p>주석 처리된 print(a.pop())을 실행하면 어떤 일이 발생하는가?</p>
+            <ol class="choices">
+                <li>None이 출력된다</li>
+                <li>0이 출력된다</li>
+                <li>빈 리스트가 출력된다</li>
+                <li>IndexError가 발생한다</li>
+                <li>TypeError가 발생한다</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ④</b><br>
+                <b>상세 해설:</b> 꺼낼 원소가 없으므로 pop from empty list 오류가 발생한다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>08. 조건문으로 안전하게 pop</h2>
+        <span class="tag">safe pop</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 빈 리스트는 조건식에서 False로 평가된다. 따라서 if a로 안전하게 검사할 수 있다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = []
+
+if a:
+    print(a.pop())
+else:
+    print("꺼낼 값 없음")</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">꺼낼 값 없음</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 8</h3>
+            <p>위 코드가 오류 없이 실행되는 이유로 옳은 것은?</p>
+            <ol class="choices">
+                <li>pop이 자동으로 None을 반환하기 때문</li>
+                <li>빈 리스트가 True이기 때문</li>
+                <li>if a가 빈 리스트 여부를 검사하기 때문</li>
+                <li>else가 먼저 실행되기 때문</li>
+                <li>리스트가 문자열로 변환되기 때문</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> 빈 리스트는 False이므로 pop()을 실행하지 않고 else 문이 실행된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>09. pop 결과 누적하기</h2>
+        <span class="tag">collect popped values</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> pop으로 꺼낸 값을 다른 리스트에 append하면 제거된 순서를 기록할 수 있다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [2, 4, 6, 8]
+removed = []
+
+removed.append(a.pop())
+removed.append(a.pop())
+
+print(a)
+print(removed)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">[2, 4]
+[8, 6]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 9</h3>
+            <p>removed 리스트의 값으로 옳은 것은?</p>
+            <ol class="choices">
+                <li>[2, 4]</li>
+                <li>[4, 2]</li>
+                <li>[6, 8]</li>
+                <li>[8, 6]</li>
+                <li>[2, 4, 6, 8]</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ④</b><br>
+                <b>상세 해설:</b> 마지막 원소 8이 먼저 제거되고, 그 다음 6이 제거된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>10. 반복문과 pop(0)</h2>
+        <span class="tag">front removal</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> pop(0)을 반복하면 앞에서부터 값을 꺼낼 수 있다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [10, 20, 30]
+total = 0
+
+while a:
+    total += a.pop(0)
+
+print(total)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">60</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 10</h3>
+            <p>total의 최종값은?</p>
+            <ol class="choices">
+                <li>10</li>
+                <li>20</li>
+                <li>30</li>
+                <li>50</li>
+                <li>60</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ⑤</b><br>
+                <b>상세 해설:</b> 10, 20, 30을 모두 더하므로 60이 된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>11. 딕셔너리 pop</h2>
+        <span class="tag">dict.pop(key)</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 딕셔너리 pop(key)은 해당 key를 제거하고 value를 반환한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>score = {'국어': 90, '수학': 95, '영어': 88}
+x = score.pop('수학')
+
+print(x)
+print(score)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">95
+{'국어': 90, '영어': 88}</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 11</h3>
+            <p>위 코드 실행 후 score 딕셔너리에 없는 key는?</p>
+            <ol class="choices">
+                <li>국어</li>
+                <li>수학</li>
+                <li>영어</li>
+                <li>모두 남아 있다</li>
+                <li>모두 삭제된다</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> '수학' key가 pop으로 제거된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>12. 딕셔너리 pop 기본값</h2>
+        <span class="tag">default value</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> dict.pop(key, default)는 key가 없을 때 오류 대신 default를 반환한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>d = {'a': 1, 'b': 2}
+x = d.pop('c', 0)
+
+print(x)
+print(d)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">0
+{'a': 1, 'b': 2}</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 12</h3>
+            <p>위 코드에 대한 설명으로 옳은 것은?</p>
+            <ol class="choices">
+                <li>'c'가 삭제되고 x는 0</li>
+                <li>오류 발생</li>
+                <li>x는 0이고 d는 변하지 않음</li>
+                <li>x는 None이고 d는 비어 있음</li>
+                <li>'a'가 삭제됨</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> 'c' key가 없으므로 기본값 0을 반환하고 딕셔너리는 그대로이다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>13. 딕셔너리 기본값 없는 pop 오류</h2>
+        <span class="tag">KeyError</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 딕셔너리에서 없는 key를 기본값 없이 pop하면 KeyError가 발생한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>d = {'a': 1}
+
+# print(d.pop('b'))
+print("없는 key를 기본값 없이 pop하면 오류")</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">없는 key를 기본값 없이 pop하면 오류</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 13</h3>
+            <p>주석 처리된 코드를 실행하면?</p>
+            <ol class="choices">
+                <li>0 출력</li>
+                <li>None 출력</li>
+                <li>KeyError 발생</li>
+                <li>IndexError 발생</li>
+                <li>빈 딕셔너리 출력</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> 딕셔너리 key 'b'가 없고 기본값도 없으므로 KeyError가 발생한다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>14. popitem 사용</h2>
+        <span class="tag">dict.popitem()</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> Python 3.7+에서 딕셔너리는 삽입 순서를 유지하므로 popitem()은 마지막 key-value 쌍을 제거한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>d = {'a': 1, 'b': 2, 'c': 3}
+item = d.popitem()
+
+print(item)
+print(d)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">('c', 3)
+{'a': 1, 'b': 2}</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 14</h3>
+            <p>Python 3.7 이상 기준으로 item의 값은?</p>
+            <ol class="choices">
+                <li>('a', 1)</li>
+                <li>('b', 2)</li>
+                <li>('c', 3)</li>
+                <li>3</li>
+                <li>오류</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> 마지막에 들어간 항목은 'c': 3이므로 ('c', 3)이 반환된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>15. 중첩 리스트 pop</h2>
+        <span class="tag">nested list</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 중첩 리스트에서도 pop(index)는 해당 위치의 내부 리스트 전체를 제거한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>matrix = [[1, 2], [3, 4], [5, 6]]
+row = matrix.pop(1)
+
+print(row)
+print(matrix)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">[3, 4]
+[[1, 2], [5, 6]]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 15</h3>
+            <p>row의 값으로 옳은 것은?</p>
+            <ol class="choices">
+                <li>[1, 2]</li>
+                <li>[3, 4]</li>
+                <li>[5, 6]</li>
+                <li>3</li>
+                <li>4</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> 인덱스 1의 원소는 내부 리스트 [3, 4]이다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>16. 중첩 리스트 내부 원소 pop</h2>
+        <span class="tag">inner pop</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> matrix[1]은 [3, 4]이고, 여기에서 pop(0)을 하면 3이 제거된다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>matrix = [[1, 2], [3, 4]]
+x = matrix[1].pop(0)
+
+print(x)
+print(matrix)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">3
+[[1, 2], [4]]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 16</h3>
+            <p>matrix의 최종 상태는?</p>
+            <ol class="choices">
+                <li>[[1, 2], [3, 4]]</li>
+                <li>[[2], [3, 4]]</li>
+                <li>[[1, 2], [4]]</li>
+                <li>[[1], [3, 4]]</li>
+                <li>[[1, 2], []]</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> 두 번째 내부 리스트 [3,4]에서 첫 원소 3이 제거되어 [4]가 된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>17. 문자열 split 후 pop</h2>
+        <span class="tag">string split + pop</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 문자열 자체는 pop할 수 없지만 split으로 리스트로 바꾼 뒤 pop할 수 있다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>s = "red,green,blue"
+colors = s.split(',')
+last = colors.pop()
+
+print(last)
+print(colors)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">blue
+['red', 'green']</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 17</h3>
+            <p>위 코드에서 last의 값은?</p>
+            <ol class="choices">
+                <li>red</li>
+                <li>green</li>
+                <li>blue</li>
+                <li>red,green</li>
+                <li>오류</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> split 결과는 ['red','green','blue']이고 pop()은 마지막 원소 blue를 꺼낸다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>18. remove와 pop 비교</h2>
+        <span class="tag">pop vs remove</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> pop(1)은 값 20을 찾는 것이 아니라 인덱스 1의 원소를 제거한다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [10, 20, 30, 20]
+x = a.pop(1)
+
+print(x)
+print(a)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">20
+[10, 30, 20]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 18</h3>
+            <p>위 코드 설명으로 가장 정확한 것은?</p>
+            <ol class="choices">
+                <li>값 1을 제거한다</li>
+                <li>첫 번째 20을 제거하고 그 값을 반환한다</li>
+                <li>모든 20을 제거한다</li>
+                <li>마지막 20을 제거한다</li>
+                <li>아무것도 제거하지 않는다</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> 인덱스 1의 값이 20이므로 첫 번째 20이 제거되고 반환된다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>19. for 반복 중 복사본 사용</h2>
+        <span class="tag">copy while mutating</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 리스트를 순회하면서 원본을 수정하면 건너뛰기 문제가 생길 수 있다. 복사본 a[:]를 순회하면 안전하다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>a = [1, 2, 3, 4, 5]
+
+for_copy = a[:]
+for v in for_copy:
+    if v % 2 == 0:
+        a.pop(a.index(v))
+
+print(a)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">[1, 3, 5]</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 19</h3>
+            <p>위 코드에서 a[:]를 사용하는 핵심 이유는?</p>
+            <ol class="choices">
+                <li>리스트를 정렬하기 위해</li>
+                <li>원본을 순회하면서 동시에 수정하는 문제를 줄이기 위해</li>
+                <li>튜플로 바꾸기 위해</li>
+                <li>문자열로 바꾸기 위해</li>
+                <li>pop을 더 느리게 하기 위해</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ②</b><br>
+                <b>상세 해설:</b> 복사본을 순회하고 원본을 수정하면 반복 중 인덱스 변화 문제를 줄일 수 있다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson">
+    <div class="lesson-title">
+        <h2>20. pop으로 괄호 검사</h2>
+        <span class="tag">stack algorithm</span>
+    </div>
+    <div class="content">
+        <div class="concept"><b>개념 설명:</b> 여는 괄호는 stack에 넣고 닫는 괄호가 나오면 pop한다. 마지막에 stack이 비어 있으면 괄호가 맞다.</div>
+        <h3>파이썬 코드</h3>
+        <pre><code>text = "(()())"
+stack = []
+
+ok = True
+for ch in text:
+    if ch == '(':
+        stack.append(ch)
+    elif ch == ')':
+        if stack:
+            stack.pop()
+        else:
+            ok = False
+
+print(ok and not stack)</code></pre>
+        <h3>실행 결과</h3>
+        <div class="result">True</div>
+        <div class="question">
+            <h3>고난도 5지선다 문제 20</h3>
+            <p>출력이 True인 이유로 가장 적절한 것은?</p>
+            <ol class="choices">
+                <li>닫는 괄호가 하나도 없기 때문</li>
+                <li>여는 괄호가 더 많기 때문</li>
+                <li>모든 닫는 괄호가 이전 여는 괄호와 짝을 이루고 마지막 stack이 비었기 때문</li>
+                <li>pop이 항상 True를 반환하기 때문</li>
+                <li>문자열이 자동 정렬되기 때문</li>
+            </ol>
+            <div class="answer">
+                <b>정답: ③</b><br>
+                <b>상세 해설:</b> 각 닫는 괄호마다 대응하는 여는 괄호가 pop되고, 끝에 남은 여는 괄호가 없으므로 True이다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="summary">
+    <h2>마무리 핵심</h2>
+    <ul>
+        <li><code>pop()</code>은 <b>삭제</b>와 <b>반환</b>을 동시에 수행한다.</li>
+        <li>리스트에서 <code>pop()</code>은 마지막 원소, <code>pop(i)</code>는 인덱스 i의 원소를 다룬다.</li>
+        <li>딕셔너리에서 <code>pop(key)</code>는 key에 해당하는 value를 반환하고 해당 항목을 삭제한다.</li>
+        <li>빈 리스트에서 <code>pop()</code>은 <span class="warning">IndexError</span>, 없는 딕셔너리 key를 기본값 없이 pop하면 <span class="warning">KeyError</span>가 발생한다.</li>
+    </ul>
+</section>
+
+<div class="footer">Python pop() 수업자료 | 코드 예제 20개 + 고난도 5지선다 20문항</div>
+</main>
+</body>
+</html>
