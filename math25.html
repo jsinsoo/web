@@ -1,0 +1,193 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>학교 제출용 초고급 통계학 정리 10개</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff,#fff7ed);color:#172033;line-height:1.86}
+header{background:linear-gradient(135deg,#172554,#7c3aed);color:white;text-align:center;padding:58px 24px}
+header h1{margin:0;font-size:2.25rem;letter-spacing:-.05em} header p{opacity:.95}
+main{max-width:1160px;margin:auto;padding:30px 24px}.card{background:white;border:1px solid #dbeafe;border-radius:28px;padding:30px;margin:30px 0;box-shadow:0 18px 42px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid #dbeafe;padding-bottom:12px}.badge{display:inline-block;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;padding:7px 14px;border-radius:999px;font-weight:900}
+.sec{font-weight:900;color:#9a3412;margin:24px 0 10px;font-size:1.12rem}.box,.formula,.use,.note,.summary{border-radius:18px;padding:18px 20px;overflow-x:auto}
+.box{background:#eff6ff;border-left:8px solid #2563eb}.formula{background:linear-gradient(135deg,#eef6ff,#f8fbff);border:1px solid #bfdbfe;border-left:8px solid #2563eb;text-align:center}.use{background:#fff7d6;border-left:8px solid #f59e0b}.note{background:#f0fdf4;border-left:8px solid #10b981}.summary{background:#fff1f2;border-left:8px solid #e11d48}
+ol{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:18px 40px}.explain{background:#ecfdf5}li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:20px;padding:22px;overflow:auto;line-height:1.7;font-size:.95rem}code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.toc a{display:block;color:#1e3a8a;text-decoration:none;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:10px 13px;font-weight:700}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.16em!important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.98em!important}mjx-merror{display:none!important}
+footer{text-align:center;color:#64748b;padding:32px}@media(max-width:760px){header h1{font-size:1.65rem}main{padding:18px}.card{padding:22px}.grid{grid-template-columns:1fr}}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {'[+]': ['ams', 'noerrors', 'noundefined']}
+  },
+  loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined']},
+  svg: {fontCache: 'global'},
+  options: {skipHtmlTags: ['script','noscript','style','textarea','pre','code']}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head><body>
+<header><h1>사람들이 가장 좋아하는 매력적인 통계학 정리 10개</h1><p>학교 제출용 초고급 템플릿 · MathJax 최적화 · 깨지지 않는 예쁜 수식 · 파이썬 코드 상세 설명</p></header>
+<main><section class="card"><h2>학습 목표</h2><div class="note">통계학의 핵심 정리를 이해하고, 표본평균·표본분산·신뢰구간·가설검정·회귀·상관·베이즈 추정을 파이썬 코드로 직접 확인한다.</div></section>
+<section class="card toc"><h2>목차</h2><div class="grid"><a href="#sec1">1. 표본평균의 성질</a><a href="#sec2">2. 표본분산과 불편추정</a><a href="#sec3">3. 표준오차</a><a href="#sec4">4. 중심극한정리</a><a href="#sec5">5. 정규분포 표준화</a><a href="#sec6">6. 모평균 신뢰구간</a><a href="#sec7">7. 가설검정의 z검정</a><a href="#sec8">8. 최소제곱법</a><a href="#sec9">9. 상관계수</a><a href="#sec10">10. 베이즈 추정</a></div></section><section class="card" id="sec1"><span class="badge">정리 1</span><h2>표본평균의 성질</h2>
+<div class="sec">① 정리 설명</div><div class="box">표본평균은 모집단 평균을 추정하는 가장 기본적인 통계량이며, 그 기댓값은 모집단 평균과 같다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i,\qquad E(\bar X)=\mu\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>표본 \(X_1,\dots,X_n\)이 같은 평균 \(\mu\)를 가진다고 하자.</li><li>표본평균은 관측값들의 산술평균이다.</li><li>기댓값의 선형성에 의해 \(E(ar X)=rac{1}{n}\sum E(X_i)\)이다.</li><li>각 \(E(X_i)=\mu\)이므로 \(E(ar X)=\mu\)가 된다.</li><li>따라서 표본평균은 모집단 평균의 불편추정량이다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">시험 평균, 여론조사 평균, 품질 측정 평균, 데이터 분석의 대표값 계산에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 표본평균 계산
+data = [72, 85, 91, 67, 88]
+
+mean = sum(data) / len(data)
+
+print(&quot;표본평균:&quot;, mean)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`data`는 관측된 표본 자료이다.</li><li>`sum(data)`는 모든 값을 더한다.</li><li>`len(data)`는 자료의 개수이다.</li><li>`sum(data) / len(data)`로 표본평균을 계산한다.</li></ol></section><section class="card" id="sec2"><span class="badge">정리 2</span><h2>표본분산과 불편추정</h2>
+<div class="sec">① 정리 설명</div><div class="box">표본분산은 표본이 평균 주변에 얼마나 퍼져 있는지를 나타내며, \(n-1\)로 나누면 모집단 분산의 불편추정량이 된다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[s^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>표본분산은 각 자료가 표본평균에서 얼마나 떨어져 있는지 제곱해 평균낸 값이다.</li><li>표본평균 \(ar X\)를 사용하면 자료의 자유도 하나가 이미 소모된다.</li><li>그래서 \(n\)이 아니라 \(n-1\)로 나누어 편향을 보정한다.</li><li>이 보정을 베셀 보정이라고 한다.</li><li>그 결과 \(s^2\)는 모집단 분산 \(\sigma^2\)의 불편추정량이 된다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">성적 분포, 제조 오차, 투자 변동성, 실험 데이터 산포 분석에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 표본분산 계산
+data = [72, 85, 91, 67, 88]
+
+mean = sum(data) / len(data)
+variance = sum((x - mean)**2 for x in data) / (len(data) - 1)
+
+print(&quot;표본분산:&quot;, variance)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`mean`은 표본평균이다.</li><li>`(x - mean)**2`는 각 자료의 평균으로부터의 제곱편차이다.</li><li>제곱편차를 모두 더한다.</li><li>`len(data)-1`로 나누어 표본분산을 계산한다.</li></ol></section><section class="card" id="sec3"><span class="badge">정리 3</span><h2>표준오차</h2>
+<div class="sec">① 정리 설명</div><div class="box">표준오차는 표본평균이 표본마다 얼마나 흔들리는지를 나타내는 값이다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>표본평균은 하나의 표본에서 계산되지만, 표본을 다시 뽑으면 값이 달라진다.</li><li>표본평균들의 분포를 표집분포라고 한다.</li><li>독립 표본의 합의 분산은 분산의 합이다.</li><li>따라서 \(\operatorname{Var}(ar X)=\sigma^2/n\)이다.</li><li>표준편차를 취하면 표준오차 \(\sigma/\sqrt n\)이 된다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">신뢰구간, 가설검정, 여론조사 오차범위, 평균 추정의 정확도 판단에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 표준오차 계산
+import math
+
+sigma = 15
+n = 100
+
+se = sigma / math.sqrt(n)
+
+print(&quot;표준오차:&quot;, se)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`sigma`는 모집단 표준편차이다.</li><li>`n`은 표본 크기이다.</li><li>`math.sqrt(n)`은 \(\sqrt n\)을 계산한다.</li><li>표본 크기가 커지면 표준오차는 작아진다.</li></ol></section><section class="card" id="sec4"><span class="badge">정리 4</span><h2>중심극한정리</h2>
+<div class="sec">① 정리 설명</div><div class="box">표본 크기가 충분히 크면 표본평균의 표준화 값은 표준정규분포에 가까워진다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[\frac{\bar X-\mu}{\sigma/\sqrt n}\xrightarrow[]{d}N(0,1)\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>개별 자료의 분포가 정규분포가 아니어도 표본평균은 점점 정규분포에 가까워진다.</li><li>표본평균의 평균은 \(\mu\)이다.</li><li>표본평균의 표준편차는 \(\sigma/\sqrt n\)이다.</li><li>이를 표준화하면 평균 0, 분산 1의 형태가 된다.</li><li>표본 수가 커질수록 표준정규분포에 수렴한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">신뢰구간, 가설검정, 여론조사, 품질관리, 데이터 과학 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 균등분포 표본평균 시뮬레이션
+import random
+
+means = []
+for _ in range(3000):
+    sample = [random.random() for _ in range(30)]
+    means.append(sum(sample) / len(sample))
+
+print(&quot;표본평균들의 평균:&quot;, sum(means) / len(means))
+print(&quot;처음 10개:&quot;, means[:10])</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`random.random()`은 0과 1 사이의 균등분포 난수이다.</li><li>30개씩 뽑아 표본평균을 만든다.</li><li>이 표본평균을 여러 번 모으면 종 모양 분포에 가까워진다.</li><li>중심극한정리의 직관을 보여 준다.</li></ol></section><section class="card" id="sec5"><span class="badge">정리 5</span><h2>정규분포 표준화</h2>
+<div class="sec">① 정리 설명</div><div class="box">정규분포 \(X\sim N(\mu,\sigma^2)\)를 표준화하면 평균 0, 표준편차 1인 표준정규분포가 된다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[Z=\frac{X-\mu}{\sigma}\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>자료 \(X\)에서 평균 \(\mu\)를 빼면 중심이 0으로 이동한다.</li><li>그 값을 표준편차 \(\sigma\)로 나누면 단위가 표준편차 단위로 바뀐다.</li><li>이 값을 z점수라고 한다.</li><li>z점수는 어떤 값이 평균에서 몇 표준편차 떨어져 있는지 나타낸다.</li><li>서로 다른 단위의 자료도 z점수로 비교할 수 있다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">시험 점수 비교, 이상치 탐지, 정규분포 확률 계산, 표준화 전처리에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># z점수 계산
+x = 85
+mu = 70
+sigma = 10
+
+z = (x - mu) / sigma
+
+print(&quot;z점수:&quot;, z)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`x`는 관측값이다.</li><li>`mu`는 평균이다.</li><li>`sigma`는 표준편차이다.</li><li>`(x-mu)/sigma`는 z점수이다.</li><li>z점수 1.5는 평균보다 1.5 표준편차 높다는 뜻이다.</li></ol></section><section class="card" id="sec6"><span class="badge">정리 6</span><h2>모평균 신뢰구간</h2>
+<div class="sec">① 정리 설명</div><div class="box">모표준편차를 알고 표본 크기가 충분할 때, 모평균의 신뢰구간은 표본평균을 중심으로 오차한계를 더하고 빼서 만든다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[\bar X\pm z_{\alpha/2}\frac{\sigma}{\sqrt n}\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>표본평균은 모평균 주변에서 흔들린다.</li><li>중심극한정리에 의해 표본평균은 대략 정규분포를 따른다.</li><li>표준오차는 \(\sigma/\sqrt n\)이다.</li><li>신뢰수준에 맞는 임계값 \(z_{lpha/2}\)를 곱해 오차한계를 만든다.</li><li>표본평균에 오차한계를 더하고 빼면 신뢰구간이 된다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">여론조사 오차범위, 평균 키 추정, 품질검사 평균 추정, 실험 결과 보고에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 95% 신뢰구간 계산
+import math
+
+xbar = 72
+sigma = 10
+n = 100
+z = 1.96
+
+margin = z * sigma / math.sqrt(n)
+lower = xbar - margin
+upper = xbar + margin
+
+print(&quot;95% 신뢰구간:&quot;, lower, upper)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`xbar`는 표본평균이다.</li><li>`z=1.96`은 95% 신뢰수준의 대표 임계값이다.</li><li>`margin`은 오차한계이다.</li><li>`lower`, `upper`는 신뢰구간의 하한과 상한이다.</li></ol></section><section class="card" id="sec7"><span class="badge">정리 7</span><h2>가설검정의 z검정</h2>
+<div class="sec">① 정리 설명</div><div class="box">z검정은 표본평균이 귀무가설의 평균 \(\mu_0\)과 통계적으로 유의하게 다른지 판단하는 방법이다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[Z=\frac{\bar X-\mu_0}{\sigma/\sqrt n}\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>귀무가설은 보통 차이가 없다는 주장이다.</li><li>표본평균이 귀무가설 평균에서 얼마나 떨어져 있는지 계산한다.</li><li>그 차이를 표준오차로 나누면 검정통계량 \(Z\)가 된다.</li><li>\(Z\)값이 충분히 크거나 작으면 귀무가설을 기각한다.</li><li>판단 기준은 유의수준과 임계값에 의해 정해진다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">신약 효과 검정, 제조 평균 검사, 교육 효과 분석, A/B 테스트에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># z검정 통계량 계산
+import math
+
+xbar = 104
+mu0 = 100
+sigma = 12
+n = 36
+
+z = (xbar - mu0) / (sigma / math.sqrt(n))
+
+print(&quot;z검정 통계량:&quot;, z)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`xbar`는 표본평균이다.</li><li>`mu0`는 귀무가설의 평균이다.</li><li>`sigma / sqrt(n)`은 표준오차이다.</li><li>차이를 표준오차로 나누어 z값을 구한다.</li></ol></section><section class="card" id="sec8"><span class="badge">정리 8</span><h2>최소제곱법</h2>
+<div class="sec">① 정리 설명</div><div class="box">최소제곱법은 관측값과 예측값의 제곱오차 합을 가장 작게 하는 직선을 찾는 방법이다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[\min_{a,b}\sum_{i=1}^{n}\{y_i-(ax_i+b)\}^2\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>데이터에 직선 \(y=ax+b\)를 맞춘다고 하자.</li><li>각 점에서 실제값과 예측값의 차이를 잔차라고 한다.</li><li>잔차는 양수와 음수가 섞일 수 있으므로 제곱한다.</li><li>제곱잔차의 합이 가장 작아지는 \(a,b\)를 찾는다.</li><li>이 원리가 선형회귀의 핵심이다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">회귀분석, 예측모형, 실험 데이터 피팅, 머신러닝 기초에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 단순 선형회귀 기울기와 절편 계산
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 5, 4, 6]
+
+xbar = sum(x) / len(x)
+ybar = sum(y) / len(y)
+
+sxy = sum((xi-xbar)*(yi-ybar) for xi, yi in zip(x, y))
+sxx = sum((xi-xbar)**2 for xi in x)
+
+a = sxy / sxx
+b = ybar - a*xbar
+
+print(&quot;기울기:&quot;, a)
+print(&quot;절편:&quot;, b)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`xbar`, `ybar`는 각각 x와 y의 평균이다.</li><li>`sxy`는 x와 y의 함께 변하는 정도이다.</li><li>`sxx`는 x의 변동량이다.</li><li>`a=sxy/sxx`로 회귀직선의 기울기를 구한다.</li><li>`b=ybar-a*xbar`로 절편을 구한다.</li></ol></section><section class="card" id="sec9"><span class="badge">정리 9</span><h2>상관계수</h2>
+<div class="sec">① 정리 설명</div><div class="box">상관계수는 두 변수 사이의 선형 관계의 방향과 강도를 나타내며, 값은 -1과 1 사이에 있다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[r=\frac{\sum (x_i-\bar x)(y_i-\bar y)}{\sqrt{\sum (x_i-\bar x)^2}\sqrt{\sum (y_i-\bar y)^2}}\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>두 변수가 함께 증가하면 상관계수는 양수이다.</li><li>한 변수가 증가할 때 다른 변수가 감소하면 음수이다.</li><li>선형 관계가 강할수록 절댓값이 1에 가까워진다.</li><li>상관계수가 0에 가깝다고 해서 모든 관계가 없다는 뜻은 아니다.</li><li>비선형 관계는 상관계수로 잘 드러나지 않을 수 있다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">데이터 탐색, 경제 지표 분석, 과학 실험, 머신러닝 특성 분석에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 상관계수 계산
+import math
+
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 5, 4, 6]
+
+xbar = sum(x) / len(x)
+ybar = sum(y) / len(y)
+
+num = sum((xi-xbar)*(yi-ybar) for xi, yi in zip(x, y))
+den_x = math.sqrt(sum((xi-xbar)**2 for xi in x))
+den_y = math.sqrt(sum((yi-ybar)**2 for yi in y))
+
+r = num / (den_x * den_y)
+
+print(&quot;상관계수:&quot;, r)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`num`은 공분산의 분자에 해당하는 값이다.</li><li>`den_x`, `den_y`는 각 변수의 변동 크기이다.</li><li>분자를 두 변동 크기의 곱으로 나누면 상관계수가 된다.</li><li>결과가 1에 가까울수록 강한 양의 선형 관계이다.</li></ol></section><section class="card" id="sec10"><span class="badge">정리 10</span><h2>베이즈 추정</h2>
+<div class="sec">① 정리 설명</div><div class="box">베이즈 추정은 사전정보와 데이터를 결합하여 모수 \(	heta\)에 대한 믿음을 갱신하는 방법이다.</div>
+<div class="sec">② 핵심 수식</div><div class="formula">\[P(\theta\mid X)=\frac{P(X\mid \theta)P(\theta)}{P(X)}\]</div>
+<div class="sec">③ 증명 핵심 아이디어</div><ol><li>베이즈 추정에서는 모수도 확률적으로 다룬다.</li><li>관측 전 믿음을 사전분포 \(P(	heta)\)라고 한다.</li><li>데이터가 주어질 가능성을 우도 \(P(X\mid	heta)\)라고 한다.</li><li>사전분포와 우도를 곱하고 정규화하면 사후분포가 된다.</li><li>사후분포는 데이터를 본 뒤의 갱신된 믿음이다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">의학 진단, 머신러닝, 예측 모델, A/B 테스트, 불확실성 추론에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code># 동전 앞면 확률에 대한 간단한 베타-베르누이 갱신
+alpha = 1
+beta = 1
+
+heads = 8
+tails = 2
+
+posterior_alpha = alpha + heads
+posterior_beta = beta + tails
+
+posterior_mean = posterior_alpha / (posterior_alpha + posterior_beta)
+
+print(&quot;사후평균:&quot;, posterior_mean)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>`alpha`, `beta`는 베타 사전분포의 모수이다.</li><li>앞면이 나오면 `alpha`가 증가한다.</li><li>뒷면이 나오면 `beta`가 증가한다.</li><li>사후평균은 갱신된 앞면 확률의 대표 추정값이다.</li></ol></section><section class="card"><h2>마무리 핵심 정리</h2><div class="summary">통계학은 자료에서 의미를 찾고 불확실성 속에서 합리적으로 판단하는 학문이다. 표본평균과 표본분산은 데이터의 중심과 퍼짐을 나타내고, 신뢰구간과 가설검정은 표본으로 모집단을 추론하게 해 준다. 회귀와 상관은 변수 사이의 관계를 분석하고, 베이즈 추정은 새 정보를 반영해 믿음을 갱신한다.</div></section></main><footer>학교 제출용 초고급 통계학 HTML 수업자료</footer></body></html>
