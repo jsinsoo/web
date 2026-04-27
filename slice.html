@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>파이썬 리스트·문자열·딕셔너리 슬라이싱</title>
+<style>
+  :root{
+    --bg:#f4f7fb; --card:#ffffff; --ink:#1f2937; --muted:#64748b;
+    --blue:#2563eb; --green:#059669; --orange:#ea580c; --purple:#7c3aed;
+    --line:#dbe4f0; --code:#0f172a; --codeText:#e5e7eb;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family: "Pretendard", "Malgun Gothic", Arial, sans-serif; background:linear-gradient(135deg,#eef5ff,#f8fafc); color:var(--ink); line-height:1.75;}
+  header{padding:46px 22px; text-align:center; background:linear-gradient(135deg,#1d4ed8,#7c3aed); color:white;}
+  header h1{margin:0; font-size:2.25rem; letter-spacing:-1px;}
+  header p{margin:12px auto 0; max-width:850px; font-size:1.05rem; opacity:.94;}
+  main{max-width:1100px; margin:30px auto; padding:0 18px 50px;}
+  section{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:28px; margin:22px 0; box-shadow:0 10px 30px rgba(15,23,42,.07);}
+  h2{margin:0 0 14px; font-size:1.55rem; color:#111827; border-left:8px solid var(--blue); padding-left:12px;}
+  h3{margin-top:24px; color:#334155;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px;}
+  .mini{border:1px solid var(--line); border-radius:18px; padding:18px; background:#f8fbff;}
+  .tag{display:inline-block; padding:5px 10px; border-radius:999px; background:#dbeafe; color:#1d4ed8; font-weight:700; font-size:.85rem;}
+  code.inline{background:#eef2ff; color:#3730a3; padding:2px 6px; border-radius:7px; font-weight:700;}
+  pre{background:var(--code); color:var(--codeText); padding:18px; border-radius:16px; overflow:auto; font-size:.95rem; line-height:1.6; border:1px solid #334155;}
+  .result{background:#ecfdf5; border-left:6px solid var(--green); padding:14px 16px; border-radius:12px; color:#064e3b; font-weight:600;}
+  table{width:100%; border-collapse:collapse; margin-top:12px; overflow:hidden; border-radius:14px;}
+  th,td{border:1px solid var(--line); padding:12px; text-align:left; vertical-align:top;}
+  th{background:#eff6ff; color:#1e3a8a;}
+  tr:nth-child(even) td{background:#fafcff;}
+  .warn{background:#fff7ed; border-left:6px solid var(--orange); padding:14px 16px; border-radius:12px; color:#7c2d12;}
+  .quiz li{margin:10px 0;}
+  footer{text-align:center; color:var(--muted); padding:20px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>파이썬 리스트·문자열·딕셔너리 슬라이싱</h1>
+  <p>리스트와 문자열은 인덱스 기반 자료형이므로 슬라이싱이 가능하고, 딕셔너리는 key 기반 자료형이라 직접 슬라이싱은 불가능하지만 변환을 통해 부분 추출할 수 있습니다.</p>
+</header>
+<main>
+
+<section>
+  <h2>1. 슬라이싱 기본 문법</h2>
+  <p>슬라이싱은 자료에서 원하는 구간만 잘라내는 방법입니다.</p>
+  <pre><code>자료형[start : end : step]</code></pre>
+  <div class="grid">
+    <div class="mini"><span class="tag">start</span><p>시작 위치입니다. 이 위치는 결과에 포함됩니다.</p></div>
+    <div class="mini"><span class="tag">end</span><p>끝 위치입니다. 이 위치는 결과에 포함되지 않습니다.</p></div>
+    <div class="mini"><span class="tag">step</span><p>몇 칸씩 건너뛸지 정합니다. 생략하면 1입니다.</p></div>
+  </div>
+  <pre><code>a = [10, 20, 30, 40, 50]
+print(a[1:4])</code></pre>
+  <div class="result">실행 결과: [20, 30, 40]</div>
+</section>
+
+<section>
+  <h2>2. 리스트(List) 슬라이싱</h2>
+  <p>리스트는 순서가 있고, 각 원소가 인덱스를 가지므로 슬라이싱이 가능합니다.</p>
+  <h3>기본 코드</h3>
+  <pre><code>numbers = [10, 20, 30, 40, 50, 60]
+
+print(numbers[0:3])   # 0번부터 2번까지
+print(numbers[2:5])   # 2번부터 4번까지
+print(numbers[:4])    # 처음부터 3번까지
+print(numbers[3:])    # 3번부터 끝까지
+print(numbers[:])     # 전체 복사</code></pre>
+  <div class="result">[10, 20, 30]<br>[30, 40, 50]<br>[10, 20, 30, 40]<br>[40, 50, 60]<br>[10, 20, 30, 40, 50, 60]</div>
+
+  <h3>step 사용</h3>
+  <pre><code>numbers = [10, 20, 30, 40, 50, 60]
+
+print(numbers[::2])    # 2칸씩 이동
+print(numbers[1::2])   # 1번 인덱스부터 2칸씩 이동
+print(numbers[::-1])   # 거꾸로 뒤집기</code></pre>
+  <div class="result">[10, 30, 50]<br>[20, 40, 60]<br>[60, 50, 40, 30, 20, 10]</div>
+
+  <h3>리스트 슬라이싱 수정</h3>
+  <pre><code>numbers = [10, 20, 30, 40, 50]
+
+numbers[1:3] = [200, 300]
+print(numbers)</code></pre>
+  <div class="result">[10, 200, 300, 40, 50]</div>
+</section>
+
+<section>
+  <h2>3. 문자열(String) 슬라이싱</h2>
+  <p>문자열도 문자들이 순서대로 나열된 자료형이므로 리스트처럼 슬라이싱할 수 있습니다.</p>
+  <h3>기본 코드</h3>
+  <pre><code>word = "PYTHON"
+
+print(word[0:2])
+print(word[2:5])
+print(word[:3])
+print(word[3:])</code></pre>
+  <div class="result">PY<br>THO<br>PYT<br>HON</div>
+
+  <h3>문자열 뒤집기</h3>
+  <pre><code>word = "PYTHON"
+
+print(word[::-1])</code></pre>
+  <div class="result">NOHTYP</div>
+
+  <h3>문자열은 직접 수정 불가</h3>
+  <pre><code>word = "PYTHON"
+
+# word[0] = "A"   # 오류 발생
+new_word = "A" + word[1:]
+print(new_word)</code></pre>
+  <div class="result">AYTHON</div>
+  <div class="warn">문자열은 immutable 자료형입니다. 즉, 한 글자만 직접 바꿀 수 없습니다. 새 문자열을 만들어야 합니다.</div>
+</section>
+
+<section>
+  <h2>4. 딕셔너리(Dictionary) 슬라이싱</h2>
+  <p>딕셔너리는 리스트처럼 번호 인덱스로 접근하지 않고 key로 접근합니다. 따라서 <code class="inline">d[0:2]</code> 같은 직접 슬라이싱은 불가능합니다.</p>
+  <pre><code>score = {"국어": 90, "수학": 95, "영어": 88, "과학": 92}
+
+# print(score[0:2])  # 오류 발생</code></pre>
+  <div class="warn">딕셔너리는 직접 슬라이싱 불가!</div>
+
+  <h3>방법 1: key를 리스트로 바꾸어 슬라이싱</h3>
+  <pre><code>score = {"국어": 90, "수학": 95, "영어": 88, "과학": 92}
+
+keys = list(score.keys())
+print(keys[:2])</code></pre>
+  <div class="result">['국어', '수학']</div>
+
+  <h3>방법 2: items를 리스트로 바꾼 뒤 슬라이싱</h3>
+  <pre><code>score = {"국어": 90, "수학": 95, "영어": 88, "과학": 92}
+
+part = list(score.items())[:2]
+print(part)</code></pre>
+  <div class="result">[('국어', 90), ('수학', 95)]</div>
+
+  <h3>방법 3: 부분 딕셔너리 만들기</h3>
+  <pre><code>score = {"국어": 90, "수학": 95, "영어": 88, "과학": 92}
+
+part_dict = dict(list(score.items())[:2])
+print(part_dict)</code></pre>
+  <div class="result">{'국어': 90, '수학': 95}</div>
+</section>
+
+<section>
+  <h2>5. 비교 정리</h2>
+  <table>
+    <thead>
+      <tr><th>자료형</th><th>슬라이싱 가능?</th><th>예시</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>리스트</td><td>가능</td><td><code class="inline">a[1:4]</code></td><td>수정 가능</td></tr>
+      <tr><td>문자열</td><td>가능</td><td><code class="inline">s[::-1]</code></td><td>직접 수정 불가</td></tr>
+      <tr><td>딕셔너리</td><td>직접 불가능</td><td><code class="inline">dict(list(d.items())[:2])</code></td><td>key 기반 구조</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>6. 실전 예제 코드</h2>
+  <h3>예제 1: 리스트에서 짝수 번째 값 추출</h3>
+  <pre><code>data = [1, 2, 3, 4, 5, 6, 7, 8]
+print(data[1::2])</code></pre>
+  <div class="result">[2, 4, 6, 8]</div>
+
+  <h3>예제 2: 문자열 앞 3글자와 뒤 3글자 추출</h3>
+  <pre><code>text = "Programming"
+print(text[:3])
+print(text[-3:])</code></pre>
+  <div class="result">Pro<br>ing</div>
+
+  <h3>예제 3: 딕셔너리 앞 3개 항목 추출</h3>
+  <pre><code>student = {"이름":"홍길동", "학년":2, "반":3, "점수":95}
+
+result = dict(list(student.items())[:3])
+print(result)</code></pre>
+  <div class="result">{'이름': '홍길동', '학년': 2, '반': 3}</div>
+</section>
+
+<section>
+  <h2>7. OX 진단평가</h2>
+  <ol class="quiz">
+    <li><code class="inline">a[1:4]</code>는 1번 인덱스부터 4번 인덱스까지 모두 포함한다. <strong>X</strong><br>끝 인덱스 4는 포함하지 않습니다.</li>
+    <li><code class="inline">s[::-1]</code>은 문자열을 거꾸로 만든다. <strong>O</strong></li>
+    <li>리스트는 슬라이싱으로 일부 값을 바꿀 수 있다. <strong>O</strong></li>
+    <li>문자열은 <code class="inline">s[0] = 'A'</code>처럼 직접 수정할 수 있다. <strong>X</strong></li>
+    <li>딕셔너리는 <code class="inline">d[0:2]</code>처럼 직접 슬라이싱할 수 있다. <strong>X</strong></li>
+  </ol>
+</section>
+
+<section>
+  <h2>8. 연습문제</h2>
+  <ol class="quiz">
+    <li><code class="inline">a = [5, 10, 15, 20, 25]</code>에서 <code class="inline">[10, 15, 20]</code>을 출력하는 코드를 작성하시오.</li>
+    <li><code class="inline">s = "Computer"</code>에서 <code class="inline">"put"</code>을 출력하는 코드를 작성하시오.</li>
+    <li><code class="inline">s = "Python"</code>을 거꾸로 출력하는 코드를 작성하시오.</li>
+    <li>딕셔너리 <code class="inline">d = {'a':1, 'b':2, 'c':3}</code>에서 앞 2개 항목만 딕셔너리로 출력하시오.</li>
+  </ol>
+  <h3>정답</h3>
+  <pre><code># 1번
+a = [5, 10, 15, 20, 25]
+print(a[1:4])
+
+# 2번
+s = "Computer"
+print(s[3:6])
+
+# 3번
+s = "Python"
+print(s[::-1])
+
+# 4번
+d = {'a':1, 'b':2, 'c':3}
+print(dict(list(d.items())[:2]))</code></pre>
+</section>
+
+</main>
+<footer>
+  Python Slicing Lesson HTML · 리스트 · 문자열 · 딕셔너리
+</footer>
+</body>
+</html>
