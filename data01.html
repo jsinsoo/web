@@ -1,0 +1,217 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>학교 제출용 초고급 데이터 과학 개념정리 20개</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f8fbff,#fff7ed);color:#172033;line-height:1.86}
+header{background:linear-gradient(135deg,#172554,#7c3aed);color:white;text-align:center;padding:58px 24px}
+header h1{margin:0;font-size:2.25rem;letter-spacing:-.05em}header p{opacity:.95}
+main{max-width:1160px;margin:auto;padding:30px 24px}.card{background:white;border:1px solid #dbeafe;border-radius:28px;padding:30px;margin:30px 0;box-shadow:0 18px 42px rgba(15,23,42,.12)}
+h2{color:#1e3a8a;border-bottom:3px solid #dbeafe;padding-bottom:12px}.badge{display:inline-block;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;padding:7px 14px;border-radius:999px;font-weight:900}
+.sec{font-weight:900;color:#9a3412;margin:24px 0 10px;font-size:1.12rem}.box,.formula,.use,.note,.summary{border-radius:18px;padding:18px 20px;overflow-x:auto}
+.box{background:#eff6ff;border-left:8px solid #2563eb}.formula{background:linear-gradient(135deg,#eef6ff,#f8fbff);border:1px solid #bfdbfe;border-left:8px solid #2563eb;text-align:center}.use{background:#fff7d6;border-left:8px solid #f59e0b}.note{background:#f0fdf4;border-left:8px solid #10b981}.summary{background:#fff1f2;border-left:8px solid #e11d48}
+ol{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:18px 40px}.explain{background:#ecfdf5}li{margin:8px 0}
+pre{background:#0f172a;color:#e5e7eb;border-radius:20px;padding:22px;overflow:auto;line-height:1.7;font-size:.95rem}code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.toc a{display:block;color:#1e3a8a;text-decoration:none;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:10px 13px;font-weight:700}
+mjx-container[jax="SVG"]{overflow-x:auto;overflow-y:hidden;max-width:100%}mjx-container[jax="SVG"][display="true"]{font-size:1.16em!important}mjx-container[jax="SVG"]:not([display="true"]){font-size:.98em!important}mjx-merror{display:none!important}
+footer{text-align:center;color:#64748b;padding:32px}@media(max-width:760px){header h1{font-size:1.65rem}main{padding:18px}.card{padding:22px}.grid{grid-template-columns:1fr}}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {'[+]': ['ams', 'noerrors', 'noundefined']}
+  },
+  loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined']},
+  svg: {fontCache: 'global'},
+  options: {skipHtmlTags: ['script','noscript','style','textarea','pre','code']}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head><body>
+<header><h1>사람들이 가장 좋아하는 매력적인 데이터 과학 개념정리 20개</h1><p>학교 제출용 초고급 템플릿 · MathJax 최적화 · 깨지지 않는 예쁜 수식 · 파이썬 코드 상세 설명</p></header>
+<main><section class="card"><h2>학습 목표</h2><div class="note">데이터 과학의 핵심 개념인 데이터 수집, 정제, 탐색, 시각화, 통계 요약, 회귀, 분류, 군집화, 모델 평가, 데이터 윤리를 이해하고 파이썬 코드로 직접 확인한다.</div></section>
+<section class="card toc"><h2>목차</h2><div class="grid"><a href="#sec1">1. 데이터 과학</a><a href="#sec2">2. 데이터와 변수</a><a href="#sec3">3. 데이터 수집</a><a href="#sec4">4. 데이터 정제</a><a href="#sec5">5. 결측값</a><a href="#sec6">6. 이상값</a><a href="#sec7">7. 탐색적 데이터 분석</a><a href="#sec8">8. 데이터 시각화</a><a href="#sec9">9. 평균과 중앙값</a><a href="#sec10">10. 분산과 표준편차</a><a href="#sec11">11. 상관관계</a><a href="#sec12">12. 회귀분석</a><a href="#sec13">13. 분류</a><a href="#sec14">14. 군집화</a><a href="#sec15">15. 훈련 데이터와 테스트 데이터</a><a href="#sec16">16. 과적합</a><a href="#sec17">17. 정확도</a><a href="#sec18">18. 정밀도와 재현율</a><a href="#sec19">19. 데이터 윤리</a><a href="#sec20">20. 데이터 스토리텔링</a></div></section><section class="card" id="sec1"><span class="badge">개념 1</span><h2>데이터 과학</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터 과학에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Data Science}=\text{Data}+\text{Statistics}+\text{Computing}+\text{Domain Knowledge}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터 과학는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>steps = [&#x27;문제 정의&#x27;, &#x27;데이터 수집&#x27;, &#x27;데이터 정제&#x27;, &#x27;분석&#x27;, &#x27;시각화&#x27;]
+for i, step in enumerate(steps, 1):
+    print(i, step)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터 과학 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec2"><span class="badge">개념 2</span><h2>데이터와 변수</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터와 변수에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[D=\{(x_i,y_i)\}_{i=1}^{n}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터와 변수는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>rows = [{&#x27;name&#x27;:&#x27;A&#x27;,&#x27;score&#x27;:90}, {&#x27;name&#x27;:&#x27;B&#x27;,&#x27;score&#x27;:75}]
+for row in rows:
+    print(row[&#x27;name&#x27;], row[&#x27;score&#x27;])</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터와 변수 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec3"><span class="badge">개념 3</span><h2>데이터 수집</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터 수집에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Good Data}=\text{Relevant}+\text{Reliable}+\text{Sufficient}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터 수집는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>responses = []
+responses.append({&#x27;student&#x27;:&#x27;A&#x27;, &#x27;satisfaction&#x27;:5})
+responses.append({&#x27;student&#x27;:&#x27;B&#x27;, &#x27;satisfaction&#x27;:3})
+print(&#x27;응답 수:&#x27;, len(responses))</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터 수집 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec4"><span class="badge">개념 4</span><h2>데이터 정제</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터 정제에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Clean Data}=\text{Accurate}+\text{Consistent}+\text{Complete}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터 정제는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>scores = [80, 90, None, 70, 100]
+valid = [x for x in scores if x is not None]
+mean = sum(valid) / len(valid)
+cleaned = [mean if x is None else x for x in scores]
+print(cleaned)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터 정제 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec5"><span class="badge">개념 5</span><h2>결측값</h2>
+<div class="sec">① 핵심 개념</div><div class="box">결측값에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Missing Rate}=\frac{m}{n}\times100\%\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>결측값는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = [10, None, 30, 40, None, 60]
+missing = sum(1 for x in data if x is None)
+rate = missing / len(data) * 100
+print(&#x27;결측률:&#x27;, rate)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 결측값 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec6"><span class="badge">개념 6</span><h2>이상값</h2>
+<div class="sec">① 핵심 개념</div><div class="box">이상값에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[z=\frac{x-\mu}{\sigma}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>이상값는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = [10, 12, 11, 13, 12, 100]
+mean = sum(data) / len(data)
+std = (sum((x-mean)**2 for x in data) / len(data)) ** 0.5
+print([(x, (x-mean)/std) for x in data])</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 이상값 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec7"><span class="badge">개념 7</span><h2>탐색적 데이터 분석</h2>
+<div class="sec">① 핵심 개념</div><div class="box">탐색적 데이터 분석에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{EDA}=\text{Summarize}+\text{Visualize}+\text{Question}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>탐색적 데이터 분석는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = [72, 85, 91, 67, 88, 75]
+print(&#x27;평균:&#x27;, sum(data)/len(data))
+print(&#x27;최솟값:&#x27;, min(data))
+print(&#x27;최댓값:&#x27;, max(data))</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 탐색적 데이터 분석 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec8"><span class="badge">개념 8</span><h2>데이터 시각화</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터 시각화에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Visualization}\to\text{Pattern Recognition}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터 시각화는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>subjects = [&#x27;국어&#x27;, &#x27;수학&#x27;, &#x27;과학&#x27;]
+scores = [85, 92, 78]
+for subject, score in zip(subjects, scores):
+    print(subject, &#x27;█&#x27; * (score // 5), score)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터 시각화 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec9"><span class="badge">개념 9</span><h2>평균과 중앙값</h2>
+<div class="sec">① 핵심 개념</div><div class="box">평균과 중앙값에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>평균과 중앙값는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = [10, 20, 30, 40, 1000]
+mean = sum(data) / len(data)
+median = sorted(data)[len(data)//2]
+print(&#x27;평균:&#x27;, mean)
+print(&#x27;중앙값:&#x27;, median)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 평균과 중앙값 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec10"><span class="badge">개념 10</span><h2>분산과 표준편차</h2>
+<div class="sec">① 핵심 개념</div><div class="box">분산과 표준편차에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\sigma^2=\frac{1}{n}\sum_{i=1}^{n}(x_i-\mu)^2,\qquad \sigma=\sqrt{\sigma^2}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>분산과 표준편차는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = [70, 75, 80, 85, 90]
+mean = sum(data) / len(data)
+variance = sum((x-mean)**2 for x in data) / len(data)
+print(&#x27;분산:&#x27;, variance)
+print(&#x27;표준편차:&#x27;, variance**0.5)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 분산과 표준편차 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec11"><span class="badge">개념 11</span><h2>상관관계</h2>
+<div class="sec">① 핵심 개념</div><div class="box">상관관계에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[r=\frac{\sum (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum (x_i-\bar{x})^2}\sqrt{\sum (y_i-\bar{y})^2}}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>상관관계는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>import math
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 5, 4, 6]
+xb = sum(x)/len(x); yb = sum(y)/len(y)
+num = sum((a-xb)*(b-yb) for a,b in zip(x,y))
+den = math.sqrt(sum((a-xb)**2 for a in x) * sum((b-yb)**2 for b in y))
+print(&#x27;상관계수:&#x27;, num/den)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 상관관계 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec12"><span class="badge">개념 12</span><h2>회귀분석</h2>
+<div class="sec">① 핵심 개념</div><div class="box">회귀분석에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\hat{y}=ax+b\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>회귀분석는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>x = [1,2,3,4,5]
+y = [2,4,5,4,6]
+xb = sum(x)/len(x); yb = sum(y)/len(y)
+a = sum((u-xb)*(v-yb) for u,v in zip(x,y)) / sum((u-xb)**2 for u in x)
+b = yb - a*xb
+print(&#x27;기울기:&#x27;, a, &#x27;절편:&#x27;, b)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 회귀분석 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec13"><span class="badge">개념 13</span><h2>분류</h2>
+<div class="sec">① 핵심 개념</div><div class="box">분류에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\hat{y}\in\{0,1,2,\dots,K\}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>분류는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>scores = [55, 80, 42, 95, 67]
+labels = [&#x27;합격&#x27; if score &gt;= 60 else &#x27;불합격&#x27; for score in scores]
+print(labels)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 분류 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec14"><span class="badge">개념 14</span><h2>군집화</h2>
+<div class="sec">① 핵심 개념</div><div class="box">군집화에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Cluster}=\{x_i:\text{similar}(x_i,c_k)\text{ is high}\}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>군집화는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = [1, 2, 2, 8, 9, 10]
+cluster1 = [x for x in data if x &lt; 5]
+cluster2 = [x for x in data if x &gt;= 5]
+print(cluster1, cluster2)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 군집화 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec15"><span class="badge">개념 15</span><h2>훈련 데이터와 테스트 데이터</h2>
+<div class="sec">① 핵심 개념</div><div class="box">훈련 데이터와 테스트 데이터에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Data}=\text{Train Set}+\text{Test Set}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>훈련 데이터와 테스트 데이터는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>data = list(range(10))
+train = data[:8]
+test = data[8:]
+print(&#x27;훈련:&#x27;, train)
+print(&#x27;테스트:&#x27;, test)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 훈련 데이터와 테스트 데이터 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec16"><span class="badge">개념 16</span><h2>과적합</h2>
+<div class="sec">① 핵심 개념</div><div class="box">과적합에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Overfitting}:\quad \text{Train Error}\ll \text{Test Error}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>과적합는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>train_error = 0.02
+test_error = 0.25
+print(&#x27;과적합 의심&#x27; if test_error &gt; train_error * 5 else &#x27;양호&#x27;)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 과적합 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec17"><span class="badge">개념 17</span><h2>정확도</h2>
+<div class="sec">① 핵심 개념</div><div class="box">정확도에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Accuracy}=\frac{\text{Correct Predictions}}{\text{Total Predictions}}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>정확도는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>y_true = [1,0,1,1,0]
+y_pred = [1,0,0,1,0]
+accuracy = sum(t == p for t,p in zip(y_true,y_pred)) / len(y_true)
+print(accuracy)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 정확도 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec18"><span class="badge">개념 18</span><h2>정밀도와 재현율</h2>
+<div class="sec">① 핵심 개념</div><div class="box">정밀도와 재현율에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Precision}=\frac{TP}{TP+FP},\qquad \text{Recall}=\frac{TP}{TP+FN}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>정밀도와 재현율는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>TP, FP, FN = 40, 10, 5
+precision = TP / (TP + FP)
+recall = TP / (TP + FN)
+print(precision, recall)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 정밀도와 재현율 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec19"><span class="badge">개념 19</span><h2>데이터 윤리</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터 윤리에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Responsible Data Science}=\text{Privacy}+\text{Fairness}+\text{Transparency}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터 윤리는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>phone = &#x27;010-1234-5678&#x27;
+masked = phone[:3] + &#x27;-****-&#x27; + phone[-4:]
+print(masked)</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터 윤리 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card" id="sec20"><span class="badge">개념 20</span><h2>데이터 스토리텔링</h2>
+<div class="sec">① 핵심 개념</div><div class="box">데이터 스토리텔링에 대한 핵심 개념을 데이터 과학 관점에서 정리한다.</div>
+<div class="sec">② 핵심 수식 또는 구조</div><div class="formula">\[\text{Insight}=\text{Data}+\text{Context}+\text{Narrative}\]</div>
+<div class="sec">③ 개념 상세 설명</div><ol><li>데이터 스토리텔링는 데이터 과학의 핵심 개념이다.</li><li>개념을 정확히 이해하면 분석 과정의 오류를 줄일 수 있다.</li><li>실제 데이터 문제에서는 개념, 통계, 코딩, 해석이 함께 필요하다.</li><li>분석 결과는 항상 문제 상황과 연결해 해석해야 한다.</li></ol>
+<div class="sec">④ 활용 예제</div><div class="use">학교 데이터 분석, 공공데이터 활용, 과학 실험 결과 분석, 인공지능 모델 평가에 활용된다.</div>
+<div class="sec">⑤ 파이썬 코드</div><pre><code>story = [&#x27;문제&#x27;, &#x27;데이터&#x27;, &#x27;분석&#x27;, &#x27;시각화&#x27;, &#x27;결론&#x27;]
+print(&#x27; → &#x27;.join(story))</code></pre>
+<div class="sec">⑥ 코드 상세 설명</div><ol class="explain"><li>코드는 데이터 스토리텔링 개념을 간단한 예제로 보여 준다.</li><li>리스트, 반복문, 조건문, 수식 계산을 이용해 핵심 원리를 확인한다.</li><li>실제 프로젝트에서는 pandas, matplotlib, scikit-learn 등으로 확장할 수 있다.</li></ol></section><section class="card"><h2>마무리 핵심 정리</h2><div class="summary">데이터 과학은 데이터를 통해 현실 문제를 이해하고 해결하는 학문이다. 좋은 분석은 정확한 데이터 수집과 정제에서 시작하고, 탐색적 분석과 시각화를 통해 패턴을 발견하며, 통계와 머신러닝 모델을 사용해 예측과 의사결정으로 이어진다. 개인정보 보호와 공정성 같은 데이터 윤리는 모든 단계에서 반드시 지켜야 한다.</div></section></main><footer>학교 제출용 초고급 데이터 과학 HTML 수업자료</footer></body></html>
