@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>전북과학고등학교 인공지능 수행평가</title><style>body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#f5f3ff,#ecfdf5);color:#172033;font-size:21px;line-height:1.75}header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#059669);border-bottom-left-radius:44px;border-bottom-right-radius:44px}h1{font-size:48px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1220px;margin:auto;padding:32px 22px 75px}.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.10)}h2{font-size:34px;color:#1d4ed8}h3{font-size:26px;color:#7c3aed}.tag{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:7px 14px;font-weight:900;margin:4px}pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.62;border:4px solid #93c5fd}code{font-family:Consolas,monospace}.concept{background:#eff6ff;border-left:8px solid #2563eb;border-radius:16px;padding:16px}.explain{background:#ecfdf5;border-left:8px solid #10b981;border-radius:16px;padding:16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.mini{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:16px;padding:16px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:11px;vertical-align:top}th{background:#2563eb;color:white}footer{text-align:center;padding:26px;color:#475569}</style></head><body>
+<header><h1>🤖 전북과학고등학교 인공지능 수행평가</h1><div class="subtitle">2026학년도 1학기 정보수업 인공지능 수행평가</div></header>
+<main>
+<section class="card"><h2>🌈 학습 목표</h2><p>인공지능의 핵심 개념을 객체지향 프로그래밍 방식으로 이해합니다. 지능 에이전트의 인식·판단·행동 구조, 기계학습의 지도학습·비지도학습, 회귀·분류·군집, 문제 해결 과정을 기초부터 실생활 활용까지 단계적으로 학습합니다.</p><div class="grid"><div class="mini"><b>기초 개념 5개</b><br>지능 에이전트, 규칙 기반 AI, 데이터셋, 지도·비지도학습, 문제 해결 과정</div><div class="mini"><b>개념 응용 5개</b><br>회귀, 분류, 군집, 정확도 평가, 정규화</div><div class="mini"><b>실생활 심화 5개</b><br>스마트 냉장고, 의료 보조, CO2 예측, 학업 성취 분류, SNS 추천</div></div></section>
+<section class="card"><h2>📚 교재 핵심 반영 내용</h2><ul><li>지능 에이전트는 환경을 인식하고 판단한 뒤 행동합니다.</li><li>기계학습은 데이터로부터 규칙을 학습하고 모델을 만들어 예측이나 판단을 수행합니다.</li><li>지도학습은 정답이 있는 데이터로 학습하며 회귀와 분류가 있고, 비지도학습은 정답 없이 데이터의 패턴을 찾아 군집 등을 수행합니다.</li><li>기계학습 문제 해결은 문제 정의, 데이터 탐색과 수집, 전처리, 알고리즘 선정, 모델 학습, 예측, 성능 평가와 보완으로 진행됩니다.</li></ul></section>
+<section class="card">
+<span class="tag">기초 개념 1</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>1. 지능 에이전트: 인식·판단·행동 구조</h2>
+<div class="concept"><h3>개념 상세 설명</h3>지능 에이전트는 센서를 통해 환경을 인식하고, 인공지능으로 판단한 뒤 구동기를 통해 행동하는 구조를 가집니다.</div>
+<pre><code>class IntelligentAgent:
+    def __init__(self, name):
+        self.name = name
+
+    def perceive(self, environment):
+        return f&quot;{self.name}이/가 환경 정보 &#x27;{environment}&#x27;을/를 인식했습니다.&quot;
+
+    def decide(self, environment):
+        if &quot;어두움&quot; in environment:
+            return &quot;불 켜기&quot;
+        return &quot;대기하기&quot;
+
+    def act(self, action):
+        return f&quot;{self.name}의 행동: {action}&quot;
+
+agent = IntelligentAgent(&quot;스마트홈 에이전트&quot;)
+env = &quot;거실이 어두움&quot;
+print(agent.perceive(env))
+action = agent.decide(env)
+print(agent.act(action))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>perceive()는 환경 정보를 인식합니다.</li><li>decide()는 조건에 따라 행동을 선택합니다.</li><li>act()는 선택된 행동을 출력합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">기초 개념 2</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>2. 규칙 기반 인공지능 분류기</h2>
+<div class="concept"><h3>개념 상세 설명</h3>규칙 기반 인공지능은 사람이 조건을 직접 작성하여 입력을 판단합니다. 단순하고 설명 가능하지만 복잡한 문제에서는 한계가 있습니다.</div>
+<pre><code>class RuleBasedClassifier:
+    def __init__(self):
+        self.rules = []
+
+    def add_rule(self, condition, label):
+        self.rules.append((condition, label))
+
+    def predict(self, data):
+        for condition, label in self.rules:
+            if condition(data):
+                return label
+        return &quot;판단 불가&quot;
+
+classifier = RuleBasedClassifier()
+classifier.add_rule(lambda x: x[&quot;온도&quot;] &gt;= 30, &quot;더움&quot;)
+classifier.add_rule(lambda x: x[&quot;온도&quot;] &lt;= 10, &quot;추움&quot;)
+print(classifier.predict({&quot;온도&quot;: 35}))
+print(classifier.predict({&quot;온도&quot;: 20}))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>add_rule()로 판단 규칙을 추가합니다.</li><li>predict()는 규칙을 순서대로 검사합니다.</li><li>어떤 규칙에도 맞지 않으면 판단 불가를 반환합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">기초 개념 3</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>3. 기계학습 데이터셋 객체</h2>
+<div class="concept"><h3>개념 상세 설명</h3>기계학습은 데이터로부터 규칙을 학습하고 모델을 만들어 새로운 데이터에 대해 예측이나 판단을 수행합니다.</div>
+<pre><code>class Dataset:
+    def __init__(self, features, labels=None):
+        self.features = features
+        self.labels = labels
+
+    def size(self):
+        return len(self.features)
+
+    def has_labels(self):
+        return self.labels is not None
+
+    def summary(self):
+        return {&quot;데이터 개수&quot;: self.size(), &quot;정답 포함 여부&quot;: self.has_labels()}
+
+X = [[1, 2], [2, 3], [3, 4]]
+y = [&quot;A&quot;, &quot;A&quot;, &quot;B&quot;]
+dataset = Dataset(X, y)
+print(dataset.summary())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>features는 입력 데이터입니다.</li><li>labels는 지도학습에서 사용하는 정답입니다.</li><li>has_labels()로 지도학습 가능성을 확인합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">기초 개념 4</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>4. 지도학습과 비지도학습 구분기</h2>
+<div class="concept"><h3>개념 상세 설명</h3>기계학습은 정답 데이터가 있는지에 따라 지도학습과 비지도학습으로 구분됩니다. 지도학습에는 회귀와 분류, 비지도학습에는 군집이 있습니다.</div>
+<pre><code>class LearningTypeChecker:
+    def __init__(self, has_label, goal):
+        self.has_label = has_label
+        self.goal = goal
+
+    def check(self):
+        if self.has_label and self.goal == &quot;값 예측&quot;:
+            return &quot;지도학습 - 회귀&quot;
+        if self.has_label and self.goal == &quot;종류 분류&quot;:
+            return &quot;지도학습 - 분류&quot;
+        if not self.has_label and self.goal == &quot;그룹 찾기&quot;:
+            return &quot;비지도학습 - 군집&quot;
+        return &quot;추가 분석 필요&quot;
+
+print(LearningTypeChecker(True, &quot;값 예측&quot;).check())
+print(LearningTypeChecker(False, &quot;그룹 찾기&quot;).check())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>has_label은 정답 데이터 여부입니다.</li><li>goal은 문제 해결 목표입니다.</li><li>목표에 따라 회귀, 분류, 군집으로 구분합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">기초 개념 5</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>5. AI 문제 해결 과정 객체</h2>
+<div class="concept"><h3>개념 상세 설명</h3>AI 문제 해결은 문제 정의, 데이터 탐색과 수집, 전처리, 알고리즘 선정, 모델 학습, 성능 평가와 보완의 흐름으로 진행됩니다.</div>
+<pre><code>class AIProblemSolvingProcess:
+    def __init__(self, problem):
+        self.problem = problem
+        self.steps = []
+
+    def add_step(self, step):
+        self.steps.append(step)
+
+    def show_steps(self):
+        for i, step in enumerate(self.steps, start=1):
+            print(f&quot;{i}단계: {step}&quot;)
+
+process = AIProblemSolvingProcess(&quot;자동차 CO2 배출량 예측&quot;)
+for step in [&quot;문제 정의&quot;, &quot;데이터 탐색 및 수집&quot;, &quot;데이터 전처리&quot;,
+             &quot;알고리즘 선정&quot;, &quot;모델 학습&quot;, &quot;성능 평가 및 보완&quot;]:
+    process.add_step(step)
+process.show_steps()</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>steps에 문제 해결 과정을 저장합니다.</li><li>add_step()으로 단계를 추가합니다.</li><li>show_steps()로 순서대로 출력합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">개념 응용 1</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>6. 단순 회귀 모델: 공부 시간으로 점수 예측</h2>
+<div class="concept"><h3>개념 상세 설명</h3>회귀는 속성 간 관계를 함수식으로 학습하여 연속적인 값을 예측하는 지도학습 방법입니다.</div>
+<pre><code>class SimpleRegression:
+    def __init__(self):
+        self.a = 0
+        self.b = 0
+
+    def fit(self, X, y):
+        x_mean = sum(X) / len(X)
+        y_mean = sum(y) / len(y)
+        numerator = sum((x - x_mean) * (target - y_mean) for x, target in zip(X, y))
+        denominator = sum((x - x_mean) ** 2 for x in X)
+        self.a = numerator / denominator
+        self.b = y_mean - self.a * x_mean
+
+    def predict(self, x):
+        return self.a * x + self.b
+
+hours = [1, 2, 3, 4, 5]
+scores = [50, 60, 65, 75, 85]
+model = SimpleRegression()
+model.fit(hours, scores)
+print(&quot;6시간 공부 예측 점수:&quot;, model.predict(6))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>fit()은 기울기와 절편을 학습합니다.</li><li>predict()는 새 입력에 대한 예측값을 반환합니다.</li><li>공부 시간과 점수의 관계를 직선으로 근사합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">개념 응용 2</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>7. KNN 분류 모델: 가까운 이웃으로 종류 판단</h2>
+<div class="concept"><h3>개념 상세 설명</h3>분류는 정답 레이블이 있는 데이터를 학습하여 새 데이터가 어느 그룹에 속하는지 판단합니다.</div>
+<pre><code>class KNNClassifier:
+    def __init__(self, k=3):
+        self.k = k
+        self.X_train = []
+        self.y_train = []
+
+    def fit(self, X, y):
+        self.X_train = X
+        self.y_train = y
+
+    def distance(self, a, b):
+        return sum((x - y) ** 2 for x, y in zip(a, b)) ** 0.5
+
+    def predict_one(self, x):
+        distances = [(self.distance(x, tx), label) for tx, label in zip(self.X_train, self.y_train)]
+        distances.sort()
+        nearest = distances[:self.k]
+        votes = {}
+        for _, label in nearest:
+            votes[label] = votes.get(label, 0) + 1
+        return max(votes, key=votes.get)
+
+X = [[1, 1], [2, 1], [8, 8], [9, 8]]
+y = [&quot;고양이&quot;, &quot;고양이&quot;, &quot;강아지&quot;, &quot;강아지&quot;]
+model = KNNClassifier(k=3)
+model.fit(X, y)
+print(model.predict_one([2, 2]))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>distance()는 유클리드 거리를 계산합니다.</li><li>가까운 k개 이웃을 찾습니다.</li><li>다수결로 라벨을 결정합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">개념 응용 3</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>8. 군집 모델: 비슷한 학생 그룹 묶기</h2>
+<div class="concept"><h3>개념 상세 설명</h3>군집은 정답 없이 비슷한 속성을 가진 데이터끼리 묶는 비지도학습 방법입니다.</div>
+<pre><code>class SimpleClusterer:
+    def __init__(self, threshold):
+        self.threshold = threshold
+
+    def cluster(self, students):
+        active, passive = [], []
+        for student in students:
+            score = student[&quot;발표횟수&quot;] + student[&quot;자료조회&quot;]
+            if score &gt;= self.threshold:
+                active.append(student[&quot;이름&quot;])
+            else:
+                passive.append(student[&quot;이름&quot;])
+        return {&quot;적극 참여 그룹&quot;: active, &quot;보통 참여 그룹&quot;: passive}
+
+students = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;발표횟수&quot;: 10, &quot;자료조회&quot;: 30},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;발표횟수&quot;: 2, &quot;자료조회&quot;: 8},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;발표횟수&quot;: 8, &quot;자료조회&quot;: 25}
+]
+print(SimpleClusterer(threshold=30).cluster(students))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>발표횟수와 자료조회 수로 참여도 점수를 만듭니다.</li><li>기준값 이상이면 적극 참여 그룹입니다.</li><li>정답 없이 특징을 기준으로 묶습니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">개념 응용 4</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>9. 모델 성능 평가: 정확도 계산</h2>
+<div class="concept"><h3>개념 상세 설명</h3>정확도는 전체 예측 중 정답과 일치한 비율로, 분류 모델 성능 평가에 자주 사용됩니다.</div>
+<pre><code>class AccuracyEvaluator:
+    def __init__(self, y_true, y_pred):
+        self.y_true = y_true
+        self.y_pred = y_pred
+
+    def accuracy(self):
+        correct = 0
+        for true, pred in zip(self.y_true, self.y_pred):
+            if true == pred:
+                correct += 1
+        return correct / len(self.y_true)
+
+true_labels = [&quot;A&quot;, &quot;B&quot;, &quot;A&quot;, &quot;C&quot;, &quot;B&quot;]
+pred_labels = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;C&quot;, &quot;B&quot;]
+print(&quot;정확도:&quot;, AccuracyEvaluator(true_labels, pred_labels).accuracy())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>y_true는 실제 정답입니다.</li><li>y_pred는 예측 결과입니다.</li><li>일치 개수를 전체 개수로 나누어 정확도를 계산합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">개념 응용 5</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>10. 데이터 정규화 객체</h2>
+<div class="concept"><h3>개념 상세 설명</h3>정규화는 서로 다른 크기의 수치 데이터를 0과 1 사이 범위로 변환하여 학습 안정성을 높이는 전처리 방법입니다.</div>
+<pre><code>class MinMaxScalerSimple:
+    def __init__(self, data):
+        self.data = data
+
+    def normalize(self):
+        min_value = min(self.data)
+        max_value = max(self.data)
+        return [(x - min_value) / (max_value - min_value) for x in self.data]
+
+values = [10, 20, 30, 40, 50]
+print(MinMaxScalerSimple(values).normalize())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>최솟값과 최댓값을 구합니다.</li><li>각 값을 전체 범위로 나누어 0~1 사이로 변환합니다.</li><li>수치 속성의 크기 차이를 줄입니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">실생활 심화 1</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>11. 스마트 냉장고 추천 에이전트</h2>
+<div class="concept"><h3>개념 상세 설명</h3>스마트 냉장고는 재료를 인식하고 메뉴를 추천하는 지능 에이전트의 실생활 활용 예입니다.</div>
+<pre><code>class SmartFridgeAgent:
+    def __init__(self, ingredients):
+        self.ingredients = ingredients
+
+    def perceive(self):
+        return f&quot;냉장고 재료 인식: {&#x27;, &#x27;.join(self.ingredients)}&quot;
+
+    def recommend_menu(self):
+        if &quot;계란&quot; in self.ingredients and &quot;밥&quot; in self.ingredients:
+            return &quot;계란볶음밥&quot;
+        if &quot;우유&quot; in self.ingredients and &quot;바나나&quot; in self.ingredients:
+            return &quot;바나나 스무디&quot;
+        return &quot;추가 재료가 필요합니다.&quot;
+
+    def act(self):
+        return f&quot;추천 메뉴: {self.recommend_menu()}&quot;
+
+fridge = SmartFridgeAgent([&quot;계란&quot;, &quot;밥&quot;, &quot;김치&quot;])
+print(fridge.perceive())
+print(fridge.act())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>perceive()로 재료를 인식합니다.</li><li>recommend_menu()가 메뉴를 판단합니다.</li><li>act()가 추천 결과를 출력합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">실생활 심화 2</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>12. 의료 증상 분류 보조 시스템</h2>
+<div class="concept"><h3>개념 상세 설명</h3>의료 진단 보조 시스템은 증상 데이터를 분석해 가능성을 분류하고 전문가 판단을 돕는 인공지능 활용 사례입니다.</div>
+<pre><code>class MedicalTriageAgent:
+    def __init__(self, symptoms):
+        self.symptoms = symptoms
+
+    def classify(self):
+        if &quot;고열&quot; in self.symptoms and &quot;기침&quot; in self.symptoms:
+            return &quot;호흡기 질환 의심&quot;
+        if &quot;가슴통증&quot; in self.symptoms:
+            return &quot;응급 진료 필요&quot;
+        if &quot;두통&quot; in self.symptoms:
+            return &quot;경과 관찰&quot;
+        return &quot;추가 문진 필요&quot;
+
+    def report(self):
+        return {&quot;입력 증상&quot;: self.symptoms, &quot;판단 결과&quot;: self.classify()}
+
+agent = MedicalTriageAgent([&quot;고열&quot;, &quot;기침&quot;])
+print(agent.report())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>symptoms는 증상 목록입니다.</li><li>classify()가 증상 조합을 분류합니다.</li><li>교육용 단순 모델이며 실제 진단용이 아닙니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">실생활 심화 3</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>13. CO2 배출량 예측 회귀 모델</h2>
+<div class="concept"><h3>개념 상세 설명</h3>자동차 엔진 크기와 연료 소비량으로 CO2 배출량을 예측하는 문제는 지도학습의 회귀 문제입니다.</div>
+<pre><code>class CO2EmissionPredictor:
+    def __init__(self, engine_weight=40, fuel_weight=20, bias=50):
+        self.engine_weight = engine_weight
+        self.fuel_weight = fuel_weight
+        self.bias = bias
+
+    def predict(self, engine_size, fuel_consumption):
+        return self.engine_weight * engine_size + self.fuel_weight * fuel_consumption + self.bias
+
+    def explain(self, engine_size, fuel_consumption):
+        return f&quot;예상 CO2 배출량: {self.predict(engine_size, fuel_consumption):.1f}&quot;
+
+model = CO2EmissionPredictor()
+print(model.explain(engine_size=3.0, fuel_consumption=7.5))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>engine_weight와 fuel_weight는 속성의 영향입니다.</li><li>predict()가 배출량을 계산합니다.</li><li>실제 모델은 데이터로 가중치를 학습합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">실생활 심화 4</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>14. 학업 성취 수준 분류 모델</h2>
+<div class="concept"><h3>개념 상세 설명</h3>학생의 발표 횟수, 자료 접근 횟수, 결석 횟수 등으로 성취 수준을 분류하는 문제는 지도학습의 분류 문제입니다.</div>
+<pre><code>class AcademicPerformanceClassifier:
+    def predict(self, raised_hands, visited_resources, absences):
+        score = raised_hands * 0.4 + visited_resources * 0.4 - absences * 2
+        if score &gt;= 50:
+            return &quot;상위&quot;
+        elif score &gt;= 25:
+            return &quot;중위&quot;
+        return &quot;하위&quot;
+
+classifier = AcademicPerformanceClassifier()
+print(classifier.predict(raised_hands=80, visited_resources=70, absences=2))
+print(classifier.predict(raised_hands=10, visited_resources=15, absences=8))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>수업 참여와 자료 조회는 긍정 요인입니다.</li><li>결석은 점수를 낮추는 요인입니다.</li><li>점수 구간에 따라 상위·중위·하위로 분류합니다.</li></ul></div>
+</section><section class="card">
+<span class="tag">실생활 심화 5</span><span class="tag">인공지능</span><span class="tag">OOP 코드</span>
+<h2>15. SNS 취향 군집 추천 시스템</h2>
+<div class="concept"><h3>개념 상세 설명</h3>SNS 관심 데이터로 비슷한 취향의 사용자를 묶고 추천하는 과정은 비지도학습의 군집 개념과 연결됩니다.</div>
+<pre><code>class SNSClusterRecommender:
+    def __init__(self, users):
+        self.users = users
+
+    def cluster_users(self):
+        clusters = {&quot;운동 관심 그룹&quot;: [], &quot;음악 관심 그룹&quot;: [], &quot;학습 관심 그룹&quot;: []}
+        for user in self.users:
+            if user[&quot;운동&quot;] &gt;= user[&quot;음악&quot;] and user[&quot;운동&quot;] &gt;= user[&quot;학습&quot;]:
+                clusters[&quot;운동 관심 그룹&quot;].append(user[&quot;이름&quot;])
+            elif user[&quot;음악&quot;] &gt;= user[&quot;운동&quot;] and user[&quot;음악&quot;] &gt;= user[&quot;학습&quot;]:
+                clusters[&quot;음악 관심 그룹&quot;].append(user[&quot;이름&quot;])
+            else:
+                clusters[&quot;학습 관심 그룹&quot;].append(user[&quot;이름&quot;])
+        return clusters
+
+users = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;운동&quot;: 9, &quot;음악&quot;: 3, &quot;학습&quot;: 5},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;운동&quot;: 2, &quot;음악&quot;: 8, &quot;학습&quot;: 4},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;운동&quot;: 4, &quot;음악&quot;: 5, &quot;학습&quot;: 9}
+]
+print(SNSClusterRecommender(users).cluster_users())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>사용자별 관심 점수를 비교합니다.</li><li>가장 높은 관심 분야 그룹에 배정합니다.</li><li>추천 시스템의 기본 아이디어를 보여 줍니다.</li></ul></div>
+</section>
+<section class="card"><h2>🧭 전체 예제 요약표</h2><table><tr><th>번호</th><th>구분</th><th>예제</th><th>핵심 내용</th></tr><tr><td>1</td><td>기초 개념 1</td><td>지능 에이전트: 인식·판단·행동 구조</td><td>지능 에이전트는 센서를 통해 환경을 인식하고, 인공지능으로 판단한 뒤 구동기를 통해 행동하는 구조를 가집니다.</td></tr><tr><td>2</td><td>기초 개념 2</td><td>규칙 기반 인공지능 분류기</td><td>규칙 기반 인공지능은 사람이 조건을 직접 작성하여 입력을 판단합니다. 단순하고 설명 가능하지만 복잡한 문제에서는 한계가 있습니다.</td></tr><tr><td>3</td><td>기초 개념 3</td><td>기계학습 데이터셋 객체</td><td>기계학습은 데이터로부터 규칙을 학습하고 모델을 만들어 새로운 데이터에 대해 예측이나 판단을 수행합니다.</td></tr><tr><td>4</td><td>기초 개념 4</td><td>지도학습과 비지도학습 구분기</td><td>기계학습은 정답 데이터가 있는지에 따라 지도학습과 비지도학습으로 구분됩니다. 지도학습에는 회귀와 분류, 비지도학습에는 군집이 있습니다.</td></tr><tr><td>5</td><td>기초 개념 5</td><td>AI 문제 해결 과정 객체</td><td>AI 문제 해결은 문제 정의, 데이터 탐색과 수집, 전처리, 알고리즘 선정, 모델 학습, 성능 평가와 보완의 흐름으로 진행됩니다.</td></tr><tr><td>6</td><td>개념 응용 1</td><td>단순 회귀 모델: 공부 시간으로 점수 예측</td><td>회귀는 속성 간 관계를 함수식으로 학습하여 연속적인 값을 예측하는 지도학습 방법입니다.</td></tr><tr><td>7</td><td>개념 응용 2</td><td>KNN 분류 모델: 가까운 이웃으로 종류 판단</td><td>분류는 정답 레이블이 있는 데이터를 학습하여 새 데이터가 어느 그룹에 속하는지 판단합니다.</td></tr><tr><td>8</td><td>개념 응용 3</td><td>군집 모델: 비슷한 학생 그룹 묶기</td><td>군집은 정답 없이 비슷한 속성을 가진 데이터끼리 묶는 비지도학습 방법입니다.</td></tr><tr><td>9</td><td>개념 응용 4</td><td>모델 성능 평가: 정확도 계산</td><td>정확도는 전체 예측 중 정답과 일치한 비율로, 분류 모델 성능 평가에 자주 사용됩니다.</td></tr><tr><td>10</td><td>개념 응용 5</td><td>데이터 정규화 객체</td><td>정규화는 서로 다른 크기의 수치 데이터를 0과 1 사이 범위로 변환하여 학습 안정성을 높이는 전처리 방법입니다.</td></tr><tr><td>11</td><td>실생활 심화 1</td><td>스마트 냉장고 추천 에이전트</td><td>스마트 냉장고는 재료를 인식하고 메뉴를 추천하는 지능 에이전트의 실생활 활용 예입니다.</td></tr><tr><td>12</td><td>실생활 심화 2</td><td>의료 증상 분류 보조 시스템</td><td>의료 진단 보조 시스템은 증상 데이터를 분석해 가능성을 분류하고 전문가 판단을 돕는 인공지능 활용 사례입니다.</td></tr><tr><td>13</td><td>실생활 심화 3</td><td>CO2 배출량 예측 회귀 모델</td><td>자동차 엔진 크기와 연료 소비량으로 CO2 배출량을 예측하는 문제는 지도학습의 회귀 문제입니다.</td></tr><tr><td>14</td><td>실생활 심화 4</td><td>학업 성취 수준 분류 모델</td><td>학생의 발표 횟수, 자료 접근 횟수, 결석 횟수 등으로 성취 수준을 분류하는 문제는 지도학습의 분류 문제입니다.</td></tr><tr><td>15</td><td>실생활 심화 5</td><td>SNS 취향 군집 추천 시스템</td><td>SNS 관심 데이터로 비슷한 취향의 사용자를 묶고 추천하는 과정은 비지도학습의 군집 개념과 연결됩니다.</td></tr></table></section>
+<section class="card"><h2>🎯 심화 탐구 과제</h2><ol><li>지능 에이전트 예제에 센서와 구동기 클래스를 따로 만들어 연결하라.</li><li>SimpleRegression 예제에 평균제곱오차 MSE 계산 메서드를 추가하라.</li><li>KNNClassifier의 k 값을 1, 3, 5로 바꾸며 결과를 비교하라.</li><li>학업 성취 분류 모델에 정규화 과정을 추가하라.</li><li>SNS 추천 시스템에서 사용자의 관심 점수를 바탕으로 추천 게시물까지 출력하라.</li></ol></section>
+</main><footer>🤖 인공지능 × 객체지향 프로그래밍 HTML 수업자료</footer></body></html>

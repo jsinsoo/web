@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>전북과학고등학교 인공지능 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#f5f3ff,#ecfdf5);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#059669);border-bottom-left-radius:44px;border-bottom-right-radius:44px}
+h1{font-size:46px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1240px;margin:auto;padding:30px 22px 80px}
+.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 26px rgba(37,99,235,.1)}
+h2{font-size:32px;color:#1d4ed8}h3{font-size:25px;color:#7c3aed}
+.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+.codebox{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;border:4px solid #93c5fd}
+.question{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:20px;margin:18px 0}
+.options label{display:block;background:#fff;border:1px solid #bfdbfe;border-radius:14px;padding:10px 14px;margin:8px 0;cursor:pointer}
+.options label:hover{background:#eff6ff}.result{background:#ecfdf5;border-left:8px solid #10b981;border-radius:18px;padding:18px;margin:20px 0}
+.wrong{background:#fff1f2!important;border-left-color:#e11d48!important}.right{background:#ecfdf5!important;border-left-color:#10b981!important}
+input{font-size:20px;padding:10px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}
+button{font-size:21px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}
+button:hover{background:#1d4ed8}table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:10px}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+</style>
+</head>
+<body>
+<header>
+<h1>🤖 전북과학고등학교 인공지능 수행평가</h1>
+<div class="subtitle">2026학년도 1학기 정보수업 인공지능 수행평가</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각각의 코드를 읽고 바로 아래 문제를 푸세요. 채점 후 <b>학번_이름_인공지능_득점_응시시각.txt</b> 파일이 생성됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetQuiz()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 평가 구성</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>예제 코드</td><td>총 15개 코드 제시</td></tr>
+<tr><td>문항 수</td><td>각 코드당 2문항, 전체 30문항</td></tr>
+<tr><td>문항 유형</td><td>OX 개념 퀴즈 1개 + 코드 관련 5지선다형 1개</td></tr>
+<tr><td>결과 파일</td><td>학번_이름_인공지능_득점_응시시각.txt</td></tr>
+</table>
+</section>
+
+
+<section class="card">
+<span class="meta">예제 1</span><span class="meta">인공지능 OOP</span>
+<h2>1. 지능 에이전트: 인식·판단·행동 구조</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class IntelligentAgent:
+    def __init__(self, name):
+        self.name = name
+
+    def perceive(self, environment):
+        return f&quot;{self.name}이/가 환경 정보 &#x27;{environment}&#x27;을/를 인식했습니다.&quot;
+
+    def decide(self, environment):
+        if &quot;어두움&quot; in environment:
+            return &quot;불 켜기&quot;
+        return &quot;대기하기&quot;
+
+    def act(self, action):
+        return f&quot;{self.name}의 행동: {action}&quot;
+
+agent = IntelligentAgent(&quot;스마트홈 에이전트&quot;)
+env = &quot;거실이 어두움&quot;
+print(agent.perceive(env))
+action = agent.decide(env)
+print(agent.act(action))</code></pre>
+
+<div class="question" id="box1">
+  <span class="meta">문항 1</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>지능 에이전트는 환경을 인식하고, 판단한 뒤, 행동을 수행하는 구조로 설명할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q1" value="0"> O</label>
+<label><input type="radio" name="q1" value="1"> X</label></div>
+  <div id="feedback1"></div>
+</div>
+
+<div class="question" id="box2">
+  <span class="meta">문항 2</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>env = &#x27;거실이 어두움&#x27;일 때 decide(env)가 반환하는 값은?</h3>
+  <div class="options"><label><input type="radio" name="q2" value="0"> 대기하기</label>
+<label><input type="radio" name="q2" value="1"> 불 켜기</label>
+<label><input type="radio" name="q2" value="2"> 문 열기</label>
+<label><input type="radio" name="q2" value="3"> 온도 낮추기</label>
+<label><input type="radio" name="q2" value="4"> 오류</label></div>
+  <div id="feedback2"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 2</span><span class="meta">인공지능 OOP</span>
+<h2>2. 규칙 기반 인공지능 분류기</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class RuleBasedClassifier:
+    def __init__(self):
+        self.rules = []
+
+    def add_rule(self, condition, label):
+        self.rules.append((condition, label))
+
+    def predict(self, data):
+        for condition, label in self.rules:
+            if condition(data):
+                return label
+        return &quot;판단 불가&quot;
+
+classifier = RuleBasedClassifier()
+classifier.add_rule(lambda x: x[&quot;온도&quot;] &gt;= 30, &quot;더움&quot;)
+classifier.add_rule(lambda x: x[&quot;온도&quot;] &lt;= 10, &quot;추움&quot;)
+print(classifier.predict({&quot;온도&quot;: 35}))
+print(classifier.predict({&quot;온도&quot;: 20}))</code></pre>
+
+<div class="question" id="box3">
+  <span class="meta">문항 3</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>규칙 기반 인공지능은 사람이 미리 정한 조건을 이용해 판단할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q3" value="0"> O</label>
+<label><input type="radio" name="q3" value="1"> X</label></div>
+  <div id="feedback3"></div>
+</div>
+
+<div class="question" id="box4">
+  <span class="meta">문항 4</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>classifier.predict({&#x27;온도&#x27;: 20})의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q4" value="0"> 더움</label>
+<label><input type="radio" name="q4" value="1"> 추움</label>
+<label><input type="radio" name="q4" value="2"> 판단 불가</label>
+<label><input type="radio" name="q4" value="3"> 20</label>
+<label><input type="radio" name="q4" value="4"> 오류</label></div>
+  <div id="feedback4"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 3</span><span class="meta">인공지능 OOP</span>
+<h2>3. 기계학습 데이터셋 객체</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class Dataset:
+    def __init__(self, features, labels=None):
+        self.features = features
+        self.labels = labels
+
+    def size(self):
+        return len(self.features)
+
+    def has_labels(self):
+        return self.labels is not None
+
+    def summary(self):
+        return {&quot;데이터 개수&quot;: self.size(), &quot;정답 포함 여부&quot;: self.has_labels()}
+
+X = [[1, 2], [2, 3], [3, 4]]
+y = [&quot;A&quot;, &quot;A&quot;, &quot;B&quot;]
+dataset = Dataset(X, y)
+print(dataset.summary())</code></pre>
+
+<div class="question" id="box5">
+  <span class="meta">문항 5</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>지도학습에서는 입력 데이터와 함께 정답 라벨이 주어질 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q5" value="0"> O</label>
+<label><input type="radio" name="q5" value="1"> X</label></div>
+  <div id="feedback5"></div>
+</div>
+
+<div class="question" id="box6">
+  <span class="meta">문항 6</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>위 코드에서 dataset.size()의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q6" value="0"> 1</label>
+<label><input type="radio" name="q6" value="1"> 2</label>
+<label><input type="radio" name="q6" value="2"> 3</label>
+<label><input type="radio" name="q6" value="3"> 4</label>
+<label><input type="radio" name="q6" value="4"> None</label></div>
+  <div id="feedback6"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 4</span><span class="meta">인공지능 OOP</span>
+<h2>4. 지도학습과 비지도학습 구분기</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class LearningTypeChecker:
+    def __init__(self, has_label, goal):
+        self.has_label = has_label
+        self.goal = goal
+
+    def check(self):
+        if self.has_label and self.goal == &quot;값 예측&quot;:
+            return &quot;지도학습 - 회귀&quot;
+        if self.has_label and self.goal == &quot;종류 분류&quot;:
+            return &quot;지도학습 - 분류&quot;
+        if not self.has_label and self.goal == &quot;그룹 찾기&quot;:
+            return &quot;비지도학습 - 군집&quot;
+        return &quot;추가 분석 필요&quot;
+
+print(LearningTypeChecker(True, &quot;값 예측&quot;).check())
+print(LearningTypeChecker(False, &quot;그룹 찾기&quot;).check())</code></pre>
+
+<div class="question" id="box7">
+  <span class="meta">문항 7</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>정답 라벨이 없고 비슷한 데이터끼리 묶는 문제는 비지도학습의 군집과 관련된다.</h3>
+  <div class="options"><label><input type="radio" name="q7" value="0"> O</label>
+<label><input type="radio" name="q7" value="1"> X</label></div>
+  <div id="feedback7"></div>
+</div>
+
+<div class="question" id="box8">
+  <span class="meta">문항 8</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>LearningTypeChecker(True, &#x27;값 예측&#x27;).check()의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q8" value="0"> 지도학습 - 회귀</label>
+<label><input type="radio" name="q8" value="1"> 지도학습 - 분류</label>
+<label><input type="radio" name="q8" value="2"> 비지도학습 - 군집</label>
+<label><input type="radio" name="q8" value="3"> 추가 분석 필요</label>
+<label><input type="radio" name="q8" value="4"> 오류</label></div>
+  <div id="feedback8"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 5</span><span class="meta">인공지능 OOP</span>
+<h2>5. AI 문제 해결 과정 객체</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class AIProblemSolvingProcess:
+    def __init__(self, problem):
+        self.problem = problem
+        self.steps = []
+
+    def add_step(self, step):
+        self.steps.append(step)
+
+    def show_steps(self):
+        for i, step in enumerate(self.steps, start=1):
+            print(f&quot;{i}단계: {step}&quot;)
+
+process = AIProblemSolvingProcess(&quot;자동차 CO2 배출량 예측&quot;)
+for step in [&quot;문제 정의&quot;, &quot;데이터 탐색 및 수집&quot;, &quot;데이터 전처리&quot;,
+             &quot;알고리즘 선정&quot;, &quot;모델 학습&quot;, &quot;성능 평가 및 보완&quot;]:
+    process.add_step(step)
+process.show_steps()</code></pre>
+
+<div class="question" id="box9">
+  <span class="meta">문항 9</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>기계학습 문제 해결 과정에서 문제 정의와 데이터 전처리는 중요한 단계이다.</h3>
+  <div class="options"><label><input type="radio" name="q9" value="0"> O</label>
+<label><input type="radio" name="q9" value="1"> X</label></div>
+  <div id="feedback9"></div>
+</div>
+
+<div class="question" id="box10">
+  <span class="meta">문항 10</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>위 코드에서 steps 리스트에 추가되는 단계 수는?</h3>
+  <div class="options"><label><input type="radio" name="q10" value="0"> 3개</label>
+<label><input type="radio" name="q10" value="1"> 4개</label>
+<label><input type="radio" name="q10" value="2"> 5개</label>
+<label><input type="radio" name="q10" value="3"> 6개</label>
+<label><input type="radio" name="q10" value="4"> 7개</label></div>
+  <div id="feedback10"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 6</span><span class="meta">인공지능 OOP</span>
+<h2>6. 단순 회귀 모델: 공부 시간으로 점수 예측</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class SimpleRegression:
+    def __init__(self):
+        self.a = 0
+        self.b = 0
+
+    def fit(self, X, y):
+        x_mean = sum(X) / len(X)
+        y_mean = sum(y) / len(y)
+        numerator = sum((x - x_mean) * (target - y_mean) for x, target in zip(X, y))
+        denominator = sum((x - x_mean) ** 2 for x in X)
+        self.a = numerator / denominator
+        self.b = y_mean - self.a * x_mean
+
+    def predict(self, x):
+        return self.a * x + self.b
+
+hours = [1, 2, 3, 4, 5]
+scores = [50, 60, 65, 75, 85]
+model = SimpleRegression()
+model.fit(hours, scores)
+print(&quot;6시간 공부 예측 점수:&quot;, model.predict(6))</code></pre>
+
+<div class="question" id="box11">
+  <span class="meta">문항 11</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>회귀는 연속적인 숫자 값을 예측하는 지도학습 방법으로 볼 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q11" value="0"> O</label>
+<label><input type="radio" name="q11" value="1"> X</label></div>
+  <div id="feedback11"></div>
+</div>
+
+<div class="question" id="box12">
+  <span class="meta">문항 12</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>predict(x)는 어떤 식으로 값을 예측하는가?</h3>
+  <div class="options"><label><input type="radio" name="q12" value="0"> a*x+b</label>
+<label><input type="radio" name="q12" value="1"> x/a+b</label>
+<label><input type="radio" name="q12" value="2"> a+b</label>
+<label><input type="radio" name="q12" value="3"> x**2</label>
+<label><input type="radio" name="q12" value="4"> 항상 0</label></div>
+  <div id="feedback12"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 7</span><span class="meta">인공지능 OOP</span>
+<h2>7. KNN 분류 모델: 가까운 이웃으로 종류 판단</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class KNNClassifier:
+    def __init__(self, k=3):
+        self.k = k
+        self.X_train = []
+        self.y_train = []
+
+    def fit(self, X, y):
+        self.X_train = X
+        self.y_train = y
+
+    def distance(self, a, b):
+        return sum((x - y) ** 2 for x, y in zip(a, b)) ** 0.5
+
+    def predict_one(self, x):
+        distances = [(self.distance(x, tx), label) for tx, label in zip(self.X_train, self.y_train)]
+        distances.sort()
+        nearest = distances[:self.k]
+        votes = {}
+        for _, label in nearest:
+            votes[label] = votes.get(label, 0) + 1
+        return max(votes, key=votes.get)
+
+X = [[1, 1], [2, 1], [8, 8], [9, 8]]
+y = [&quot;고양이&quot;, &quot;고양이&quot;, &quot;강아지&quot;, &quot;강아지&quot;]
+model = KNNClassifier(k=3)
+model.fit(X, y)
+print(model.predict_one([2, 2]))</code></pre>
+
+<div class="question" id="box13">
+  <span class="meta">문항 13</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>KNN은 새 데이터와 가까운 기존 데이터들의 라벨을 이용해 분류할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q13" value="0"> O</label>
+<label><input type="radio" name="q13" value="1"> X</label></div>
+  <div id="feedback13"></div>
+</div>
+
+<div class="question" id="box14">
+  <span class="meta">문항 14</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>distance() 메서드가 계산하는 값은?</h3>
+  <div class="options"><label><input type="radio" name="q14" value="0"> 문자열 길이</label>
+<label><input type="radio" name="q14" value="1"> 유클리드 거리</label>
+<label><input type="radio" name="q14" value="2"> 정확도</label>
+<label><input type="radio" name="q14" value="3"> 평균</label>
+<label><input type="radio" name="q14" value="4"> 라벨 개수</label></div>
+  <div id="feedback14"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 8</span><span class="meta">인공지능 OOP</span>
+<h2>8. 군집 모델: 비슷한 학생 그룹 묶기</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class SimpleClusterer:
+    def __init__(self, threshold):
+        self.threshold = threshold
+
+    def cluster(self, students):
+        active, passive = [], []
+        for student in students:
+            score = student[&quot;발표횟수&quot;] + student[&quot;자료조회&quot;]
+            if score &gt;= self.threshold:
+                active.append(student[&quot;이름&quot;])
+            else:
+                passive.append(student[&quot;이름&quot;])
+        return {&quot;적극 참여 그룹&quot;: active, &quot;보통 참여 그룹&quot;: passive}
+
+students = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;발표횟수&quot;: 10, &quot;자료조회&quot;: 30},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;발표횟수&quot;: 2, &quot;자료조회&quot;: 8},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;발표횟수&quot;: 8, &quot;자료조회&quot;: 25}
+]
+print(SimpleClusterer(threshold=30).cluster(students))</code></pre>
+
+<div class="question" id="box15">
+  <span class="meta">문항 15</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>군집은 정답 라벨 없이 비슷한 데이터끼리 묶는 작업과 관련된다.</h3>
+  <div class="options"><label><input type="radio" name="q15" value="0"> O</label>
+<label><input type="radio" name="q15" value="1"> X</label></div>
+  <div id="feedback15"></div>
+</div>
+
+<div class="question" id="box16">
+  <span class="meta">문항 16</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>학생 &#x27;이&#x27;의 참여도 점수는 발표횟수 2 + 자료조회 8이므로 얼마인가?</h3>
+  <div class="options"><label><input type="radio" name="q16" value="0"> 8</label>
+<label><input type="radio" name="q16" value="1"> 10</label>
+<label><input type="radio" name="q16" value="2"> 20</label>
+<label><input type="radio" name="q16" value="3"> 30</label>
+<label><input type="radio" name="q16" value="4"> 40</label></div>
+  <div id="feedback16"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 9</span><span class="meta">인공지능 OOP</span>
+<h2>9. 모델 성능 평가: 정확도 계산</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class AccuracyEvaluator:
+    def __init__(self, y_true, y_pred):
+        self.y_true = y_true
+        self.y_pred = y_pred
+
+    def accuracy(self):
+        correct = 0
+        for true, pred in zip(self.y_true, self.y_pred):
+            if true == pred:
+                correct += 1
+        return correct / len(self.y_true)
+
+true_labels = [&quot;A&quot;, &quot;B&quot;, &quot;A&quot;, &quot;C&quot;, &quot;B&quot;]
+pred_labels = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;C&quot;, &quot;B&quot;]
+print(&quot;정확도:&quot;, AccuracyEvaluator(true_labels, pred_labels).accuracy())</code></pre>
+
+<div class="question" id="box17">
+  <span class="meta">문항 17</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>분류 모델의 정확도는 전체 예측 중 정답과 일치한 비율로 계산할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q17" value="0"> O</label>
+<label><input type="radio" name="q17" value="1"> X</label></div>
+  <div id="feedback17"></div>
+</div>
+
+<div class="question" id="box18">
+  <span class="meta">문항 18</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>위 코드에서 맞힌 개수는 몇 개인가?</h3>
+  <div class="options"><label><input type="radio" name="q18" value="0"> 2개</label>
+<label><input type="radio" name="q18" value="1"> 3개</label>
+<label><input type="radio" name="q18" value="2"> 4개</label>
+<label><input type="radio" name="q18" value="3"> 5개</label>
+<label><input type="radio" name="q18" value="4"> 0개</label></div>
+  <div id="feedback18"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 10</span><span class="meta">인공지능 OOP</span>
+<h2>10. 데이터 정규화 객체</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class MinMaxScalerSimple:
+    def __init__(self, data):
+        self.data = data
+
+    def normalize(self):
+        min_value = min(self.data)
+        max_value = max(self.data)
+        return [(x - min_value) / (max_value - min_value) for x in self.data]
+
+values = [10, 20, 30, 40, 50]
+print(MinMaxScalerSimple(values).normalize())</code></pre>
+
+<div class="question" id="box19">
+  <span class="meta">문항 19</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>정규화는 수치 데이터를 일정한 범위로 변환하는 전처리 방법이다.</h3>
+  <div class="options"><label><input type="radio" name="q19" value="0"> O</label>
+<label><input type="radio" name="q19" value="1"> X</label></div>
+  <div id="feedback19"></div>
+</div>
+
+<div class="question" id="box20">
+  <span class="meta">문항 20</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>values = [10,20,30,40,50]에서 10은 정규화 후 얼마가 되는가?</h3>
+  <div class="options"><label><input type="radio" name="q20" value="0"> 0</label>
+<label><input type="radio" name="q20" value="1"> 0.25</label>
+<label><input type="radio" name="q20" value="2"> 0.5</label>
+<label><input type="radio" name="q20" value="3"> 0.75</label>
+<label><input type="radio" name="q20" value="4"> 1</label></div>
+  <div id="feedback20"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 11</span><span class="meta">인공지능 OOP</span>
+<h2>11. 스마트 냉장고 추천 에이전트</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class SmartFridgeAgent:
+    def __init__(self, ingredients):
+        self.ingredients = ingredients
+
+    def perceive(self):
+        return f&quot;냉장고 재료 인식: {&#x27;, &#x27;.join(self.ingredients)}&quot;
+
+    def recommend_menu(self):
+        if &quot;계란&quot; in self.ingredients and &quot;밥&quot; in self.ingredients:
+            return &quot;계란볶음밥&quot;
+        if &quot;우유&quot; in self.ingredients and &quot;바나나&quot; in self.ingredients:
+            return &quot;바나나 스무디&quot;
+        return &quot;추가 재료가 필요합니다.&quot;
+
+    def act(self):
+        return f&quot;추천 메뉴: {self.recommend_menu()}&quot;
+
+fridge = SmartFridgeAgent([&quot;계란&quot;, &quot;밥&quot;, &quot;김치&quot;])
+print(fridge.perceive())
+print(fridge.act())</code></pre>
+
+<div class="question" id="box21">
+  <span class="meta">문항 21</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>스마트 냉장고는 재료 정보를 인식하고 적절한 메뉴를 추천하는 지능 에이전트 사례로 볼 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q21" value="0"> O</label>
+<label><input type="radio" name="q21" value="1"> X</label></div>
+  <div id="feedback21"></div>
+</div>
+
+<div class="question" id="box22">
+  <span class="meta">문항 22</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>ingredients가 [&#x27;계란&#x27;,&#x27;밥&#x27;,&#x27;김치&#x27;]일 때 추천 메뉴는?</h3>
+  <div class="options"><label><input type="radio" name="q22" value="0"> 바나나 스무디</label>
+<label><input type="radio" name="q22" value="1"> 계란볶음밥</label>
+<label><input type="radio" name="q22" value="2"> 김치찌개</label>
+<label><input type="radio" name="q22" value="3"> 추가 재료가 필요합니다</label>
+<label><input type="radio" name="q22" value="4"> 오류</label></div>
+  <div id="feedback22"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 12</span><span class="meta">인공지능 OOP</span>
+<h2>12. 의료 증상 분류 보조 시스템</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class MedicalTriageAgent:
+    def __init__(self, symptoms):
+        self.symptoms = symptoms
+
+    def classify(self):
+        if &quot;고열&quot; in self.symptoms and &quot;기침&quot; in self.symptoms:
+            return &quot;호흡기 질환 의심&quot;
+        if &quot;가슴통증&quot; in self.symptoms:
+            return &quot;응급 진료 필요&quot;
+        if &quot;두통&quot; in self.symptoms:
+            return &quot;경과 관찰&quot;
+        return &quot;추가 문진 필요&quot;
+
+    def report(self):
+        return {&quot;입력 증상&quot;: self.symptoms, &quot;판단 결과&quot;: self.classify()}
+
+agent = MedicalTriageAgent([&quot;고열&quot;, &quot;기침&quot;])
+print(agent.report())</code></pre>
+
+<div class="question" id="box23">
+  <span class="meta">문항 23</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>의료 인공지능은 의료 데이터를 분석하여 진단 보조에 활용될 수 있지만 전문가 검토가 중요하다.</h3>
+  <div class="options"><label><input type="radio" name="q23" value="0"> O</label>
+<label><input type="radio" name="q23" value="1"> X</label></div>
+  <div id="feedback23"></div>
+</div>
+
+<div class="question" id="box24">
+  <span class="meta">문항 24</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>MedicalTriageAgent([&#x27;고열&#x27;,&#x27;기침&#x27;]).classify()의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q24" value="0"> 응급 진료 필요</label>
+<label><input type="radio" name="q24" value="1"> 호흡기 질환 의심</label>
+<label><input type="radio" name="q24" value="2"> 경과 관찰</label>
+<label><input type="radio" name="q24" value="3"> 추가 문진 필요</label>
+<label><input type="radio" name="q24" value="4"> 오류</label></div>
+  <div id="feedback24"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 13</span><span class="meta">인공지능 OOP</span>
+<h2>13. CO2 배출량 예측 회귀 모델</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class CO2EmissionPredictor:
+    def __init__(self, engine_weight=40, fuel_weight=20, bias=50):
+        self.engine_weight = engine_weight
+        self.fuel_weight = fuel_weight
+        self.bias = bias
+
+    def predict(self, engine_size, fuel_consumption):
+        return self.engine_weight * engine_size + self.fuel_weight * fuel_consumption + self.bias
+
+    def explain(self, engine_size, fuel_consumption):
+        return f&quot;예상 CO2 배출량: {self.predict(engine_size, fuel_consumption):.1f}&quot;
+
+model = CO2EmissionPredictor()
+print(model.explain(engine_size=3.0, fuel_consumption=7.5))</code></pre>
+
+<div class="question" id="box25">
+  <span class="meta">문항 25</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>자동차 속성으로 CO2 배출량을 예측하는 문제는 회귀 문제로 볼 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q25" value="0"> O</label>
+<label><input type="radio" name="q25" value="1"> X</label></div>
+  <div id="feedback25"></div>
+</div>
+
+<div class="question" id="box26">
+  <span class="meta">문항 26</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>engine_size=3.0, fuel_consumption=7.5일 때 predict() 값은?</h3>
+  <div class="options"><label><input type="radio" name="q26" value="0"> 120</label>
+<label><input type="radio" name="q26" value="1"> 150</label>
+<label><input type="radio" name="q26" value="2"> 200</label>
+<label><input type="radio" name="q26" value="3"> 320</label>
+<label><input type="radio" name="q26" value="4"> 오류</label></div>
+  <div id="feedback26"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 14</span><span class="meta">인공지능 OOP</span>
+<h2>14. 학업 성취 수준 분류 모델</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class AcademicPerformanceClassifier:
+    def predict(self, raised_hands, visited_resources, absences):
+        score = raised_hands * 0.4 + visited_resources * 0.4 - absences * 2
+        if score &gt;= 50:
+            return &quot;상위&quot;
+        elif score &gt;= 25:
+            return &quot;중위&quot;
+        return &quot;하위&quot;
+
+classifier = AcademicPerformanceClassifier()
+print(classifier.predict(raised_hands=80, visited_resources=70, absences=2))
+print(classifier.predict(raised_hands=10, visited_resources=15, absences=8))</code></pre>
+
+<div class="question" id="box27">
+  <span class="meta">문항 27</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>학생의 수업 참여 데이터로 성취 수준을 상위·중위·하위로 나누는 것은 분류 문제로 볼 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q27" value="0"> O</label>
+<label><input type="radio" name="q27" value="1"> X</label></div>
+  <div id="feedback27"></div>
+</div>
+
+<div class="question" id="box28">
+  <span class="meta">문항 28</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>raised_hands=10, visited_resources=15, absences=8일 때 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q28" value="0"> 상위</label>
+<label><input type="radio" name="q28" value="1"> 중위</label>
+<label><input type="radio" name="q28" value="2"> 하위</label>
+<label><input type="radio" name="q28" value="3"> 정규화</label>
+<label><input type="radio" name="q28" value="4"> 오류</label></div>
+  <div id="feedback28"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 15</span><span class="meta">인공지능 OOP</span>
+<h2>15. SNS 취향 군집 추천 시스템</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class SNSClusterRecommender:
+    def __init__(self, users):
+        self.users = users
+
+    def cluster_users(self):
+        clusters = {&quot;운동 관심 그룹&quot;: [], &quot;음악 관심 그룹&quot;: [], &quot;학습 관심 그룹&quot;: []}
+        for user in self.users:
+            if user[&quot;운동&quot;] &gt;= user[&quot;음악&quot;] and user[&quot;운동&quot;] &gt;= user[&quot;학습&quot;]:
+                clusters[&quot;운동 관심 그룹&quot;].append(user[&quot;이름&quot;])
+            elif user[&quot;음악&quot;] &gt;= user[&quot;운동&quot;] and user[&quot;음악&quot;] &gt;= user[&quot;학습&quot;]:
+                clusters[&quot;음악 관심 그룹&quot;].append(user[&quot;이름&quot;])
+            else:
+                clusters[&quot;학습 관심 그룹&quot;].append(user[&quot;이름&quot;])
+        return clusters
+
+users = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;운동&quot;: 9, &quot;음악&quot;: 3, &quot;학습&quot;: 5},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;운동&quot;: 2, &quot;음악&quot;: 8, &quot;학습&quot;: 4},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;운동&quot;: 4, &quot;음악&quot;: 5, &quot;학습&quot;: 9}
+]
+print(SNSClusterRecommender(users).cluster_users())</code></pre>
+
+<div class="question" id="box29">
+  <span class="meta">문항 29</span>
+  <span class="meta">OX 개념 퀴즈</span>
+  <h3>SNS 관심 점수를 이용해 비슷한 사용자끼리 묶는 것은 군집 개념과 연결된다.</h3>
+  <div class="options"><label><input type="radio" name="q29" value="0"> O</label>
+<label><input type="radio" name="q29" value="1"> X</label></div>
+  <div id="feedback29"></div>
+</div>
+
+<div class="question" id="box30">
+  <span class="meta">문항 30</span>
+  <span class="meta">코드 관련 5지선다형</span>
+  <h3>사용자 &#x27;박&#x27;은 어떤 그룹에 들어가는가?</h3>
+  <div class="options"><label><input type="radio" name="q30" value="0"> 운동 관심 그룹</label>
+<label><input type="radio" name="q30" value="1"> 음악 관심 그룹</label>
+<label><input type="radio" name="q30" value="2"> 학습 관심 그룹</label>
+<label><input type="radio" name="q30" value="3"> 모든 그룹</label>
+<label><input type="radio" name="q30" value="4"> 오류</label></div>
+  <div id="feedback30"></div>
+</div>
+</section>
+</main>
+<footer>인공지능 OOP 코드 제시형 자동 채점 HTML 평가자료</footer>
+
+<script>
+const answers = [0,1,0,2,0,2,0,0,0,3,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,3,0,2,0,2];
+const explanations = ['지능 에이전트는 일반적으로 인식 → 판단 → 행동의 흐름으로 작동합니다.',"decide() 안에서 '어두움'이 environment에 포함되면 '불 켜기'를 반환합니다.",'규칙 기반 방식은 사람이 작성한 조건과 규칙을 이용해 결과를 판단합니다.',"20은 30 이상도 아니고 10 이하도 아니므로 어떤 규칙에도 맞지 않아 '판단 불가'입니다.",'지도학습은 정답이 있는 데이터를 이용해 모델을 학습합니다.','features인 X에는 세 개의 데이터 [[1,2], [2,3], [3,4]]가 있으므로 3입니다.','군집은 정답 없이 데이터의 유사성을 기준으로 그룹을 찾는 비지도학습 방법입니다.','정답이 있고 목표가 값 예측이므로 지도학습 - 회귀입니다.','문제를 정확히 정의하고 데이터를 학습에 적합하게 전처리해야 좋은 모델을 만들 수 있습니다.','for문에서 6개의 문자열이 add_step()으로 추가됩니다.','회귀는 점수, 가격, 온도, 배출량처럼 연속적인 값을 예측하는 데 사용됩니다.','predict()는 self.a * x + self.b를 반환합니다.','KNN은 가까운 이웃들의 라벨을 참고하여 다수결 방식으로 분류합니다.','각 성분 차이의 제곱합에 제곱근을 취하므로 유클리드 거리입니다.','군집은 비지도학습의 대표적인 작업으로, 유사한 데이터끼리 그룹을 만듭니다.','2 + 8 = 10입니다.','정확도는 맞힌 개수를 전체 개수로 나눈 값입니다.','A, B, C, B 네 개가 일치하므로 4개입니다.','정규화는 값의 범위를 맞추어 모델 학습에 도움이 되도록 하는 전처리 과정입니다.','(10-10)/(50-10)=0입니다.','재료 인식, 메뉴 판단, 추천 행동을 수행하므로 지능 에이전트 사례로 볼 수 있습니다.','계란과 밥이 모두 있으므로 계란볶음밥을 추천합니다.','의료 AI는 보조 도구로 활용될 수 있으나 실제 판단에는 전문가 검토가 필요합니다.','고열과 기침이 모두 있으므로 호흡기 질환 의심을 반환합니다.','CO2 배출량은 연속적인 숫자 값이므로 회귀 문제로 볼 수 있습니다.','40*3.0 + 20*7.5 + 50 = 120 + 150 + 50 = 320입니다.','상위·중위·하위처럼 정해진 범주 중 하나를 선택하므로 분류 문제입니다.','점수는 10*0.4 + 15*0.4 - 8*2 = -6이므로 하위입니다.','비슷한 관심 패턴을 가진 사용자를 묶는 것은 군집의 실생활 활용 예입니다.','박은 학습 점수 9가 가장 높으므로 학습 관심 그룹에 들어갑니다.'];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()) + "_" +
+         pad(d.getHours()) + "-" + pad(d.getMinutes()) + "-" + pad(d.getSeconds());
+}
+function answerText(qnum, idx){
+  const input = document.querySelector('input[name="q'+qnum+'"][value="'+idx+'"]');
+  return input ? input.parentElement.textContent.trim() : "";
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+  let score = 0;
+  let lines = [];
+  const time = nowString();
+  lines.push("학번: " + sid);
+  lines.push("이름: " + name);
+  lines.push("평가명: 인공지능 OOP 코드 제시형 30문항");
+  lines.push("응시시각: " + time.replace("_"," "));
+  lines.push("----------------------------------------");
+  for(let i=1;i<=answers.length;i++){
+    const picked = document.querySelector('input[name="q'+i+'"]:checked');
+    const user = picked ? Number(picked.value) : -1;
+    const ok = user === answers[i-1];
+    if(ok) score++;
+    const box = document.getElementById("box"+i);
+    const feedback = document.getElementById("feedback"+i);
+    box.classList.remove("right","wrong");
+    box.classList.add(ok ? "right" : "wrong");
+    feedback.innerHTML = "<div class='result'><b>" + (ok ? "정답 ✅" : "오답 ❌") +
+      "</b><br>내 선택: " + (user>=0 ? answerText(i,user) : "미응답") +
+      "<br>정답: " + answerText(i,answers[i-1]) +
+      "<br>해설: " + explanations[i-1] + "</div>";
+    lines.push(i + "번: " + (ok ? "O" : "X") + " / 선택: " + (user>=0 ? answerText(i,user) : "미응답") + " / 정답: " + answerText(i,answers[i-1]));
+  }
+  const percent = Math.round(score / answers.length * 100);
+  document.getElementById("scoreBox").innerHTML = "<h2>채점 결과</h2><p><b>" + sid + " " + name +
+    "</b> 학생의 점수: <b>" + score + " / " + answers.length + "점</b> (" + percent + "%)</p>";
+  lines.push("----------------------------------------");
+  lines.push("득점: " + score + " / " + answers.length);
+  lines.push("백분율: " + percent + "%");
+  const filename = sid + "_" + name + "_인공지능_" + score + "점_" + time + ".txt";
+  const blob = new Blob([lines.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type="radio"]').forEach(x => x.checked = false);
+  document.querySelectorAll('[id^="feedback"]').forEach(x => x.innerHTML = "");
+  document.querySelectorAll('.question').forEach(x => x.classList.remove("right","wrong"));
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none"; a.href = "#";
+}
+</script>
+
+</body>
+</html>
