@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정렬과 탐색 수행 평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f3ff,#fff7ed);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px}
+h1{font-size:46px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1240px;margin:auto;padding:30px 22px 80px}
+.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 26px rgba(37,99,235,.1)}
+h2{font-size:32px;color:#1d4ed8}h3{font-size:25px;color:#7c3aed}
+.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+.codebox{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;border:4px solid #93c5fd}
+.question{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:20px;margin:18px 0}
+.options label{display:block;background:#fff;border:1px solid #bfdbfe;border-radius:14px;padding:10px 14px;margin:8px 0;cursor:pointer}
+.options label:hover{background:#eff6ff}.result{background:#ecfdf5;border-left:8px solid #10b981;border-radius:18px;padding:18px;margin:20px 0}
+.wrong{background:#fff1f2!important;border-left-color:#e11d48!important}.right{background:#ecfdf5!important;border-left-color:#10b981!important}
+input{font-size:20px;padding:10px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}
+button{font-size:21px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}
+button:hover{background:#1d4ed8}table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:10px}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+</style>
+</head>
+<body>
+<header>
+<h1>🔎 정렬과 탐색 수행 평가</h1>
+<div class="subtitle">2026학년도 1학기 알고리즘과 프로그래밍 수행평가 입니다.</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각각의 코드를 읽고 바로 아래 문제를 푸세요. 채점 후 <b>학번_이름_정렬_득점_응시시각.txt</b> 파일이 생성됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetQuiz()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 평가 구성</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>예제 코드</td><td>총 15개 코드 제시</td></tr>
+<tr><td>문항 수</td><td>각 코드당 2문항, 전체 30문항</td></tr>
+<tr><td>문항 유형</td><td>개념확인 OX 1개 + 코드 활용 5지선다형 1개</td></tr>
+<tr><td>결과 파일</td><td>학번_이름_정렬_득점_응시시각.txt</td></tr>
+</table>
+</section>
+
+
+<section class="card">
+<span class="meta">예제 1</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>1. 숫자 리스트 오름차순·내림차순 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class NumberSorter:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def ascending(self):
+        return sorted(self.numbers)
+
+    def descending(self):
+        return sorted(self.numbers, reverse=True)
+
+sorter = NumberSorter([8, 3, 1, 9, 5])
+
+print(&quot;오름차순:&quot;, sorter.ascending())
+print(&quot;내림차순:&quot;, sorter.descending())</code></pre>
+
+<div class="question" id="box1">
+  <span class="meta">문항 1</span>
+  <span class="meta">OX</span>
+  <h3>sorted()는 원본 리스트를 직접 바꾸지 않고 정렬된 새 리스트를 반환한다.</h3>
+  <div class="options"><label><input type="radio" name="q1" value="0"> O</label>
+<label><input type="radio" name="q1" value="1"> X</label></div>
+  <div id="feedback1"></div>
+</div>
+
+<div class="question" id="box2">
+  <span class="meta">문항 2</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>NumberSorter([8, 3, 1, 9, 5]).ascending()의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q2" value="0"> [9, 8, 5, 3, 1]</label>
+<label><input type="radio" name="q2" value="1"> [1, 3, 5, 8, 9]</label>
+<label><input type="radio" name="q2" value="2"> [8, 3, 1, 9, 5]</label>
+<label><input type="radio" name="q2" value="3"> [1, 5, 3, 8, 9]</label>
+<label><input type="radio" name="q2" value="4"> 오류</label></div>
+  <div id="feedback2"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 2</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>2. 문자열 알파벳순 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class WordAlphabetSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_words(self):
+        return sorted(self.words)
+
+    def reverse_words(self):
+        return sorted(self.words, reverse=True)
+
+words = WordAlphabetSorter([&quot;banana&quot;, &quot;apple&quot;, &quot;cherry&quot;, &quot;date&quot;])
+
+print(words.sort_words())
+print(words.reverse_words())</code></pre>
+
+<div class="question" id="box3">
+  <span class="meta">문항 3</span>
+  <span class="meta">OX</span>
+  <h3>문자열 리스트도 sorted()로 사전식 순서 정렬이 가능하다.</h3>
+  <div class="options"><label><input type="radio" name="q3" value="0"> O</label>
+<label><input type="radio" name="q3" value="1"> X</label></div>
+  <div id="feedback3"></div>
+</div>
+
+<div class="question" id="box4">
+  <span class="meta">문항 4</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>[&#x27;banana&#x27;, &#x27;apple&#x27;, &#x27;cherry&#x27;, &#x27;date&#x27;]를 sorted()하면 첫 번째 단어는?</h3>
+  <div class="options"><label><input type="radio" name="q4" value="0"> banana</label>
+<label><input type="radio" name="q4" value="1"> apple</label>
+<label><input type="radio" name="q4" value="2"> cherry</label>
+<label><input type="radio" name="q4" value="3"> date</label>
+<label><input type="radio" name="q4" value="4"> Python</label></div>
+  <div id="feedback4"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 3</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>3. 순차 탐색으로 값 찾기</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class LinearSearch:
+    def __init__(self, data):
+        self.data = data
+
+    def find(self, target):
+        for index, value in enumerate(self.data):
+            if value == target:
+                return index
+        return -1
+
+searcher = LinearSearch([10, 20, 30, 40, 50])
+
+print(searcher.find(30))
+print(searcher.find(99))</code></pre>
+
+<div class="question" id="box5">
+  <span class="meta">문항 5</span>
+  <span class="meta">OX</span>
+  <h3>순차 탐색은 데이터가 반드시 정렬되어 있어야만 사용할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q5" value="0"> O</label>
+<label><input type="radio" name="q5" value="1"> X</label></div>
+  <div id="feedback5"></div>
+</div>
+
+<div class="question" id="box6">
+  <span class="meta">문항 6</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>LinearSearch([10,20,30,40,50]).find(99)의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q6" value="0"> 0</label>
+<label><input type="radio" name="q6" value="1"> 2</label>
+<label><input type="radio" name="q6" value="2"> 4</label>
+<label><input type="radio" name="q6" value="3"> -1</label>
+<label><input type="radio" name="q6" value="4"> None</label></div>
+  <div id="feedback6"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 4</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>4. 최댓값과 최솟값 찾기</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class MinMaxFinder:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def minimum(self):
+        return min(self.numbers)
+
+    def maximum(self):
+        return max(self.numbers)
+
+finder = MinMaxFinder([42, 17, 88, 23, 65])
+
+print(&quot;최솟값:&quot;, finder.minimum())
+print(&quot;최댓값:&quot;, finder.maximum())</code></pre>
+
+<div class="question" id="box7">
+  <span class="meta">문항 7</span>
+  <span class="meta">OX</span>
+  <h3>max()는 리스트에서 가장 큰 값을 찾는 데 사용할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q7" value="0"> O</label>
+<label><input type="radio" name="q7" value="1"> X</label></div>
+  <div id="feedback7"></div>
+</div>
+
+<div class="question" id="box8">
+  <span class="meta">문항 8</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>MinMaxFinder([42,17,88,23,65]).minimum()의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q8" value="0"> 17</label>
+<label><input type="radio" name="q8" value="1"> 23</label>
+<label><input type="radio" name="q8" value="2"> 42</label>
+<label><input type="radio" name="q8" value="3"> 65</label>
+<label><input type="radio" name="q8" value="4"> 88</label></div>
+  <div id="feedback8"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 5</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>5. 문자열 길이 기준 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class WordLengthSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_by_length(self):
+        return sorted(self.words, key=len)
+
+    def longest(self):
+        return max(self.words, key=len)
+
+words = WordLengthSorter([&quot;AI&quot;, &quot;Python&quot;, &quot;Data&quot;, &quot;Algorithm&quot;])
+
+print(words.sort_by_length())
+print(&quot;가장 긴 단어:&quot;, words.longest())</code></pre>
+
+<div class="question" id="box9">
+  <span class="meta">문항 9</span>
+  <span class="meta">OX</span>
+  <h3>sorted(words, key=len)은 문자열 길이를 기준으로 정렬한다.</h3>
+  <div class="options"><label><input type="radio" name="q9" value="0"> O</label>
+<label><input type="radio" name="q9" value="1"> X</label></div>
+  <div id="feedback9"></div>
+</div>
+
+<div class="question" id="box10">
+  <span class="meta">문항 10</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>[&#x27;AI&#x27;,&#x27;Python&#x27;,&#x27;Data&#x27;,&#x27;Algorithm&#x27;]에서 max(words, key=len)의 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q10" value="0"> AI</label>
+<label><input type="radio" name="q10" value="1"> Python</label>
+<label><input type="radio" name="q10" value="2"> Data</label>
+<label><input type="radio" name="q10" value="3"> Algorithm</label>
+<label><input type="radio" name="q10" value="4"> words</label></div>
+  <div id="feedback10"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 6</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>6. 학생 점수 기준 순위 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class StudentRanker:
+    def __init__(self, students):
+        self.students = students
+
+    def rank(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+    def top_student(self):
+        return self.rank()[0]
+
+students = [
+    {&quot;이름&quot;: &quot;김민수&quot;, &quot;점수&quot;: 88},
+    {&quot;이름&quot;: &quot;이지은&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;박서준&quot;, &quot;점수&quot;: 76}
+]
+
+ranker = StudentRanker(students)
+
+print(ranker.rank())
+print(&quot;1등:&quot;, ranker.top_student())</code></pre>
+
+<div class="question" id="box11">
+  <span class="meta">문항 11</span>
+  <span class="meta">OX</span>
+  <h3>lambda x: x[&#x27;점수&#x27;]는 학생 딕셔너리에서 점수 값을 정렬 기준으로 꺼낸다.</h3>
+  <div class="options"><label><input type="radio" name="q11" value="0"> O</label>
+<label><input type="radio" name="q11" value="1"> X</label></div>
+  <div id="feedback11"></div>
+</div>
+
+<div class="question" id="box12">
+  <span class="meta">문항 12</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>학생 점수 88, 95, 76을 reverse=True로 정렬하면 1등은?</h3>
+  <div class="options"><label><input type="radio" name="q12" value="0"> 김민수</label>
+<label><input type="radio" name="q12" value="1"> 이지은</label>
+<label><input type="radio" name="q12" value="2"> 박서준</label>
+<label><input type="radio" name="q12" value="3"> 학생</label>
+<label><input type="radio" name="q12" value="4"> 오류</label></div>
+  <div id="feedback12"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 7</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>7. 이진 탐색으로 빠르게 찾기</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class BinarySearch:
+    def __init__(self, sorted_data):
+        self.data = sorted_data
+
+    def find(self, target):
+        left = 0
+        right = len(self.data) - 1
+
+        while left &lt;= right:
+            mid = (left + right) // 2
+
+            if self.data[mid] == target:
+                return mid
+            elif self.data[mid] &lt; target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return -1
+
+searcher = BinarySearch([1, 3, 5, 7, 9, 11, 13])
+
+print(searcher.find(9))
+print(searcher.find(4))</code></pre>
+
+<div class="question" id="box13">
+  <span class="meta">문항 13</span>
+  <span class="meta">OX</span>
+  <h3>이진 탐색은 정렬된 데이터에서 탐색 범위를 절반씩 줄이는 방식이다.</h3>
+  <div class="options"><label><input type="radio" name="q13" value="0"> O</label>
+<label><input type="radio" name="q13" value="1"> X</label></div>
+  <div id="feedback13"></div>
+</div>
+
+<div class="question" id="box14">
+  <span class="meta">문항 14</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>BinarySearch([1,3,5,7,9,11,13]).find(9)의 반환값은?</h3>
+  <div class="options"><label><input type="radio" name="q14" value="0"> 0</label>
+<label><input type="radio" name="q14" value="1"> 2</label>
+<label><input type="radio" name="q14" value="2"> 4</label>
+<label><input type="radio" name="q14" value="3"> 6</label>
+<label><input type="radio" name="q14" value="4"> -1</label></div>
+  <div id="feedback14"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 8</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>8. 상품 가격 정렬과 최저가 탐색</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class ProductAnalyzer:
+    def __init__(self, products):
+        self.products = products
+
+    def sort_by_price(self):
+        return sorted(self.products, key=lambda x: x[&quot;가격&quot;])
+
+    def cheapest(self):
+        return self.sort_by_price()[0]
+
+products = [
+    {&quot;상품&quot;: &quot;노트북&quot;, &quot;가격&quot;: 1200000},
+    {&quot;상품&quot;: &quot;마우스&quot;, &quot;가격&quot;: 25000},
+    {&quot;상품&quot;: &quot;키보드&quot;, &quot;가격&quot;: 70000}
+]
+
+analyzer = ProductAnalyzer(products)
+
+print(analyzer.sort_by_price())
+print(&quot;최저가 상품:&quot;, analyzer.cheapest())</code></pre>
+
+<div class="question" id="box15">
+  <span class="meta">문항 15</span>
+  <span class="meta">OX</span>
+  <h3>딕셔너리 리스트는 lambda를 이용해 특정 키 값 기준으로 정렬할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q15" value="0"> O</label>
+<label><input type="radio" name="q15" value="1"> X</label></div>
+  <div id="feedback15"></div>
+</div>
+
+<div class="question" id="box16">
+  <span class="meta">문항 16</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>노트북 1200000, 마우스 25000, 키보드 70000 중 cheapest() 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q16" value="0"> 노트북</label>
+<label><input type="radio" name="q16" value="1"> 마우스</label>
+<label><input type="radio" name="q16" value="2"> 키보드</label>
+<label><input type="radio" name="q16" value="3"> 모니터</label>
+<label><input type="radio" name="q16" value="4"> 오류</label></div>
+  <div id="feedback16"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 9</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>9. 키워드 포함 도서 검색</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class BookSearch:
+    def __init__(self, books):
+        self.books = books
+
+    def search_keyword(self, keyword):
+        return [book for book in self.books if keyword in book[&quot;제목&quot;]]
+
+    def sort_by_year(self):
+        return sorted(self.books, key=lambda x: x[&quot;연도&quot;])
+
+books = [
+    {&quot;제목&quot;: &quot;파이썬 알고리즘&quot;, &quot;연도&quot;: 2021},
+    {&quot;제목&quot;: &quot;자료구조 입문&quot;, &quot;연도&quot;: 2019},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;연도&quot;: 2023}
+]
+
+library = BookSearch(books)
+
+print(library.search_keyword(&quot;알고리즘&quot;))
+print(library.sort_by_year())</code></pre>
+
+<div class="question" id="box17">
+  <span class="meta">문항 17</span>
+  <span class="meta">OX</span>
+  <h3>keyword in book[&#x27;제목&#x27;]은 제목 안에 특정 키워드가 포함되는지 검사한다.</h3>
+  <div class="options"><label><input type="radio" name="q17" value="0"> O</label>
+<label><input type="radio" name="q17" value="1"> X</label></div>
+  <div id="feedback17"></div>
+</div>
+
+<div class="question" id="box18">
+  <span class="meta">문항 18</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>search_keyword(&#x27;알고리즘&#x27;) 결과에 포함되는 책은 몇 권인가?</h3>
+  <div class="options"><label><input type="radio" name="q18" value="0"> 0권</label>
+<label><input type="radio" name="q18" value="1"> 1권</label>
+<label><input type="radio" name="q18" value="2"> 2권</label>
+<label><input type="radio" name="q18" value="3"> 3권</label>
+<label><input type="radio" name="q18" value="4"> 오류</label></div>
+  <div id="feedback18"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 10</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>10. 중복 제거 후 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class UniqueSorter:
+    def __init__(self, data):
+        self.data = data
+
+    def unique_sorted(self):
+        return sorted(set(self.data))
+
+    def count_unique(self):
+        return len(set(self.data))
+
+numbers = UniqueSorter([3, 1, 2, 3, 2, 5, 1, 4])
+
+print(numbers.unique_sorted())
+print(&quot;고유값 개수:&quot;, numbers.count_unique())</code></pre>
+
+<div class="question" id="box19">
+  <span class="meta">문항 19</span>
+  <span class="meta">OX</span>
+  <h3>set()은 리스트의 중복 값을 제거하는 데 사용할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q19" value="0"> O</label>
+<label><input type="radio" name="q19" value="1"> X</label></div>
+  <div id="feedback19"></div>
+</div>
+
+<div class="question" id="box20">
+  <span class="meta">문항 20</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>[3,1,2,3,2,5,1,4]의 unique_sorted() 결과는?</h3>
+  <div class="options"><label><input type="radio" name="q20" value="0"> [1,2,3,4,5]</label>
+<label><input type="radio" name="q20" value="1"> [3,1,2,5,4]</label>
+<label><input type="radio" name="q20" value="2"> [1,1,2,2,3,3,4,5]</label>
+<label><input type="radio" name="q20" value="3"> [5,4,3,2,1]</label>
+<label><input type="radio" name="q20" value="4"> 오류</label></div>
+  <div id="feedback20"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 11</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>11. 택배 배송 우선순위 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class DeliveryScheduler:
+    def __init__(self, orders):
+        self.orders = orders
+
+    def sort_by_priority(self):
+        return sorted(
+            self.orders,
+            key=lambda x: (x[&quot;긴급도&quot;], x[&quot;거리&quot;]),
+            reverse=False
+        )
+
+    def next_delivery(self):
+        return self.sort_by_priority()[0]
+
+orders = [
+    {&quot;주문번호&quot;: &quot;A01&quot;, &quot;긴급도&quot;: 2, &quot;거리&quot;: 5},
+    {&quot;주문번호&quot;: &quot;B02&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 8},
+    {&quot;주문번호&quot;: &quot;C03&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 3}
+]
+
+scheduler = DeliveryScheduler(orders)
+
+print(scheduler.sort_by_priority())
+print(&quot;다음 배송:&quot;, scheduler.next_delivery())</code></pre>
+
+<div class="question" id="box21">
+  <span class="meta">문항 21</span>
+  <span class="meta">OX</span>
+  <h3>튜플을 정렬 기준으로 사용하면 1차 기준, 2차 기준을 함께 적용할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q21" value="0"> O</label>
+<label><input type="radio" name="q21" value="1"> X</label></div>
+  <div id="feedback21"></div>
+</div>
+
+<div class="question" id="box22">
+  <span class="meta">문항 22</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>긴급도와 거리를 기준으로 다음 배송 주문번호는?</h3>
+  <div class="options"><label><input type="radio" name="q22" value="0"> A01</label>
+<label><input type="radio" name="q22" value="1"> B02</label>
+<label><input type="radio" name="q22" value="2"> C03</label>
+<label><input type="radio" name="q22" value="3"> D04</label>
+<label><input type="radio" name="q22" value="4"> 오류</label></div>
+  <div id="feedback22"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 12</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>12. 병원 환자 대기열 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class PatientQueue:
+    def __init__(self, patients):
+        self.patients = patients
+
+    def sort_by_severity(self):
+        return sorted(
+            self.patients,
+            key=lambda x: (-x[&quot;위급도&quot;], x[&quot;도착순서&quot;])
+        )
+
+    def next_patient(self):
+        return self.sort_by_severity()[0]
+
+patients = [
+    {&quot;이름&quot;: &quot;환자A&quot;, &quot;위급도&quot;: 3, &quot;도착순서&quot;: 1},
+    {&quot;이름&quot;: &quot;환자B&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 2},
+    {&quot;이름&quot;: &quot;환자C&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 1}
+]
+
+queue = PatientQueue(patients)
+
+print(queue.sort_by_severity())
+print(&quot;다음 진료:&quot;, queue.next_patient())</code></pre>
+
+<div class="question" id="box23">
+  <span class="meta">문항 23</span>
+  <span class="meta">OX</span>
+  <h3>-x[&#x27;위급도&#x27;]를 정렬 기준에 쓰면 위급도가 높은 환자를 먼저 정렬할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q23" value="0"> O</label>
+<label><input type="radio" name="q23" value="1"> X</label></div>
+  <div id="feedback23"></div>
+</div>
+
+<div class="question" id="box24">
+  <span class="meta">문항 24</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>환자B와 환자C의 위급도가 같을 때 먼저 진료되는 환자는?</h3>
+  <div class="options"><label><input type="radio" name="q24" value="0"> 환자A</label>
+<label><input type="radio" name="q24" value="1"> 환자B</label>
+<label><input type="radio" name="q24" value="2"> 환자C</label>
+<label><input type="radio" name="q24" value="3"> 둘 다 제외</label>
+<label><input type="radio" name="q24" value="4"> 오류</label></div>
+  <div id="feedback24"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 13</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>13. 검색 엔진 결과 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class SearchEngine:
+    def __init__(self, pages):
+        self.pages = pages
+
+    def search(self, keyword):
+        result = []
+        for page in self.pages:
+            if keyword in page[&quot;제목&quot;] or keyword in page[&quot;내용&quot;]:
+                result.append(page)
+        return sorted(result, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+pages = [
+    {&quot;제목&quot;: &quot;파이썬 기초&quot;, &quot;내용&quot;: &quot;정렬과 탐색 설명&quot;, &quot;점수&quot;: 80},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;내용&quot;: &quot;이진 탐색과 정렬&quot;, &quot;점수&quot;: 95},
+    {&quot;제목&quot;: &quot;웹 디자인&quot;, &quot;내용&quot;: &quot;HTML CSS&quot;, &quot;점수&quot;: 70}
+]
+
+engine = SearchEngine(pages)
+
+print(engine.search(&quot;탐색&quot;))</code></pre>
+
+<div class="question" id="box25">
+  <span class="meta">문항 25</span>
+  <span class="meta">OX</span>
+  <h3>검색 결과를 관련도 점수 기준으로 내림차순 정렬할 수 있다.</h3>
+  <div class="options"><label><input type="radio" name="q25" value="0"> O</label>
+<label><input type="radio" name="q25" value="1"> X</label></div>
+  <div id="feedback25"></div>
+</div>
+
+<div class="question" id="box26">
+  <span class="meta">문항 26</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>engine.search(&#x27;탐색&#x27;)에서 가장 먼저 나오는 문서 제목은?</h3>
+  <div class="options"><label><input type="radio" name="q26" value="0"> 파이썬 기초</label>
+<label><input type="radio" name="q26" value="1"> 알고리즘 심화</label>
+<label><input type="radio" name="q26" value="2"> 웹 디자인</label>
+<label><input type="radio" name="q26" value="3"> HTML CSS</label>
+<label><input type="radio" name="q26" value="4"> 없음</label></div>
+  <div id="feedback26"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 14</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>14. 성적 데이터에서 등급별 탐색과 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class GradeAnalyzer:
+    def __init__(self, students):
+        self.students = students
+
+    def add_grade(self):
+        for student in self.students:
+            score = student[&quot;점수&quot;]
+            if score &gt;= 90:
+                student[&quot;등급&quot;] = &quot;A&quot;
+            elif score &gt;= 80:
+                student[&quot;등급&quot;] = &quot;B&quot;
+            else:
+                student[&quot;등급&quot;] = &quot;C&quot;
+        return self.students
+
+    def search_grade(self, grade):
+        return [s for s in self.students if s.get(&quot;등급&quot;) == grade]
+
+    def sort_by_score(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+students = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;점수&quot;: 84},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;점수&quot;: 76},
+    {&quot;이름&quot;: &quot;최&quot;, &quot;점수&quot;: 91}
+]
+
+analyzer = GradeAnalyzer(students)
+analyzer.add_grade()
+
+print(&quot;A등급:&quot;, analyzer.search_grade(&quot;A&quot;))
+print(&quot;점수순:&quot;, analyzer.sort_by_score())</code></pre>
+
+<div class="question" id="box27">
+  <span class="meta">문항 27</span>
+  <span class="meta">OX</span>
+  <h3>search_grade(&#x27;A&#x27;)는 등급이 A인 학생만 찾아 반환한다.</h3>
+  <div class="options"><label><input type="radio" name="q27" value="0"> O</label>
+<label><input type="radio" name="q27" value="1"> X</label></div>
+  <div id="feedback27"></div>
+</div>
+
+<div class="question" id="box28">
+  <span class="meta">문항 28</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>점수 95, 84, 76, 91에서 A등급 학생은 몇 명인가?</h3>
+  <div class="options"><label><input type="radio" name="q28" value="0"> 0명</label>
+<label><input type="radio" name="q28" value="1"> 1명</label>
+<label><input type="radio" name="q28" value="2"> 2명</label>
+<label><input type="radio" name="q28" value="3"> 3명</label>
+<label><input type="radio" name="q28" value="4"> 4명</label></div>
+  <div id="feedback28"></div>
+</div>
+</section>
+<section class="card">
+<span class="meta">예제 15</span><span class="meta">정렬과 탐색 OOP</span>
+<h2>15. 로그 데이터 오류 탐색과 시간 정렬</h2>
+<h3>코드</h3>
+<pre class="codebox"><code>class LogAnalyzer:
+    def __init__(self, logs):
+        self.logs = logs
+
+    def search_error(self):
+        return [log for log in self.logs if log[&quot;상태&quot;] == &quot;ERROR&quot;]
+
+    def sort_by_time(self):
+        return sorted(self.logs, key=lambda x: x[&quot;시간&quot;])
+
+    def latest_error(self):
+        errors = self.search_error()
+        if not errors:
+            return None
+        return sorted(errors, key=lambda x: x[&quot;시간&quot;], reverse=True)[0]
+
+logs = [
+    {&quot;시간&quot;: &quot;09:10&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;start&quot;},
+    {&quot;시간&quot;: &quot;09:15&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;file missing&quot;},
+    {&quot;시간&quot;: &quot;09:12&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;load&quot;},
+    {&quot;시간&quot;: &quot;09:20&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;timeout&quot;}
+]
+
+analyzer = LogAnalyzer(logs)
+
+print(&quot;오류 로그:&quot;, analyzer.search_error())
+print(&quot;시간순:&quot;, analyzer.sort_by_time())
+print(&quot;최근 오류:&quot;, analyzer.latest_error())</code></pre>
+
+<div class="question" id="box29">
+  <span class="meta">문항 29</span>
+  <span class="meta">OX</span>
+  <h3>latest_error()는 ERROR 로그 중 가장 시간이 늦은 로그를 반환한다.</h3>
+  <div class="options"><label><input type="radio" name="q29" value="0"> O</label>
+<label><input type="radio" name="q29" value="1"> X</label></div>
+  <div id="feedback29"></div>
+</div>
+
+<div class="question" id="box30">
+  <span class="meta">문항 30</span>
+  <span class="meta">코드 활용 5지선다형</span>
+  <h3>가장 최근 오류 메시지는?</h3>
+  <div class="options"><label><input type="radio" name="q30" value="0"> start</label>
+<label><input type="radio" name="q30" value="1"> file missing</label>
+<label><input type="radio" name="q30" value="2"> load</label>
+<label><input type="radio" name="q30" value="3"> timeout</label>
+<label><input type="radio" name="q30" value="4"> None</label></div>
+  <div id="feedback30"></div>
+</div>
+</section>
+</main>
+<footer>정렬과 탐색 OOP 코드 제시형 자동 채점 HTML 평가자료</footer>
+
+<script>
+const answers = [0,1,0,1,1,3,0,0,0,3,0,1,0,2,0,1,0,2,0,0,0,2,0,2,0,1,0,2,0,3];
+const explanations = ['sorted()는 원본을 보존하고 새 정렬 리스트를 반환합니다.','ascending()은 오름차순 정렬 결과 [1, 3, 5, 8, 9]를 반환합니다.','문자열은 기본적으로 사전식, 알파벳 순서로 정렬됩니다.','알파벳 순서에서 apple이 가장 앞입니다.','순차 탐색은 앞에서부터 하나씩 비교하므로 정렬되지 않은 데이터에도 사용할 수 있습니다.','99는 리스트에 없으므로 -1을 반환합니다.','max()는 반복 가능한 자료에서 최댓값을 반환합니다.','리스트에서 가장 작은 값은 17입니다.','key=len은 각 문자열의 길이를 정렬 기준값으로 사용합니다.','Algorithm이 가장 긴 문자열입니다.',"각 학생 딕셔너리에서 '점수' 키의 값을 반환합니다.",'95점인 이지은이 1등입니다.','중간값을 기준으로 왼쪽 또는 오른쪽 절반만 남겨 탐색합니다.','9는 인덱스 4 위치에 있습니다.',"lambda x: x['가격']처럼 특정 키를 기준으로 정렬할 수 있습니다.",'가격이 가장 낮은 상품은 마우스입니다.','문자열 포함 여부를 검사하는 표현입니다.','파이썬 알고리즘, 알고리즘 심화 두 권입니다.','set은 중복 없는 집합 자료형입니다.','set으로 중복 제거 후 sorted로 오름차순 정렬됩니다.','튜플 정렬은 앞 원소부터 차례대로 비교합니다.','긴급도 1 중 거리가 3인 C03이 먼저입니다.','음수로 바꾸면 큰 위급도 값이 정렬상 더 앞에 옵니다.','위급도가 같으면 도착순서가 작은 환자C가 먼저입니다.','reverse=True를 사용하면 높은 점수부터 정렬할 수 있습니다.','탐색이 포함된 문서 중 점수 95인 알고리즘 심화가 먼저입니다.','리스트 컴프리헨션으로 등급이 A인 학생만 필터링합니다.','90점 이상인 김과 최, 총 2명입니다.','ERROR만 추린 뒤 시간 기준 내림차순 정렬의 첫 번째 값을 반환합니다.','09:20 ERROR 로그의 메시지는 timeout입니다.'];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()) + "_" +
+         pad(d.getHours()) + "-" + pad(d.getMinutes()) + "-" + pad(d.getSeconds());
+}
+function answerText(qnum, idx){
+  const input = document.querySelector('input[name="q'+qnum+'"][value="'+idx+'"]');
+  return input ? input.parentElement.textContent.trim() : "";
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+  let score = 0;
+  let lines = [];
+  const time = nowString();
+  lines.push("학번: " + sid);
+  lines.push("이름: " + name);
+  lines.push("평가명: 정렬과 탐색 OOP 30문항");
+  lines.push("응시시각: " + time.replace("_"," "));
+  lines.push("----------------------------------------");
+  for(let i=1;i<=answers.length;i++){
+    const picked = document.querySelector('input[name="q'+i+'"]:checked');
+    const user = picked ? Number(picked.value) : -1;
+    const ok = user === answers[i-1];
+    if(ok) score++;
+    const box = document.getElementById("box"+i);
+    const feedback = document.getElementById("feedback"+i);
+    box.classList.remove("right","wrong");
+    box.classList.add(ok ? "right" : "wrong");
+    feedback.innerHTML = "<div class='result'><b>" + (ok ? "정답 ✅" : "오답 ❌") +
+      "</b><br>내 선택: " + (user>=0 ? answerText(i,user) : "미응답") +
+      "<br>정답: " + answerText(i,answers[i-1]) +
+      "<br>해설: " + explanations[i-1] + "</div>";
+    lines.push(i + "번: " + (ok ? "O" : "X") + " / 선택: " + (user>=0 ? answerText(i,user) : "미응답") + " / 정답: " + answerText(i,answers[i-1]));
+  }
+  const percent = Math.round(score / answers.length * 100);
+  document.getElementById("scoreBox").innerHTML = "<h2>채점 결과</h2><p><b>" + sid + " " + name +
+    "</b> 학생의 점수: <b>" + score + " / " + answers.length + "점</b> (" + percent + "%)</p>";
+  lines.push("----------------------------------------");
+  lines.push("득점: " + score + " / " + answers.length);
+  lines.push("백분율: " + percent + "%");
+  const filename = sid + "_" + name + "_정렬_" + score + "점_" + time + ".txt";
+  const blob = new Blob([lines.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type="radio"]').forEach(x => x.checked = false);
+  document.querySelectorAll('[id^="feedback"]').forEach(x => x.innerHTML = "");
+  document.querySelectorAll('.question').forEach(x => x.classList.remove("right","wrong"));
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none"; a.href = "#";
+}
+</script>
+
+</body>
+</html>
