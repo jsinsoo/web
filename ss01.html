@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정렬과 탐색 OOP 코드 상세 설명 15개</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f3ff,#fff7ed);color:#172033;font-size:21px;line-height:1.75}
+header{padding:56px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:48px;border-bottom-right-radius:48px;box-shadow:0 16px 36px rgba(37,99,235,.25)}
+h1{font-size:50px;margin:0 0 10px;letter-spacing:-2px}.subtitle{font-size:25px}
+main{max-width:1240px;margin:auto;padding:34px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #dbeafe;border-radius:28px;padding:30px;margin:26px 0;box-shadow:0 10px 30px rgba(37,99,235,.10)}
+h2{font-size:35px;color:#1d4ed8;margin:10px 0 18px}h3{font-size:27px;color:#7c3aed}.tag{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:7px 14px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:22px;border-radius:20px;overflow:auto;font-size:17px;line-height:1.62;border:4px solid #93c5fd}
+code{font-family:Consolas,Monaco,monospace}.concept{background:#eff6ff;border-left:8px solid #2563eb;border-radius:18px;padding:18px;margin:14px 0}.explain{background:#ecfdf5;border-left:8px solid #10b981;border-radius:18px;padding:18px;margin:14px 0}
+ul{margin-top:8px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.mini{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin-top:14px}td,th{border:1px solid #bfdbfe;padding:12px;vertical-align:top}th{background:#2563eb;color:white}footer{text-align:center;color:#475569;padding:28px}
+</style>
+</head>
+<body>
+<header>
+<h1>🔎 정렬과 탐색 기초 개념·개념 응용·실생활 심화 활용 OOP 예제 15개</h1>
+<div class="subtitle">각각 5개씩 · 상세 개념 설명 · 객체지향 Python 코드 · 코드 상세 설명 포함</div>
+</header>
+<main>
+<section class="card">
+<h2>🌈 학습 목표</h2>
+<p>정렬과 탐색은 데이터를 효율적으로 다루기 위한 핵심 알고리즘입니다. 이 자료는 기초 개념 5개, 개념 응용 5개, 실생활 심화 활용 5개로 나누어 객체지향 프로그래밍 방식으로 정리했습니다.</p>
+<div class="grid">
+<div class="mini"><b>기초 개념 5개</b><br>숫자 정렬, 문자열 정렬, 순차 탐색, 최댓값·최솟값, 길이 기준 정렬</div>
+<div class="mini"><b>개념 응용 5개</b><br>학생 순위, 이진 탐색, 상품 가격, 도서 검색, 중복 제거 정렬</div>
+<div class="mini"><b>실생활 심화 5개</b><br>배송 우선순위, 병원 대기열, 검색 엔진, 성적 관리, 로그 분석</div>
+</div>
+</section>
+
+<section class="card">
+<span class="tag">기초 개념 1</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>1. 숫자 리스트 오름차순·내림차순 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>정렬은 데이터를 특정 기준에 따라 순서대로 나열하는 알고리즘입니다. 오름차순은 작은 값에서 큰 값으로, 내림차순은 큰 값에서 작은 값으로 배치합니다.</div>
+<pre><code>class NumberSorter:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def ascending(self):
+        return sorted(self.numbers)
+
+    def descending(self):
+        return sorted(self.numbers, reverse=True)
+
+sorter = NumberSorter([8, 3, 1, 9, 5])
+
+print(&quot;오름차순:&quot;, sorter.ascending())
+print(&quot;내림차순:&quot;, sorter.descending())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>NumberSorter 클래스는 숫자 리스트를 속성으로 저장합니다.</li><li>ascending()은 sorted()를 사용하여 오름차순 정렬 결과를 반환합니다.</li><li>descending()은 reverse=True 옵션으로 내림차순 정렬 결과를 반환합니다.</li><li>sorted()는 원본 리스트를 직접 바꾸지 않고 새로운 리스트를 만듭니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">기초 개념 2</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>2. 문자열 알파벳순 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>문자열도 정렬할 수 있습니다. 기본 정렬은 사전식 순서, 즉 알파벳 순서로 이루어집니다.</div>
+<pre><code>class WordAlphabetSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_words(self):
+        return sorted(self.words)
+
+    def reverse_words(self):
+        return sorted(self.words, reverse=True)
+
+words = WordAlphabetSorter([&quot;banana&quot;, &quot;apple&quot;, &quot;cherry&quot;, &quot;date&quot;])
+
+print(words.sort_words())
+print(words.reverse_words())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>words는 문자열 리스트입니다.</li><li>sort_words()는 알파벳 순서로 단어를 정렬합니다.</li><li>reverse_words()는 알파벳 역순으로 단어를 정렬합니다.</li><li>문자열 정렬은 단어 목록, 이름 목록, 사전 만들기 등에 활용됩니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">기초 개념 3</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>3. 순차 탐색으로 값 찾기</h2>
+<div class="concept"><h3>개념 상세 설명</h3>순차 탐색은 데이터를 앞에서부터 하나씩 확인하면서 목표값을 찾는 가장 기본적인 탐색 방법입니다.</div>
+<pre><code>class LinearSearch:
+    def __init__(self, data):
+        self.data = data
+
+    def find(self, target):
+        for index, value in enumerate(self.data):
+            if value == target:
+                return index
+        return -1
+
+searcher = LinearSearch([10, 20, 30, 40, 50])
+
+print(searcher.find(30))
+print(searcher.find(99))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>LinearSearch 클래스는 탐색할 데이터를 저장합니다.</li><li>enumerate()는 인덱스와 값을 함께 꺼냅니다.</li><li>목표값을 찾으면 해당 인덱스를 반환합니다.</li><li>끝까지 찾지 못하면 -1을 반환합니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">기초 개념 4</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>4. 최댓값과 최솟값 찾기</h2>
+<div class="concept"><h3>개념 상세 설명</h3>탐색은 특정 값만 찾는 것이 아니라, 데이터 안에서 최댓값이나 최솟값을 찾는 과정도 포함합니다.</div>
+<pre><code>class MinMaxFinder:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def minimum(self):
+        return min(self.numbers)
+
+    def maximum(self):
+        return max(self.numbers)
+
+finder = MinMaxFinder([42, 17, 88, 23, 65])
+
+print(&quot;최솟값:&quot;, finder.minimum())
+print(&quot;최댓값:&quot;, finder.maximum())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>min()은 리스트에서 가장 작은 값을 찾습니다.</li><li>max()는 리스트에서 가장 큰 값을 찾습니다.</li><li>minimum()과 maximum()은 각각 최솟값과 최댓값을 반환합니다.</li><li>성적, 온도, 매출 데이터 분석에서 기본적으로 사용됩니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">기초 개념 5</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>5. 문자열 길이 기준 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>정렬 기준은 값 자체가 아니라 길이, 점수, 날짜처럼 원하는 기준으로 바꿀 수 있습니다.</div>
+<pre><code>class WordLengthSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_by_length(self):
+        return sorted(self.words, key=len)
+
+    def longest(self):
+        return max(self.words, key=len)
+
+words = WordLengthSorter([&quot;AI&quot;, &quot;Python&quot;, &quot;Data&quot;, &quot;Algorithm&quot;])
+
+print(words.sort_by_length())
+print(&quot;가장 긴 단어:&quot;, words.longest())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>key=len은 문자열의 길이를 정렬 기준으로 사용합니다.</li><li>sort_by_length()는 짧은 단어부터 긴 단어 순서로 정렬합니다.</li><li>longest()는 길이가 가장 긴 단어를 찾습니다.</li><li>key 옵션은 응용 정렬의 핵심입니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">개념 응용 1</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>6. 학생 점수 기준 순위 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>딕셔너리 리스트에서는 특정 key 값을 기준으로 정렬할 수 있습니다. 학생 데이터를 점수 기준으로 정렬하면 순위를 만들 수 있습니다.</div>
+<pre><code>class StudentRanker:
+    def __init__(self, students):
+        self.students = students
+
+    def rank(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+    def top_student(self):
+        return self.rank()[0]
+
+students = [
+    {&quot;이름&quot;: &quot;김민수&quot;, &quot;점수&quot;: 88},
+    {&quot;이름&quot;: &quot;이지은&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;박서준&quot;, &quot;점수&quot;: 76}
+]
+
+ranker = StudentRanker(students)
+
+print(ranker.rank())
+print(&quot;1등:&quot;, ranker.top_student())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>students는 학생 이름과 점수를 가진 딕셔너리 리스트입니다.</li><li>lambda x: x[&#x27;점수&#x27;]는 각 학생의 점수 값을 정렬 기준으로 꺼냅니다.</li><li>reverse=True는 높은 점수부터 정렬하라는 뜻입니다.</li><li>top_student()는 정렬 결과의 첫 번째 학생을 반환합니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">개념 응용 2</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>7. 이진 탐색으로 빠르게 찾기</h2>
+<div class="concept"><h3>개념 상세 설명</h3>이진 탐색은 정렬된 데이터에서 중간값을 기준으로 탐색 범위를 절반씩 줄이는 효율적인 탐색 알고리즘입니다.</div>
+<pre><code>class BinarySearch:
+    def __init__(self, sorted_data):
+        self.data = sorted_data
+
+    def find(self, target):
+        left = 0
+        right = len(self.data) - 1
+
+        while left &lt;= right:
+            mid = (left + right) // 2
+
+            if self.data[mid] == target:
+                return mid
+            elif self.data[mid] &lt; target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return -1
+
+searcher = BinarySearch([1, 3, 5, 7, 9, 11, 13])
+
+print(searcher.find(9))
+print(searcher.find(4))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>이진 탐색은 반드시 데이터가 정렬되어 있어야 합니다.</li><li>left와 right는 현재 탐색 범위의 양끝입니다.</li><li>mid는 가운데 위치입니다.</li><li>target이 mid 값보다 크면 오른쪽 절반만 탐색합니다.</li><li>target이 mid 값보다 작으면 왼쪽 절반만 탐색합니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">개념 응용 3</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>8. 상품 가격 정렬과 최저가 탐색</h2>
+<div class="concept"><h3>개념 상세 설명</h3>상품 데이터를 가격 기준으로 정렬하면 최저가, 최고가, 가격 비교를 쉽게 할 수 있습니다.</div>
+<pre><code>class ProductAnalyzer:
+    def __init__(self, products):
+        self.products = products
+
+    def sort_by_price(self):
+        return sorted(self.products, key=lambda x: x[&quot;가격&quot;])
+
+    def cheapest(self):
+        return self.sort_by_price()[0]
+
+products = [
+    {&quot;상품&quot;: &quot;노트북&quot;, &quot;가격&quot;: 1200000},
+    {&quot;상품&quot;: &quot;마우스&quot;, &quot;가격&quot;: 25000},
+    {&quot;상품&quot;: &quot;키보드&quot;, &quot;가격&quot;: 70000}
+]
+
+analyzer = ProductAnalyzer(products)
+
+print(analyzer.sort_by_price())
+print(&quot;최저가 상품:&quot;, analyzer.cheapest())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>products는 상품명과 가격을 가진 딕셔너리 리스트입니다.</li><li>sort_by_price()는 가격이 낮은 순서로 상품을 정렬합니다.</li><li>cheapest()는 정렬 결과의 첫 번째 상품을 반환합니다.</li><li>쇼핑몰, 가격 비교 서비스, 재고 관리에 활용할 수 있습니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">개념 응용 4</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>9. 키워드 포함 도서 검색</h2>
+<div class="concept"><h3>개념 상세 설명</h3>검색은 정확히 같은 값만 찾는 것이 아니라 문자열 안에 특정 키워드가 들어 있는지 찾는 방식으로도 활용됩니다.</div>
+<pre><code>class BookSearch:
+    def __init__(self, books):
+        self.books = books
+
+    def search_keyword(self, keyword):
+        return [book for book in self.books if keyword in book[&quot;제목&quot;]]
+
+    def sort_by_year(self):
+        return sorted(self.books, key=lambda x: x[&quot;연도&quot;])
+
+books = [
+    {&quot;제목&quot;: &quot;파이썬 알고리즘&quot;, &quot;연도&quot;: 2021},
+    {&quot;제목&quot;: &quot;자료구조 입문&quot;, &quot;연도&quot;: 2019},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;연도&quot;: 2023}
+]
+
+library = BookSearch(books)
+
+print(library.search_keyword(&quot;알고리즘&quot;))
+print(library.sort_by_year())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>keyword in book[&#x27;제목&#x27;]은 제목 안에 키워드가 포함되는지 확인합니다.</li><li>search_keyword()는 조건을 만족하는 책만 리스트로 반환합니다.</li><li>sort_by_year()는 출판 연도를 기준으로 오래된 책부터 정렬합니다.</li><li>도서관 검색, 자료 검색, 문서 검색에 응용할 수 있습니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">개념 응용 5</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>10. 중복 제거 후 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>정렬 전에 중복을 제거하면 고유한 값만 정리할 수 있습니다. set은 중복을 제거하는 자료구조입니다.</div>
+<pre><code>class UniqueSorter:
+    def __init__(self, data):
+        self.data = data
+
+    def unique_sorted(self):
+        return sorted(set(self.data))
+
+    def count_unique(self):
+        return len(set(self.data))
+
+numbers = UniqueSorter([3, 1, 2, 3, 2, 5, 1, 4])
+
+print(numbers.unique_sorted())
+print(&quot;고유값 개수:&quot;, numbers.count_unique())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>set(self.data)는 중복을 제거합니다.</li><li>sorted()는 중복이 제거된 값을 정렬합니다.</li><li>count_unique()는 고유한 값의 개수를 반환합니다.</li><li>설문 응답, 상품 ID, 사용자 ID 정리에 유용합니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">실생활 심화 1</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>11. 택배 배송 우선순위 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>택배 배송에서는 긴급도와 거리처럼 여러 기준을 함께 고려해야 합니다. 튜플을 정렬 기준으로 사용하면 1차 기준, 2차 기준 정렬이 가능합니다.</div>
+<pre><code>class DeliveryScheduler:
+    def __init__(self, orders):
+        self.orders = orders
+
+    def sort_by_priority(self):
+        return sorted(
+            self.orders,
+            key=lambda x: (x[&quot;긴급도&quot;], x[&quot;거리&quot;]),
+            reverse=False
+        )
+
+    def next_delivery(self):
+        return self.sort_by_priority()[0]
+
+orders = [
+    {&quot;주문번호&quot;: &quot;A01&quot;, &quot;긴급도&quot;: 2, &quot;거리&quot;: 5},
+    {&quot;주문번호&quot;: &quot;B02&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 8},
+    {&quot;주문번호&quot;: &quot;C03&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 3}
+]
+
+scheduler = DeliveryScheduler(orders)
+
+print(scheduler.sort_by_priority())
+print(&quot;다음 배송:&quot;, scheduler.next_delivery())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>key=lambda x: (x[&#x27;긴급도&#x27;], x[&#x27;거리&#x27;])는 긴급도 우선, 거리 다음 기준입니다.</li><li>긴급도 숫자가 작을수록 더 급한 주문이라고 가정합니다.</li><li>긴급도가 같으면 거리가 가까운 주문이 먼저 배정됩니다.</li><li>물류, 배달, 작업 스케줄링 문제에 활용됩니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">실생활 심화 2</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>12. 병원 환자 대기열 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>병원 응급실에서는 단순히 먼저 온 순서가 아니라 위급도와 도착 순서를 함께 고려해야 합니다.</div>
+<pre><code>class PatientQueue:
+    def __init__(self, patients):
+        self.patients = patients
+
+    def sort_by_severity(self):
+        return sorted(
+            self.patients,
+            key=lambda x: (-x[&quot;위급도&quot;], x[&quot;도착순서&quot;])
+        )
+
+    def next_patient(self):
+        return self.sort_by_severity()[0]
+
+patients = [
+    {&quot;이름&quot;: &quot;환자A&quot;, &quot;위급도&quot;: 3, &quot;도착순서&quot;: 1},
+    {&quot;이름&quot;: &quot;환자B&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 2},
+    {&quot;이름&quot;: &quot;환자C&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 1}
+]
+
+queue = PatientQueue(patients)
+
+print(queue.sort_by_severity())
+print(&quot;다음 진료:&quot;, queue.next_patient())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>-x[&#x27;위급도&#x27;]를 사용하면 위급도가 높은 환자가 먼저 옵니다.</li><li>위급도가 같으면 도착순서가 빠른 환자가 먼저입니다.</li><li>튜플 정렬은 복합 기준을 자연스럽게 처리합니다.</li><li>우선순위 큐 개념으로 확장할 수 있습니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">실생활 심화 3</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>13. 검색 엔진 결과 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>검색 엔진은 키워드가 포함된 문서를 찾고, 관련도 점수에 따라 높은 순서로 정렬합니다.</div>
+<pre><code>class SearchEngine:
+    def __init__(self, pages):
+        self.pages = pages
+
+    def search(self, keyword):
+        result = []
+        for page in self.pages:
+            if keyword in page[&quot;제목&quot;] or keyword in page[&quot;내용&quot;]:
+                result.append(page)
+        return sorted(result, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+pages = [
+    {&quot;제목&quot;: &quot;파이썬 기초&quot;, &quot;내용&quot;: &quot;정렬과 탐색 설명&quot;, &quot;점수&quot;: 80},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;내용&quot;: &quot;이진 탐색과 정렬&quot;, &quot;점수&quot;: 95},
+    {&quot;제목&quot;: &quot;웹 디자인&quot;, &quot;내용&quot;: &quot;HTML CSS&quot;, &quot;점수&quot;: 70}
+]
+
+engine = SearchEngine(pages)
+
+print(engine.search(&quot;탐색&quot;))</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>제목 또는 내용에 keyword가 들어 있으면 검색 결과에 포함됩니다.</li><li>검색 결과는 점수 기준 내림차순으로 정렬됩니다.</li><li>점수는 관련도, 클릭 수, 최신성 등을 종합한 값으로 볼 수 있습니다.</li><li>문서 검색, 웹 검색, 추천 시스템의 기본 구조입니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">실생활 심화 4</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>14. 성적 데이터에서 등급별 탐색과 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>성적 데이터에서는 점수에 따라 등급을 만들고, 특정 등급 학생을 탐색하거나 점수순으로 정렬할 수 있습니다.</div>
+<pre><code>class GradeAnalyzer:
+    def __init__(self, students):
+        self.students = students
+
+    def add_grade(self):
+        for student in self.students:
+            score = student[&quot;점수&quot;]
+            if score &gt;= 90:
+                student[&quot;등급&quot;] = &quot;A&quot;
+            elif score &gt;= 80:
+                student[&quot;등급&quot;] = &quot;B&quot;
+            else:
+                student[&quot;등급&quot;] = &quot;C&quot;
+        return self.students
+
+    def search_grade(self, grade):
+        return [s for s in self.students if s.get(&quot;등급&quot;) == grade]
+
+    def sort_by_score(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+students = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;점수&quot;: 84},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;점수&quot;: 76},
+    {&quot;이름&quot;: &quot;최&quot;, &quot;점수&quot;: 91}
+]
+
+analyzer = GradeAnalyzer(students)
+analyzer.add_grade()
+
+print(&quot;A등급:&quot;, analyzer.search_grade(&quot;A&quot;))
+print(&quot;점수순:&quot;, analyzer.sort_by_score())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>add_grade()는 점수에 따라 A, B, C 등급을 추가합니다.</li><li>search_grade()는 원하는 등급의 학생만 찾습니다.</li><li>sort_by_score()는 점수 높은 순서로 학생을 정렬합니다.</li><li>학교 성적 관리 시스템의 기본 구조입니다.</li></ul></div>
+</section>
+
+<section class="card">
+<span class="tag">실생활 심화 5</span><span class="tag">OOP 코드</span><span class="tag">정렬과 탐색</span>
+<h2>15. 로그 데이터 오류 탐색과 시간 정렬</h2>
+<div class="concept"><h3>개념 상세 설명</h3>서버나 프로그램 로그에서는 오류 상태만 탐색하고 시간순으로 정렬하여 문제 발생 시점을 파악할 수 있습니다.</div>
+<pre><code>class LogAnalyzer:
+    def __init__(self, logs):
+        self.logs = logs
+
+    def search_error(self):
+        return [log for log in self.logs if log[&quot;상태&quot;] == &quot;ERROR&quot;]
+
+    def sort_by_time(self):
+        return sorted(self.logs, key=lambda x: x[&quot;시간&quot;])
+
+    def latest_error(self):
+        errors = self.search_error()
+        if not errors:
+            return None
+        return sorted(errors, key=lambda x: x[&quot;시간&quot;], reverse=True)[0]
+
+logs = [
+    {&quot;시간&quot;: &quot;09:10&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;start&quot;},
+    {&quot;시간&quot;: &quot;09:15&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;file missing&quot;},
+    {&quot;시간&quot;: &quot;09:12&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;load&quot;},
+    {&quot;시간&quot;: &quot;09:20&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;timeout&quot;}
+]
+
+analyzer = LogAnalyzer(logs)
+
+print(&quot;오류 로그:&quot;, analyzer.search_error())
+print(&quot;시간순:&quot;, analyzer.sort_by_time())
+print(&quot;최근 오류:&quot;, analyzer.latest_error())</code></pre>
+<div class="explain"><h3>코드 상세 설명</h3><ul><li>search_error()는 상태가 ERROR인 로그만 찾습니다.</li><li>sort_by_time()은 로그를 시간순으로 정렬합니다.</li><li>latest_error()는 가장 최근 오류를 반환합니다.</li><li>실제 서버 관리, 보안 분석, 시스템 모니터링에 활용됩니다.</li></ul></div>
+</section>
+
+<section class="card">
+<h2>🧭 전체 예제 요약표</h2>
+<table><tr><th>번호</th><th>구분</th><th>예제</th><th>핵심 내용</th></tr><tr><td>1</td><td>기초 개념 1</td><td>숫자 리스트 오름차순·내림차순 정렬</td><td>정렬은 데이터를 특정 기준에 따라 순서대로 나열하는 알고리즘입니다. 오름차순은 작은 값에서 큰 값으로, 내림차순은 큰 값에서 작은 값으로 배치합니다.</td></tr><tr><td>2</td><td>기초 개념 2</td><td>문자열 알파벳순 정렬</td><td>문자열도 정렬할 수 있습니다. 기본 정렬은 사전식 순서, 즉 알파벳 순서로 이루어집니다.</td></tr><tr><td>3</td><td>기초 개념 3</td><td>순차 탐색으로 값 찾기</td><td>순차 탐색은 데이터를 앞에서부터 하나씩 확인하면서 목표값을 찾는 가장 기본적인 탐색 방법입니다.</td></tr><tr><td>4</td><td>기초 개념 4</td><td>최댓값과 최솟값 찾기</td><td>탐색은 특정 값만 찾는 것이 아니라, 데이터 안에서 최댓값이나 최솟값을 찾는 과정도 포함합니다.</td></tr><tr><td>5</td><td>기초 개념 5</td><td>문자열 길이 기준 정렬</td><td>정렬 기준은 값 자체가 아니라 길이, 점수, 날짜처럼 원하는 기준으로 바꿀 수 있습니다.</td></tr><tr><td>6</td><td>개념 응용 1</td><td>학생 점수 기준 순위 정렬</td><td>딕셔너리 리스트에서는 특정 key 값을 기준으로 정렬할 수 있습니다. 학생 데이터를 점수 기준으로 정렬하면 순위를 만들 수 있습니다.</td></tr><tr><td>7</td><td>개념 응용 2</td><td>이진 탐색으로 빠르게 찾기</td><td>이진 탐색은 정렬된 데이터에서 중간값을 기준으로 탐색 범위를 절반씩 줄이는 효율적인 탐색 알고리즘입니다.</td></tr><tr><td>8</td><td>개념 응용 3</td><td>상품 가격 정렬과 최저가 탐색</td><td>상품 데이터를 가격 기준으로 정렬하면 최저가, 최고가, 가격 비교를 쉽게 할 수 있습니다.</td></tr><tr><td>9</td><td>개념 응용 4</td><td>키워드 포함 도서 검색</td><td>검색은 정확히 같은 값만 찾는 것이 아니라 문자열 안에 특정 키워드가 들어 있는지 찾는 방식으로도 활용됩니다.</td></tr><tr><td>10</td><td>개념 응용 5</td><td>중복 제거 후 정렬</td><td>정렬 전에 중복을 제거하면 고유한 값만 정리할 수 있습니다. set은 중복을 제거하는 자료구조입니다.</td></tr><tr><td>11</td><td>실생활 심화 1</td><td>택배 배송 우선순위 정렬</td><td>택배 배송에서는 긴급도와 거리처럼 여러 기준을 함께 고려해야 합니다. 튜플을 정렬 기준으로 사용하면 1차 기준, 2차 기준 정렬이 가능합니다.</td></tr><tr><td>12</td><td>실생활 심화 2</td><td>병원 환자 대기열 정렬</td><td>병원 응급실에서는 단순히 먼저 온 순서가 아니라 위급도와 도착 순서를 함께 고려해야 합니다.</td></tr><tr><td>13</td><td>실생활 심화 3</td><td>검색 엔진 결과 정렬</td><td>검색 엔진은 키워드가 포함된 문서를 찾고, 관련도 점수에 따라 높은 순서로 정렬합니다.</td></tr><tr><td>14</td><td>실생활 심화 4</td><td>성적 데이터에서 등급별 탐색과 정렬</td><td>성적 데이터에서는 점수에 따라 등급을 만들고, 특정 등급 학생을 탐색하거나 점수순으로 정렬할 수 있습니다.</td></tr><tr><td>15</td><td>실생활 심화 5</td><td>로그 데이터 오류 탐색과 시간 정렬</td><td>서버나 프로그램 로그에서는 오류 상태만 탐색하고 시간순으로 정렬하여 문제 발생 시점을 파악할 수 있습니다.</td></tr></table>
+</section>
+<section class="card">
+<h2>🎯 심화 탐구 과제</h2>
+<ol>
+<li>이진 탐색 코드에 탐색 과정 출력 기능을 추가하라.</li>
+<li>학생 점수 정렬에서 동점자는 이름순으로 정렬하도록 바꾸어라.</li>
+<li>택배 배송 우선순위에 배송 마감 시간을 추가하라.</li>
+<li>검색 엔진 예제에 키워드 등장 횟수 기반 점수 계산을 추가하라.</li>
+<li>로그 분석 클래스에 WARNING 탐색과 시간 구간 필터링을 추가하라.</li>
+</ol>
+</section>
+</main>
+<footer>🔎 정렬과 탐색 × 객체지향 프로그래밍 HTML 수업자료</footer>
+</body>
+</html>
