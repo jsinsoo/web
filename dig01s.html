@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>전북과학고등학교 정보수업 서술형 수행평가</title>
+<style>body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f3ff,#fff7ed);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px}
+h1{font-size:46px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1240px;margin:auto;padding:30px 22px 80px}
+.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 26px rgba(37,99,235,.1)}
+h2{font-size:32px;color:#1d4ed8}h3{font-size:24px;color:#7c3aed}.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;border:4px solid #93c5fd}
+textarea{width:100%;min-height:150px;font-family:Consolas,'Courier New',monospace;font-size:18px;padding:14px;border:2px solid #bfdbfe;border-radius:16px;box-sizing:border-box}
+input{font-size:20px;padding:10px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}
+button{font-size:21px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}button:hover{background:#1d4ed8}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}.right{background:#ecfdf5;border-left:8px solid #10b981}.wrong{background:#fff1f2;border-left:8px solid #e11d48}.partial{background:#fff7ed;border-left:8px solid #f97316}
+.result{background:#ecfdf5;border-left:8px solid #10b981;border-radius:18px;padding:18px;margin:20px 0}
+table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:10px;vertical-align:top}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}</style>
+</head>
+<body>
+<header>
+<h1>🌐 전북과학고등학교 정보수업 서술형 수행평가</h1>
+<div class="subtitle">2026학년도 1학기 정보수업 5단원 디지털 문화 영역 수행평가</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_5단원_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>15문항</td></tr>
+<tr><td>평가 방식</td><td>코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 15점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_5단원_득점_응시시각.txt</td></tr>
+</table>
+</section>
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>1. 디지털 기술 분류기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class DigitalTechnology:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+    def category(self):
+        if self.name in [&quot;인공지능&quot;, &quot;AI&quot;]: return &quot;지능형 판단 기술&quot;
+        if self.name == &quot;빅데이터&quot;: return &quot;대량 데이터 분석 기술&quot;
+        if self.name == &quot;사물 인터넷&quot;: return &quot;초연결 기술&quot;
+        if self.name == &quot;클라우드&quot;: return &quot;인터넷 기반 자원 제공 기술&quot;
+        return &quot;기타 디지털 기술&quot;
+tech = DigitalTechnology(&quot;빅데이터&quot;, &quot;대량의 데이터를 분석하여 가치를 찾는 기술&quot;)
+print(&quot;기술명:&quot;, tech.name)
+print(&quot;분류:&quot;, tech.category())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans1" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>2. 정보 공유 가능 여부 판단기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class InformationSharingChecker:
+    def __init__(self, info_type):
+        self.info_type = info_type
+    def can_share(self):
+        shareable = [&quot;교통 정보&quot;, &quot;날씨 정보&quot;, &quot;재난 정보&quot;, &quot;버스 도착 시간&quot;, &quot;병원 진료 시간&quot;]
+        protected = [&quot;주민등록번호&quot;, &quot;전화번호&quot;, &quot;위치 정보&quot;, &quot;의료 정보&quot;, &quot;영상 정보&quot;]
+        if self.info_type in shareable: return &quot;공유 가능 정보&quot;
+        if self.info_type in protected: return &quot;보호 필요 정보&quot;
+        return &quot;목적과 범위 확인 필요&quot;
+print(InformationSharingChecker(&quot;날씨 정보&quot;).can_share())
+print(InformationSharingChecker(&quot;주민등록번호&quot;).can_share())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans2" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>3. 개인 정보 종류 분류기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class PersonalInfoClassifier:
+    def __init__(self, info):
+        self.info = info
+    def classify(self):
+        categories = {&quot;주민등록번호&quot;:&quot;인적 사항&quot;,&quot;집 주소&quot;:&quot;인적 사항&quot;,&quot;얼굴 사진&quot;:&quot;신체적 정보&quot;,&quot;진료 기록&quot;:&quot;의료 정보&quot;,&quot;위치 기록&quot;:&quot;위치 정보&quot;,&quot;전화 통화 내역&quot;:&quot;기타 정보&quot;}
+        return categories.get(self.info, &quot;추가 확인 필요&quot;)
+info = PersonalInfoClassifier(&quot;진료 기록&quot;)
+print(&quot;정보:&quot;, info.info)
+print(&quot;분류:&quot;, info.classify())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans3" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>4. 정보 보안 3요소 검사기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SecurityGoalChecker:
+    def __init__(self, goal):
+        self.goal = goal
+    def explain(self):
+        if self.goal == &quot;기밀성&quot;: return &quot;허가받지 않은 사용자가 정보를 볼 수 없게 하는 것&quot;
+        if self.goal == &quot;무결성&quot;: return &quot;정보가 허락 없이 변경되거나 훼손되지 않게 하는 것&quot;
+        if self.goal == &quot;가용성&quot;: return &quot;필요할 때 정보와 서비스를 사용할 수 있게 하는 것&quot;
+        return &quot;정보 보안 3요소에 해당하지 않음&quot;
+checker = SecurityGoalChecker(&quot;무결성&quot;)
+print(checker.explain())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans4" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>5. 디지털 윤리 판단기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class DigitalEthicsChecker:
+    def __init__(self, action):
+        self.action = action
+    def check(self):
+        unethical_keywords = [&quot;무단 공유&quot;, &quot;비밀번호 요구&quot;, &quot;허위 정보&quot;, &quot;불법 촬영&quot;, &quot;딥페이크 악용&quot;]
+        for keyword in unethical_keywords:
+            if keyword in self.action:
+                return &quot;비윤리적 행동&quot;
+        return &quot;윤리적 행동 또는 추가 검토 필요&quot;
+case = DigitalEthicsChecker(&quot;친구 사진을 무단 공유&quot;)
+print(case.check())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans5" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>6. 진로와 디지털 기술 연결 분석기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class CareerTechnologyMapper:
+    def __init__(self, career):
+        self.career = career
+    def related_technologies(self):
+        mapping = {&quot;의사&quot;:[&quot;인공지능&quot;,&quot;빅데이터&quot;,&quot;의료 정보 시스템&quot;],&quot;농업 전문가&quot;:[&quot;사물 인터넷&quot;,&quot;스마트팜&quot;,&quot;빅데이터&quot;],&quot;금융 전문가&quot;:[&quot;블록체인&quot;,&quot;인공지능&quot;,&quot;보안 기술&quot;],&quot;교사&quot;:[&quot;인공지능&quot;,&quot;온라인 학습 플랫폼&quot;,&quot;클라우드&quot;]}
+        return mapping.get(self.career, [&quot;디지털 기초 역량&quot;, &quot;정보 보안&quot;])
+mapper = CareerTechnologyMapper(&quot;교사&quot;)
+print(&quot;희망 진로:&quot;, mapper.career)
+print(&quot;관련 기술:&quot;, mapper.related_technologies())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans6" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>7. 개인 정보 보호 수칙 점검기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class PrivacyChecklist:
+    def __init__(self, practices):
+        self.practices = practices
+    def score(self):
+        good_rules = [&quot;비밀번호 주기적 변경&quot;, &quot;개인 정보 친구에게 알리지 않기&quot;, &quot;P2P 폴더에 개인 정보 저장하지 않기&quot;, &quot;출처 불명 자료 다운로드하지 않기&quot;, &quot;자동 로그인 해제&quot;]
+        return sum(1 for rule in good_rules if rule in self.practices)
+    def level(self):
+        s = self.score()
+        if s &gt;= 4: return &quot;우수&quot;
+        if s &gt;= 2: return &quot;보통&quot;
+        return &quot;개선 필요&quot;
+practices = [&quot;비밀번호 주기적 변경&quot;, &quot;출처 불명 자료 다운로드하지 않기&quot;, &quot;자동 로그인 해제&quot;]
+check = PrivacyChecklist(practices)
+print(&quot;실천 점수:&quot;, check.score())
+print(&quot;보호 수준:&quot;, check.level())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans7" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>8. 비밀번호 강도 평가기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class PasswordStrengthChecker:
+    def __init__(self, password):
+        self.password = password
+    def score(self):
+        score = 0
+        if len(self.password) &gt;= 8: score += 1
+        if any(c.isdigit() for c in self.password): score += 1
+        if any(c.isupper() for c in self.password): score += 1
+        if any(not c.isalnum() for c in self.password): score += 1
+        return score
+    def result(self):
+        if self.score() &gt;= 3: return &quot;강한 비밀번호&quot;
+        if self.score() == 2: return &quot;보통 비밀번호&quot;
+        return &quot;약한 비밀번호&quot;
+checker = PasswordStrengthChecker(&quot;Data!2026&quot;)
+print(&quot;점수:&quot;, checker.score())
+print(&quot;결과:&quot;, checker.result())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans8" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>9. 보안 위협 유형 분류기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SecurityThreatClassifier:
+    def __init__(self, message):
+        self.message = message
+    def classify(self):
+        if &quot;계정&quot; in self.message and &quot;무단&quot; in self.message: return &quot;해킹 의심&quot;
+        if &quot;링크&quot; in self.message and &quot;개인 정보&quot; in self.message: return &quot;피싱 의심&quot;
+        if &quot;문자&quot; in self.message and &quot;결제&quot; in self.message: return &quot;스미싱 의심&quot;
+        if &quot;파일 암호화&quot; in self.message or &quot;금전 요구&quot; in self.message: return &quot;랜섬웨어 의심&quot;
+        return &quot;추가 분석 필요&quot;
+case = SecurityThreatClassifier(&quot;문자로 온 링크를 누르자 결제 정보 입력을 요구함&quot;)
+print(case.classify())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans9" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>10. 앱 권한 필요성 판단기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class AppPermissionChecker:
+    def __init__(self, app_name, permissions):
+        self.app_name = app_name
+        self.permissions = permissions
+    def risky_permissions(self):
+        risky = [&quot;위치&quot;, &quot;연락처&quot;, &quot;카메라&quot;, &quot;마이크&quot;, &quot;저장소&quot;]
+        return [p for p in self.permissions if p in risky]
+    def advice(self):
+        risky_count = len(self.risky_permissions())
+        if risky_count &gt;= 3: return &quot;권한 설정을 자세히 점검하세요.&quot;
+        if risky_count &gt;= 1: return &quot;필요한 권한인지 확인하세요.&quot;
+        return &quot;위험 권한이 적습니다.&quot;
+app = AppPermissionChecker(&quot;메모 앱&quot;, [&quot;저장소&quot;, &quot;위치&quot;, &quot;마이크&quot;])
+print(&quot;위험 권한:&quot;, app.risky_permissions())
+print(&quot;조언:&quot;, app.advice())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans10" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 11</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>11. 학교 정보 공유·보호 관리 시스템</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SchoolInfoManager:
+    def __init__(self):
+        self.data = []
+    def add_info(self, title, info_type):
+        self.data.append({&quot;제목&quot;: title, &quot;유형&quot;: info_type})
+    def shareable_info(self):
+        return [item for item in self.data if item[&quot;유형&quot;] == &quot;공유&quot;]
+    def protected_info(self):
+        return [item for item in self.data if item[&quot;유형&quot;] == &quot;보호&quot;]
+manager = SchoolInfoManager()
+manager.add_info(&quot;급식 메뉴&quot;, &quot;공유&quot;)
+manager.add_info(&quot;학생 주민등록번호&quot;, &quot;보호&quot;)
+manager.add_info(&quot;학교 행사 일정&quot;, &quot;공유&quot;)
+manager.add_info(&quot;학생 건강 기록&quot;, &quot;보호&quot;)
+print(&quot;공유 가능:&quot;, manager.shareable_info())
+print(&quot;보호 필요:&quot;, manager.protected_info())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans11" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb11"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 12</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>12. 피싱 메시지 탐지 에이전트</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class PhishingDetector:
+    def __init__(self, text):
+        self.text = text
+    def risk_score(self):
+        keywords = [&quot;비밀번호&quot;, &quot;계좌&quot;, &quot;즉시&quot;, &quot;링크&quot;, &quot;개인 정보&quot;, &quot;인증&quot;]
+        return sum(1 for keyword in keywords if keyword in self.text)
+    def classify(self):
+        if self.risk_score() &gt;= 3: return &quot;피싱 위험 높음&quot;
+        if self.risk_score() &gt;= 1: return &quot;주의 필요&quot;
+        return &quot;위험 낮음&quot;
+msg = PhishingDetector(&quot;즉시 링크에 접속해 계좌 인증과 비밀번호를 입력하세요.&quot;)
+print(&quot;위험 점수:&quot;, msg.risk_score())
+print(&quot;분류:&quot;, msg.classify())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans12" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb12"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 13</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>13. CCTV 영상 정보 접근 기록 관리</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class CCTVAccessLog:
+    def __init__(self):
+        self.logs = []
+    def add_access(self, user, purpose):
+        self.logs.append({&quot;사용자&quot;: user, &quot;목적&quot;: purpose})
+    def allowed_access(self):
+        allowed = [&quot;범죄 예방&quot;, &quot;안전 관리&quot;, &quot;교통 관리&quot;]
+        return [log for log in self.logs if log[&quot;목적&quot;] in allowed]
+    def suspicious_access(self):
+        allowed = [&quot;범죄 예방&quot;, &quot;안전 관리&quot;, &quot;교통 관리&quot;]
+        return [log for log in self.logs if log[&quot;목적&quot;] not in allowed]
+log = CCTVAccessLog()
+log.add_access(&quot;관리자A&quot;, &quot;안전 관리&quot;)
+log.add_access(&quot;사용자B&quot;, &quot;개인 호기심&quot;)
+print(&quot;허용 접근:&quot;, log.allowed_access())
+print(&quot;의심 접근:&quot;, log.suspicious_access())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans13" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb13"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 14</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>14. 디지털 윤리 위반 사례 분석기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class DigitalCrimeAnalyzer:
+    def __init__(self, case_text):
+        self.case_text = case_text
+    def analyze(self):
+        if &quot;딥페이크&quot; in self.case_text: return &quot;딥페이크 악용&quot;
+        if &quot;서버 공격&quot; in self.case_text or &quot;트래픽&quot; in self.case_text: return &quot;디도스 공격&quot;
+        if &quot;파일 암호화&quot; in self.case_text or &quot;금전 요구&quot; in self.case_text: return &quot;랜섬웨어&quot;
+        if &quot;개인 정보 탈취&quot; in self.case_text: return &quot;피싱&quot;
+        return &quot;추가 조사 필요&quot;
+case = DigitalCrimeAnalyzer(&quot;악성 코드가 파일 암호화 후 금전 요구를 함&quot;)
+print(case.analyze())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans14" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb14"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 15</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>15. 정보 보안 실천 종합 점검 대시보드</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SecurityPracticeDashboard:
+    def __init__(self, user_name):
+        self.user_name = user_name
+        self.items = {}
+    def set_item(self, item, done):
+        self.items[item] = done
+    def completion_rate(self):
+        if not self.items: return 0
+        done_count = sum(1 for done in self.items.values() if done)
+        return done_count / len(self.items) * 100
+    def report(self):
+        rate = self.completion_rate()
+        if rate &gt;= 80: level = &quot;우수&quot;
+        elif rate &gt;= 50: level = &quot;보통&quot;
+        else: level = &quot;개선 필요&quot;
+        return f&quot;{self.user_name}의 정보 보안 실천율은 {rate:.1f}%이며 수준은 {level}입니다.&quot;
+dashboard = SecurityPracticeDashboard(&quot;김학생&quot;)
+dashboard.set_item(&quot;비밀번호 주기적 변경&quot;, True)
+dashboard.set_item(&quot;백신 업데이트&quot;, True)
+dashboard.set_item(&quot;불필요한 개인 정보 삭제&quot;, False)
+dashboard.set_item(&quot;출처 불명 링크 클릭 금지&quot;, True)
+print(dashboard.report())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans15" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb15"></div>
+</section>
+
+</main>
+<footer>5단원 디지털 문화 OOP 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ['기술명: 빅데이터\n분류: 대량 데이터 분석 기술','공유 가능 정보\n보호 필요 정보','정보: 진료 기록\n분류: 의료 정보','정보가 허락 없이 변경되거나 훼손되지 않게 하는 것','비윤리적 행동',"희망 진로: 교사\n관련 기술: ['인공지능', '온라인 학습 플랫폼', '클라우드']",'실천 점수: 3\n보호 수준: 보통','점수: 4\n결과: 강한 비밀번호','스미싱 의심',"위험 권한: ['저장소', '위치', '마이크']\n조언: 권한 설정을 자세히 점검하세요.","공유 가능: [{'제목': '급식 메뉴', '유형': '공유'}, {'제목': '학교 행사 일정', '유형': '공유'}]\n보호 필요: [{'제목': '학생 주민등록번호', '유형': '보호'}, {'제목': '학생 건강 기록', '유형': '보호'}]",'위험 점수: 5\n분류: 피싱 위험 높음',"허용 접근: [{'사용자': '관리자A', '목적': '안전 관리'}]\n의심 접근: [{'사용자': '사용자B', '목적': '개인 호기심'}]",'랜섬웨어','김학생의 정보 보안 실천율은 75.0%이며 수준은 보통입니다.'];
+const titles = ['디지털 기술 분류기','정보 공유 가능 여부 판단기','개인 정보 종류 분류기','정보 보안 3요소 검사기','디지털 윤리 판단기','진로와 디지털 기술 연결 분석기','개인 정보 보호 수칙 점검기','비밀번호 강도 평가기','보안 위협 유형 분류기','앱 권한 필요성 판단기','학교 정보 공유·보호 관리 시스템','피싱 메시지 탐지 에이전트','CCTV 영상 정보 접근 기록 관리','디지털 윤리 위반 사례 분석기','정보 보안 실천 종합 점검 대시보드'];
+
+function pad(n){return String(n).padStart(2,'0');}
+function nowString(){
+  const d=new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0).join("\n").replace(/\s+/g," ");
+}
+function lineScore(user, corr){
+  const u=user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c=corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same=0;
+  for(let i=0;i<Math.max(u.length,c.length);i++) if((u[i]||"")===(c[i]||"")) same++;
+  return {same:same,total:c.length};
+}
+function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function grade(){
+  const sid=document.getElementById("studentId").value.trim();
+  const name=document.getElementById("studentName").value.trim();
+  if(!sid||!name){alert("학번과 이름을 입력하세요.");return;}
+  let score=0;
+  let detail=[];
+  const time=nowString();
+  detail.push("학번: "+sid);
+  detail.push("이름: "+name);
+  detail.push("평가명: 5단원 디지털 문화 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: "+time.replace("_"," "));
+  detail.push("----------------------------------------");
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user=document.getElementById("ans"+i).value.trim();
+    const corr=correctAnswers[i-1].trim();
+    const fb=document.getElementById("fb"+i);
+    const exact=normalize(user)===normalize(corr);
+    const ls=lineScore(user,corr);
+    let pts=exact?1:0;
+    score+=pts;
+    fb.className="feedback "+(exact?"right":(ls.same>0?"partial":"wrong"));
+    fb.innerHTML="<b>"+(exact?"정답 ✅":"확인 필요 ❌")+"</b><br>문항 점수: "+pts+" / 1점<br>줄 단위 일치: "+ls.same+" / "+ls.total+
+      "<br><details><summary>정답 출력 보기</summary><pre>"+escapeHtml(corr)+"</pre></details>";
+    detail.push(i+"번 "+titles[i-1]+" : "+(exact?"O":"X")+" / "+pts+"점");
+    detail.push("[학생 입력]");
+    detail.push(user||"미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+  const percent=Math.round(score/correctAnswers.length*100);
+  document.getElementById("scoreBox").innerHTML="<h2>채점 결과</h2><p><b>"+sid+" "+name+"</b> 학생의 점수: <b>"+score+" / "+correctAnswers.length+"점</b> ("+percent+"%)</p>";
+  detail.push("최종 득점: "+score+" / "+correctAnswers.length);
+  detail.push("백분율: "+percent+"%");
+  const filename=sid+"_"+name+"_5단원_"+score+"점_"+time+".txt";
+  const blob=new Blob([detail.join("\n")],{type:"text/plain;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.getElementById("downloadLink");
+  a.href=url; a.download=filename; a.style.display="inline-block"; a.textContent="결과 TXT 다운로드: "+filename;
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){
+    document.getElementById("ans"+i).value="";
+    document.getElementById("fb"+i).innerHTML="";
+    document.getElementById("fb"+i).className="";
+  }
+  document.getElementById("scoreBox").innerHTML="";
+  const a=document.getElementById("downloadLink");a.style.display="none";a.href="#";
+}
+</script>
+
+</body>
+</html>

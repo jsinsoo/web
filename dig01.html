@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>5단원 디지털 문화 OOP 예제 15개</title><style>body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#f5f3ff,#ecfdf5);color:#172033;font-size:21px;line-height:1.75}header{padding:50px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#059669);border-bottom-left-radius:44px;border-bottom-right-radius:44px}h1{font-size:46px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1220px;margin:auto;padding:30px 22px 75px}.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.10)}h2{font-size:33px;color:#1d4ed8}h3{font-size:26px;color:#7c3aed}.tag{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:7px 14px;font-weight:900;margin:4px}pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.62;border:4px solid #93c5fd}.concept{background:#eff6ff;border-left:8px solid #2563eb;border-radius:16px;padding:16px}.explain{background:#ecfdf5;border-left:8px solid #10b981;border-radius:16px;padding:16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.mini{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:16px;padding:16px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:11px;vertical-align:top}th{background:#2563eb;color:white}footer{text-align:center;padding:26px;color:#475569}</style></head><body>
+<header><h1>🌐 5단원 디지털 문화 기초 개념·개념 응용·실생활 심화 활용 OOP 예제 15개</h1><div class="subtitle">각각 5개씩 · 상세 개념 설명 · 객체지향 Python 코드 · 코드 상세 설명 포함</div></header>
+<main>
+<section class="card"><h2>🌈 학습 목표</h2><p>5단원 디지털 문화의 핵심인 디지털 기술과 진로 설계, 정보 공유와 보호, 정보 보안과 디지털 윤리를 객체지향 프로그래밍 예제로 이해합니다.</p><div class="grid"><div class="mini"><b>기초 개념 5개</b><br>디지털 기술, 정보 공유, 개인 정보, 정보 보안 3요소, 디지털 윤리</div><div class="mini"><b>개념 응용 5개</b><br>진로 연결, 개인 정보 보호 수칙, 비밀번호 강도, 보안 위협, 앱 권한</div><div class="mini"><b>실생활 심화 5개</b><br>학교 정보 관리, 피싱 탐지, CCTV 접근 기록, 디지털 범죄 분석, 보안 실천 대시보드</div></div></section>
+<section class="card"><h2>📚 교재 핵심 반영 내용</h2><ul><li>디지털 기술은 디지털 정보를 처리·저장·전송하는 기술이며 인공지능·빅데이터·사물 인터넷·클라우드 등이 대표적입니다.</li><li>디지털 기술은 교육, 의료, 금융, 산업 등 여러 분야를 변화시키고 직업과 진로 설계에도 영향을 줍니다.</li><li>정보 공유는 가치를 높일 수 있지만 개인 정보·위치 정보·의료 정보·영상 정보 등은 보호해야 합니다.</li><li>정보 보안은 기밀성, 무결성, 가용성을 확보하며 해킹, 피싱, 스미싱, 랜섬웨어 등의 위협에 대응합니다.</li><li>디지털 윤리는 디지털 사회에서 윤리적인 것과 비윤리적인 것을 바르게 판단하는 기준입니다.</li></ul></section>
+<section class='card'><span class='tag'>기초 개념 1</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>1. 디지털 기술 분류기</h2><div class='concept'><h3>개념 상세 설명</h3>디지털 기술은 디지털 정보를 처리하고 저장하며 전송하는 장치와 시스템을 연구·개발하는 기술입니다. 대표적으로 인공지능, 빅데이터, 사물 인터넷, 클라우드 등이 있습니다.</div><pre><code>class DigitalTechnology:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def category(self):
+        if self.name in [&quot;인공지능&quot;, &quot;AI&quot;]:
+            return &quot;지능형 판단 기술&quot;
+        if self.name == &quot;빅데이터&quot;:
+            return &quot;대량 데이터 분석 기술&quot;
+        if self.name == &quot;사물 인터넷&quot;:
+            return &quot;초연결 기술&quot;
+        if self.name == &quot;클라우드&quot;:
+            return &quot;인터넷 기반 자원 제공 기술&quot;
+        return &quot;기타 디지털 기술&quot;
+
+tech = DigitalTechnology(&quot;빅데이터&quot;, &quot;대량의 데이터를 분석하여 가치를 찾는 기술&quot;)
+print(&quot;기술명:&quot;, tech.name)
+print(&quot;분류:&quot;, tech.category())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>DigitalTechnology 클래스는 기술 이름과 설명을 저장합니다.</li><li>category()는 기술 이름에 따라 핵심 역할을 분류합니다.</li><li>빅데이터는 대량 데이터 분석 기술로 분류됩니다.</li></ul></div></section><section class='card'><span class='tag'>기초 개념 2</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>2. 정보 공유 가능 여부 판단기</h2><div class='concept'><h3>개념 상세 설명</h3>정보 공유는 네트워크 환경에서 정보를 얻고 다른 사람과 나누는 것입니다. 하지만 개인 정보, 위치 정보, 의료 정보, 영상 정보 등은 보호해야 합니다.</div><pre><code>class InformationSharingChecker:
+    def __init__(self, info_type):
+        self.info_type = info_type
+
+    def can_share(self):
+        shareable = [&quot;교통 정보&quot;, &quot;날씨 정보&quot;, &quot;재난 정보&quot;, &quot;버스 도착 시간&quot;, &quot;병원 진료 시간&quot;]
+        protected = [&quot;주민등록번호&quot;, &quot;전화번호&quot;, &quot;위치 정보&quot;, &quot;의료 정보&quot;, &quot;영상 정보&quot;]
+        if self.info_type in shareable:
+            return &quot;공유 가능 정보&quot;
+        if self.info_type in protected:
+            return &quot;보호 필요 정보&quot;
+        return &quot;목적과 범위 확인 필요&quot;
+
+print(InformationSharingChecker(&quot;날씨 정보&quot;).can_share())
+print(InformationSharingChecker(&quot;주민등록번호&quot;).can_share())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>shareable에는 공유 가치가 큰 정보가 들어 있습니다.</li><li>protected에는 보호해야 할 정보가 들어 있습니다.</li><li>can_share()는 공유 가능 여부를 판단합니다.</li></ul></div></section><section class='card'><span class='tag'>기초 개념 3</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>3. 개인 정보 종류 분류기</h2><div class='concept'><h3>개념 상세 설명</h3>개인 정보는 살아 있는 개인에 관한 정보입니다. 직접 식별 정보뿐 아니라 다른 정보와 결합해 개인을 식별할 수 있는 정보도 포함합니다.</div><pre><code>class PersonalInfoClassifier:
+    def __init__(self, info):
+        self.info = info
+
+    def classify(self):
+        categories = {
+            &quot;주민등록번호&quot;: &quot;인적 사항&quot;,
+            &quot;집 주소&quot;: &quot;인적 사항&quot;,
+            &quot;얼굴 사진&quot;: &quot;신체적 정보&quot;,
+            &quot;진료 기록&quot;: &quot;의료 정보&quot;,
+            &quot;위치 기록&quot;: &quot;위치 정보&quot;,
+            &quot;전화 통화 내역&quot;: &quot;기타 정보&quot;
+        }
+        return categories.get(self.info, &quot;추가 확인 필요&quot;)
+
+info = PersonalInfoClassifier(&quot;진료 기록&quot;)
+print(&quot;정보:&quot;, info.info)
+print(&quot;분류:&quot;, info.classify())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>categories 딕셔너리는 개인 정보의 종류를 저장합니다.</li><li>classify()는 정보 범주를 반환합니다.</li><li>진료 기록은 의료 정보로 분류됩니다.</li></ul></div></section><section class='card'><span class='tag'>기초 개념 4</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>4. 정보 보안 3요소 검사기</h2><div class='concept'><h3>개념 상세 설명</h3>정보 보안은 정보의 훼손, 변조, 유출을 방지하는 기술입니다. 핵심 목표는 기밀성, 무결성, 가용성입니다.</div><pre><code>class SecurityGoalChecker:
+    def __init__(self, goal):
+        self.goal = goal
+
+    def explain(self):
+        if self.goal == &quot;기밀성&quot;:
+            return &quot;허가받지 않은 사용자가 정보를 볼 수 없게 하는 것&quot;
+        if self.goal == &quot;무결성&quot;:
+            return &quot;정보가 허락 없이 변경되거나 훼손되지 않게 하는 것&quot;
+        if self.goal == &quot;가용성&quot;:
+            return &quot;필요할 때 정보와 서비스를 사용할 수 있게 하는 것&quot;
+        return &quot;정보 보안 3요소에 해당하지 않음&quot;
+
+checker = SecurityGoalChecker(&quot;무결성&quot;)
+print(checker.explain())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>기밀성은 비밀 유지와 관련됩니다.</li><li>무결성은 정보 변조 방지와 관련됩니다.</li><li>가용성은 필요한 때 사용할 수 있는 상태입니다.</li></ul></div></section><section class='card'><span class='tag'>기초 개념 5</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>5. 디지털 윤리 판단기</h2><div class='concept'><h3>개념 상세 설명</h3>디지털 윤리는 디지털 사회에서 윤리적인 것과 비윤리적인 것을 바르게 판단하는 기준입니다.</div><pre><code>class DigitalEthicsChecker:
+    def __init__(self, action):
+        self.action = action
+
+    def check(self):
+        unethical_keywords = [&quot;무단 공유&quot;, &quot;비밀번호 요구&quot;, &quot;허위 정보&quot;, &quot;불법 촬영&quot;, &quot;딥페이크 악용&quot;]
+        for keyword in unethical_keywords:
+            if keyword in self.action:
+                return &quot;비윤리적 행동&quot;
+        return &quot;윤리적 행동 또는 추가 검토 필요&quot;
+
+case = DigitalEthicsChecker(&quot;친구 사진을 무단 공유&quot;)
+print(case.check())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>unethical_keywords에는 위험 행동 키워드가 들어 있습니다.</li><li>check()는 행동 설명을 검사합니다.</li><li>무단 공유는 타인에게 피해를 줄 수 있습니다.</li></ul></div></section><section class='card'><span class='tag'>개념 응용 1</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>6. 진로와 디지털 기술 연결 분석기</h2><div class='concept'><h3>개념 상세 설명</h3>디지털 기술은 의료, 금융, 교육, 산업 등 다양한 직업에서 인간의 역할을 변화시키고 진로 설계에 영향을 줍니다.</div><pre><code>class CareerTechnologyMapper:
+    def __init__(self, career):
+        self.career = career
+
+    def related_technologies(self):
+        mapping = {
+            &quot;의사&quot;: [&quot;인공지능&quot;, &quot;빅데이터&quot;, &quot;의료 정보 시스템&quot;],
+            &quot;농업 전문가&quot;: [&quot;사물 인터넷&quot;, &quot;스마트팜&quot;, &quot;빅데이터&quot;],
+            &quot;금융 전문가&quot;: [&quot;블록체인&quot;, &quot;인공지능&quot;, &quot;보안 기술&quot;],
+            &quot;교사&quot;: [&quot;인공지능&quot;, &quot;온라인 학습 플랫폼&quot;, &quot;클라우드&quot;]
+        }
+        return mapping.get(self.career, [&quot;디지털 기초 역량&quot;, &quot;정보 보안&quot;])
+
+mapper = CareerTechnologyMapper(&quot;교사&quot;)
+print(&quot;희망 진로:&quot;, mapper.career)
+print(&quot;관련 기술:&quot;, mapper.related_technologies())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>career는 희망 진로입니다.</li><li>related_technologies()는 관련 기술을 반환합니다.</li><li>교사는 온라인 학습 플랫폼과 클라우드와 관련될 수 있습니다.</li></ul></div></section><section class='card'><span class='tag'>개념 응용 2</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>7. 개인 정보 보호 수칙 점검기</h2><div class='concept'><h3>개념 상세 설명</h3>개인 정보 보호를 위해 비밀번호 변경, 개인 정보 비공유, 출처 불명 자료 다운로드 금지, 자동 로그인 해제 등을 실천해야 합니다.</div><pre><code>class PrivacyChecklist:
+    def __init__(self, practices):
+        self.practices = practices
+
+    def score(self):
+        good_rules = [&quot;비밀번호 주기적 변경&quot;, &quot;개인 정보 친구에게 알리지 않기&quot;,
+                      &quot;P2P 폴더에 개인 정보 저장하지 않기&quot;, &quot;출처 불명 자료 다운로드하지 않기&quot;, &quot;자동 로그인 해제&quot;]
+        count = 0
+        for rule in good_rules:
+            if rule in self.practices:
+                count += 1
+        return count
+
+    def level(self):
+        s = self.score()
+        if s &gt;= 4:
+            return &quot;우수&quot;
+        if s &gt;= 2:
+            return &quot;보통&quot;
+        return &quot;개선 필요&quot;
+
+practices = [&quot;비밀번호 주기적 변경&quot;, &quot;출처 불명 자료 다운로드하지 않기&quot;, &quot;자동 로그인 해제&quot;]
+check = PrivacyChecklist(practices)
+print(&quot;실천 점수:&quot;, check.score())
+print(&quot;보호 수준:&quot;, check.level())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>score()는 실천 중인 수칙 개수를 셉니다.</li><li>level()은 보호 수준을 분류합니다.</li><li>3개 실천은 보통 수준입니다.</li></ul></div></section><section class='card'><span class='tag'>개념 응용 3</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>8. 비밀번호 강도 평가기</h2><div class='concept'><h3>개념 상세 설명</h3>안전한 비밀번호는 충분한 길이와 숫자, 대문자, 특수문자를 포함할수록 보안성이 높아집니다.</div><pre><code>class PasswordStrengthChecker:
+    def __init__(self, password):
+        self.password = password
+
+    def score(self):
+        score = 0
+        if len(self.password) &gt;= 8:
+            score += 1
+        if any(c.isdigit() for c in self.password):
+            score += 1
+        if any(c.isupper() for c in self.password):
+            score += 1
+        if any(not c.isalnum() for c in self.password):
+            score += 1
+        return score
+
+    def result(self):
+        if self.score() &gt;= 3:
+            return &quot;강한 비밀번호&quot;
+        if self.score() == 2:
+            return &quot;보통 비밀번호&quot;
+        return &quot;약한 비밀번호&quot;
+
+checker = PasswordStrengthChecker(&quot;Data!2026&quot;)
+print(&quot;점수:&quot;, checker.score())
+print(&quot;결과:&quot;, checker.result())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>score()는 네 가지 조건을 검사합니다.</li><li>result()는 점수에 따라 강도를 반환합니다.</li><li>Data!2026은 강한 비밀번호입니다.</li></ul></div></section><section class='card'><span class='tag'>개념 응용 4</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>9. 보안 위협 유형 분류기</h2><div class='concept'><h3>개념 상세 설명</h3>정보 보안 위협에는 해킹, 피싱, 스미싱, 파밍, 랜섬웨어 등이 있습니다. 유형을 구분하면 적절한 대응이 가능합니다.</div><pre><code>class SecurityThreatClassifier:
+    def __init__(self, message):
+        self.message = message
+
+    def classify(self):
+        if &quot;계정&quot; in self.message and &quot;무단&quot; in self.message:
+            return &quot;해킹 의심&quot;
+        if &quot;링크&quot; in self.message and &quot;개인 정보&quot; in self.message:
+            return &quot;피싱 의심&quot;
+        if &quot;문자&quot; in self.message and &quot;결제&quot; in self.message:
+            return &quot;스미싱 의심&quot;
+        if &quot;파일 암호화&quot; in self.message or &quot;금전 요구&quot; in self.message:
+            return &quot;랜섬웨어 의심&quot;
+        return &quot;추가 분석 필요&quot;
+
+case = SecurityThreatClassifier(&quot;문자로 온 링크를 누르자 결제 정보 입력을 요구함&quot;)
+print(case.classify())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>message는 의심 상황 설명입니다.</li><li>문자와 결제가 있으면 스미싱 의심입니다.</li><li>실제 분석은 더 많은 조건이 필요합니다.</li></ul></div></section><section class='card'><span class='tag'>개념 응용 5</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>10. 앱 권한 필요성 판단기</h2><div class='concept'><h3>개념 상세 설명</h3>앱 권한에는 위치, 연락처, 카메라, 마이크, 저장소 등 민감한 권한이 포함될 수 있어 불필요한 권한을 점검해야 합니다.</div><pre><code>class AppPermissionChecker:
+    def __init__(self, app_name, permissions):
+        self.app_name = app_name
+        self.permissions = permissions
+
+    def risky_permissions(self):
+        risky = [&quot;위치&quot;, &quot;연락처&quot;, &quot;카메라&quot;, &quot;마이크&quot;, &quot;저장소&quot;]
+        return [p for p in self.permissions if p in risky]
+
+    def advice(self):
+        risky_count = len(self.risky_permissions())
+        if risky_count &gt;= 3:
+            return &quot;권한 설정을 자세히 점검하세요.&quot;
+        if risky_count &gt;= 1:
+            return &quot;필요한 권한인지 확인하세요.&quot;
+        return &quot;위험 권한이 적습니다.&quot;
+
+app = AppPermissionChecker(&quot;메모 앱&quot;, [&quot;저장소&quot;, &quot;위치&quot;, &quot;마이크&quot;])
+print(&quot;위험 권한:&quot;, app.risky_permissions())
+print(&quot;조언:&quot;, app.advice())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>permissions는 앱 권한 목록입니다.</li><li>risky_permissions()는 민감 권한을 추출합니다.</li><li>민감 권한이 3개면 자세한 점검이 필요합니다.</li></ul></div></section><section class='card'><span class='tag'>실생활 심화 1</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>11. 학교 정보 공유·보호 관리 시스템</h2><div class='concept'><h3>개념 상세 설명</h3>학교에서는 급식 메뉴나 행사 일정은 공유할 수 있지만, 학생 주민등록번호나 건강 기록은 보호해야 합니다.</div><pre><code>class SchoolInfoManager:
+    def __init__(self):
+        self.data = []
+
+    def add_info(self, title, info_type):
+        self.data.append({&quot;제목&quot;: title, &quot;유형&quot;: info_type})
+
+    def shareable_info(self):
+        return [item for item in self.data if item[&quot;유형&quot;] == &quot;공유&quot;]
+
+    def protected_info(self):
+        return [item for item in self.data if item[&quot;유형&quot;] == &quot;보호&quot;]
+
+manager = SchoolInfoManager()
+manager.add_info(&quot;급식 메뉴&quot;, &quot;공유&quot;)
+manager.add_info(&quot;학생 주민등록번호&quot;, &quot;보호&quot;)
+manager.add_info(&quot;학교 행사 일정&quot;, &quot;공유&quot;)
+manager.add_info(&quot;학생 건강 기록&quot;, &quot;보호&quot;)
+
+print(&quot;공유 가능:&quot;, manager.shareable_info())
+print(&quot;보호 필요:&quot;, manager.protected_info())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>add_info()는 정보 제목과 유형을 저장합니다.</li><li>shareable_info()는 공유 정보를 추출합니다.</li><li>protected_info()는 보호 정보를 추출합니다.</li></ul></div></section><section class='card'><span class='tag'>실생활 심화 2</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>12. 피싱 메시지 탐지 에이전트</h2><div class='concept'><h3>개념 상세 설명</h3>피싱은 위조 사이트 접속을 유도하여 개인 정보를 탈취하는 행위입니다. 위험 키워드를 탐지하면 피싱 가능성을 판단할 수 있습니다.</div><pre><code>class PhishingDetector:
+    def __init__(self, text):
+        self.text = text
+
+    def risk_score(self):
+        keywords = [&quot;비밀번호&quot;, &quot;계좌&quot;, &quot;즉시&quot;, &quot;링크&quot;, &quot;개인 정보&quot;, &quot;인증&quot;]
+        score = 0
+        for keyword in keywords:
+            if keyword in self.text:
+                score += 1
+        return score
+
+    def classify(self):
+        if self.risk_score() &gt;= 3:
+            return &quot;피싱 위험 높음&quot;
+        if self.risk_score() &gt;= 1:
+            return &quot;주의 필요&quot;
+        return &quot;위험 낮음&quot;
+
+msg = PhishingDetector(&quot;즉시 링크에 접속해 계좌 인증과 비밀번호를 입력하세요.&quot;)
+print(&quot;위험 점수:&quot;, msg.risk_score())
+print(&quot;분류:&quot;, msg.classify())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>keywords는 위험 단어 목록입니다.</li><li>risk_score()는 위험 키워드 개수를 계산합니다.</li><li>3개 이상이면 피싱 위험 높음입니다.</li></ul></div></section><section class='card'><span class='tag'>실생활 심화 3</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>13. CCTV 영상 정보 접근 기록 관리</h2><div class='concept'><h3>개념 상세 설명</h3>CCTV는 얼굴, 움직임, 위치, 차량 번호판 등 다양한 영상 정보를 수집할 수 있어 목적과 절차에 맞게 열람해야 합니다.</div><pre><code>class CCTVAccessLog:
+    def __init__(self):
+        self.logs = []
+
+    def add_access(self, user, purpose):
+        self.logs.append({&quot;사용자&quot;: user, &quot;목적&quot;: purpose})
+
+    def allowed_access(self):
+        allowed = [&quot;범죄 예방&quot;, &quot;안전 관리&quot;, &quot;교통 관리&quot;]
+        return [log for log in self.logs if log[&quot;목적&quot;] in allowed]
+
+    def suspicious_access(self):
+        allowed = [&quot;범죄 예방&quot;, &quot;안전 관리&quot;, &quot;교통 관리&quot;]
+        return [log for log in self.logs if log[&quot;목적&quot;] not in allowed]
+
+log = CCTVAccessLog()
+log.add_access(&quot;관리자A&quot;, &quot;안전 관리&quot;)
+log.add_access(&quot;사용자B&quot;, &quot;개인 호기심&quot;)
+
+print(&quot;허용 접근:&quot;, log.allowed_access())
+print(&quot;의심 접근:&quot;, log.suspicious_access())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>add_access()는 접근 기록을 저장합니다.</li><li>allowed_access()는 허용 목적 접근만 찾습니다.</li><li>개인 호기심은 의심 접근입니다.</li></ul></div></section><section class='card'><span class='tag'>실생활 심화 4</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>14. 디지털 윤리 위반 사례 분석기</h2><div class='concept'><h3>개념 상세 설명</h3>디지털 범죄에는 해킹, 디도스, 랜섬웨어, 피싱, 딥페이크 악용 등이 있으며 디지털 윤리 실천과 보안 기술 활용이 필요합니다.</div><pre><code>class DigitalCrimeAnalyzer:
+    def __init__(self, case_text):
+        self.case_text = case_text
+
+    def analyze(self):
+        if &quot;딥페이크&quot; in self.case_text:
+            return &quot;딥페이크 악용&quot;
+        if &quot;서버 공격&quot; in self.case_text or &quot;트래픽&quot; in self.case_text:
+            return &quot;디도스 공격&quot;
+        if &quot;파일 암호화&quot; in self.case_text or &quot;금전 요구&quot; in self.case_text:
+            return &quot;랜섬웨어&quot;
+        if &quot;개인 정보 탈취&quot; in self.case_text:
+            return &quot;피싱&quot;
+        return &quot;추가 조사 필요&quot;
+
+case = DigitalCrimeAnalyzer(&quot;악성 코드가 파일 암호화 후 금전 요구를 함&quot;)
+print(case.analyze())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>case_text는 사건 설명입니다.</li><li>파일 암호화와 금전 요구가 있으면 랜섬웨어입니다.</li><li>사례 분석 활동에 활용할 수 있습니다.</li></ul></div></section><section class='card'><span class='tag'>실생활 심화 5</span><span class='tag'>5단원</span><span class='tag'>OOP 코드</span><h2>15. 정보 보안 실천 종합 점검 대시보드</h2><div class='concept'><h3>개념 상세 설명</h3>사용자는 안전한 비밀번호 설정, 백신 업데이트, 보안 패치, 개인 정보 삭제, 의심 링크 주의 등을 실천해야 합니다.</div><pre><code>class SecurityPracticeDashboard:
+    def __init__(self, user_name):
+        self.user_name = user_name
+        self.items = {}
+
+    def set_item(self, item, done):
+        self.items[item] = done
+
+    def completion_rate(self):
+        if not self.items:
+            return 0
+        done_count = sum(1 for done in self.items.values() if done)
+        return done_count / len(self.items) * 100
+
+    def report(self):
+        rate = self.completion_rate()
+        if rate &gt;= 80:
+            level = &quot;우수&quot;
+        elif rate &gt;= 50:
+            level = &quot;보통&quot;
+        else:
+            level = &quot;개선 필요&quot;
+        return f&quot;{self.user_name}의 정보 보안 실천율은 {rate:.1f}%이며 수준은 {level}입니다.&quot;
+
+dashboard = SecurityPracticeDashboard(&quot;김학생&quot;)
+dashboard.set_item(&quot;비밀번호 주기적 변경&quot;, True)
+dashboard.set_item(&quot;백신 업데이트&quot;, True)
+dashboard.set_item(&quot;불필요한 개인 정보 삭제&quot;, False)
+dashboard.set_item(&quot;출처 불명 링크 클릭 금지&quot;, True)
+
+print(dashboard.report())</code></pre><div class='explain'><h3>코드 상세 설명</h3><ul><li>set_item()은 보안 실천 항목을 저장합니다.</li><li>completion_rate()는 실천율을 계산합니다.</li><li>report()는 실천 수준을 문장으로 반환합니다.</li></ul></div></section>
+<section class="card"><h2>🧭 전체 예제 요약표</h2><table><tr><th>번호</th><th>구분</th><th>예제</th><th>핵심 내용</th></tr><tr><td>1</td><td>기초 개념 1</td><td>디지털 기술 분류기</td><td>디지털 기술은 디지털 정보를 처리하고 저장하며 전송하는 장치와 시스템을 연구·개발하는 기술입니다. 대표적으로 인공지능, 빅데이터, 사물 인터넷, 클라우드 등이 있습니다.</td></tr><tr><td>2</td><td>기초 개념 2</td><td>정보 공유 가능 여부 판단기</td><td>정보 공유는 네트워크 환경에서 정보를 얻고 다른 사람과 나누는 것입니다. 하지만 개인 정보, 위치 정보, 의료 정보, 영상 정보 등은 보호해야 합니다.</td></tr><tr><td>3</td><td>기초 개념 3</td><td>개인 정보 종류 분류기</td><td>개인 정보는 살아 있는 개인에 관한 정보입니다. 직접 식별 정보뿐 아니라 다른 정보와 결합해 개인을 식별할 수 있는 정보도 포함합니다.</td></tr><tr><td>4</td><td>기초 개념 4</td><td>정보 보안 3요소 검사기</td><td>정보 보안은 정보의 훼손, 변조, 유출을 방지하는 기술입니다. 핵심 목표는 기밀성, 무결성, 가용성입니다.</td></tr><tr><td>5</td><td>기초 개념 5</td><td>디지털 윤리 판단기</td><td>디지털 윤리는 디지털 사회에서 윤리적인 것과 비윤리적인 것을 바르게 판단하는 기준입니다.</td></tr><tr><td>6</td><td>개념 응용 1</td><td>진로와 디지털 기술 연결 분석기</td><td>디지털 기술은 의료, 금융, 교육, 산업 등 다양한 직업에서 인간의 역할을 변화시키고 진로 설계에 영향을 줍니다.</td></tr><tr><td>7</td><td>개념 응용 2</td><td>개인 정보 보호 수칙 점검기</td><td>개인 정보 보호를 위해 비밀번호 변경, 개인 정보 비공유, 출처 불명 자료 다운로드 금지, 자동 로그인 해제 등을 실천해야 합니다.</td></tr><tr><td>8</td><td>개념 응용 3</td><td>비밀번호 강도 평가기</td><td>안전한 비밀번호는 충분한 길이와 숫자, 대문자, 특수문자를 포함할수록 보안성이 높아집니다.</td></tr><tr><td>9</td><td>개념 응용 4</td><td>보안 위협 유형 분류기</td><td>정보 보안 위협에는 해킹, 피싱, 스미싱, 파밍, 랜섬웨어 등이 있습니다. 유형을 구분하면 적절한 대응이 가능합니다.</td></tr><tr><td>10</td><td>개념 응용 5</td><td>앱 권한 필요성 판단기</td><td>앱 권한에는 위치, 연락처, 카메라, 마이크, 저장소 등 민감한 권한이 포함될 수 있어 불필요한 권한을 점검해야 합니다.</td></tr><tr><td>11</td><td>실생활 심화 1</td><td>학교 정보 공유·보호 관리 시스템</td><td>학교에서는 급식 메뉴나 행사 일정은 공유할 수 있지만, 학생 주민등록번호나 건강 기록은 보호해야 합니다.</td></tr><tr><td>12</td><td>실생활 심화 2</td><td>피싱 메시지 탐지 에이전트</td><td>피싱은 위조 사이트 접속을 유도하여 개인 정보를 탈취하는 행위입니다. 위험 키워드를 탐지하면 피싱 가능성을 판단할 수 있습니다.</td></tr><tr><td>13</td><td>실생활 심화 3</td><td>CCTV 영상 정보 접근 기록 관리</td><td>CCTV는 얼굴, 움직임, 위치, 차량 번호판 등 다양한 영상 정보를 수집할 수 있어 목적과 절차에 맞게 열람해야 합니다.</td></tr><tr><td>14</td><td>실생활 심화 4</td><td>디지털 윤리 위반 사례 분석기</td><td>디지털 범죄에는 해킹, 디도스, 랜섬웨어, 피싱, 딥페이크 악용 등이 있으며 디지털 윤리 실천과 보안 기술 활용이 필요합니다.</td></tr><tr><td>15</td><td>실생활 심화 5</td><td>정보 보안 실천 종합 점검 대시보드</td><td>사용자는 안전한 비밀번호 설정, 백신 업데이트, 보안 패치, 개인 정보 삭제, 의심 링크 주의 등을 실천해야 합니다.</td></tr></table></section>
+<section class="card"><h2>🎯 심화 탐구 과제</h2><ol><li>디지털 기술 분류기에 블록체인, 스마트팜, 스마트팩토리 항목을 추가하라.</li><li>정보 공유 가능 여부 판단기에 학교생활 속 정보 10개를 추가하여 분류하라.</li><li>비밀번호 강도 평가기에 연속 문자나 생일 포함 여부를 검사하는 기능을 추가하라.</li><li>피싱 메시지 탐지기에 URL 포함 여부와 발신자 정보 확인 기능을 추가하라.</li><li>정보 보안 실천 대시보드에 그래프 출력 기능을 추가하라.</li></ol></section>
+</main><footer>🌐 5단원 디지털 문화 × 객체지향 프로그래밍 HTML 수업자료</footer></body></html>
