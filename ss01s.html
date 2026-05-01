@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>전북과학고등학교 정보수업 서술형 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f3ff,#fff7ed);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px}
+h1{font-size:46px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1240px;margin:auto;padding:30px 22px 80px}
+.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 26px rgba(37,99,235,.1)}
+h2{font-size:32px;color:#1d4ed8}h3{font-size:24px;color:#7c3aed}.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;border:4px solid #93c5fd}
+textarea{width:100%;min-height:150px;font-family:Consolas,'Courier New',monospace;font-size:18px;padding:14px;border:2px solid #bfdbfe;border-radius:16px;box-sizing:border-box}
+input{font-size:20px;padding:10px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}
+button{font-size:21px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}button:hover{background:#1d4ed8}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}.right{background:#ecfdf5;border-left:8px solid #10b981}.wrong{background:#fff1f2;border-left:8px solid #e11d48}.partial{background:#fff7ed;border-left:8px solid #f97316}
+.result{background:#ecfdf5;border-left:8px solid #10b981;border-radius:18px;padding:18px;margin:20px 0}
+table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:10px;vertical-align:top}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+</style>
+</head>
+<body>
+<header>
+<h1>🔎 전북과학고등학교 정보수업 서술형 수행평가</h1>
+<div class="subtitle">2026학년도 1학기 정보수업 알고리즘과 프로그래밍 영역 수행평가</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_정렬_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>15문항</td></tr>
+<tr><td>평가 방식</td><td>코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 15점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_정렬_득점_응시시각.txt</td></tr>
+</table>
+</section>
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>1. 숫자 리스트 오름차순·내림차순 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class NumberSorter:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def ascending(self):
+        return sorted(self.numbers)
+
+    def descending(self):
+        return sorted(self.numbers, reverse=True)
+
+sorter = NumberSorter([8, 3, 1, 9, 5])
+
+print(&quot;오름차순:&quot;, sorter.ascending())
+print(&quot;내림차순:&quot;, sorter.descending())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans1" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>2. 문자열 알파벳순 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class WordAlphabetSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_words(self):
+        return sorted(self.words)
+
+    def reverse_words(self):
+        return sorted(self.words, reverse=True)
+
+words = WordAlphabetSorter([&quot;banana&quot;, &quot;apple&quot;, &quot;cherry&quot;, &quot;date&quot;])
+
+print(words.sort_words())
+print(words.reverse_words())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans2" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>3. 순차 탐색으로 값 찾기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class LinearSearch:
+    def __init__(self, data):
+        self.data = data
+
+    def find(self, target):
+        for index, value in enumerate(self.data):
+            if value == target:
+                return index
+        return -1
+
+searcher = LinearSearch([10, 20, 30, 40, 50])
+
+print(searcher.find(30))
+print(searcher.find(99))</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans3" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>4. 최댓값과 최솟값 찾기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class MinMaxFinder:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def minimum(self):
+        return min(self.numbers)
+
+    def maximum(self):
+        return max(self.numbers)
+
+finder = MinMaxFinder([42, 17, 88, 23, 65])
+
+print(&quot;최솟값:&quot;, finder.minimum())
+print(&quot;최댓값:&quot;, finder.maximum())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans4" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>5. 문자열 길이 기준 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class WordLengthSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_by_length(self):
+        return sorted(self.words, key=len)
+
+    def longest(self):
+        return max(self.words, key=len)
+
+words = WordLengthSorter([&quot;AI&quot;, &quot;Python&quot;, &quot;Data&quot;, &quot;Algorithm&quot;])
+
+print(words.sort_by_length())
+print(&quot;가장 긴 단어:&quot;, words.longest())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans5" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>6. 학생 점수 기준 순위 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class StudentRanker:
+    def __init__(self, students):
+        self.students = students
+
+    def rank(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+    def top_student(self):
+        return self.rank()[0]
+
+students = [
+    {&quot;이름&quot;: &quot;김민수&quot;, &quot;점수&quot;: 88},
+    {&quot;이름&quot;: &quot;이지은&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;박서준&quot;, &quot;점수&quot;: 76}
+]
+
+ranker = StudentRanker(students)
+
+print(ranker.rank())
+print(&quot;1등:&quot;, ranker.top_student())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans6" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>7. 이진 탐색으로 빠르게 찾기</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class BinarySearch:
+    def __init__(self, sorted_data):
+        self.data = sorted_data
+
+    def find(self, target):
+        left = 0
+        right = len(self.data) - 1
+
+        while left &lt;= right:
+            mid = (left + right) // 2
+
+            if self.data[mid] == target:
+                return mid
+            elif self.data[mid] &lt; target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return -1
+
+searcher = BinarySearch([1, 3, 5, 7, 9, 11, 13])
+
+print(searcher.find(9))
+print(searcher.find(4))</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans7" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>8. 상품 가격 정렬과 최저가 탐색</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class ProductAnalyzer:
+    def __init__(self, products):
+        self.products = products
+
+    def sort_by_price(self):
+        return sorted(self.products, key=lambda x: x[&quot;가격&quot;])
+
+    def cheapest(self):
+        return self.sort_by_price()[0]
+
+products = [
+    {&quot;상품&quot;: &quot;노트북&quot;, &quot;가격&quot;: 1200000},
+    {&quot;상품&quot;: &quot;마우스&quot;, &quot;가격&quot;: 25000},
+    {&quot;상품&quot;: &quot;키보드&quot;, &quot;가격&quot;: 70000}
+]
+
+analyzer = ProductAnalyzer(products)
+
+print(analyzer.sort_by_price())
+print(&quot;최저가 상품:&quot;, analyzer.cheapest())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans8" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>9. 키워드 포함 도서 검색</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class BookSearch:
+    def __init__(self, books):
+        self.books = books
+
+    def search_keyword(self, keyword):
+        return [book for book in self.books if keyword in book[&quot;제목&quot;]]
+
+    def sort_by_year(self):
+        return sorted(self.books, key=lambda x: x[&quot;연도&quot;])
+
+books = [
+    {&quot;제목&quot;: &quot;파이썬 알고리즘&quot;, &quot;연도&quot;: 2021},
+    {&quot;제목&quot;: &quot;자료구조 입문&quot;, &quot;연도&quot;: 2019},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;연도&quot;: 2023}
+]
+
+library = BookSearch(books)
+
+print(library.search_keyword(&quot;알고리즘&quot;))
+print(library.sort_by_year())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans9" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>10. 중복 제거 후 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class UniqueSorter:
+    def __init__(self, data):
+        self.data = data
+
+    def unique_sorted(self):
+        return sorted(set(self.data))
+
+    def count_unique(self):
+        return len(set(self.data))
+
+numbers = UniqueSorter([3, 1, 2, 3, 2, 5, 1, 4])
+
+print(numbers.unique_sorted())
+print(&quot;고유값 개수:&quot;, numbers.count_unique())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans10" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 11</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>11. 택배 배송 우선순위 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class DeliveryScheduler:
+    def __init__(self, orders):
+        self.orders = orders
+
+    def sort_by_priority(self):
+        return sorted(
+            self.orders,
+            key=lambda x: (x[&quot;긴급도&quot;], x[&quot;거리&quot;]),
+            reverse=False
+        )
+
+    def next_delivery(self):
+        return self.sort_by_priority()[0]
+
+orders = [
+    {&quot;주문번호&quot;: &quot;A01&quot;, &quot;긴급도&quot;: 2, &quot;거리&quot;: 5},
+    {&quot;주문번호&quot;: &quot;B02&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 8},
+    {&quot;주문번호&quot;: &quot;C03&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 3}
+]
+
+scheduler = DeliveryScheduler(orders)
+
+print(scheduler.sort_by_priority())
+print(&quot;다음 배송:&quot;, scheduler.next_delivery())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans11" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb11"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 12</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>12. 병원 환자 대기열 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class PatientQueue:
+    def __init__(self, patients):
+        self.patients = patients
+
+    def sort_by_severity(self):
+        return sorted(
+            self.patients,
+            key=lambda x: (-x[&quot;위급도&quot;], x[&quot;도착순서&quot;])
+        )
+
+    def next_patient(self):
+        return self.sort_by_severity()[0]
+
+patients = [
+    {&quot;이름&quot;: &quot;환자A&quot;, &quot;위급도&quot;: 3, &quot;도착순서&quot;: 1},
+    {&quot;이름&quot;: &quot;환자B&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 2},
+    {&quot;이름&quot;: &quot;환자C&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 1}
+]
+
+queue = PatientQueue(patients)
+
+print(queue.sort_by_severity())
+print(&quot;다음 진료:&quot;, queue.next_patient())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans12" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb12"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 13</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>13. 검색 엔진 결과 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SearchEngine:
+    def __init__(self, pages):
+        self.pages = pages
+
+    def search(self, keyword):
+        result = []
+        for page in self.pages:
+            if keyword in page[&quot;제목&quot;] or keyword in page[&quot;내용&quot;]:
+                result.append(page)
+        return sorted(result, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+pages = [
+    {&quot;제목&quot;: &quot;파이썬 기초&quot;, &quot;내용&quot;: &quot;정렬과 탐색 설명&quot;, &quot;점수&quot;: 80},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;내용&quot;: &quot;이진 탐색과 정렬&quot;, &quot;점수&quot;: 95},
+    {&quot;제목&quot;: &quot;웹 디자인&quot;, &quot;내용&quot;: &quot;HTML CSS&quot;, &quot;점수&quot;: 70}
+]
+
+engine = SearchEngine(pages)
+
+print(engine.search(&quot;탐색&quot;))</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans13" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb13"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 14</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>14. 성적 데이터에서 등급별 탐색과 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class GradeAnalyzer:
+    def __init__(self, students):
+        self.students = students
+
+    def add_grade(self):
+        for student in self.students:
+            score = student[&quot;점수&quot;]
+            if score &gt;= 90:
+                student[&quot;등급&quot;] = &quot;A&quot;
+            elif score &gt;= 80:
+                student[&quot;등급&quot;] = &quot;B&quot;
+            else:
+                student[&quot;등급&quot;] = &quot;C&quot;
+        return self.students
+
+    def search_grade(self, grade):
+        return [s for s in self.students if s.get(&quot;등급&quot;) == grade]
+
+    def sort_by_score(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+students = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;점수&quot;: 84},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;점수&quot;: 76},
+    {&quot;이름&quot;: &quot;최&quot;, &quot;점수&quot;: 91}
+]
+
+analyzer = GradeAnalyzer(students)
+analyzer.add_grade()
+
+print(&quot;A등급:&quot;, analyzer.search_grade(&quot;A&quot;))
+print(&quot;점수순:&quot;, analyzer.sort_by_score())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans14" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb14"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 15</span><span class="meta">서술형 출력 결과 입력</span>
+  <h2>15. 로그 데이터 오류 탐색과 시간 정렬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class LogAnalyzer:
+    def __init__(self, logs):
+        self.logs = logs
+
+    def search_error(self):
+        return [log for log in self.logs if log[&quot;상태&quot;] == &quot;ERROR&quot;]
+
+    def sort_by_time(self):
+        return sorted(self.logs, key=lambda x: x[&quot;시간&quot;])
+
+    def latest_error(self):
+        errors = self.search_error()
+        if not errors:
+            return None
+        return sorted(errors, key=lambda x: x[&quot;시간&quot;], reverse=True)[0]
+
+logs = [
+    {&quot;시간&quot;: &quot;09:10&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;start&quot;},
+    {&quot;시간&quot;: &quot;09:15&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;file missing&quot;},
+    {&quot;시간&quot;: &quot;09:12&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;load&quot;},
+    {&quot;시간&quot;: &quot;09:20&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;timeout&quot;}
+]
+
+analyzer = LogAnalyzer(logs)
+
+print(&quot;오류 로그:&quot;, analyzer.search_error())
+print(&quot;시간순:&quot;, analyzer.sort_by_time())
+print(&quot;최근 오류:&quot;, analyzer.latest_error())</code></pre>
+  <h3>예상 출력 결과를 키보드로 입력하세요</h3>
+  <textarea id="ans15" placeholder="이 코드의 출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+  <div id="fb15"></div>
+</section>
+
+</main>
+<footer>정렬과 탐색 OOP 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ['오름차순: [1, 3, 5, 8, 9]\n내림차순: [9, 8, 5, 3, 1]',"['apple', 'banana', 'cherry', 'date']\n['date', 'cherry', 'banana', 'apple']",'2\n-1','최솟값: 17\n최댓값: 88',"['AI', 'Data', 'Python', 'Algorithm']\n가장 긴 단어: Algorithm","[{'이름': '이지은', '점수': 95}, {'이름': '김민수', '점수': 88}, {'이름': '박서준', '점수': 76}]\n1등: {'이름': '이지은', '점수': 95}",'4\n-1',"[{'상품': '마우스', '가격': 25000}, {'상품': '키보드', '가격': 70000}, {'상품': '노트북', '가격': 1200000}]\n최저가 상품: {'상품': '마우스', '가격': 25000}","[{'제목': '파이썬 알고리즘', '연도': 2021}, {'제목': '알고리즘 심화', '연도': 2023}]\n[{'제목': '자료구조 입문', '연도': 2019}, {'제목': '파이썬 알고리즘', '연도': 2021}, {'제목': '알고리즘 심화', '연도': 2023}]",'[1, 2, 3, 4, 5]\n고유값 개수: 5',"[{'주문번호': 'C03', '긴급도': 1, '거리': 3}, {'주문번호': 'B02', '긴급도': 1, '거리': 8}, {'주문번호': 'A01', '긴급도': 2, '거리': 5}]\n다음 배송: {'주문번호': 'C03', '긴급도': 1, '거리': 3}","[{'이름': '환자C', '위급도': 5, '도착순서': 1}, {'이름': '환자B', '위급도': 5, '도착순서': 2}, {'이름': '환자A', '위급도': 3, '도착순서': 1}]\n다음 진료: {'이름': '환자C', '위급도': 5, '도착순서': 1}","[{'제목': '알고리즘 심화', '내용': '이진 탐색과 정렬', '점수': 95}, {'제목': '파이썬 기초', '내용': '정렬과 탐색 설명', '점수': 80}]","A등급: [{'이름': '김', '점수': 95, '등급': 'A'}, {'이름': '최', '점수': 91, '등급': 'A'}]\n점수순: [{'이름': '김', '점수': 95, '등급': 'A'}, {'이름': '최', '점수': 91, '등급': 'A'}, {'이름': '이', '점수': 84, '등급': 'B'}, {'이름': '박', '점수': 76, '등급': 'C'}]","오류 로그: [{'시간': '09:15', '상태': 'ERROR', '메시지': 'file missing'}, {'시간': '09:20', '상태': 'ERROR', '메시지': 'timeout'}]\n시간순: [{'시간': '09:10', '상태': 'OK', '메시지': 'start'}, {'시간': '09:12', '상태': 'OK', '메시지': 'load'}, {'시간': '09:15', '상태': 'ERROR', '메시지': 'file missing'}, {'시간': '09:20', '상태': 'ERROR', '메시지': 'timeout'}]\n최근 오류: {'시간': '09:20', '상태': 'ERROR', '메시지': 'timeout'}"];
+const titles = ['숫자 리스트 오름차순·내림차순 정렬','문자열 알파벳순 정렬','순차 탐색으로 값 찾기','최댓값과 최솟값 찾기','문자열 길이 기준 정렬','학생 점수 기준 순위 정렬','이진 탐색으로 빠르게 찾기','상품 가격 정렬과 최저가 탐색','키워드 포함 도서 검색','중복 제거 후 정렬','택배 배송 우선순위 정렬','병원 환자 대기열 정렬','검색 엔진 결과 정렬','성적 데이터에서 등급별 탐색과 정렬','로그 데이터 오류 탐색과 시간 정렬'];
+
+function pad(n){return String(n).padStart(2,'0');}
+function nowString(){
+  const d=new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"")
+          .split("\n")
+          .map(x=>x.trim())
+          .filter(x=>x.length>0)
+          .join("\n")
+          .replace(/\s+/g," ");
+}
+function lineScore(user, corr){
+  const u = user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c = corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same = 0;
+  for(let i=0;i<Math.max(u.length,c.length);i++) if((u[i]||"")===(c[i]||"")) same++;
+  return {same:same, total:c.length};
+}
+function grade(){
+  const sid=document.getElementById("studentId").value.trim();
+  const name=document.getElementById("studentName").value.trim();
+  if(!sid || !name){alert("학번과 이름을 입력하세요.");return;}
+  let score=0;
+  let detail=[];
+  const time=nowString();
+  detail.push("학번: "+sid);
+  detail.push("이름: "+name);
+  detail.push("평가명: 정렬과 탐색 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: "+time.replace("_"," "));
+  detail.push("----------------------------------------");
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user=document.getElementById("ans"+i).value.trim();
+    const corr=correctAnswers[i-1].trim();
+    const fb=document.getElementById("fb"+i);
+    const exact = normalize(user) === normalize(corr);
+    const ls = lineScore(user,corr);
+    let pts = exact ? 1 : 0;
+    score += pts;
+    fb.className = "feedback " + (exact ? "right" : (ls.same>0 ? "partial" : "wrong"));
+    fb.innerHTML = "<b>"+(exact?"정답 ✅":"확인 필요 ❌")+"</b><br>문항 점수: "+pts+" / 1점<br>줄 단위 일치: "+ls.same+" / "+ls.total+
+      "<br><details><summary>정답 출력 보기</summary><pre>"+escapeHtml(corr)+"</pre></details>";
+    detail.push(i+"번 "+titles[i-1]+" : "+(exact?"O":"X")+" / "+pts+"점");
+    detail.push("[학생 입력]");
+    detail.push(user || "미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+  const percent=Math.round(score/correctAnswers.length*100);
+  document.getElementById("scoreBox").innerHTML="<h2>채점 결과</h2><p><b>"+sid+" "+name+"</b> 학생의 점수: <b>"+score+" / "+correctAnswers.length+"점</b> ("+percent+"%)</p>";
+  detail.push("최종 득점: "+score+" / "+correctAnswers.length);
+  detail.push("백분율: "+percent+"%");
+  const filename=sid+"_"+name+"_정렬_"+score+"점_"+time+".txt";
+  const blob=new Blob([detail.join("\n")],{type:"text/plain;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.getElementById("downloadLink");
+  a.href=url; a.download=filename; a.style.display="inline-block"; a.textContent="결과 TXT 다운로드: "+filename;
+}
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function showAllAnswers(){
+  for(let i=1;i<=correctAnswers.length;i++) document.getElementById("ans"+i).value=correctAnswers[i-1];
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){document.getElementById("ans"+i).value="";document.getElementById("fb"+i).innerHTML="";document.getElementById("fb"+i).className="";}
+  document.getElementById("scoreBox").innerHTML="";
+  const a=document.getElementById("downloadLink"); a.style.display="none"; a.href="#";
+}
+</script>
+
+</body>
+</html>
