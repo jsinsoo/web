@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고급 물리학 OOP 출력 결과 서술형 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#fdf2f8 45%,#ecfdf5);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px;box-shadow:0 16px 38px rgba(30,64,175,.25)}
+h1{font-size:46px;margin:0 0 10px;letter-spacing:-1px}.subtitle{font-size:24px}
+main{max-width:1240px;margin:0 auto;padding:30px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.10)}
+h2{font-size:32px;color:#1d4ed8;margin:10px 0 18px}h3{font-size:24px;color:#7c3aed}
+.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.6;border:4px solid #93c5fd}
+textarea{width:100%;min-height:145px;font-size:18px;line-height:1.5;padding:14px;border:2px solid #dbeafe;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Courier New','Malgun Gothic',monospace;background:#fbfdff}
+input{font-size:20px;padding:10px;border:2px solid #dbeafe;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}
+button:hover{background:#1d4ed8}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}
+.right{background:#ecfdf5;border-left:8px solid #10b981}
+.wrong{background:#fff1f2;border-left:8px solid #e11d48}
+.partial{background:#fff7ed;border-left:8px solid #f97316}
+.rubric{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:white;border-radius:18px;overflow:hidden}
+td,th{border:1px solid #bfdbfe;padding:10px;vertical-align:top}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+.small{font-size:17px;color:#475569}
+</style>
+</head>
+<body>
+<header>
+<h1>🚀 고급 물리학 OOP 출력 결과 서술형 수행평가</h1>
+<div class="subtitle">10개 코드를 읽고 실행 결과를 키보드로 직접 입력하기</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_물리학_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>10문항</td></tr>
+<tr><td>평가 방식</td><td>각 코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 10점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_물리학_득점_응시시각.txt</td></tr>
+</table>
+<div class="rubric">
+<b>채점 기준 예시</b>
+<ul>
+<li>출력 결과가 정확하고 줄바꿈이 일치함: 만점</li>
+<li>핵심 값은 맞지만 공백, 소수 표현, 지수 표기 일부 차이: 부분 점수 검토</li>
+<li>실행 흐름 이해가 부족하거나 출력값 대부분 오류: 보완 필요</li>
+</ul>
+<p class="small">※ 물리 계산은 부동소수점과 지수 표기 결과가 실행 환경에 따라 마지막 자리에서 조금 달라질 수 있어 자동 점검은 참고용으로 활용하세요.</p>
+</div>
+</section>
+
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>1. 뉴턴 역학 입자 시뮬레이션 🏀</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Particle:
+    def __init__(self, mass, position, velocity):
+        self.mass = mass
+        self.position = position
+        self.velocity = velocity
+
+    def acceleration(self, force):
+        return force / self.mass
+
+    def update(self, force, dt):
+        a = self.acceleration(force)
+        self.velocity += a * dt
+        self.position += self.velocity * dt
+
+p = Particle(mass=2.0, position=0.0, velocity=0.0)
+
+for t in range(5):
+    p.update(force=10.0, dt=1.0)
+    print(t + 1, &quot;초 후 위치:&quot;, p.position, &quot;속도:&quot;, p.velocity)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>2. 중력장 속 포물선 운동 시뮬레이션 🎯</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Projectile:
+    def __init__(self, x, y, vx, vy, g=9.8):
+        self.x = x
+        self.y = y
+        self.vx = vx
+        self.vy = vy
+        self.g = g
+
+    def step(self, dt):
+        self.vy -= self.g * dt
+        self.x += self.vx * dt
+        self.y += self.vy * dt
+
+    def state(self):
+        return (round(self.x, 2), round(self.y, 2), round(self.vy, 2))
+
+ball = Projectile(x=0, y=0, vx=10, vy=30)
+
+for i in range(6):
+    ball.step(0.5)
+    print(&quot;상태:&quot;, ball.state())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>3. 단진동자: 질량-스프링 시스템 🌀</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SpringMass:
+    def __init__(self, mass, k, x, v):
+        self.mass = mass
+        self.k = k
+        self.x = x
+        self.v = v
+
+    def force(self):
+        return -self.k * self.x
+
+    def energy(self):
+        kinetic = 0.5 * self.mass * self.v ** 2
+        potential = 0.5 * self.k * self.x ** 2
+        return kinetic + potential
+
+    def step(self, dt):
+        a = self.force() / self.mass
+        self.v += a * dt
+        self.x += self.v * dt
+
+osc = SpringMass(mass=1.0, k=4.0, x=1.0, v=0.0)
+
+for i in range(10):
+    osc.step(0.1)
+    print(i, &quot;위치:&quot;, round(osc.x, 3), &quot;에너지:&quot;, round(osc.energy(), 3))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>4. 전기장과 전하 입자 운동 ⚡</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class ChargedParticle:
+    def __init__(self, charge, mass, x, v):
+        self.charge = charge
+        self.mass = mass
+        self.x = x
+        self.v = v
+
+    def electric_force(self, electric_field):
+        return self.charge * electric_field
+
+    def step(self, electric_field, dt):
+        force = self.electric_force(electric_field)
+        a = force / self.mass
+        self.v += a * dt
+        self.x += self.v * dt
+
+electron_like = ChargedParticle(charge=-1.0, mass=1.0, x=0.0, v=0.0)
+
+for i in range(5):
+    electron_like.step(electric_field=2.0, dt=0.1)
+    print(&quot;위치:&quot;, round(electron_like.x, 3), &quot;속도:&quot;, round(electron_like.v, 3))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>5. 쿨롱 힘을 받는 두 전하 시스템 🧲</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Charge:
+    K = 8.99e9
+
+    def __init__(self, q, x):
+        self.q = q
+        self.x = x
+
+    def force_from(self, other):
+        r = self.x - other.x
+        direction = 1 if r &gt; 0 else -1
+        distance = abs(r)
+        return Charge.K * self.q * other.q / distance**2 * direction
+
+q1 = Charge(1e-6, 0.0)
+q2 = Charge(-2e-6, 0.5)
+
+print(&quot;q1이 받는 힘:&quot;, q1.force_from(q2), &quot;N&quot;)
+print(&quot;q2가 받는 힘:&quot;, q2.force_from(q1), &quot;N&quot;)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>6. 행성의 원운동과 중력 퍼텐셜 🌍</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Planet:
+    G = 6.674e-11
+
+    def __init__(self, name, mass, orbit_radius):
+        self.name = name
+        self.mass = mass
+        self.orbit_radius = orbit_radius
+
+    def orbital_speed(self, central_mass):
+        return (Planet.G * central_mass / self.orbit_radius) ** 0.5
+
+    def potential_energy(self, central_mass):
+        return -Planet.G * central_mass * self.mass / self.orbit_radius
+
+earth = Planet(&quot;Earth&quot;, 5.97e24, 1.496e11)
+sun_mass = 1.989e30
+
+print(&quot;공전 속도:&quot;, earth.orbital_speed(sun_mass), &quot;m/s&quot;)
+print(&quot;중력 퍼텐셜 에너지:&quot;, earth.potential_energy(sun_mass), &quot;J&quot;)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>7. 상대론적 입자의 에너지 ⚛️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class RelativisticParticle:
+    C = 299_792_458
+
+    def __init__(self, rest_mass, speed):
+        self.rest_mass = rest_mass
+        self.speed = speed
+
+    def gamma(self):
+        beta2 = (self.speed / RelativisticParticle.C) ** 2
+        return 1 / (1 - beta2) ** 0.5
+
+    def total_energy(self):
+        return self.gamma() * self.rest_mass * RelativisticParticle.C ** 2
+
+    def kinetic_energy(self):
+        rest_energy = self.rest_mass * RelativisticParticle.C ** 2
+        return self.total_energy() - rest_energy
+
+p = RelativisticParticle(rest_mass=9.11e-31, speed=2.0e8)
+
+print(&quot;감마:&quot;, p.gamma())
+print(&quot;총에너지:&quot;, p.total_energy())
+print(&quot;운동에너지:&quot;, p.kinetic_energy())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>8. 이상기체 상태 방정식 🌡️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class IdealGas:
+    R = 8.314
+
+    def __init__(self, n, temperature, volume):
+        self.n = n
+        self.temperature = temperature
+        self.volume = volume
+
+    def pressure(self):
+        return self.n * IdealGas.R * self.temperature / self.volume
+
+    def change_temperature(self, new_temperature):
+        self.temperature = new_temperature
+
+gas = IdealGas(n=1.0, temperature=300, volume=0.024)
+
+print(&quot;압력:&quot;, gas.pressure(), &quot;Pa&quot;)
+gas.change_temperature(600)
+print(&quot;온도 상승 후 압력:&quot;, gas.pressure(), &quot;Pa&quot;)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>9. 파동의 중첩과 간섭 🌊</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class Wave:
+    def __init__(self, amplitude, k, omega, phase=0):
+        self.amplitude = amplitude
+        self.k = k
+        self.omega = omega
+        self.phase = phase
+
+    def displacement(self, x, t):
+        return self.amplitude * math.sin(self.k * x - self.omega * t + self.phase)
+
+class WaveSystem:
+    def __init__(self, waves):
+        self.waves = waves
+
+    def total_displacement(self, x, t):
+        return sum(w.displacement(x, t) for w in self.waves)
+
+w1 = Wave(1.0, 2.0, 3.0, 0)
+w2 = Wave(1.0, 2.0, 3.0, math.pi)
+
+system = WaveSystem([w1, w2])
+
+for x in [0, 0.5, 1.0]:
+    print(x, system.total_displacement(x, t=0))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">고급 물리학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>10. 양자역학 1차원 무한 퍼텐셜 우물 입자 🧬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class InfiniteWellParticle:
+    H = 6.626e-34
+
+    def __init__(self, mass, length):
+        self.mass = mass
+        self.length = length
+
+    def energy_level(self, n):
+        return n**2 * InfiniteWellParticle.H**2 / (8 * self.mass * self.length**2)
+
+    def transition_energy(self, n1, n2):
+        return abs(self.energy_level(n2) - self.energy_level(n1))
+
+electron = InfiniteWellParticle(mass=9.11e-31, length=1e-9)
+
+for n in range(1, 4):
+    print(n, &quot;번째 에너지 준위:&quot;, electron.energy_level(n))
+
+print(&quot;1→2 전이 에너지:&quot;, electron.transition_energy(1, 2))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+</main>
+<footer>🚀 고급 물리학 OOP 코드 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ["1 초 후 위치: 5.0 속도: 5.0\n2 초 후 위치: 15.0 속도: 10.0\n3 초 후 위치: 30.0 속도: 15.0\n4 초 후 위치: 50.0 속도: 20.0\n5 초 후 위치: 75.0 속도: 25.0", "상태: (5.0, 12.55, 25.1)\n상태: (10.0, 22.65, 20.2)\n상태: (15.0, 30.3, 15.3)\n상태: (20.0, 35.5, 10.4)\n상태: (25.0, 38.25, 5.5)\n상태: (30.0, 38.55, 0.6)", "0 위치: 0.96 에너지: 1.923\n1 위치: 0.882 에너지: 1.862\n2 위치: 0.768 에너지: 1.825\n3 위치: 0.624 에너지: 1.82\n4 위치: 0.454 에너지: 1.846\n5 위치: 0.267 에너지: 1.9\n6 위치: 0.069 에너지: 1.973\n7 위치: -0.132 에너지: 2.053\n8 위치: -0.328 에너지: 2.128\n9 위치: -0.51 에너지: 2.186", "위치: -0.02 속도: -0.2\n위치: -0.06 속도: -0.4\n위치: -0.12 속도: -0.6\n위치: -0.2 속도: -0.8\n위치: -0.3 속도: -1.0", "q1이 받는 힘: 0.07192 N\nq2가 받는 힘: -0.07192 N", "공전 속도: 29788.22982930735 m/s\n중력 퍼텐셜 에너지: -5.297411659090909e+33 J", "감마: 1.3423847008414211\n총에너지: 1.0990989087835922e-13\n운동에너지: 2.8033294095435138e-14", "압력: 103924.99999999999 Pa\n온도 상승 후 압력: 207849.99999999997 Pa", "0 1.2246467991473532e-16\n0.5 1.1102230246251565e-16\n1.0 0.0", "1 번째 에너지 준위: 6.02413227222832e-20\n2 번째 에너지 준위: 2.409652908891328e-19\n3 번째 에너지 준위: 5.421719045005489e-19\n1→2 전이 에너지: 1.8072396816684963e-19"];
+const titles = ["뉴턴 역학 입자 시뮬레이션 🏀", "중력장 속 포물선 운동 시뮬레이션 🎯", "단진동자: 질량-스프링 시스템 🌀", "전기장과 전하 입자 운동 ⚡", "쿨롱 힘을 받는 두 전하 시스템 🧲", "행성의 원운동과 중력 퍼텐셜 🌍", "상대론적 입자의 에너지 ⚛️", "이상기체 상태 방정식 🌡️", "파동의 중첩과 간섭 🌊", "양자역학 1차원 무한 퍼텐셜 우물 입자 🧬"];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"")
+          .split("\n")
+          .map(x=>x.trim().replace(/\s+/g," "))
+          .filter(x=>x.length>0)
+          .join("\n")
+          .trim();
+}
+function lineScore(user, corr){
+  const u = user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c = corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same = 0;
+  for(let i=0;i<Math.max(u.length,c.length);i++){
+    if((u[i]||"") === (c[i]||"")) same++;
+  }
+  return {same:same,total:c.length};
+}
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+
+  let score = 0;
+  let detail = [];
+  const time = nowString();
+
+  detail.push("학번: " + sid);
+  detail.push("이름: " + name);
+  detail.push("평가명: 고급 물리학 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: " + time.replace("_"," "));
+  detail.push("----------------------------------------");
+
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user = document.getElementById("ans"+i).value.trim();
+    const corr = correctAnswers[i-1].trim();
+    const exact = normalize(user) === normalize(corr);
+    const ls = lineScore(user, corr);
+    const pts = exact ? 1 : 0;
+    if(exact) score += 1;
+
+    const fb = document.getElementById("fb"+i);
+    fb.className = "feedback " + (exact ? "right" : (ls.same > 0 ? "partial" : "wrong"));
+    fb.innerHTML = "<b>" + (exact ? "정답 ✅" : "확인 필요 ❌") + "</b><br>문항 점수: " + pts + " / 1점" +
+      "<br>줄 단위 일치: " + ls.same + " / " + ls.total +
+      "<br><details><summary>정답 출력 보기</summary><pre>" + escapeHtml(corr) + "</pre></details>";
+
+    detail.push(i + "번 " + titles[i-1] + " : " + (exact ? "O" : "X") + " / " + pts + "점");
+    detail.push("[학생 입력]");
+    detail.push(user || "미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+
+  const percent = Math.round(score / correctAnswers.length * 100);
+  document.getElementById("scoreBox").innerHTML =
+    "<h2>채점 결과</h2><p><b>" + sid + " " + name + "</b> 학생의 점수: <b>" +
+    score + " / " + correctAnswers.length + "점</b> (" + percent + "%)</p>";
+
+  detail.push("최종 득점: " + score + " / " + correctAnswers.length);
+  detail.push("백분율: " + percent + "%");
+
+  const filename = sid + "_" + name + "_물리학_" + score + "점_" + time + ".txt";
+  const blob = new Blob([detail.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){
+    document.getElementById("ans"+i).value = "";
+    document.getElementById("fb"+i).innerHTML = "";
+    document.getElementById("fb"+i).className = "";
+  }
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none";
+  a.href = "#";
+}
+</script>
+
+</body>
+</html>

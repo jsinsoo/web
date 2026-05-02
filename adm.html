@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고급 수학 OOP 출력 결과 서술형 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#f5f3ff 45%,#fff7ed);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px;box-shadow:0 16px 38px rgba(37,99,235,.25)}
+h1{font-size:46px;margin:0 0 10px;letter-spacing:-1px}.subtitle{font-size:24px}
+main{max-width:1240px;margin:0 auto;padding:30px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.10)}
+h2{font-size:32px;color:#1d4ed8;margin:10px 0 18px}h3{font-size:24px;color:#7c3aed}
+.meta{display:inline-block;background:#eef2ff;color:#1e3a8a;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.6;border:4px solid #93c5fd}
+textarea{width:100%;min-height:145px;font-size:18px;line-height:1.5;padding:14px;border:2px solid #dbeafe;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Courier New','Malgun Gothic',monospace;background:#fbfdff}
+input{font-size:20px;padding:10px;border:2px solid #dbeafe;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}
+button:hover{background:#1d4ed8}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}
+.right{background:#ecfdf5;border-left:8px solid #10b981}
+.wrong{background:#fff1f2;border-left:8px solid #e11d48}
+.partial{background:#fff7ed;border-left:8px solid #f97316}
+.result{background:#ecfdf5;border-left:8px solid #10b981;border-radius:18px;padding:18px;margin:20px 0}
+.rubric{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:white;border-radius:18px;overflow:hidden}
+td,th{border:1px solid #bfdbfe;padding:10px;vertical-align:top}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+.small{font-size:17px;color:#475569}
+</style>
+</head>
+<body>
+<header>
+<h1>📐 고급 수학 OOP 출력 결과 서술형 수행평가</h1>
+<div class="subtitle">10개 코드를 읽고 실행 결과를 키보드로 직접 입력하기</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_고급수학_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>10문항</td></tr>
+<tr><td>평가 방식</td><td>각 코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 10점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_고급수학_득점_응시시각.txt</td></tr>
+</table>
+<div class="rubric">
+<b>채점 기준 예시</b>
+<ul>
+<li>출력 결과가 정확하고 줄바꿈이 일치함: 만점</li>
+<li>핵심 값은 맞지만 공백, 소수 표현, 리스트 괄호 일부 오류: 부분 점수 검토</li>
+<li>실행 흐름 이해가 부족하거나 출력값 대부분 오류: 보완 필요</li>
+</ul>
+<p class="small">※ 수치미분, 수치적분, 뉴턴 방법처럼 부동소수점 계산이 포함된 문항은 실행 환경에 따라 마지막 자리 숫자가 조금 달라질 수 있어 자동 점검은 참고용으로 활용하세요.</p>
+</div>
+</section>
+
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>1. 다항식 클래스: 값 계산과 미분 📈</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Polynomial:
+    def __init__(self, coefficients):
+        self.coefficients = coefficients
+
+    def value(self, x):
+        total = 0
+        for power, coef in enumerate(self.coefficients):
+            total += coef * (x ** power)
+        return total
+
+    def derivative(self):
+        new_coefficients = []
+        for power, coef in enumerate(self.coefficients[1:], start=1):
+            new_coefficients.append(power * coef)
+        return Polynomial(new_coefficients)
+
+    def __str__(self):
+        terms = []
+        for power, coef in enumerate(self.coefficients):
+            terms.append(f&quot;{coef}x^{power}&quot;)
+        return &quot; + &quot;.join(terms)
+
+p = Polynomial([2, -3, 1])   # 2 - 3x + x^2
+dp = p.derivative()
+
+print(&quot;p(x) =&quot;, p)
+print(&quot;p(5) =&quot;, p.value(5))
+print(&quot;p&#x27;(x) =&quot;, dp)
+print(&quot;p&#x27;(5) =&quot;, dp.value(5))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>2. 수치미분 클래스: 순간변화율 근사 🔍</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class NumericalDerivative:
+    def __init__(self, function, h=1e-5):
+        self.function = function
+        self.h = h
+
+    def derivative_at(self, x):
+        f = self.function
+        h = self.h
+        return (f(x + h) - f(x - h)) / (2 * h)
+
+    def tangent_line(self, x):
+        slope = self.derivative_at(x)
+        y = self.function(x)
+        return slope, y - slope * x
+
+def f(x):
+    return x**3 - 2*x + 1
+
+D = NumericalDerivative(f)
+
+print(&quot;f&#x27;(2) 근사:&quot;, D.derivative_at(2))
+m, b = D.tangent_line(2)
+print(&quot;접선: y =&quot;, m, &quot;x +&quot;, b)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>3. 수치적분 클래스: 사다리꼴 공식 📊</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class NumericalIntegral:
+    def __init__(self, function, a, b, n=1000):
+        self.function = function
+        self.a = a
+        self.b = b
+        self.n = n
+
+    def trapezoid(self):
+        dx = (self.b - self.a) / self.n
+        total = 0
+
+        for i in range(self.n):
+            x1 = self.a + i * dx
+            x2 = x1 + dx
+            total += (self.function(x1) + self.function(x2)) * dx / 2
+
+        return total
+
+def f(x):
+    return x**2
+
+I = NumericalIntegral(f, 0, 1, n=10000)
+
+print(&quot;적분 근사값:&quot;, I.trapezoid())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>4. 벡터 클래스: 크기, 내적, 코사인 유사도 🧭</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Vector:
+    def __init__(self, components):
+        self.components = components
+
+    def dot(self, other):
+        return sum(a * b for a, b in zip(self.components, other.components))
+
+    def magnitude(self):
+        return sum(x**2 for x in self.components) ** 0.5
+
+    def cosine_similarity(self, other):
+        return self.dot(other) / (self.magnitude() * other.magnitude())
+
+    def add(self, other):
+        return Vector([a + b for a, b in zip(self.components, other.components)])
+
+v1 = Vector([1, 2, 3])
+v2 = Vector([4, 5, 6])
+
+print(&quot;내적:&quot;, v1.dot(v2))
+print(&quot;v1 크기:&quot;, v1.magnitude())
+print(&quot;코사인 유사도:&quot;, v1.cosine_similarity(v2))
+print(&quot;벡터합:&quot;, v1.add(v2).components)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>5. 행렬 클래스: 행렬곱과 전치 🔢</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Matrix:
+    def __init__(self, data):
+        self.data = data
+        self.rows = len(data)
+        self.cols = len(data[0])
+
+    def transpose(self):
+        result = []
+        for j in range(self.cols):
+            row = []
+            for i in range(self.rows):
+                row.append(self.data[i][j])
+            result.append(row)
+        return Matrix(result)
+
+    def multiply(self, other):
+        result = []
+        for i in range(self.rows):
+            row = []
+            for j in range(other.cols):
+                value = 0
+                for k in range(self.cols):
+                    value += self.data[i][k] * other.data[k][j]
+                row.append(value)
+            result.append(row)
+        return Matrix(result)
+
+A = Matrix([[1, 2], [3, 4]])
+B = Matrix([[5, 6], [7, 8]])
+
+print(&quot;A의 전치:&quot;, A.transpose().data)
+print(&quot;AB:&quot;, A.multiply(B).data)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>6. 2×2 선형변환 클래스: 회전과 스케일링 🔄</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class LinearTransform2D:
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    def apply(self, vector):
+        x, y = vector
+        a, b = self.matrix[0]
+        c, d = self.matrix[1]
+        return [a*x + b*y, c*x + d*y]
+
+    @staticmethod
+    def rotation(theta):
+        return LinearTransform2D([
+            [math.cos(theta), -math.sin(theta)],
+            [math.sin(theta),  math.cos(theta)]
+        ])
+
+    @staticmethod
+    def scaling(sx, sy):
+        return LinearTransform2D([
+            [sx, 0],
+            [0, sy]
+        ])
+
+point = [1, 0]
+R = LinearTransform2D.rotation(math.pi / 2)
+S = LinearTransform2D.scaling(3, 2)
+
+print(&quot;90도 회전:&quot;, R.apply(point))
+print(&quot;스케일링:&quot;, S.apply(point))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>7. 확률분포 클래스: 이산확률변수의 기댓값과 분산 🎲</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class DiscreteDistribution:
+    def __init__(self, outcomes):
+        # outcomes: {값: 확률}
+        self.outcomes = outcomes
+
+    def expected_value(self):
+        return sum(x * p for x, p in self.outcomes.items())
+
+    def variance(self):
+        mean = self.expected_value()
+        return sum((x - mean)**2 * p for x, p in self.outcomes.items())
+
+    def is_valid(self):
+        return abs(sum(self.outcomes.values()) - 1) &lt; 1e-9
+
+dice = DiscreteDistribution({
+    1: 1/6, 2: 1/6, 3: 1/6,
+    4: 1/6, 5: 1/6, 6: 1/6
+})
+
+print(&quot;확률분포가 올바른가?&quot;, dice.is_valid())
+print(&quot;기댓값:&quot;, dice.expected_value())
+print(&quot;분산:&quot;, dice.variance())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>8. 그래프 이론 클래스: BFS 최단거리 탐색 🕸️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>from collections import deque
+
+class Graph:
+    def __init__(self):
+        self.adj = {}
+
+    def add_edge(self, a, b):
+        self.adj.setdefault(a, []).append(b)
+        self.adj.setdefault(b, []).append(a)
+
+    def bfs_distance(self, start):
+        distance = {start: 0}
+        queue = deque([start])
+
+        while queue:
+            now = queue.popleft()
+            for nxt in self.adj.get(now, []):
+                if nxt not in distance:
+                    distance[nxt] = distance[now] + 1
+                    queue.append(nxt)
+
+        return distance
+
+g = Graph()
+g.add_edge(&quot;A&quot;, &quot;B&quot;)
+g.add_edge(&quot;A&quot;, &quot;C&quot;)
+g.add_edge(&quot;B&quot;, &quot;D&quot;)
+g.add_edge(&quot;C&quot;, &quot;E&quot;)
+
+print(g.bfs_distance(&quot;A&quot;))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>9. 뉴턴 방법 클래스: 방정식의 근 찾기 🎯</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class NewtonSolver:
+    def __init__(self, function, derivative):
+        self.f = function
+        self.df = derivative
+
+    def solve(self, x0, iterations=10):
+        x = x0
+        history = []
+
+        for _ in range(iterations):
+            x = x - self.f(x) / self.df(x)
+            history.append(x)
+
+        return x, history
+
+def f(x):
+    return x**2 - 2
+
+def df(x):
+    return 2*x
+
+solver = NewtonSolver(f, df)
+root, history = solver.solve(x0=1)
+
+print(&quot;근사근:&quot;, root)
+print(&quot;반복 과정:&quot;, history)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">고급 수학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>10. 미분방정식 오일러 방법 클래스 🌊</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class EulerSolver:
+    def __init__(self, derivative_function, t0, y0, h):
+        self.f = derivative_function
+        self.t = t0
+        self.y = y0
+        self.h = h
+
+    def step(self):
+        self.y = self.y + self.h * self.f(self.t, self.y)
+        self.t = self.t + self.h
+        return self.t, self.y
+
+    def solve(self, steps):
+        result = []
+        for _ in range(steps):
+            result.append(self.step())
+        return result
+
+def dydt(t, y):
+    return y
+
+solver = EulerSolver(dydt, t0=0, y0=1, h=0.1)
+
+for t, y in solver.solve(10):
+    print(round(t, 2), round(y, 4))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+</main>
+<footer>📐 고급 수학 OOP 코드 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ["p(x) = 2x^0 + -3x^1 + 1x^2\np(5) = 12\np'(x) = -3x^0 + 2x^1\np'(5) = 7", "f'(2) 근사: 10.000000000198739\n접선: y = 10.000000000198739 x + -15.000000000397478", "적분 근사값: 0.33333333500000084", "내적: 32\nv1 크기: 3.7416573867739413\n코사인 유사도: 0.9746318461970762\n벡터합: [5, 7, 9]", "A의 전치: [[1, 3], [2, 4]]\nAB: [[19, 22], [43, 50]]", "90도 회전: [6.123233995736766e-17, 1.0]\n스케일링: [3, 0]", "확률분포가 올바른가? True\n기댓값: 3.5\n분산: 2.9166666666666665", "{'A': 0, 'B': 1, 'C': 1, 'D': 2, 'E': 2}", "근사근: 1.414213562373095\n반복 과정: [1.5, 1.4166666666666667, 1.4142156862745099, 1.4142135623746899, 1.4142135623730951, 1.414213562373095, 1.4142135623730951, 1.414213562373095, 1.4142135623730951, 1.414213562373095]", "0.1 1.1\n0.2 1.21\n0.3 1.331\n0.4 1.4641\n0.5 1.6105\n0.6 1.7716\n0.7 1.9487\n0.8 2.1436\n0.9 2.3579\n1.0 2.5937"];
+const titles = ["다항식 클래스: 값 계산과 미분 📈", "수치미분 클래스: 순간변화율 근사 🔍", "수치적분 클래스: 사다리꼴 공식 📊", "벡터 클래스: 크기, 내적, 코사인 유사도 🧭", "행렬 클래스: 행렬곱과 전치 🔢", "2×2 선형변환 클래스: 회전과 스케일링 🔄", "확률분포 클래스: 이산확률변수의 기댓값과 분산 🎲", "그래프 이론 클래스: BFS 최단거리 탐색 🕸️", "뉴턴 방법 클래스: 방정식의 근 찾기 🎯", "미분방정식 오일러 방법 클래스 🌊"];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"")
+          .split("\n")
+          .map(x=>x.trim().replace(/\s+/g," "))
+          .filter(x=>x.length>0)
+          .join("\n")
+          .trim();
+}
+function lineScore(user, corr){
+  const u = user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c = corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same = 0;
+  for(let i=0;i<Math.max(u.length,c.length);i++){
+    if((u[i]||"") === (c[i]||"")) same++;
+  }
+  return {same:same,total:c.length};
+}
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+
+  let score = 0;
+  let detail = [];
+  const time = nowString();
+
+  detail.push("학번: " + sid);
+  detail.push("이름: " + name);
+  detail.push("평가명: 고급 수학 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: " + time.replace("_"," "));
+  detail.push("----------------------------------------");
+
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user = document.getElementById("ans"+i).value.trim();
+    const corr = correctAnswers[i-1].trim();
+    const exact = normalize(user) === normalize(corr);
+    const ls = lineScore(user, corr);
+    const pts = exact ? 1 : 0;
+    if(exact) score += 1;
+
+    const fb = document.getElementById("fb"+i);
+    fb.className = "feedback " + (exact ? "right" : (ls.same > 0 ? "partial" : "wrong"));
+    fb.innerHTML = "<b>" + (exact ? "정답 ✅" : "확인 필요 ❌") + "</b><br>문항 점수: " + pts + " / 1점" +
+      "<br>줄 단위 일치: " + ls.same + " / " + ls.total +
+      "<br><details><summary>정답 출력 보기</summary><pre>" + escapeHtml(corr) + "</pre></details>";
+
+    detail.push(i + "번 " + titles[i-1] + " : " + (exact ? "O" : "X") + " / " + pts + "점");
+    detail.push("[학생 입력]");
+    detail.push(user || "미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+
+  const percent = Math.round(score / correctAnswers.length * 100);
+  document.getElementById("scoreBox").innerHTML =
+    "<h2>채점 결과</h2><p><b>" + sid + " " + name + "</b> 학생의 점수: <b>" +
+    score + " / " + correctAnswers.length + "점</b> (" + percent + "%)</p>";
+
+  detail.push("최종 득점: " + score + " / " + correctAnswers.length);
+  detail.push("백분율: " + percent + "%");
+
+  const filename = sid + "_" + name + "_고급수학_" + score + "점_" + time + ".txt";
+  const blob = new Blob([detail.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){
+    document.getElementById("ans"+i).value = "";
+    document.getElementById("fb"+i).innerHTML = "";
+    document.getElementById("fb"+i).className = "";
+  }
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none";
+  a.href = "#";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고급 생명과학 OOP 출력 결과 서술형 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#ecfdf5,#eff6ff 45%,#fdf2f8);color:#132018;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#047857,#2563eb,#7c3aed);border-bottom-left-radius:44px;border-bottom-right-radius:44px;box-shadow:0 16px 38px rgba(5,150,105,.25)}
+h1{font-size:46px;margin:0 0 10px;letter-spacing:-1px}.subtitle{font-size:24px}
+main{max-width:1240px;margin:0 auto;padding:30px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #bbf7d0;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(5,150,105,.10)}
+h2{font-size:32px;color:#047857;margin:10px 0 18px}h3{font-size:24px;color:#7c3aed}
+.meta{display:inline-block;background:#dcfce7;color:#065f46;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#052e16;color:#dcfce7;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.6;border:4px solid #86efac}
+textarea{width:100%;min-height:145px;font-size:18px;line-height:1.5;padding:14px;border:2px solid #bbf7d0;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Courier New','Malgun Gothic',monospace;background:#fbfdff}
+input{font-size:20px;padding:10px;border:2px solid #bbf7d0;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#059669;color:white;cursor:pointer;margin:6px}
+button:hover{background:#047857}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}
+.right{background:#ecfdf5;border-left:8px solid #10b981}
+.wrong{background:#fff1f2;border-left:8px solid #e11d48}
+.partial{background:#fff7ed;border-left:8px solid #f97316}
+.rubric{background:#f8fafc;border-left:8px solid #34d399;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:white;border-radius:18px;overflow:hidden}
+td,th{border:1px solid #bbf7d0;padding:10px;vertical-align:top}th{background:#059669;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+.small{font-size:17px;color:#475569}
+</style>
+</head>
+<body>
+<header>
+<h1>🧬 고급 생명과학 OOP 출력 결과 서술형 수행평가</h1>
+<div class="subtitle">10개 코드를 읽고 실행 결과를 키보드로 직접 입력하기</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_생명과학_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#047857;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>10문항</td></tr>
+<tr><td>평가 방식</td><td>각 코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 10점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_생명과학_득점_응시시각.txt</td></tr>
+</table>
+<div class="rubric">
+<b>채점 기준 예시</b>
+<ul>
+<li>출력 결과가 정확하고 줄바꿈이 일치함: 만점</li>
+<li>핵심 값은 맞지만 공백, 소수 표현, 리스트 괄호 일부 차이: 부분 점수 검토</li>
+<li>실행 흐름 이해가 부족하거나 출력값 대부분 오류: 보완 필요</li>
+</ul>
+<p class="small">※ 생명과학 시뮬레이션 중 유전 알고리즘 문항은 random을 사용하므로 실행할 때마다 결과가 달라질 수 있습니다. 해당 문항은 코드 흐름 이해와 출력 형식을 함께 평가하세요.</p>
+</div>
+</section>
+
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>1. DNA 염기서열 분석 클래스 🧬</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class DNASequence:
+    def __init__(self, sequence):
+        self.sequence = sequence.upper()
+
+    def length(self):
+        return len(self.sequence)
+
+    def gc_content(self):
+        g = self.sequence.count(&quot;G&quot;)
+        c = self.sequence.count(&quot;C&quot;)
+        return (g + c) / self.length() * 100
+
+    def complement(self):
+        table = str.maketrans(&quot;ATGC&quot;, &quot;TACG&quot;)
+        return self.sequence.translate(table)
+
+dna = DNASequence(&quot;ATGCGCGTTA&quot;)
+
+print(&quot;길이:&quot;, dna.length())
+print(&quot;GC 함량:&quot;, round(dna.gc_content(), 2), &quot;%&quot;)
+print(&quot;상보 서열:&quot;, dna.complement())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>2. DNA 전사와 RNA 번역 모델 🧪</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Gene:
+    codon_table = {
+        &quot;AUG&quot;: &quot;Met&quot;, &quot;UUU&quot;: &quot;Phe&quot;, &quot;UUC&quot;: &quot;Phe&quot;,
+        &quot;GCU&quot;: &quot;Ala&quot;, &quot;GCC&quot;: &quot;Ala&quot;, &quot;UAA&quot;: &quot;Stop&quot;
+    }
+
+    def __init__(self, dna):
+        self.dna = dna.upper()
+
+    def transcribe(self):
+        return self.dna.replace(&quot;T&quot;, &quot;U&quot;)
+
+    def translate(self):
+        mrna = self.transcribe()
+        protein = []
+        for i in range(0, len(mrna) - 2, 3):
+            codon = mrna[i:i+3]
+            amino = Gene.codon_table.get(codon, &quot;?&quot;)
+            if amino == &quot;Stop&quot;:
+                break
+            protein.append(amino)
+        return protein
+
+gene = Gene(&quot;ATGGCTTTTTAA&quot;)
+
+print(&quot;mRNA:&quot;, gene.transcribe())
+print(&quot;아미노산:&quot;, gene.translate())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>3. 효소 반응 속도 모델 🧫</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Enzyme:
+    def __init__(self, name, vmax, km):
+        self.name = name
+        self.vmax = vmax
+        self.km = km
+
+    def reaction_rate(self, substrate):
+        return self.vmax * substrate / (self.km + substrate)
+
+    def report(self, substrate):
+        rate = self.reaction_rate(substrate)
+        return f&quot;{self.name}: 기질 농도 {substrate}, 반응 속도 {rate:.3f}&quot;
+
+amylase = Enzyme(&quot;Amylase&quot;, vmax=100, km=5)
+
+for s in [1, 5, 10, 50]:
+    print(amylase.report(s))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>4. 세포 성장과 분열 시뮬레이션 🦠</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class CellCulture:
+    def __init__(self, initial_cells, division_time):
+        self.cells = initial_cells
+        self.division_time = division_time
+        self.time = 0
+
+    def step(self, hours):
+        self.time += hours
+        divisions = int(self.time // self.division_time)
+        self.cells = self.cells * (2 ** divisions)
+        self.time = self.time % self.division_time
+
+    def count(self):
+        return self.cells
+
+culture = CellCulture(initial_cells=100, division_time=2)
+
+for hour in [1, 1, 2, 2]:
+    culture.step(hour)
+    print(&quot;현재 세포 수:&quot;, culture.count())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>5. 로지스틱 개체군 성장 모델 🐇</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Population:
+    def __init__(self, size, growth_rate, capacity):
+        self.size = size
+        self.r = growth_rate
+        self.k = capacity
+
+    def step(self, dt):
+        change = self.r * self.size * (1 - self.size / self.k) * dt
+        self.size += change
+
+    def report(self):
+        return round(self.size, 2)
+
+rabbit = Population(size=50, growth_rate=0.4, capacity=500)
+
+for t in range(10):
+    rabbit.step(dt=1)
+    print(t + 1, &quot;년 후 개체 수:&quot;, rabbit.report())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>6. 포식자-피식자 모델 🦊🐰</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class PredatorPrey:
+    def __init__(self, prey, predator, a, b, c, d):
+        self.prey = prey
+        self.predator = predator
+        self.a = a  # 피식자 자연 증가율
+        self.b = b  # 포식에 의한 피식자 감소율
+        self.c = c  # 포식자 자연 감소율
+        self.d = d  # 먹이 섭취에 의한 포식자 증가율
+
+    def step(self, dt):
+        prey_change = (self.a * self.prey - self.b * self.prey * self.predator) * dt
+        predator_change = (-self.c * self.predator + self.d * self.prey * self.predator) * dt
+        self.prey += prey_change
+        self.predator += predator_change
+
+    def state(self):
+        return round(self.prey, 2), round(self.predator, 2)
+
+system = PredatorPrey(prey=40, predator=9, a=0.8, b=0.02, c=0.6, d=0.01)
+
+for t in range(8):
+    system.step(0.1)
+    print(&quot;피식자, 포식자:&quot;, system.state())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>7. 뉴런의 단순 발화 모델 🧠</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Neuron:
+    def __init__(self, threshold):
+        self.threshold = threshold
+        self.potential = 0
+        self.fired = False
+
+    def receive(self, signal):
+        self.potential += signal
+        if self.potential &gt;= self.threshold:
+            self.fire()
+
+    def fire(self):
+        self.fired = True
+        print(&quot;⚡ 뉴런 발화!&quot;)
+        self.potential = 0
+
+neuron = Neuron(threshold=10)
+
+for signal in [2, 3, 4, 5, 1]:
+    neuron.receive(signal)
+    print(&quot;현재 막전위:&quot;, neuron.potential)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>8. 항원-항체 결합 모델 🛡️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Antigen:
+    def __init__(self, name, epitope):
+        self.name = name
+        self.epitope = epitope
+
+class Antibody:
+    def __init__(self, name, binding_site):
+        self.name = name
+        self.binding_site = binding_site
+
+    def binds_to(self, antigen):
+        return self.binding_site == antigen.epitope
+
+virus = Antigen(&quot;Virus-A&quot;, epitope=&quot;XYZ&quot;)
+antibody1 = Antibody(&quot;Ab-1&quot;, binding_site=&quot;XYZ&quot;)
+antibody2 = Antibody(&quot;Ab-2&quot;, binding_site=&quot;ABC&quot;)
+
+print(antibody1.name, &quot;결합:&quot;, antibody1.binds_to(virus))
+print(antibody2.name, &quot;결합:&quot;, antibody2.binds_to(virus))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>9. 유전 알고리즘으로 적응도 선택 🧬🤖</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import random
+
+class Organism:
+    def __init__(self, genes):
+        self.genes = genes
+
+    def fitness(self):
+        return sum(self.genes)
+
+    def mutate(self, rate=0.1):
+        self.genes = [
+            1 - g if random.random() &lt; rate else g
+            for g in self.genes
+        ]
+
+    def crossover(self, other):
+        point = len(self.genes) // 2
+        child_genes = self.genes[:point] + other.genes[point:]
+        return Organism(child_genes)
+
+parent1 = Organism([1, 0, 1, 1, 0, 1])
+parent2 = Organism([0, 1, 0, 1, 1, 0])
+
+child = parent1.crossover(parent2)
+child.mutate(rate=0.2)
+
+print(&quot;자식 유전자:&quot;, child.genes)
+print(&quot;적응도:&quot;, child.fitness())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">고급 생명과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>10. 감염병 확산 SIR 모델 🦠📈</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class SIRModel:
+    def __init__(self, susceptible, infected, recovered, beta, gamma):
+        self.s = susceptible
+        self.i = infected
+        self.r = recovered
+        self.beta = beta
+        self.gamma = gamma
+
+    def step(self, dt):
+        population = self.s + self.i + self.r
+        new_infected = self.beta * self.s * self.i / population * dt
+        new_recovered = self.gamma * self.i * dt
+
+        self.s -= new_infected
+        self.i += new_infected - new_recovered
+        self.r += new_recovered
+
+    def state(self):
+        return round(self.s, 1), round(self.i, 1), round(self.r, 1)
+
+model = SIRModel(susceptible=990, infected=10, recovered=0, beta=0.3, gamma=0.1)
+
+for day in range(10):
+    model.step(dt=1)
+    print(day + 1, &quot;일:&quot;, model.state())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+</main>
+<footer>🧬 고급 생명과학 OOP 코드 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ["길이: 10\nGC 함량: 50.0 %\n상보 서열: TACGCGCAAT", "mRNA: AUGGCUUUUUAA\n아미노산: ['Met', 'Ala', 'Phe']", "Amylase: 기질 농도 1, 반응 속도 16.667\nAmylase: 기질 농도 5, 반응 속도 50.000\nAmylase: 기질 농도 10, 반응 속도 66.667\nAmylase: 기질 농도 50, 반응 속도 90.909", "현재 세포 수: 100\n현재 세포 수: 200\n현재 세포 수: 400\n현재 세포 수: 800", "1 년 후 개체 수: 68.0\n2 년 후 개체 수: 91.5\n3 년 후 개체 수: 121.4\n4 년 후 개체 수: 158.17\n5 년 후 개체 수: 201.43\n6 년 후 개체 수: 249.54\n7 년 후 개체 수: 299.54\n8 년 후 개체 수: 347.58\n9 년 후 개체 수: 389.96\n10 년 후 개체 수: 424.29", "피식자, 포식자: (42.48, 8.82)\n피식자, 포식자: (45.13, 8.67)\n피식자, 포식자: (47.96, 8.54)\n피식자, 포식자: (50.98, 8.43)\n피식자, 포식자: (54.19, 8.36)\n피식자, 포식자: (57.62, 8.31)\n피식자, 포식자: (61.28, 8.29)\n피식자, 포식자: (65.16, 8.3)", "현재 막전위: 2\n현재 막전위: 5\n현재 막전위: 9\n⚡ 뉴런 발화!\n현재 막전위: 0\n현재 막전위: 1", "Ab-1 결합: True\nAb-2 결합: False", "자식 유전자: [1, 0, 1, 0, 1, 0]\n적응도: 3", "1 일: (987.0, 12.0, 1.0)\n2 일: (983.5, 14.3, 2.2)\n3 일: (979.3, 17.1, 3.6)\n4 일: (974.2, 20.4, 5.3)\n5 일: (968.3, 24.4, 7.4)\n6 일: (961.2, 29.0, 9.8)\n7 일: (952.8, 34.5, 12.7)\n8 일: (943.0, 40.9, 16.2)\n9 일: (931.4, 48.3, 20.2)\n10 일: (917.9, 57.0, 25.1)"];
+const titles = ["DNA 염기서열 분석 클래스 🧬", "DNA 전사와 RNA 번역 모델 🧪", "효소 반응 속도 모델 🧫", "세포 성장과 분열 시뮬레이션 🦠", "로지스틱 개체군 성장 모델 🐇", "포식자-피식자 모델 🦊🐰", "뉴런의 단순 발화 모델 🧠", "항원-항체 결합 모델 🛡️", "유전 알고리즘으로 적응도 선택 🧬🤖", "감염병 확산 SIR 모델 🦠📈"];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"")
+          .split("\n")
+          .map(x=>x.trim().replace(/\s+/g," "))
+          .filter(x=>x.length>0)
+          .join("\n")
+          .trim();
+}
+function lineScore(user, corr){
+  const u = user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c = corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same = 0;
+  for(let i=0;i<Math.max(u.length,c.length);i++){
+    if((u[i]||"") === (c[i]||"")) same++;
+  }
+  return {same:same,total:c.length};
+}
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+
+  let score = 0;
+  let detail = [];
+  const time = nowString();
+
+  detail.push("학번: " + sid);
+  detail.push("이름: " + name);
+  detail.push("평가명: 고급 생명과학 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: " + time.replace("_"," "));
+  detail.push("----------------------------------------");
+
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user = document.getElementById("ans"+i).value.trim();
+    const corr = correctAnswers[i-1].trim();
+    const exact = normalize(user) === normalize(corr);
+    const ls = lineScore(user, corr);
+    const pts = exact ? 1 : 0;
+    if(exact) score += 1;
+
+    const fb = document.getElementById("fb"+i);
+    fb.className = "feedback " + (exact ? "right" : (ls.same > 0 ? "partial" : "wrong"));
+    fb.innerHTML = "<b>" + (exact ? "정답 ✅" : "확인 필요 ❌") + "</b><br>문항 점수: " + pts + " / 1점" +
+      "<br>줄 단위 일치: " + ls.same + " / " + ls.total +
+      "<br><details><summary>정답 출력 보기</summary><pre>" + escapeHtml(corr) + "</pre></details>";
+
+    detail.push(i + "번 " + titles[i-1] + " : " + (exact ? "O" : "X") + " / " + pts + "점");
+    detail.push("[학생 입력]");
+    detail.push(user || "미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+
+  const percent = Math.round(score / correctAnswers.length * 100);
+  document.getElementById("scoreBox").innerHTML =
+    "<h2>채점 결과</h2><p><b>" + sid + " " + name + "</b> 학생의 점수: <b>" +
+    score + " / " + correctAnswers.length + "점</b> (" + percent + "%)</p>";
+
+  detail.push("최종 득점: " + score + " / " + correctAnswers.length);
+  detail.push("백분율: " + percent + "%");
+
+  const filename = sid + "_" + name + "_생명과학_" + score + "점_" + time + ".txt";
+  const blob = new Blob([detail.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){
+    document.getElementById("ans"+i).value = "";
+    document.getElementById("fb"+i).innerHTML = "";
+    document.getElementById("fb"+i).className = "";
+  }
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none";
+  a.href = "#";
+}
+</script>
+
+</body>
+</html>

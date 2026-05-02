@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고급 화학 OOP 출력 결과 서술형 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#f5f3ff,#ecfeff 45%,#fff7ed);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#6d28d9,#2563eb,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px;box-shadow:0 16px 38px rgba(124,58,237,.25)}
+h1{font-size:46px;margin:0 0 10px;letter-spacing:-1px}.subtitle{font-size:24px}
+main{max-width:1240px;margin:0 auto;padding:30px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #ddd6fe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(124,58,237,.10)}
+h2{font-size:32px;color:#6d28d9;margin:10px 0 18px}h3{font-size:24px;color:#2563eb}
+.meta{display:inline-block;background:#f5f3ff;color:#5b21b6;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#1e1b4b;color:#ede9fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.6;border:4px solid #c4b5fd}
+textarea{width:100%;min-height:145px;font-size:18px;line-height:1.5;padding:14px;border:2px solid #ddd6fe;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Courier New','Malgun Gothic',monospace;background:#fbfdff}
+input{font-size:20px;padding:10px;border:2px solid #ddd6fe;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#7c3aed;color:white;cursor:pointer;margin:6px}
+button:hover{background:#6d28d9}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}
+.right{background:#ecfdf5;border-left:8px solid #10b981}
+.wrong{background:#fff1f2;border-left:8px solid #e11d48}
+.partial{background:#fff7ed;border-left:8px solid #f97316}
+.rubric{background:#f8fafc;border-left:8px solid #a78bfa;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:white;border-radius:18px;overflow:hidden}
+td,th{border:1px solid #ddd6fe;padding:10px;vertical-align:top}th{background:#7c3aed;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+.small{font-size:17px;color:#475569}
+</style>
+</head>
+<body>
+<header>
+<h1>⚗️ 고급 화학 OOP 출력 결과 서술형 수행평가</h1>
+<div class="subtitle">10개 코드를 읽고 실행 결과를 키보드로 직접 입력하기</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_고급화학_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#6d28d9;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>10문항</td></tr>
+<tr><td>평가 방식</td><td>각 코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 10점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_고급화학_득점_응시시각.txt</td></tr>
+</table>
+<div class="rubric">
+<b>채점 기준 예시</b>
+<ul>
+<li>출력 결과가 정확하고 줄바꿈이 일치함: 만점</li>
+<li>핵심 값은 맞지만 공백, 소수 표현, 지수 표기 일부 차이: 부분 점수 검토</li>
+<li>실행 흐름 이해가 부족하거나 출력값 대부분 오류: 보완 필요</li>
+</ul>
+<p class="small">※ 화학 계산은 부동소수점과 지수 표기 결과가 실행 환경에 따라 마지막 자리에서 조금 달라질 수 있어 자동 점검은 참고용으로 활용하세요.</p>
+</div>
+</section>
+
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>1. 원자와 분자량 계산 클래스 ⚛️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Molecule:
+    atomic_mass = {
+        &quot;H&quot;: 1.008, &quot;C&quot;: 12.011, &quot;N&quot;: 14.007,
+        &quot;O&quot;: 15.999, &quot;Na&quot;: 22.990, &quot;Cl&quot;: 35.45,
+        &quot;S&quot;: 32.06, &quot;K&quot;: 39.098
+    }
+
+    def __init__(self, formula_dict):
+        self.formula = formula_dict
+
+    def molar_mass(self):
+        total = 0
+        for element, count in self.formula.items():
+            total += Molecule.atomic_mass[element] * count
+        return total
+
+    def formula_string(self):
+        return &quot;&quot;.join(
+            element + (str(count) if count &gt; 1 else &quot;&quot;)
+            for element, count in self.formula.items()
+        )
+
+water = Molecule({&quot;H&quot;: 2, &quot;O&quot;: 1})
+glucose = Molecule({&quot;C&quot;: 6, &quot;H&quot;: 12, &quot;O&quot;: 6})
+
+print(water.formula_string(), water.molar_mass())
+print(glucose.formula_string(), glucose.molar_mass())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>2. 몰수·질량·입자 수 변환 🧮</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class ChemicalAmount:
+    AVOGADRO = 6.022e23
+
+    def __init__(self, molar_mass):
+        self.molar_mass = molar_mass
+
+    def mass_to_moles(self, mass):
+        return mass / self.molar_mass
+
+    def moles_to_mass(self, moles):
+        return moles * self.molar_mass
+
+    def moles_to_particles(self, moles):
+        return moles * ChemicalAmount.AVOGADRO
+
+co2 = ChemicalAmount(molar_mass=44.01)
+
+moles = co2.mass_to_moles(88.02)
+particles = co2.moles_to_particles(moles)
+
+print(&quot;몰수:&quot;, moles)
+print(&quot;입자 수:&quot;, particles)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>3. 제한 반응물 계산 모델 ⚖️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Reaction:
+    def __init__(self, reactants):
+        # reactants: {&quot;물질명&quot;: (몰수, 계수)}
+        self.reactants = reactants
+
+    def limiting_reactant(self):
+        ratios = {}
+        for name, (moles, coefficient) in self.reactants.items():
+            ratios[name] = moles / coefficient
+        return min(ratios, key=ratios.get)
+
+    def reaction_extent(self):
+        limiter = self.limiting_reactant()
+        moles, coefficient = self.reactants[limiter]
+        return moles / coefficient
+
+reaction = Reaction({
+    &quot;H2&quot;: (5.0, 2),
+    &quot;O2&quot;: (1.5, 1)
+})
+
+print(&quot;제한 반응물:&quot;, reaction.limiting_reactant())
+print(&quot;최대 반응 진행량:&quot;, reaction.reaction_extent())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>4. 이상기체 상태 방정식 모델 🎈</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class IdealGas:
+    R = 0.082057  # L·atm/(mol·K)
+
+    def __init__(self, moles, temperature):
+        self.n = moles
+        self.T = temperature
+
+    def pressure(self, volume_liter):
+        return self.n * IdealGas.R * self.T / volume_liter
+
+    def volume(self, pressure_atm):
+        return self.n * IdealGas.R * self.T / pressure_atm
+
+gas = IdealGas(moles=1.0, temperature=298)
+
+print(&quot;22.4 L에서 압력:&quot;, gas.pressure(22.4), &quot;atm&quot;)
+print(&quot;1 atm에서 부피:&quot;, gas.volume(1.0), &quot;L&quot;)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>5. 산·염기 pH 계산 클래스 🧪</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class AcidSolution:
+    def __init__(self, h_concentration):
+        self.h = h_concentration
+
+    def pH(self):
+        return -math.log10(self.h)
+
+    def pOH(self):
+        return 14 - self.pH()
+
+    def classification(self):
+        if self.pH() &lt; 7:
+            return &quot;산성&quot;
+        elif self.pH() == 7:
+            return &quot;중성&quot;
+        else:
+            return &quot;염기성&quot;
+
+solution = AcidSolution(1e-3)
+
+print(&quot;pH:&quot;, solution.pH())
+print(&quot;pOH:&quot;, solution.pOH())
+print(&quot;분류:&quot;, solution.classification())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>6. 완충 용액 Henderson–Hasselbalch 모델 🧴</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class BufferSolution:
+    def __init__(self, pKa, acid_conc, base_conc):
+        self.pKa = pKa
+        self.acid = acid_conc
+        self.base = base_conc
+
+    def pH(self):
+        return self.pKa + math.log10(self.base / self.acid)
+
+    def add_acid(self, amount):
+        self.acid += amount
+        self.base -= amount
+
+    def add_base(self, amount):
+        self.base += amount
+        self.acid -= amount
+
+buffer = BufferSolution(pKa=4.76, acid_conc=0.10, base_conc=0.10)
+
+print(&quot;초기 pH:&quot;, buffer.pH())
+buffer.add_acid(0.02)
+print(&quot;산 추가 후 pH:&quot;, buffer.pH())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>7. 화학 평형과 반응지수 Q 모델 ⚖️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class EquilibriumReaction:
+    def __init__(self, K, reactants, products):
+        # {&quot;A&quot;: (농도, 계수)}
+        self.K = K
+        self.reactants = reactants
+        self.products = products
+
+    def reaction_quotient(self):
+        numerator = 1
+        denominator = 1
+
+        for conc, coeff in self.products.values():
+            numerator *= conc ** coeff
+
+        for conc, coeff in self.reactants.values():
+            denominator *= conc ** coeff
+
+        return numerator / denominator
+
+    def direction(self):
+        Q = self.reaction_quotient()
+        if Q &lt; self.K:
+            return &quot;정반응 방향&quot;
+        elif Q &gt; self.K:
+            return &quot;역반응 방향&quot;
+        else:
+            return &quot;평형 상태&quot;
+
+eq = EquilibriumReaction(
+    K=10,
+    reactants={&quot;A&quot;: (0.5, 1), &quot;B&quot;: (0.5, 1)},
+    products={&quot;C&quot;: (1.0, 1)}
+)
+
+print(&quot;Q:&quot;, eq.reaction_quotient())
+print(&quot;반응 방향:&quot;, eq.direction())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>8. 반응 속도식과 속도 상수 모델 ⏱️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class RateLaw:
+    def __init__(self, k, orders):
+        # orders: {&quot;A&quot;: 1, &quot;B&quot;: 2}
+        self.k = k
+        self.orders = orders
+
+    def rate(self, concentrations):
+        result = self.k
+        for species, order in self.orders.items():
+            result *= concentrations[species] ** order
+        return result
+
+    def overall_order(self):
+        return sum(self.orders.values())
+
+law = RateLaw(k=0.25, orders={&quot;A&quot;: 1, &quot;B&quot;: 2})
+
+concentrations = {&quot;A&quot;: 0.4, &quot;B&quot;: 0.2}
+
+print(&quot;반응 속도:&quot;, law.rate(concentrations))
+print(&quot;전체 반응 차수:&quot;, law.overall_order())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>9. 아레니우스 식과 온도 의존성 🔥</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class ArrheniusModel:
+    R = 8.314
+
+    def __init__(self, frequency_factor, activation_energy):
+        self.A = frequency_factor
+        self.Ea = activation_energy
+
+    def rate_constant(self, temperature):
+        return self.A * math.exp(-self.Ea / (ArrheniusModel.R * temperature))
+
+    def ratio(self, T1, T2):
+        return self.rate_constant(T2) / self.rate_constant(T1)
+
+model = ArrheniusModel(frequency_factor=1e12, activation_energy=75000)
+
+print(&quot;300K 속도상수:&quot;, model.rate_constant(300))
+print(&quot;350K 속도상수:&quot;, model.rate_constant(350))
+print(&quot;속도상수 증가 비:&quot;, model.ratio(300, 350))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">고급 화학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>10. 전기화학 Nernst 식 모델 🔋</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class ElectrochemicalCell:
+    def __init__(self, standard_potential, electrons):
+        self.E0 = standard_potential
+        self.n = electrons
+
+    def potential(self, Q):
+        return self.E0 - (0.0592 / self.n) * math.log10(Q)
+
+    def spontaneity(self, Q):
+        E = self.potential(Q)
+        return &quot;자발적&quot; if E &gt; 0 else &quot;비자발적&quot;
+
+cell = ElectrochemicalCell(standard_potential=1.10, electrons=2)
+
+for Q in [0.1, 1, 10, 100]:
+    print(&quot;Q =&quot;, Q, &quot;전지 전위:&quot;, round(cell.potential(Q), 3), &quot;V&quot;, cell.spontaneity(Q))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+</main>
+<footer>⚗️ 고급 화학 OOP 코드 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ["H2O 18.015\nC6H12O6 180.156", "몰수: 2.0\n입자 수: 1.2044e+24", "제한 반응물: O2\n최대 반응 진행량: 1.5", "22.4 L에서 압력: 1.0916511607142858 atm\n1 atm에서 부피: 24.452986000000003 L", "pH: 3.0\npOH: 11.0\n분류: 산성", "초기 pH: 4.76\n산 추가 후 pH: 4.583908740944318", "Q: 4.0\n반응 방향: 정반응 방향", "반응 속도: 0.004000000000000001\n전체 반응 차수: 3", "300K 속도상수: 0.08727067950862143\n350K 속도상수: 6.404107186146792\n속도상수 증가 비: 73.3821166765882", "Q = 0.1 전지 전위: 1.13 V 자발적\nQ = 1 전지 전위: 1.1 V 자발적\nQ = 10 전지 전위: 1.07 V 자발적\nQ = 100 전지 전위: 1.041 V 자발적"];
+const titles = ["원자와 분자량 계산 클래스 ⚛️", "몰수·질량·입자 수 변환 🧮", "제한 반응물 계산 모델 ⚖️", "이상기체 상태 방정식 모델 🎈", "산·염기 pH 계산 클래스 🧪", "완충 용액 Henderson–Hasselbalch 모델 🧴", "화학 평형과 반응지수 Q 모델 ⚖️", "반응 속도식과 속도 상수 모델 ⏱️", "아레니우스 식과 온도 의존성 🔥", "전기화학 Nernst 식 모델 🔋"];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"")
+          .split("\n")
+          .map(x=>x.trim().replace(/\s+/g," "))
+          .filter(x=>x.length>0)
+          .join("\n")
+          .trim();
+}
+function lineScore(user, corr){
+  const u = user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c = corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same = 0;
+  for(let i=0;i<Math.max(u.length,c.length);i++){
+    if((u[i]||"") === (c[i]||"")) same++;
+  }
+  return {same:same,total:c.length};
+}
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+
+  let score = 0;
+  let detail = [];
+  const time = nowString();
+
+  detail.push("학번: " + sid);
+  detail.push("이름: " + name);
+  detail.push("평가명: 고급 화학 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: " + time.replace("_"," "));
+  detail.push("----------------------------------------");
+
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user = document.getElementById("ans"+i).value.trim();
+    const corr = correctAnswers[i-1].trim();
+    const exact = normalize(user) === normalize(corr);
+    const ls = lineScore(user, corr);
+    const pts = exact ? 1 : 0;
+    if(exact) score += 1;
+
+    const fb = document.getElementById("fb"+i);
+    fb.className = "feedback " + (exact ? "right" : (ls.same > 0 ? "partial" : "wrong"));
+    fb.innerHTML = "<b>" + (exact ? "정답 ✅" : "확인 필요 ❌") + "</b><br>문항 점수: " + pts + " / 1점" +
+      "<br>줄 단위 일치: " + ls.same + " / " + ls.total +
+      "<br><details><summary>정답 출력 보기</summary><pre>" + escapeHtml(corr) + "</pre></details>";
+
+    detail.push(i + "번 " + titles[i-1] + " : " + (exact ? "O" : "X") + " / " + pts + "점");
+    detail.push("[학생 입력]");
+    detail.push(user || "미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+
+  const percent = Math.round(score / correctAnswers.length * 100);
+  document.getElementById("scoreBox").innerHTML =
+    "<h2>채점 결과</h2><p><b>" + sid + " " + name + "</b> 학생의 점수: <b>" +
+    score + " / " + correctAnswers.length + "점</b> (" + percent + "%)</p>";
+
+  detail.push("최종 득점: " + score + " / " + correctAnswers.length);
+  detail.push("백분율: " + percent + "%");
+
+  const filename = sid + "_" + name + "_고급화학_" + score + "점_" + time + ".txt";
+  const blob = new Blob([detail.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){
+    document.getElementById("ans"+i).value = "";
+    document.getElementById("fb"+i).innerHTML = "";
+    document.getElementById("fb"+i).className = "";
+  }
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none";
+  a.href = "#";
+}
+</script>
+
+</body>
+</html>

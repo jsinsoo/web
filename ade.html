@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고급 지구과학 OOP 출력 결과 서술형 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#e0f2fe,#ecfdf5 42%,#fff7ed);color:#122033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#0369a1,#059669,#7c3aed);border-bottom-left-radius:44px;border-bottom-right-radius:44px;box-shadow:0 16px 38px rgba(2,132,199,.25)}
+h1{font-size:46px;margin:0 0 10px;letter-spacing:-1px}.subtitle{font-size:24px}
+main{max-width:1240px;margin:0 auto;padding:30px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #bae6fd;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(2,132,199,.10)}
+h2{font-size:32px;color:#0369a1;margin:10px 0 18px}h3{font-size:24px;color:#7c3aed}
+.meta{display:inline-block;background:#e0f2fe;color:#075985;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#082f49;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.6;border:4px solid #7dd3fc}
+textarea{width:100%;min-height:145px;font-size:18px;line-height:1.5;padding:14px;border:2px solid #bae6fd;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Courier New','Malgun Gothic',monospace;background:#fbfdff}
+input{font-size:20px;padding:10px;border:2px solid #bae6fd;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#0284c7;color:white;cursor:pointer;margin:6px}
+button:hover{background:#0369a1}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}
+.right{background:#ecfdf5;border-left:8px solid #10b981}
+.wrong{background:#fff1f2;border-left:8px solid #e11d48}
+.partial{background:#fff7ed;border-left:8px solid #f97316}
+.rubric{background:#f8fafc;border-left:8px solid #38bdf8;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:white;border-radius:18px;overflow:hidden}
+td,th{border:1px solid #bae6fd;padding:10px;vertical-align:top}th{background:#0284c7;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+.small{font-size:17px;color:#475569}
+</style>
+</head>
+<body>
+<header>
+<h1>🌍 고급 지구과학 OOP 출력 결과 서술형 수행평가</h1>
+<div class="subtitle">10개 코드를 읽고 실행 결과를 키보드로 직접 입력하기</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 <b>실행 결과로 출력되는 내용</b>을 직접 입력하세요. 채점 후 결과 파일은 <b>학번_이름_지구과학_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#0369a1;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 수행평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>문항 수</td><td>10문항</td></tr>
+<tr><td>평가 방식</td><td>각 코드의 출력 결과를 키보드로 직접 입력</td></tr>
+<tr><td>채점 기준</td><td>문항당 1점, 전체 10점. 줄바꿈·공백은 일부 보정되지만 출력 순서와 내용은 정확해야 함</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_지구과학_득점_응시시각.txt</td></tr>
+</table>
+<div class="rubric">
+<b>채점 기준 예시</b>
+<ul>
+<li>출력 결과가 정확하고 줄바꿈이 일치함: 만점</li>
+<li>핵심 값은 맞지만 공백, 소수 표현, 지수 표기 일부 차이: 부분 점수 검토</li>
+<li>실행 흐름 이해가 부족하거나 출력값 대부분 오류: 보완 필요</li>
+</ul>
+<p class="small">※ 지구과학 계산은 부동소수점 결과가 실행 환경에 따라 마지막 자리에서 조금 달라질 수 있어 자동 점검은 참고용으로 활용하세요.</p>
+</div>
+</section>
+
+
+<section class="card">
+  <span class="meta">문항 1</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>1. 대기 기압의 고도 변화 모델 ☁️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class Atmosphere:
+    def __init__(self, sea_level_pressure=101325, scale_height=8400):
+        self.p0 = sea_level_pressure
+        self.H = scale_height
+
+    def pressure_at_height(self, height):
+        return self.p0 * math.exp(-height / self.H)
+
+    def report(self, height):
+        p = self.pressure_at_height(height)
+        return f&quot;고도 {height} m의 기압: {p:.2f} Pa&quot;
+
+atm = Atmosphere()
+
+for h in [0, 1000, 3000, 8000]:
+    print(atm.report(h))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb1"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 2</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>2. 대기 안정도와 기온 감률 분석 🌡️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class AtmosphericLayer:
+    DRY_ADIABATIC_RATE = 9.8  # °C/km
+
+    def __init__(self, lower_temp, upper_temp, height_diff_km):
+        self.lower_temp = lower_temp
+        self.upper_temp = upper_temp
+        self.height_diff_km = height_diff_km
+
+    def environmental_lapse_rate(self):
+        return (self.lower_temp - self.upper_temp) / self.height_diff_km
+
+    def stability(self):
+        rate = self.environmental_lapse_rate()
+        if rate &gt; AtmosphericLayer.DRY_ADIABATIC_RATE:
+            return &quot;불안정&quot;
+        elif rate == AtmosphericLayer.DRY_ADIABATIC_RATE:
+            return &quot;중립&quot;
+        else:
+            return &quot;안정&quot;
+
+layer = AtmosphericLayer(lower_temp=25, upper_temp=5, height_diff_km=3)
+
+print(&quot;환경 감률:&quot;, round(layer.environmental_lapse_rate(), 2), &quot;°C/km&quot;)
+print(&quot;대기 안정도:&quot;, layer.stability())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb2"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 3</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>3. 해수 밀도 근사 모델 🌊</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Seawater:
+    def __init__(self, temperature, salinity):
+        self.temperature = temperature
+        self.salinity = salinity
+
+    def density(self):
+        base = 1000
+        salinity_effect = 0.8 * self.salinity
+        temperature_effect = -0.2 * self.temperature
+        return base + salinity_effect + temperature_effect
+
+    def is_dense_water(self):
+        return self.density() &gt; 1025
+
+water = Seawater(temperature=2, salinity=35)
+
+print(&quot;해수 밀도:&quot;, water.density(), &quot;kg/m^3&quot;)
+print(&quot;고밀도 수괴인가?&quot;, water.is_dense_water())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb3"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 4</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>4. 해류 이동 입자 추적 모델 🧭🌊</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class OceanParticle:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def move(self, current_u, current_v, dt):
+        self.x += current_u * dt
+        self.y += current_v * dt
+
+    def position(self):
+        return round(self.x, 2), round(self.y, 2)
+
+particle = OceanParticle(x=0, y=0)
+
+currents = [(0.5, 0.1), (0.4, 0.2), (0.3, 0.3), (0.2, 0.4)]
+
+for u, v in currents:
+    particle.move(current_u=u, current_v=v, dt=1)
+    print(&quot;입자 위치:&quot;, particle.position())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb4"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 5</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>5. 지진 규모와 에너지 방출량 모델 🌋</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Earthquake:
+    def __init__(self, magnitude, depth_km, location):
+        self.magnitude = magnitude
+        self.depth_km = depth_km
+        self.location = location
+
+    def energy(self):
+        return 10 ** (1.5 * self.magnitude + 4.8)
+
+    def risk_level(self):
+        if self.magnitude &gt;= 7:
+            return &quot;매우 위험&quot;
+        elif self.magnitude &gt;= 5:
+            return &quot;주의&quot;
+        else:
+            return &quot;낮음&quot;
+
+quake = Earthquake(magnitude=6.5, depth_km=12, location=&quot;동해&quot;)
+
+print(&quot;위치:&quot;, quake.location)
+print(&quot;에너지:&quot;, quake.energy(), &quot;J&quot;)
+print(&quot;위험도:&quot;, quake.risk_level())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb5"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 6</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>6. 판 구조 운동과 이동 거리 계산 🧩</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class TectonicPlate:
+    def __init__(self, name, speed_cm_per_year, direction):
+        self.name = name
+        self.speed = speed_cm_per_year
+        self.direction = direction
+
+    def displacement(self, years):
+        return self.speed * years / 100  # cm를 m로 변환
+
+    def report(self, years):
+        d = self.displacement(years)
+        return f&quot;{self.name}판은 {years}년 동안 {self.direction} 방향으로 {d:.2f} m 이동&quot;
+
+plate = TectonicPlate(&quot;태평양&quot;, speed_cm_per_year=8, direction=&quot;북서쪽&quot;)
+
+print(plate.report(1000))
+print(plate.report(1_000_000))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb6"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 7</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>7. 화산 분출 위험도 평가 모델 🌋🔥</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class Volcano:
+    def __init__(self, name, magma_pressure, gas_level, seismic_activity):
+        self.name = name
+        self.magma_pressure = magma_pressure
+        self.gas_level = gas_level
+        self.seismic_activity = seismic_activity
+
+    def risk_score(self):
+        return self.magma_pressure * 0.4 + self.gas_level * 0.3 + self.seismic_activity * 0.3
+
+    def alert_level(self):
+        score = self.risk_score()
+        if score &gt;= 80:
+            return &quot;경보&quot;
+        elif score &gt;= 50:
+            return &quot;주의&quot;
+        else:
+            return &quot;평상&quot;
+
+volcano = Volcano(&quot;한라산 가상 모델&quot;, magma_pressure=65, gas_level=70, seismic_activity=40)
+
+print(&quot;위험 점수:&quot;, volcano.risk_score())
+print(&quot;경보 단계:&quot;, volcano.alert_level())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb7"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 8</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>8. 탄소 순환 상자 모델 🌱🏭</h2>
+  <h3>제시 코드</h3>
+  <pre><code>class CarbonBoxModel:
+    def __init__(self, atmosphere, ocean, land):
+        self.atmosphere = atmosphere
+        self.ocean = ocean
+        self.land = land
+
+    def step(self, emission, ocean_absorption, land_absorption):
+        self.atmosphere += emission
+        self.atmosphere -= ocean_absorption + land_absorption
+        self.ocean += ocean_absorption
+        self.land += land_absorption
+
+    def state(self):
+        return {
+            &quot;atmosphere&quot;: round(self.atmosphere, 2),
+            &quot;ocean&quot;: round(self.ocean, 2),
+            &quot;land&quot;: round(self.land, 2)
+        }
+
+model = CarbonBoxModel(atmosphere=850, ocean=38000, land=2500)
+
+for year in range(5):
+    model.step(emission=10, ocean_absorption=3, land_absorption=2)
+    print(year + 1, &quot;년 후:&quot;, model.state())</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb8"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 9</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>9. 별의 광도와 겉보기 밝기 모델 ✨</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class Star:
+    def __init__(self, name, luminosity, distance):
+        self.name = name
+        self.luminosity = luminosity
+        self.distance = distance
+
+    def flux(self):
+        return self.luminosity / (4 * math.pi * self.distance ** 2)
+
+    def compare_brightness(self, other):
+        return self.flux() / other.flux()
+
+sun_like = Star(&quot;가까운 별&quot;, luminosity=3.8e26, distance=1.5e11)
+far_star = Star(&quot;먼 별&quot;, luminosity=3.8e28, distance=1.5e13)
+
+print(sun_like.name, &quot;복사 플럭스:&quot;, sun_like.flux())
+print(far_star.name, &quot;복사 플럭스:&quot;, far_star.flux())
+print(&quot;밝기 비:&quot;, sun_like.compare_brightness(far_star))</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb9"></div>
+</section>
+
+<section class="card">
+  <span class="meta">문항 10</span><span class="meta">고급 지구과학 OOP</span><span class="meta">출력 결과 서술형</span>
+  <h2>10. 행성의 평형 온도 모델 🪐🌡️</h2>
+  <h3>제시 코드</h3>
+  <pre><code>import math
+
+class PlanetClimate:
+    SIGMA = 5.67e-8
+
+    def __init__(self, star_luminosity, distance, albedo):
+        self.star_luminosity = star_luminosity
+        self.distance = distance
+        self.albedo = albedo
+
+    def equilibrium_temperature(self):
+        numerator = self.star_luminosity * (1 - self.albedo)
+        denominator = 16 * math.pi * PlanetClimate.SIGMA * self.distance ** 2
+        return (numerator / denominator) ** 0.25
+
+    def celsius(self):
+        return self.equilibrium_temperature() - 273.15
+
+earth_model = PlanetClimate(star_luminosity=3.828e26, distance=1.496e11, albedo=0.30)
+
+print(&quot;평형 온도:&quot;, earth_model.equilibrium_temperature(), &quot;K&quot;)
+print(&quot;섭씨:&quot;, earth_model.celsius(), &quot;°C&quot;)</code></pre>
+  <h3>학생 답안 입력</h3>
+  <p>위 코드를 실행했을 때 출력 결과를 줄바꿈까지 고려하여 직접 입력하세요.</p>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요."></textarea>
+  <div id="fb10"></div>
+</section>
+
+</main>
+<footer>🌍 고급 지구과학 OOP 코드 출력 결과 서술형 수행평가 HTML</footer>
+
+<script>
+const correctAnswers = ["고도 0 m의 기압: 101325.00 Pa\n고도 1000 m의 기압: 89952.84 Pa\n고도 3000 m의 기압: 70894.32 Pa\n고도 8000 m의 기압: 39093.34 Pa", "환경 감률: 6.67 °C/km\n대기 안정도: 안정", "해수 밀도: 1027.6 kg/m^3\n고밀도 수괴인가? True", "입자 위치: (0.5, 0.1)\n입자 위치: (0.9, 0.3)\n입자 위치: (1.2, 0.6)\n입자 위치: (1.4, 1.0)", "위치: 동해\n에너지: 354813389233576.06 J\n위험도: 주의", "태평양판은 1000년 동안 북서쪽 방향으로 80.00 m 이동\n태평양판은 1000000년 동안 북서쪽 방향으로 80000.00 m 이동", "위험 점수: 59.0\n경보 단계: 주의", "1 년 후: {'atmosphere': 855, 'ocean': 38003, 'land': 2502}\n2 년 후: {'atmosphere': 860, 'ocean': 38006, 'land': 2504}\n3 년 후: {'atmosphere': 865, 'ocean': 38009, 'land': 2506}\n4 년 후: {'atmosphere': 870, 'ocean': 38012, 'land': 2508}\n5 년 후: {'atmosphere': 875, 'ocean': 38015, 'land': 2510}", "가까운 별 복사 플럭스: 1343.9750749982275\n먼 별 복사 플럭스: 13.439750749982274\n밝기 비: 100.0", "평형 온도: 254.58831515634046 K\n섭씨: -18.56168484365952 °C"];
+const titles = ["대기 기압의 고도 변화 모델 ☁️", "대기 안정도와 기온 감률 분석 🌡️", "해수 밀도 근사 모델 🌊", "해류 이동 입자 추적 모델 🧭🌊", "지진 규모와 에너지 방출량 모델 🌋", "판 구조 운동과 이동 거리 계산 🧩", "화산 분출 위험도 평가 모델 🌋🔥", "탄소 순환 상자 모델 🌱🏭", "별의 광도와 겉보기 밝기 모델 ✨", "행성의 평형 온도 모델 🪐🌡️"];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowString(){
+  const d = new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function normalize(s){
+  return s.replace(/\r/g,"")
+          .split("\n")
+          .map(x=>x.trim().replace(/\s+/g," "))
+          .filter(x=>x.length>0)
+          .join("\n")
+          .trim();
+}
+function lineScore(user, corr){
+  const u = user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c = corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same = 0;
+  for(let i=0;i<Math.max(u.length,c.length);i++){
+    if((u[i]||"") === (c[i]||"")) same++;
+  }
+  return {same:same,total:c.length};
+}
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function grade(){
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  if(!sid || !name){ alert("학번과 이름을 입력하세요."); return; }
+
+  let score = 0;
+  let detail = [];
+  const time = nowString();
+
+  detail.push("학번: " + sid);
+  detail.push("이름: " + name);
+  detail.push("평가명: 고급 지구과학 OOP 출력 결과 서술형 수행평가");
+  detail.push("응시시각: " + time.replace("_"," "));
+  detail.push("----------------------------------------");
+
+  for(let i=1;i<=correctAnswers.length;i++){
+    const user = document.getElementById("ans"+i).value.trim();
+    const corr = correctAnswers[i-1].trim();
+    const exact = normalize(user) === normalize(corr);
+    const ls = lineScore(user, corr);
+    const pts = exact ? 1 : 0;
+    if(exact) score += 1;
+
+    const fb = document.getElementById("fb"+i);
+    fb.className = "feedback " + (exact ? "right" : (ls.same > 0 ? "partial" : "wrong"));
+    fb.innerHTML = "<b>" + (exact ? "정답 ✅" : "확인 필요 ❌") + "</b><br>문항 점수: " + pts + " / 1점" +
+      "<br>줄 단위 일치: " + ls.same + " / " + ls.total +
+      "<br><details><summary>정답 출력 보기</summary><pre>" + escapeHtml(corr) + "</pre></details>";
+
+    detail.push(i + "번 " + titles[i-1] + " : " + (exact ? "O" : "X") + " / " + pts + "점");
+    detail.push("[학생 입력]");
+    detail.push(user || "미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+
+  const percent = Math.round(score / correctAnswers.length * 100);
+  document.getElementById("scoreBox").innerHTML =
+    "<h2>채점 결과</h2><p><b>" + sid + " " + name + "</b> 학생의 점수: <b>" +
+    score + " / " + correctAnswers.length + "점</b> (" + percent + "%)</p>";
+
+  detail.push("최종 득점: " + score + " / " + correctAnswers.length);
+  detail.push("백분율: " + percent + "%");
+
+  const filename = sid + "_" + name + "_지구과학_" + score + "점_" + time + ".txt";
+  const blob = new Blob([detail.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.getElementById("downloadLink");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "inline-block";
+  a.textContent = "결과 TXT 다운로드: " + filename;
+}
+function resetAll(){
+  for(let i=1;i<=correctAnswers.length;i++){
+    document.getElementById("ans"+i).value = "";
+    document.getElementById("fb"+i).innerHTML = "";
+    document.getElementById("fb"+i).className = "";
+  }
+  document.getElementById("scoreBox").innerHTML = "";
+  const a = document.getElementById("downloadLink");
+  a.style.display = "none";
+  a.href = "#";
+}
+</script>
+
+</body>
+</html>
