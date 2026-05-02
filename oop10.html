@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>OOP 파이썬 문법 통합 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#fff7ed 45%,#ecfdf5);color:#172033;font-size:18px;line-height:1.7}
+header{padding:40px 5vw;color:white;background:linear-gradient(120deg,#2563eb,#7c3aed);border-bottom-left-radius:30px;border-bottom-right-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+h1{font-size:36px;margin:0}
+main{max-width:1100px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:20px;padding:25px;margin:20px 0;box-shadow:0 4px 15px rgba(0,0,0,0.05);border:1px solid #e2e8f0}
+.code-box{background:#1e1e1e;color:#d4d4d4;padding:15px;border-radius:10px;font-family:'Consolas',monospace;font-size:16px;overflow-x:auto;white-space:pre;margin:15px 0}
+.quiz-box{background:#f8fafc;padding:20px;border-radius:15px;border-left:5px solid #3b82f6}
+.q-title{font-weight:bold;color:#1e40af;margin-bottom:10px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.info-input{margin-bottom:30px;display:flex;gap:15px;align-items:center}
+input[type="text"]{padding:10px;border:2px solid #cbd5e1;border-radius:8px;font-size:16px}
+button{padding:12px 25px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:16px}
+button:hover{background:#1d4ed8}
+textarea{width:100%;padding:10px;border-radius:8px;border:2px solid #cbd5e1;font-size:16px}
+#scoreBox{margin-top:30px;padding:20px;background:#fff;border-radius:20px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+    <h1>OOP 파이썬 문법 통합 수행평가</h1>
+    <p>리스트, 집합, 딕셔너리, 람다 등을 활용한 코드 분석</p>
+</header>
+<main>
+    <div class="card info-input">
+        <input type="text" id="stdId" placeholder="학번 입력">
+        <input type="text" id="stdName" placeholder="이름 입력">
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <div style="text-align:center;margin-top:40px">
+        <button onclick="calculateScore()">채점 및 결과 생성</button>
+        <button onclick="window.location.reload()" style="background:#64748b;margin-left:10px">초기화</button>
+    </div>
+
+    <div id="scoreBox"></div>
+    <div style="text-align:center;margin-bottom:50px">
+        <a id="downloadLink" style="display:none;padding:15px 25px;background:#059669;color:#fff;text-decoration:none;border-radius:10px;font-weight:bold"></a>
+    </div>
+</main>
+
+<script>
+const quizData = [{"title": "리스트 관리와 Pop 연산 (List & Pop)", "code": "class StackHandler:\n    def __init__(self, data):\n        self.items = data\n    def get_last(self):\n        if not self.items: return 'Empty'\n        return self.items.pop()\n\nhandler = StackHandler([10, 20, 30])\nprint(handler.get_last())", "ox": "pop() 메서드는 리스트의 마지막 요소를 제거하고 반환한다.", "ox_ans": "O", "choice": "위 코드 실행 후 handler.items에 남은 값은?", "options": ["[10, 20, 30]", "[10, 20]", "[20, 30]", "[10]", "[]"], "choice_ans": "2", "short": "get_last()의 출력값은 무엇인가?", "short_ans": "30"}, {"title": "집합을 이용한 중복 제거 (Set)", "code": "class UniqueStore:\n    def __init__(self):\n        self.data = set()\n    def add_bulk(self, items):\n        self.data.update(items)\n        return len(self.data)\n\nstore = UniqueStore()\nprint(store.add_bulk([1, 2, 2, 3]))", "ox": "Set 자료형은 데이터의 중복을 허용하며 순서를 보장한다.", "ox_ans": "X", "choice": "Set에 데이터를 추가할 때 여러 요소를 한꺼번에 넣는 메서드는?", "options": ["append", "add", "push", "update", "extend"], "choice_ans": "4", "short": "출력되는 숫자는 무엇인가?", "short_ans": "3"}, {"title": "딕셔너리와 가변 인자 (Dict & Kwargs)", "code": "class UserProfile:\n    def __init__(self, **info):\n        self.profile = info\n    def get_info(self, key):\n        return self.profile.get(key, 'N/A')\n\nuser = UserProfile(name='Kim', age=25)\nprint(user.get_info('name'))", "ox": "**kwargs는 함수 호출 시 전달된 키워드 인자들을 딕셔너리로 묶는다.", "ox_ans": "O", "choice": "딕셔너리에서 키가 없을 때 에러 없이 기본값을 반환하는 메서드는?", "options": ["find", "search", "get", "fetch", "pop"], "choice_ans": "3", "short": "user.get_info('job')의 결과는 무엇인가?", "short_ans": "N/A"}, {"title": "람다와 리스트 변환 (Lambda & Map)", "code": "class MathTool:\n    def square_all(self, nums):\n        return list(map(lambda x: x**2, nums))\n\ntool = MathTool()\nprint(tool.square_all([1, 2, 3]))", "ox": "map 함수의 결과는 기본적으로 리스트 타입이다.", "ox_ans": "X", "choice": "lambda x: x**2에서 **의 의미는?", "options": ["곱하기", "제곱", "루트", "몫", "나머지"], "choice_ans": "2", "short": "출력되는 리스트의 형태를 정확히 적으시오.", "short_ans": "[1, 4, 9]"}, {"title": "데이터 쌍 결합 (Zip)", "code": "class Matcher:\n    def pair(self, keys, values):\n        return dict(zip(keys, values))\n\nm = Matcher()\nprint(m.pair(['A', 'B'], [1, 2]))", "ox": "zip은 길이가 다른 두 리스트를 인자로 받아 가장 짧은 길이에 맞춰 결합한다.", "ox_ans": "O", "choice": "zip 객체를 딕셔너리로 바꿀 때 사용하는 함수는?", "options": ["list()", "set()", "str()", "dict()", "tuple()"], "choice_ans": "4", "short": "출력 결과인 딕셔너리를 정확히 적으시오.", "short_ans": "{'A': 1, 'B': 2}"}, {"title": "문자열 슬라이싱 (Slice)", "code": "class Parser:\n    def head(self, text):\n        return text[:4].lower()\n\np = Parser()\nprint(p.head('PYTHON_CODE'))", "ox": "text[:4]는 인덱스 0부터 4까지 총 5글자를 추출한다.", "ox_ans": "X", "choice": "문자열을 모두 소문자로 만드는 메서드는?", "options": ["upper", "lower", "strip", "split", "join"], "choice_ans": "2", "short": "출력되는 결과는 무엇인가?", "short_ans": "pyth"}, {"title": "표준 출력과 포맷팅 (Standard I/O)", "code": "class Product:\n    def __init__(self, name, price):\n        self.n, self.p = name, price\n    def show(self):\n        print(f'Item: {self.n} | Price: {self.p}')\n\np = Product('PC', 1000)\np.show()", "ox": "f-string 내부에서는 변수뿐만 아니라 표현식도 사용 가능하다.", "ox_ans": "O", "choice": "Python에서 문자열 포맷팅 방식인 f-string의 특징이 아닌 것은?", "options": ["{} 사용", "변수명 직접 대입", "속도가 빠름", "가독성이 좋음", "Java 전용 방식임"], "choice_ans": "5", "short": "위 코드의 출력 내용을 정확히 적으시오.", "short_ans": "Item: PC | Price: 1000"}, {"title": "파일 쓰기 연산 (File Output)", "code": "class Writer:\n    def save(self, filename, content):\n        with open(filename, 'w') as f:\n            f.write(content)\n        return True\n\nw = Writer()\nw.save('test.txt', 'Hello')", "ox": "open('file', 'w')는 기존 파일이 있으면 내용을 유지한 채 뒤에 덧붙인다.", "ox_ans": "X", "choice": "파일을 자동으로 닫아주는 예약어는?", "options": ["try", "open", "with", "close", "def"], "choice_ans": "3", "short": "위 코드가 실행되면 생성되는 파일명은 무엇인가?", "short_ans": "test.txt"}, {"title": "파일 읽기와 예외 (File Input)", "code": "class Reader:\n    def get_lines(self, path):\n        try:\n            with open(path, 'r') as f:\n                return f.readlines()\n        except: return []", "ox": "readlines()는 파일의 모든 줄을 요소로 갖는 리스트를 반환한다.", "ox_ans": "O", "choice": "파일 읽기 모드를 나타내는 기호는?", "options": ["w", "a", "r", "x", "b"], "choice_ans": "3", "short": "파일이 없을 때 get_lines가 반환하는 값은?", "short_ans": "[]"}, {"title": "리스트 컴프리헨션 필터 (Conditional Loop)", "code": "class Filter:\n    def get_evens(self, data):\n        return [i for i in data if i % 2 == 0]\n\nf = Filter()\nprint(f.get_evens([1, 2, 3, 4]))", "ox": "리스트 컴프리헨션 내부의 if문은 특정 조건의 데이터만 필터링한다.", "ox_ans": "O", "choice": "홀수를 구하기 위한 조건식은?", "options": ["i % 2 == 0", "i % 2 != 0", "i // 2", "i ** 2", "i + 2"], "choice_ans": "2", "short": "출력되는 리스트 결과는?", "short_ans": "[2, 4]"}, {"title": "딕셔너리 키-값 반복 (Dict Loop)", "code": "class Inventory:\n    def __init__(self, stock):\n        self.stock = stock\n    def check(self):\n        for k, v in self.stock.items():\n            print(f'{k}:{v}')\n\nInventory({'Apple': 5}).check()", "ox": "items() 메서드는 키와 값을 튜플 형태로 동시에 반환한다.", "ox_ans": "O", "choice": "딕셔너리의 키(key)만 리스트 형태로 가져오는 메서드는?", "options": ["values()", "items()", "keys()", "get()", "pop()"], "choice_ans": "3", "short": "출력되는 결과는 (형식 주의)?", "short_ans": "Apple:5"}, {"title": "가변 인자 합계 (Sum & Args)", "code": "class Calculator:\n    def add_all(self, *nums):\n        return sum(nums)\n\ncalc = Calculator()\nprint(calc.add_all(1, 2, 3, 4, 5))", "ox": "함수 정의 시 *nums는 위치 인자들을 리스트로 받는다.", "ox_ans": "X", "choice": "데이터들의 합을 구하는 파이썬 내장 함수는?", "options": ["count()", "len()", "total()", "sum()", "add()"], "choice_ans": "4", "short": "출력되는 숫자는?", "short_ans": "15"}, {"title": "슬라이싱 스텝 활용 (Slice Step)", "code": "class Inverter:\n    def reverse(self, data):\n        return data[::-1]\n\ninv = Inverter()\nprint(inv.reverse('STEP'))", "ox": "슬라이싱 [::-1]은 데이터를 역순으로 정렬한 복사본을 만든다.", "ox_ans": "O", "choice": "슬라이싱 구조 [start:stop:step]에서 step의 기본값은?", "options": ["0", "1", "-1", "2", "None"], "choice_ans": "2", "short": "출력되는 문자열을 적으시오.", "short_ans": "PETS"}, {"title": "인덱스와 함께 반복 (Enumerate)", "code": "class Ranker:\n    def show_rank(self, players):\n        for i, p in enumerate(players, 1):\n            print(f'{i}nd: {p}')\n\nRanker().show_rank(['Alice', 'Bob'])", "ox": "enumerate(data, 1)에서 '1'은 인덱스 번호를 1부터 시작하게 한다.", "ox_ans": "O", "choice": "반복문에서 데이터의 순서(인덱스)가 필요할 때 주로 사용하는 함수는?", "options": ["range", "zip", "enumerate", "map", "filter"], "choice_ans": "3", "short": "첫 번째 출력 라인을 적으시오.", "short_ans": "1nd: Alice"}, {"title": "필터링 함수 (Filter & Lambda)", "code": "class WordFilter:\n    def long_words(self, words):\n        return list(filter(lambda x: len(x) > 3, words))\n\nwf = WordFilter()\nprint(wf.long_words(['py', 'python', 'ai']))", "ox": "filter 함수의 첫 번째 인자로 전달되는 함수는 반드시 불리언(True/False)을 반환해야 한다.", "ox_ans": "O", "choice": "위 코드에서 lambda가 수행하는 역할은?", "options": ["글자수 변환", "단어 정렬", "조건에 따른 선별", "단어 합치기", "단어 반복"], "choice_ans": "3", "short": "출력되는 리스트 결과는?", "short_ans": "['python']"}];
+
+function renderQuiz() {
+    const container = document.getElementById('quizContainer');
+    quizData.forEach((q, i) => {
+        const idx = i + 1;
+        let html = `
+        <div class="card">
+            <h3># ${idx}. ${q.title}</h3>
+            <div class="code-box">${q.code}</div>
+            
+            <div class="quiz-box">
+                <div class="q-title">Q1. OX 퀴즈: ${q.ox}</div>
+                <label><input type="radio" name="ox_${idx}" value="O"> O</label>
+                <label style="margin-left:20px"><input type="radio" name="ox_${idx}" value="X"> X</label>
+                <hr>
+                
+                <div class="q-title">Q2. 5지 선다: ${q.choice}</div>
+                <div class="options">
+                    ${q.options.map((opt, oi) => `
+                        <label><input type="radio" name="choice_${idx}" value="${oi+1}"> ${oi+1}) ${opt}</label>
+                    `).join('')}
+                </div>
+                <hr>
+                
+                <div class="q-title">Q3. 서술형: ${q.short}</div>
+                <textarea id="short_${idx}" rows="2" placeholder="정답 입력..."></textarea>
+            </div>
+        </div>`;
+        container.innerHTML += html;
+    });
+}
+
+function calculateScore() {
+    const sid = document.getElementById('stdId').value || "Unknown";
+    const name = document.getElementById('stdName').value || "Unknown";
+    const now = new Date();
+    const timeStr = now.getHours()+""+now.getMinutes()+""+now.getSeconds();
+    
+    let totalScore = 0;
+    let details = ["--- 수행평가 채점 결과 ---", "학번: " + sid, "이름: " + name, "시각: " + now.toLocaleString(), ""];
+    
+    quizData.forEach((q, i) => {
+        const idx = i + 1;
+        let qScore = 0;
+        
+        // OX 채점
+        const oxVal = document.querySelector(`input[name="ox_${idx}"]:checked`)?.value;
+        if(oxVal === q.ox_ans) qScore += 1;
+        
+        // Choice 채점
+        const choiceVal = document.querySelector(`input[name="choice_${idx}"]:checked`)?.value;
+        if(choiceVal === q.choice_ans) qScore += 1;
+        
+        // Short 채점
+        const shortVal = document.getElementById(`short_${idx}`).value.trim();
+        if(shortVal === q.short_ans) qScore += 1;
+        
+        totalScore += qScore;
+        details.push(`#${idx}. ${q.title}: ${qScore}/3점`);
+    });
+    
+    const finalScore = Math.round((totalScore / (quizData.length * 3)) * 100);
+    details.push("", "총점: " + totalScore + " / " + (quizData.length * 3));
+    details.push("환산 점수: " + finalScore + "점");
+    
+    document.getElementById('scoreBox').innerHTML = `<h2>최종 점수: ${finalScore}점</h2><p>${name} 학생 수고하셨습니다.</p>`;
+    
+    const blob = new Blob([details.join("\n")], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const link = document.getElementById('downloadLink');
+    const filename = sid + "_" + name + "_객체지향_" + finalScore + "점_" + timeStr + ".txt";
+    link.href = url;
+    link.download = filename;
+    link.style.display = 'inline-block';
+    link.textContent = "결과 파일 다운로드 (" + filename + ")";
+}
+
+renderQuiz();
+</script>
+</body>
+</html>

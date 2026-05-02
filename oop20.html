@@ -1,0 +1,736 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>OOP자료구조 수행평가</title><style>body{font-family:'Malgun Gothic',Arial,sans-serif;background:#eef6ff;margin:0;font-size:20px;line-height:1.7}header{background:linear-gradient(120deg,#2563eb,#7c3aed);color:white;padding:40px}main{max-width:1200px;margin:auto;padding:24px}.card{background:white;border-radius:24px;padding:24px;margin:22px 0;box-shadow:0 8px 20px #cbd5e1}pre{background:#0f172a;color:#e0f2fe;padding:18px;border-radius:16px;overflow:auto;font-size:16px}.q{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:16px;padding:16px;margin:16px 0}label{display:block;background:white;border:1px solid #bfdbfe;border-radius:12px;padding:8px;margin:8px 0}textarea{width:100%;min-height:100px;font-size:18px;font-family:Consolas,'Malgun Gothic',monospace;border:2px solid #bfdbfe;border-radius:12px;padding:12px;box-sizing:border-box}input{font-size:20px}button{font-size:20px;font-weight:bold;background:#2563eb;color:white;border:0;border-radius:12px;padding:12px 18px;margin:6px}.right{background:#ecfdf5;border-left-color:#10b981}.wrong{background:#fff1f2;border-left-color:#e11d48}.partial{background:#fff7ed;border-left-color:#f97316}</style></head><body><header><h1>OOP 조건문·반복문·리스트·집합·딕셔너리 수행평가</h1><p>20개 코드, OX 20개, 5지선다형 20개, 출력 서술형 20개</p></header><main><section class="card"><h2>응시자 정보</h2><input id="sid" placeholder="학번"><input id="name" placeholder="이름"><button onclick="grade()">채점하고 TXT 산출</button><a id="down" style="display:none;margin-left:10px" href="#">다운로드</a><div id="score"></div></section>
+<section class="card">
+<h2>1. 학생 점수 합격 판정기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Judge:
+    def __init__(self, scores): self.scores=scores
+    def passed(self):
+        r={}
+        for name,score in self.scores.items():
+            r[name]=&quot;합격&quot; if score&gt;=60 else &quot;불합격&quot;
+        return r
+j=Judge({&quot;민수&quot;:80,&quot;지우&quot;:55,&quot;하린&quot;:90})
+print(j.passed())</code></pre>
+<div class="q" id="box1">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q1" value="0"> O</label>
+<label><input type="radio" name="q1" value="1"> X</label>
+<div id="fb1"></div>
+</div>
+<div class="q" id="box2">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q2" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q2" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q2" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q2" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q2" value="4"> 이미지 편집만 사용</label>
+<div id="fb2"></div>
+</div>
+<div class="q" id="wbox1">
+<h3>출력 결과 서술형</h3>
+<textarea id="w1" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb1"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>2. 리스트에서 짝수만 모으기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class EvenPicker:
+    def __init__(self, nums): self.nums=nums
+    def pick(self):
+        a=[]
+        for n in self.nums:
+            if n%2==0: a.append(n)
+        return a
+p=EvenPicker([1,2,3,4,5,6])
+print(p.pick())</code></pre>
+<div class="q" id="box3">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q3" value="0"> O</label>
+<label><input type="radio" name="q3" value="1"> X</label>
+<div id="fb3"></div>
+</div>
+<div class="q" id="box4">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q4" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q4" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q4" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q4" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q4" value="4"> 이미지 편집만 사용</label>
+<div id="fb4"></div>
+</div>
+<div class="q" id="wbox2">
+<h3>출력 결과 서술형</h3>
+<textarea id="w2" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb2"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>3. 중복 이름 제거하기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class NameSet:
+    def __init__(self, names): self.names=names
+    def unique(self):
+        s=set()
+        for name in self.names:
+            if name not in s: s.add(name)
+        return sorted(s)
+n=NameSet([&quot;민수&quot;,&quot;지우&quot;,&quot;민수&quot;,&quot;하린&quot;])
+print(n.unique())</code></pre>
+<div class="q" id="box5">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q5" value="0"> O</label>
+<label><input type="radio" name="q5" value="1"> X</label>
+<div id="fb5"></div>
+</div>
+<div class="q" id="box6">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q6" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q6" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q6" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q6" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q6" value="4"> 이미지 편집만 사용</label>
+<div id="fb6"></div>
+</div>
+<div class="q" id="wbox3">
+<h3>출력 결과 서술형</h3>
+<textarea id="w3" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb3"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>4. 단어 길이 분류기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class WordSort:
+    def __init__(self, words): self.words=words
+    def group(self):
+        d={&quot;긴단어&quot;:[],&quot;짧은단어&quot;:[]}
+        for w in self.words:
+            if len(w)&gt;=3: d[&quot;긴단어&quot;].append(w)
+            else: d[&quot;짧은단어&quot;].append(w)
+        return d
+print(WordSort([&quot;AI&quot;,&quot;코딩&quot;,&quot;파이썬&quot;]).group())</code></pre>
+<div class="q" id="box7">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q7" value="0"> O</label>
+<label><input type="radio" name="q7" value="1"> X</label>
+<div id="fb7"></div>
+</div>
+<div class="q" id="box8">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q8" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q8" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q8" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q8" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q8" value="4"> 이미지 편집만 사용</label>
+<div id="fb8"></div>
+</div>
+<div class="q" id="wbox4">
+<h3>출력 결과 서술형</h3>
+<textarea id="w4" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb4"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>5. 출석한 학생 찾기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Attend:
+    def __init__(self, data): self.data=data
+    def present(self):
+        r=[]
+        for name,state in self.data.items():
+            if state==&quot;출석&quot;: r.append(name)
+        return set(r)
+a=Attend({&quot;민수&quot;:&quot;출석&quot;,&quot;지우&quot;:&quot;결석&quot;,&quot;하린&quot;:&quot;출석&quot;})
+print(a.present())</code></pre>
+<div class="q" id="box9">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q9" value="0"> O</label>
+<label><input type="radio" name="q9" value="1"> X</label>
+<div id="fb9"></div>
+</div>
+<div class="q" id="box10">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q10" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q10" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q10" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q10" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q10" value="4"> 이미지 편집만 사용</label>
+<div id="fb10"></div>
+</div>
+<div class="q" id="wbox5">
+<h3>출력 결과 서술형</h3>
+<textarea id="w5" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb5"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>6. 상품 가격 할인기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Sale:
+    def __init__(self, prices): self.prices=prices
+    def discount(self):
+        r={}
+        for item,price in self.prices.items():
+            r[item]=price*0.9 if price&gt;=10000 else price
+        return r
+s=Sale({&quot;펜&quot;:1000,&quot;가방&quot;:20000})
+print(s.discount())</code></pre>
+<div class="q" id="box11">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q11" value="0"> O</label>
+<label><input type="radio" name="q11" value="1"> X</label>
+<div id="fb11"></div>
+</div>
+<div class="q" id="box12">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q12" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q12" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q12" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q12" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q12" value="4"> 이미지 편집만 사용</label>
+<div id="fb12"></div>
+</div>
+<div class="q" id="wbox6">
+<h3>출력 결과 서술형</h3>
+<textarea id="w6" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb6"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>7. 금지 단어 필터</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class WordFilter:
+    def __init__(self, bad): self.bad=set(bad)
+    def clean(self, words):
+        r=[]
+        for w in words:
+            if w not in self.bad: r.append(w)
+        return r
+f=WordFilter([&quot;나쁨&quot;,&quot;금지&quot;])
+print(f.clean([&quot;좋음&quot;,&quot;나쁨&quot;,&quot;행복&quot;]))</code></pre>
+<div class="q" id="box13">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q13" value="0"> O</label>
+<label><input type="radio" name="q13" value="1"> X</label>
+<div id="fb13"></div>
+</div>
+<div class="q" id="box14">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q14" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q14" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q14" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q14" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q14" value="4"> 이미지 편집만 사용</label>
+<div id="fb14"></div>
+</div>
+<div class="q" id="wbox7">
+<h3>출력 결과 서술형</h3>
+<textarea id="w7" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb7"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>8. 점수 등급표 만들기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class GradeBook:
+    def __init__(self, scores): self.scores=scores
+    def grade(self):
+        d={}
+        for n,s in self.scores.items():
+            d[n]=&quot;A&quot; if s&gt;=90 else &quot;B&quot; if s&gt;=80 else &quot;C&quot;
+        return d
+print(GradeBook({&quot;민수&quot;:95,&quot;지우&quot;:82,&quot;하린&quot;:70}).grade())</code></pre>
+<div class="q" id="box15">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q15" value="0"> O</label>
+<label><input type="radio" name="q15" value="1"> X</label>
+<div id="fb15"></div>
+</div>
+<div class="q" id="box16">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q16" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q16" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q16" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q16" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q16" value="4"> 이미지 편집만 사용</label>
+<div id="fb16"></div>
+</div>
+<div class="q" id="wbox8">
+<h3>출력 결과 서술형</h3>
+<textarea id="w8" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb8"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>9. 리스트 숫자 개수 세기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Counter:
+    def __init__(self, nums): self.nums=nums
+    def count(self):
+        d={}
+        for n in self.nums:
+            d[n]=d.get(n,0)+1
+        return d
+c=Counter([1,2,1,3,2,1])
+print(c.count())</code></pre>
+<div class="q" id="box17">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q17" value="0"> O</label>
+<label><input type="radio" name="q17" value="1"> X</label>
+<div id="fb17"></div>
+</div>
+<div class="q" id="box18">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q18" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q18" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q18" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q18" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q18" value="4"> 이미지 편집만 사용</label>
+<div id="fb18"></div>
+</div>
+<div class="q" id="wbox9">
+<h3>출력 결과 서술형</h3>
+<textarea id="w9" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb9"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>10. 공통 취미 찾기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Hobby:
+    def __init__(self, a, b):
+        self.a=set(a); self.b=set(b)
+    def common(self):
+        r=[]
+        for h in self.a:
+            if h in self.b: r.append(h)
+        return sorted(r)
+h=Hobby([&quot;축구&quot;,&quot;독서&quot;],[&quot;독서&quot;,&quot;게임&quot;])
+print(h.common())</code></pre>
+<div class="q" id="box19">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q19" value="0"> O</label>
+<label><input type="radio" name="q19" value="1"> X</label>
+<div id="fb19"></div>
+</div>
+<div class="q" id="box20">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q20" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q20" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q20" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q20" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q20" value="4"> 이미지 편집만 사용</label>
+<div id="fb20"></div>
+</div>
+<div class="q" id="wbox10">
+<h3>출력 결과 서술형</h3>
+<textarea id="w10" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb10"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>11. 장바구니 합계 계산</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Cart:
+    def __init__(self): self.items=[]
+    def add(self, name, price): self.items.append({&quot;이름&quot;:name,&quot;가격&quot;:price})
+    def total(self):
+        s=0
+        for item in self.items:
+            if item[&quot;가격&quot;]&gt;0: s+=item[&quot;가격&quot;]
+        return s
+c=Cart(); c.add(&quot;사과&quot;,1000); c.add(&quot;우유&quot;,2000)
+print(c.total())</code></pre>
+<div class="q" id="box21">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q21" value="0"> O</label>
+<label><input type="radio" name="q21" value="1"> X</label>
+<div id="fb21"></div>
+</div>
+<div class="q" id="box22">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q22" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q22" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q22" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q22" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q22" value="4"> 이미지 편집만 사용</label>
+<div id="fb22"></div>
+</div>
+<div class="q" id="wbox11">
+<h3>출력 결과 서술형</h3>
+<textarea id="w11" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb11"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>12. 동물 소리 사전</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class AnimalSound:
+    def __init__(self): self.sounds={&quot;강아지&quot;:&quot;멍멍&quot;,&quot;고양이&quot;:&quot;야옹&quot;}
+    def speak(self, animals):
+        r=[]
+        for a in animals:
+            if a in self.sounds: r.append(self.sounds[a])
+        return r
+s=AnimalSound()
+print(s.speak([&quot;강아지&quot;,&quot;새&quot;,&quot;고양이&quot;]))</code></pre>
+<div class="q" id="box23">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q23" value="0"> O</label>
+<label><input type="radio" name="q23" value="1"> X</label>
+<div id="fb23"></div>
+</div>
+<div class="q" id="box24">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q24" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q24" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q24" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q24" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q24" value="4"> 이미지 편집만 사용</label>
+<div id="fb24"></div>
+</div>
+<div class="q" id="wbox12">
+<h3>출력 결과 서술형</h3>
+<textarea id="w12" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb12"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>13. 비밀번호 검사기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Password:
+    def __init__(self, pw): self.pw=pw
+    def check(self):
+        kinds=set()
+        for ch in self.pw:
+            if ch.isdigit(): kinds.add(&quot;숫자&quot;)
+            if ch.isalpha(): kinds.add(&quot;문자&quot;)
+        return &quot;안전&quot; if len(self.pw)&gt;=6 and len(kinds)==2 else &quot;위험&quot;
+print(Password(&quot;abc123&quot;).check())</code></pre>
+<div class="q" id="box25">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q25" value="0"> O</label>
+<label><input type="radio" name="q25" value="1"> X</label>
+<div id="fb25"></div>
+</div>
+<div class="q" id="box26">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q26" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q26" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q26" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q26" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q26" value="4"> 이미지 편집만 사용</label>
+<div id="fb26"></div>
+</div>
+<div class="q" id="wbox13">
+<h3>출력 결과 서술형</h3>
+<textarea id="w13" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb13"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>14. 할 일 완료 목록</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Todo:
+    def __init__(self, data): self.data=data
+    def done(self):
+        r=[]
+        for item,ok in self.data.items():
+            if ok: r.append(item)
+        return set(r)
+t=Todo({&quot;숙제&quot;:True,&quot;게임&quot;:False,&quot;독서&quot;:True})
+print(t.done())</code></pre>
+<div class="q" id="box27">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q27" value="0"> O</label>
+<label><input type="radio" name="q27" value="1"> X</label>
+<div id="fb27"></div>
+</div>
+<div class="q" id="box28">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q28" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q28" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q28" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q28" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q28" value="4"> 이미지 편집만 사용</label>
+<div id="fb28"></div>
+</div>
+<div class="q" id="wbox14">
+<h3>출력 결과 서술형</h3>
+<textarea id="w14" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb14"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>15. 반 평균 이상 학생 찾기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class ClassScore:
+    def __init__(self, scores): self.scores=scores
+    def above_avg(self):
+        avg=sum(self.scores.values())/len(self.scores)
+        r=[]
+        for n,s in self.scores.items():
+            if s&gt;=avg: r.append(n)
+        return r
+print(ClassScore({&quot;민수&quot;:80,&quot;지우&quot;:60,&quot;하린&quot;:100}).above_avg())</code></pre>
+<div class="q" id="box29">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q29" value="0"> O</label>
+<label><input type="radio" name="q29" value="1"> X</label>
+<div id="fb29"></div>
+</div>
+<div class="q" id="box30">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q30" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q30" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q30" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q30" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q30" value="4"> 이미지 편집만 사용</label>
+<div id="fb30"></div>
+</div>
+<div class="q" id="wbox15">
+<h3>출력 결과 서술형</h3>
+<textarea id="w15" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb15"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>16. 금액별 선물 추천</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Gift:
+    def __init__(self): self.table={&quot;낮음&quot;:[&quot;연필&quot;],&quot;중간&quot;:[&quot;책&quot;],&quot;높음&quot;:[&quot;가방&quot;]}
+    def recommend(self, money):
+        key=&quot;높음&quot; if money&gt;=30000 else &quot;중간&quot; if money&gt;=10000 else &quot;낮음&quot;
+        r=[]
+        for g in self.table[key]: r.append(g)
+        return r
+print(Gift().recommend(15000))</code></pre>
+<div class="q" id="box31">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q31" value="0"> O</label>
+<label><input type="radio" name="q31" value="1"> X</label>
+<div id="fb31"></div>
+</div>
+<div class="q" id="box32">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q32" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q32" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q32" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q32" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q32" value="4"> 이미지 편집만 사용</label>
+<div id="fb32"></div>
+</div>
+<div class="q" id="wbox16">
+<h3>출력 결과 서술형</h3>
+<textarea id="w16" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb16"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>17. 좋아하는 과목 투표</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class Vote:
+    def __init__(self, votes): self.votes=votes
+    def result(self):
+        d={}
+        for v in self.votes:
+            if v not in d: d[v]=0
+            d[v]+=1
+        return d
+print(Vote([&quot;수학&quot;,&quot;과학&quot;,&quot;수학&quot;]).result())</code></pre>
+<div class="q" id="box33">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q33" value="0"> O</label>
+<label><input type="radio" name="q33" value="1"> X</label>
+<div id="fb33"></div>
+</div>
+<div class="q" id="box34">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q34" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q34" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q34" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q34" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q34" value="4"> 이미지 편집만 사용</label>
+<div id="fb34"></div>
+</div>
+<div class="q" id="wbox17">
+<h3>출력 결과 서술형</h3>
+<textarea id="w17" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb17"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>18. 금지 번호 제외하기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class NumberFilter:
+    def __init__(self, banned): self.banned=set(banned)
+    def allow(self, nums):
+        r=[]
+        for n in nums:
+            if n not in self.banned: r.append(n)
+        return r
+f=NumberFilter([3,5])
+print(f.allow([1,2,3,4,5]))</code></pre>
+<div class="q" id="box35">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q35" value="0"> O</label>
+<label><input type="radio" name="q35" value="1"> X</label>
+<div id="fb35"></div>
+</div>
+<div class="q" id="box36">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q36" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q36" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q36" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q36" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q36" value="4"> 이미지 편집만 사용</label>
+<div id="fb36"></div>
+</div>
+<div class="q" id="wbox18">
+<h3>출력 결과 서술형</h3>
+<textarea id="w18" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb18"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>19. 과일 색깔 찾기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class FruitColor:
+    def __init__(self): self.colors={&quot;사과&quot;:&quot;빨강&quot;,&quot;바나나&quot;:&quot;노랑&quot;}
+    def find(self, fruits):
+        r=[]
+        for f in fruits:
+            if f in self.colors: r.append(self.colors[f])
+        return r
+print(FruitColor().find([&quot;사과&quot;,&quot;포도&quot;,&quot;바나나&quot;]))</code></pre>
+<div class="q" id="box37">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q37" value="0"> O</label>
+<label><input type="radio" name="q37" value="1"> X</label>
+<div id="fb37"></div>
+</div>
+<div class="q" id="box38">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q38" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q38" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q38" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q38" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q38" value="4"> 이미지 편집만 사용</label>
+<div id="fb38"></div>
+</div>
+<div class="q" id="wbox19">
+<h3>출력 결과 서술형</h3>
+<textarea id="w19" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb19"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>20. 도서 난이도 분류기</h2>
+<p><b>상세 설명:</b> 조건문, 반복문, 리스트/집합/딕셔너리를 객체지향 클래스 안에서 활용하는 10줄 이내 예제입니다.</p>
+<pre><code>class BookLevel:
+    def __init__(self, pages): self.pages=pages
+    def level(self):
+        d={&quot;쉬움&quot;:[],&quot;어려움&quot;:[]}
+        for title,page in self.pages.items():
+            if page&gt;=100: d[&quot;어려움&quot;].append(title)
+            else: d[&quot;쉬움&quot;].append(title)
+        return d
+print(BookLevel({&quot;동화&quot;:50,&quot;백과&quot;:200}).level())</code></pre>
+<div class="q" id="box39">
+<h3>OX 퀴즈</h3>
+<p>이 코드는 class를 이용하여 객체를 만들고 메서드를 실행한다.</p>
+<label><input type="radio" name="q39" value="0"> O</label>
+<label><input type="radio" name="q39" value="1"> X</label>
+<div id="fb39"></div>
+</div>
+<div class="q" id="box40">
+<h3>코드 관련 5지선다형</h3>
+<p>이 코드에서 주로 사용된 자료구조에 해당하는 것은?</p>
+<label><input type="radio" name="q40" value="0"> 리스트·집합·딕셔너리 중 하나 이상</label>
+<label><input type="radio" name="q40" value="1"> HTML 태그만 사용</label>
+<label><input type="radio" name="q40" value="2"> CSS 선택자만 사용</label>
+<label><input type="radio" name="q40" value="3"> SQL만 사용</label>
+<label><input type="radio" name="q40" value="4"> 이미지 편집만 사용</label>
+<div id="fb40"></div>
+</div>
+<div class="q" id="wbox20">
+<h3>출력 결과 서술형</h3>
+<textarea id="w20" placeholder="출력 결과를 입력하세요."></textarea>
+<div id="wfb20"></div>
+</div>
+</section>
+</main>
+<script>
+const choiceAnswers=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const writtenAnswers=["{'민수': '합격', '지우': '불합격', '하린': '합격'}", "[2, 4, 6]", "['민수', '지우', '하린']", "{'긴단어': ['코딩', '파이썬'], '짧은단어': ['AI']}", "{'민수', '하린'}", "{'펜': 1000, '가방': 18000.0}", "['좋음', '행복']", "{'민수': 'A', '지우': 'B', '하린': 'C'}", "{1: 3, 2: 2, 3: 1}", "['독서']", "3000", "['멍멍', '야옹']", "안전", "{'독서', '숙제'}", "['민수', '하린']", "['책']", "{'수학': 2, '과학': 1}", "[1, 2, 4]", "['빨강', '노랑']", "{'쉬움': ['동화'], '어려움': ['백과']}"];
+function pad(n){return String(n).padStart(2,'0')}
+function nowString(){let d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds())}
+function norm(s){return s.replace(/\r/g,"").split("\n").map(x=>x.trim().replace(/\s+/g," ")).filter(x=>x).join("\n")}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grade(){
+let sid=document.getElementById('sid').value.trim(),name=document.getElementById('name').value.trim();if(!sid||!name){alert('학번과 이름 입력');return}
+let score=0,max=choiceAnswers.length+writtenAnswers.length,lines=[],time=nowString();lines.push('학번: '+sid,'이름: '+name,'평가명: OOP자료구조 수행평가','응시시각: '+time.replace('_',' '),'----------------');
+for(let i=1;i<=choiceAnswers.length;i++){let p=document.querySelector('input[name="q'+i+'"]:checked');let u=p?Number(p.value):-1;let ok=u===choiceAnswers[i-1];if(ok)score++;let fb=document.getElementById('fb'+i);fb.innerHTML=(ok?'정답 ✅':'오답 ❌');fb.parentElement.classList.remove('right','wrong');fb.parentElement.classList.add(ok?'right':'wrong');lines.push('선택형 '+i+': '+(ok?'O':'X'));}
+for(let i=1;i<=writtenAnswers.length;i++){let u=document.getElementById('w'+i).value.trim(),c=writtenAnswers[i-1].trim();let ok=norm(u)===norm(c);if(ok)score++;let fb=document.getElementById('wfb'+i);fb.innerHTML=(ok?'정답 ✅':'확인 필요 ❌')+'<br><details><summary>정답 보기</summary><pre>'+esc(c)+'</pre></details>';fb.parentElement.classList.remove('right','wrong','partial');fb.parentElement.classList.add(ok?'right':'partial');lines.push('서술형 '+i+': '+(ok?'O':'X'),'학생 입력:',u||'미입력','정답:',c,'----------------');}
+document.getElementById('score').innerHTML='<h2>점수: '+score+' / '+max+'</h2>';lines.push('최종 득점: '+score+' / '+max);let blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});let a=document.getElementById('down');a.href=URL.createObjectURL(blob);a.download=sid+'_'+name+'_OOP자료구조_'+score+'점_'+time+'.txt';a.style.display='inline-block';a.textContent='결과 TXT 다운로드';
+}
+</script>
+</body></html>
