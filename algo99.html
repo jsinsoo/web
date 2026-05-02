@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>알고리즘 필수 5조건 수행평가</title><style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#fff7ed 45%,#ecfdf5);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px}
+h1{font-size:46px;margin:0 0 10px}.subtitle{font-size:24px}main{max-width:1240px;margin:auto;padding:30px 22px 80px}
+.card{background:white;border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.1)}
+h2{font-size:32px;color:#1d4ed8}h3{font-size:24px;color:#7c3aed}.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;border:4px solid #93c5fd}
+textarea{width:100%;min-height:115px;font-size:18px;padding:14px;border:2px solid #bfdbfe;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Malgun Gothic',monospace}
+input{font-size:20px;padding:10px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}
+.question{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px;margin:16px 0}.options label{display:block;background:white;border:1px solid #bfdbfe;border-radius:14px;padding:10px;margin:8px 0}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}.right{background:#ecfdf5;border-left:8px solid #10b981}.wrong{background:#fff1f2;border-left:8px solid #e11d48}.partial{background:#fff7ed;border-left:8px solid #f97316}
+.concept{background:#eff6ff;border-left:8px solid #2563eb;border-radius:18px;padding:18px;margin:14px 0}.rubric{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:10px}th{background:#2563eb;color:white}footer{text-align:center;color:#475569;padding:28px}
+</style></head><body>
+<header><h1>🧭 알고리즘 필수 5조건 수행평가</h1><div class="subtitle">예제 코드 10개 · OX 10문항 · 5지선다형 10문항 · 출력 서술형 10문항</div></header>
+<main>
+<section class="card"><h2>👤 응시자 정보</h2><p>각 코드를 읽고 OX, 5지선다형, 출력 결과 서술형 문제를 해결하세요. 결과 파일은 <b>학번_이름_알고리즘_득점_응시시각.txt</b> 형식으로 저장됩니다.</p><label>학번 <input id="sid" placeholder="학번"></label><label>이름 <input id="name" placeholder="이름"></label><br><button onclick="grade()">채점하고 TXT 산출</button><button onclick="resetAll()">다시 풀기</button><a id="down" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8" href="#">다운로드</a><div id="score"></div></section>
+<section class="card"><h2>📘 알고리즘의 필수 5조건 핵심 정리</h2><table><tr><th>조건</th><th>의미</th></tr><tr><td>입력</td><td>0개 이상의 입력값</td></tr><tr><td>출력</td><td>최소 1개 이상의 출력값</td></tr><tr><td>명확성</td><td>각 단계가 모호하지 않음</td></tr><tr><td>유한성</td><td>유한한 단계 안에서 반드시 종료</td></tr><tr><td>유효성</td><td>실제로 수행 가능한 연산</td></tr></table><div class="rubric"><b>주의</b><ul><li>입력은 반드시 1개 이상이 아니라 0개 이상입니다.</li><li>출력은 반드시 2개 이상이 아니라 최소 1개 이상입니다.</li><li>유한성은 빠르다는 뜻이 아니라 반드시 끝난다는 뜻입니다.</li><li>의사코드는 설계용 표현이고, 순서도는 시각적 표현 도구입니다.</li></ul></div></section>
+
+<section class="card">
+<span class="meta">예제 1</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>1. 입력과 출력: 두 수의 합</h2>
+<div class="concept"><b>상세 설명</b><br>이 코드는 두 개의 입력값 7과 5를 받아 더한 결과를 출력합니다. 알고리즘은 입력을 0개 이상 받을 수 있고, 출력은 최소 1개 이상 생성해야 합니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class AddAlgorithm:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def run(self):
+        return self.a + self.b
+
+algo = AddAlgorithm(7, 5)
+print(&quot;출력:&quot;, algo.run())</code></pre>
+<div class="question" id="box1"><span class="meta">문항 1</span><span class="meta">OX 퀴즈</span><h3>알고리즘의 입력은 반드시 1개 이상이어야 한다.</h3><div class="options"><label><input type="radio" name="q1" value="0"> O</label><label><input type="radio" name="q1" value="1"> X</label></div><div id="fb1"></div></div><div class="question" id="box2"><span class="meta">문항 2</span><span class="meta">코드 관련 5지선다형</span><h3>위 코드에서 알고리즘의 출력값은?</h3><div class="options"><label><input type="radio" name="q2" value="0"> 7</label><label><input type="radio" name="q2" value="1"> 5</label><label><input type="radio" name="q2" value="2"> 12</label><label><input type="radio" name="q2" value="3"> 0</label><label><input type="radio" name="q2" value="4"> 오류</label></div><div id="fb2"></div></div><div class="question" id="wbox1"><span class="meta">서술형 1</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w1" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb1"></div></div></section>
+<section class="card">
+<span class="meta">예제 2</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>2. 입력 0개 알고리즘: 고정 인사 출력</h2>
+<div class="concept"><b>상세 설명</b><br>이 코드는 외부 입력값을 받지 않고 정해진 문장을 출력합니다. 따라서 입력이 0개인 알고리즘 예시입니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class GreetingAlgorithm:
+    def run(self):
+        return &quot;안녕하세요&quot;
+
+algo = GreetingAlgorithm()
+print(algo.run())</code></pre>
+<div class="question" id="box3"><span class="meta">문항 3</span><span class="meta">OX 퀴즈</span><h3>입력이 0개인 알고리즘도 가능하다.</h3><div class="options"><label><input type="radio" name="q3" value="0"> O</label><label><input type="radio" name="q3" value="1"> X</label></div><div id="fb3"></div></div><div class="question" id="box4"><span class="meta">문항 4</span><span class="meta">코드 관련 5지선다형</span><h3>이 코드의 입력 개수로 가장 적절한 것은?</h3><div class="options"><label><input type="radio" name="q4" value="0"> 0개</label><label><input type="radio" name="q4" value="1"> 1개</label><label><input type="radio" name="q4" value="2"> 2개</label><label><input type="radio" name="q4" value="3"> 무한개</label><label><input type="radio" name="q4" value="4"> 반드시 3개</label></div><div id="fb4"></div></div><div class="question" id="wbox2"><span class="meta">서술형 2</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w2" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb2"></div></div></section>
+<section class="card">
+<span class="meta">예제 3</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>3. 출력 최소 1개: 최댓값 찾기</h2>
+<div class="concept"><b>상세 설명</b><br>리스트를 입력받아 반복문과 조건문으로 최댓값을 찾고, 결과를 하나 출력합니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class MaxAlgorithm:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def run(self):
+        m = self.numbers[0]
+        for n in self.numbers:
+            if n &gt; m:
+                m = n
+        return m
+
+algo = MaxAlgorithm([3, 9, 2, 7])
+print(&quot;최댓값:&quot;, algo.run())</code></pre>
+<div class="question" id="box5"><span class="meta">문항 5</span><span class="meta">OX 퀴즈</span><h3>알고리즘은 처리 결과로 최소 1개 이상의 출력값을 생성해야 한다.</h3><div class="options"><label><input type="radio" name="q5" value="0"> O</label><label><input type="radio" name="q5" value="1"> X</label></div><div id="fb5"></div></div><div class="question" id="box6"><span class="meta">문항 6</span><span class="meta">코드 관련 5지선다형</span><h3>위 코드에서 최댓값으로 출력되는 값은?</h3><div class="options"><label><input type="radio" name="q6" value="0"> 2</label><label><input type="radio" name="q6" value="1"> 3</label><label><input type="radio" name="q6" value="2"> 7</label><label><input type="radio" name="q6" value="3"> 9</label><label><input type="radio" name="q6" value="4"> 21</label></div><div id="fb6"></div></div><div class="question" id="wbox3"><span class="meta">서술형 3</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w3" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb3"></div></div></section>
+<section class="card">
+<span class="meta">예제 4</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>4. 명확성: 짝수 판별</h2>
+<div class="concept"><b>상세 설명</b><br>x % 2 == 0이라는 명확한 조건으로 짝수와 홀수를 판별합니다. 알고리즘의 각 단계는 모호하지 않아야 합니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class EvenCheck:
+    def __init__(self, x):
+        self.x = x
+
+    def run(self):
+        if self.x % 2 == 0:
+            return &quot;짝수&quot;
+        return &quot;홀수&quot;
+
+algo = EvenCheck(14)
+print(algo.run())</code></pre>
+<div class="question" id="box7"><span class="meta">문항 7</span><span class="meta">OX 퀴즈</span><h3>명확성은 알고리즘의 각 단계가 모호하지 않아야 한다는 조건이다.</h3><div class="options"><label><input type="radio" name="q7" value="0"> O</label><label><input type="radio" name="q7" value="1"> X</label></div><div id="fb7"></div></div><div class="question" id="box8"><span class="meta">문항 8</span><span class="meta">코드 관련 5지선다형</span><h3>14 % 2 == 0의 결과에 따라 출력되는 것은?</h3><div class="options"><label><input type="radio" name="q8" value="0"> 짝수</label><label><input type="radio" name="q8" value="1"> 홀수</label><label><input type="radio" name="q8" value="2"> 14</label><label><input type="radio" name="q8" value="3"> 0</label><label><input type="radio" name="q8" value="4"> 오류</label></div><div id="fb8"></div></div><div class="question" id="wbox4"><span class="meta">서술형 4</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w4" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb4"></div></div></section>
+<section class="card">
+<span class="meta">예제 5</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>5. 유한성: 정해진 횟수만 반복</h2>
+<div class="concept"><b>상세 설명</b><br>5부터 1까지 정해진 횟수만 반복하므로 반드시 종료됩니다. 유한성은 빠르다는 뜻이 아니라 끝난다는 뜻입니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class CountDown:
+    def __init__(self, start):
+        self.start = start
+
+    def run(self):
+        result = []
+        for i in range(self.start, 0, -1):
+            result.append(i)
+        return result
+
+algo = CountDown(5)
+print(algo.run())</code></pre>
+<div class="question" id="box9"><span class="meta">문항 9</span><span class="meta">OX 퀴즈</span><h3>유한성은 알고리즘이 유한한 단계 안에서 반드시 종료되어야 한다는 뜻이다.</h3><div class="options"><label><input type="radio" name="q9" value="0"> O</label><label><input type="radio" name="q9" value="1"> X</label></div><div id="fb9"></div></div><div class="question" id="box10"><span class="meta">문항 10</span><span class="meta">코드 관련 5지선다형</span><h3>range(5, 0, -1)을 리스트에 넣으면 어떤 결과가 되는가?</h3><div class="options"><label><input type="radio" name="q10" value="0"> [1, 2, 3, 4, 5]</label><label><input type="radio" name="q10" value="1"> [5, 4, 3, 2, 1]</label><label><input type="radio" name="q10" value="2"> [5, 4, 3, 2, 1, 0]</label><label><input type="radio" name="q10" value="3"> []</label><label><input type="radio" name="q10" value="4"> 무한 반복</label></div><div id="fb10"></div></div><div class="question" id="wbox5"><span class="meta">서술형 5</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w5" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb5"></div></div></section>
+<section class="card">
+<span class="meta">예제 6</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>6. 유효성: 실행 가능한 나눗셈</h2>
+<div class="concept"><b>상세 설명</b><br>나눗셈은 실제로 수행 가능한 연산입니다. 또한 0으로 나누는 경우를 조건문으로 처리하여 유효성을 높였습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class DivideAlgorithm:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def run(self):
+        if self.b == 0:
+            return &quot;나눌 수 없음&quot;
+        return self.a / self.b
+
+algo = DivideAlgorithm(10, 2)
+print(algo.run())</code></pre>
+<div class="question" id="box11"><span class="meta">문항 11</span><span class="meta">OX 퀴즈</span><h3>유효성은 알고리즘의 각 단계가 실제로 수행 가능한 연산이어야 한다는 뜻이다.</h3><div class="options"><label><input type="radio" name="q11" value="0"> O</label><label><input type="radio" name="q11" value="1"> X</label></div><div id="fb11"></div></div><div class="question" id="box12"><span class="meta">문항 12</span><span class="meta">코드 관련 5지선다형</span><h3>DivideAlgorithm(10, 2).run()의 결과는?</h3><div class="options"><label><input type="radio" name="q12" value="0"> 5.0</label><label><input type="radio" name="q12" value="1"> 5</label><label><input type="radio" name="q12" value="2"> 나눌 수 없음</label><label><input type="radio" name="q12" value="3"> 20</label><label><input type="radio" name="q12" value="4"> 오류</label></div><div id="fb12"></div></div><div class="question" id="wbox6"><span class="meta">서술형 6</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w6" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb6"></div></div></section>
+<section class="card">
+<span class="meta">예제 7</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>7. 명확한 단계: 평균 계산</h2>
+<div class="concept"><b>상세 설명</b><br>점수 합계를 구하고 개수로 나누는 과정이 명확합니다. 평균 계산 과정은 누구나 같은 결과로 이해할 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class AverageAlgorithm:
+    def __init__(self, scores):
+        self.scores = scores
+
+    def run(self):
+        total = 0
+        for s in self.scores:
+            total += s
+        return total / len(self.scores)
+
+algo = AverageAlgorithm([80, 90, 100])
+print(&quot;평균:&quot;, algo.run())</code></pre>
+<div class="question" id="box13"><span class="meta">문항 13</span><span class="meta">OX 퀴즈</span><h3>알고리즘의 단계가 명확하면 같은 입력에 대해 같은 방식으로 실행될 수 있다.</h3><div class="options"><label><input type="radio" name="q13" value="0"> O</label><label><input type="radio" name="q13" value="1"> X</label></div><div id="fb13"></div></div><div class="question" id="box14"><span class="meta">문항 14</span><span class="meta">코드 관련 5지선다형</span><h3>[80, 90, 100]의 평균은?</h3><div class="options"><label><input type="radio" name="q14" value="0"> 80.0</label><label><input type="radio" name="q14" value="1"> 85.0</label><label><input type="radio" name="q14" value="2"> 90.0</label><label><input type="radio" name="q14" value="3"> 100.0</label><label><input type="radio" name="q14" value="4"> 270.0</label></div><div id="fb14"></div></div><div class="question" id="wbox7"><span class="meta">서술형 7</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w7" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb7"></div></div></section>
+<section class="card">
+<span class="meta">예제 8</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>8. 의사코드와 실제 코드 구분</h2>
+<div class="concept"><b>상세 설명</b><br>이 코드는 실제 실행 가능한 파이썬 코드입니다. 반면 의사코드는 설계용 표현이며 실제 컴퓨터에서 바로 실행되는 코드는 아닙니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class PseudoCodeExample:
+    def __init__(self, n):
+        self.n = n
+
+    def run(self):
+        result = []
+        for i in range(1, self.n + 1):
+            result.append(i)
+        return result
+
+algo = PseudoCodeExample(3)
+print(algo.run())</code></pre>
+<div class="question" id="box15"><span class="meta">문항 15</span><span class="meta">OX 퀴즈</span><h3>의사코드는 실제 컴퓨터에서 반드시 바로 실행 가능한 코드이다.</h3><div class="options"><label><input type="radio" name="q15" value="0"> O</label><label><input type="radio" name="q15" value="1"> X</label></div><div id="fb15"></div></div><div class="question" id="box16"><span class="meta">문항 16</span><span class="meta">코드 관련 5지선다형</span><h3>PseudoCodeExample(3).run()의 출력은?</h3><div class="options"><label><input type="radio" name="q16" value="0"> [1, 2, 3]</label><label><input type="radio" name="q16" value="1"> [0, 1, 2, 3]</label><label><input type="radio" name="q16" value="2"> [3, 2, 1]</label><label><input type="radio" name="q16" value="3"> 3</label><label><input type="radio" name="q16" value="4"> 오류</label></div><div id="fb16"></div></div><div class="question" id="wbox8"><span class="meta">서술형 8</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w8" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb8"></div></div></section>
+<section class="card">
+<span class="meta">예제 9</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>9. 순서도는 표현 도구</h2>
+<div class="concept"><b>상세 설명</b><br>입력, 처리, 출력 단계를 순서대로 보여 줍니다. 순서도는 이런 알고리즘 절차를 도형과 화살표로 시각화하는 표현 도구입니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class FlowStep:
+    def __init__(self, steps):
+        self.steps = steps
+
+    def run(self):
+        for i, step in enumerate(self.steps, start=1):
+            print(f&quot;{i}단계: {step}&quot;)
+
+algo = FlowStep([&quot;입력&quot;, &quot;처리&quot;, &quot;출력&quot;])
+algo.run()</code></pre>
+<div class="question" id="box17"><span class="meta">문항 17</span><span class="meta">OX 퀴즈</span><h3>순서도는 알고리즘 자체라기보다 알고리즘을 시각적으로 표현하는 도구이다.</h3><div class="options"><label><input type="radio" name="q17" value="0"> O</label><label><input type="radio" name="q17" value="1"> X</label></div><div id="fb17"></div></div><div class="question" id="box18"><span class="meta">문항 18</span><span class="meta">코드 관련 5지선다형</span><h3>enumerate(self.steps, start=1)의 역할로 가장 알맞은 것은?</h3><div class="options"><label><input type="radio" name="q18" value="0"> 0부터 번호를 붙인다</label><label><input type="radio" name="q18" value="1"> 1부터 번호를 붙인다</label><label><input type="radio" name="q18" value="2"> 리스트를 삭제한다</label><label><input type="radio" name="q18" value="3"> 무한 반복한다</label><label><input type="radio" name="q18" value="4"> 문자열을 정렬한다</label></div><div id="fb18"></div></div><div class="question" id="wbox9"><span class="meta">서술형 9</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w9" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb9"></div></div></section>
+<section class="card">
+<span class="meta">예제 10</span><span class="meta">알고리즘 필수 5조건</span>
+<h2>10. 다섯 조건 종합 점검</h2>
+<div class="concept"><b>상세 설명</b><br>출력, 유한성, 명확성을 간단히 점검하는 코드입니다. 실제 알고리즘은 입력, 출력, 명확성, 유한성, 유효성을 모두 고려해야 합니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class AlgorithmChecker:
+    def __init__(self, has_output, finite, clear):
+        self.has_output = has_output
+        self.finite = finite
+        self.clear = clear
+
+    def run(self):
+        if self.has_output and self.finite and self.clear:
+            return &quot;알고리즘 조건 만족&quot;
+        return &quot;보완 필요&quot;
+
+algo = AlgorithmChecker(True, True, True)
+print(algo.run())</code></pre>
+<div class="question" id="box19"><span class="meta">문항 19</span><span class="meta">OX 퀴즈</span><h3>알고리즘은 입력, 출력, 명확성, 유한성, 유효성을 고려해야 한다.</h3><div class="options"><label><input type="radio" name="q19" value="0"> O</label><label><input type="radio" name="q19" value="1"> X</label></div><div id="fb19"></div></div><div class="question" id="box20"><span class="meta">문항 20</span><span class="meta">코드 관련 5지선다형</span><h3>AlgorithmChecker(True, True, True).run()의 결과는?</h3><div class="options"><label><input type="radio" name="q20" value="0"> 보완 필요</label><label><input type="radio" name="q20" value="1"> 알고리즘 조건 만족</label><label><input type="radio" name="q20" value="2"> True</label><label><input type="radio" name="q20" value="3"> False</label><label><input type="radio" name="q20" value="4"> 오류</label></div><div id="fb20"></div></div><div class="question" id="wbox10"><span class="meta">서술형 10</span><span class="meta">출력 결과 입력</span><h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3><textarea id="w10" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea><div id="wfb10"></div></div></section>
+</main><footer>🧭 알고리즘 필수 5조건 코드 이해 수행평가 HTML</footer>
+<script>
+const choiceAnswers=[1, 2, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 2, 1, 0, 0, 1, 0, 1];
+const explanations=["입력은 0개 이상입니다. 즉, 입력이 없는 알고리즘도 있을 수 있습니다.", "7+5=12이므로 출력 결과는 12입니다.", "알고리즘의 입력은 0개 이상이므로 입력이 없어도 알고리즘이 될 수 있습니다.", "객체 생성 시 외부 처리 대상 입력이 없고, 고정된 값을 출력합니다.", "출력이 없다면 문제 해결 결과를 확인할 수 없습니다.", "[3, 9, 2, 7] 중 가장 큰 값은 9입니다.", "누구나 같은 방식으로 이해하고 실행할 수 있어야 명확성이 있습니다.", "14는 2로 나누어떨어지므로 짝수입니다.", "유한성은 실행 속도가 빠르다는 뜻이 아니라 반드시 끝난다는 뜻입니다.", "5부터 1까지 1씩 감소합니다. 0은 포함되지 않습니다.", "컴퓨터나 사람이 실제로 수행할 수 있는 구체적인 명령이어야 합니다.", "파이썬의 / 연산은 실수 결과를 반환하므로 10/2는 5.0입니다.", "명확한 단계는 수행자가 달라도 동일하게 이해되고 실행되어야 합니다.", "80+90+100=270이고, 270/3=90.0입니다.", "의사코드는 알고리즘을 설계하기 위한 표현이며 실제 실행 코드가 아닐 수 있습니다.", "range(1, 4)는 1, 2, 3을 생성합니다.", "순서도는 알고리즘의 흐름을 도형과 화살표로 표현하는 도구입니다.", "start=1이므로 번호가 1부터 시작합니다.", "알고리즘의 필수 5조건은 입력, 출력, 명확성, 유한성, 유효성입니다.", "세 조건이 모두 True이므로 '알고리즘 조건 만족'을 반환합니다."];
+const writtenAnswers=["출력: 12", "안녕하세요", "최댓값: 9", "짝수", "[5, 4, 3, 2, 1]", "5.0", "평균: 90.0", "[1, 2, 3]", "1단계: 입력\n2단계: 처리\n3단계: 출력", "알고리즘 조건 만족"];
+const titles=["1. 입력과 출력: 두 수의 합", "2. 입력 0개 알고리즘: 고정 인사 출력", "3. 출력 최소 1개: 최댓값 찾기", "4. 명확성: 짝수 판별", "5. 유한성: 정해진 횟수만 반복", "6. 유효성: 실행 가능한 나눗셈", "7. 명확한 단계: 평균 계산", "8. 의사코드와 실제 코드 구분", "9. 순서도는 표현 도구", "10. 다섯 조건 종합 점검"];
+function pad(n){return String(n).padStart(2,'0')}
+function nowString(){const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds())}
+function answerText(q,idx){const el=document.querySelector('input[name="q'+q+'"][value="'+idx+'"]');return el?el.parentElement.textContent.trim():""}
+function norm(s){return s.replace(/\r/g,"").split("\n").map(x=>x.trim().replace(/\s+/g," ")).filter(x=>x).join("\n")}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function lineScore(u,c){const a=u.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x);const b=c.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x);let same=0;for(let i=0;i<Math.max(a.length,b.length);i++)if((a[i]||"")===(b[i]||""))same++;return {same:same,total:b.length}}
+function grade(){
+ const sid=document.getElementById("sid").value.trim(), name=document.getElementById("name").value.trim(); if(!sid||!name){alert("학번과 이름을 입력하세요.");return}
+ let score=0,max=choiceAnswers.length+writtenAnswers.length,lines=[],time=nowString();
+ lines.push("학번: "+sid,"이름: "+name,"평가명: 알고리즘 필수 5조건 수행평가","응시시각: "+time.replace("_"," "),"----------------------------------------");
+ for(let i=1;i<=choiceAnswers.length;i++){const p=document.querySelector('input[name="q'+i+'"]:checked');const u=p?Number(p.value):-1;const ok=u===choiceAnswers[i-1];if(ok)score++;const fb=document.getElementById("fb"+i),box=document.getElementById("box"+i);box.classList.remove("right","wrong");box.classList.add(ok?"right":"wrong");fb.className="feedback "+(ok?"right":"wrong");fb.innerHTML="<b>"+(ok?"정답 ✅":"오답 ❌")+"</b><br>내 선택: "+(u>=0?answerText(i,u):"미응답")+"<br>정답: "+answerText(i,choiceAnswers[i-1])+"<br>상세 설명: "+explanations[i-1];lines.push("선택형 "+i+"번: "+(ok?"O":"X"));}
+ for(let i=1;i<=writtenAnswers.length;i++){const u=document.getElementById("w"+i).value.trim(),c=writtenAnswers[i-1].trim();const ok=norm(u)===norm(c),ls=lineScore(u,c);if(ok)score++;const fb=document.getElementById("wfb"+i),box=document.getElementById("wbox"+i);box.classList.remove("right","wrong","partial");box.classList.add(ok?"right":(ls.same>0?"partial":"wrong"));fb.className="feedback "+(ok?"right":(ls.same>0?"partial":"wrong"));fb.innerHTML="<b>"+(ok?"정답 ✅":"확인 필요 ❌")+"</b><br>문항 점수: "+(ok?1:0)+" / 1점<br>줄 단위 일치: "+ls.same+" / "+ls.total+"<br><details><summary>정답 출력 보기</summary><pre>"+esc(c)+"</pre></details>";lines.push("서술형 "+i+"번 "+titles[i-1]+": "+(ok?"O":"X")+" / "+(ok?1:0)+"점","[학생 입력]",u||"미입력","[정답]",c,"----------------------------------------");}
+ const percent=Math.round(score/max*100);document.getElementById("score").innerHTML="<h2>점수: "+score+" / "+max+"점 ("+percent+"%)</h2>";
+ lines.push("최종 득점: "+score+" / "+max,"백분율: "+percent+"%");const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});const a=document.getElementById("down");a.href=URL.createObjectURL(blob);a.download=sid+"_"+name+"_알고리즘_"+score+"점_"+time+".txt";a.style.display="inline-block";a.textContent="결과 TXT 다운로드";
+}
+function resetAll(){document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);document.querySelectorAll('textarea').forEach(x=>x.value="");document.querySelectorAll('[id^="fb"],[id^="wfb"]').forEach(x=>{x.innerHTML="";x.className=""});document.querySelectorAll('.question').forEach(x=>x.classList.remove("right","wrong","partial"));document.getElementById("score").innerHTML="";const a=document.getElementById("down");a.style.display="none";a.href="#"}
+</script>
+</body></html>
