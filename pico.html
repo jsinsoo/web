@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>라즈베리 파이 피코 센서 수행평가</title><style>body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#ecfdf5 50%,#fff7ed);color:#172033;font-size:18px;line-height:1.6}header{padding:44px 7vw;color:white;background:linear-gradient(120deg,#0f766e,#2563eb,#7c3aed);border-bottom-left-radius:40px;border-bottom-right-radius:40px}h1{font-size:40px;margin:0 0 10px}.subtitle{font-size:22px}main{max-width:1240px;margin:auto;padding:28px 20px 70px}.card{background:white;border:2px solid #bfdbfe;border-radius:24px;padding:24px;margin:22px 0;box-shadow:0 8px 22px rgba(37,99,235,.1)}h2{font-size:28px;color:#0f766e}h3{font-size:22px;color:#7c3aed}.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}pre{background:#0f172a;color:#e0f2fe;padding:18px;border-radius:16px;overflow:auto;font-size:14px;border:4px solid #5eead4}textarea{width:100%;min-height:90px;font-size:16px;padding:12px;border:2px solid #bfdbfe;border-radius:14px;box-sizing:border-box;font-family:Consolas,'Malgun Gothic',monospace}input{font-size:18px;padding:9px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}button{font-size:18px;font-weight:900;padding:11px 16px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}.question{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:16px;padding:14px;margin:12px 0}.options label{display:block;background:white;border:1px solid #bfdbfe;border-radius:12px;padding:8px;margin:6px 0}.feedback{border-radius:14px;padding:12px;margin-top:8px}.right{background:#ecfdf5;border-left:8px solid #10b981}.wrong{background:#fff1f2;border-left:8px solid #e11d48}.partial{background:#fff7ed;border-left:8px solid #f97316}.concept{background:#eff6ff;border-left:8px solid #2563eb;border-radius:16px;padding:14px;margin:12px 0}.rubric{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:16px;padding:16px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #bfdbfe;padding:9px}th{background:#0f766e;color:white}footer{text-align:center;color:#475569;padding:24px}</style></head><body><header><h1>🍓 라즈베리 파이 피코 센서 활용 수업자료 + 수행평가</h1><div class="subtitle">센서 예제 50개 · OX 50문항 · 5지선다형 50문항 · 출력 서술형 50문항</div></header><main><section class="card"><h2>👤 응시자 정보</h2><p>각 센서 예제 코드를 읽고 문제를 해결하세요. 결과 파일은 <b>학번_이름_피코센서_득점_응시시각.txt</b>로 저장됩니다.</p><label>학번 <input id="sid" placeholder="학번"></label><label>이름 <input id="name" placeholder="이름"></label><br><button onclick="grade()">채점하고 TXT 산출</button><button onclick="resetAll()">다시 풀기</button><a id="down" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8" href="#">다운로드</a><div id="score"></div></section><section class="card"><h2>📘 수업 핵심 정리</h2><table><tr><th>개념</th><th>설명</th></tr><tr><td>GPIO</td><td>센서와 LED를 연결하는 입출력 핀</td></tr><tr><td>ADC</td><td>아날로그 센서값 읽기</td></tr><tr><td>디지털 입력</td><td>버튼, PIR, IR처럼 0 또는 1로 읽기</td></tr><tr><td>PWM</td><td>LED 밝기 조절</td></tr><tr><td>I2C</td><td>주소 기반 센서 통신</td></tr></table><div class="rubric"><b>채점 안내</b><ul><li>선택형은 자동 채점됩니다.</li><li>서술형은 예상 출력/동작과 완전히 같으면 자동 정답 처리됩니다.</li><li>실제 센서값은 환경에 따라 달라질 수 있습니다.</li></ul></div></section><section class="card"><span class="meta">예제 1</span><span class="meta">Pico 센서</span><h2>1. 버튼 입력</h2><div class="concept"><b>수업자료 설명</b><br>버튼 입력 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin
+import time
+
+btn = Pin(15, Pin.IN, Pin.PULL_DOWN)
+
+while True:
+    if btn.value() == 1:
+        print(&quot;버튼 눌림&quot;)
+    time.sleep(0.2)</code></pre><div class="question" id="box1"><span class="meta">문항 1</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q1" value="0"> O</label><label><input type="radio" name="q1" value="1"> X</label></div><div id="fb1"></div></div><div class="question" id="box2"><span class="meta">문항 2</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q2" value="0"> 버튼 눌림</label><label><input type="radio" name="q2" value="1"> HTML 표 만들기</label><label><input type="radio" name="q2" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q2" value="3"> 인터넷 검색</label><label><input type="radio" name="q2" value="4"> 그림 색칠</label></div><div id="fb2"></div></div><div class="question" id="wbox1"><span class="meta">서술형 1</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w1" placeholder="예상 출력/동작 결과"></textarea><div id="wfb1"></div></div></section><section class="card"><span class="meta">예제 2</span><span class="meta">Pico 센서</span><h2>2. 버튼으로 LED 켜기</h2><div class="concept"><b>수업자료 설명</b><br>버튼으로 LED 켜기 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin
+import time
+
+btn = Pin(15, Pin.IN, Pin.PULL_DOWN)
+led = Pin(25, Pin.OUT)
+
+while True:
+    led.value(btn.value())
+    time.sleep(0.1)</code></pre><div class="question" id="box3"><span class="meta">문항 3</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q3" value="0"> O</label><label><input type="radio" name="q3" value="1"> X</label></div><div id="fb3"></div></div><div class="question" id="box4"><span class="meta">문항 4</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q4" value="0"> LED 켜짐</label><label><input type="radio" name="q4" value="1"> HTML 표 만들기</label><label><input type="radio" name="q4" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q4" value="3"> 인터넷 검색</label><label><input type="radio" name="q4" value="4"> 그림 색칠</label></div><div id="fb4"></div></div><div class="question" id="wbox2"><span class="meta">서술형 2</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w2" placeholder="예상 출력/동작 결과"></textarea><div id="wfb2"></div></div></section><section class="card"><span class="meta">예제 3</span><span class="meta">Pico 센서</span><h2>3. 조도 센서 값 읽기</h2><div class="concept"><b>수업자료 설명</b><br>조도 센서 값 읽기 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import ADC
+import time
+
+light = ADC(26)
+
+while True:
+    print(&quot;조도:&quot;, light.read_u16())
+    time.sleep(0.5)</code></pre><div class="question" id="box5"><span class="meta">문항 5</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q5" value="0"> O</label><label><input type="radio" name="q5" value="1"> X</label></div><div id="fb5"></div></div><div class="question" id="box6"><span class="meta">문항 6</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q6" value="0"> ADC 값 출력</label><label><input type="radio" name="q6" value="1"> HTML 표 만들기</label><label><input type="radio" name="q6" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q6" value="3"> 인터넷 검색</label><label><input type="radio" name="q6" value="4"> 그림 색칠</label></div><div id="fb6"></div></div><div class="question" id="wbox3"><span class="meta">서술형 3</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w3" placeholder="예상 출력/동작 결과"></textarea><div id="wfb3"></div></div></section><section class="card"><span class="meta">예제 4</span><span class="meta">Pico 센서</span><h2>4. 어두우면 LED 켜기</h2><div class="concept"><b>수업자료 설명</b><br>어두우면 LED 켜기 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+light = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    if light.read_u16() &lt; 20000:
+        led.on()
+    else:
+        led.off()
+    time.sleep(0.5)</code></pre><div class="question" id="box7"><span class="meta">문항 7</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q7" value="0"> O</label><label><input type="radio" name="q7" value="1"> X</label></div><div id="fb7"></div></div><div class="question" id="box8"><span class="meta">문항 8</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q8" value="0"> 어두우면 LED 켜짐</label><label><input type="radio" name="q8" value="1"> HTML 표 만들기</label><label><input type="radio" name="q8" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q8" value="3"> 인터넷 검색</label><label><input type="radio" name="q8" value="4"> 그림 색칠</label></div><div id="fb8"></div></div><div class="question" id="wbox4"><span class="meta">서술형 4</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w4" placeholder="예상 출력/동작 결과"></textarea><div id="wfb4"></div></div></section><section class="card"><span class="meta">예제 5</span><span class="meta">Pico 센서</span><h2>5. 가변저항 값 읽기</h2><div class="concept"><b>수업자료 설명</b><br>가변저항 값 읽기 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;가변저항 값 읽기:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box9"><span class="meta">문항 9</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q9" value="0"> O</label><label><input type="radio" name="q9" value="1"> X</label></div><div id="fb9"></div></div><div class="question" id="box10"><span class="meta">문항 10</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q10" value="0"> 가변저항 값</label><label><input type="radio" name="q10" value="1"> HTML 표 만들기</label><label><input type="radio" name="q10" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q10" value="3"> 인터넷 검색</label><label><input type="radio" name="q10" value="4"> 그림 색칠</label></div><div id="fb10"></div></div><div class="question" id="wbox5"><span class="meta">서술형 5</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w5" placeholder="예상 출력/동작 결과"></textarea><div id="wfb5"></div></div></section><section class="card"><span class="meta">예제 6</span><span class="meta">Pico 센서</span><h2>6. 가변저항으로 LED 밝기 조절</h2><div class="concept"><b>수업자료 설명</b><br>가변저항으로 LED 밝기 조절 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC, PWM
+import time
+
+pot = ADC(26)
+led = PWM(Pin(15))
+led.freq(1000)
+
+while True:
+    led.duty_u16(pot.read_u16())
+    time.sleep(0.05)</code></pre><div class="question" id="box11"><span class="meta">문항 11</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q11" value="0"> O</label><label><input type="radio" name="q11" value="1"> X</label></div><div id="fb11"></div></div><div class="question" id="box12"><span class="meta">문항 12</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q12" value="0"> PWM 밝기 조절</label><label><input type="radio" name="q12" value="1"> HTML 표 만들기</label><label><input type="radio" name="q12" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q12" value="3"> 인터넷 검색</label><label><input type="radio" name="q12" value="4"> 그림 색칠</label></div><div id="fb12"></div></div><div class="question" id="wbox6"><span class="meta">서술형 6</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w6" placeholder="예상 출력/동작 결과"></textarea><div id="wfb6"></div></div></section><section class="card"><span class="meta">예제 7</span><span class="meta">Pico 센서</span><h2>7. LM35 온도 센서</h2><div class="concept"><b>수업자료 설명</b><br>LM35 온도 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;LM35 온도 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box13"><span class="meta">문항 13</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q13" value="0"> O</label><label><input type="radio" name="q13" value="1"> X</label></div><div id="fb13"></div></div><div class="question" id="box14"><span class="meta">문항 14</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q14" value="0"> 온도: 계산값</label><label><input type="radio" name="q14" value="1"> HTML 표 만들기</label><label><input type="radio" name="q14" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q14" value="3"> 인터넷 검색</label><label><input type="radio" name="q14" value="4"> 그림 색칠</label></div><div id="fb14"></div></div><div class="question" id="wbox7"><span class="meta">서술형 7</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w7" placeholder="예상 출력/동작 결과"></textarea><div id="wfb7"></div></div></section><section class="card"><span class="meta">예제 8</span><span class="meta">Pico 센서</span><h2>8. 내장 온도 센서</h2><div class="concept"><b>수업자료 설명</b><br>내장 온도 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;내장 온도 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box15"><span class="meta">문항 15</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q15" value="0"> O</label><label><input type="radio" name="q15" value="1"> X</label></div><div id="fb15"></div></div><div class="question" id="box16"><span class="meta">문항 16</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q16" value="0"> 내장 온도: 계산값</label><label><input type="radio" name="q16" value="1"> HTML 표 만들기</label><label><input type="radio" name="q16" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q16" value="3"> 인터넷 검색</label><label><input type="radio" name="q16" value="4"> 그림 색칠</label></div><div id="fb16"></div></div><div class="question" id="wbox8"><span class="meta">서술형 8</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w8" placeholder="예상 출력/동작 결과"></textarea><div id="wfb8"></div></div></section><section class="card"><span class="meta">예제 9</span><span class="meta">Pico 센서</span><h2>9. 온도 높으면 경고 LED</h2><div class="concept"><b>수업자료 설명</b><br>온도 높으면 경고 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;온도 높으면 경고 LED:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box17"><span class="meta">문항 17</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q17" value="0"> O</label><label><input type="radio" name="q17" value="1"> X</label></div><div id="fb17"></div></div><div class="question" id="box18"><span class="meta">문항 18</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q18" value="0"> 30도 초과 시 LED 켜짐</label><label><input type="radio" name="q18" value="1"> HTML 표 만들기</label><label><input type="radio" name="q18" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q18" value="3"> 인터넷 검색</label><label><input type="radio" name="q18" value="4"> 그림 색칠</label></div><div id="fb18"></div></div><div class="question" id="wbox9"><span class="meta">서술형 9</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w9" placeholder="예상 출력/동작 결과"></textarea><div id="wfb9"></div></div></section><section class="card"><span class="meta">예제 10</span><span class="meta">Pico 센서</span><h2>10. 초음파 거리 측정</h2><div class="concept"><b>수업자료 설명</b><br>초음파 거리 측정 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+
+while True:
+    trig.low(); time.sleep_us(2)
+    trig.high(); time.sleep_us(10)
+    trig.low()
+    d = time_pulse_us(echo, 1) * 0.0343 / 2
+    print(&quot;거리: 계산값 cm&quot;, d)
+    time.sleep(0.5)</code></pre><div class="question" id="box19"><span class="meta">문항 19</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q19" value="0"> O</label><label><input type="radio" name="q19" value="1"> X</label></div><div id="fb19"></div></div><div class="question" id="box20"><span class="meta">문항 20</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q20" value="0"> 거리: 계산값 cm</label><label><input type="radio" name="q20" value="1"> HTML 표 만들기</label><label><input type="radio" name="q20" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q20" value="3"> 인터넷 검색</label><label><input type="radio" name="q20" value="4"> 그림 색칠</label></div><div id="fb20"></div></div><div class="question" id="wbox10"><span class="meta">서술형 10</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w10" placeholder="예상 출력/동작 결과"></textarea><div id="wfb10"></div></div></section><section class="card"><span class="meta">예제 11</span><span class="meta">Pico 센서</span><h2>11. 거리 10cm 이하면 LED</h2><div class="concept"><b>수업자료 설명</b><br>거리 10cm 이하면 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+
+while True:
+    trig.low(); time.sleep_us(2)
+    trig.high(); time.sleep_us(10)
+    trig.low()
+    d = time_pulse_us(echo, 1) * 0.0343 / 2
+    print(&quot;10cm 이하면 LED 켜짐&quot;, d)
+    time.sleep(0.5)</code></pre><div class="question" id="box21"><span class="meta">문항 21</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q21" value="0"> O</label><label><input type="radio" name="q21" value="1"> X</label></div><div id="fb21"></div></div><div class="question" id="box22"><span class="meta">문항 22</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q22" value="0"> 10cm 이하면 LED 켜짐</label><label><input type="radio" name="q22" value="1"> HTML 표 만들기</label><label><input type="radio" name="q22" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q22" value="3"> 인터넷 검색</label><label><input type="radio" name="q22" value="4"> 그림 색칠</label></div><div id="fb22"></div></div><div class="question" id="wbox11"><span class="meta">서술형 11</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w11" placeholder="예상 출력/동작 결과"></textarea><div id="wfb11"></div></div></section><section class="card"><span class="meta">예제 12</span><span class="meta">Pico 센서</span><h2>12. PIR 인체 감지 센서</h2><div class="concept"><b>수업자료 설명</b><br>PIR 인체 감지 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;PIR 인체 감지 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box23"><span class="meta">문항 23</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q23" value="0"> O</label><label><input type="radio" name="q23" value="1"> X</label></div><div id="fb23"></div></div><div class="question" id="box24"><span class="meta">문항 24</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q24" value="0"> 움직임 감지</label><label><input type="radio" name="q24" value="1"> HTML 표 만들기</label><label><input type="radio" name="q24" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q24" value="3"> 인터넷 검색</label><label><input type="radio" name="q24" value="4"> 그림 색칠</label></div><div id="fb24"></div></div><div class="question" id="wbox12"><span class="meta">서술형 12</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w12" placeholder="예상 출력/동작 결과"></textarea><div id="wfb12"></div></div></section><section class="card"><span class="meta">예제 13</span><span class="meta">Pico 센서</span><h2>13. PIR 감지 시 LED</h2><div class="concept"><b>수업자료 설명</b><br>PIR 감지 시 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;PIR 감지 시 LED:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box25"><span class="meta">문항 25</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q25" value="0"> O</label><label><input type="radio" name="q25" value="1"> X</label></div><div id="fb25"></div></div><div class="question" id="box26"><span class="meta">문항 26</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q26" value="0"> PIR 감지 시 LED 켜짐</label><label><input type="radio" name="q26" value="1"> HTML 표 만들기</label><label><input type="radio" name="q26" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q26" value="3"> 인터넷 검색</label><label><input type="radio" name="q26" value="4"> 그림 색칠</label></div><div id="fb26"></div></div><div class="question" id="wbox13"><span class="meta">서술형 13</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w13" placeholder="예상 출력/동작 결과"></textarea><div id="wfb13"></div></div></section><section class="card"><span class="meta">예제 14</span><span class="meta">Pico 센서</span><h2>14. 소리 센서 감지</h2><div class="concept"><b>수업자료 설명</b><br>소리 센서 감지 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;소리 센서 감지:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box27"><span class="meta">문항 27</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q27" value="0"> O</label><label><input type="radio" name="q27" value="1"> X</label></div><div id="fb27"></div></div><div class="question" id="box28"><span class="meta">문항 28</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q28" value="0"> 소리: 센서값</label><label><input type="radio" name="q28" value="1"> HTML 표 만들기</label><label><input type="radio" name="q28" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q28" value="3"> 인터넷 검색</label><label><input type="radio" name="q28" value="4"> 그림 색칠</label></div><div id="fb28"></div></div><div class="question" id="wbox14"><span class="meta">서술형 14</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w14" placeholder="예상 출력/동작 결과"></textarea><div id="wfb14"></div></div></section><section class="card"><span class="meta">예제 15</span><span class="meta">Pico 센서</span><h2>15. 큰 소리 감지 시 LED</h2><div class="concept"><b>수업자료 설명</b><br>큰 소리 감지 시 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;큰 소리 감지 시 LED:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box29"><span class="meta">문항 29</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q29" value="0"> O</label><label><input type="radio" name="q29" value="1"> X</label></div><div id="fb29"></div></div><div class="question" id="box30"><span class="meta">문항 30</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q30" value="0"> 큰 소리 시 LED 켜짐</label><label><input type="radio" name="q30" value="1"> HTML 표 만들기</label><label><input type="radio" name="q30" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q30" value="3"> 인터넷 검색</label><label><input type="radio" name="q30" value="4"> 그림 색칠</label></div><div id="fb30"></div></div><div class="question" id="wbox15"><span class="meta">서술형 15</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w15" placeholder="예상 출력/동작 결과"></textarea><div id="wfb15"></div></div></section><section class="card"><span class="meta">예제 16</span><span class="meta">Pico 센서</span><h2>16. 터치 센서</h2><div class="concept"><b>수업자료 설명</b><br>터치 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;터치 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box31"><span class="meta">문항 31</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q31" value="0"> O</label><label><input type="radio" name="q31" value="1"> X</label></div><div id="fb31"></div></div><div class="question" id="box32"><span class="meta">문항 32</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q32" value="0"> 터치됨</label><label><input type="radio" name="q32" value="1"> HTML 표 만들기</label><label><input type="radio" name="q32" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q32" value="3"> 인터넷 검색</label><label><input type="radio" name="q32" value="4"> 그림 색칠</label></div><div id="fb32"></div></div><div class="question" id="wbox16"><span class="meta">서술형 16</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w16" placeholder="예상 출력/동작 결과"></textarea><div id="wfb16"></div></div></section><section class="card"><span class="meta">예제 17</span><span class="meta">Pico 센서</span><h2>17. 진동 센서</h2><div class="concept"><b>수업자료 설명</b><br>진동 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;진동 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box33"><span class="meta">문항 33</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q33" value="0"> O</label><label><input type="radio" name="q33" value="1"> X</label></div><div id="fb33"></div></div><div class="question" id="box34"><span class="meta">문항 34</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q34" value="0"> 진동 감지</label><label><input type="radio" name="q34" value="1"> HTML 표 만들기</label><label><input type="radio" name="q34" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q34" value="3"> 인터넷 검색</label><label><input type="radio" name="q34" value="4"> 그림 색칠</label></div><div id="fb34"></div></div><div class="question" id="wbox17"><span class="meta">서술형 17</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w17" placeholder="예상 출력/동작 결과"></textarea><div id="wfb17"></div></div></section><section class="card"><span class="meta">예제 18</span><span class="meta">Pico 센서</span><h2>18. 기울기 센서</h2><div class="concept"><b>수업자료 설명</b><br>기울기 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;기울기 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box35"><span class="meta">문항 35</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q35" value="0"> O</label><label><input type="radio" name="q35" value="1"> X</label></div><div id="fb35"></div></div><div class="question" id="box36"><span class="meta">문항 36</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q36" value="0"> 기울어짐 또는 정상</label><label><input type="radio" name="q36" value="1"> HTML 표 만들기</label><label><input type="radio" name="q36" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q36" value="3"> 인터넷 검색</label><label><input type="radio" name="q36" value="4"> 그림 색칠</label></div><div id="fb36"></div></div><div class="question" id="wbox18"><span class="meta">서술형 18</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w18" placeholder="예상 출력/동작 결과"></textarea><div id="wfb18"></div></div></section><section class="card"><span class="meta">예제 19</span><span class="meta">Pico 센서</span><h2>19. 빗물 센서</h2><div class="concept"><b>수업자료 설명</b><br>빗물 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;빗물 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box37"><span class="meta">문항 37</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q37" value="0"> O</label><label><input type="radio" name="q37" value="1"> X</label></div><div id="fb37"></div></div><div class="question" id="box38"><span class="meta">문항 38</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q38" value="0"> 빗물 값: 센서값</label><label><input type="radio" name="q38" value="1"> HTML 표 만들기</label><label><input type="radio" name="q38" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q38" value="3"> 인터넷 검색</label><label><input type="radio" name="q38" value="4"> 그림 색칠</label></div><div id="fb38"></div></div><div class="question" id="wbox19"><span class="meta">서술형 19</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w19" placeholder="예상 출력/동작 결과"></textarea><div id="wfb19"></div></div></section><section class="card"><span class="meta">예제 20</span><span class="meta">Pico 센서</span><h2>20. 비 감지 시 LED</h2><div class="concept"><b>수업자료 설명</b><br>비 감지 시 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;비 감지 시 LED:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box39"><span class="meta">문항 39</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q39" value="0"> O</label><label><input type="radio" name="q39" value="1"> X</label></div><div id="fb39"></div></div><div class="question" id="box40"><span class="meta">문항 40</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q40" value="0"> 비 감지 시 LED 켜짐</label><label><input type="radio" name="q40" value="1"> HTML 표 만들기</label><label><input type="radio" name="q40" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q40" value="3"> 인터넷 검색</label><label><input type="radio" name="q40" value="4"> 그림 색칠</label></div><div id="fb40"></div></div><div class="question" id="wbox20"><span class="meta">서술형 20</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w20" placeholder="예상 출력/동작 결과"></textarea><div id="wfb20"></div></div></section><section class="card"><span class="meta">예제 21</span><span class="meta">Pico 센서</span><h2>21. 토양 수분 센서</h2><div class="concept"><b>수업자료 설명</b><br>토양 수분 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;토양 수분 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box41"><span class="meta">문항 41</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q41" value="0"> O</label><label><input type="radio" name="q41" value="1"> X</label></div><div id="fb41"></div></div><div class="question" id="box42"><span class="meta">문항 42</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q42" value="0"> 토양 수분: 센서값</label><label><input type="radio" name="q42" value="1"> HTML 표 만들기</label><label><input type="radio" name="q42" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q42" value="3"> 인터넷 검색</label><label><input type="radio" name="q42" value="4"> 그림 색칠</label></div><div id="fb42"></div></div><div class="question" id="wbox21"><span class="meta">서술형 21</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w21" placeholder="예상 출력/동작 결과"></textarea><div id="wfb21"></div></div></section><section class="card"><span class="meta">예제 22</span><span class="meta">Pico 센서</span><h2>22. 흙이 마르면 LED</h2><div class="concept"><b>수업자료 설명</b><br>흙이 마르면 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;흙이 마르면 LED:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box43"><span class="meta">문항 43</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q43" value="0"> O</label><label><input type="radio" name="q43" value="1"> X</label></div><div id="fb43"></div></div><div class="question" id="box44"><span class="meta">문항 44</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q44" value="0"> 흙이 마르면 LED 켜짐</label><label><input type="radio" name="q44" value="1"> HTML 표 만들기</label><label><input type="radio" name="q44" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q44" value="3"> 인터넷 검색</label><label><input type="radio" name="q44" value="4"> 그림 색칠</label></div><div id="fb44"></div></div><div class="question" id="wbox22"><span class="meta">서술형 22</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w22" placeholder="예상 출력/동작 결과"></textarea><div id="wfb22"></div></div></section><section class="card"><span class="meta">예제 23</span><span class="meta">Pico 센서</span><h2>23. 불꽃 센서</h2><div class="concept"><b>수업자료 설명</b><br>불꽃 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;불꽃 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box45"><span class="meta">문항 45</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q45" value="0"> O</label><label><input type="radio" name="q45" value="1"> X</label></div><div id="fb45"></div></div><div class="question" id="box46"><span class="meta">문항 46</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q46" value="0"> 불꽃 감지 또는 안전</label><label><input type="radio" name="q46" value="1"> HTML 표 만들기</label><label><input type="radio" name="q46" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q46" value="3"> 인터넷 검색</label><label><input type="radio" name="q46" value="4"> 그림 색칠</label></div><div id="fb46"></div></div><div class="question" id="wbox23"><span class="meta">서술형 23</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w23" placeholder="예상 출력/동작 결과"></textarea><div id="wfb23"></div></div></section><section class="card"><span class="meta">예제 24</span><span class="meta">Pico 센서</span><h2>24. MQ 가스 센서</h2><div class="concept"><b>수업자료 설명</b><br>MQ 가스 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;MQ 가스 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box47"><span class="meta">문항 47</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q47" value="0"> O</label><label><input type="radio" name="q47" value="1"> X</label></div><div id="fb47"></div></div><div class="question" id="box48"><span class="meta">문항 48</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q48" value="0"> 가스 센서: 센서값</label><label><input type="radio" name="q48" value="1"> HTML 표 만들기</label><label><input type="radio" name="q48" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q48" value="3"> 인터넷 검색</label><label><input type="radio" name="q48" value="4"> 그림 색칠</label></div><div id="fb48"></div></div><div class="question" id="wbox24"><span class="meta">서술형 24</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w24" placeholder="예상 출력/동작 결과"></textarea><div id="wfb24"></div></div></section><section class="card"><span class="meta">예제 25</span><span class="meta">Pico 센서</span><h2>25. 가스 위험 감지</h2><div class="concept"><b>수업자료 설명</b><br>가스 위험 감지 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;가스 위험 감지:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box49"><span class="meta">문항 49</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q49" value="0"> O</label><label><input type="radio" name="q49" value="1"> X</label></div><div id="fb49"></div></div><div class="question" id="box50"><span class="meta">문항 50</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q50" value="0"> 가스 위험 시 LED 켜짐</label><label><input type="radio" name="q50" value="1"> HTML 표 만들기</label><label><input type="radio" name="q50" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q50" value="3"> 인터넷 검색</label><label><input type="radio" name="q50" value="4"> 그림 색칠</label></div><div id="fb50"></div></div><div class="question" id="wbox25"><span class="meta">서술형 25</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w25" placeholder="예상 출력/동작 결과"></textarea><div id="wfb25"></div></div></section><section class="card"><span class="meta">예제 26</span><span class="meta">Pico 센서</span><h2>26. IR 장애물 센서</h2><div class="concept"><b>수업자료 설명</b><br>IR 장애물 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;IR 장애물 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box51"><span class="meta">문항 51</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q51" value="0"> O</label><label><input type="radio" name="q51" value="1"> X</label></div><div id="fb51"></div></div><div class="question" id="box52"><span class="meta">문항 52</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q52" value="0"> 장애물 감지</label><label><input type="radio" name="q52" value="1"> HTML 표 만들기</label><label><input type="radio" name="q52" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q52" value="3"> 인터넷 검색</label><label><input type="radio" name="q52" value="4"> 그림 색칠</label></div><div id="fb52"></div></div><div class="question" id="wbox26"><span class="meta">서술형 26</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w26" placeholder="예상 출력/동작 결과"></textarea><div id="wfb26"></div></div></section><section class="card"><span class="meta">예제 27</span><span class="meta">Pico 센서</span><h2>27. 라인 트레이서 센서</h2><div class="concept"><b>수업자료 설명</b><br>라인 트레이서 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;라인 트레이서 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box53"><span class="meta">문항 53</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q53" value="0"> O</label><label><input type="radio" name="q53" value="1"> X</label></div><div id="fb53"></div></div><div class="question" id="box54"><span class="meta">문항 54</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q54" value="0"> 검은 선 또는 흰 바닥</label><label><input type="radio" name="q54" value="1"> HTML 표 만들기</label><label><input type="radio" name="q54" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q54" value="3"> 인터넷 검색</label><label><input type="radio" name="q54" value="4"> 그림 색칠</label></div><div id="fb54"></div></div><div class="question" id="wbox27"><span class="meta">서술형 27</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w27" placeholder="예상 출력/동작 결과"></textarea><div id="wfb27"></div></div></section><section class="card"><span class="meta">예제 28</span><span class="meta">Pico 센서</span><h2>28. 홀 센서</h2><div class="concept"><b>수업자료 설명</b><br>홀 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;홀 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box55"><span class="meta">문항 55</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q55" value="0"> O</label><label><input type="radio" name="q55" value="1"> X</label></div><div id="fb55"></div></div><div class="question" id="box56"><span class="meta">문항 56</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q56" value="0"> 자석 감지</label><label><input type="radio" name="q56" value="1"> HTML 표 만들기</label><label><input type="radio" name="q56" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q56" value="3"> 인터넷 검색</label><label><input type="radio" name="q56" value="4"> 그림 색칠</label></div><div id="fb56"></div></div><div class="question" id="wbox28"><span class="meta">서술형 28</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w28" placeholder="예상 출력/동작 결과"></textarea><div id="wfb28"></div></div></section><section class="card"><span class="meta">예제 29</span><span class="meta">Pico 센서</span><h2>29. 리드 스위치</h2><div class="concept"><b>수업자료 설명</b><br>리드 스위치 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;리드 스위치:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box57"><span class="meta">문항 57</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q57" value="0"> O</label><label><input type="radio" name="q57" value="1"> X</label></div><div id="fb57"></div></div><div class="question" id="box58"><span class="meta">문항 58</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q58" value="0"> 문 열림 또는 문 닫힘</label><label><input type="radio" name="q58" value="1"> HTML 표 만들기</label><label><input type="radio" name="q58" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q58" value="3"> 인터넷 검색</label><label><input type="radio" name="q58" value="4"> 그림 색칠</label></div><div id="fb58"></div></div><div class="question" id="wbox29"><span class="meta">서술형 29</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w29" placeholder="예상 출력/동작 결과"></textarea><div id="wfb29"></div></div></section><section class="card"><span class="meta">예제 30</span><span class="meta">Pico 센서</span><h2>30. 조이스틱 X축</h2><div class="concept"><b>수업자료 설명</b><br>조이스틱 X축 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;조이스틱 X축:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box59"><span class="meta">문항 59</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q59" value="0"> O</label><label><input type="radio" name="q59" value="1"> X</label></div><div id="fb59"></div></div><div class="question" id="box60"><span class="meta">문항 60</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q60" value="0"> X축: 센서값</label><label><input type="radio" name="q60" value="1"> HTML 표 만들기</label><label><input type="radio" name="q60" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q60" value="3"> 인터넷 검색</label><label><input type="radio" name="q60" value="4"> 그림 색칠</label></div><div id="fb60"></div></div><div class="question" id="wbox30"><span class="meta">서술형 30</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w30" placeholder="예상 출력/동작 결과"></textarea><div id="wfb30"></div></div></section><section class="card"><span class="meta">예제 31</span><span class="meta">Pico 센서</span><h2>31. 조이스틱 X,Y</h2><div class="concept"><b>수업자료 설명</b><br>조이스틱 X,Y 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;조이스틱 X,Y:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box61"><span class="meta">문항 61</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q61" value="0"> O</label><label><input type="radio" name="q61" value="1"> X</label></div><div id="fb61"></div></div><div class="question" id="box62"><span class="meta">문항 62</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q62" value="0"> X: 값 Y: 값</label><label><input type="radio" name="q62" value="1"> HTML 표 만들기</label><label><input type="radio" name="q62" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q62" value="3"> 인터넷 검색</label><label><input type="radio" name="q62" value="4"> 그림 색칠</label></div><div id="fb62"></div></div><div class="question" id="wbox31"><span class="meta">서술형 31</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w31" placeholder="예상 출력/동작 결과"></textarea><div id="wfb31"></div></div></section><section class="card"><span class="meta">예제 32</span><span class="meta">Pico 센서</span><h2>32. 조이스틱 버튼</h2><div class="concept"><b>수업자료 설명</b><br>조이스틱 버튼 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;조이스틱 버튼:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box63"><span class="meta">문항 63</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q63" value="0"> O</label><label><input type="radio" name="q63" value="1"> X</label></div><div id="fb63"></div></div><div class="question" id="box64"><span class="meta">문항 64</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q64" value="0"> 조이스틱 버튼 눌림</label><label><input type="radio" name="q64" value="1"> HTML 표 만들기</label><label><input type="radio" name="q64" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q64" value="3"> 인터넷 검색</label><label><input type="radio" name="q64" value="4"> 그림 색칠</label></div><div id="fb64"></div></div><div class="question" id="wbox32"><span class="meta">서술형 32</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w32" placeholder="예상 출력/동작 결과"></textarea><div id="wfb32"></div></div></section><section class="card"><span class="meta">예제 33</span><span class="meta">Pico 센서</span><h2>33. 적외선 수신 센서</h2><div class="concept"><b>수업자료 설명</b><br>적외선 수신 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;적외선 수신 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box65"><span class="meta">문항 65</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q65" value="0"> O</label><label><input type="radio" name="q65" value="1"> X</label></div><div id="fb65"></div></div><div class="question" id="box66"><span class="meta">문항 66</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q66" value="0"> IR 값: 0 또는 1</label><label><input type="radio" name="q66" value="1"> HTML 표 만들기</label><label><input type="radio" name="q66" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q66" value="3"> 인터넷 검색</label><label><input type="radio" name="q66" value="4"> 그림 색칠</label></div><div id="fb66"></div></div><div class="question" id="wbox33"><span class="meta">서술형 33</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w33" placeholder="예상 출력/동작 결과"></textarea><div id="wfb33"></div></div></section><section class="card"><span class="meta">예제 34</span><span class="meta">Pico 센서</span><h2>34. 포토인터럽터</h2><div class="concept"><b>수업자료 설명</b><br>포토인터럽터 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;포토인터럽터:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box67"><span class="meta">문항 67</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q67" value="0"> O</label><label><input type="radio" name="q67" value="1"> X</label></div><div id="fb67"></div></div><div class="question" id="box68"><span class="meta">문항 68</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q68" value="0"> 물체 통과</label><label><input type="radio" name="q68" value="1"> HTML 표 만들기</label><label><input type="radio" name="q68" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q68" value="3"> 인터넷 검색</label><label><input type="radio" name="q68" value="4"> 그림 색칠</label></div><div id="fb68"></div></div><div class="question" id="wbox34"><span class="meta">서술형 34</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w34" placeholder="예상 출력/동작 결과"></textarea><div id="wfb34"></div></div></section><section class="card"><span class="meta">예제 35</span><span class="meta">Pico 센서</span><h2>35. 로터리 엔코더</h2><div class="concept"><b>수업자료 설명</b><br>로터리 엔코더 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;로터리 엔코더:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box69"><span class="meta">문항 69</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q69" value="0"> O</label><label><input type="radio" name="q69" value="1"> X</label></div><div id="fb69"></div></div><div class="question" id="box70"><span class="meta">문항 70</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q70" value="0"> 카운트: 숫자</label><label><input type="radio" name="q70" value="1"> HTML 표 만들기</label><label><input type="radio" name="q70" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q70" value="3"> 인터넷 검색</label><label><input type="radio" name="q70" value="4"> 그림 색칠</label></div><div id="fb70"></div></div><div class="question" id="wbox35"><span class="meta">서술형 35</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w35" placeholder="예상 출력/동작 결과"></textarea><div id="wfb35"></div></div></section><section class="card"><span class="meta">예제 36</span><span class="meta">Pico 센서</span><h2>36. 서미스터</h2><div class="concept"><b>수업자료 설명</b><br>서미스터 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;서미스터:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box71"><span class="meta">문항 71</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q71" value="0"> O</label><label><input type="radio" name="q71" value="1"> X</label></div><div id="fb71"></div></div><div class="question" id="box72"><span class="meta">문항 72</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q72" value="0"> 서미스터 값: 센서값</label><label><input type="radio" name="q72" value="1"> HTML 표 만들기</label><label><input type="radio" name="q72" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q72" value="3"> 인터넷 검색</label><label><input type="radio" name="q72" value="4"> 그림 색칠</label></div><div id="fb72"></div></div><div class="question" id="wbox36"><span class="meta">서술형 36</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w36" placeholder="예상 출력/동작 결과"></textarea><div id="wfb36"></div></div></section><section class="card"><span class="meta">예제 37</span><span class="meta">Pico 센서</span><h2>37. 압력 센서</h2><div class="concept"><b>수업자료 설명</b><br>압력 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;압력 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box73"><span class="meta">문항 73</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q73" value="0"> O</label><label><input type="radio" name="q73" value="1"> X</label></div><div id="fb73"></div></div><div class="question" id="box74"><span class="meta">문항 74</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q74" value="0"> 압력: 센서값</label><label><input type="radio" name="q74" value="1"> HTML 표 만들기</label><label><input type="radio" name="q74" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q74" value="3"> 인터넷 검색</label><label><input type="radio" name="q74" value="4"> 그림 색칠</label></div><div id="fb74"></div></div><div class="question" id="wbox37"><span class="meta">서술형 37</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w37" placeholder="예상 출력/동작 결과"></textarea><div id="wfb37"></div></div></section><section class="card"><span class="meta">예제 38</span><span class="meta">Pico 센서</span><h2>38. FSR 힘 센서</h2><div class="concept"><b>수업자료 설명</b><br>FSR 힘 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;FSR 힘 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box75"><span class="meta">문항 75</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q75" value="0"> O</label><label><input type="radio" name="q75" value="1"> X</label></div><div id="fb75"></div></div><div class="question" id="box76"><span class="meta">문항 76</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q76" value="0"> 힘: 센서값</label><label><input type="radio" name="q76" value="1"> HTML 표 만들기</label><label><input type="radio" name="q76" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q76" value="3"> 인터넷 검색</label><label><input type="radio" name="q76" value="4"> 그림 색칠</label></div><div id="fb76"></div></div><div class="question" id="wbox38"><span class="meta">서술형 38</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w38" placeholder="예상 출력/동작 결과"></textarea><div id="wfb38"></div></div></section><section class="card"><span class="meta">예제 39</span><span class="meta">Pico 센서</span><h2>39. 힘이 세면 LED</h2><div class="concept"><b>수업자료 설명</b><br>힘이 세면 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;힘이 세면 LED:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box77"><span class="meta">문항 77</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q77" value="0"> O</label><label><input type="radio" name="q77" value="1"> X</label></div><div id="fb77"></div></div><div class="question" id="box78"><span class="meta">문항 78</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q78" value="0"> 힘이 세면 LED 켜짐</label><label><input type="radio" name="q78" value="1"> HTML 표 만들기</label><label><input type="radio" name="q78" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q78" value="3"> 인터넷 검색</label><label><input type="radio" name="q78" value="4"> 그림 색칠</label></div><div id="fb78"></div></div><div class="question" id="wbox39"><span class="meta">서술형 39</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w39" placeholder="예상 출력/동작 결과"></textarea><div id="wfb39"></div></div></section><section class="card"><span class="meta">예제 40</span><span class="meta">Pico 센서</span><h2>40. 물 수위 센서</h2><div class="concept"><b>수업자료 설명</b><br>물 수위 센서 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;물 수위 센서:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box79"><span class="meta">문항 79</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q79" value="0"> O</label><label><input type="radio" name="q79" value="1"> X</label></div><div id="fb79"></div></div><div class="question" id="box80"><span class="meta">문항 80</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q80" value="0"> 수위: 센서값</label><label><input type="radio" name="q80" value="1"> HTML 표 만들기</label><label><input type="radio" name="q80" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q80" value="3"> 인터넷 검색</label><label><input type="radio" name="q80" value="4"> 그림 색칠</label></div><div id="fb80"></div></div><div class="question" id="wbox40"><span class="meta">서술형 40</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w40" placeholder="예상 출력/동작 결과"></textarea><div id="wfb40"></div></div></section><section class="card"><span class="meta">예제 41</span><span class="meta">Pico 센서</span><h2>41. 수위 높으면 경고</h2><div class="concept"><b>수업자료 설명</b><br>수위 높으면 경고 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;수위 높으면 경고:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box81"><span class="meta">문항 81</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q81" value="0"> O</label><label><input type="radio" name="q81" value="1"> X</label></div><div id="fb81"></div></div><div class="question" id="box82"><span class="meta">문항 82</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q82" value="0"> 수위 높으면 LED 켜짐</label><label><input type="radio" name="q82" value="1"> HTML 표 만들기</label><label><input type="radio" name="q82" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q82" value="3"> 인터넷 검색</label><label><input type="radio" name="q82" value="4"> 그림 색칠</label></div><div id="fb82"></div></div><div class="question" id="wbox41"><span class="meta">서술형 41</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w41" placeholder="예상 출력/동작 결과"></textarea><div id="wfb41"></div></div></section><section class="card"><span class="meta">예제 42</span><span class="meta">Pico 센서</span><h2>42. DHT11 온습도</h2><div class="concept"><b>수업자료 설명</b><br>DHT11 온습도 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin
+import dht, time
+
+sensor = dht.DHT11(Pin(15))
+
+while True:
+    sensor.measure()
+    print(&quot;온도:&quot;, sensor.temperature())
+    print(&quot;습도:&quot;, sensor.humidity())
+    time.sleep(2)</code></pre><div class="question" id="box83"><span class="meta">문항 83</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q83" value="0"> O</label><label><input type="radio" name="q83" value="1"> X</label></div><div id="fb83"></div></div><div class="question" id="box84"><span class="meta">문항 84</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q84" value="0"> 온도와 습도 출력</label><label><input type="radio" name="q84" value="1"> HTML 표 만들기</label><label><input type="radio" name="q84" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q84" value="3"> 인터넷 검색</label><label><input type="radio" name="q84" value="4"> 그림 색칠</label></div><div id="fb84"></div></div><div class="question" id="wbox42"><span class="meta">서술형 42</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w42" placeholder="예상 출력/동작 결과"></textarea><div id="wfb42"></div></div></section><section class="card"><span class="meta">예제 43</span><span class="meta">Pico 센서</span><h2>43. DHT22 온습도</h2><div class="concept"><b>수업자료 설명</b><br>DHT22 온습도 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin
+import dht, time
+
+sensor = dht.DHT22(Pin(15))
+
+while True:
+    sensor.measure()
+    print(&quot;온도:&quot;, sensor.temperature())
+    print(&quot;습도:&quot;, sensor.humidity())
+    time.sleep(2)</code></pre><div class="question" id="box85"><span class="meta">문항 85</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q85" value="0"> O</label><label><input type="radio" name="q85" value="1"> X</label></div><div id="fb85"></div></div><div class="question" id="box86"><span class="meta">문항 86</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q86" value="0"> 온도와 습도 출력</label><label><input type="radio" name="q86" value="1"> HTML 표 만들기</label><label><input type="radio" name="q86" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q86" value="3"> 인터넷 검색</label><label><input type="radio" name="q86" value="4"> 그림 색칠</label></div><div id="fb86"></div></div><div class="question" id="wbox43"><span class="meta">서술형 43</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w43" placeholder="예상 출력/동작 결과"></textarea><div id="wfb43"></div></div></section><section class="card"><span class="meta">예제 44</span><span class="meta">Pico 센서</span><h2>44. 습도 높으면 LED</h2><div class="concept"><b>수업자료 설명</b><br>습도 높으면 LED 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin
+import dht, time
+
+sensor = dht.DHT11(Pin(15))
+
+while True:
+    sensor.measure()
+    print(&quot;온도:&quot;, sensor.temperature())
+    print(&quot;습도:&quot;, sensor.humidity())
+    time.sleep(2)</code></pre><div class="question" id="box87"><span class="meta">문항 87</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q87" value="0"> O</label><label><input type="radio" name="q87" value="1"> X</label></div><div id="fb87"></div></div><div class="question" id="box88"><span class="meta">문항 88</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q88" value="0"> 습도 높으면 LED 켜짐</label><label><input type="radio" name="q88" value="1"> HTML 표 만들기</label><label><input type="radio" name="q88" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q88" value="3"> 인터넷 검색</label><label><input type="radio" name="q88" value="4"> 그림 색칠</label></div><div id="fb88"></div></div><div class="question" id="wbox44"><span class="meta">서술형 44</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w44" placeholder="예상 출력/동작 결과"></textarea><div id="wfb44"></div></div></section><section class="card"><span class="meta">예제 45</span><span class="meta">Pico 센서</span><h2>45. I2C 스캐너</h2><div class="concept"><b>수업자료 설명</b><br>I2C 스캐너 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, I2C
+
+i2c = I2C(0, scl=Pin(17), sda=Pin(16))
+
+devices = i2c.scan()
+print(&quot;I2C 장치:&quot;, devices)</code></pre><div class="question" id="box89"><span class="meta">문항 89</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q89" value="0"> O</label><label><input type="radio" name="q89" value="1"> X</label></div><div id="fb89"></div></div><div class="question" id="box90"><span class="meta">문항 90</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q90" value="0"> I2C 장치: 주소목록</label><label><input type="radio" name="q90" value="1"> HTML 표 만들기</label><label><input type="radio" name="q90" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q90" value="3"> 인터넷 검색</label><label><input type="radio" name="q90" value="4"> 그림 색칠</label></div><div id="fb90"></div></div><div class="question" id="wbox45"><span class="meta">서술형 45</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w45" placeholder="예상 출력/동작 결과"></textarea><div id="wfb45"></div></div></section><section class="card"><span class="meta">예제 46</span><span class="meta">Pico 센서</span><h2>46. MPU6050 주소 확인</h2><div class="concept"><b>수업자료 설명</b><br>MPU6050 주소 확인 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, I2C
+
+i2c = I2C(0, scl=Pin(17), sda=Pin(16))
+
+devices = i2c.scan()
+print(&quot;I2C 장치:&quot;, devices)</code></pre><div class="question" id="box91"><span class="meta">문항 91</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q91" value="0"> O</label><label><input type="radio" name="q91" value="1"> X</label></div><div id="fb91"></div></div><div class="question" id="box92"><span class="meta">문항 92</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q92" value="0"> MPU6050 감지 또는 없음</label><label><input type="radio" name="q92" value="1"> HTML 표 만들기</label><label><input type="radio" name="q92" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q92" value="3"> 인터넷 검색</label><label><input type="radio" name="q92" value="4"> 그림 색칠</label></div><div id="fb92"></div></div><div class="question" id="wbox46"><span class="meta">서술형 46</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w46" placeholder="예상 출력/동작 결과"></textarea><div id="wfb46"></div></div></section><section class="card"><span class="meta">예제 47</span><span class="meta">Pico 센서</span><h2>47. 초음파 평균 거리</h2><div class="concept"><b>수업자료 설명</b><br>초음파 평균 거리 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+
+while True:
+    trig.low(); time.sleep_us(2)
+    trig.high(); time.sleep_us(10)
+    trig.low()
+    d = time_pulse_us(echo, 1) * 0.0343 / 2
+    print(&quot;평균 거리: 값&quot;, d)
+    time.sleep(0.5)</code></pre><div class="question" id="box93"><span class="meta">문항 93</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q93" value="0"> O</label><label><input type="radio" name="q93" value="1"> X</label></div><div id="fb93"></div></div><div class="question" id="box94"><span class="meta">문항 94</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q94" value="0"> 평균 거리: 값</label><label><input type="radio" name="q94" value="1"> HTML 표 만들기</label><label><input type="radio" name="q94" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q94" value="3"> 인터넷 검색</label><label><input type="radio" name="q94" value="4"> 그림 색칠</label></div><div id="fb94"></div></div><div class="question" id="wbox47"><span class="meta">서술형 47</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w47" placeholder="예상 출력/동작 결과"></textarea><div id="wfb47"></div></div></section><section class="card"><span class="meta">예제 48</span><span class="meta">Pico 센서</span><h2>48. 센서값 퍼센트 변환</h2><div class="concept"><b>수업자료 설명</b><br>센서값 퍼센트 변환 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;센서값 퍼센트 변환:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box95"><span class="meta">문항 95</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q95" value="0"> O</label><label><input type="radio" name="q95" value="1"> X</label></div><div id="fb95"></div></div><div class="question" id="box96"><span class="meta">문항 96</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q96" value="0"> 센서 비율: 값 %</label><label><input type="radio" name="q96" value="1"> HTML 표 만들기</label><label><input type="radio" name="q96" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q96" value="3"> 인터넷 검색</label><label><input type="radio" name="q96" value="4"> 그림 색칠</label></div><div id="fb96"></div></div><div class="question" id="wbox48"><span class="meta">서술형 48</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w48" placeholder="예상 출력/동작 결과"></textarea><div id="wfb48"></div></div></section><section class="card"><span class="meta">예제 49</span><span class="meta">Pico 센서</span><h2>49. 여러 센서 동시에 읽기</h2><div class="concept"><b>수업자료 설명</b><br>여러 센서 동시에 읽기 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;여러 센서 동시에 읽기:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box97"><span class="meta">문항 97</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q97" value="0"> O</label><label><input type="radio" name="q97" value="1"> X</label></div><div id="fb97"></div></div><div class="question" id="box98"><span class="meta">문항 98</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q98" value="0"> 빛, 토양, 소리 값 출력</label><label><input type="radio" name="q98" value="1"> HTML 표 만들기</label><label><input type="radio" name="q98" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q98" value="3"> 인터넷 검색</label><label><input type="radio" name="q98" value="4"> 그림 색칠</label></div><div id="fb98"></div></div><div class="question" id="wbox49"><span class="meta">서술형 49</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w49" placeholder="예상 출력/동작 결과"></textarea><div id="wfb49"></div></div></section><section class="card"><span class="meta">예제 50</span><span class="meta">Pico 센서</span><h2>50. 센서값 기록하기</h2><div class="concept"><b>수업자료 설명</b><br>센서값 기록하기 예제는 Raspberry Pi Pico에서 MicroPython으로 센서값을 읽거나 LED 같은 출력 장치를 제어하는 실습입니다.</div><h3>💻 제시 코드</h3><pre><code>from machine import Pin, ADC
+import time
+
+sensor = ADC(26)
+led = Pin(25, Pin.OUT)
+
+while True:
+    value = sensor.read_u16()
+    print(&quot;센서값 기록하기:&quot;, value)
+    time.sleep(1)</code></pre><div class="question" id="box99"><span class="meta">문항 99</span><span class="meta">OX</span><h3>Raspberry Pi Pico에서는 센서 입력을 읽고 조건문으로 장치를 제어할 수 있다.</h3><div class="options"><label><input type="radio" name="q99" value="0"> O</label><label><input type="radio" name="q99" value="1"> X</label></div><div id="fb99"></div></div><div class="question" id="box100"><span class="meta">문항 100</span><span class="meta">5지선다형</span><h3>이 예제에서 주로 확인하는 내용은?</h3><div class="options"><label><input type="radio" name="q100" value="0"> 0번째 센서값부터 출력</label><label><input type="radio" name="q100" value="1"> HTML 표 만들기</label><label><input type="radio" name="q100" value="2"> 문서 글꼴 변경</label><label><input type="radio" name="q100" value="3"> 인터넷 검색</label><label><input type="radio" name="q100" value="4"> 그림 색칠</label></div><div id="fb100"></div></div><div class="question" id="wbox50"><span class="meta">서술형 50</span><h3>예상 출력 또는 동작 결과를 입력하세요.</h3><textarea id="w50" placeholder="예상 출력/동작 결과"></textarea><div id="wfb50"></div></div></section></main><footer>🍓 Raspberry Pi Pico MicroPython Sensor Assessment</footer><script>
+const choiceAnswers=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const explanations=["센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '버튼 눌림'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'ADC 값 출력'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '어두우면 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '가변저항 값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'PWM 밝기 조절'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '온도: 계산값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '내장 온도: 계산값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '30도 초과 시 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '거리: 계산값 cm'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '10cm 이하면 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '움직임 감지'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'PIR 감지 시 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '소리: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '큰 소리 시 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '터치됨'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '진동 감지'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '기울어짐 또는 정상'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '빗물 값: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '비 감지 시 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '토양 수분: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '흙이 마르면 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '불꽃 감지 또는 안전'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '가스 센서: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '가스 위험 시 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '장애물 감지'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '검은 선 또는 흰 바닥'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '자석 감지'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '문 열림 또는 문 닫힘'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'X축: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'X: 값 Y: 값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '조이스틱 버튼 눌림'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'IR 값: 0 또는 1'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '물체 통과'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '카운트: 숫자'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '서미스터 값: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '압력: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '힘: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '힘이 세면 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '수위: 센서값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '수위 높으면 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '온도와 습도 출력'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '온도와 습도 출력'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '습도 높으면 LED 켜짐'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'I2C 장치: 주소목록'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 'MPU6050 감지 또는 없음'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '평균 거리: 값'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '센서 비율: 값 %'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '빛, 토양, 소리 값 출력'입니다.", "센서값을 읽고 if문, 반복문, Pin, ADC 등을 이용해 장치를 제어할 수 있습니다.", "이 예제의 핵심은 '0번째 센서값부터 출력'입니다."];
+const writtenAnswers=["버튼 눌림", "LED 켜짐", "ADC 값 출력", "어두우면 LED 켜짐", "가변저항 값", "PWM 밝기 조절", "온도: 계산값", "내장 온도: 계산값", "30도 초과 시 LED 켜짐", "거리: 계산값 cm", "10cm 이하면 LED 켜짐", "움직임 감지", "PIR 감지 시 LED 켜짐", "소리: 센서값", "큰 소리 시 LED 켜짐", "터치됨", "진동 감지", "기울어짐 또는 정상", "빗물 값: 센서값", "비 감지 시 LED 켜짐", "토양 수분: 센서값", "흙이 마르면 LED 켜짐", "불꽃 감지 또는 안전", "가스 센서: 센서값", "가스 위험 시 LED 켜짐", "장애물 감지", "검은 선 또는 흰 바닥", "자석 감지", "문 열림 또는 문 닫힘", "X축: 센서값", "X: 값 Y: 값", "조이스틱 버튼 눌림", "IR 값: 0 또는 1", "물체 통과", "카운트: 숫자", "서미스터 값: 센서값", "압력: 센서값", "힘: 센서값", "힘이 세면 LED 켜짐", "수위: 센서값", "수위 높으면 LED 켜짐", "온도와 습도 출력", "온도와 습도 출력", "습도 높으면 LED 켜짐", "I2C 장치: 주소목록", "MPU6050 감지 또는 없음", "평균 거리: 값", "센서 비율: 값 %", "빛, 토양, 소리 값 출력", "0번째 센서값부터 출력"];
+const titles=["버튼 입력", "버튼으로 LED 켜기", "조도 센서 값 읽기", "어두우면 LED 켜기", "가변저항 값 읽기", "가변저항으로 LED 밝기 조절", "LM35 온도 센서", "내장 온도 센서", "온도 높으면 경고 LED", "초음파 거리 측정", "거리 10cm 이하면 LED", "PIR 인체 감지 센서", "PIR 감지 시 LED", "소리 센서 감지", "큰 소리 감지 시 LED", "터치 센서", "진동 센서", "기울기 센서", "빗물 센서", "비 감지 시 LED", "토양 수분 센서", "흙이 마르면 LED", "불꽃 센서", "MQ 가스 센서", "가스 위험 감지", "IR 장애물 센서", "라인 트레이서 센서", "홀 센서", "리드 스위치", "조이스틱 X축", "조이스틱 X,Y", "조이스틱 버튼", "적외선 수신 센서", "포토인터럽터", "로터리 엔코더", "서미스터", "압력 센서", "FSR 힘 센서", "힘이 세면 LED", "물 수위 센서", "수위 높으면 경고", "DHT11 온습도", "DHT22 온습도", "습도 높으면 LED", "I2C 스캐너", "MPU6050 주소 확인", "초음파 평균 거리", "센서값 퍼센트 변환", "여러 센서 동시에 읽기", "센서값 기록하기"];
+function pad(n){return String(n).padStart(2,'0')}
+function nowString(){const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds())}
+function answerText(q,idx){const el=document.querySelector('input[name="q'+q+'"][value="'+idx+'"]');return el?el.parentElement.textContent.trim():""}
+function norm(s){return s.replace(/\r/g,"").split("\n").map(x=>x.trim().replace(/\s+/g," ")).filter(x=>x).join("\n")}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grade(){const sid=document.getElementById("sid").value.trim(), name=document.getElementById("name").value.trim();if(!sid||!name){alert("학번과 이름을 입력하세요.");return}let score=0,max=choiceAnswers.length+writtenAnswers.length,lines=[],time=nowString();lines.push("학번: "+sid,"이름: "+name,"평가명: 라즈베리 파이 피코 센서 수행평가","응시시각: "+time.replace("_"," "),"----------------------------------------");for(let i=1;i<=choiceAnswers.length;i++){const p=document.querySelector('input[name="q'+i+'"]:checked');const u=p?Number(p.value):-1;const ok=u===choiceAnswers[i-1];if(ok)score++;const fb=document.getElementById("fb"+i),box=document.getElementById("box"+i);box.classList.remove("right","wrong");box.classList.add(ok?"right":"wrong");fb.className="feedback "+(ok?"right":"wrong");fb.innerHTML="<b>"+(ok?"정답 ✅":"오답 ❌")+"</b><br>내 선택: "+(u>=0?answerText(i,u):"미응답")+"<br>정답: "+answerText(i,choiceAnswers[i-1])+"<br>상세 설명: "+explanations[i-1];lines.push("선택형 "+i+"번: "+(ok?"O":"X"))}for(let i=1;i<=writtenAnswers.length;i++){const u=document.getElementById("w"+i).value.trim(),c=writtenAnswers[i-1].trim();const ok=norm(u)===norm(c);if(ok)score++;const fb=document.getElementById("wfb"+i),box=document.getElementById("wbox"+i);box.classList.remove("right","wrong","partial");box.classList.add(ok?"right":"partial");fb.className="feedback "+(ok?"right":"partial");fb.innerHTML="<b>"+(ok?"정답 ✅":"교사 확인 필요 ⚠️")+"</b><br>문항 점수: "+(ok?1:0)+" / 1점<br><details><summary>예상 출력/동작 보기</summary><pre>"+esc(c)+"</pre></details>";lines.push("서술형 "+i+"번 "+titles[i-1]+": "+(ok?"O":"확인필요"),"[학생 입력]",u||"미입력","[예상 답]",c,"----------------------------------------")}const percent=Math.round(score/max*100);document.getElementById("score").innerHTML="<h2>점수: "+score+" / "+max+"점 ("+percent+"%)</h2><p>센서값은 환경에 따라 달라질 수 있어 서술형은 교사 확인이 필요할 수 있습니다.</p>";lines.push("최종 득점: "+score+" / "+max,"백분율: "+percent+"%");const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});const a=document.getElementById("down");a.href=URL.createObjectURL(blob);a.download=sid+"_"+name+"_피코센서_"+score+"점_"+time+".txt";a.style.display="inline-block";a.textContent="결과 TXT 다운로드"}
+function resetAll(){document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);document.querySelectorAll('textarea').forEach(x=>x.value="");document.querySelectorAll('[id^="fb"],[id^="wfb"]').forEach(x=>{x.innerHTML="";x.className=""});document.querySelectorAll('.question').forEach(x=>x.classList.remove("right","wrong","partial"));document.getElementById("score").innerHTML="";const a=document.getElementById("down");a.style.display="none";a.href="#"}
+</script></body></html>
