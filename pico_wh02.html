@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>라즈베리파이 피코 WH 50개 프로젝트 평가형 HTML</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+  --bg:#f4f7fb; --ink:#172033; --muted:#64748b; --card:#ffffff;
+  --accent:#2563eb; --accent2:#06b6d4; --line:#dbe5f3; --code:#0f172a;
+  --good:#15803d; --bad:#dc2626; --warn:#f59e0b;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:"Pretendard","Noto Sans KR",Arial,sans-serif;
+  background:linear-gradient(135deg,#eef6ff 0%,#f8fbff 45%,#ecfeff 100%);
+  color:var(--ink); line-height:1.75;
+}
+header {
+  padding:56px 24px 38px; text-align:center; color:white;
+  background:radial-gradient(circle at 10% 20%,#60a5fa55,transparent 30%),
+             linear-gradient(135deg,#1e3a8a,#0f766e);
+}
+header h1 { margin:0 0 12px; font-size:clamp(30px,5vw,54px); letter-spacing:-1.3px; }
+header p { max-width:900px; margin:8px auto; font-size:18px; opacity:.94; }
+.wrap { max-width:1260px; margin:0 auto; padding:28px; }
+.panel {
+  background:#ffffffdd; border:1px solid var(--line); border-radius:24px; padding:24px;
+  margin-top:-44px; box-shadow:0 18px 42px #0f172a18; backdrop-filter:blur(10px);
+}
+.student {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin:14px 0;
+}
+input[type=text], textarea {
+  width:100%; border:1px solid #cbd5e1; border-radius:14px; padding:12px 14px;
+  font-size:16px; outline:none; background:white;
+}
+textarea { min-height:95px; resize:vertical; margin-top:8px; }
+button {
+  border:0; border-radius:14px; padding:12px 18px; font-weight:800; cursor:pointer;
+  color:white; background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 8px 18px #2563eb2a; margin:6px 6px 6px 0;
+}
+button.small { padding:8px 12px; border-radius:10px; font-size:14px; }
+button.secondary { background:linear-gradient(135deg,#475569,#0f172a); }
+.scorebox {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin-top:12px;
+}
+.scorebox div {
+  background:#f8fafc; border:1px solid var(--line); border-radius:16px; padding:14px;
+}
+.scorebox b { display:block; color:#1d4ed8; font-size:14px; }
+.scorebox span { font-size:24px; font-weight:900; }
+.toc {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin:28px 0;
+}
+.toc a {
+  text-decoration:none; color:var(--ink); background:white; border:1px solid var(--line);
+  border-radius:14px; padding:11px 12px; box-shadow:0 6px 16px #0f172a0d;
+}
+.toc a:hover { border-color:#60a5fa; transform:translateY(-2px); }
+.card {
+  background:var(--card); border:1px solid var(--line); border-radius:26px;
+  padding:28px; margin:24px 0; box-shadow:0 16px 44px #0f172a12;
+}
+.badge {
+  display:inline-block; padding:6px 12px; border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white;
+  font-weight:900; font-size:13px;
+}
+.card h2 { font-size:28px; margin:12px 0 18px; letter-spacing:-.5px; }
+.card h3 { margin-top:22px; color:#1e40af; }
+.meta {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:18px;
+}
+.meta div { border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#f8fafc; }
+.meta b { display:block; color:#1d4ed8; margin-bottom:4px; }
+pre {
+  margin:0; padding:20px; border-radius:18px; background:var(--code); color:#e5e7eb;
+  overflow:auto; font-size:15px; line-height:1.62; border:1px solid #334155;
+}
+code { font-family:"Cascadia Code","Consolas","D2Coding",monospace; }
+.quiz {
+  margin-top:22px; background:#f8fafc; border:1px solid var(--line); border-radius:20px; padding:20px;
+}
+.q { background:white; border-left:6px solid var(--accent); padding:12px 14px; border-radius:12px; }
+label { display:inline-block; margin:6px 16px 8px 0; font-size:18px; font-weight:700; }
+.result { font-weight:900; min-height:24px; }
+.correct { color:var(--good); }
+.wrong { color:var(--bad); }
+details {
+  background:white; border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin:12px 0;
+}
+summary { cursor:pointer; font-weight:900; color:#0f766e; }
+footer { text-align:center; padding:40px 10px 70px; color:var(--muted); }
+@media print {
+  .toc, button, .student, .scorebox { display:none; }
+  .panel { margin-top:0; }
+  .card { break-inside:avoid; box-shadow:none; }
+  body { background:white; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>라즈베리파이 피코 WH 프로젝트 예제 50개 평가형 자료</h1>
+  <p>MicroPython 코드 + 개념확인 OX 50문항 + 코드 관련 서술형 50문항 + 상세 풀이</p>
+  <p>응시 후 <b>학번_이름_피코_점수_응시날짜.txt</b> 형식으로 결과 파일을 저장할 수 있습니다.</p>
+</header>
+
+<main class="wrap">
+  <section class="panel">
+    <h2>📝 응시자 정보 및 점수 산출</h2>
+    <div class="student">
+      <input id="studentId" type="text" placeholder="학번">
+      <input id="studentName" type="text" placeholder="이름">
+      <input id="examDate" type="text" placeholder="응시날짜 예: 2026-05-02">
+    </div>
+    <button onclick="grade()">OX 자동 채점</button>
+    <button class="secondary" onclick="downloadResult()">TXT 결과 저장</button>
+    <div class="scorebox">
+      <div><b>OX 맞힌 개수</b><span id="correctCount">0</span> / 50</div>
+      <div><b>OX 점수</b><span id="score">0</span> 점</div>
+      <div><b>서술형</b><span>교사 채점</span></div>
+    </div>
+    <p>※ OX는 자동 채점됩니다. 서술형은 예시 답안과 비교하여 교사가 별도 채점할 수 있습니다.</p>
+  </section>
+
+  <h2>🔗 프로젝트 바로가기</h2>
+  <nav class="toc">
+    <a href="#p01"><b>01</b> 내장 LED 깜빡이기</a><a href="#p02"><b>02</b> 외부 LED 켜고 끄기</a><a href="#p03"><b>03</b> 버튼 입력으로 LED 제어</a><a href="#p04"><b>04</b> 버튼 누른 횟수 세기</a><a href="#p05"><b>05</b> 부저로 삐 소리 내기</a><a href="#p06"><b>06</b> PWM 부저 음계 만들기</a><a href="#p07"><b>07</b> LED 밝기 조절</a><a href="#p08"><b>08</b> RGB LED 색 바꾸기</a><a href="#p09"><b>09</b> 가변저항 값 읽기</a><a href="#p10"><b>10</b> 가변저항으로 LED 밝기 조절</a><a href="#p11"><b>11</b> 조도센서 값 읽기</a><a href="#p12"><b>12</b> 어두우면 LED 켜기</a><a href="#p13"><b>13</b> 토양 습도 센서 읽기</a><a href="#p14"><b>14</b> 자동 물주기 알림</a><a href="#p15"><b>15</b> 온도 센서 LM35 읽기</a><a href="#p16"><b>16</b> Pico 내부 온도 측정</a><a href="#p17"><b>17</b> DHT11 온습도 읽기</a><a href="#p18"><b>18</b> DHT22 정밀 온습도</a><a href="#p19"><b>19</b> 초음파 거리 측정</a><a href="#p20"><b>20</b> 거리 가까우면 경고음</a><a href="#p21"><b>21</b> PIR 인체 감지</a><a href="#p22"><b>22</b> 기울기 센서</a><a href="#p23"><b>23</b> 진동 센서 감지</a><a href="#p24"><b>24</b> 자석 리드 스위치</a><a href="#p25"><b>25</b> 서보모터 각도 제어</a><a href="#p26"><b>26</b> 가변저항으로 서보 제어</a><a href="#p27"><b>27</b> 릴레이 제어</a><a href="#p28"><b>28</b> 7세그먼트 숫자 표시</a><a href="#p29"><b>29</b> I2C 주소 검색</a><a href="#p30"><b>30</b> OLED에 글자 출력</a><a href="#p31"><b>31</b> OLED에 센서값 표시</a><a href="#p32"><b>32</b> BMP280 기압 센서</a><a href="#p33"><b>33</b> MPU6050 가속도 읽기</a><a href="#p34"><b>34</b> RFID 카드 UID 읽기</a><a href="#p35"><b>35</b> UART GPS 데이터 읽기</a><a href="#p36"><b>36</b> 블루투스 HC-05 UART</a><a href="#p37"><b>37</b> 네오픽셀 LED 8개 제어</a><a href="#p38"><b>38</b> 소리 센서 감지</a><a href="#p39"><b>39</b> 화염 센서 경보</a><a href="#p40"><b>40</b> 가스 센서 MQ-2 읽기</a><a href="#p41"><b>41</b> 빗물 감지 센서</a><a href="#p42"><b>42</b> 라인 트레이서 센서</a><a href="#p43"><b>43</b> IR 장애물 감지</a><a href="#p44"><b>44</b> 미니 DC 모터 제어</a><a href="#p45"><b>45</b> DC 모터 속도 조절</a><a href="#p46"><b>46</b> Wi-Fi 연결 확인</a><a href="#p47"><b>47</b> 웹서버로 LED 제어</a><a href="#p48"><b>48</b> 웹페이지에 온습도 표시</a><a href="#p49"><b>49</b> IFTTT 웹훅 알림</a><a href="#p50"><b>50</b> ThingSpeak로 센서값 전송</a>
+  </nav>
+
+  
+<section class="card" id="p01">
+  <div class="badge">PROJECT 01</div>
+  <h2>내장 LED 깜빡이기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>기본 출력 / GPIO</span></div>
+    <div><b>준비물</b><span>내장 LED</span></div>
+    <div><b>연결</b><span>별도 연결 없음</span></div>
+    <div><b>주의</b><span>Pico WH에서는 내장 LED를 Pin(&#x27;LED&#x27;)로 제어합니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+while True:
+    led.value(1)
+    time.sleep(0.5)
+    led.value(0)
+    time.sleep(0.5)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 1-1.</b> Pin(&#x27;LED&#x27;, Pin.OUT)은 Pico WH의 내장 LED를 출력 장치로 사용하기 위한 설정이다.</p>
+    <label><input type="radio" name="ox1" value="O"> O</label>
+    <label><input type="radio" name="ox1" value="X"> X</label>
+    <button class="small" onclick="checkOX(1, 'O')">정답 확인</button>
+    <p id="oxResult1" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>Pin(&#x27;LED&#x27;, Pin.OUT)은 내장 LED를 출력 모드로 설정한다. led.value(1)은 켜기, led.value(0)은 끄기에 해당하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 1-2.</b> 이 코드에서 time.sleep(0.5)가 하는 역할을 서술하시오.</p>
+    <textarea id="short1" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>time.sleep(0.5)는 프로그램을 0.5초 동안 멈추게 한다. 따라서 LED가 0.5초 켜지고 0.5초 꺼지는 깜빡임 주기가 만들어진다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p02">
+  <div class="badge">PROJECT 02</div>
+  <h2>외부 LED 켜고 끄기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 출력</span></div>
+    <div><b>준비물</b><span>LED + 220Ω 저항</span></div>
+    <div><b>연결</b><span>GP15 → 저항 → LED(+) / LED(-) → GND</span></div>
+    <div><b>주의</b><span>LED에는 전류 제한 저항이 필요합니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+led = Pin(15, Pin.OUT)
+
+while True:
+    led.on()
+    time.sleep(1)
+    led.off()
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 2-1.</b> led.on()과 led.off()는 GP15에 연결된 LED의 상태를 바꾸는 명령이다.</p>
+    <label><input type="radio" name="ox2" value="O"> O</label>
+    <label><input type="radio" name="ox2" value="X"> X</label>
+    <button class="small" onclick="checkOX(2, 'O')">정답 확인</button>
+    <p id="oxResult2" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>led는 GP15 출력 핀 객체이다. led.on()은 HIGH 출력, led.off()는 LOW 출력을 만들어 LED를 켜고 끄므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 2-2.</b> 외부 LED 회로에서 저항을 사용하는 이유를 서술하시오.</p>
+    <textarea id="short2" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>저항은 LED에 과도한 전류가 흐르는 것을 막는다. 저항 없이 연결하면 LED나 Pico WH의 GPIO 핀이 손상될 수 있다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p03">
+  <div class="badge">PROJECT 03</div>
+  <h2>버튼 입력으로 LED 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력 / 풀업</span></div>
+    <div><b>준비물</b><span>버튼, LED</span></div>
+    <div><b>연결</b><span>버튼: GP14-GND / LED: GP15</span></div>
+    <div><b>주의</b><span>PULL_UP이면 버튼을 누르지 않았을 때 1, 누르면 0이 됩니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+button = Pin(14, Pin.IN, Pin.PULL_UP)
+led = Pin(15, Pin.OUT)
+
+while True:
+    if button.value() == 0:
+        led.on()
+    else:
+        led.off()
+    time.sleep(0.05)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 3-1.</b> Pin.PULL_UP을 사용하면 버튼을 누르지 않았을 때 button.value()는 보통 1이다.</p>
+    <label><input type="radio" name="ox3" value="O"> O</label>
+    <label><input type="radio" name="ox3" value="X"> X</label>
+    <button class="small" onclick="checkOX(3, 'O')">정답 확인</button>
+    <p id="oxResult3" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>내부 풀업 저항은 입력 핀을 기본적으로 HIGH 상태로 유지한다. 버튼을 누르면 GND와 연결되어 0이 되므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 3-2.</b> 이 코드에서 if button.value() == 0 조건이 버튼이 눌렸다는 뜻인 이유를 서술하시오.</p>
+    <textarea id="short3" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>버튼 한쪽이 GND에 연결되어 있고 입력 핀은 PULL_UP 상태이다. 버튼을 누르면 GP14가 GND와 연결되어 LOW, 즉 0이 된다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p04">
+  <div class="badge">PROJECT 04</div>
+  <h2>버튼 누른 횟수 세기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>입력 이벤트 / 상태 변화</span></div>
+    <div><b>준비물</b><span>버튼</span></div>
+    <div><b>연결</b><span>버튼 한쪽 GP14, 다른쪽 GND</span></div>
+    <div><b>주의</b><span>old와 now를 비교하여 누르는 순간만 카운트합니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+button = Pin(14, Pin.IN, Pin.PULL_UP)
+count = 0
+old = 1
+
+while True:
+    now = button.value()
+    if old == 1 and now == 0:
+        count += 1
+        print(&quot;누른 횟수:&quot;, count)
+        time.sleep(0.2)
+    old = now</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 4-1.</b> old == 1 and now == 0 조건은 버튼이 눌리는 순간을 감지하는 데 사용된다.</p>
+    <label><input type="radio" name="ox4" value="O"> O</label>
+    <label><input type="radio" name="ox4" value="X"> X</label>
+    <button class="small" onclick="checkOX(4, 'O')">정답 확인</button>
+    <p id="oxResult4" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>이전 상태가 1이고 현재 상태가 0이면 버튼이 방금 눌린 순간이다. 계속 누르고 있는 동안 반복해서 세지 않도록 하는 조건이므로 O이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 4-2.</b> old = now를 반복문 끝에서 실행하는 이유를 서술하시오.</p>
+    <textarea id="short4" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>현재 버튼 상태를 다음 반복에서 이전 상태로 사용하기 위해서이다. 이를 통해 상태 변화, 즉 누르는 순간을 판별할 수 있다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p05">
+  <div class="badge">PROJECT 05</div>
+  <h2>부저로 삐 소리 내기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 출력</span></div>
+    <div><b>준비물</b><span>능동 부저</span></div>
+    <div><b>연결</b><span>부저 +: GP16 / -: GND</span></div>
+    <div><b>주의</b><span>능동 부저는 HIGH 신호만으로 소리가 납니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    buzzer.on()
+    time.sleep(0.2)
+    buzzer.off()
+    time.sleep(0.8)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 5-1.</b> 능동 부저는 단순히 HIGH/LOW 신호를 주는 것만으로도 소리를 낼 수 있다.</p>
+    <label><input type="radio" name="ox5" value="O"> O</label>
+    <label><input type="radio" name="ox5" value="X"> X</label>
+    <button class="small" onclick="checkOX(5, 'O')">정답 확인</button>
+    <p id="oxResult5" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>능동 부저 내부에는 발진 회로가 있어 전원을 주면 소리가 난다. 따라서 on/off만으로 삐 소리를 만들 수 있다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 5-2.</b> 이 코드에서 부저가 한 주기 동안 켜져 있는 시간과 꺼져 있는 시간을 쓰시오.</p>
+    <textarea id="short5" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>부저는 0.2초 동안 켜지고 0.8초 동안 꺼진다. 따라서 전체 반복 주기는 약 1초이다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p06">
+  <div class="badge">PROJECT 06</div>
+  <h2>PWM 부저 음계 만들기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM / 주파수</span></div>
+    <div><b>준비물</b><span>수동 부저</span></div>
+    <div><b>연결</b><span>부저 +: GP16 / -: GND</span></div>
+    <div><b>주의</b><span>수동 부저는 주파수를 바꾸어 음 높이를 조절합니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, PWM
+import time
+
+buzzer = PWM(Pin(16))
+notes = [262, 294, 330, 349, 392, 440, 494, 523]
+
+for n in notes:
+    buzzer.freq(n)
+    buzzer.duty_u16(30000)
+    time.sleep(0.3)
+
+buzzer.duty_u16(0)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 6-1.</b> buzzer.freq(n)은 부저에서 나는 소리의 높이를 결정하는 주파수를 바꾼다.</p>
+    <label><input type="radio" name="ox6" value="O"> O</label>
+    <label><input type="radio" name="ox6" value="X"> X</label>
+    <button class="small" onclick="checkOX(6, 'O')">정답 확인</button>
+    <p id="oxResult6" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>PWM의 주파수를 바꾸면 수동 부저의 진동 주파수가 달라져 음의 높이가 바뀐다. 따라서 O이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 6-2.</b> 마지막에 buzzer.duty_u16(0)을 실행하는 이유를 서술하시오.</p>
+    <textarea id="short6" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>PWM 출력의 듀티를 0으로 만들어 부저가 더 이상 울리지 않게 하기 위해서이다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p07">
+  <div class="badge">PROJECT 07</div>
+  <h2>LED 밝기 조절</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 출력</span></div>
+    <div><b>준비물</b><span>LED + 220Ω 저항</span></div>
+    <div><b>연결</b><span>GP15 → 저항 → LED → GND</span></div>
+    <div><b>주의</b><span>PWM 듀티비가 커질수록 LED가 더 밝게 보입니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, PWM
+import time
+
+led = PWM(Pin(15))
+led.freq(1000)
+
+while True:
+    for duty in range(0, 65535, 2000):
+        led.duty_u16(duty)
+        time.sleep(0.03)
+    for duty in range(65535, 0, -2000):
+        led.duty_u16(duty)
+        time.sleep(0.03)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 7-1.</b> PWM 듀티 값이 커지면 LED가 켜져 있는 비율이 증가하여 더 밝게 보인다.</p>
+    <label><input type="radio" name="ox7" value="O"> O</label>
+    <label><input type="radio" name="ox7" value="X"> X</label>
+    <button class="small" onclick="checkOX(7, 'O')">정답 확인</button>
+    <p id="oxResult7" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>PWM은 빠르게 켜고 끄는 방식이다. duty_u16 값이 커질수록 켜져 있는 시간이 길어져 평균 밝기가 증가한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 7-2.</b> 이 코드에서 두 개의 for문이 각각 어떤 효과를 만드는지 서술하시오.</p>
+    <textarea id="short7" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>첫 번째 for문은 LED를 점점 밝게 만들고, 두 번째 for문은 LED를 점점 어둡게 만든다. 그래서 숨쉬는 듯한 밝기 변화가 나타난다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p08">
+  <div class="badge">PROJECT 08</div>
+  <h2>RGB LED 색 바꾸기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 3채널</span></div>
+    <div><b>준비물</b><span>RGB LED</span></div>
+    <div><b>연결</b><span>R:GP13 / G:GP14 / B:GP15</span></div>
+    <div><b>주의</b><span>공통 음극 RGB LED 기준입니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, PWM
+import time
+
+r = PWM(Pin(13)); g = PWM(Pin(14)); b = PWM(Pin(15))
+for x in (r, g, b):
+    x.freq(1000)
+
+colors = [(65535,0,0), (0,65535,0), (0,0,65535), (65535,65535,0), (0,65535,65535)]
+
+while True:
+    for cr, cg, cb in colors:
+        r.duty_u16(cr); g.duty_u16(cg); b.duty_u16(cb)
+        time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 8-1.</b> RGB LED는 빨강, 초록, 파랑 LED의 밝기 조합으로 여러 색을 표현할 수 있다.</p>
+    <label><input type="radio" name="ox8" value="O"> O</label>
+    <label><input type="radio" name="ox8" value="X"> X</label>
+    <button class="small" onclick="checkOX(8, 'O')">정답 확인</button>
+    <p id="oxResult8" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>RGB LED는 세 가지 기본 색상의 밝기를 각각 조절하여 혼합색을 만든다. 코드에서는 세 PWM 듀티 값을 조합한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 8-2.</b> colors 리스트의 (65535, 65535, 0)은 어떤 색에 가까운지 쓰고 이유를 설명하시오.</p>
+    <textarea id="short8" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>빨강과 초록이 최대이고 파랑이 0이므로 노란색에 가깝다. 빛의 삼원색에서는 빨강+초록이 노랑으로 보인다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p09">
+  <div class="badge">PROJECT 09</div>
+  <h2>가변저항 값 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC 아날로그 입력</span></div>
+    <div><b>준비물</b><span>가변저항</span></div>
+    <div><b>연결</b><span>가운데: GP26 / 양끝: 3V3, GND</span></div>
+    <div><b>주의</b><span>ADC 값은 0~65535 범위로 읽힙니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+pot = ADC(26)
+
+while True:
+    value = pot.read_u16()
+    print(&quot;가변저항:&quot;, value)
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 9-1.</b> ADC(26)은 GP26 핀을 아날로그 입력으로 사용한다.</p>
+    <label><input type="radio" name="ox9" value="O"> O</label>
+    <label><input type="radio" name="ox9" value="X"> X</label>
+    <button class="small" onclick="checkOX(9, 'O')">정답 확인</button>
+    <p id="oxResult9" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>Pico WH의 ADC 입력 핀 중 하나가 GP26이다. ADC(26)은 이 핀의 전압을 디지털 값으로 변환한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 9-2.</b> read_u16()이 반환하는 값의 의미를 서술하시오.</p>
+    <textarea id="short9" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>read_u16()은 입력 전압의 크기를 0부터 65535 사이의 정수로 변환해 반환한다. 전압이 높을수록 값이 커진다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p10">
+  <div class="badge">PROJECT 10</div>
+  <h2>가변저항으로 LED 밝기 조절</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC + PWM</span></div>
+    <div><b>준비물</b><span>가변저항, LED</span></div>
+    <div><b>연결</b><span>ADC:GP26 / LED:GP15</span></div>
+    <div><b>주의</b><span>ADC 값을 LED PWM 듀티 값으로 직접 사용합니다.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, ADC, PWM
+import time
+
+pot = ADC(26)
+led = PWM(Pin(15))
+led.freq(1000)
+
+while True:
+    value = pot.read_u16()
+    led.duty_u16(value)
+    print(value)
+    time.sleep(0.05)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 10-1.</b> 가변저항에서 읽은 ADC 값을 PWM 듀티 값으로 사용하면 LED 밝기를 조절할 수 있다.</p>
+    <label><input type="radio" name="ox10" value="O"> O</label>
+    <label><input type="radio" name="ox10" value="X"> X</label>
+    <button class="small" onclick="checkOX(10, 'O')">정답 확인</button>
+    <p id="oxResult10" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>ADC 값과 PWM duty_u16 값은 모두 0~65535 범위를 사용한다. 그래서 가변저항 값이 LED 밝기로 자연스럽게 연결된다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 10-2.</b> 이 코드는 입력과 출력이 어떻게 연결된 예제인지 서술하시오.</p>
+    <textarea id="short10" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>가변저항은 사용자의 회전 입력을 아날로그 전압으로 만들고, Pico WH는 이를 ADC 값으로 읽는다. 그 값을 PWM 듀티로 사용하여 LED 밝기라는 출력으로 바꾼다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p11">
+  <div class="badge">PROJECT 11</div>
+  <h2>조도센서 값 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC / 빛 센서</span></div>
+    <div><b>준비물</b><span>LDR 조도센서 모듈</span></div>
+    <div><b>연결</b><span>AO:GP26 / VCC:3V3 / GND:GND</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+light = ADC(26)
+
+while True:
+    value = light.read_u16()
+    print(&quot;밝기값:&quot;, value)
+    time.sleep(0.5)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 11-1.</b> light.read_u16()은 빛의 세기를 디지털 값으로 읽는다.</p>
+    <label><input type="radio" name="ox11" value="O"> O</label>
+    <label><input type="radio" name="ox11" value="X"> X</label>
+    <button class="small" onclick="checkOX(11, 'O')">정답 확인</button>
+    <p id="oxResult11" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>조도센서 모듈의 아날로그 출력은 빛의 세기에 따라 달라지며 ADC로 읽을 수 있다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 11-2.</b> 조도센서 값을 주기적으로 출력하면 어떤 상황을 관찰할 수 있는지 서술하시오.</p>
+    <textarea id="short11" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>주변 밝기가 변할 때 센서값이 어떻게 증가하거나 감소하는지 관찰할 수 있다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p12">
+  <div class="badge">PROJECT 12</div>
+  <h2>어두우면 LED 켜기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>조건문 + ADC</span></div>
+    <div><b>준비물</b><span>조도센서, LED</span></div>
+    <div><b>연결</b><span>LDR AO:GP26 / LED:GP15</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, ADC
+import time
+
+light = ADC(26)
+led = Pin(15, Pin.OUT)
+
+while True:
+    value = light.read_u16()
+    if value &lt; 25000:
+        led.on()
+    else:
+        led.off()
+    print(value)
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 12-1.</b> if value &lt; 25000 조건은 어두운 상태를 판단하기 위한 임계값 비교이다.</p>
+    <label><input type="radio" name="ox12" value="O"> O</label>
+    <label><input type="radio" name="ox12" value="X"> X</label>
+    <button class="small" onclick="checkOX(12, 'O')">정답 확인</button>
+    <p id="oxResult12" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>센서 회로에 따라 값의 방향은 달라질 수 있지만, 이 코드에서는 25000보다 작을 때 어둡다고 판단한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 12-2.</b> 임계값 25000을 실험 환경에 맞게 바꾸어야 하는 이유를 서술하시오.</p>
+    <textarea id="short12" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>교실, 창가, 센서 모듈 종류에 따라 밝기 값이 다르게 측정되므로 실제 측정값을 보고 적절히 조정해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p13">
+  <div class="badge">PROJECT 13</div>
+  <h2>토양 습도 센서 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC / 환경 데이터</span></div>
+    <div><b>준비물</b><span>토양 습도 센서</span></div>
+    <div><b>연결</b><span>AO:GP27 / VCC:3V3 / GND:GND</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+soil = ADC(27)
+
+while True:
+    value = soil.read_u16()
+    print(&quot;토양 습도 원시값:&quot;, value)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 13-1.</b> 토양 습도 센서는 흙의 상태를 아날로그 값으로 나타낼 수 있다.</p>
+    <label><input type="radio" name="ox13" value="O"> O</label>
+    <label><input type="radio" name="ox13" value="X"> X</label>
+    <button class="small" onclick="checkOX(13, 'O')">정답 확인</button>
+    <p id="oxResult13" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>센서의 AO 핀은 습도 변화에 따른 전압을 출력하고 GP27의 ADC가 이를 숫자로 바꾼다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 13-2.</b> 토양 습도 센서를 오래 사용할 때 주의할 점을 서술하시오.</p>
+    <textarea id="short13" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>금속 탐침이 흙 속에서 부식될 수 있으므로 계속 전원을 넣어 두지 않거나 부식 방지형 센서를 사용하는 것이 좋다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p14">
+  <div class="badge">PROJECT 14</div>
+  <h2>자동 물주기 알림</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC + 부저</span></div>
+    <div><b>준비물</b><span>토양습도센서, 부저</span></div>
+    <div><b>연결</b><span>SOIL:GP27 / BUZZER:GP16</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, ADC
+import time
+
+soil = ADC(27)
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    value = soil.read_u16()
+    if value &gt; 45000:
+        buzzer.on()
+        print(&quot;흙이 건조합니다!&quot;)
+    else:
+        buzzer.off()
+        print(&quot;습도 적당:&quot;, value)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 14-1.</b> value &gt; 45000일 때 부저가 울리는 것은 건조 상태를 알리기 위한 조건이다.</p>
+    <label><input type="radio" name="ox14" value="O"> O</label>
+    <label><input type="radio" name="ox14" value="X"> X</label>
+    <button class="small" onclick="checkOX(14, 'O')">정답 확인</button>
+    <p id="oxResult14" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>이 코드는 토양 센서값이 임계값보다 크면 건조하다고 판단하여 부저를 켠다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 14-2.</b> 이 예제를 실제 자동 물주기 장치로 확장하려면 어떤 장치가 추가로 필요한지 서술하시오.</p>
+    <textarea id="short14" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>부저 대신 또는 부저와 함께 워터펌프, 릴레이나 모터드라이버, 외부 전원이 필요하다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p15">
+  <div class="badge">PROJECT 15</div>
+  <h2>온도 센서 LM35 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC / 온도 변환</span></div>
+    <div><b>준비물</b><span>LM35</span></div>
+    <div><b>연결</b><span>OUT:GP26 / VCC:3V3 / GND:GND</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+sensor = ADC(26)
+
+while True:
+    raw = sensor.read_u16()
+    voltage = raw * 3.3 / 65535
+    temp_c = voltage * 100
+    print(&quot;온도:&quot;, temp_c, &quot;°C&quot;)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 15-1.</b> voltage = raw * 3.3 / 65535는 ADC 원시값을 전압으로 바꾸는 계산이다.</p>
+    <label><input type="radio" name="ox15" value="O"> O</label>
+    <label><input type="radio" name="ox15" value="X"> X</label>
+    <button class="small" onclick="checkOX(15, 'O')">정답 확인</button>
+    <p id="oxResult15" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>ADC 값은 0~65535이고 기준 전압은 약 3.3V이므로 비례식을 이용해 전압을 계산한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 15-2.</b> temp_c = voltage * 100의 의미를 LM35 특성과 연결하여 설명하시오.</p>
+    <textarea id="short15" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>LM35는 섭씨 1도당 약 10mV를 출력하므로 전압 V에 100을 곱하면 대략 섭씨 온도가 된다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p16">
+  <div class="badge">PROJECT 16</div>
+  <h2>Pico 내부 온도 측정</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>내장 ADC</span></div>
+    <div><b>준비물</b><span>내부 온도 센서</span></div>
+    <div><b>연결</b><span>별도 연결 없음</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+sensor = ADC(4)
+conversion = 3.3 / 65535
+
+while True:
+    voltage = sensor.read_u16() * conversion
+    temp = 27 - (voltage - 0.706) / 0.001721
+    print(&quot;내부 온도:&quot;, temp)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 16-1.</b> ADC(4)는 Pico 내부 온도 센서 값을 읽는 데 사용된다.</p>
+    <label><input type="radio" name="ox16" value="O"> O</label>
+    <label><input type="radio" name="ox16" value="X"> X</label>
+    <button class="small" onclick="checkOX(16, 'O')">정답 확인</button>
+    <p id="oxResult16" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>MicroPython에서 ADC(4)는 RP2040 내부 온도 센서 입력에 해당한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 16-2.</b> 내부 온도값이 주변 공기 온도와 정확히 같지 않을 수 있는 이유를 서술하시오.</p>
+    <textarea id="short16" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>칩 자체가 동작하면서 열을 내기 때문에 내부 온도는 주변 공기 온도보다 높거나 다르게 측정될 수 있다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p17">
+  <div class="badge">PROJECT 17</div>
+  <h2>DHT11 온습도 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 센서</span></div>
+    <div><b>준비물</b><span>DHT11</span></div>
+    <div><b>연결</b><span>DATA:GP15 / VCC:3V3 / GND:GND</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import dht
+import time
+
+sensor = dht.DHT11(Pin(15))
+
+while True:
+    sensor.measure()
+    print(&quot;온도:&quot;, sensor.temperature(), &quot;°C&quot;)
+    print(&quot;습도:&quot;, sensor.humidity(), &quot;%&quot;)
+    time.sleep(2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 17-1.</b> sensor.measure()를 실행한 뒤 temperature()와 humidity() 값을 읽는다.</p>
+    <label><input type="radio" name="ox17" value="O"> O</label>
+    <label><input type="radio" name="ox17" value="X"> X</label>
+    <button class="small" onclick="checkOX(17, 'O')">정답 확인</button>
+    <p id="oxResult17" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>DHT 센서는 측정 명령 후 온도와 습도 데이터를 갱신한다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 17-2.</b> DHT11 예제에서 time.sleep(2)를 사용하는 이유를 서술하시오.</p>
+    <textarea id="short17" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>DHT11은 너무 빠르게 연속 측정하면 정확하지 않을 수 있으므로 일정 시간 간격을 두고 측정한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p18">
+  <div class="badge">PROJECT 18</div>
+  <h2>DHT22 정밀 온습도</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 센서</span></div>
+    <div><b>준비물</b><span>DHT22</span></div>
+    <div><b>연결</b><span>DATA:GP15</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import dht
+import time
+
+sensor = dht.DHT22(Pin(15))
+
+while True:
+    sensor.measure()
+    print(&quot;온도:&quot;, sensor.temperature())
+    print(&quot;습도:&quot;, sensor.humidity())
+    time.sleep(2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 18-1.</b> DHT22는 DHT11보다 일반적으로 더 정밀한 온습도 측정에 사용된다.</p>
+    <label><input type="radio" name="ox18" value="O"> O</label>
+    <label><input type="radio" name="ox18" value="X"> X</label>
+    <button class="small" onclick="checkOX(18, 'O')">정답 확인</button>
+    <p id="oxResult18" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>DHT22는 DHT11보다 측정 범위와 정밀도가 좋은 센서로 많이 사용된다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 18-2.</b> DHT11 코드에서 DHT22로 바꿀 때 코드상 핵심 변경점을 서술하시오.</p>
+    <textarea id="short18" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>dht.DHT11(Pin(15)) 대신 dht.DHT22(Pin(15))로 센서 객체를 만들면 된다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p19">
+  <div class="badge">PROJECT 19</div>
+  <h2>초음파 거리 측정</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>펄스 시간 측정</span></div>
+    <div><b>준비물</b><span>HC-SR04</span></div>
+    <div><b>연결</b><span>TRIG:GP3 / ECHO:GP2</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+
+while True:
+    trig.low()
+    time.sleep_us(2)
+    trig.high()
+    time.sleep_us(10)
+    trig.low()
+
+    duration = time_pulse_us(echo, 1)
+    distance = duration * 0.0343 / 2
+    print(&quot;거리:&quot;, distance, &quot;cm&quot;)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 19-1.</b> distance = duration * 0.0343 / 2는 왕복 시간을 이용하여 거리를 계산한다.</p>
+    <label><input type="radio" name="ox19" value="O"> O</label>
+    <label><input type="radio" name="ox19" value="X"> X</label>
+    <button class="small" onclick="checkOX(19, 'O')">정답 확인</button>
+    <p id="oxResult19" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>초음파는 물체까지 갔다가 되돌아오므로 왕복 거리이다. 그래서 시간에 음속을 곱한 뒤 2로 나눈다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 19-2.</b> HC-SR04의 Echo 신호를 Pico WH에 연결할 때 주의할 점을 서술하시오.</p>
+    <textarea id="short19" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>Echo가 5V로 출력되는 모듈은 Pico WH GPIO에 직접 넣으면 위험하므로 저항 분배나 레벨 시프터가 필요하다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p20">
+  <div class="badge">PROJECT 20</div>
+  <h2>거리 가까우면 경고음</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>초음파 + 부저</span></div>
+    <div><b>준비물</b><span>HC-SR04, 부저</span></div>
+    <div><b>연결</b><span>TRIG:GP3 / ECHO:GP2 / BUZZER:GP16</span></div>
+    <div><b>주의</b><span>센서 모듈별 핀 배열을 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    trig.low(); time.sleep_us(2)
+    trig.high(); time.sleep_us(10)
+    trig.low()
+    duration = time_pulse_us(echo, 1)
+    distance = duration * 0.0343 / 2
+
+    buzzer.value(distance &lt; 20)
+    print(distance)
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 20-1.</b> buzzer.value(distance &lt; 20)는 거리가 20cm보다 작으면 부저를 켠다.</p>
+    <label><input type="radio" name="ox20" value="O"> O</label>
+    <label><input type="radio" name="ox20" value="X"> X</label>
+    <button class="small" onclick="checkOX(20, 'O')">정답 확인</button>
+    <p id="oxResult20" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>비교식 distance &lt; 20의 결과는 True 또는 False이고, value에 전달되어 부저를 켜거나 끈다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 20-2.</b> 이 예제를 주차 보조 장치처럼 개선하려면 어떤 방식이 좋을지 서술하시오.</p>
+    <textarea id="short20" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>거리가 가까워질수록 부저의 울림 간격을 짧게 하거나 OLED에 거리를 표시하면 더 직관적인 경고 장치가 된다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p21">
+  <div class="badge">PROJECT 21</div>
+  <h2>PIR 인체 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>PIR 센서</span></div>
+    <div><b>연결</b><span>OUT:GP14</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+pir = Pin(14, Pin.IN)
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+while True:
+    if pir.value():
+        print(&quot;움직임 감지!&quot;)
+        led.on()
+    else:
+        led.off()
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 21-1.</b> PIR 센서는 사람의 움직임을 디지털 신호로 감지할 수 있다.</p>
+    <label><input type="radio" name="ox21" value="O"> O</label>
+    <label><input type="radio" name="ox21" value="X"> X</label>
+    <button class="small" onclick="checkOX(21, 'O')">정답 확인</button>
+    <p id="oxResult21" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>PIR 인체 감지 예제의 핵심 개념은 디지털 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 21-2.</b> PIR 센서를 보안등에 활용하는 원리를 설명하시오.</p>
+    <textarea id="short21" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: PIR 센서를 보안등에 활용하는 원리를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p22">
+  <div class="badge">PROJECT 22</div>
+  <h2>기울기 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>Tilt sensor</span></div>
+    <div><b>연결</b><span>OUT:GP14</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+tilt = Pin(14, Pin.IN, Pin.PULL_UP)
+
+while True:
+    if tilt.value() == 0:
+        print(&quot;기울어짐&quot;)
+    else:
+        print(&quot;정상&quot;)
+    time.sleep(0.5)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 22-1.</b> 기울기 센서는 기울어진 상태를 0 또는 1로 감지할 수 있다.</p>
+    <label><input type="radio" name="ox22" value="O"> O</label>
+    <label><input type="radio" name="ox22" value="X"> X</label>
+    <button class="small" onclick="checkOX(22, 'O')">정답 확인</button>
+    <p id="oxResult22" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>기울기 센서 예제의 핵심 개념은 디지털 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 22-2.</b> 기울기 센서가 디지털 입력 예제에 적합한 이유를 설명하시오.</p>
+    <textarea id="short22" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 기울기 센서가 디지털 입력 예제에 적합한 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p23">
+  <div class="badge">PROJECT 23</div>
+  <h2>진동 센서 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>진동 센서</span></div>
+    <div><b>연결</b><span>DO:GP14</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+vibration = Pin(14, Pin.IN)
+
+while True:
+    if vibration.value():
+        print(&quot;진동 발생!&quot;)
+    time.sleep(0.1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 23-1.</b> 진동 센서는 충격이나 흔들림을 감지할 때 사용할 수 있다.</p>
+    <label><input type="radio" name="ox23" value="O"> O</label>
+    <label><input type="radio" name="ox23" value="X"> X</label>
+    <button class="small" onclick="checkOX(23, 'O')">정답 확인</button>
+    <p id="oxResult23" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>진동 센서 감지 예제의 핵심 개념은 디지털 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 23-2.</b> 진동 센서를 도난 경보 장치에 활용하는 방법을 설명하시오.</p>
+    <textarea id="short23" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 진동 센서를 도난 경보 장치에 활용하는 방법을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p24">
+  <div class="badge">PROJECT 24</div>
+  <h2>자석 리드 스위치</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>문 열림 감지</span></div>
+    <div><b>준비물</b><span>리드 스위치</span></div>
+    <div><b>연결</b><span>GP14-GND</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+door = Pin(14, Pin.IN, Pin.PULL_UP)
+
+while True:
+    if door.value():
+        print(&quot;문 열림&quot;)
+    else:
+        print(&quot;문 닫힘&quot;)
+    time.sleep(0.5)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 24-1.</b> 리드 스위치는 자석의 접근 여부에 따라 회로가 열리거나 닫힌다.</p>
+    <label><input type="radio" name="ox24" value="O"> O</label>
+    <label><input type="radio" name="ox24" value="X"> X</label>
+    <button class="small" onclick="checkOX(24, 'O')">정답 확인</button>
+    <p id="oxResult24" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>자석 리드 스위치 예제의 핵심 개념은 문 열림 감지이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 24-2.</b> 문 열림 감지 장치에서 리드 스위치와 자석을 어떻게 배치하는지 설명하시오.</p>
+    <textarea id="short24" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 문 열림 감지 장치에서 리드 스위치와 자석을 어떻게 배치하는지 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p25">
+  <div class="badge">PROJECT 25</div>
+  <h2>서보모터 각도 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 제어</span></div>
+    <div><b>준비물</b><span>SG90 서보</span></div>
+    <div><b>연결</b><span>Signal:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, PWM
+import time
+
+servo = PWM(Pin(15))
+servo.freq(50)
+
+def angle(a):
+    min_duty = 1638
+    max_duty = 8192
+    duty = int(min_duty + (max_duty - min_duty) * a / 180)
+    servo.duty_u16(duty)
+
+while True:
+    for a in [0, 45, 90, 135, 180]:
+        angle(a)
+        time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 25-1.</b> 서보모터는 PWM 신호의 펄스 폭에 따라 각도가 달라진다.</p>
+    <label><input type="radio" name="ox25" value="O"> O</label>
+    <label><input type="radio" name="ox25" value="X"> X</label>
+    <button class="small" onclick="checkOX(25, 'O')">정답 확인</button>
+    <p id="oxResult25" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>서보모터 각도 제어 예제의 핵심 개념은 PWM 제어이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 25-2.</b> 서보모터에 외부 전원을 권장하는 이유를 설명하시오.</p>
+    <textarea id="short25" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 서보모터에 외부 전원을 권장하는 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p26">
+  <div class="badge">PROJECT 26</div>
+  <h2>가변저항으로 서보 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC + PWM</span></div>
+    <div><b>준비물</b><span>가변저항, 서보</span></div>
+    <div><b>연결</b><span>ADC:GP26 / SERVO:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, PWM, ADC
+import time
+
+pot = ADC(26)
+servo = PWM(Pin(15))
+servo.freq(50)
+
+while True:
+    raw = pot.read_u16()
+    duty = int(1638 + raw * (8192 - 1638) / 65535)
+    servo.duty_u16(duty)
+    print(raw, duty)
+    time.sleep(0.05)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 26-1.</b> 가변저항의 ADC 값을 PWM 듀티로 변환하면 서보 각도를 제어할 수 있다.</p>
+    <label><input type="radio" name="ox26" value="O"> O</label>
+    <label><input type="radio" name="ox26" value="X"> X</label>
+    <button class="small" onclick="checkOX(26, 'O')">정답 확인</button>
+    <p id="oxResult26" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>가변저항으로 서보 제어 예제의 핵심 개념은 ADC + PWM이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 26-2.</b> 이 예제에서 입력 장치와 출력 장치를 각각 쓰고 동작 원리를 설명하시오.</p>
+    <textarea id="short26" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 이 예제에서 입력 장치와 출력 장치를 각각 쓰고 동작 원리를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p27">
+  <div class="badge">PROJECT 27</div>
+  <h2>릴레이 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 출력</span></div>
+    <div><b>준비물</b><span>릴레이 모듈</span></div>
+    <div><b>연결</b><span>IN:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+relay = Pin(15, Pin.OUT)
+
+while True:
+    relay.on()
+    print(&quot;릴레이 ON&quot;)
+    time.sleep(2)
+    relay.off()
+    print(&quot;릴레이 OFF&quot;)
+    time.sleep(2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 27-1.</b> 릴레이는 작은 제어 신호로 더 큰 전기 회로를 켜고 끄는 데 사용된다.</p>
+    <label><input type="radio" name="ox27" value="O"> O</label>
+    <label><input type="radio" name="ox27" value="X"> X</label>
+    <button class="small" onclick="checkOX(27, 'O')">정답 확인</button>
+    <p id="oxResult27" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>릴레이 제어 예제의 핵심 개념은 디지털 출력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 27-2.</b> 릴레이로 고전압 장치를 제어할 때 주의해야 할 점을 설명하시오.</p>
+    <textarea id="short27" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 릴레이로 고전압 장치를 제어할 때 주의해야 할 점을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p28">
+  <div class="badge">PROJECT 28</div>
+  <h2>7세그먼트 숫자 표시</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>다중 GPIO</span></div>
+    <div><b>준비물</b><span>7세그먼트</span></div>
+    <div><b>연결</b><span>a~g:GP2~GP8</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+pins = [Pin(i, Pin.OUT) for i in range(2, 9)]
+nums = {0:[1,1,1,1,1,1,0], 1:[0,1,1,0,0,0,0], 8:[1,1,1,1,1,1,1]}
+
+while True:
+    for n in [0, 1, 8]:
+        for p, v in zip(pins, nums[n]):
+            p.value(v)
+        time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 28-1.</b> 7세그먼트는 여러 LED 조각을 조합하여 숫자를 표시한다.</p>
+    <label><input type="radio" name="ox28" value="O"> O</label>
+    <label><input type="radio" name="ox28" value="X"> X</label>
+    <button class="small" onclick="checkOX(28, 'O')">정답 확인</button>
+    <p id="oxResult28" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>7세그먼트 숫자 표시 예제의 핵심 개념은 다중 GPIO이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 28-2.</b> 숫자 8을 표시할 때 대부분의 세그먼트가 켜지는 이유를 설명하시오.</p>
+    <textarea id="short28" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 숫자 8을 표시할 때 대부분의 세그먼트가 켜지는 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p29">
+  <div class="badge">PROJECT 29</div>
+  <h2>I2C 주소 검색</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C 기본</span></div>
+    <div><b>준비물</b><span>I2C 센서/OLED</span></div>
+    <div><b>연결</b><span>SDA:GP0 / SCL:GP1</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, I2C
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
+print(&quot;I2C 주소:&quot;, i2c.scan())</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 29-1.</b> i2c.scan()은 연결된 I2C 장치의 주소 목록을 찾는 데 사용된다.</p>
+    <label><input type="radio" name="ox29" value="O"> O</label>
+    <label><input type="radio" name="ox29" value="X"> X</label>
+    <button class="small" onclick="checkOX(29, 'O')">정답 확인</button>
+    <p id="oxResult29" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>I2C 주소 검색 예제의 핵심 개념은 I2C 기본이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 29-2.</b> I2C 장치 주소를 먼저 확인해야 하는 이유를 설명하시오.</p>
+    <textarea id="short29" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: I2C 장치 주소를 먼저 확인해야 하는 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p30">
+  <div class="badge">PROJECT 30</div>
+  <h2>OLED에 글자 출력</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C OLED</span></div>
+    <div><b>준비물</b><span>SSD1306 OLED</span></div>
+    <div><b>연결</b><span>SDA:GP0 / SCL:GP1</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, I2C
+from ssd1306 import SSD1306_I2C
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+oled = SSD1306_I2C(128, 64, i2c)
+
+oled.fill(0)
+oled.text(&quot;Pico WH&quot;, 0, 0)
+oled.text(&quot;MicroPython&quot;, 0, 16)
+oled.show()</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 30-1.</b> oled.text()는 OLED 화면에 문자열을 출력하는 데 사용된다.</p>
+    <label><input type="radio" name="ox30" value="O"> O</label>
+    <label><input type="radio" name="ox30" value="X"> X</label>
+    <button class="small" onclick="checkOX(30, 'O')">정답 확인</button>
+    <p id="oxResult30" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>OLED에 글자 출력 예제의 핵심 개념은 I2C OLED이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 30-2.</b> oled.fill(0)과 oled.show()의 역할을 각각 설명하시오.</p>
+    <textarea id="short30" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: oled.fill(0)과 oled.show()의 역할을 각각 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p31">
+  <div class="badge">PROJECT 31</div>
+  <h2>OLED에 센서값 표시</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C + ADC</span></div>
+    <div><b>준비물</b><span>OLED, 가변저항</span></div>
+    <div><b>연결</b><span>OLED I2C / POT:GP26</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, I2C, ADC
+from ssd1306 import SSD1306_I2C
+import time
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+oled = SSD1306_I2C(128, 64, i2c)
+pot = ADC(26)
+
+while True:
+    value = pot.read_u16()
+    oled.fill(0)
+    oled.text(&quot;ADC Value&quot;, 0, 0)
+    oled.text(str(value), 0, 20)
+    oled.show()
+    time.sleep(0.3)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 31-1.</b> 센서값을 OLED에 표시하려면 읽기, 화면 지우기, 문자열 출력, show 순서가 필요하다.</p>
+    <label><input type="radio" name="ox31" value="O"> O</label>
+    <label><input type="radio" name="ox31" value="X"> X</label>
+    <button class="small" onclick="checkOX(31, 'O')">정답 확인</button>
+    <p id="oxResult31" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>OLED에 센서값 표시 예제의 핵심 개념은 I2C + ADC이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 31-2.</b> 센서값을 화면에 계속 갱신할 때 화면을 지우는 과정이 필요한 이유를 설명하시오.</p>
+    <textarea id="short31" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 센서값을 화면에 계속 갱신할 때 화면을 지우는 과정이 필요한 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p32">
+  <div class="badge">PROJECT 32</div>
+  <h2>BMP280 기압 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C 환경센서</span></div>
+    <div><b>준비물</b><span>BMP280</span></div>
+    <div><b>연결</b><span>SDA:GP0 / SCL:GP1</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, I2C
+import time
+import bmp280
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+bmp = bmp280.BMP280(i2c)
+
+while True:
+    print(&quot;온도:&quot;, bmp.temperature)
+    print(&quot;기압:&quot;, bmp.pressure)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 32-1.</b> BMP280은 I2C 방식으로 온도와 기압 데이터를 읽을 수 있는 센서이다.</p>
+    <label><input type="radio" name="ox32" value="O"> O</label>
+    <label><input type="radio" name="ox32" value="X"> X</label>
+    <button class="small" onclick="checkOX(32, 'O')">정답 확인</button>
+    <p id="oxResult32" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>BMP280 기압 센서 예제의 핵심 개념은 I2C 환경센서이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 32-2.</b> 기압 센서 데이터를 날씨 관찰에 활용하는 방법을 설명하시오.</p>
+    <textarea id="short32" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 기압 센서 데이터를 날씨 관찰에 활용하는 방법을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p33">
+  <div class="badge">PROJECT 33</div>
+  <h2>MPU6050 가속도 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C 모션센서</span></div>
+    <div><b>준비물</b><span>MPU6050</span></div>
+    <div><b>연결</b><span>SDA:GP0 / SCL:GP1</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, I2C
+import time
+from mpu6050 import MPU6050
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+mpu = MPU6050(i2c)
+
+while True:
+    acc = mpu.read_accel_data()
+    print(acc)
+    time.sleep(0.5)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 33-1.</b> MPU6050은 가속도와 자이로 데이터를 측정하는 모션 센서이다.</p>
+    <label><input type="radio" name="ox33" value="O"> O</label>
+    <label><input type="radio" name="ox33" value="X"> X</label>
+    <button class="small" onclick="checkOX(33, 'O')">정답 확인</button>
+    <p id="oxResult33" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>MPU6050 가속도 읽기 예제의 핵심 개념은 I2C 모션센서이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 33-2.</b> 가속도 데이터를 이용해 기울기나 움직임을 판단하는 원리를 설명하시오.</p>
+    <textarea id="short33" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 가속도 데이터를 이용해 기울기나 움직임을 판단하는 원리를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p34">
+  <div class="badge">PROJECT 34</div>
+  <h2>RFID 카드 UID 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>SPI 통신</span></div>
+    <div><b>준비물</b><span>MFRC522 RFID</span></div>
+    <div><b>연결</b><span>SPI 핀 연결</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, SPI
+import mfrc522
+import time
+
+reader = mfrc522.MFRC522(spi_id=0, sck=18, miso=16, mosi=19, cs=17, rst=20)
+
+while True:
+    stat, tag_type = reader.request(reader.REQIDL)
+    if stat == reader.OK:
+        stat, uid = reader.SelectTagSN()
+        if stat == reader.OK:
+            print(&quot;카드 UID:&quot;, uid)
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 34-1.</b> RFID 리더는 카드의 UID를 읽어 사용자를 구분하는 데 사용할 수 있다.</p>
+    <label><input type="radio" name="ox34" value="O"> O</label>
+    <label><input type="radio" name="ox34" value="X"> X</label>
+    <button class="small" onclick="checkOX(34, 'O')">정답 확인</button>
+    <p id="oxResult34" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>RFID 카드 UID 읽기 예제의 핵심 개념은 SPI 통신이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 34-2.</b> RFID 출입 시스템에서 UID가 어떤 역할을 하는지 설명하시오.</p>
+    <textarea id="short34" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: RFID 출입 시스템에서 UID가 어떤 역할을 하는지 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p35">
+  <div class="badge">PROJECT 35</div>
+  <h2>UART GPS 데이터 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>UART 통신</span></div>
+    <div><b>준비물</b><span>GPS 모듈</span></div>
+    <div><b>연결</b><span>TX→GP1 / RX→GP0</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import UART, Pin
+import time
+
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+
+while True:
+    if uart.any():
+        line = uart.readline()
+        print(line)
+    time.sleep(0.1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 35-1.</b> UART는 TX와 RX 선을 이용해 직렬 데이터를 주고받는다.</p>
+    <label><input type="radio" name="ox35" value="O"> O</label>
+    <label><input type="radio" name="ox35" value="X"> X</label>
+    <button class="small" onclick="checkOX(35, 'O')">정답 확인</button>
+    <p id="oxResult35" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>UART GPS 데이터 읽기 예제의 핵심 개념은 UART 통신이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 35-2.</b> GPS 모듈의 TX를 Pico의 RX에 연결하는 이유를 설명하시오.</p>
+    <textarea id="short35" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: GPS 모듈의 TX를 Pico의 RX에 연결하는 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p36">
+  <div class="badge">PROJECT 36</div>
+  <h2>블루투스 HC-05 UART</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>UART 문자열 통신</span></div>
+    <div><b>준비물</b><span>HC-05</span></div>
+    <div><b>연결</b><span>TX→GP1 / RX→GP0</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import UART, Pin
+
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+
+while True:
+    if uart.any():
+        msg = uart.readline()
+        print(&quot;받음:&quot;, msg)
+        uart.write(b&quot;OK\n&quot;)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 36-1.</b> HC-05는 UART 통신으로 문자열 데이터를 주고받을 수 있다.</p>
+    <label><input type="radio" name="ox36" value="O"> O</label>
+    <label><input type="radio" name="ox36" value="X"> X</label>
+    <button class="small" onclick="checkOX(36, 'O')">정답 확인</button>
+    <p id="oxResult36" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>블루투스 HC-05 UART 예제의 핵심 개념은 UART 문자열 통신이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 36-2.</b> 스마트폰에서 보낸 문자를 Pico가 받는 과정을 설명하시오.</p>
+    <textarea id="short36" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 스마트폰에서 보낸 문자를 Pico가 받는 과정을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p37">
+  <div class="badge">PROJECT 37</div>
+  <h2>네오픽셀 LED 8개 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>NeoPixel</span></div>
+    <div><b>준비물</b><span>WS2812B</span></div>
+    <div><b>연결</b><span>DIN:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import neopixel
+import time
+
+np = neopixel.NeoPixel(Pin(15), 8)
+
+while True:
+    for i in range(8):
+        np.fill((0, 0, 0))
+        np[i] = (30, 0, 0)
+        np.write()
+        time.sleep(0.1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 37-1.</b> 네오픽셀은 하나의 데이터 핀으로 여러 LED의 색을 제어할 수 있다.</p>
+    <label><input type="radio" name="ox37" value="O"> O</label>
+    <label><input type="radio" name="ox37" value="X"> X</label>
+    <button class="small" onclick="checkOX(37, 'O')">정답 확인</button>
+    <p id="oxResult37" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>네오픽셀 LED 8개 제어 예제의 핵심 개념은 NeoPixel이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 37-2.</b> np.write()가 필요한 이유를 설명하시오.</p>
+    <textarea id="short37" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: np.write()가 필요한 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p38">
+  <div class="badge">PROJECT 38</div>
+  <h2>소리 센서 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>아날로그/디지털</span></div>
+    <div><b>준비물</b><span>마이크 소리 센서</span></div>
+    <div><b>연결</b><span>AO:GP26</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+sound = ADC(26)
+
+while True:
+    value = sound.read_u16()
+    print(&quot;소리 크기:&quot;, value)
+    time.sleep(0.1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 38-1.</b> 소리 센서의 아날로그 출력은 소리 크기에 따라 달라질 수 있다.</p>
+    <label><input type="radio" name="ox38" value="O"> O</label>
+    <label><input type="radio" name="ox38" value="X"> X</label>
+    <button class="small" onclick="checkOX(38, 'O')">정답 확인</button>
+    <p id="oxResult38" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>소리 센서 감지 예제의 핵심 개념은 아날로그/디지털이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 38-2.</b> 소리 센서값으로 박수 감지 장치를 만드는 방법을 설명하시오.</p>
+    <textarea id="short38" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 소리 센서값으로 박수 감지 장치를 만드는 방법을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p39">
+  <div class="badge">PROJECT 39</div>
+  <h2>화염 센서 경보</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>Flame sensor</span></div>
+    <div><b>연결</b><span>DO:GP14 / BUZZER:GP16</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+flame = Pin(14, Pin.IN)
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    if flame.value() == 0:
+        print(&quot;화염 감지!&quot;)
+        buzzer.on()
+    else:
+        buzzer.off()
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 39-1.</b> 화염 센서는 불꽃을 감지하면 경보 장치와 연결해 사용할 수 있다.</p>
+    <label><input type="radio" name="ox39" value="O"> O</label>
+    <label><input type="radio" name="ox39" value="X"> X</label>
+    <button class="small" onclick="checkOX(39, 'O')">정답 확인</button>
+    <p id="oxResult39" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>화염 센서 경보 예제의 핵심 개념은 디지털 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 39-2.</b> 화염 센서 실험에서 안전상 주의할 점을 설명하시오.</p>
+    <textarea id="short39" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 화염 센서 실험에서 안전상 주의할 점을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p40">
+  <div class="badge">PROJECT 40</div>
+  <h2>가스 센서 MQ-2 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>아날로그 입력</span></div>
+    <div><b>준비물</b><span>MQ-2</span></div>
+    <div><b>연결</b><span>AO:GP26</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+gas = ADC(26)
+
+while True:
+    value = gas.read_u16()
+    print(&quot;가스 센서값:&quot;, value)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 40-1.</b> MQ-2 센서는 가스 농도 변화에 따라 아날로그 값이 달라질 수 있다.</p>
+    <label><input type="radio" name="ox40" value="O"> O</label>
+    <label><input type="radio" name="ox40" value="X"> X</label>
+    <button class="small" onclick="checkOX(40, 'O')">정답 확인</button>
+    <p id="oxResult40" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>가스 센서 MQ-2 읽기 예제의 핵심 개념은 아날로그 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 40-2.</b> 가스 센서값을 바로 절대 농도로 믿으면 안 되는 이유를 설명하시오.</p>
+    <textarea id="short40" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 가스 센서값을 바로 절대 농도로 믿으면 안 되는 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p41">
+  <div class="badge">PROJECT 41</div>
+  <h2>빗물 감지 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC 센서</span></div>
+    <div><b>준비물</b><span>Rain sensor</span></div>
+    <div><b>연결</b><span>AO:GP27</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import ADC
+import time
+
+rain = ADC(27)
+
+while True:
+    value = rain.read_u16()
+    print(&quot;빗물 감지값:&quot;, value)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 41-1.</b> 빗물 센서는 물이 닿았을 때 저항이나 전압 변화가 생긴다.</p>
+    <label><input type="radio" name="ox41" value="O"> O</label>
+    <label><input type="radio" name="ox41" value="X"> X</label>
+    <button class="small" onclick="checkOX(41, 'O')">정답 확인</button>
+    <p id="oxResult41" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>빗물 감지 센서 예제의 핵심 개념은 ADC 센서이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 41-2.</b> 빗물 감지 센서를 자동 창문 닫기 장치에 활용하는 방법을 설명하시오.</p>
+    <textarea id="short41" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 빗물 감지 센서를 자동 창문 닫기 장치에 활용하는 방법을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p42">
+  <div class="badge">PROJECT 42</div>
+  <h2>라인 트레이서 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>IR 라인 센서</span></div>
+    <div><b>연결</b><span>OUT:GP14</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+line = Pin(14, Pin.IN)
+
+while True:
+    if line.value():
+        print(&quot;흰색 또는 반사 많음&quot;)
+    else:
+        print(&quot;검정선 감지&quot;)
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 42-1.</b> 라인 센서는 바닥의 검정/흰색 반사 차이를 감지한다.</p>
+    <label><input type="radio" name="ox42" value="O"> O</label>
+    <label><input type="radio" name="ox42" value="X"> X</label>
+    <button class="small" onclick="checkOX(42, 'O')">정답 확인</button>
+    <p id="oxResult42" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>라인 트레이서 센서 예제의 핵심 개념은 디지털 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 42-2.</b> 라인 트레이서 로봇이 선을 따라가는 기본 원리를 설명하시오.</p>
+    <textarea id="short42" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 라인 트레이서 로봇이 선을 따라가는 기본 원리를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p43">
+  <div class="badge">PROJECT 43</div>
+  <h2>IR 장애물 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>IR obstacle sensor</span></div>
+    <div><b>연결</b><span>OUT:GP14</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+ir = Pin(14, Pin.IN)
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+while True:
+    detected = ir.value() == 0
+    led.value(detected)
+    print(&quot;장애물:&quot;, detected)
+    time.sleep(0.2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 43-1.</b> IR 장애물 센서는 적외선 반사를 이용하여 물체 유무를 감지한다.</p>
+    <label><input type="radio" name="ox43" value="O"> O</label>
+    <label><input type="radio" name="ox43" value="X"> X</label>
+    <button class="small" onclick="checkOX(43, 'O')">정답 확인</button>
+    <p id="oxResult43" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>IR 장애물 감지 예제의 핵심 개념은 디지털 입력이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 43-2.</b> 장애물 감지 로봇에서 이 센서를 어떻게 활용할 수 있는지 설명하시오.</p>
+    <textarea id="short43" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 장애물 감지 로봇에서 이 센서를 어떻게 활용할 수 있는지 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p44">
+  <div class="badge">PROJECT 44</div>
+  <h2>미니 DC 모터 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>모터드라이버</span></div>
+    <div><b>준비물</b><span>DC 모터</span></div>
+    <div><b>연결</b><span>IN:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin
+import time
+
+motor = Pin(15, Pin.OUT)
+
+while True:
+    motor.on()
+    print(&quot;모터 ON&quot;)
+    time.sleep(2)
+    motor.off()
+    print(&quot;모터 OFF&quot;)
+    time.sleep(2)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 44-1.</b> DC 모터는 Pico GPIO에 직접 연결하지 않고 드라이버를 사용하는 것이 안전하다.</p>
+    <label><input type="radio" name="ox44" value="O"> O</label>
+    <label><input type="radio" name="ox44" value="X"> X</label>
+    <button class="small" onclick="checkOX(44, 'O')">정답 확인</button>
+    <p id="oxResult44" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>미니 DC 모터 제어 예제의 핵심 개념은 모터드라이버이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 44-2.</b> 모터를 GPIO에 직접 연결하면 안 되는 이유를 설명하시오.</p>
+    <textarea id="short44" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 모터를 GPIO에 직접 연결하면 안 되는 이유를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p45">
+  <div class="badge">PROJECT 45</div>
+  <h2>DC 모터 속도 조절</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 모터 제어</span></div>
+    <div><b>준비물</b><span>모터드라이버</span></div>
+    <div><b>연결</b><span>PWM:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>from machine import Pin, PWM
+import time
+
+motor = PWM(Pin(15))
+motor.freq(1000)
+
+while True:
+    for speed in range(0, 65535, 5000):
+        motor.duty_u16(speed)
+        time.sleep(0.2)
+    motor.duty_u16(0)
+    time.sleep(1)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 45-1.</b> PWM 듀티를 바꾸면 DC 모터의 평균 전압이 달라져 속도가 변한다.</p>
+    <label><input type="radio" name="ox45" value="O"> O</label>
+    <label><input type="radio" name="ox45" value="X"> X</label>
+    <button class="small" onclick="checkOX(45, 'O')">정답 확인</button>
+    <p id="oxResult45" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>DC 모터 속도 조절 예제의 핵심 개념은 PWM 모터 제어이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 45-2.</b> PWM으로 모터 속도를 제어하는 원리를 설명하시오.</p>
+    <textarea id="short45" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: PWM으로 모터 속도를 제어하는 원리를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p46">
+  <div class="badge">PROJECT 46</div>
+  <h2>Wi-Fi 연결 확인</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>Pico WH Wi-Fi</span></div>
+    <div><b>준비물</b><span>내장 무선 기능</span></div>
+    <div><b>연결</b><span>없음</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>import network
+import time
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    print(&quot;연결 중...&quot;)
+    time.sleep(1)
+
+print(&quot;연결 완료:&quot;, wlan.ifconfig())</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 46-1.</b> network.WLAN(network.STA_IF)는 Pico WH를 무선 공유기에 연결하는 스테이션 모드이다.</p>
+    <label><input type="radio" name="ox46" value="O"> O</label>
+    <label><input type="radio" name="ox46" value="X"> X</label>
+    <button class="small" onclick="checkOX(46, 'O')">정답 확인</button>
+    <p id="oxResult46" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>Wi-Fi 연결 확인 예제의 핵심 개념은 Pico WH Wi-Fi이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 46-2.</b> wlan.ifconfig()로 확인할 수 있는 정보를 설명하시오.</p>
+    <textarea id="short46" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: wlan.ifconfig()로 확인할 수 있는 정보를 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p47">
+  <div class="badge">PROJECT 47</div>
+  <h2>웹서버로 LED 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>Wi-Fi 웹서버</span></div>
+    <div><b>준비물</b><span>내장 LED</span></div>
+    <div><b>연결</b><span>없음</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>import network
+import socket
+from machine import Pin
+import time
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+addr = socket.getaddrinfo(&quot;0.0.0.0&quot;, 80)[0][-1]
+s = socket.socket()
+s.bind(addr)
+s.listen(1)
+
+print(&quot;접속 주소:&quot;, wlan.ifconfig()[0])
+
+while True:
+    cl, addr = s.accept()
+    request = cl.recv(1024).decode()
+    if &quot;/on&quot; in request:
+        led.on()
+    if &quot;/off&quot; in request:
+        led.off()
+    html = &quot;&lt;h1&gt;Pico WH LED&lt;/h1&gt;&lt;a href=&#x27;/on&#x27;&gt;ON&lt;/a&gt;&lt;br&gt;&lt;a href=&#x27;/off&#x27;&gt;OFF&lt;/a&gt;&quot;
+    cl.send(&quot;HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n&quot;)
+    cl.send(html)
+    cl.close()</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 47-1.</b> Pico WH는 socket을 이용하여 간단한 웹서버로 동작할 수 있다.</p>
+    <label><input type="radio" name="ox47" value="O"> O</label>
+    <label><input type="radio" name="ox47" value="X"> X</label>
+    <button class="small" onclick="checkOX(47, 'O')">정답 확인</button>
+    <p id="oxResult47" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>웹서버로 LED 제어 예제의 핵심 개념은 Wi-Fi 웹서버이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 47-2.</b> 브라우저에서 /on 주소에 접속하면 LED가 켜지는 과정을 설명하시오.</p>
+    <textarea id="short47" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 브라우저에서 /on 주소에 접속하면 LED가 켜지는 과정을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p48">
+  <div class="badge">PROJECT 48</div>
+  <h2>웹페이지에 온습도 표시</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>Wi-Fi + DHT</span></div>
+    <div><b>준비물</b><span>DHT11/DHT22</span></div>
+    <div><b>연결</b><span>DATA:GP15</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>import network, socket, time
+from machine import Pin
+import dht
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+sensor = dht.DHT11(Pin(15))
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+s = socket.socket()
+s.bind((&quot;0.0.0.0&quot;, 80))
+s.listen(1)
+print(&quot;IP:&quot;, wlan.ifconfig()[0])
+
+while True:
+    cl, addr = s.accept()
+    sensor.measure()
+    t = sensor.temperature()
+    h = sensor.humidity()
+    page = f&quot;&lt;h1&gt;Pico WH Weather&lt;/h1&gt;&lt;p&gt;Temp: {t} C&lt;/p&gt;&lt;p&gt;Humidity: {h}%&lt;/p&gt;&quot;
+    cl.recv(1024)
+    cl.send(&quot;HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n&quot;)
+    cl.send(page)
+    cl.close()</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 48-1.</b> 웹서버 응답 HTML에 센서값을 넣으면 브라우저에서 실시간 값을 볼 수 있다.</p>
+    <label><input type="radio" name="ox48" value="O"> O</label>
+    <label><input type="radio" name="ox48" value="X"> X</label>
+    <button class="small" onclick="checkOX(48, 'O')">정답 확인</button>
+    <p id="oxResult48" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>웹페이지에 온습도 표시 예제의 핵심 개념은 Wi-Fi + DHT이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 48-2.</b> 이 예제에서 센서값이 HTML 페이지로 바뀌는 과정을 설명하시오.</p>
+    <textarea id="short48" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 이 예제에서 센서값이 HTML 페이지로 바뀌는 과정을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p49">
+  <div class="badge">PROJECT 49</div>
+  <h2>IFTTT 웹훅 알림</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>HTTP 요청</span></div>
+    <div><b>준비물</b><span>Wi-Fi + 센서</span></div>
+    <div><b>연결</b><span>센서 자유</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>import network, urequests, time
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+event = &quot;pico_alert&quot;
+key = &quot;YOUR_IFTTT_KEY&quot;
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+url = f&quot;https://maker.ifttt.com/trigger/{event}/with/key/{key}&quot;
+data = {&quot;value1&quot;: &quot;Pico WH&quot;, &quot;value2&quot;: &quot;Sensor Alert&quot;, &quot;value3&quot;: &quot;ON&quot;}
+
+response = urequests.post(url, json=data)
+print(response.text)
+response.close()</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 49-1.</b> urequests.post()는 인터넷 서버로 데이터를 전송하는 HTTP 요청에 사용할 수 있다.</p>
+    <label><input type="radio" name="ox49" value="O"> O</label>
+    <label><input type="radio" name="ox49" value="X"> X</label>
+    <button class="small" onclick="checkOX(49, 'O')">정답 확인</button>
+    <p id="oxResult49" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>IFTTT 웹훅 알림 예제의 핵심 개념은 HTTP 요청이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 49-2.</b> 센서 경고를 스마트폰 알림으로 보내는 전체 흐름을 설명하시오.</p>
+    <textarea id="short49" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 센서 경고를 스마트폰 알림으로 보내는 전체 흐름을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+<section class="card" id="p50">
+  <div class="badge">PROJECT 50</div>
+  <h2>ThingSpeak로 센서값 전송</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>IoT 데이터 업로드</span></div>
+    <div><b>준비물</b><span>Wi-Fi + ADC 센서</span></div>
+    <div><b>연결</b><span>ADC:GP26</span></div>
+    <div><b>주의</b><span>모듈 전압과 핀 배열을 반드시 확인하세요.</span></div>
+  </div>
+  <h3>💻 MicroPython 코드</h3>
+  <pre><code>import network, urequests, time
+from machine import ADC
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+api_key = &quot;YOUR_THINGSPEAK_WRITE_KEY&quot;
+sensor = ADC(26)
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+while True:
+    value = sensor.read_u16()
+    url = f&quot;https://api.thingspeak.com/update?api_key={api_key}&amp;field1={value}&quot;
+    r = urequests.get(url)
+    print(&quot;전송:&quot;, value, r.text)
+    r.close()
+    time.sleep(20)</code></pre>
+
+  <div class="quiz">
+    <h3>✅ 개념 확인 OX 퀴즈</h3>
+    <p class="q"><b>문제 50-1.</b> ThingSpeak 전송 예제는 API Key와 field 값을 이용해 센서 데이터를 업로드한다.</p>
+    <label><input type="radio" name="ox50" value="O"> O</label>
+    <label><input type="radio" name="ox50" value="X"> X</label>
+    <button class="small" onclick="checkOX(50, 'O')">정답 확인</button>
+    <p id="oxResult50" class="result"></p>
+    <details>
+      <summary>상세 풀이 보기</summary>
+      <p><b>정답:</b> O</p>
+      <p>ThingSpeak로 센서값 전송 예제의 핵심 개념은 IoT 데이터 업로드이다. 제시문은 코드의 동작 원리와 일치하므로 O가 정답이다.</p>
+    </details>
+
+    <h3>✍️ 코드 관련 서술형</h3>
+    <p class="q"><b>문제 50-2.</b> 클라우드에 센서값을 주기적으로 저장하면 좋은 점을 설명하시오.</p>
+    <textarea id="short50" placeholder="여기에 서술형 답안을 작성하세요."></textarea>
+    <details>
+      <summary>예시 답안 및 상세 풀이 보기</summary>
+      <p>예시 답안: 클라우드에 센서값을 주기적으로 저장하면 좋은 점을 할 때, 센서 입력값을 Pico WH가 읽고 조건문·통신·PWM·출력 장치 등을 이용해 원하는 동작으로 변환한다. 회로에서는 전원, GND, 데이터 핀 연결이 정확해야 한다.</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Raspberry Pi Pico WH · MicroPython · Assessment HTML
+</footer>
+
+<script>
+const ANSWERS = {1:'O',2:'O',3:'O',4:'O',5:'O',6:'O',7:'O',8:'O',9:'O',10:'O',11:'O',12:'O',13:'O',14:'O',15:'O',16:'O',17:'O',18:'O',19:'O',20:'O',21:'O',22:'O',23:'O',24:'O',25:'O',26:'O',27:'O',28:'O',29:'O',30:'O',31:'O',32:'O',33:'O',34:'O',35:'O',36:'O',37:'O',38:'O',39:'O',40:'O',41:'O',42:'O',43:'O',44:'O',45:'O',46:'O',47:'O',48:'O',49:'O',50:'O'};
+let lastScore = 0;
+let lastCorrect = 0;
+
+function todayString() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('examDate').value = todayString();
+});
+
+function selectedValue(name) {
+  const checked = document.querySelector(`input[name="${name}"]:checked`);
+  return checked ? checked.value : "";
+}
+
+function checkOX(i, ans) {
+  const v = selectedValue("ox" + i);
+  const box = document.getElementById("oxResult" + i);
+  if (!v) {
+    box.textContent = "먼저 O 또는 X를 선택하세요.";
+    box.className = "result wrong";
+    return;
+  }
+  if (v === ans) {
+    box.textContent = "정답입니다!";
+    box.className = "result correct";
+  } else {
+    box.textContent = "오답입니다. 상세 풀이를 확인하세요.";
+    box.className = "result wrong";
+  }
+}
+
+function grade() {
+  let correct = 0;
+  for (let i = 1; i <= 50; i++) {
+    const v = selectedValue("ox" + i);
+    const box = document.getElementById("oxResult" + i);
+    if (v === ANSWERS[i]) {
+      correct++;
+      if (box) {
+        box.textContent = "정답입니다!";
+        box.className = "result correct";
+      }
+    } else if (v) {
+      if (box) {
+        box.textContent = "오답입니다. 상세 풀이를 확인하세요.";
+        box.className = "result wrong";
+      }
+    } else {
+      if (box) {
+        box.textContent = "미응답";
+        box.className = "result wrong";
+      }
+    }
+  }
+  lastCorrect = correct;
+  lastScore = correct * 2;
+  document.getElementById("correctCount").textContent = correct;
+  document.getElementById("score").textContent = lastScore;
+}
+
+function safeName(s) {
+  return (s || "미입력").replace(/[\\/:*?"<>|\s]+/g, "_");
+}
+
+function downloadResult() {
+  grade();
+  const sid = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+  const date = document.getElementById("examDate").value.trim() || todayString();
+
+  let lines = [];
+  lines.push("라즈베리파이 피코 WH 프로젝트 평가 결과");
+  lines.push("학번: " + (sid || "미입력"));
+  lines.push("이름: " + (name || "미입력"));
+  lines.push("응시날짜: " + date);
+  lines.push("OX 점수: " + lastScore + "점 / 100점");
+  lines.push("OX 정답 개수: " + lastCorrect + "개 / 50개");
+  lines.push("서술형: 교사 채점");
+  lines.push("");
+  lines.push("[OX 응답]");
+  for (let i = 1; i <= 50; i++) {
+    const v = selectedValue("ox" + i) || "미응답";
+    lines.push(String(i).padStart(2, "0") + "번: " + v + " / 정답: " + ANSWERS[i]);
+  }
+  lines.push("");
+  lines.push("[서술형 답안]");
+  for (let i = 1; i <= 50; i++) {
+    const t = document.getElementById("short" + i).value.trim() || "미작성";
+    lines.push(String(i).padStart(2, "0") + "번 서술형: " + t);
+  }
+
+  const content = lines.join("\n");
+  const filename = `${safeName(sid)}_${safeName(name)}_피코_${lastScore}점_${safeName(date)}.txt`;
+  const blob = new Blob([content], {type:"text/plain;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>

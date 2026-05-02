@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>라즈베리파이 피코 WH 프로젝트 예제 50개 - MicroPython</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+  --bg:#f4f7fb; --ink:#172033; --muted:#64748b; --card:#ffffff;
+  --accent:#2563eb; --accent2:#06b6d4; --line:#dbe5f3; --code:#0f172a;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:"Pretendard","Noto Sans KR",Arial,sans-serif;
+  background:linear-gradient(135deg,#eef6ff 0%,#f8fbff 45%,#eefdfb 100%);
+  color:var(--ink); line-height:1.72;
+}
+header {
+  padding:56px 28px 34px; text-align:center;
+  background:radial-gradient(circle at 20% 10%,#dbeafe,transparent 30%),
+             linear-gradient(135deg,#1e3a8a,#0f766e);
+  color:white;
+}
+header h1 { font-size:clamp(30px,5vw,56px); margin:0 0 14px; letter-spacing:-1.5px; }
+header p { margin:6px auto; max-width:920px; font-size:18px; opacity:.94; }
+.wrap { max-width:1240px; margin:0 auto; padding:28px; }
+.notice {
+  background:#ffffffd9; border:1px solid var(--line); border-radius:22px; padding:22px 24px;
+  box-shadow:0 14px 34px #0f172a12; margin-top:-42px; backdrop-filter:blur(8px);
+}
+.notice h2 { margin:0 0 10px; font-size:24px; }
+.grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:24px 0 30px;
+}
+.grid a {
+  display:flex; gap:10px; align-items:center; text-decoration:none; color:var(--ink);
+  background:white; border:1px solid var(--line); border-radius:14px; padding:10px 12px;
+  box-shadow:0 6px 14px #0f172a0c; font-size:14px;
+}
+.grid a:hover { transform:translateY(-2px); border-color:#60a5fa; }
+.grid span {
+  background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white;
+  width:34px; height:28px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center;
+  font-weight:800; flex:0 0 auto;
+}
+.card {
+  background:var(--card); border:1px solid var(--line); border-radius:26px;
+  padding:28px; margin:24px 0; box-shadow:0 16px 44px #0f172a12;
+}
+.badge {
+  display:inline-block; padding:6px 12px; border-radius:999px; color:white;
+  background:linear-gradient(135deg,var(--accent),var(--accent2)); font-weight:800; font-size:13px;
+}
+.card h2 { font-size:28px; margin:12px 0 18px; letter-spacing:-.5px; }
+.meta {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:18px;
+}
+.meta div {
+  border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#f8fafc;
+}
+.meta b { display:block; color:#1d4ed8; margin-bottom:4px; }
+.meta span { color:#334155; }
+pre {
+  margin:0; padding:20px; border-radius:18px; background:var(--code); color:#e5e7eb;
+  overflow:auto; font-size:15px; line-height:1.62; border:1px solid #334155;
+}
+code { font-family:"Cascadia Code","Consolas","D2Coding",monospace; }
+.table {
+  width:100%; border-collapse:collapse; overflow:hidden; border-radius:16px; margin-top:14px; background:white;
+}
+.table th,.table td { padding:12px; border:1px solid var(--line); text-align:left; }
+.table th { background:#eff6ff; color:#1d4ed8; }
+footer { text-align:center; color:var(--muted); padding:40px 10px 60px; }
+@media print {
+  .grid { display:none; }
+  .card { break-inside:avoid; box-shadow:none; }
+  body { background:white; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>라즈베리파이 피코 WH 프로젝트 예제 50개</h1>
+  <p>MicroPython 코드 · 센서 연결 · GPIO/ADC/I2C/SPI/UART/Wi‑Fi IoT 실습 자료</p>
+  <p>학교 수업, 동아리, 수행평가, 피지컬 컴퓨팅 프로젝트용</p>
+</header>
+
+<main class="wrap">
+  <section class="notice">
+    <h2>📌 사용 전 핵심 주의사항</h2>
+    <table class="table">
+      <tr><th>항목</th><th>설명</th></tr>
+      <tr><td>전압</td><td>Pico WH GPIO는 3.3V 기준입니다. 5V 신호를 GPIO에 직접 넣지 마세요.</td></tr>
+      <tr><td>공통 GND</td><td>센서, 모터드라이버, 외부 전원은 Pico WH와 GND를 반드시 공통으로 연결합니다.</td></tr>
+      <tr><td>ADC 핀</td><td>아날로그 입력은 GP26, GP27, GP28을 사용합니다.</td></tr>
+      <tr><td>I2C 기본 예시</td><td>SDA=GP0, SCL=GP1 기준으로 작성했습니다.</td></tr>
+      <tr><td>라이브러리</td><td>OLED, BMP280, MPU6050, RFID 등은 별도 MicroPython 라이브러리 파일이 필요할 수 있습니다.</td></tr>
+    </table>
+  </section>
+
+  <h2 style="margin-top:34px">🔗 프로젝트 바로가기</h2>
+  <nav class="grid">
+    <a href="#p01"><span>01</span>내장 LED 깜빡이기</a>
+<a href="#p02"><span>02</span>외부 LED 켜고 끄기</a>
+<a href="#p03"><span>03</span>버튼 입력으로 LED 제어</a>
+<a href="#p04"><span>04</span>버튼 누른 횟수 세기</a>
+<a href="#p05"><span>05</span>부저로 삐 소리 내기</a>
+<a href="#p06"><span>06</span>PWM 부저 음계 만들기</a>
+<a href="#p07"><span>07</span>LED 밝기 조절</a>
+<a href="#p08"><span>08</span>RGB LED 색 바꾸기</a>
+<a href="#p09"><span>09</span>가변저항 값 읽기</a>
+<a href="#p10"><span>10</span>가변저항으로 LED 밝기 조절</a>
+<a href="#p11"><span>11</span>조도센서 값 읽기</a>
+<a href="#p12"><span>12</span>어두우면 LED 켜기</a>
+<a href="#p13"><span>13</span>토양 습도 센서 읽기</a>
+<a href="#p14"><span>14</span>자동 물주기 알림</a>
+<a href="#p15"><span>15</span>온도 센서 LM35 읽기</a>
+<a href="#p16"><span>16</span>Pico 내부 온도 측정</a>
+<a href="#p17"><span>17</span>DHT11 온습도 읽기</a>
+<a href="#p18"><span>18</span>DHT22 정밀 온습도</a>
+<a href="#p19"><span>19</span>초음파 거리 측정</a>
+<a href="#p20"><span>20</span>거리 가까우면 경고음</a>
+<a href="#p21"><span>21</span>PIR 인체 감지</a>
+<a href="#p22"><span>22</span>기울기 센서</a>
+<a href="#p23"><span>23</span>진동 센서 감지</a>
+<a href="#p24"><span>24</span>자석 리드 스위치</a>
+<a href="#p25"><span>25</span>서보모터 각도 제어</a>
+<a href="#p26"><span>26</span>가변저항으로 서보 제어</a>
+<a href="#p27"><span>27</span>릴레이 제어</a>
+<a href="#p28"><span>28</span>7세그먼트 숫자 표시</a>
+<a href="#p29"><span>29</span>I2C 주소 검색</a>
+<a href="#p30"><span>30</span>OLED에 글자 출력</a>
+<a href="#p31"><span>31</span>OLED에 센서값 표시</a>
+<a href="#p32"><span>32</span>BMP280 기압 센서</a>
+<a href="#p33"><span>33</span>MPU6050 가속도 읽기</a>
+<a href="#p34"><span>34</span>RFID 카드 UID 읽기</a>
+<a href="#p35"><span>35</span>UART GPS 데이터 읽기</a>
+<a href="#p36"><span>36</span>블루투스 HC-05 UART</a>
+<a href="#p37"><span>37</span>네오픽셀 LED 8개 제어</a>
+<a href="#p38"><span>38</span>소리 센서 감지</a>
+<a href="#p39"><span>39</span>화염 센서 경보</a>
+<a href="#p40"><span>40</span>가스 센서 MQ-2 읽기</a>
+<a href="#p41"><span>41</span>빗물 감지 센서</a>
+<a href="#p42"><span>42</span>라인 트레이서 센서</a>
+<a href="#p43"><span>43</span>IR 장애물 감지</a>
+<a href="#p44"><span>44</span>미니 DC 모터 제어</a>
+<a href="#p45"><span>45</span>DC 모터 속도 조절</a>
+<a href="#p46"><span>46</span>Wi-Fi 연결 확인</a>
+<a href="#p47"><span>47</span>웹서버로 LED 제어</a>
+<a href="#p48"><span>48</span>웹페이지에 온습도 표시</a>
+<a href="#p49"><span>49</span>IFTTT 웹훅 알림</a>
+<a href="#p50"><span>50</span>ThingSpeak로 센서값 전송</a>
+  </nav>
+
+  
+<section class="card" id="p01">
+  <div class="badge">PROJECT 01</div>
+  <h2>내장 LED 깜빡이기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>기본 출력 / GPIO</span></div>
+    <div><b>준비물</b><span>내장 LED</span></div>
+    <div><b>연결</b><span>LED</span></div>
+    <div><b>주의</b><span>없음</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+while True:
+    led.value(1)
+    time.sleep(0.5)
+    led.value(0)
+    time.sleep(0.5)</code></pre>
+</section>
+
+<section class="card" id="p02">
+  <div class="badge">PROJECT 02</div>
+  <h2>외부 LED 켜고 끄기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 출력</span></div>
+    <div><b>준비물</b><span>LED + 220Ω 저항</span></div>
+    <div><b>연결</b><span>GP15 → 저항 → LED(+), LED(-) → GND</span></div>
+    <div><b>주의</b><span>LED 극성 확인</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+led = Pin(15, Pin.OUT)
+
+while True:
+    led.on()
+    time.sleep(1)
+    led.off()
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p03">
+  <div class="badge">PROJECT 03</div>
+  <h2>버튼 입력으로 LED 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력 / 풀다운</span></div>
+    <div><b>준비물</b><span>버튼, LED</span></div>
+    <div><b>연결</b><span>버튼: GP14-GND, LED: GP15</span></div>
+    <div><b>주의</b><span>PULL_UP 사용</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+button = Pin(14, Pin.IN, Pin.PULL_UP)
+led = Pin(15, Pin.OUT)
+
+while True:
+    if button.value() == 0:
+        led.on()
+    else:
+        led.off()
+    time.sleep(0.05)</code></pre>
+</section>
+
+<section class="card" id="p04">
+  <div class="badge">PROJECT 04</div>
+  <h2>버튼 누른 횟수 세기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>입력 이벤트</span></div>
+    <div><b>준비물</b><span>버튼</span></div>
+    <div><b>연결</b><span>버튼 한쪽 GP14, 다른쪽 GND</span></div>
+    <div><b>주의</b><span>채터링 방지</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+button = Pin(14, Pin.IN, Pin.PULL_UP)
+count = 0
+old = 1
+
+while True:
+    now = button.value()
+    if old == 1 and now == 0:
+        count += 1
+        print(&quot;누른 횟수:&quot;, count)
+        time.sleep(0.2)
+    old = now</code></pre>
+</section>
+
+<section class="card" id="p05">
+  <div class="badge">PROJECT 05</div>
+  <h2>부저로 삐 소리 내기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 출력</span></div>
+    <div><b>준비물</b><span>능동 부저</span></div>
+    <div><b>연결</b><span>부저 +: GP16, -: GND</span></div>
+    <div><b>주의</b><span>능동 부저 기준</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    buzzer.on()
+    time.sleep(0.2)
+    buzzer.off()
+    time.sleep(0.8)</code></pre>
+</section>
+
+<section class="card" id="p06">
+  <div class="badge">PROJECT 06</div>
+  <h2>PWM 부저 음계 만들기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM / 주파수</span></div>
+    <div><b>준비물</b><span>수동 부저</span></div>
+    <div><b>연결</b><span>부저 +: GP16, -: GND</span></div>
+    <div><b>주의</b><span>수동 부저 사용</span></div>
+  </div>
+  <pre><code>from machine import Pin, PWM
+import time
+
+buzzer = PWM(Pin(16))
+notes = [262, 294, 330, 349, 392, 440, 494, 523]
+
+for n in notes:
+    buzzer.freq(n)
+    buzzer.duty_u16(30000)
+    time.sleep(0.3)
+
+buzzer.duty_u16(0)</code></pre>
+</section>
+
+<section class="card" id="p07">
+  <div class="badge">PROJECT 07</div>
+  <h2>LED 밝기 조절</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 출력</span></div>
+    <div><b>준비물</b><span>LED + 220Ω</span></div>
+    <div><b>연결</b><span>GP15 → 저항 → LED → GND</span></div>
+    <div><b>주의</b><span>PWM duty 사용</span></div>
+  </div>
+  <pre><code>from machine import Pin, PWM
+import time
+
+led = PWM(Pin(15))
+led.freq(1000)
+
+while True:
+    for duty in range(0, 65535, 2000):
+        led.duty_u16(duty)
+        time.sleep(0.03)
+    for duty in range(65535, 0, -2000):
+        led.duty_u16(duty)
+        time.sleep(0.03)</code></pre>
+</section>
+
+<section class="card" id="p08">
+  <div class="badge">PROJECT 08</div>
+  <h2>RGB LED 색 바꾸기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 3채널</span></div>
+    <div><b>준비물</b><span>RGB LED</span></div>
+    <div><b>연결</b><span>R:GP13, G:GP14, B:GP15</span></div>
+    <div><b>주의</b><span>공통 음극 기준</span></div>
+  </div>
+  <pre><code>from machine import Pin, PWM
+import time
+
+r = PWM(Pin(13)); g = PWM(Pin(14)); b = PWM(Pin(15))
+for x in (r, g, b):
+    x.freq(1000)
+
+colors = [(65535,0,0), (0,65535,0), (0,0,65535), (65535,65535,0), (0,65535,65535)]
+
+while True:
+    for cr, cg, cb in colors:
+        r.duty_u16(cr); g.duty_u16(cg); b.duty_u16(cb)
+        time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p09">
+  <div class="badge">PROJECT 09</div>
+  <h2>가변저항 값 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC 아날로그 입력</span></div>
+    <div><b>준비물</b><span>가변저항</span></div>
+    <div><b>연결</b><span>가운데: GP26, 양끝: 3V3/GND</span></div>
+    <div><b>주의</b><span>ADC는 GP26~GP28</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+pot = ADC(26)
+
+while True:
+    value = pot.read_u16()
+    print(&quot;가변저항:&quot;, value)
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p10">
+  <div class="badge">PROJECT 10</div>
+  <h2>가변저항으로 LED 밝기 조절</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC + PWM</span></div>
+    <div><b>준비물</b><span>가변저항, LED</span></div>
+    <div><b>연결</b><span>ADC:GP26, LED:GP15</span></div>
+    <div><b>주의</b><span>입력값을 duty로 사용</span></div>
+  </div>
+  <pre><code>from machine import Pin, ADC, PWM
+import time
+
+pot = ADC(26)
+led = PWM(Pin(15))
+led.freq(1000)
+
+while True:
+    value = pot.read_u16()
+    led.duty_u16(value)
+    print(value)
+    time.sleep(0.05)</code></pre>
+</section>
+
+<section class="card" id="p11">
+  <div class="badge">PROJECT 11</div>
+  <h2>조도센서 값 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC / 빛 센서</span></div>
+    <div><b>준비물</b><span>LDR 조도센서 모듈</span></div>
+    <div><b>연결</b><span>AO: GP26, VCC:3V3, GND:GND</span></div>
+    <div><b>주의</b><span>모듈 출력 전압 확인</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+light = ADC(26)
+
+while True:
+    value = light.read_u16()
+    print(&quot;밝기값:&quot;, value)
+    time.sleep(0.5)</code></pre>
+</section>
+
+<section class="card" id="p12">
+  <div class="badge">PROJECT 12</div>
+  <h2>어두우면 LED 켜기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>조건문 + ADC</span></div>
+    <div><b>준비물</b><span>조도센서, LED</span></div>
+    <div><b>연결</b><span>LDR AO:GP26, LED:GP15</span></div>
+    <div><b>주의</b><span>임계값 조절 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin, ADC
+import time
+
+light = ADC(26)
+led = Pin(15, Pin.OUT)
+
+while True:
+    value = light.read_u16()
+    if value &lt; 25000:
+        led.on()
+    else:
+        led.off()
+    print(value)
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p13">
+  <div class="badge">PROJECT 13</div>
+  <h2>토양 습도 센서 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC / 환경 데이터</span></div>
+    <div><b>준비물</b><span>토양 습도 센서</span></div>
+    <div><b>연결</b><span>AO: GP27, VCC:3V3, GND:GND</span></div>
+    <div><b>주의</b><span>부식 방지 주의</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+soil = ADC(27)
+
+while True:
+    value = soil.read_u16()
+    print(&quot;토양 습도 원시값:&quot;, value)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p14">
+  <div class="badge">PROJECT 14</div>
+  <h2>자동 물주기 알림</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC + 부저</span></div>
+    <div><b>준비물</b><span>토양습도센서, 부저</span></div>
+    <div><b>연결</b><span>SOIL:GP27, BUZZER:GP16</span></div>
+    <div><b>주의</b><span>릴레이 대신 알림 예제</span></div>
+  </div>
+  <pre><code>from machine import Pin, ADC
+import time
+
+soil = ADC(27)
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    value = soil.read_u16()
+    if value &gt; 45000:
+        buzzer.on()
+        print(&quot;흙이 건조합니다!&quot;)
+    else:
+        buzzer.off()
+        print(&quot;습도 적당:&quot;, value)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p15">
+  <div class="badge">PROJECT 15</div>
+  <h2>온도 센서 LM35 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC / 온도 변환</span></div>
+    <div><b>준비물</b><span>LM35</span></div>
+    <div><b>연결</b><span>OUT: GP26, VCC:3V3, GND:GND</span></div>
+    <div><b>주의</b><span>LM35 출력 특성 확인</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+sensor = ADC(26)
+
+while True:
+    raw = sensor.read_u16()
+    voltage = raw * 3.3 / 65535
+    temp_c = voltage * 100
+    print(&quot;온도:&quot;, temp_c, &quot;°C&quot;)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p16">
+  <div class="badge">PROJECT 16</div>
+  <h2>Pico 내부 온도 측정</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>내장 ADC</span></div>
+    <div><b>준비물</b><span>내부 온도 센서</span></div>
+    <div><b>연결</b><span>별도 연결 없음</span></div>
+    <div><b>주의</b><span>대략값</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+sensor = ADC(4)
+conversion = 3.3 / 65535
+
+while True:
+    voltage = sensor.read_u16() * conversion
+    temp = 27 - (voltage - 0.706) / 0.001721
+    print(&quot;내부 온도:&quot;, temp)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p17">
+  <div class="badge">PROJECT 17</div>
+  <h2>DHT11 온습도 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 센서</span></div>
+    <div><b>준비물</b><span>DHT11</span></div>
+    <div><b>연결</b><span>DATA: GP15, VCC:3V3, GND:GND</span></div>
+    <div><b>주의</b><span>dht 모듈 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import dht
+import time
+
+sensor = dht.DHT11(Pin(15))
+
+while True:
+    sensor.measure()
+    print(&quot;온도:&quot;, sensor.temperature(), &quot;°C&quot;)
+    print(&quot;습도:&quot;, sensor.humidity(), &quot;%&quot;)
+    time.sleep(2)</code></pre>
+</section>
+
+<section class="card" id="p18">
+  <div class="badge">PROJECT 18</div>
+  <h2>DHT22 정밀 온습도</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 센서</span></div>
+    <div><b>준비물</b><span>DHT22</span></div>
+    <div><b>연결</b><span>DATA: GP15</span></div>
+    <div><b>주의</b><span>DHT22는 DHT11보다 정밀</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import dht
+import time
+
+sensor = dht.DHT22(Pin(15))
+
+while True:
+    sensor.measure()
+    t = sensor.temperature()
+    h = sensor.humidity()
+    print(&quot;온도:&quot;, t, &quot;습도:&quot;, h)
+    time.sleep(2)</code></pre>
+</section>
+
+<section class="card" id="p19">
+  <div class="badge">PROJECT 19</div>
+  <h2>초음파 거리 측정</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>펄스 시간 측정</span></div>
+    <div><b>준비물</b><span>HC-SR04</span></div>
+    <div><b>연결</b><span>TRIG:GP3, ECHO:GP2</span></div>
+    <div><b>주의</b><span>Echo 5V이면 분압 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+
+while True:
+    trig.low()
+    time.sleep_us(2)
+    trig.high()
+    time.sleep_us(10)
+    trig.low()
+
+    duration = time_pulse_us(echo, 1)
+    distance = duration * 0.0343 / 2
+    print(&quot;거리:&quot;, distance, &quot;cm&quot;)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p20">
+  <div class="badge">PROJECT 20</div>
+  <h2>거리 가까우면 경고음</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>초음파 + 부저</span></div>
+    <div><b>준비물</b><span>HC-SR04, 부저</span></div>
+    <div><b>연결</b><span>TRIG:GP3, ECHO:GP2, BUZZER:GP16</span></div>
+    <div><b>주의</b><span>장애물 경고</span></div>
+  </div>
+  <pre><code>from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    trig.low(); time.sleep_us(2)
+    trig.high(); time.sleep_us(10)
+    trig.low()
+    duration = time_pulse_us(echo, 1)
+    distance = duration * 0.0343 / 2
+
+    buzzer.value(distance &lt; 20)
+    print(distance)
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p21">
+  <div class="badge">PROJECT 21</div>
+  <h2>PIR 인체 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>PIR 센서</span></div>
+    <div><b>연결</b><span>OUT: GP14</span></div>
+    <div><b>주의</b><span>감도 조절 가능</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+pir = Pin(14, Pin.IN)
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+while True:
+    if pir.value():
+        print(&quot;움직임 감지!&quot;)
+        led.on()
+    else:
+        led.off()
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p22">
+  <div class="badge">PROJECT 22</div>
+  <h2>기울기 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>Tilt sensor</span></div>
+    <div><b>연결</b><span>OUT: GP14</span></div>
+    <div><b>주의</b><span>ON/OFF 감지</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+tilt = Pin(14, Pin.IN, Pin.PULL_UP)
+
+while True:
+    if tilt.value() == 0:
+        print(&quot;기울어짐&quot;)
+    else:
+        print(&quot;정상&quot;)
+    time.sleep(0.5)</code></pre>
+</section>
+
+<section class="card" id="p23">
+  <div class="badge">PROJECT 23</div>
+  <h2>진동 센서 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>진동 센서</span></div>
+    <div><b>연결</b><span>DO: GP14</span></div>
+    <div><b>주의</b><span>민감도 조절</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+vibration = Pin(14, Pin.IN)
+
+while True:
+    if vibration.value():
+        print(&quot;진동 발생!&quot;)
+    time.sleep(0.1)</code></pre>
+</section>
+
+<section class="card" id="p24">
+  <div class="badge">PROJECT 24</div>
+  <h2>자석 리드 스위치</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>문 열림 감지</span></div>
+    <div><b>준비물</b><span>리드 스위치</span></div>
+    <div><b>연결</b><span>GP14와 GND 사이</span></div>
+    <div><b>주의</b><span>PULL_UP 사용</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+door = Pin(14, Pin.IN, Pin.PULL_UP)
+
+while True:
+    if door.value():
+        print(&quot;문 열림&quot;)
+    else:
+        print(&quot;문 닫힘&quot;)
+    time.sleep(0.5)</code></pre>
+</section>
+
+<section class="card" id="p25">
+  <div class="badge">PROJECT 25</div>
+  <h2>서보모터 각도 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 제어</span></div>
+    <div><b>준비물</b><span>SG90 서보</span></div>
+    <div><b>연결</b><span>Signal: GP15, VCC:5V, GND공통</span></div>
+    <div><b>주의</b><span>외부전원 권장</span></div>
+  </div>
+  <pre><code>from machine import Pin, PWM
+import time
+
+servo = PWM(Pin(15))
+servo.freq(50)
+
+def angle(a):
+    min_duty = 1638
+    max_duty = 8192
+    duty = int(min_duty + (max_duty - min_duty) * a / 180)
+    servo.duty_u16(duty)
+
+while True:
+    for a in [0, 45, 90, 135, 180]:
+        angle(a)
+        time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p26">
+  <div class="badge">PROJECT 26</div>
+  <h2>가변저항으로 서보 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC + PWM</span></div>
+    <div><b>준비물</b><span>가변저항, 서보모터</span></div>
+    <div><b>연결</b><span>ADC:GP26, SERVO:GP15</span></div>
+    <div><b>주의</b><span>전원 부족 주의</span></div>
+  </div>
+  <pre><code>from machine import Pin, PWM, ADC
+import time
+
+pot = ADC(26)
+servo = PWM(Pin(15))
+servo.freq(50)
+
+while True:
+    raw = pot.read_u16()
+    duty = int(1638 + raw * (8192 - 1638) / 65535)
+    servo.duty_u16(duty)
+    print(raw, duty)
+    time.sleep(0.05)</code></pre>
+</section>
+
+<section class="card" id="p27">
+  <div class="badge">PROJECT 27</div>
+  <h2>릴레이 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 출력</span></div>
+    <div><b>준비물</b><span>릴레이 모듈</span></div>
+    <div><b>연결</b><span>IN: GP15, VCC, GND</span></div>
+    <div><b>주의</b><span>고전압 부하 주의</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+relay = Pin(15, Pin.OUT)
+
+while True:
+    relay.on()
+    print(&quot;릴레이 ON&quot;)
+    time.sleep(2)
+    relay.off()
+    print(&quot;릴레이 OFF&quot;)
+    time.sleep(2)</code></pre>
+</section>
+
+<section class="card" id="p28">
+  <div class="badge">PROJECT 28</div>
+  <h2>7세그먼트 숫자 표시</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>다중 GPIO</span></div>
+    <div><b>준비물</b><span>7세그먼트</span></div>
+    <div><b>연결</b><span>a~g: GP2~GP8</span></div>
+    <div><b>주의</b><span>저항 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+pins = [Pin(i, Pin.OUT) for i in range(2, 9)]
+nums = {
+    0:[1,1,1,1,1,1,0], 1:[0,1,1,0,0,0,0],
+    2:[1,1,0,1,1,0,1], 3:[1,1,1,1,0,0,1],
+    4:[0,1,1,0,0,1,1], 5:[1,0,1,1,0,1,1],
+    6:[1,0,1,1,1,1,1], 7:[1,1,1,0,0,0,0],
+    8:[1,1,1,1,1,1,1], 9:[1,1,1,1,0,1,1]
+}
+
+while True:
+    for n in range(10):
+        for p, v in zip(pins, nums[n]):
+            p.value(v)
+        time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p29">
+  <div class="badge">PROJECT 29</div>
+  <h2>I2C 주소 검색</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C 기본</span></div>
+    <div><b>준비물</b><span>I2C 센서/OLED</span></div>
+    <div><b>연결</b><span>SDA:GP0, SCL:GP1</span></div>
+    <div><b>주의</b><span>주소 확인용</span></div>
+  </div>
+  <pre><code>from machine import Pin, I2C
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
+print(&quot;I2C 주소:&quot;, i2c.scan())</code></pre>
+</section>
+
+<section class="card" id="p30">
+  <div class="badge">PROJECT 30</div>
+  <h2>OLED에 글자 출력</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C OLED</span></div>
+    <div><b>준비물</b><span>SSD1306 OLED</span></div>
+    <div><b>연결</b><span>SDA:GP0, SCL:GP1</span></div>
+    <div><b>주의</b><span>ssd1306.py 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin, I2C
+from ssd1306 import SSD1306_I2C
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+oled = SSD1306_I2C(128, 64, i2c)
+
+oled.fill(0)
+oled.text(&quot;Pico WH&quot;, 0, 0)
+oled.text(&quot;MicroPython&quot;, 0, 16)
+oled.show()</code></pre>
+</section>
+
+<section class="card" id="p31">
+  <div class="badge">PROJECT 31</div>
+  <h2>OLED에 센서값 표시</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C + ADC</span></div>
+    <div><b>준비물</b><span>OLED, 가변저항</span></div>
+    <div><b>연결</b><span>OLED I2C, POT:GP26</span></div>
+    <div><b>주의</b><span>문자 출력</span></div>
+  </div>
+  <pre><code>from machine import Pin, I2C, ADC
+from ssd1306 import SSD1306_I2C
+import time
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+oled = SSD1306_I2C(128, 64, i2c)
+pot = ADC(26)
+
+while True:
+    value = pot.read_u16()
+    oled.fill(0)
+    oled.text(&quot;ADC Value&quot;, 0, 0)
+    oled.text(str(value), 0, 20)
+    oled.show()
+    time.sleep(0.3)</code></pre>
+</section>
+
+<section class="card" id="p32">
+  <div class="badge">PROJECT 32</div>
+  <h2>BMP280 기압 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C 환경센서</span></div>
+    <div><b>준비물</b><span>BMP280</span></div>
+    <div><b>연결</b><span>SDA:GP0, SCL:GP1</span></div>
+    <div><b>주의</b><span>라이브러리 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin, I2C
+import time
+import bmp280
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+bmp = bmp280.BMP280(i2c)
+
+while True:
+    print(&quot;온도:&quot;, bmp.temperature)
+    print(&quot;기압:&quot;, bmp.pressure)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p33">
+  <div class="badge">PROJECT 33</div>
+  <h2>MPU6050 가속도 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>I2C 모션센서</span></div>
+    <div><b>준비물</b><span>MPU6050</span></div>
+    <div><b>연결</b><span>SDA:GP0, SCL:GP1</span></div>
+    <div><b>주의</b><span>mpu6050.py 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin, I2C
+import time
+from mpu6050 import MPU6050
+
+i2c = I2C(0, sda=Pin(0), scl=Pin(1))
+mpu = MPU6050(i2c)
+
+while True:
+    acc = mpu.read_accel_data()
+    print(acc)
+    time.sleep(0.5)</code></pre>
+</section>
+
+<section class="card" id="p34">
+  <div class="badge">PROJECT 34</div>
+  <h2>RFID 카드 UID 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>SPI 통신</span></div>
+    <div><b>준비물</b><span>MFRC522 RFID</span></div>
+    <div><b>연결</b><span>SCK:GP18, MOSI:GP19, MISO:GP16, CS:GP17, RST:GP20</span></div>
+    <div><b>주의</b><span>mfrc522.py 필요</span></div>
+  </div>
+  <pre><code>from machine import Pin, SPI
+import mfrc522
+import time
+
+reader = mfrc522.MFRC522(spi_id=0, sck=18, miso=16, mosi=19, cs=17, rst=20)
+
+while True:
+    stat, tag_type = reader.request(reader.REQIDL)
+    if stat == reader.OK:
+        stat, uid = reader.SelectTagSN()
+        if stat == reader.OK:
+            print(&quot;카드 UID:&quot;, uid)
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p35">
+  <div class="badge">PROJECT 35</div>
+  <h2>UART GPS 데이터 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>UART 통신</span></div>
+    <div><b>준비물</b><span>GPS 모듈</span></div>
+    <div><b>연결</b><span>GPS TX→GP1(RX), RX→GP0(TX)</span></div>
+    <div><b>주의</b><span>9600bps 흔함</span></div>
+  </div>
+  <pre><code>from machine import UART, Pin
+import time
+
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+
+while True:
+    if uart.any():
+        line = uart.readline()
+        print(line)
+    time.sleep(0.1)</code></pre>
+</section>
+
+<section class="card" id="p36">
+  <div class="badge">PROJECT 36</div>
+  <h2>블루투스 HC-05 UART</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>UART 문자열 통신</span></div>
+    <div><b>준비물</b><span>HC-05</span></div>
+    <div><b>연결</b><span>TX→GP1, RX→GP0</span></div>
+    <div><b>주의</b><span>HC-05는 5V 레벨 주의</span></div>
+  </div>
+  <pre><code>from machine import UART, Pin
+
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+
+while True:
+    if uart.any():
+        msg = uart.readline()
+        print(&quot;받음:&quot;, msg)
+        uart.write(b&quot;OK\n&quot;)</code></pre>
+</section>
+
+<section class="card" id="p37">
+  <div class="badge">PROJECT 37</div>
+  <h2>네오픽셀 LED 8개 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PIO/NeoPixel</span></div>
+    <div><b>준비물</b><span>WS2812B</span></div>
+    <div><b>연결</b><span>DIN: GP15, 5V, GND</span></div>
+    <div><b>주의</b><span>전원과 GND 공통</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import neopixel
+import time
+
+np = neopixel.NeoPixel(Pin(15), 8)
+
+while True:
+    for i in range(8):
+        np.fill((0, 0, 0))
+        np[i] = (30, 0, 0)
+        np.write()
+        time.sleep(0.1)</code></pre>
+</section>
+
+<section class="card" id="p38">
+  <div class="badge">PROJECT 38</div>
+  <h2>소리 센서 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>아날로그/디지털</span></div>
+    <div><b>준비물</b><span>마이크 소리 센서</span></div>
+    <div><b>연결</b><span>AO:GP26 또는 DO:GP14</span></div>
+    <div><b>주의</b><span>모듈별 차이</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+sound = ADC(26)
+
+while True:
+    value = sound.read_u16()
+    print(&quot;소리 크기:&quot;, value)
+    time.sleep(0.1)</code></pre>
+</section>
+
+<section class="card" id="p39">
+  <div class="badge">PROJECT 39</div>
+  <h2>화염 센서 경보</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>Flame sensor</span></div>
+    <div><b>연결</b><span>DO:GP14, BUZZER:GP16</span></div>
+    <div><b>주의</b><span>실험 안전 주의</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+flame = Pin(14, Pin.IN)
+buzzer = Pin(16, Pin.OUT)
+
+while True:
+    if flame.value() == 0:
+        print(&quot;화염 감지!&quot;)
+        buzzer.on()
+    else:
+        buzzer.off()
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p40">
+  <div class="badge">PROJECT 40</div>
+  <h2>가스 센서 MQ-2 읽기</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>아날로그 입력</span></div>
+    <div><b>준비물</b><span>MQ-2</span></div>
+    <div><b>연결</b><span>AO:GP26, VCC, GND</span></div>
+    <div><b>주의</b><span>5V 모듈 출력 주의</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+gas = ADC(26)
+
+while True:
+    value = gas.read_u16()
+    print(&quot;가스 센서값:&quot;, value)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p41">
+  <div class="badge">PROJECT 41</div>
+  <h2>빗물 감지 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>ADC 센서</span></div>
+    <div><b>준비물</b><span>Rain sensor</span></div>
+    <div><b>연결</b><span>AO:GP27</span></div>
+    <div><b>주의</b><span>부식 주의</span></div>
+  </div>
+  <pre><code>from machine import ADC
+import time
+
+rain = ADC(27)
+
+while True:
+    value = rain.read_u16()
+    print(&quot;빗물 감지값:&quot;, value)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p42">
+  <div class="badge">PROJECT 42</div>
+  <h2>라인 트레이서 센서</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>IR 라인 센서</span></div>
+    <div><b>연결</b><span>OUT:GP14</span></div>
+    <div><b>주의</b><span>검정/흰색 반사 차이</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+line = Pin(14, Pin.IN)
+
+while True:
+    if line.value():
+        print(&quot;흰색 또는 반사 많음&quot;)
+    else:
+        print(&quot;검정선 감지&quot;)
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p43">
+  <div class="badge">PROJECT 43</div>
+  <h2>IR 장애물 감지</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>디지털 입력</span></div>
+    <div><b>준비물</b><span>IR obstacle sensor</span></div>
+    <div><b>연결</b><span>OUT:GP14</span></div>
+    <div><b>주의</b><span>거리 조절 가능</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+ir = Pin(14, Pin.IN)
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+while True:
+    detected = ir.value() == 0
+    led.value(detected)
+    print(&quot;장애물:&quot;, detected)
+    time.sleep(0.2)</code></pre>
+</section>
+
+<section class="card" id="p44">
+  <div class="badge">PROJECT 44</div>
+  <h2>미니 DC 모터 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>트랜지스터/드라이버</span></div>
+    <div><b>준비물</b><span>DC 모터, 모터드라이버</span></div>
+    <div><b>연결</b><span>IN:GP15</span></div>
+    <div><b>주의</b><span>직접 연결 금지</span></div>
+  </div>
+  <pre><code>from machine import Pin
+import time
+
+motor = Pin(15, Pin.OUT)
+
+while True:
+    motor.on()
+    print(&quot;모터 ON&quot;)
+    time.sleep(2)
+    motor.off()
+    print(&quot;모터 OFF&quot;)
+    time.sleep(2)</code></pre>
+</section>
+
+<section class="card" id="p45">
+  <div class="badge">PROJECT 45</div>
+  <h2>DC 모터 속도 조절</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>PWM 모터 제어</span></div>
+    <div><b>준비물</b><span>모터드라이버</span></div>
+    <div><b>연결</b><span>PWM:GP15</span></div>
+    <div><b>주의</b><span>외부전원 권장</span></div>
+  </div>
+  <pre><code>from machine import Pin, PWM
+import time
+
+motor = PWM(Pin(15))
+motor.freq(1000)
+
+while True:
+    for speed in range(0, 65535, 5000):
+        motor.duty_u16(speed)
+        time.sleep(0.2)
+    motor.duty_u16(0)
+    time.sleep(1)</code></pre>
+</section>
+
+<section class="card" id="p46">
+  <div class="badge">PROJECT 46</div>
+  <h2>Wi-Fi 연결 확인</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>Pico WH Wi-Fi</span></div>
+    <div><b>준비물</b><span>내장 무선 기능</span></div>
+    <div><b>연결</b><span>없음</span></div>
+    <div><b>주의</b><span>ssid/password 수정</span></div>
+  </div>
+  <pre><code>import network
+import time
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    print(&quot;연결 중...&quot;)
+    time.sleep(1)
+
+print(&quot;연결 완료:&quot;, wlan.ifconfig())</code></pre>
+</section>
+
+<section class="card" id="p47">
+  <div class="badge">PROJECT 47</div>
+  <h2>웹서버로 LED 제어</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>Wi-Fi 웹서버</span></div>
+    <div><b>준비물</b><span>내장 LED</span></div>
+    <div><b>연결</b><span>없음</span></div>
+    <div><b>주의</b><span>같은 Wi-Fi에서 접속</span></div>
+  </div>
+  <pre><code>import network
+import socket
+from machine import Pin
+import time
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+led = Pin(&quot;LED&quot;, Pin.OUT)
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+addr = socket.getaddrinfo(&quot;0.0.0.0&quot;, 80)[0][-1]
+s = socket.socket()
+s.bind(addr)
+s.listen(1)
+
+print(&quot;접속 주소:&quot;, wlan.ifconfig()[0])
+
+while True:
+    cl, addr = s.accept()
+    request = cl.recv(1024).decode()
+    if &quot;/on&quot; in request:
+        led.on()
+    if &quot;/off&quot; in request:
+        led.off()
+    html = &quot;&lt;h1&gt;Pico WH LED&lt;/h1&gt;&lt;a href=&#x27;/on&#x27;&gt;ON&lt;/a&gt;&lt;br&gt;&lt;a href=&#x27;/off&#x27;&gt;OFF&lt;/a&gt;&quot;
+    cl.send(&quot;HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n&quot;)
+    cl.send(html)
+    cl.close()</code></pre>
+</section>
+
+<section class="card" id="p48">
+  <div class="badge">PROJECT 48</div>
+  <h2>웹페이지에 온습도 표시</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>Wi-Fi + DHT</span></div>
+    <div><b>준비물</b><span>DHT11/DHT22</span></div>
+    <div><b>연결</b><span>DATA:GP15</span></div>
+    <div><b>주의</b><span>네트워크 정보 수정</span></div>
+  </div>
+  <pre><code>import network, socket, time
+from machine import Pin
+import dht
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+sensor = dht.DHT11(Pin(15))
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+s = socket.socket()
+s.bind((&quot;0.0.0.0&quot;, 80))
+s.listen(1)
+print(&quot;IP:&quot;, wlan.ifconfig()[0])
+
+while True:
+    cl, addr = s.accept()
+    sensor.measure()
+    t = sensor.temperature()
+    h = sensor.humidity()
+    page = f&quot;&lt;h1&gt;Pico WH Weather&lt;/h1&gt;&lt;p&gt;Temp: {t} C&lt;/p&gt;&lt;p&gt;Humidity: {h}%&lt;/p&gt;&quot;
+    cl.recv(1024)
+    cl.send(&quot;HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n&quot;)
+    cl.send(page)
+    cl.close()</code></pre>
+</section>
+
+<section class="card" id="p49">
+  <div class="badge">PROJECT 49</div>
+  <h2>IFTTT 웹훅 알림</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>HTTP 요청</span></div>
+    <div><b>준비물</b><span>Wi-Fi + 센서</span></div>
+    <div><b>연결</b><span>센서 자유</span></div>
+    <div><b>주의</b><span>인터넷 연결 필요</span></div>
+  </div>
+  <pre><code>import network, urequests, time
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+event = &quot;pico_alert&quot;
+key = &quot;YOUR_IFTTT_KEY&quot;
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+url = f&quot;https://maker.ifttt.com/trigger/{event}/with/key/{key}&quot;
+data = {&quot;value1&quot;: &quot;Pico WH&quot;, &quot;value2&quot;: &quot;Sensor Alert&quot;, &quot;value3&quot;: &quot;ON&quot;}
+
+response = urequests.post(url, json=data)
+print(response.text)
+response.close()</code></pre>
+</section>
+
+<section class="card" id="p50">
+  <div class="badge">PROJECT 50</div>
+  <h2>ThingSpeak로 센서값 전송</h2>
+  <div class="meta">
+    <div><b>핵심 개념</b><span>IoT 데이터 업로드</span></div>
+    <div><b>준비물</b><span>Wi-Fi + ADC 센서</span></div>
+    <div><b>연결</b><span>ADC:GP26</span></div>
+    <div><b>주의</b><span>API Key 필요</span></div>
+  </div>
+  <pre><code>import network, urequests, time
+from machine import ADC
+
+ssid = &quot;YOUR_WIFI&quot;
+password = &quot;YOUR_PASSWORD&quot;
+api_key = &quot;YOUR_THINGSPEAK_WRITE_KEY&quot;
+sensor = ADC(26)
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+while True:
+    value = sensor.read_u16()
+    url = f&quot;https://api.thingspeak.com/update?api_key={api_key}&amp;field1={value}&quot;
+    r = urequests.get(url)
+    print(&quot;전송:&quot;, value, r.text)
+    r.close()
+    time.sleep(20)</code></pre>
+</section>
+
+</main>
+
+<footer>
+  Raspberry Pi Pico WH · MicroPython · Sensor Project Collection 50
+</footer>
+</body>
+</html>
