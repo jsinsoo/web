@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>Pandas + Matplotlib 데이터 시각화 OOP 예제 20개</title><style>body{margin:0;font-family:Malgun Gothic,Apple SD Gothic Neo,Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#ecfdf5,#f5f3ff);font-size:21px;line-height:1.75;color:#172033}header{padding:54px 7vw;color:white;background:linear-gradient(120deg,#0f766e,#2563eb,#7c3aed);border-bottom-left-radius:44px;border-bottom-right-radius:44px}h1{font-size:48px;margin:0}.subtitle{font-size:24px}main{max-width:1220px;margin:auto;padding:30px 20px 70px}.card{background:white;border:2px solid #bfdbfe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.1)}h2{font-size:34px;color:#0f766e}pre{background:#042f2e;color:#ccfbf1;padding:20px;border-radius:18px;overflow:auto;font-size:16px;border:4px solid #5eead4}code{font-family:Consolas,monospace}.explain{background:#ecfdf5;border-left:8px solid #10b981;border-radius:16px;padding:16px}.warn{background:#fff7ed;border-left:8px solid #f97316}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}.mini{background:#f8fafc;border-left:8px solid #2dd4bf;border-radius:16px;padding:16px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #99f6e4;padding:12px}th{background:#0f766e;color:white}footer{text-align:center;padding:25px;color:#475569}</style></head><body>
+<header><h1>🐼📊 Pandas + Matplotlib 데이터 시각화 예제 OOP 코드 상세 설명 20개</h1><div class="subtitle">DataFrame · Matplotlib · 객체지향 프로그래밍 · 데이터 분석 대시보드</div></header>
+<main>
+<section class="card"><h2>🌈 전체 학습 목표</h2><p>Pandas로 데이터를 정리하고 Matplotlib으로 그래프를 그리는 과정을 객체지향 프로그래밍 방식으로 학습합니다. 막대그래프, 선그래프, 산점도, 히스토그램, 원그래프, 박스플롯, 히트맵, 대시보드까지 20개 예제를 포함합니다.</p><div class="grid"><div class="mini">🐼 <b>Pandas</b><br>데이터 생성·정제·집계</div><div class="mini">📊 <b>Matplotlib</b><br>그래프 시각화</div><div class="mini">🧱 <b>OOP</b><br>클래스로 분석 구조화</div><div class="mini">🖥️ <b>Dashboard</b><br>여러 그래프 통합</div></div></section>
+<section class="card warn"><h2>🇰🇷 코랩 한글 폰트 깨짐 방지 코드</h2><pre><code># 코랩 한글 폰트 깨짐 방지
+!apt-get -qq install fonts-nanum
+!rm -rf ~/.cache/matplotlib
+
+import matplotlib.pyplot as plt
+plt.rcParams[&quot;font.family&quot;] = &quot;NanumGothic&quot;
+plt.rcParams[&quot;axes.unicode_minus&quot;] = False</code></pre><div class="explain">설치 후 <b>런타임 → 런타임 다시 시작</b>을 한 번 실행하면 그래프 한글 제목과 축 이름이 정상 표시됩니다.</div></section>
+<section class="card"><h2>📌 기본 구조</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class DataVisualization:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def analyze(self):
+        return self.df.describe()
+
+    def draw(self):
+        pass</code></pre><div class="explain">DataFrame을 클래스 속성으로 저장하고, 분석 메서드와 시각화 메서드를 분리하면 재사용 가능한 데이터 시각화 도구를 만들 수 있습니다.</div></section>
+<section class="card"><h2>1. 과목별 점수 막대그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class SubjectScoreBarChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def average_scores(self):
+        return self.df[[&quot;국어&quot;, &quot;수학&quot;, &quot;정보&quot;, &quot;과학&quot;]].mean()
+
+    def draw(self):
+        avg = self.average_scores()
+        plt.figure(figsize=(8, 5))
+        plt.bar(avg.index, avg.values)
+        plt.title(&quot;과목별 평균 점수&quot;)
+        plt.xlabel(&quot;과목&quot;)
+        plt.ylabel(&quot;평균 점수&quot;)
+        plt.ylim(0, 100)
+        plt.show()
+
+data = {&quot;이름&quot;:[&quot;김&quot;,&quot;이&quot;,&quot;박&quot;,&quot;최&quot;],&quot;국어&quot;:[90,85,78,92],&quot;수학&quot;:[88,95,80,91],&quot;정보&quot;:[96,89,85,98],&quot;과학&quot;:[84,90,87,93]}
+chart = SubjectScoreBarChart(data)
+print(chart.average_scores())
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>mean()으로 과목별 평균을 계산하고 bar()로 비교합니다.</div></section><section class="card"><h2>2. 월별 매출 선그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class MonthlySalesLineChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def draw(self):
+        plt.figure(figsize=(8, 5))
+        plt.plot(self.df[&quot;월&quot;], self.df[&quot;매출&quot;], marker=&quot;o&quot;)
+        plt.title(&quot;월별 매출 변화&quot;)
+        plt.xlabel(&quot;월&quot;)
+        plt.ylabel(&quot;매출&quot;)
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;월&quot;:[&quot;1월&quot;,&quot;2월&quot;,&quot;3월&quot;,&quot;4월&quot;,&quot;5월&quot;],&quot;매출&quot;:[120,150,130,180,210]}
+chart = MonthlySalesLineChart(data)
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>plot()으로 시간에 따른 매출 추세를 선그래프로 표현합니다.</div></section><section class="card"><h2>3. 공부 시간과 점수 산점도</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class StudyScatterPlot:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def correlation(self):
+        return self.df[&quot;공부시간&quot;].corr(self.df[&quot;점수&quot;])
+
+    def draw(self):
+        plt.figure(figsize=(8, 5))
+        plt.scatter(self.df[&quot;공부시간&quot;], self.df[&quot;점수&quot;])
+        plt.title(&quot;공부 시간과 점수의 관계&quot;)
+        plt.xlabel(&quot;공부 시간&quot;)
+        plt.ylabel(&quot;점수&quot;)
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;공부시간&quot;:[1,2,3,4,5,6],&quot;점수&quot;:[55,60,68,75,84,92]}
+plot = StudyScatterPlot(data)
+print(&quot;상관계수:&quot;, plot.correlation())
+plot.draw()</code></pre><div class="explain"><b>상세 설명</b><br>scatter()와 corr()를 함께 사용해 두 변수의 관계를 분석합니다.</div></section><section class="card"><h2>4. 점수 분포 히스토그램</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class ScoreHistogram:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def mean_score(self):
+        return self.df[&quot;점수&quot;].mean()
+
+    def draw(self):
+        plt.figure(figsize=(8, 5))
+        plt.hist(self.df[&quot;점수&quot;], bins=5)
+        plt.title(&quot;점수 분포&quot;)
+        plt.xlabel(&quot;점수 구간&quot;)
+        plt.ylabel(&quot;학생 수&quot;)
+        plt.show()
+
+data = {&quot;점수&quot;:[55,62,70,71,75,80,82,85,88,91,93,95]}
+hist = ScoreHistogram(data)
+print(&quot;평균:&quot;, hist.mean_score())
+hist.draw()</code></pre><div class="explain"><b>상세 설명</b><br>hist()로 점수의 분포와 집중 구간을 확인합니다.</div></section><section class="card"><h2>5. 용돈 사용 비율 원그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class AllowancePieChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def percentage_table(self):
+        total = self.df[&quot;금액&quot;].sum()
+        self.df[&quot;비율&quot;] = self.df[&quot;금액&quot;] / total * 100
+        return self.df
+
+    def draw(self):
+        plt.figure(figsize=(7, 7))
+        plt.pie(self.df[&quot;금액&quot;], labels=self.df[&quot;항목&quot;], autopct=&quot;%1.1f%%&quot;)
+        plt.title(&quot;용돈 사용 비율&quot;)
+        plt.show()
+
+data = {&quot;항목&quot;:[&quot;교통&quot;,&quot;식비&quot;,&quot;문화&quot;,&quot;저축&quot;],&quot;금액&quot;:[20000,40000,15000,25000]}
+pie = AllowancePieChart(data)
+print(pie.percentage_table())
+pie.draw()</code></pre><div class="explain"><b>상세 설명</b><br>pie()와 비율 계산으로 전체 중 각 항목의 비중을 보여 줍니다.</div></section><section class="card"><h2>6. 반별 평균 점수 비교</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class ClassAverageChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def class_average(self):
+        return self.df.groupby(&quot;반&quot;)[&quot;점수&quot;].mean()
+
+    def draw(self):
+        avg = self.class_average()
+        plt.figure(figsize=(8, 5))
+        plt.bar(avg.index, avg.values)
+        plt.title(&quot;반별 평균 점수&quot;)
+        plt.xlabel(&quot;반&quot;)
+        plt.ylabel(&quot;평균 점수&quot;)
+        plt.ylim(0, 100)
+        plt.show()
+
+data = {&quot;반&quot;:[&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;,&quot;C&quot;,&quot;C&quot;],&quot;점수&quot;:[90,82,77,91,88,95]}
+chart = ClassAverageChart(data)
+print(chart.class_average())
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>groupby()로 반별 평균을 계산하고 막대그래프로 비교합니다.</div></section><section class="card"><h2>7. 지역별 제품 매출 누적 막대</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class StackedSalesChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def pivot_sales(self):
+        return pd.pivot_table(self.df, values=&quot;매출&quot;, index=&quot;지역&quot;, columns=&quot;제품&quot;, aggfunc=&quot;sum&quot;, fill_value=0)
+
+    def draw(self):
+        pivot = self.pivot_sales()
+        pivot.plot(kind=&quot;bar&quot;, stacked=True, figsize=(8, 5))
+        plt.title(&quot;지역별 제품 매출 구성&quot;)
+        plt.xlabel(&quot;지역&quot;)
+        plt.ylabel(&quot;매출&quot;)
+        plt.legend(title=&quot;제품&quot;)
+        plt.show()
+
+data = {&quot;지역&quot;:[&quot;서울&quot;,&quot;서울&quot;,&quot;부산&quot;,&quot;부산&quot;,&quot;대구&quot;,&quot;대구&quot;],&quot;제품&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;A&quot;,&quot;B&quot;,&quot;A&quot;,&quot;B&quot;],&quot;매출&quot;:[100,150,80,120,90,60]}
+chart = StackedSalesChart(data)
+print(chart.pivot_sales())
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>pivot_table()과 stacked=True로 지역별 제품 구성을 누적 막대로 나타냅니다.</div></section><section class="card"><h2>8. 날짜별 방문자 시계열</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class VisitorTimeSeries:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+        self.df[&quot;날짜&quot;] = pd.to_datetime(self.df[&quot;날짜&quot;])
+
+    def draw(self):
+        plt.figure(figsize=(9, 5))
+        plt.plot(self.df[&quot;날짜&quot;], self.df[&quot;방문자&quot;], marker=&quot;o&quot;)
+        plt.title(&quot;날짜별 방문자 수&quot;)
+        plt.xlabel(&quot;날짜&quot;)
+        plt.ylabel(&quot;방문자 수&quot;)
+        plt.grid(True)
+        plt.xticks(rotation=30)
+        plt.show()
+
+data = {&quot;날짜&quot;:[&quot;2026-01-01&quot;,&quot;2026-01-02&quot;,&quot;2026-01-03&quot;,&quot;2026-01-04&quot;],&quot;방문자&quot;:[120,150,170,160]}
+ts = VisitorTimeSeries(data)
+ts.draw()</code></pre><div class="explain"><b>상세 설명</b><br>to_datetime()으로 날짜를 변환하고 시계열 변화를 그립니다.</div></section><section class="card"><h2>9. 월별 매출 집계 그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class MonthlySalesAggregator:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+        self.df[&quot;날짜&quot;] = pd.to_datetime(self.df[&quot;날짜&quot;])
+
+    def monthly_sum(self):
+        temp = self.df.set_index(&quot;날짜&quot;)
+        return temp[&quot;매출&quot;].resample(&quot;M&quot;).sum()
+
+    def draw(self):
+        monthly = self.monthly_sum()
+        plt.figure(figsize=(8, 5))
+        plt.plot(monthly.index, monthly.values, marker=&quot;o&quot;)
+        plt.title(&quot;월별 매출 합계&quot;)
+        plt.xlabel(&quot;월&quot;)
+        plt.ylabel(&quot;매출 합계&quot;)
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;날짜&quot;:[&quot;2026-01-01&quot;,&quot;2026-01-15&quot;,&quot;2026-02-01&quot;,&quot;2026-02-20&quot;],&quot;매출&quot;:[100,150,80,120]}
+chart = MonthlySalesAggregator(data)
+print(chart.monthly_sum())
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>resample('M')으로 월별 합계를 구해 시계열 그래프로 표현합니다.</div></section><section class="card"><h2>10. 결측치 개수 시각화</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class MissingValueVisualization:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def missing_count(self):
+        return self.df.isna().sum()
+
+    def draw_missing(self):
+        counts = self.missing_count()
+        plt.figure(figsize=(8, 5))
+        plt.bar(counts.index, counts.values)
+        plt.title(&quot;열별 결측치 개수&quot;)
+        plt.xlabel(&quot;열&quot;)
+        plt.ylabel(&quot;결측치 개수&quot;)
+        plt.show()
+
+data = {&quot;이름&quot;:[&quot;김&quot;,&quot;이&quot;,&quot;박&quot;,&quot;최&quot;],&quot;점수&quot;:[90,None,85,None],&quot;출석&quot;:[10,9,None,8]}
+viz = MissingValueVisualization(data)
+print(viz.missing_count())
+viz.draw_missing()</code></pre><div class="explain"><b>상세 설명</b><br>isna().sum()으로 열별 결측치 개수를 세고 막대그래프로 표시합니다.</div></section><section class="card"><h2>11. 반별 점수 박스플롯</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class ClassBoxPlot:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def draw(self):
+        groups = [group[&quot;점수&quot;].values for _, group in self.df.groupby(&quot;반&quot;)]
+        labels = list(self.df[&quot;반&quot;].unique())
+        plt.figure(figsize=(8, 5))
+        plt.boxplot(groups, labels=labels)
+        plt.title(&quot;반별 점수 분포&quot;)
+        plt.xlabel(&quot;반&quot;)
+        plt.ylabel(&quot;점수&quot;)
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;반&quot;:[&quot;A&quot;,&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;,&quot;B&quot;],&quot;점수&quot;:[90,85,88,70,95,78]}
+box = ClassBoxPlot(data)
+box.draw()</code></pre><div class="explain"><b>상세 설명</b><br>boxplot()으로 반별 중앙값, 사분위수, 이상값을 비교합니다.</div></section><section class="card"><h2>12. 상관행렬 히트맵</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class CorrelationHeatmap:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def correlation_matrix(self):
+        return self.df.corr(numeric_only=True)
+
+    def draw(self):
+        corr = self.correlation_matrix()
+        plt.figure(figsize=(7, 6))
+        plt.imshow(corr)
+        plt.xticks(range(len(corr.columns)), corr.columns)
+        plt.yticks(range(len(corr.index)), corr.index)
+        plt.colorbar()
+        plt.title(&quot;상관행렬 히트맵&quot;)
+        plt.show()
+
+data = {&quot;공부시간&quot;:[1,2,3,4,5],&quot;점수&quot;:[55,65,70,85,90],&quot;결석&quot;:[5,4,3,1,0]}
+heatmap = CorrelationHeatmap(data)
+print(heatmap.correlation_matrix())
+heatmap.draw()</code></pre><div class="explain"><b>상세 설명</b><br>corr()와 imshow()로 변수 간 상관관계를 히트맵으로 보여 줍니다.</div></section><section class="card"><h2>13. Top N 제품 매출</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class TopNBarChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def top_n(self, n=3):
+        return self.df.sort_values(&quot;매출&quot;, ascending=False).head(n)
+
+    def draw(self, n=3):
+        top = self.top_n(n)
+        plt.figure(figsize=(8, 5))
+        plt.bar(top[&quot;제품&quot;], top[&quot;매출&quot;])
+        plt.title(f&quot;상위 {n}개 제품 매출&quot;)
+        plt.xlabel(&quot;제품&quot;)
+        plt.ylabel(&quot;매출&quot;)
+        plt.show()
+
+data = {&quot;제품&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;],&quot;매출&quot;:[120,300,180,90,250]}
+chart = TopNBarChart(data)
+print(chart.top_n(3))
+chart.draw(3)</code></pre><div class="explain"><b>상세 설명</b><br>sort_values()와 head()로 상위 N개 항목을 추출해 시각화합니다.</div></section><section class="card"><h2>14. 범주별 빈도 그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class CategoryCountChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def counts(self):
+        return self.df[&quot;선호과목&quot;].value_counts()
+
+    def draw(self):
+        counts = self.counts()
+        plt.figure(figsize=(8, 5))
+        plt.bar(counts.index, counts.values)
+        plt.title(&quot;선호 과목 빈도&quot;)
+        plt.xlabel(&quot;과목&quot;)
+        plt.ylabel(&quot;학생 수&quot;)
+        plt.show()
+
+data = {&quot;선호과목&quot;:[&quot;정보&quot;,&quot;수학&quot;,&quot;정보&quot;,&quot;과학&quot;,&quot;정보&quot;,&quot;수학&quot;]}
+chart = CategoryCountChart(data)
+print(chart.counts())
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>value_counts()로 범주별 빈도를 계산하고 막대그래프로 표현합니다.</div></section><section class="card"><h2>15. 이중 축 그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class DualAxisChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def draw(self):
+        fig, ax1 = plt.subplots(figsize=(9, 5))
+        ax1.plot(self.df[&quot;월&quot;], self.df[&quot;매출&quot;], marker=&quot;o&quot;)
+        ax1.set_xlabel(&quot;월&quot;)
+        ax1.set_ylabel(&quot;매출&quot;)
+        ax2 = ax1.twinx()
+        ax2.bar(self.df[&quot;월&quot;], self.df[&quot;광고비&quot;], alpha=0.3)
+        ax2.set_ylabel(&quot;광고비&quot;)
+        plt.title(&quot;월별 매출과 광고비&quot;)
+        plt.show()
+
+data = {&quot;월&quot;:[&quot;1월&quot;,&quot;2월&quot;,&quot;3월&quot;,&quot;4월&quot;],&quot;매출&quot;:[120,150,180,210],&quot;광고비&quot;:[20,35,45,50]}
+chart = DualAxisChart(data)
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>twinx()로 단위가 다른 두 변수인 매출과 광고비를 함께 표시합니다.</div></section><section class="card"><h2>16. 이동평균 그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class MovingAverageChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def add_moving_average(self, window=3):
+        self.df[&quot;이동평균&quot;] = self.df[&quot;값&quot;].rolling(window=window).mean()
+        return self.df
+
+    def draw(self):
+        plt.figure(figsize=(9, 5))
+        plt.plot(self.df[&quot;날짜&quot;], self.df[&quot;값&quot;], marker=&quot;o&quot;, label=&quot;원자료&quot;)
+        plt.plot(self.df[&quot;날짜&quot;], self.df[&quot;이동평균&quot;], marker=&quot;o&quot;, label=&quot;이동평균&quot;)
+        plt.title(&quot;원자료와 이동평균&quot;)
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;날짜&quot;:[&quot;1일&quot;,&quot;2일&quot;,&quot;3일&quot;,&quot;4일&quot;,&quot;5일&quot;,&quot;6일&quot;],&quot;값&quot;:[10,15,13,20,18,25]}
+chart = MovingAverageChart(data)
+print(chart.add_moving_average(3))
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>rolling().mean()으로 이동평균을 계산해 추세를 부드럽게 봅니다.</div></section><section class="card"><h2>17. 누적합 그래프</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class CumulativeSumChart:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def add_cumsum(self):
+        self.df[&quot;누적매출&quot;] = self.df[&quot;매출&quot;].cumsum()
+        return self.df
+
+    def draw(self):
+        plt.figure(figsize=(8, 5))
+        plt.plot(self.df[&quot;월&quot;], self.df[&quot;누적매출&quot;], marker=&quot;o&quot;)
+        plt.title(&quot;월별 누적 매출&quot;)
+        plt.xlabel(&quot;월&quot;)
+        plt.ylabel(&quot;누적 매출&quot;)
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;월&quot;:[&quot;1월&quot;,&quot;2월&quot;,&quot;3월&quot;,&quot;4월&quot;],&quot;매출&quot;:[100,120,90,150]}
+chart = CumulativeSumChart(data)
+print(chart.add_cumsum())
+chart.draw()</code></pre><div class="explain"><b>상세 설명</b><br>cumsum()으로 누적합을 계산하고 누적 성장 흐름을 표현합니다.</div></section><section class="card"><h2>18. 조건별 산점도</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class ConditionalScatter:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def add_level(self):
+        self.df[&quot;수준&quot;] = self.df[&quot;점수&quot;].apply(lambda x: &quot;높음&quot; if x &gt;= 80 else &quot;낮음&quot;)
+        return self.df
+
+    def draw(self):
+        self.add_level()
+        plt.figure(figsize=(8, 5))
+        for level, group in self.df.groupby(&quot;수준&quot;):
+            plt.scatter(group[&quot;공부시간&quot;], group[&quot;점수&quot;], label=level)
+        plt.title(&quot;공부 시간과 점수: 수준별 표시&quot;)
+        plt.xlabel(&quot;공부 시간&quot;)
+        plt.ylabel(&quot;점수&quot;)
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+
+data = {&quot;공부시간&quot;:[1,2,3,4,5,6],&quot;점수&quot;:[55,62,75,83,88,95]}
+plot = ConditionalScatter(data)
+print(plot.add_level())
+plot.draw()</code></pre><div class="explain"><b>상세 설명</b><br>apply()로 수준 열을 만들고 groupby()로 조건별 산점도를 그립니다.</div></section><section class="card"><h2>19. 미니 대시보드</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class MiniDashboard:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def draw(self):
+        fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+        axes[0].bar(self.df[&quot;제품&quot;], self.df[&quot;매출&quot;])
+        axes[0].set_title(&quot;제품별 매출&quot;)
+        axes[1].plot(self.df[&quot;제품&quot;], self.df[&quot;이익&quot;], marker=&quot;o&quot;)
+        axes[1].set_title(&quot;제품별 이익&quot;)
+        axes[1].grid(True)
+        plt.tight_layout()
+        plt.show()
+
+data = {&quot;제품&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;],&quot;매출&quot;:[100,150,90,200],&quot;이익&quot;:[20,35,10,50]}
+dashboard = MiniDashboard(data)
+dashboard.draw()</code></pre><div class="explain"><b>상세 설명</b><br>subplots()로 한 화면에 여러 그래프를 배치해 대시보드를 구성합니다.</div></section><section class="card"><h2>20. 종합 분석 리포트</h2><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+class SalesVisualizationReport:
+    def __init__(self, data):
+        self.df = pd.DataFrame(data)
+
+    def clean(self):
+        self.df[&quot;지역&quot;] = self.df[&quot;지역&quot;].str.strip()
+        self.df[&quot;매출&quot;] = self.df[&quot;매출&quot;].fillna(self.df[&quot;매출&quot;].mean())
+        return self
+
+    def summary(self):
+        return self.df.groupby(&quot;지역&quot;)[&quot;매출&quot;].sum()
+
+    def draw(self):
+        summary = self.summary()
+        plt.figure(figsize=(8, 5))
+        plt.bar(summary.index, summary.values)
+        plt.title(&quot;지역별 총매출&quot;)
+        plt.xlabel(&quot;지역&quot;)
+        plt.ylabel(&quot;총매출&quot;)
+        plt.show()
+
+    def report(self):
+        total = self.df[&quot;매출&quot;].sum()
+        best_region = self.summary().idxmax()
+        return f&quot;전체 매출은 {total:.1f}, 최고 지역은 {best_region}입니다.&quot;
+
+data = {&quot;지역&quot;:[&quot;서울 &quot;,&quot;서울&quot;,&quot;부산&quot;,&quot;부산&quot;,&quot;대구&quot;],&quot;매출&quot;:[120,None,80,150,90]}
+report = SalesVisualizationReport(data)
+report.clean()
+print(report.summary())
+print(report.report())
+report.draw()</code></pre><div class="explain"><b>상세 설명</b><br>정제, 집계, 리포트 문장 생성, 그래프 출력을 하나의 파이프라인으로 묶습니다.</div></section>
+<section class="card"><h2>🧭 20개 예제 요약표</h2><table><tr><th>번호</th><th>주제</th><th>사용 도구</th><th>학습 내용</th></tr><tr><td>1</td><td>과목별 점수 막대그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>2</td><td>월별 매출 선그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>3</td><td>공부 시간과 점수 산점도</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>4</td><td>점수 분포 히스토그램</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>5</td><td>용돈 사용 비율 원그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>6</td><td>반별 평균 점수 비교</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>7</td><td>지역별 제품 매출 누적 막대</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>8</td><td>날짜별 방문자 시계열</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>9</td><td>월별 매출 집계 그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>10</td><td>결측치 개수 시각화</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>11</td><td>반별 점수 박스플롯</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>12</td><td>상관행렬 히트맵</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>13</td><td>Top N 제품 매출</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>14</td><td>범주별 빈도 그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>15</td><td>이중 축 그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>16</td><td>이동평균 그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>17</td><td>누적합 그래프</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>18</td><td>조건별 산점도</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>19</td><td>미니 대시보드</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr><tr><td>20</td><td>종합 분석 리포트</td><td>Pandas + Matplotlib</td><td>OOP 시각화</td></tr></table></section>
+<section class="card warn"><h2>🎯 심화 탐구 과제</h2><ol><li>산점도에 회귀선을 직접 계산하여 추가하라.</li><li>히트맵 각 칸에 상관계수 숫자를 표시하라.</li><li>대시보드에 4개 그래프를 배치하라.</li><li>그래프를 PNG 파일로 저장하는 메서드를 추가하라.</li><li>CSV 파일을 읽어 자동 리포트를 만드는 클래스를 작성하라.</li></ol></section>
+</main><footer>🐼📊 Pandas + Matplotlib × OOP HTML 수업자료</footer></body></html>
