@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>OOP 코드 이해 통합 수행평가</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#fff7ed 45%,#ecfdf5);color:#172033;font-size:20px;line-height:1.7}
+header{padding:52px 7vw;color:white;background:linear-gradient(120deg,#2563eb,#7c3aed,#db2777);border-bottom-left-radius:44px;border-bottom-right-radius:44px;box-shadow:0 16px 38px rgba(37,99,235,.25)}
+h1{font-size:46px;margin:0 0 10px;letter-spacing:-1px}.subtitle{font-size:24px}
+main{max-width:1240px;margin:0 auto;padding:30px 22px 80px}
+.card{background:rgba(255,255,255,.96);border:2px solid #dbeafe;border-radius:26px;padding:28px;margin:24px 0;box-shadow:0 10px 28px rgba(37,99,235,.10)}
+h2{font-size:32px;color:#1d4ed8;margin:10px 0 18px}h3{font-size:24px;color:#7c3aed}
+.meta{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 12px;font-weight:900;margin:4px}
+pre{background:#0f172a;color:#e0f2fe;padding:20px;border-radius:18px;overflow:auto;font-size:16px;line-height:1.6;border:4px solid #93c5fd}
+textarea{width:100%;min-height:120px;font-size:18px;line-height:1.5;padding:14px;border:2px solid #bfdbfe;border-radius:16px;box-sizing:border-box;font-family:Consolas,'Courier New','Malgun Gothic',monospace;background:#fbfdff}
+input{font-size:20px;padding:10px;border:2px solid #bfdbfe;border-radius:12px;margin:6px}
+button{font-size:20px;font-weight:900;padding:12px 18px;border:0;border-radius:14px;background:#2563eb;color:white;cursor:pointer;margin:6px}
+button:hover{background:#1d4ed8}
+.question{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px;margin:16px 0}
+.options label{display:block;background:#fff;border:1px solid #bfdbfe;border-radius:14px;padding:10px 14px;margin:8px 0;cursor:pointer}
+.options label:hover{background:#eff6ff}
+.feedback{border-radius:16px;padding:16px;margin-top:12px}
+.right{background:#ecfdf5;border-left:8px solid #10b981}
+.wrong{background:#fff1f2;border-left:8px solid #e11d48}
+.partial{background:#fff7ed;border-left:8px solid #f97316}
+.concept{background:#eff6ff;border-left:8px solid #2563eb;border-radius:18px;padding:18px;margin:14px 0}
+.rubric{background:#f8fafc;border-left:8px solid #60a5fa;border-radius:18px;padding:18px}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:white;border-radius:18px;overflow:hidden}
+td,th{border:1px solid #bfdbfe;padding:10px;vertical-align:top}th{background:#2563eb;color:white}
+footer{text-align:center;color:#475569;padding:28px}
+</style>
+</head>
+<body>
+<header>
+<h1>🎒 OOP 코드 이해 통합 수행평가</h1>
+<div class="subtitle">15개 코드 · OX 15문항 · 5지선다형 15문항 · 출력 결과 서술형 15문항</div>
+</header>
+<main>
+<section class="card">
+<h2>👤 응시자 정보</h2>
+<p>각 코드를 읽고 OX, 5지선다형, 출력 결과 서술형 문제를 해결하세요. 채점 후 결과 파일은 <b>학번_이름_OOP_득점_응시시각.txt</b> 형식으로 다운로드됩니다.</p>
+<label>학번 <input id="studentId" placeholder="학번"></label>
+<label>이름 <input id="studentName" placeholder="이름"></label>
+<br>
+<button onclick="grade()">채점하고 TXT 산출</button>
+<button onclick="resetAll()">다시 풀기</button>
+<a id="downloadLink" style="display:none;margin-left:10px;font-weight:bold;color:#1d4ed8;" href="#">결과 다운로드</a>
+<div id="scoreBox"></div>
+</section>
+
+<section class="card">
+<h2>📘 평가 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>예제 코드</td><td>15개</td></tr>
+<tr><td>문항 수</td><td>총 45문항: 코드마다 OX 1개, 5지선다형 1개, 출력 결과 서술형 1개</td></tr>
+<tr><td>채점 기준</td><td>각 문항 1점, 전체 45점</td></tr>
+<tr><td>결과 산출</td><td>학번_이름_OOP_득점_응시시각.txt</td></tr>
+</table>
+<div class="rubric">
+<b>서술형 채점 안내</b>
+<ul>
+<li>출력 결과가 정확하고 줄바꿈이 일치하면 정답 처리됩니다.</li>
+<li>공백은 일부 보정되지만, 출력 순서와 핵심 문자열은 정확해야 합니다.</li>
+<li>리스트·딕셔너리 출력에서는 따옴표와 괄호도 중요한 채점 요소입니다.</li>
+</ul>
+</div>
+</section>
+
+
+<section class="card">
+<span class="meta">예제 1</span><span class="meta">OOP 수행평가</span>
+<h2>1. 강아지 객체 만들기</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 클래스는 물건을 만들기 위한 설계도이고, 객체는 그 설계도로 실제로 만든 물건입니다. Dog 클래스는 강아지를 만드는 설계도이고, dog1은 실제 강아지 객체입니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        return f&quot;{self.name}가 멍멍 짖습니다!&quot;
+
+dog1 = Dog(&quot;초코&quot;, 3)
+
+print(dog1.name)
+print(dog1.age)
+print(dog1.bark())</code></pre>
+
+<div class="question" id="box1">
+<span class="meta">문항 1</span><span class="meta">OX 개념 퀴즈</span>
+<h3>클래스는 객체를 만들기 위한 설계도라고 볼 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q1" value="0"> O</label><label><input type="radio" name="q1" value="1"> X</label></div>
+<div id="fb1"></div>
+</div>
+
+<div class="question" id="box2">
+<span class="meta">문항 2</span><span class="meta">코드 관련 5지선다형</span>
+<h3>dog1 = Dog(&#x27;초코&#x27;, 3)에서 dog1.name의 값은?</h3>
+<div class="options"><label><input type="radio" name="q2" value="0"> 초코</label><label><input type="radio" name="q2" value="1"> 3</label><label><input type="radio" name="q2" value="2"> Dog</label><label><input type="radio" name="q2" value="3"> 멍멍</label><label><input type="radio" name="q2" value="4"> age</label></div>
+<div id="fb2"></div>
+</div>
+
+<div class="question" id="wbox1">
+<span class="meta">서술형 1</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w1" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb1"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 2</span><span class="meta">OOP 수행평가</span>
+<h2>2. 학생 객체 만들기</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 학생도 객체로 표현할 수 있습니다. 학생에게는 이름과 학년이라는 정보가 있고, 자기소개라는 행동이 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+    def introduce(self):
+        return f&quot;안녕하세요. 저는 {self.grade}학년 {self.name}입니다.&quot;
+
+student = Student(&quot;민수&quot;, 4)
+
+print(student.introduce())</code></pre>
+
+<div class="question" id="box3">
+<span class="meta">문항 3</span><span class="meta">OX 개념 퀴즈</span>
+<h3>객체는 정보만 가질 수 있고 행동은 가질 수 없다.</h3>
+<div class="options"><label><input type="radio" name="q3" value="0"> O</label><label><input type="radio" name="q3" value="1"> X</label></div>
+<div id="fb3"></div>
+</div>
+
+<div class="question" id="box4">
+<span class="meta">문항 4</span><span class="meta">코드 관련 5지선다형</span>
+<h3>student.introduce()를 실행하면 어떤 문장이 출력되는가?</h3>
+<div class="options"><label><input type="radio" name="q4" value="0"> 안녕하세요. 저는 민수입니다.</label><label><input type="radio" name="q4" value="1"> 안녕하세요. 저는 4학년 민수입니다.</label><label><input type="radio" name="q4" value="2"> 4학년입니다.</label><label><input type="radio" name="q4" value="3"> 민수</label><label><input type="radio" name="q4" value="4"> 오류</label></div>
+<div id="fb4"></div>
+</div>
+
+<div class="question" id="wbox2">
+<span class="meta">서술형 2</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w2" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb2"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 3</span><span class="meta">OOP 수행평가</span>
+<h2>3. 자동차 객체 만들기</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 자동차에는 색깔과 속도 같은 정보가 있고, 달리기라는 행동이 있습니다. OOP는 이런 실제 사물을 코드로 표현하는 방법입니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Car:
+    def __init__(self, color, speed):
+        self.color = color
+        self.speed = speed
+
+    def drive(self):
+        return f&quot;{self.color} 자동차가 시속 {self.speed}km로 달립니다.&quot;
+
+car = Car(&quot;빨간색&quot;, 60)
+
+print(car.drive())</code></pre>
+
+<div class="question" id="box5">
+<span class="meta">문항 5</span><span class="meta">OX 개념 퀴즈</span>
+<h3>자동차 객체는 색깔과 속도 같은 속성을 가질 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q5" value="0"> O</label><label><input type="radio" name="q5" value="1"> X</label></div>
+<div id="fb5"></div>
+</div>
+
+<div class="question" id="box6">
+<span class="meta">문항 6</span><span class="meta">코드 관련 5지선다형</span>
+<h3>car = Car(&#x27;빨간색&#x27;, 60)일 때 car.drive()의 핵심 출력 내용은?</h3>
+<div class="options"><label><input type="radio" name="q6" value="0"> 빨간색 자동차가 시속 60km로 달립니다.</label><label><input type="radio" name="q6" value="1"> 파란색 자동차입니다.</label><label><input type="radio" name="q6" value="2"> 60살입니다.</label><label><input type="radio" name="q6" value="3"> 자동차가 멈춥니다.</label><label><input type="radio" name="q6" value="4"> 오류</label></div>
+<div id="fb6"></div>
+</div>
+
+<div class="question" id="wbox3">
+<span class="meta">서술형 3</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w3" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb3"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 4</span><span class="meta">OOP 수행평가</span>
+<h2>4. 계산기 객체 만들기</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 계산기는 더하기와 빼기 같은 행동을 할 수 있습니다. 클래스 안의 함수인 메서드를 사용하면 객체가 할 수 있는 일을 정할 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Calculator:
+    def add(self, a, b):
+        return a + b
+
+    def subtract(self, a, b):
+        return a - b
+
+calc = Calculator()
+
+print(calc.add(10, 5))
+print(calc.subtract(10, 5))</code></pre>
+
+<div class="question" id="box7">
+<span class="meta">문항 7</span><span class="meta">OX 개념 퀴즈</span>
+<h3>클래스 안에 만든 함수는 메서드라고 부를 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q7" value="0"> O</label><label><input type="radio" name="q7" value="1"> X</label></div>
+<div id="fb7"></div>
+</div>
+
+<div class="question" id="box8">
+<span class="meta">문항 8</span><span class="meta">코드 관련 5지선다형</span>
+<h3>calc.subtract(10, 5)의 결과는?</h3>
+<div class="options"><label><input type="radio" name="q8" value="0"> 15</label><label><input type="radio" name="q8" value="1"> 10</label><label><input type="radio" name="q8" value="2"> 5</label><label><input type="radio" name="q8" value="3"> -5</label><label><input type="radio" name="q8" value="4"> 오류</label></div>
+<div id="fb8"></div>
+</div>
+
+<div class="question" id="wbox4">
+<span class="meta">서술형 4</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w4" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb4"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 5</span><span class="meta">OOP 수행평가</span>
+<h2>5. 게임 캐릭터 객체 만들기</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 게임 캐릭터는 이름과 체력을 가지고 있습니다. 공격을 받으면 체력이 줄어듭니다. 객체는 자신의 상태를 바꿀 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Character:
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+
+    def damaged(self, amount):
+        self.hp -= amount
+        return f&quot;{self.name}의 체력이 {self.hp}이 되었습니다.&quot;
+
+hero = Character(&quot;용사&quot;, 100)
+
+print(hero.damaged(30))</code></pre>
+
+<div class="question" id="box9">
+<span class="meta">문항 9</span><span class="meta">OX 개념 퀴즈</span>
+<h3>객체의 속성은 메서드 실행 중에 바뀔 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q9" value="0"> O</label><label><input type="radio" name="q9" value="1"> X</label></div>
+<div id="fb9"></div>
+</div>
+
+<div class="question" id="box10">
+<span class="meta">문항 10</span><span class="meta">코드 관련 5지선다형</span>
+<h3>hero = Character(&#x27;용사&#x27;, 100) 후 hero.damaged(30)을 실행하면 체력은?</h3>
+<div class="options"><label><input type="radio" name="q10" value="0"> 100</label><label><input type="radio" name="q10" value="1"> 70</label><label><input type="radio" name="q10" value="2"> 30</label><label><input type="radio" name="q10" value="3"> 130</label><label><input type="radio" name="q10" value="4"> 0</label></div>
+<div id="fb10"></div>
+</div>
+
+<div class="question" id="wbox5">
+<span class="meta">서술형 5</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w5" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb5"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 6</span><span class="meta">OOP 수행평가</span>
+<h2>6. 은행 계좌 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 은행 계좌는 주인과 잔액 정보를 가지고 있습니다. 입금하면 돈이 늘고, 출금하면 돈이 줄어듭니다. 조건문을 사용해 잔액 부족도 확인할 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class BankAccount:
+    def __init__(self, owner, money):
+        self.owner = owner
+        self.money = money
+
+    def deposit(self, amount):
+        self.money += amount
+        return f&quot;{amount}원을 입금했습니다. 잔액: {self.money}원&quot;
+
+    def withdraw(self, amount):
+        if amount &gt; self.money:
+            return &quot;잔액이 부족합니다.&quot;
+        self.money -= amount
+        return f&quot;{amount}원을 출금했습니다. 잔액: {self.money}원&quot;
+
+account = BankAccount(&quot;지우&quot;, 10000)
+
+print(account.deposit(5000))
+print(account.withdraw(3000))
+print(account.withdraw(20000))</code></pre>
+
+<div class="question" id="box11">
+<span class="meta">문항 11</span><span class="meta">OX 개념 퀴즈</span>
+<h3>은행 계좌 객체는 입금과 출금 같은 행동을 메서드로 표현할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q11" value="0"> O</label><label><input type="radio" name="q11" value="1"> X</label></div>
+<div id="fb11"></div>
+</div>
+
+<div class="question" id="box12">
+<span class="meta">문항 12</span><span class="meta">코드 관련 5지선다형</span>
+<h3>처음 잔액 10000원에서 5000원 입금 후 3000원 출금하면 잔액은?</h3>
+<div class="options"><label><input type="radio" name="q12" value="0"> 5000원</label><label><input type="radio" name="q12" value="1"> 10000원</label><label><input type="radio" name="q12" value="2"> 12000원</label><label><input type="radio" name="q12" value="3"> 15000원</label><label><input type="radio" name="q12" value="4"> 3000원</label></div>
+<div id="fb12"></div>
+</div>
+
+<div class="question" id="wbox6">
+<span class="meta">서술형 6</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w6" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb6"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 7</span><span class="meta">OOP 수행평가</span>
+<h2>7. 도서관 책 대출 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 책은 대출되었는지 아닌지 상태를 가질 수 있습니다. OOP에서는 이런 상태를 속성으로 저장하고, 대출과 반납 같은 행동을 메서드로 만듭니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Book:
+    def __init__(self, title):
+        self.title = title
+        self.is_borrowed = False
+
+    def borrow(self):
+        if self.is_borrowed:
+            return f&quot;{self.title}은 이미 대출 중입니다.&quot;
+        self.is_borrowed = True
+        return f&quot;{self.title}을 대출했습니다.&quot;
+
+    def return_book(self):
+        self.is_borrowed = False
+        return f&quot;{self.title}을 반납했습니다.&quot;
+
+book = Book(&quot;어린 왕자&quot;)
+
+print(book.borrow())
+print(book.borrow())
+print(book.return_book())</code></pre>
+
+<div class="question" id="box13">
+<span class="meta">문항 13</span><span class="meta">OX 개념 퀴즈</span>
+<h3>is_borrowed는 책이 대출 중인지 상태를 저장하는 속성이다.</h3>
+<div class="options"><label><input type="radio" name="q13" value="0"> O</label><label><input type="radio" name="q13" value="1"> X</label></div>
+<div id="fb13"></div>
+</div>
+
+<div class="question" id="box14">
+<span class="meta">문항 14</span><span class="meta">코드 관련 5지선다형</span>
+<h3>book.borrow()를 두 번 연속 실행하면 두 번째 결과는?</h3>
+<div class="options"><label><input type="radio" name="q14" value="0"> 어린 왕자을 대출했습니다.</label><label><input type="radio" name="q14" value="1"> 어린 왕자은 이미 대출 중입니다.</label><label><input type="radio" name="q14" value="2"> 어린 왕자을 반납했습니다.</label><label><input type="radio" name="q14" value="3"> False</label><label><input type="radio" name="q14" value="4"> 오류</label></div>
+<div id="fb14"></div>
+</div>
+
+<div class="question" id="wbox7">
+<span class="meta">서술형 7</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w7" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb7"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 8</span><span class="meta">OOP 수행평가</span>
+<h2>8. 쇼핑 장바구니 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 장바구니는 물건을 담는 상자처럼 생각할 수 있습니다. 리스트를 객체 안에 넣으면 여러 물건을 저장할 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class ShoppingCart:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+        return f&quot;{item}을 장바구니에 담았습니다.&quot;
+
+    def show_items(self):
+        return self.items
+
+cart = ShoppingCart()
+
+print(cart.add_item(&quot;사과&quot;))
+print(cart.add_item(&quot;우유&quot;))
+print(cart.show_items())</code></pre>
+
+<div class="question" id="box15">
+<span class="meta">문항 15</span><span class="meta">OX 개념 퀴즈</span>
+<h3>리스트를 객체 속성으로 저장하면 여러 값을 관리할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q15" value="0"> O</label><label><input type="radio" name="q15" value="1"> X</label></div>
+<div id="fb15"></div>
+</div>
+
+<div class="question" id="box16">
+<span class="meta">문항 16</span><span class="meta">코드 관련 5지선다형</span>
+<h3>사과와 우유를 추가한 뒤 show_items() 결과는?</h3>
+<div class="options"><label><input type="radio" name="q16" value="0"> [&#x27;사과&#x27;]</label><label><input type="radio" name="q16" value="1"> [&#x27;우유&#x27;]</label><label><input type="radio" name="q16" value="2"> [&#x27;사과&#x27;, &#x27;우유&#x27;]</label><label><input type="radio" name="q16" value="3"> []</label><label><input type="radio" name="q16" value="4"> 오류</label></div>
+<div id="fb16"></div>
+</div>
+
+<div class="question" id="wbox8">
+<span class="meta">서술형 8</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w8" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb8"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 9</span><span class="meta">OOP 수행평가</span>
+<h2>9. 점수 관리 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 여러 점수를 하나의 객체가 관리할 수 있습니다. 평균과 최고점 계산도 객체의 행동으로 만들 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class ScoreManager:
+    def __init__(self, scores):
+        self.scores = scores
+
+    def average(self):
+        return sum(self.scores) / len(self.scores)
+
+    def highest(self):
+        return max(self.scores)
+
+scores = ScoreManager([90, 80, 100, 70])
+
+print(&quot;평균:&quot;, scores.average())
+print(&quot;최고점:&quot;, scores.highest())</code></pre>
+
+<div class="question" id="box17">
+<span class="meta">문항 17</span><span class="meta">OX 개념 퀴즈</span>
+<h3>sum()과 len()을 이용하면 평균을 계산할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q17" value="0"> O</label><label><input type="radio" name="q17" value="1"> X</label></div>
+<div id="fb17"></div>
+</div>
+
+<div class="question" id="box18">
+<span class="meta">문항 18</span><span class="meta">코드 관련 5지선다형</span>
+<h3>[90, 80, 100, 70]의 평균은?</h3>
+<div class="options"><label><input type="radio" name="q18" value="0"> 80.0</label><label><input type="radio" name="q18" value="1"> 85.0</label><label><input type="radio" name="q18" value="2"> 90.0</label><label><input type="radio" name="q18" value="3"> 100</label><label><input type="radio" name="q18" value="4"> 340</label></div>
+<div id="fb18"></div>
+</div>
+
+<div class="question" id="wbox9">
+<span class="meta">서술형 9</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w9" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb9"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 10</span><span class="meta">OOP 수행평가</span>
+<h2>10. 반려동물 가게 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 객체는 리스트와 딕셔너리를 함께 사용해 더 복잡한 정보를 관리할 수 있습니다. 반려동물 가게는 여러 동물의 이름과 종류를 저장합니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class PetShop:
+    def __init__(self):
+        self.pets = []
+
+    def add_pet(self, name, kind):
+        self.pets.append({&quot;이름&quot;: name, &quot;종류&quot;: kind})
+
+    def find_by_kind(self, kind):
+        return [pet for pet in self.pets if pet[&quot;종류&quot;] == kind]
+
+shop = PetShop()
+
+shop.add_pet(&quot;나비&quot;, &quot;고양이&quot;)
+shop.add_pet(&quot;초코&quot;, &quot;강아지&quot;)
+shop.add_pet(&quot;미미&quot;, &quot;고양이&quot;)
+
+print(shop.find_by_kind(&quot;고양이&quot;))</code></pre>
+
+<div class="question" id="box19">
+<span class="meta">문항 19</span><span class="meta">OX 개념 퀴즈</span>
+<h3>딕셔너리는 이름과 종류처럼 짝이 되는 정보를 저장할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q19" value="0"> O</label><label><input type="radio" name="q19" value="1"> X</label></div>
+<div id="fb19"></div>
+</div>
+
+<div class="question" id="box20">
+<span class="meta">문항 20</span><span class="meta">코드 관련 5지선다형</span>
+<h3>find_by_kind(&#x27;고양이&#x27;) 결과에 들어가는 동물 이름은?</h3>
+<div class="options"><label><input type="radio" name="q20" value="0"> 초코와 미미</label><label><input type="radio" name="q20" value="1"> 나비와 미미</label><label><input type="radio" name="q20" value="2"> 나비와 초코</label><label><input type="radio" name="q20" value="3"> 초코만</label><label><input type="radio" name="q20" value="4"> 없음</label></div>
+<div id="fb20"></div>
+</div>
+
+<div class="question" id="wbox10">
+<span class="meta">서술형 10</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w10" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb10"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 11</span><span class="meta">OOP 수행평가</span>
+<h2>11. 스마트 전등 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 스마트홈에서는 전등, 에어컨, 문 잠금 장치 등을 객체처럼 생각할 수 있습니다. 전등은 켜짐과 꺼짐 상태를 가집니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class SmartLight:
+    def __init__(self, place):
+        self.place = place
+        self.is_on = False
+
+    def turn_on(self):
+        self.is_on = True
+        return f&quot;{self.place} 전등을 켰습니다.&quot;
+
+    def turn_off(self):
+        self.is_on = False
+        return f&quot;{self.place} 전등을 껐습니다.&quot;
+
+light = SmartLight(&quot;거실&quot;)
+
+print(light.turn_on())
+print(light.turn_off())</code></pre>
+
+<div class="question" id="box21">
+<span class="meta">문항 21</span><span class="meta">OX 개념 퀴즈</span>
+<h3>스마트 전등 객체는 켜짐/꺼짐 상태를 속성으로 표현할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q21" value="0"> O</label><label><input type="radio" name="q21" value="1"> X</label></div>
+<div id="fb21"></div>
+</div>
+
+<div class="question" id="box22">
+<span class="meta">문항 22</span><span class="meta">코드 관련 5지선다형</span>
+<h3>light.turn_on()의 출력은?</h3>
+<div class="options"><label><input type="radio" name="q22" value="0"> 거실 전등을 껐습니다.</label><label><input type="radio" name="q22" value="1"> 거실 전등을 켰습니다.</label><label><input type="radio" name="q22" value="2"> 전등이 고장났습니다.</label><label><input type="radio" name="q22" value="3"> True</label><label><input type="radio" name="q22" value="4"> 오류</label></div>
+<div id="fb22"></div>
+</div>
+
+<div class="question" id="wbox11">
+<span class="meta">서술형 11</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w11" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb11"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 12</span><span class="meta">OOP 수행평가</span>
+<h2>12. 날씨 알림 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 날씨 앱은 온도를 보고 우리에게 알림을 줍니다. 조건문을 메서드 안에 넣으면 상황에 따라 다른 메시지를 만들 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class WeatherAlert:
+    def __init__(self, temperature):
+        self.temperature = temperature
+
+    def message(self):
+        if self.temperature &gt;= 30:
+            return &quot;매우 더워요. 물을 자주 마셔요!&quot;
+        if self.temperature &lt;= 0:
+            return &quot;매우 추워요. 따뜻하게 입어요!&quot;
+        return &quot;활동하기 좋은 날씨예요.&quot;
+
+weather = WeatherAlert(32)
+
+print(weather.message())</code></pre>
+
+<div class="question" id="box23">
+<span class="meta">문항 23</span><span class="meta">OX 개념 퀴즈</span>
+<h3>조건문을 메서드 안에 넣으면 상황에 따라 다른 결과를 만들 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q23" value="0"> O</label><label><input type="radio" name="q23" value="1"> X</label></div>
+<div id="fb23"></div>
+</div>
+
+<div class="question" id="box24">
+<span class="meta">문항 24</span><span class="meta">코드 관련 5지선다형</span>
+<h3>WeatherAlert(32).message()의 결과는?</h3>
+<div class="options"><label><input type="radio" name="q24" value="0"> 매우 더워요. 물을 자주 마셔요!</label><label><input type="radio" name="q24" value="1"> 매우 추워요. 따뜻하게 입어요!</label><label><input type="radio" name="q24" value="2"> 활동하기 좋은 날씨예요.</label><label><input type="radio" name="q24" value="3"> 32</label><label><input type="radio" name="q24" value="4"> 오류</label></div>
+<div id="fb24"></div>
+</div>
+
+<div class="question" id="wbox12">
+<span class="meta">서술형 12</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w12" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb12"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 13</span><span class="meta">OOP 수행평가</span>
+<h2>13. 급식 메뉴 추천 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 급식 메뉴에서 내가 좋아하는 단어가 들어간 음식을 찾을 수 있습니다. 검색 기능도 객체의 메서드로 만들 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class LunchRecommender:
+    def __init__(self, menu):
+        self.menu = menu
+
+    def recommend(self, keyword):
+        result = []
+        for food in self.menu:
+            if keyword in food:
+                result.append(food)
+        return result
+
+lunch = LunchRecommender([&quot;김치볶음밥&quot;, &quot;치킨샐러드&quot;, &quot;된장국&quot;, &quot;김밥&quot;])
+
+print(lunch.recommend(&quot;김&quot;))</code></pre>
+
+<div class="question" id="box25">
+<span class="meta">문항 25</span><span class="meta">OX 개념 퀴즈</span>
+<h3>문자열 안에 특정 단어가 있는지는 keyword in food로 확인할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q25" value="0"> O</label><label><input type="radio" name="q25" value="1"> X</label></div>
+<div id="fb25"></div>
+</div>
+
+<div class="question" id="box26">
+<span class="meta">문항 26</span><span class="meta">코드 관련 5지선다형</span>
+<h3>keyword가 &#x27;김&#x27;일 때 추천되는 음식은?</h3>
+<div class="options"><label><input type="radio" name="q26" value="0"> 김치볶음밥과 김밥</label><label><input type="radio" name="q26" value="1"> 치킨샐러드만</label><label><input type="radio" name="q26" value="2"> 된장국만</label><label><input type="radio" name="q26" value="3"> 모든 음식</label><label><input type="radio" name="q26" value="4"> 없음</label></div>
+<div id="fb26"></div>
+</div>
+
+<div class="question" id="wbox13">
+<span class="meta">서술형 13</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w13" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb13"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 14</span><span class="meta">OOP 수행평가</span>
+<h2>14. 운동 기록 관리 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 운동 앱은 매일 운동한 시간을 저장하고 총 운동 시간을 알려줍니다. 객체 안에 리스트를 두면 기록을 차곡차곡 저장할 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class ExerciseRecord:
+    def __init__(self, name):
+        self.name = name
+        self.minutes = []
+
+    def add_record(self, minute):
+        self.minutes.append(minute)
+
+    def total_time(self):
+        return sum(self.minutes)
+
+    def report(self):
+        return f&quot;{self.name}의 총 운동 시간은 {self.total_time()}분입니다.&quot;
+
+record = ExerciseRecord(&quot;수아&quot;)
+
+record.add_record(30)
+record.add_record(20)
+record.add_record(40)
+
+print(record.report())</code></pre>
+
+<div class="question" id="box27">
+<span class="meta">문항 27</span><span class="meta">OX 개념 퀴즈</span>
+<h3>객체 안의 리스트는 여러 번 추가된 기록을 저장할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q27" value="0"> O</label><label><input type="radio" name="q27" value="1"> X</label></div>
+<div id="fb27"></div>
+</div>
+
+<div class="question" id="box28">
+<span class="meta">문항 28</span><span class="meta">코드 관련 5지선다형</span>
+<h3>30, 20, 40분을 기록하면 총 운동 시간은?</h3>
+<div class="options"><label><input type="radio" name="q28" value="0"> 30분</label><label><input type="radio" name="q28" value="1"> 50분</label><label><input type="radio" name="q28" value="2"> 70분</label><label><input type="radio" name="q28" value="3"> 90분</label><label><input type="radio" name="q28" value="4"> 100분</label></div>
+<div id="fb28"></div>
+</div>
+
+<div class="question" id="wbox14">
+<span class="meta">서술형 14</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w14" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb14"></div>
+</div>
+</section>
+
+<section class="card">
+<span class="meta">예제 15</span><span class="meta">OOP 수행평가</span>
+<h2>15. 학급 출석 관리 객체</h2>
+<div class="concept"><b>개념 요약</b><br>📌 개념 상세 설명 선생님은 학생들의 출석 상태를 기록합니다. 딕셔너리를 사용하면 학생 이름과 출석 상태를 짝으로 저장할 수 있습니다.</div>
+<h3>💻 제시 코드</h3>
+<pre><code>class Attendance:
+    def __init__(self):
+        self.students = {}
+
+    def check(self, name, status):
+        self.students[name] = status
+
+    def absent_students(self):
+        return [name for name, status in self.students.items() if status == &quot;결석&quot;]
+
+attendance = Attendance()
+
+attendance.check(&quot;민수&quot;, &quot;출석&quot;)
+attendance.check(&quot;지우&quot;, &quot;결석&quot;)
+attendance.check(&quot;하린&quot;, &quot;출석&quot;)
+attendance.check(&quot;도윤&quot;, &quot;결석&quot;)
+
+print(attendance.absent_students())</code></pre>
+
+<div class="question" id="box29">
+<span class="meta">문항 29</span><span class="meta">OX 개념 퀴즈</span>
+<h3>딕셔너리의 items()는 키와 값을 함께 꺼낼 때 사용할 수 있다.</h3>
+<div class="options"><label><input type="radio" name="q29" value="0"> O</label><label><input type="radio" name="q29" value="1"> X</label></div>
+<div id="fb29"></div>
+</div>
+
+<div class="question" id="box30">
+<span class="meta">문항 30</span><span class="meta">코드 관련 5지선다형</span>
+<h3>결석 학생으로 출력되는 이름은?</h3>
+<div class="options"><label><input type="radio" name="q30" value="0"> 민수와 하린</label><label><input type="radio" name="q30" value="1"> 지우와 도윤</label><label><input type="radio" name="q30" value="2"> 민수와 도윤</label><label><input type="radio" name="q30" value="3"> 하린과 지우</label><label><input type="radio" name="q30" value="4"> 없음</label></div>
+<div id="fb30"></div>
+</div>
+
+<div class="question" id="wbox15">
+<span class="meta">서술형 15</span><span class="meta">출력 결과 직접 입력</span>
+<h3>위 코드를 실행했을 때 출력 결과를 키보드로 입력하세요.</h3>
+<textarea id="w15" placeholder="출력 결과를 줄바꿈까지 고려하여 입력하세요."></textarea>
+<div id="wfb15"></div>
+</div>
+</section>
+
+</main>
+<footer>🎒 OOP 객체지향 프로그래밍 통합 수행평가 HTML</footer>
+
+<script>
+const choiceAnswers = [0, 0, 1, 1, 0, 0, 0, 2, 0, 1, 0, 2, 0, 1, 0, 2, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 3, 0, 1];
+const explanations = ["Dog 클래스는 강아지 객체를 만들기 위한 설계도입니다.", "name 자리에 '초코'가 들어가므로 dog1.name은 초코입니다.", "객체는 이름, 학년 같은 정보와 introduce() 같은 행동을 함께 가질 수 있습니다.", "grade는 4, name은 민수이므로 자기소개 문장이 만들어집니다.", "Car 객체는 color와 speed 속성을 가집니다.", "color와 speed가 문장 안에 들어갑니다.", "add(), subtract()는 Calculator 객체가 할 수 있는 메서드입니다.", "10 - 5 = 5입니다.", "damaged()에서 self.hp가 줄어듭니다.", "100에서 30을 빼서 70이 됩니다.", "deposit()과 withdraw()가 은행 계좌 객체의 행동입니다.", "10000 + 5000 - 3000 = 12000원입니다.", "True/False로 책의 대출 상태를 저장합니다.", "첫 번째 대출 후 is_borrowed가 True가 되므로 두 번째는 이미 대출 중입니다.", "ShoppingCart의 items 리스트에 여러 물건을 저장합니다.", "append()로 사과와 우유가 차례대로 들어갑니다.", "평균은 합계 / 개수로 계산합니다.", "총합 340을 4로 나누면 85.0입니다.", "반려동물의 이름과 종류를 딕셔너리로 저장합니다.", "고양이로 저장된 동물은 나비와 미미입니다.", "is_on 속성으로 전등 상태를 저장합니다.", "turn_on()은 place를 이용해 '거실 전등을 켰습니다.'를 반환합니다.", "WeatherAlert.message()는 온도에 따라 다른 문장을 반환합니다.", "32는 30 이상이므로 더위 알림입니다.", "recommend()는 keyword가 음식 이름에 포함되는지 검사합니다.", "김치볶음밥과 김밥에 '김'이 들어갑니다.", "minutes 리스트에 운동 시간이 누적됩니다.", "30 + 20 + 40 = 90분입니다.", "students.items()로 이름과 출석 상태를 함께 확인합니다.", "상태가 결석인 학생은 지우와 도윤입니다."];
+const writtenAnswers = ["초코\n3\n초코가 멍멍 짖습니다!", "안녕하세요. 저는 4학년 민수입니다.", "빨간색 자동차가 시속 60km로 달립니다.", "15\n5", "용사의 체력이 70이 되었습니다.", "5000원을 입금했습니다. 잔액: 15000원\n3000원을 출금했습니다. 잔액: 12000원\n잔액이 부족합니다.", "어린 왕자을 대출했습니다.\n어린 왕자은 이미 대출 중입니다.\n어린 왕자을 반납했습니다.", "사과을 장바구니에 담았습니다.\n우유을 장바구니에 담았습니다.\n['사과', '우유']", "평균: 85.0\n최고점: 100", "[{'이름': '나비', '종류': '고양이'}, {'이름': '미미', '종류': '고양이'}]", "거실 전등을 켰습니다.\n거실 전등을 껐습니다.", "매우 더워요. 물을 자주 마셔요!", "['김치볶음밥', '김밥']", "수아의 총 운동 시간은 90분입니다.", "['지우', '도윤']"];
+const titles = ["1. 강아지 객체 만들기", "2. 학생 객체 만들기", "3. 자동차 객체 만들기", "4. 계산기 객체 만들기", "5. 게임 캐릭터 객체 만들기", "6. 은행 계좌 객체", "7. 도서관 책 대출 객체", "8. 쇼핑 장바구니 객체", "9. 점수 관리 객체", "10. 반려동물 가게 객체", "11. 스마트 전등 객체", "12. 날씨 알림 객체", "13. 급식 메뉴 추천 객체", "14. 운동 기록 관리 객체", "15. 학급 출석 관리 객체"];
+
+function pad(n){return String(n).padStart(2,'0');}
+function nowString(){
+  const d=new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"_"+pad(d.getHours())+"-"+pad(d.getMinutes())+"-"+pad(d.getSeconds());
+}
+function answerText(q,idx){
+  const el=document.querySelector('input[name="q'+q+'"][value="'+idx+'"]');
+  return el?el.parentElement.textContent.trim():"";
+}
+function normalize(s){
+  return s.replace(/\r/g,"").split("\n").map(x=>x.trim().replace(/\s+/g," ")).filter(x=>x.length>0).join("\n").trim();
+}
+function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function lineScore(user,corr){
+  const u=user.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  const c=corr.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(x=>x.length>0);
+  let same=0;
+  for(let i=0;i<Math.max(u.length,c.length);i++) if((u[i]||"")===(c[i]||"")) same++;
+  return {same:same,total:c.length};
+}
+function grade(){
+  const sid=document.getElementById("studentId").value.trim();
+  const name=document.getElementById("studentName").value.trim();
+  if(!sid||!name){alert("학번과 이름을 입력하세요.");return;}
+
+  let score=0;
+  const maxScore=choiceAnswers.length+writtenAnswers.length;
+  let detail=[];
+  const time=nowString();
+  detail.push("학번: "+sid);
+  detail.push("이름: "+name);
+  detail.push("평가명: OOP 코드 이해 통합 수행평가");
+  detail.push("응시시각: "+time.replace("_"," "));
+  detail.push("----------------------------------------");
+
+  for(let i=1;i<=choiceAnswers.length;i++){
+    const picked=document.querySelector('input[name="q'+i+'"]:checked');
+    const user=picked?Number(picked.value):-1;
+    const ok=user===choiceAnswers[i-1];
+    if(ok) score++;
+    const box=document.getElementById("box"+i);
+    const fb=document.getElementById("fb"+i);
+    box.classList.remove("right","wrong");
+    box.classList.add(ok?"right":"wrong");
+    fb.className="feedback "+(ok?"right":"wrong");
+    fb.innerHTML="<b>"+(ok?"정답 ✅":"오답 ❌")+"</b><br>내 선택: "+(user>=0?answerText(i,user):"미응답")+"<br>정답: "+answerText(i,choiceAnswers[i-1])+"<br>상세 설명: "+explanations[i-1];
+    detail.push("선택형 "+i+"번: "+(ok?"O":"X")+" / 선택: "+(user>=0?answerText(i,user):"미응답")+" / 정답: "+answerText(i,choiceAnswers[i-1]));
+  }
+
+  for(let i=1;i<=writtenAnswers.length;i++){
+    const user=document.getElementById("w"+i).value.trim();
+    const corr=writtenAnswers[i-1].trim();
+    const exact=normalize(user)===normalize(corr);
+    const ls=lineScore(user,corr);
+    if(exact) score++;
+    const fb=document.getElementById("wfb"+i);
+    const box=document.getElementById("wbox"+i);
+    box.classList.remove("right","wrong","partial");
+    box.classList.add(exact?"right":(ls.same>0?"partial":"wrong"));
+    fb.className="feedback "+(exact?"right":(ls.same>0?"partial":"wrong"));
+    fb.innerHTML="<b>"+(exact?"정답 ✅":"확인 필요 ❌")+"</b><br>문항 점수: "+(exact?1:0)+" / 1점"+
+      "<br>줄 단위 일치: "+ls.same+" / "+ls.total+
+      "<br><details><summary>정답 출력 보기</summary><pre>"+escapeHtml(corr)+"</pre></details>";
+    detail.push("서술형 "+i+"번 "+titles[i-1]+": "+(exact?"O":"X")+" / "+(exact?1:0)+"점");
+    detail.push("[학생 입력]");
+    detail.push(user||"미입력");
+    detail.push("[정답]");
+    detail.push(corr);
+    detail.push("----------------------------------------");
+  }
+
+  const percent=Math.round(score/maxScore*100);
+  document.getElementById("scoreBox").innerHTML="<h2>채점 결과</h2><p><b>"+sid+" "+name+"</b> 학생의 점수: <b>"+score+" / "+maxScore+"점</b> ("+percent+"%)</p>";
+  detail.push("최종 득점: "+score+" / "+maxScore);
+  detail.push("백분율: "+percent+"%");
+  const filename=sid+"_"+name+"_OOP_"+score+"점_"+time+".txt";
+  const blob=new Blob([detail.join("\n")],{type:"text/plain;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.getElementById("downloadLink");
+  a.href=url;a.download=filename;a.style.display="inline-block";a.textContent="결과 TXT 다운로드: "+filename;
+}
+function resetAll(){
+  document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);
+  document.querySelectorAll('textarea').forEach(x=>x.value="");
+  document.querySelectorAll('[id^="fb"],[id^="wfb"]').forEach(x=>{x.innerHTML="";x.className="";});
+  document.querySelectorAll('.question').forEach(x=>x.classList.remove("right","wrong","partial"));
+  document.getElementById("scoreBox").innerHTML="";
+  const a=document.getElementById("downloadLink");a.style.display="none";a.href="#";
+}
+</script>
+
+</body>
+</html>
