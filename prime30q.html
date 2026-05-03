@@ -215,7 +215,7 @@ const data = [
 ];
 function fmt(x){return Number(x).toLocaleString('ko-KR');}
 const eb=document.getElementById('explainBody');
-data.forEach(([k,n,p])=>{const kn=k*n, gap=p-kn; const tr=document.createElement('tr'); tr.innerHTML=`<td class="num">${k}</td><td>k=${k}에서는 <b>${fmt(n)}번째 소수</b>인 <b>${fmt(p)}</b>에서 처음 실패한다. 비교 기준은 ${k}×${fmt(n)}=${fmt(kn)}이고, 실제 소수는 기준보다 ${fmt(gap)}만큼 크다. 따라서 이 순간부터 pₙ &gt; ${k}n 이 성립한다.</td>`; eb.appendChild(tr);});
+data.forEach(([k,n,p])=>{const kn=k*n, gap=p-kn; const tr=document.createElement('tr'); tr.innerHTML=`<td class="num">${k}</td><td>k=${k}에서는 <b>${fmt(n)}번째 소수</b>인 <b>${fmt(p)}</b>에서 처음 실패한다. 비교 기준은 ${k}×${fmt(n)}=${fmt(kn)}이고, 실제 소수는 기준보다 ${fmt(gap)}만큼 크다. 따라서 이 순간  pₙ &gt; ${k}n 이 처음으로 성립한다.</td>`; eb.appendChild(tr);});
 const quiz=[
 ['처음 실패하는 n은 pₙ > kn이 처음으로 성립하는 위치를 뜻한다.','O','정의 그대로입니다. 이전까지는 기준을 넘지 않다가 그 n에서 처음 기준을 넘습니다.'],
 ['pₙ − kn 값이 음수이면 pₙ > kn이 성립한다.','X','pₙ − kn이 양수일 때 pₙ이 kn보다 큽니다.'],
