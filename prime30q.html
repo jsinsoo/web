@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>검증된 k=1~30 소수 실패점 수업자료</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--bg:#f4f7ff;--card:#fff;--ink:#152238;--muted:#5f6e86;--line:#d9e2f2;--head:#17264a;--accent:#4b66ff;--soft:#eef3ff;--good:#0b7a42;--bad:#c03535;--code:#111827;--codeText:#e5e7eb}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#f7f9ff,#eef3ff);font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;color:var(--ink);line-height:1.75}.wrap{max-width:1250px;margin:0 auto;padding:30px 16px 60px}.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 45px rgba(20,38,80,.08);padding:26px;margin:18px 0}h1{margin:0 0 10px;color:var(--head);font-size:32px}h2{margin:0 0 12px;color:var(--head);font-size:24px;border-left:7px solid var(--accent);padding-left:12px}h3{margin:20px 0 10px;color:#203464}.subtitle{color:var(--muted);font-size:17px}.formula{background:var(--soft);border-left:6px solid var(--accent);border-radius:16px;padding:15px 18px;font-size:18px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.box{background:#f9fbff;border:1px solid var(--line);border-radius:18px;padding:16px}.tag{display:inline-block;background:#e8fff1;color:#106438;border-radius:999px;padding:4px 9px;font-weight:700;font-size:13px}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;background:#fff}th{background:var(--head);color:white;padding:12px 10px;text-align:center;white-space:nowrap}td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:10px 10px;text-align:right;white-space:nowrap}td:first-child,th:first-child{text-align:center;font-weight:700}tr:nth-child(even) td{background:#f8fbff}.explain td{text-align:left;white-space:normal}.explain td.num{text-align:center;white-space:nowrap}pre{background:var(--code);color:var(--codeText);border-radius:18px;padding:18px;overflow:auto;font-size:14px;line-height:1.65}.code-title{font-weight:800;color:#203464;margin:14px 0 8px}.quiz-item{border:1px solid var(--line);border-radius:16px;padding:15px;margin:12px 0;background:#fbfdff}.quiz-item button,.btn{border:0;border-radius:12px;background:var(--accent);color:white;font-weight:800;padding:10px 14px;cursor:pointer;margin-top:8px}.answer{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#eef3ff}.inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.inputs input{padding:12px;border:1px solid var(--line);border-radius:12px;font-size:15px}.small{font-size:14px;color:var(--muted)}.warn{background:#fff7e8;border-left:6px solid #f59e0b}.good{background:#ecfff5;border-left:6px solid var(--good)}@media(max-width:850px){.grid,.inputs{grid-template-columns:1fr}h1{font-size:25px}.hero,.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<h1>검증된 k = 1부터 30까지: 처음으로 \(p_n > k n\) 이 되는 순간</h1>
+<p class="subtitle">각 k에 대해 n번째 소수 \(p_n\)가 단순한 직선 기준 \(k n\)을 처음으로 넘어서는 위치를 정리한 수업자료입니다. 모든 수는 지수 표기 없이 정수 전체를 표시했습니다.</p>
+<div class="formula">핵심 정의: \[ n_k=\min\{n\mid p_n>k n\}, \qquad p_{n_k}=\text{그때의 n번째 소수} \]</div>
+<p class="small">자료 기준: OEIS A038606은 “k번째 소수가 n·k보다 커지는 최초 지표”를, OEIS A038607은 그때의 소수값을 제공합니다.</p>
+</section>
+
+<section class="card">
+<h2>1. 기호와 값의 의미</h2>
+<div class="grid">
+<div class="box"><b>k</b><br>비교 기준선의 기울기입니다. 예를 들어 k=20이면 소수 \(p_n\)을 \(20n\)과 비교합니다.</div>
+<div class="box"><b>처음 실패하는 n</b><br>\(p_n \le kn\)이라는 예상이 처음 깨지는 위치입니다. 즉 그 전까지는 대체로 \(p_m\le km\)가 유지되다가 이 n에서 처음 \(p_n>kn\)이 됩니다.</div>
+<div class="box"><b>n번째 소수 \(p_n\)</b><br>처음 실패가 발생하는 실제 소수입니다. 예: k=30에서는 \(p_n=30,109,570,413,007\)입니다.</div>
+<div class="box"><b>\(kn\), \(p_n-kn\)</b><br>\(kn\)은 비교 기준값이고, \(p_n-kn\)은 기준선을 얼마나 초과했는지 나타냅니다. 이 값이 양수이면 실패가 발생합니다.</div>
+</div>
+</section>
+
+<section class="card">
+<h2>2. 검증된 표: k=1부터 30까지</h2>
+<div class="table-wrap">
+<table id="dataTable"><thead><tr><th>k</th><th>처음 실패하는 n</th><th>n번째 소수 pₙ</th><th>k·n</th><th>pₙ − k·n</th></tr></thead><tbody>
+<tr><td>1</td><td>1</td><td>2</td><td>1</td><td>1</td></tr>
+<tr><td>2</td><td>5</td><td>11</td><td>10</td><td>1</td></tr>
+<tr><td>3</td><td>12</td><td>37</td><td>36</td><td>1</td></tr>
+<tr><td>4</td><td>31</td><td>127</td><td>124</td><td>3</td></tr>
+<tr><td>5</td><td>69</td><td>347</td><td>345</td><td>2</td></tr>
+<tr><td>6</td><td>181</td><td>1,087</td><td>1,086</td><td>1</td></tr>
+<tr><td>7</td><td>443</td><td>3,109</td><td>3,101</td><td>8</td></tr>
+<tr><td>8</td><td>1,052</td><td>8,419</td><td>8,416</td><td>3</td></tr>
+<tr><td>9</td><td>2,701</td><td>24,317</td><td>24,309</td><td>8</td></tr>
+<tr><td>10</td><td>6,455</td><td>64,553</td><td>64,550</td><td>3</td></tr>
+<tr><td>11</td><td>15,928</td><td>175,211</td><td>175,208</td><td>3</td></tr>
+<tr><td>12</td><td>40,073</td><td>480,881</td><td>480,876</td><td>5</td></tr>
+<tr><td>13</td><td>100,362</td><td>1,304,707</td><td>1,304,706</td><td>1</td></tr>
+<tr><td>14</td><td>251,707</td><td>3,523,901</td><td>3,523,898</td><td>3</td></tr>
+<tr><td>15</td><td>637,235</td><td>9,558,533</td><td>9,558,525</td><td>8</td></tr>
+<tr><td>16</td><td>1,617,175</td><td>25,874,843</td><td>25,874,800</td><td>43</td></tr>
+<tr><td>17</td><td>4,124,437</td><td>70,115,473</td><td>70,115,429</td><td>44</td></tr>
+<tr><td>18</td><td>10,553,415</td><td>189,961,529</td><td>189,961,470</td><td>59</td></tr>
+<tr><td>19</td><td>27,066,974</td><td>514,272,533</td><td>514,272,506</td><td>27</td></tr>
+<tr><td>20</td><td>69,709,680</td><td>1,394,193,607</td><td>1,394,193,600</td><td>7</td></tr>
+<tr><td>21</td><td>179,992,909</td><td>3,779,851,091</td><td>3,779,851,089</td><td>2</td></tr>
+<tr><td>22</td><td>465,769,803</td><td>10,246,935,679</td><td>10,246,935,666</td><td>13</td></tr>
+<tr><td>23</td><td>1,208,198,526</td><td>27,788,566,133</td><td>27,788,566,098</td><td>35</td></tr>
+<tr><td>24</td><td>3,140,421,716</td><td>75,370,121,191</td><td>75,370,121,184</td><td>7</td></tr>
+<tr><td>25</td><td>8,179,002,096</td><td>204,475,052,401</td><td>204,475,052,400</td><td>1</td></tr>
+<tr><td>26</td><td>21,338,685,407</td><td>554,805,820,711</td><td>554,805,820,582</td><td>129</td></tr>
+<tr><td>27</td><td>55,762,149,030</td><td>1,505,578,023,841</td><td>1,505,578,023,810</td><td>31</td></tr>
+<tr><td>28</td><td>145,935,689,361</td><td>4,086,199,302,113</td><td>4,086,199,302,108</td><td>5</td></tr>
+<tr><td>29</td><td>382,465,573,483</td><td>11,091,501,631,019</td><td>11,091,501,631,007</td><td>12</td></tr>
+<tr><td>30</td><td>1,003,652,347,100</td><td>30,109,570,413,007</td><td>30,109,570,413,000</td><td>7</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section class="card">
+<h2>3. 각각의 k에 대한 해석표</h2>
+<p>아래 문장은 표의 각 행을 읽는 방법입니다. “처음 실패”는 \(p_n\le kn\)이라고 생각한 기준이 처음으로 깨지는 순간입니다.</p>
+<div class="table-wrap"><table class="explain"><thead><tr><th>k</th><th>상세 해석</th></tr></thead><tbody id="explainBody"></tbody></table></div>
+</section>
+
+<section class="card">
+<h2>4. 표를 생성하고 의미를 설명하는 파이썬 코드</h2>
+<p>아래 코드는 검증된 데이터를 딕셔너리로 저장한 뒤 \(kn\), \(p_n-kn\)을 계산하고, 각 k의 의미를 문장으로 출력합니다.</p>
+<pre><code>data = [
+    (1, 1, 2),
+    (2, 5, 11),
+    (3, 12, 37),
+    (4, 31, 127),
+    (5, 69, 347),
+    (6, 181, 1087),
+    (7, 443, 3109),
+    (8, 1052, 8419),
+    (9, 2701, 24317),
+    (10, 6455, 64553),
+    (11, 15928, 175211),
+    (12, 40073, 480881),
+    (13, 100362, 1304707),
+    (14, 251707, 3523901),
+    (15, 637235, 9558533),
+    (16, 1617175, 25874843),
+    (17, 4124437, 70115473),
+    (18, 10553415, 189961529),
+    (19, 27066974, 514272533),
+    (20, 69709680, 1394193607),
+    (21, 179992909, 3779851091),
+    (22, 465769803, 10246935679),
+    (23, 1208198526, 27788566133),
+    (24, 3140421716, 75370121191),
+    (25, 8179002096, 204475052401),
+    (26, 21338685407, 554805820711),
+    (27, 55762149030, 1505578023841),
+    (28, 145935689361, 4086199302113),
+    (29, 382465573483, 11091501631019),
+    (30, 1003652347100, 30109570413007),
+]
+
+for k, n, p in data:
+    kn = k * n
+    gap = p - kn
+    print(f"k={k}")
+    print(f"  처음 실패하는 n = {n:,}")
+    print(f"  n번째 소수 p_n = {p:,}")
+    print(f"  k*n = {kn:,}")
+    print(f"  p_n - k*n = {gap:,}")
+    print(f"  의미: {n:,}번째 소수 {p:,}에서 처음으로 p_n > {k}n 이 성립합니다.")
+    print()</code></pre>
+</section>
+
+<section class="card">
+<h2>5. 큰 소수 구하기 접근 방법</h2>
+<div class="box good"><b>작은 범위</b>: 에라토스테네스의 체를 사용합니다. 빠르고 정확하지만 메모리를 많이 쓰므로 너무 큰 수에는 부적합합니다.</div>
+<div class="box warn" style="margin-top:12px"><b>큰 범위</b>: 특정 수가 소수인지 확인하려면 Miller-Rabin 같은 빠른 소수 판정법을 사용합니다. “몇 번째 소수인지”는 단순 소수 판정이 아니라 \(\pi(x)\), 즉 x 이하의 소수 개수 계산이 필요합니다.</div>
+<h3>큰 소수 찾기용 파이썬 코드: Miller-Rabin 판정</h3>
+<pre><code>def is_prime(n: int) -> bool:
+    """64비트 정수 범위에서 빠르게 소수 여부를 판정하는 Miller-Rabin 코드"""
+    if n < 2:
+        return False
+    small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+    for p in small_primes:
+        if n % p == 0:
+            return n == p
+
+    # n - 1 = d * 2^s 꼴로 분해
+    d = n - 1
+    s = 0
+    while d % 2 == 0:
+        s += 1
+        d //= 2
+
+    # 64비트 정수에서 충분한 판정 밑
+    bases = [2, 3, 5, 7, 11, 13, 17]
+    for a in bases:
+        if a >= n:
+            continue
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(s - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
+
+
+def next_prime(x: int) -> int:
+    """x 이상에서 가장 가까운 소수를 찾는다."""
+    if x <= 2:
+        return 2
+    if x % 2 == 0:
+        x += 1
+    while not is_prime(x):
+        x += 2
+    return x
+
+print(is_prime(30109570413007))
+print(next_prime(10**12))</code></pre>
+<h3>주의: 몇 번째 소수인지 구하는 코드는 별도 문제</h3>
+<pre><code># 어떤 수 p가 몇 번째 소수인지 알려면 pi(p)를 계산해야 합니다.
+# 작은 범위에서는 체로 pi(x)를 계산할 수 있습니다.
+
+def prime_count_small(x: int) -> int:
+    if x < 2:
+        return 0
+    sieve = bytearray(b'\x01') * (x + 1)
+    sieve[0:2] = b'\x00\x00'
+    r = int(x ** 0.5)
+    for i in range(2, r + 1):
+        if sieve[i]:
+            sieve[i*i:x+1:i] = b'\x00' * (((x - i*i) // i) + 1)
+    return sum(sieve)
+
+print(prime_count_small(100))  # 100 이하의 소수 개수는 25</code></pre>
+</section>
+
+<section class="card">
+<h2>6. 마지막 총정리 개념 설명</h2>
+<p>n번째 소수 \(p_n\)은 n이 커질수록 대체로 n보다 훨씬 빠르게 커집니다. 그래서 \(kn\)처럼 일정한 기울기의 직선 기준은 언젠가 \(p_n\)보다 작아집니다. 이때 각 k마다 처음으로 \(p_n>kn\)이 되는 n을 찾으면, 소수의 성장 속도가 단순한 일차식 기준을 언제 넘어서는지 확인할 수 있습니다.</p>
+<p>중요한 점은 “그 수가 소수이다”와 “그 수가 몇 번째 소수이다”가 다르다는 것입니다. 특정 수의 소수 여부는 Miller-Rabin 같은 판정으로 비교적 빠르게 확인할 수 있지만, 그 수가 정확히 몇 번째 소수인지 알려면 \(\pi(x)\), 즉 x 이하의 소수 개수를 정확히 계산해야 합니다.</p>
+</section>
+
+<section class="card">
+<h2>7. 개념 설명 OX 퀴즈 10문항</h2>
+<div id="quiz"></div>
+</section>
+
+<section class="card">
+<h2>8. 학번_이름_소수_응시시각.txt 생성</h2>
+<p class="small">OX 퀴즈를 풀고 아래 정보를 입력한 뒤 파일을 생성하세요. 파일명은 자동으로 <b>학번_이름_소수_응시시각.txt</b> 형태가 됩니다.</p>
+<div class="inputs"><input id="sid" placeholder="학번"><input id="sname" placeholder="이름"><input id="className" placeholder="반/학급 선택 사항"></div>
+<button class="btn" onclick="downloadResult()">결과 TXT 생성</button>
+<pre id="resultPreview">아직 생성된 결과가 없습니다.</pre>
+</section>
+</div>
+<script>
+const data = [
+[1,1,2],[2,5,11],[3,12,37],[4,31,127],[5,69,347],[6,181,1087],[7,443,3109],[8,1052,8419],[9,2701,24317],[10,6455,64553],[11,15928,175211],[12,40073,480881],[13,100362,1304707],[14,251707,3523901],[15,637235,9558533],[16,1617175,25874843],[17,4124437,70115473],[18,10553415,189961529],[19,27066974,514272533],[20,69709680,1394193607],[21,179992909,3779851091],[22,465769803,10246935679],[23,1208198526,27788566133],[24,3140421716,75370121191],[25,8179002096,204475052401],[26,21338685407,554805820711],[27,55762149030,1505578023841],[28,145935689361,4086199302113],[29,382465573483,11091501631019],[30,1003652347100,30109570413007]
+];
+function fmt(x){return Number(x).toLocaleString('ko-KR');}
+const eb=document.getElementById('explainBody');
+data.forEach(([k,n,p])=>{const kn=k*n, gap=p-kn; const tr=document.createElement('tr'); tr.innerHTML=`<td class="num">${k}</td><td>k=${k}에서는 <b>${fmt(n)}번째 소수</b>인 <b>${fmt(p)}</b>에서 처음 실패한다. 비교 기준은 ${k}×${fmt(n)}=${fmt(kn)}이고, 실제 소수는 기준보다 ${fmt(gap)}만큼 크다. 따라서 이 순간부터 pₙ &gt; ${k}n 이 성립한다.</td>`; eb.appendChild(tr);});
+const quiz=[
+['처음 실패하는 n은 pₙ > kn이 처음으로 성립하는 위치를 뜻한다.','O','정의 그대로입니다. 이전까지는 기준을 넘지 않다가 그 n에서 처음 기준을 넘습니다.'],
+['pₙ − kn 값이 음수이면 pₙ > kn이 성립한다.','X','pₙ − kn이 양수일 때 pₙ이 kn보다 큽니다.'],
+['k=30에서 처음 실패하는 n은 1,003,652,347,100이다.','O','표에서 k=30의 n 값입니다.'],
+['특정 수가 소수인지 아는 것과 몇 번째 소수인지 아는 것은 같은 문제이다.','X','소수 판정과 소수 계수 함수 π(x) 계산은 서로 다른 문제입니다.'],
+['kn은 n번째 소수와 비교하는 기준값이다.','O','예를 들어 k=20이면 pₙ을 20n과 비교합니다.'],
+['pₙ − kn은 기준선을 얼마나 초과했는지 나타낸다.','O','양수이면 초과, 0이면 같음, 음수이면 아직 기준 이하입니다.'],
+['Miller-Rabin은 큰 수가 소수인지 빠르게 판정하는 데 사용될 수 있다.','O','큰 정수의 소수 판정에 널리 쓰이는 방법입니다.'],
+['π(x)는 x 이하의 소수 개수를 뜻한다.','O','예를 들어 π(100)=25입니다.'],
+['k가 커질수록 처음 실패하는 n은 항상 작아진다.','X','표에서는 k가 커질수록 처음 실패 위치가 대체로 매우 커집니다.'],
+['k=25에서 pₙ − kn 값은 1이다.','O','204,475,052,401 − 204,475,052,400 = 1입니다.']
+];
+const qbox=document.getElementById('quiz');
+quiz.forEach((q,i)=>{const div=document.createElement('div'); div.className='quiz-item'; div.innerHTML=`<b>${i+1}. ${q[0]}</b><br><label><input type="radio" name="q${i}" value="O"> O</label> &nbsp; <label><input type="radio" name="q${i}" value="X"> X</label><br><button onclick="toggleAnswer(${i})">정답/풀이 보기</button><div class="answer" id="a${i}"><b>정답: ${q[1]}</b><br>${q[2]}</div>`; qbox.appendChild(div);});
+function toggleAnswer(i){const a=document.getElementById('a'+i); a.style.display=a.style.display==='block'?'none':'block';}
+function grade(){let score=0, lines=[]; quiz.forEach((q,i)=>{const checked=document.querySelector(`input[name="q${i}"]:checked`); const ans=checked?checked.value:'미응답'; const ok=ans===q[1]; if(ok) score++; lines.push(`${i+1}번: 응답=${ans}, 정답=${q[1]}, ${ok?'정답':'오답'}`);}); return {score, lines};}
+function safe(s){return (s||'미입력').replace(/[\\/:*?"<>|\s]+/g,'_');}
+function downloadResult(){const sid=document.getElementById('sid').value.trim(); const name=document.getElementById('sname').value.trim(); const cls=document.getElementById('className').value.trim(); const now=new Date(); const stamp=now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'_'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0')+String(now.getSeconds()).padStart(2,'0'); const g=grade(); const content=`소수 실패점 개념 OX 퀴즈 결과\n학번: ${sid}\n이름: ${name}\n반/학급: ${cls}\n응시시각: ${now.toLocaleString('ko-KR')}\n점수: ${g.score} / ${quiz.length}\n\n[문항별 결과]\n${g.lines.join('\n')}\n\n[핵심 개념]\n처음 실패하는 n은 p_n > k*n 이 처음 성립하는 위치이다. p_n-k*n이 양수이면 기준선을 초과했다는 뜻이다. 특정 수의 소수 여부와 몇 번째 소수인지는 서로 다른 검증 문제이다.`; document.getElementById('resultPreview').textContent=content; const blob=new Blob([content],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${safe(sid)}_${safe(name)}_소수_${stamp}.txt`; a.click(); URL.revokeObjectURL(a.href);}
+</script>
+</body>
+</html>
