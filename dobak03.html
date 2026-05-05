@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>전북과학고등학교 도박 위험 신호 찾기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;
+    background:linear-gradient(135deg,#07111f,#123c69,#0f766e);
+    color:#172033;
+}
+.wrap{max-width:1350px;margin:0 auto;padding:24px}
+.hero{
+    color:white;text-align:center;padding:38px 22px;border-radius:30px;
+    background:radial-gradient(circle at top left,rgba(255,255,255,.23),transparent 36%),
+               linear-gradient(135deg,#1d4ed8,#0f766e);
+    box-shadow:0 18px 50px rgba(0,0,0,.28);
+}
+.badge{
+    display:inline-block;padding:8px 18px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.15);
+    font-size:18px;font-weight:900;
+}
+h1{font-size:42px;line-height:1.25;margin:16px 0 10px;word-break:keep-all}
+.hero p{font-size:20px;margin:0;word-break:keep-all}
+.layout{
+    display:grid;grid-template-columns:280px 1fr;gap:20px;margin-top:20px;
+}
+.side,.main{
+    background:white;border-radius:24px;box-shadow:0 15px 45px rgba(0,0,0,.2);overflow:hidden;
+}
+.side{padding:20px;position:sticky;top:18px;align-self:start}
+.side h2{margin:0 0 12px;color:#1d4ed8}
+.menu button{
+    width:100%;display:block;text-align:left;border:0;margin:7px 0;padding:13px 14px;
+    border-radius:14px;background:#eff6ff;color:#1e3a8a;font-size:16px;font-weight:900;cursor:pointer;
+}
+.menu button.active{background:#1d4ed8;color:white}
+.main{padding:26px}
+.page{display:none}.page.active{display:block}
+.title{
+    margin:0 0 18px;font-size:30px;color:#0f172a;border-bottom:4px solid #dbeafe;padding-bottom:10px;
+}
+.box{
+    padding:20px;border-radius:20px;background:#f8fafc;border:1px solid #dbeafe;margin:16px 0;
+}
+.warn{background:#fff7ed;border-color:#fed7aa;color:#7c2d12}
+.good{background:#ecfdf5;border-color:#a7f3d0;color:#064e3b}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{
+    border:1px solid #dbeafe;border-radius:22px;padding:20px;
+    background:linear-gradient(180deg,#ffffff,#f8fafc);
+    box-shadow:0 10px 25px rgba(30,64,175,.08);
+}
+.card h3{margin:0 0 10px;color:#1d4ed8;font-size:23px}
+.card p{font-size:17px;line-height:1.7}
+.class-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.class-tabs button{
+    border:0;border-radius:999px;padding:10px 15px;background:#e0f2fe;color:#075985;
+    font-weight:900;cursor:pointer;font-size:15px;
+}
+.class-tabs button.active{background:#0f766e;color:white}
+.news-card{
+    min-height:440px;border-radius:28px;padding:34px;color:white;
+    background:linear-gradient(135deg,#1d4ed8,#0f766e);
+    display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center;
+    box-shadow:0 14px 36px rgba(15,23,42,.25);
+}
+.news-card h3{font-size:36px;line-height:1.2;margin:0 0 16px}
+.news-card p{font-size:21px;line-height:1.65;word-break:keep-all}
+.icon{
+    font-size:130px;text-align:center;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,.25));
+}
+.news-nav{text-align:center;margin-top:16px}
+.btn{
+    border:0;border-radius:14px;padding:12px 18px;margin:5px;background:#2563eb;color:white;
+    font-size:16px;font-weight:900;cursor:pointer;
+}
+.btn.alt{background:#0f766e}.btn.dark{background:#0f172a}.btn.red{background:#dc2626}
+input,textarea,select{
+    width:100%;padding:12px;border-radius:12px;border:1px solid #cbd5e1;font-size:16px;
+}
+textarea{min-height:90px;resize:vertical}
+label{font-weight:900;display:block;margin:12px 0 7px;color:#0f172a}
+.check-item{
+    padding:15px;border:1px solid #dbeafe;border-radius:16px;margin:10px 0;background:#fff;
+    display:flex;gap:12px;align-items:flex-start;
+}
+.check-item input{width:22px;height:22px;flex:none}
+.check-item span{font-size:17px;line-height:1.55}
+.result{
+    padding:18px;border-radius:18px;background:#eff6ff;color:#1e3a8a;
+    font-size:20px;font-weight:900;margin-top:14px;
+}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{border:1px solid #dbeafe;padding:11px;text-align:center}
+th{background:#1d4ed8;color:white}
+.risk-low{color:#047857}.risk-mid{color:#b45309}.risk-high{color:#b91c1c}
+.print-btn{
+    position:fixed;right:20px;bottom:20px;border:0;border-radius:999px;padding:14px 20px;
+    background:#2563eb;color:white;font-weight:900;font-size:16px;box-shadow:0 12px 28px rgba(37,99,235,.35);cursor:pointer;
+}
+@media(max-width:980px){
+    .layout{grid-template-columns:1fr}.side{position:static}.grid{grid-template-columns:1fr}
+    .news-card{grid-template-columns:1fr}.icon{font-size:90px}h1{font-size:31px}
+}
+@media print{
+    body{background:white}.wrap{padding:0}.side,.print-btn,.news-nav,.class-tabs{display:none}
+    .layout{display:block}.main{box-shadow:none;border-radius:0}.page{display:block}
+}
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">🖨️ 인쇄하기</button>
+<div class="wrap">
+<header class="hero">
+    <div class="badge">전북과학고등학교 학생도박근절 캠페인</div>
+    <h1>도박 위험 신호 찾기<br>학급별 카드뉴스 보기 & 체크리스트 작성</h1>
+    <p>작은 신호를 빨리 알아차리는 것이 친구와 나의 미래를 지키는 첫걸음입니다.</p>
+</header>
+
+<div class="layout">
+<aside class="side">
+    <h2>📌 메뉴</h2>
+    <div class="menu">
+        <button class="active" onclick="showPage('intro',this)">1. 활동 안내</button>
+        <button onclick="showPage('cards',this)">2. 학급별 카드뉴스</button>
+        <button onclick="showPage('signals',this)">3. 위험 신호 배우기</button>
+        <button onclick="showPage('checklist',this)">4. 체크리스트 작성</button>
+        <button onclick="showPage('classlog',this)">5. 학급 캠페인 기록</button>
+        <button onclick="showPage('help',this)">6. 도움 요청 방법</button>
+    </div>
+    <div class="box warn">
+        <b>중요</b><br>
+        체크리스트는 처벌이나 낙인이 아니라 <b>도움을 빨리 찾기 위한 예방 활동</b>입니다.
+    </div>
+</aside>
+
+<main class="main">
+<section id="intro" class="page active">
+    <h2 class="title">1. 활동 안내</h2>
+    <div class="box good">
+        <b>활동 목표</b><br>
+        학생 도박의 위험 신호를 이해하고, 학급별 카드뉴스를 통해 예방 메시지를 공유하며,
+        스스로 체크리스트를 작성하여 안전한 선택을 실천합니다.
+    </div>
+    <div class="grid">
+        <div class="card"><h3>① 보기</h3><p>학급별 카드뉴스를 넘겨 보며 도박 위험 신호를 확인합니다.</p></div>
+        <div class="card"><h3>② 찾기</h3><p>시간, 돈, 감정, 관계, 온라인 행동에서 나타나는 위험 신호를 구분합니다.</p></div>
+        <div class="card"><h3>③ 작성</h3><p>체크리스트와 실천 약속을 작성하고 TXT 결과 파일을 저장합니다.</p></div>
+    </div>
+    <div class="box warn">
+        <b>캠페인 문구</b><br>
+        “도박 없는 학교, 미래를 지키는 선택” — 전북과학고등학교
+    </div>
+</section>
+
+<section id="cards" class="page">
+    <h2 class="title">2. 학급별 카드뉴스 보기</h2>
+    <div class="class-tabs" id="classTabs"></div>
+    <div class="news-card" id="newsCard">
+        <div>
+            <h3 id="cardTitle"></h3>
+            <p id="cardText"></p>
+        </div>
+        <div class="icon" id="cardIcon"></div>
+    </div>
+    <div class="news-nav">
+        <button class="btn" onclick="prevCard()">◀ 이전</button>
+        <button class="btn alt" onclick="nextCard()">다음 ▶</button>
+        <button class="btn dark" onclick="randomCard()">무작위 카드</button>
+    </div>
+    <div class="box">
+        <b>학급 활동 질문</b><br>
+        이 카드뉴스에서 가장 중요한 위험 신호는 무엇인가요? 우리 반에서 예방하기 위해 할 수 있는 행동은 무엇인가요?
+    </div>
+</section>
+
+<section id="signals" class="page">
+    <h2 class="title">3. 도박 위험 신호 배우기</h2>
+    <div class="grid">
+        <div class="card"><h3>💸 돈의 신호</h3><p>돈을 자주 빌리거나, 사용처를 설명하지 못하거나, 갑자기 큰돈에 집착합니다.</p></div>
+        <div class="card"><h3>⏰ 시간의 신호</h3><p>늦은 밤까지 휴대폰을 사용하고, 수업 집중력과 생활 리듬이 무너집니다.</p></div>
+        <div class="card"><h3>📱 온라인 신호</h3><p>불법 사이트, 스포츠 베팅, 사다리·홀짝·바카라 같은 단어를 자주 검색합니다.</p></div>
+        <div class="card"><h3>😟 감정의 신호</h3><p>초조함, 짜증, 불안, 숨김 행동이 늘고 지거나 잃은 뒤 감정 기복이 커집니다.</p></div>
+        <div class="card"><h3>🤝 관계의 신호</h3><p>친구에게 돈내기를 권하거나, 도박 링크를 공유하거나, 혼자 있으려는 시간이 늘어납니다.</p></div>
+        <div class="card"><h3>📉 학습의 신호</h3><p>과제, 탐구, 동아리 활동에 대한 흥미가 줄고 성적·참여도가 떨어질 수 있습니다.</p></div>
+    </div>
+    <div class="box warn">
+        하나의 신호만으로 단정하지 않습니다. 그러나 여러 신호가 반복된다면 어른의 도움을 받는 것이 안전합니다.
+    </div>
+</section>
+
+<section id="checklist" class="page">
+    <h2 class="title">4. 위험 신호 체크리스트 작성</h2>
+    <div class="grid">
+        <div>
+            <label>학급</label>
+            <select id="studentClass">
+                <option>1학년 1반</option><option>1학년 2반</option><option>1학년 3반</option>
+                <option>2학년 1반</option><option>2학년 2반</option><option>2학년 3반</option>
+                <option>3학년 1반</option><option>3학년 2반</option><option>3학년 3반</option>
+            </select>
+        </div>
+        <div><label>학번</label><input id="studentId" placeholder="예: 202601"></div>
+        <div><label>이름</label><input id="studentName" placeholder="예: 홍길동"></div>
+    </div>
+    <div id="checkArea"></div>
+    <label>내가 오늘 새롭게 알게 된 점</label>
+    <textarea id="learned" placeholder="예: 승률이 낮은 게임은 반복할수록 기대값 때문에 손실이 누적된다는 점을 알게 되었다."></textarea>
+    <label>나의 도박근절 실천 약속</label>
+    <textarea id="promise" placeholder="예: 불법 도박 링크를 클릭하지 않고, 친구가 위험해 보이면 상담교사에게 도움을 요청하겠다."></textarea>
+    <button class="btn" onclick="saveChecklist()">체크 결과 분석 및 TXT 저장</button>
+    <div id="checkResult" class="result"></div>
+</section>
+
+<section id="classlog" class="page">
+    <h2 class="title">5. 학급 캠페인 기록</h2>
+    <div class="box">
+        <label>학급 캠페인 구호</label>
+        <input id="slogan" placeholder="예: 작은 호기심도 멈춤! 도박 없는 우리 반">
+        <label>우리 반 예방 실천 3가지</label>
+        <textarea id="classPlan" placeholder="1. 불법 링크 공유하지 않기&#10;2. 돈내기 놀이 하지 않기&#10;3. 고민이 있으면 상담 요청하기"></textarea>
+        <button class="btn alt" onclick="makeClassLog()">학급 기록 만들기</button>
+        <div id="classLogResult" class="result"></div>
+    </div>
+</section>
+
+<section id="help" class="page">
+    <h2 class="title">6. 도움 요청 방법</h2>
+    <div class="grid">
+        <div class="card"><h3>1단계: 멈추기</h3><p>링크 클릭, 입금, 추가 배팅을 즉시 멈춥니다.</p></div>
+        <div class="card"><h3>2단계: 알리기</h3><p>담임교사, 상담교사, 보호자 중 한 명에게 사실을 알립니다.</p></div>
+        <div class="card"><h3>3단계: 상담하기</h3><p>청소년 도박 문제 상담 1336 등 전문 도움을 요청합니다.</p></div>
+    </div>
+    <div class="box good">
+        <b>친구를 돕는 말</b><br>
+        “너를 혼내려는 게 아니라 걱정돼. 같이 선생님께 도움을 요청하자.”
+    </div>
+    <div class="box warn">
+        <b>피해야 할 말</b><br>
+        “너 왜 그랬어?”, “네가 문제야.” 같은 비난은 친구가 도움을 요청하지 못하게 만들 수 있습니다.
+    </div>
+</section>
+</main>
+</div>
+</div>
+
+<script>
+const classCards = {
+"1학년 1반":[
+    ["첫 신호는 작은 호기심입니다","무료 포인트, 이벤트 머니, 친구 추천 링크처럼 보이는 것들이 도박 접근의 시작이 될 수 있습니다.","🎁"],
+    ["링크를 멈추면 위험도 멈춥니다","출처가 불분명한 베팅 링크는 클릭하지 않고, 공유하지 않는 것이 가장 안전합니다.","🔗"],
+    ["우리 반 약속","돈내기 장난보다 서로의 미래를 지키는 선택을 하겠습니다.","🤝"]
+],
+"1학년 2반":[
+    ["돈을 빌리는 일이 반복되나요?","사용처를 말하기 어렵거나 소액을 자주 빌리는 행동은 위험 신호일 수 있습니다.","💸"],
+    ["작은 돈도 위험합니다","도박은 금액의 크기보다 반복성과 숨김 행동이 더 큰 문제입니다.","📉"],
+    ["도움 요청은 용기입니다","혼자 감추지 말고 어른에게 빨리 알리는 것이 가장 현명합니다.","🛟"]
+],
+"1학년 3반":[
+    ["승리 경험이 함정이 됩니다","처음에 이긴 경험은 ‘다시 하면 된다’는 착각을 만들 수 있습니다.","🎲"],
+    ["확률은 감정에 흔들리지 않습니다","운이 좋았던 날이 있어도 기대값이 음수이면 장기적으로 손실이 누적됩니다.","🧮"],
+    ["과학고의 선택","우리는 확률을 배워 위험을 피하고 미래를 설계합니다.","🔬"]
+],
+"2학년 1반":[
+    ["시간 사용이 무너지나요?","늦은 밤 휴대폰 사용, 수업 집중 저하, 과제 미루기는 위험 신호가 될 수 있습니다.","⏰"],
+    ["생활 리듬을 지키자","수면, 학습, 운동 리듬을 지키는 것이 도박 예방의 기본입니다.","🌱"],
+    ["친구와 함께 점검","서로의 변화를 비난이 아니라 관심으로 살펴봅니다.","👀"]
+],
+"2학년 2반":[
+    ["감정 기복이 커졌나요?","잃은 뒤 짜증, 불안, 초조함이 커지는 것은 도박 문제의 신호일 수 있습니다.","😟"],
+    ["숨기기보다 말하기","문제는 숨길수록 커지고, 말할수록 해결 가능성이 커집니다.","💬"],
+    ["우리 반 안전망","친구의 위험 신호를 보면 조용히 어른에게 도움을 연결합니다.","🛡️"]
+],
+"2학년 3반":[
+    ["온라인 단어를 주의하세요","사다리, 홀짝, 바카라, 토토, 고액 배당 같은 말은 위험 신호일 수 있습니다.","📱"],
+    ["재미로 포장하지 않기","도박은 놀이가 아니라 중독과 손실로 이어질 수 있는 위험 행동입니다.","🚫"],
+    ["공유하지 않는 책임","도박 관련 링크와 정보를 공유하지 않는 것도 예방입니다.","📵"]
+],
+"3학년 1반":[
+    ["진로와 신뢰를 지키는 선택","도박 문제는 학습, 관계, 진로 준비에 큰 영향을 줄 수 있습니다.","🎓"],
+    ["미래 비용은 큽니다","잃는 것은 돈만이 아니라 시간, 집중력, 신뢰입니다.","⏳"],
+    ["고3의 약속","압박감이 클수록 위험한 선택 대신 도움을 요청합니다.","🧭"]
+],
+"3학년 2반":[
+    ["친구의 변화가 보이나요?","갑작스러운 고립, 돈 문제, 짜증, 비밀스러운 휴대폰 사용을 살펴봅니다.","🔍"],
+    ["비난보다 연결","친구를 몰아세우지 말고 상담교사, 담임교사에게 연결합니다.","🤲"],
+    ["말 한마디가 예방입니다","‘같이 도움을 받자’는 말이 친구의 미래를 지킬 수 있습니다.","💙"]
+],
+"3학년 3반":[
+    ["도박 없는 학교 문화","우리 학교의 문화는 경쟁보다 성장, 우연보다 실력, 손실보다 미래입니다.","🏫"],
+    ["데이터로 이해하기","확률과 기대값은 도박이 왜 위험한지 설명해 주는 강력한 도구입니다.","📊"],
+    ["전북과학고 선언","도박 없는 학교, 미래를 지키는 선택을 함께 실천합니다.","✨"]
+]
+};
+
+let currentClass = "1학년 1반";
+let currentCard = 0;
+
+function showPage(id,btn){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function initTabs(){
+    const tabs = document.getElementById("classTabs");
+    Object.keys(classCards).forEach(cls=>{
+        const b=document.createElement("button");
+        b.textContent=cls;
+        b.onclick=()=>{currentClass=cls;currentCard=0;updateTabs();renderCard();};
+        tabs.appendChild(b);
+    });
+    updateTabs();
+    renderCard();
+}
+function updateTabs(){
+    document.querySelectorAll("#classTabs button").forEach(b=>{
+        b.classList.toggle("active", b.textContent===currentClass);
+    });
+}
+function renderCard(){
+    const c = classCards[currentClass][currentCard];
+    document.getElementById("cardTitle").textContent = `${currentClass} 카드뉴스 ${currentCard+1}. ${c[0]}`;
+    document.getElementById("cardText").textContent = c[1];
+    document.getElementById("cardIcon").textContent = c[2];
+}
+function nextCard(){currentCard=(currentCard+1)%classCards[currentClass].length;renderCard();}
+function prevCard(){currentCard=(currentCard-1+classCards[currentClass].length)%classCards[currentClass].length;renderCard();}
+function randomCard(){
+    const keys=Object.keys(classCards);
+    currentClass=keys[Math.floor(Math.random()*keys.length)];
+    currentCard=Math.floor(Math.random()*classCards[currentClass].length);
+    updateTabs();renderCard();
+}
+initTabs();
+
+const checks = [
+"도박·베팅·토토·사다리·홀짝 등 관련 단어를 검색하거나 들은 적이 있다.",
+"친구에게 돈내기나 베팅을 권유받은 적이 있다.",
+"출처가 불분명한 도박성 링크를 받은 적이 있다.",
+"게임 아이템, 포인트, 코인, 현금성 보상에 지나치게 집착한 적이 있다.",
+"돈을 잃거나 딴 경험을 숨기고 싶었던 적이 있다.",
+"돈을 빌리거나 사용처를 설명하기 어려웠던 적이 있다.",
+"늦은 밤까지 휴대폰을 사용해 수업 집중이 어려웠던 적이 있다.",
+"잃은 돈을 다시 찾고 싶다는 생각을 한 적이 있다.",
+"친구가 도박 위험 신호를 보였지만 어떻게 도와야 할지 몰랐던 적이 있다.",
+"도박 문제는 혼자 해결해야 한다고 생각한 적이 있다."
+];
+
+function renderChecks(){
+    const area=document.getElementById("checkArea");
+    area.innerHTML="";
+    checks.forEach((t,i)=>{
+        area.innerHTML += `<label class="check-item"><input type="checkbox" id="c${i}"><span>${i+1}. ${t}</span></label>`;
+    });
+}
+renderChecks();
+
+function getNowStamp(){
+    const d=new Date();
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")+
+    "_"+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0")+String(d.getSeconds()).padStart(2,"0");
+}
+
+function saveChecklist(){
+    const cls=document.getElementById("studentClass").value;
+    const sid=document.getElementById("studentId").value.trim() || "학번미입력";
+    const name=document.getElementById("studentName").value.trim() || "이름미입력";
+    const learned=document.getElementById("learned").value.trim();
+    const promise=document.getElementById("promise").value.trim();
+    let count=0, selected=[];
+    checks.forEach((t,i)=>{
+        if(document.getElementById("c"+i).checked){count++;selected.push(`${i+1}. ${t}`);}
+    });
+    let level="", advice="", clsName="";
+    if(count<=2){level="낮음"; clsName="risk-low"; advice="예방 지식을 잘 유지하면서 도박성 링크와 돈내기 문화를 계속 피하세요.";}
+    else if(count<=5){level="주의"; clsName="risk-mid"; advice="여러 위험 신호가 보입니다. 담임교사나 상담교사와 예방 상담을 해 보는 것이 좋습니다.";}
+    else{level="높음"; clsName="risk-high"; advice="혼자 해결하려 하지 말고 즉시 보호자, 담임교사, 상담교사에게 도움을 요청하세요.";}
+    document.getElementById("checkResult").innerHTML =
+      `체크 개수: ${count}개 / 위험 신호 수준: <span class="${clsName}">${level}</span><br>${advice}`;
+
+    const stamp=getNowStamp();
+    const text=[
+        "전북과학고등학교 도박 위험 신호 체크리스트 결과",
+        `학급: ${cls}`,
+        `학번: ${sid}`,
+        `이름: ${name}`,
+        `작성시각: ${stamp}`,
+        `체크 개수: ${count}`,
+        `위험 신호 수준: ${level}`,
+        "",
+        "체크한 항목",
+        selected.length?selected.join("\n"):"없음",
+        "",
+        "새롭게 알게 된 점",
+        learned || "미작성",
+        "",
+        "나의 실천 약속",
+        promise || "미작성",
+        "",
+        "안내",
+        "이 체크리스트는 진단이나 처벌 목적이 아니라 예방과 도움 요청을 위한 교육 활동입니다.",
+        "도움이 필요하면 보호자, 담임교사, 상담교사 또는 청소년 도박 문제 상담 1336에 문의하세요."
+    ].join("\n");
+    const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=`${sid}_${name}_도박위험신호체크_${level}_${stamp}.txt`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+function makeClassLog(){
+    const slogan=document.getElementById("slogan").value.trim() || "도박 없는 학교, 미래를 지키는 선택";
+    const plan=document.getElementById("classPlan").value.trim() || "1. 도박 링크 공유하지 않기\n2. 돈내기 놀이 하지 않기\n3. 위험 신호 발견 시 도움 요청하기";
+    const stamp=getNowStamp();
+    const text=[
+        "전북과학고등학교 학급 도박근절 캠페인 기록",
+        `작성시각: ${stamp}`,
+        "",
+        "학급 캠페인 구호",
+        slogan,
+        "",
+        "우리 반 예방 실천",
+        plan
+    ].join("\n");
+    document.getElementById("classLogResult").innerHTML =
+      `학급 캠페인 구호: ${slogan}<br>아래 내용으로 TXT 파일을 저장했습니다.`;
+    const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=`전북과학고_학급도박근절캠페인기록_${stamp}.txt`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
