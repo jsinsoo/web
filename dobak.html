@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>전북과학고등학교 학생도박근절 캠페인 주간 홍보자료</title>
+<style>
+  :root{
+    --navy:#102a43; --blue:#1d4ed8; --cyan:#06b6d4; --green:#16a34a;
+    --yellow:#facc15; --red:#ef4444; --bg:#f4f8ff; --card:#ffffff; --ink:#172033;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Pretendard','Noto Sans KR','Malgun Gothic',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f8fbff 45%,#fff8e1);color:var(--ink);line-height:1.75}
+  header{padding:54px 24px 42px;text-align:center;background:radial-gradient(circle at 15% 20%,rgba(250,204,21,.35),transparent 28%),linear-gradient(135deg,#0f172a,#1d4ed8 55%,#0891b2);color:white;position:relative;overflow:hidden}
+  header:after{content:'NO BETTING · YES FUTURE';position:absolute;right:-35px;bottom:8px;font-size:44px;font-weight:900;opacity:.12;letter-spacing:3px;transform:rotate(-6deg)}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:8px 16px;border-radius:999px;font-weight:800;margin-bottom:14px;backdrop-filter:blur(6px)}
+  h1{font-size:clamp(30px,5vw,56px);line-height:1.16;margin:8px 0 12px;font-weight:950;letter-spacing:-1.5px}
+  .subtitle{font-size:clamp(17px,2vw,24px);font-weight:700;opacity:.96;margin:0 auto;max-width:900px}
+  nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);border-bottom:1px solid #dbeafe;backdrop-filter:blur(10px);padding:10px 12px;text-align:center}
+  nav a{display:inline-block;margin:5px;padding:9px 14px;border-radius:999px;text-decoration:none;color:#0f3b85;background:#eff6ff;font-weight:800;font-size:14px}
+  nav a:hover{background:#dbeafe;color:#082f49}
+  main{max-width:1120px;margin:0 auto;padding:28px 18px 60px}
+  section{background:rgba(255,255,255,.9);border:1px solid #e2e8f0;border-radius:28px;padding:30px;margin:24px 0;box-shadow:0 16px 38px rgba(15,23,42,.08)}
+  h2{font-size:30px;margin:0 0 18px;color:#0f3b85;letter-spacing:-.6px;border-left:10px solid var(--blue);padding-left:14px}
+  h3{font-size:22px;margin:22px 0 10px;color:#134e4a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid #e5e7eb;border-radius:22px;padding:20px;box-shadow:0 8px 22px rgba(15,23,42,.06)}
+  .card strong{font-size:20px;color:#0f3b85}
+  .danger{background:linear-gradient(135deg,#fff1f2,#fff7ed);border-color:#fecaca}
+  .safe{background:linear-gradient(135deg,#ecfeff,#f0fdf4);border-color:#bbf7d0}
+  .quote{font-size:28px;font-weight:950;text-align:center;color:#0f172a;background:linear-gradient(90deg,#fef3c7,#dbeafe,#dcfce7);border-radius:24px;padding:24px;margin:16px 0}
+  .slogan{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+  .slogan div{padding:18px;border-radius:20px;background:#f8fafc;border:1px dashed #93c5fd;font-size:20px;font-weight:900;text-align:center}
+  .timeline{counter-reset:day;display:grid;gap:14px}
+  .day{counter-increment:day;display:flex;gap:16px;align-items:flex-start;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:16px}
+  .day:before{content:counter(day) '일차';flex:0 0 70px;text-align:center;background:#1d4ed8;color:white;font-weight:900;border-radius:14px;padding:8px 6px}
+  .poster{border:6px solid #0f3b85;border-radius:28px;padding:24px;background:white;text-align:center}
+  .poster-title{font-size:44px;font-weight:1000;color:#ef4444;line-height:1.12;margin:8px 0}
+  .poster-sub{font-size:24px;font-weight:900;color:#0f172a}
+  .checklist li{margin:8px 0;padding:8px 12px;background:#f1f5f9;border-radius:12px;list-style:'✅  '}
+  details{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;margin:10px 0;padding:14px 16px}
+  summary{cursor:pointer;font-weight:900;color:#0f3b85}
+  .pledge{background:#0f172a;color:white;border-radius:24px;padding:24px;font-size:20px;font-weight:800}
+  .button{display:inline-block;background:#1d4ed8;color:white;text-decoration:none;border-radius:999px;padding:12px 18px;font-weight:900;margin:5px 4px}
+  .small{font-size:14px;color:#475569}
+  footer{text-align:center;padding:28px;background:#0f172a;color:#e5e7eb;font-size:14px}
+  @media print{nav{display:none}body{background:white}section{box-shadow:none;break-inside:avoid}header{color:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header>
+  <div class="badge">전북과학고등학교 학생도박근절 캠페인 주간</div>
+  <h1>도박은 게임이 아닙니다.<br>나의 미래를 지키는 선택, 지금 시작!</h1>
+  <p class="subtitle">확률을 아는 과학고 학생답게, 우연에 미래를 맡기지 않습니다. 데이터로 판단하고, 친구를 지키고, 건강한 디지털 문화를 만듭니다.</p>
+</header>
+<nav>
+  <a href="#why">왜 위험한가</a><a href="#sign">위험 신호</a><a href="#week">캠페인 주간</a><a href="#quiz">OX 퀴즈</a><a href="#help">도움 요청</a><a href="#poster">게시용 문구</a>
+</nav>
+<main>
+<section id="why">
+  <h2>1. 학생 도박, 왜 반드시 멈춰야 할까요?</h2>
+  <div class="quote">“한 번쯤은 괜찮다”가 아니라 “한 번부터 멈춰야 한다”</div>
+  <div class="grid">
+    <div class="card danger"><strong>🎲 확률의 함정</strong><br>도박은 실력보다 우연과 구조적 손실이 크게 작용합니다. 몇 번의 작은 당첨은 더 큰 손실을 유도할 수 있습니다.</div>
+    <div class="card danger"><strong>📱 디지털 접근성</strong><br>스마트폰, SNS, 불법 사이트, 사행성 게임 요소는 학생을 빠르게 위험 상황으로 이끌 수 있습니다.</div>
+    <div class="card danger"><strong>💸 금전·관계 피해</strong><br>돈을 빌리거나 거짓말을 하게 되고, 친구 관계와 가족 신뢰가 무너질 수 있습니다.</div>
+    <div class="card danger"><strong>🧠 집중력 저하</strong><br>도박 생각이 반복되면 학습 리듬, 수면, 감정 조절, 진로 준비에 악영향을 줍니다.</div>
+  </div>
+</section>
+<section id="sign">
+  <h2>2. 이런 모습이 보이면 위험 신호입니다</h2>
+  <ul class="checklist">
+    <li>스포츠 경기 결과, 사다리, 홀짝, 코인성 베팅 이야기를 자주 한다.</li>
+    <li>친구에게 돈을 빌리거나 소액 결제를 반복한다.</li>
+    <li>도박 관련 앱·사이트·단체 채팅방을 숨기려 한다.</li>
+    <li>잃은 돈을 다시 따서 만회하겠다고 생각한다.</li>
+    <li>수업 집중, 수면, 감정 기복, 대인관계에 변화가 생긴다.</li>
+  </ul>
+  <div class="card safe"><strong>중요!</strong> 친구를 비난하거나 소문내기보다, 담임교사·상담교사·보호자·전문상담기관에 연결하는 것이 진짜 도움입니다.</div>
+</section>
+<section id="week">
+  <h2>3. 캠페인 주간 운영 예시</h2>
+  <div class="timeline">
+    <div class="day"><div><strong>캠페인 선포</strong><br>조회 시간에 “도박 없는 학교, 미래를 지키는 선택” 선언문 낭독</div></div>
+    <div class="day"><div><strong>확률로 보는 도박의 구조</strong><br>수학·정보 시간 연계: 기대값, 확률, 시뮬레이션으로 도박 손실 구조 이해</div></div>
+    <div class="day"><div><strong>위험 신호 찾기</strong><br>학급별 카드뉴스 보기, 위험 신호 체크리스트 작성</div></div>
+    <div class="day"><div><strong>친구 지킴이 활동</strong><br>“소문내지 않기, 혼자 두지 않기, 도움 연결하기” 역할극</div></div>
+    <div class="day"><div><strong>실천 약속 캠페인</strong><br>학생 자율 서명, 포스터 게시, 학급별 예방 문구 만들기</div></div>
+  </div>
+</section>
+<section id="quiz">
+  <h2>4. 학생 참여 OX 퀴즈</h2>
+  <details><summary>1. 소액 도박은 큰 문제가 되지 않는다.</summary>정답: X. 소액이라도 반복되면 습관화되고, 더 큰 금액으로 이어질 수 있습니다.</details>
+  <details><summary>2. 도박에서 잃은 돈을 다시 따서 회복하겠다는 생각은 위험하다.</summary>정답: O. 손실 만회 심리는 도박을 지속시키는 대표적 위험 신호입니다.</details>
+  <details><summary>3. 친구가 도박 문제로 힘들어하면 소문내지 않고 도움을 연결해야 한다.</summary>정답: O. 비난보다 안전한 상담 연결이 중요합니다.</details>
+  <details><summary>4. 불법 도박 사이트는 개인정보와 금전 피해 위험도 크다.</summary>정답: O. 금전 손실뿐 아니라 개인정보 유출, 협박, 2차 피해로 이어질 수 있습니다.</details>
+  <details><summary>5. 확률과 기대값을 이해하면 도박의 위험성을 더 잘 판단할 수 있다.</summary>정답: O. 과학적·수학적 사고는 사행성 유혹을 비판적으로 보는 힘이 됩니다.</details>
+</section>
+<section id="poster">
+  <h2>5. 게시판·복도용 포스터 문구</h2>
+  <div class="poster">
+    <div class="poster-sub">전북과학고등학교 학생도박근절 캠페인</div>
+    <div class="poster-title">도박 STOP!<br>미래 START!</div>
+    <p style="font-size:22px;font-weight:800">확률은 배움에 쓰고, 미래는 노력으로 만듭니다.</p>
+    <div class="slogan">
+      <div>🎯 베팅 대신 도전</div>
+      <div>🤝 방관 대신 도움</div>
+      <div>📚 순간 유혹보다 진짜 성장</div>
+    </div>
+  </div>
+</section>
+<section id="help">
+  <h2>6. 도움이 필요할 때</h2>
+  <div class="grid">
+    <div class="card safe"><strong>학교 안</strong><br>담임교사, 상담교사, 보건교사, 신뢰할 수 있는 선생님에게 바로 말하기</div>
+    <div class="card safe"><strong>가정</strong><br>보호자에게 숨기지 않고 상황을 설명하기</div>
+    <div class="card safe"><strong>전문 상담</strong><br>도박문제 상담전화 <b>국번없이 1336</b> 이용</div>
+  </div>
+  <p class="small">참고: 한국도박문제예방치유원 헬프라인 1336 및 청소년 도박문제 상담 안내 자료 기준으로 구성했습니다.</p>
+</section>
+<section>
+  <h2>7. 우리 학교 실천 약속</h2>
+  <div class="pledge">
+    나는 도박성 게임과 불법 베팅을 하지 않겠습니다.<br>
+    나는 친구의 어려움을 조롱하거나 소문내지 않겠습니다.<br>
+    나는 위험 신호를 발견하면 믿을 수 있는 어른과 전문기관에 도움을 요청하겠습니다.<br>
+    나는 전북과학고등학교의 건강한 디지털 문화를 함께 만들겠습니다.
+  </div>
+</section>
+</main>
+<footer>
+  전북과학고등학교 학생도박근절 캠페인 주간 홍보자료 · 학교 게시판/학급 안내/가정 연계 자료로 활용 가능
+</footer>
+</body>
+</html>
