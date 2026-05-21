@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>옛날 옛적에 - 한글 읽어주기 TTS</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:linear-gradient(135deg,#fff7e6,#f4fbff);color:#222;line-height:1.9}
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid #ddd;padding:14px 20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h1{margin:0 0 8px;font-size:24px;color:#7a3e00}.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  button,select,input{font-size:15px;border:1px solid #cfcfcf;border-radius:10px;padding:8px 12px;background:white}button{cursor:pointer;font-weight:700}button:hover{background:#fff0d6}
+  main{max-width:980px;margin:24px auto;padding:0 18px 60px}.card{background:rgba(255,255,255,.9);border:1px solid #e6d7bd;border-radius:20px;padding:28px;box-shadow:0 10px 30px rgba(80,45,0,.08)}
+  .intro{font-size:20px;font-weight:800;color:#9a4f00;margin-bottom:22px}.text p{margin:0 0 14px;padding:10px 12px;border-radius:12px;white-space:pre-wrap}
+  .text p:hover{background:#fff3dc}.reading{background:#ffe2ad!important;outline:2px solid #f0a020}.small{font-size:13px;color:#666;margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>● 옛날 옛적에 — 한글 읽어주기 TTS</h1>
+  <div class="controls">
+    <button onclick="speakAll()">▶ 전체 읽기</button>
+    <button onclick="pauseSpeech()">⏸ 일시정지</button>
+    <button onclick="resumeSpeech()">▶ 다시재생</button>
+    <button onclick="stopSpeech()">■ 정지</button>
+    <label>속도 <input id="rate" type="range" min="0.5" max="1.8" step="0.1" value="0.95"></label>
+    <label>음높이 <input id="pitch" type="range" min="0.5" max="1.8" step="0.1" value="1"></label>
+    <select id="voiceSelect"></select>
+  </div>
+  <div class="small">문단을 클릭하면 해당 문단만 읽습니다. 크롬/엣지에서 가장 안정적으로 작동합니다.</div>
+</header>
+<main><section class="card"><div class="intro">어쩌면 이렇게 재미나게 썼을까... 국보급이다!</div><div id="text" class="text">
+<p>옛날 옛날
+아주 가까운 옛날
+시계가 밥 먹던 시절에~</p>
+<p>추워도 다 같이 춥고
+고파도 다 같이 배고팠던 시절에~
+검정 솜이불에
+식구 모두가
+덮고 자던 시절에~
+집에서 태어나서
+집에서 저 세상 가던 시절에~</p>
+<p>일그러지고, 찌그러지고,
+뒤통수 벗겨진 색경 보고
+바리깡으로 상고머리 빡빡머리 깎던 시절에~</p>
+<p>쥐를 잡자,
+저축의 달,
+불조심,
+방공방첩,
+가슴에 표어를 달고 살던 시절에~</p>
+<p>신문지로 모자 접고
+측간에 똥누고
+비료 포대로 똥닦고 글로브 만들던 시절에~</p>
+<p>남자들이 미장원에 가면 큰일나고,
+여자들이 겨드랑이털 깎지 않던 시절에~</p>
+<p>아무데서나 엄마들이 저고리 올리고
+아기들 젖 먹이던 브라자 없던 시절에~</p>
+<p>신문이 오면
+TV방송 편성표,
+오늘의 운세 먼저 보고,
+고우영의 수호지 보려고 일간스포츠 사던 시절에~
+주간경향,
+썬데이서울, 보고
+펜팔하던 시절에~</p>
+<p>밤마다 천정에서 쥐새끼들이 운동회하고
+쥐꼬리,
+회충,
+모아서 학교 가던 때
+두툼한 전화번호부를 베고 누워 텔레비전 보다 깜빡 잠들던 시절에~
+동네에 TV 한 대밖에 없던 시절에~</p>
+<p>다방마다
+마담,
+DJ 있던 시절에
+레슬링,
+권투,
+경기에 다방마다
+앉을 자리도 없어
+단골손님만 VIP 대우
+받던 시절에~</p>
+<p>외국인은 모두 미국인이라고 했고
+토요명화는 미국영화,
+외국 노래는 모두 팝송이던 시절에~</p>
+<p>급해서 뛰어가다가도
+국기 하강식에 걸리면 그 자리에서 얼어붙고
+야간민방위 훈련 때 민방위대원이
+“불 꺼요” 하던 시절에~</p>
+<p>경인역전 마라톤대회에
+맨발의 아베베 선수가 달리고
+외국 대통령이 오면 단체로 길에 나가 국기 흔들던 시절에~</p>
+<p>수놈은 다 쫑, 암놈은 무조건 메리.
+동네 덕구들이 죄다 미국 이름의 요한이요,
+성모 마리아였던 시절에~</p>
+<p>구두닦이,
+넝마주이,
+지게꾼,
+신문팔이,
+우산장사,
+상이군인,
+연탄가스,
+토큰,
+회수권,
+장수만세,
+주택복권,
+말표신발, 왕자표신발, 범표신발,
+흰 고무신,
+검정 고무신,
+커피는 맥스웰 하우스,
+프림은 동서식품,
+감기엔 판피린,
+소화제는 훼스탈,
+매 맞아 멍든 데는 안티프라민,
+이명래고약, 송충이잡기, 칡뿌리 캐기,
+요괴인간,
+우주소년 아톰,
+여로, 아씨, 법창야화,
+오제도 검사, 전설의 고향,
+대연각호텔, 대왕코너,
+시민회관, 쥬시후레시, 스피아민트,
+풍선 껌은 오~오~ 롯데껌.</p>
+<p>김일의 박치기, 당수왕 천규덕, 시발택시, 크라운택시,
+포니,
+삼륜차,
+한강다리 전찻길엔 전차가
+느리게 달리고,
+아이들은 열쇠키를 만든다며 전차 철길에 대못을 올려놓고 도망가고,
+우리 삼촌은 전차비 안 내려고 뛰어내리다 다리가 부러져
+삼각지 뼈 접골에 다녔던 시절에~</p>
+<p>다마네기,
+다꽝,
+벤또,
+빠게스,
+다라,
+와루바시,
+모찌,
+빤스~
+난닝구,
+일본말이 너무 많아
+우리랑 같이 살던 시절에~</p>
+<p>인천 앞바다에 사이다가 떴어도
+고뿌 없이는 못 마시던 시절에~</p>
+<p>시골영감이 처음 타는 기차 놀이에
+차표 파는 아가씨와 실갱이 하면서
+이 세상에 에누리 없는 장사가 어딨어 따지던 시절에~</p>
+<p>오후반이면 오전반 끝날 때까지 공기하고,
+고무줄 하며 기다리고
+소풍 가기 전날,
+비가 올까 봐 연신 하늘을 살펴보던 시절에~</p>
+<p>아랫목에 묻어둔 밥그릇 엎어지면
+이불에 묻은 밥풀 떼어먹고
+낮잠 자고 일어나 아침인 줄 알고
+가방 메고 다시 학교 가던 시절에~</p>
+<p>이소룡의 정무문, 성룡의 취권,
+왕우의 외팔이 시리즈.
+추석, 설날 명절 특집 영화는 중국무협 영화이던 시절에~</p>
+<p>운동장을 돌며 맹호부대,
+백마부대,
+군가 부르고
+옥수수빵 배급받던 시절에~</p>
+<p>씹던 껌을 벽에 붙여놨다가 다시 씹고
+덴찌 후라씨로 편먹고 놀던 시절에~</p>
+<p>어린 여자 아이들이 고무줄하며
+엄마에게 자기 죽으면 양지바른 곳에 묻어달라고 노래하던 시절에~</p>
+<p>딱지치기,
+땅따먹기, 고무줄놀이,
+달고나,
+무궁화꽃이 피었습니다.
+오징어게임이 생활이던 시절에~</p>
+<p>당구장에 갔다고 학생부에 끌려가 뒤지게 맞고
+극장에 갔다가 걸리면 처벌받던 시절에~</p>
+<p>키스신이 나오면 단체로 휘파람 불던 시절에~</p>
+<p>옛날 옛날
+아주 가까운 옛날
+우리 모두가 이제 막 피어나는 연두색이던 시절에....</p>
+<p>아 ~~ 그립구나
+그 시절이 .....
+다시는 돌아갈 수 없는 그 시절이 그립구나~^.^
+아~ 옛날이여~~</p>
+</div></section></main>
+<script>
+let voices=[], currentIndex=0, paragraphs=[...document.querySelectorAll('#text p')];
+const voiceSelect=document.getElementById('voiceSelect');
+function loadVoices(){voices=speechSynthesis.getVoices();voiceSelect.innerHTML='';voices.forEach((v,i)=>{let o=document.createElement('option');o.value=i;o.textContent=`${v.name} (${v.lang})`;if(v.lang.includes('ko'))o.selected=true;voiceSelect.appendChild(o);});}
+loadVoices(); speechSynthesis.onvoiceschanged=loadVoices;
+function clearReading(){paragraphs.forEach(p=>p.classList.remove('reading'));}
+function makeUtterance(text, onend){let u=new SpeechSynthesisUtterance(text);let v=voices[voiceSelect.value]; if(v)u.voice=v; u.lang='ko-KR';u.rate=parseFloat(document.getElementById('rate').value);u.pitch=parseFloat(document.getElementById('pitch').value);u.onend=onend;return u;}
+function speakParagraph(i){stopSpeech(false);currentIndex=i;clearReading();paragraphs[i].classList.add('reading');paragraphs[i].scrollIntoView({behavior:'smooth',block:'center'});speechSynthesis.speak(makeUtterance(paragraphs[i].innerText,()=>{clearReading();}));}
+function speakAll(){stopSpeech(false);currentIndex=0;readNext();}
+function readNext(){if(currentIndex>=paragraphs.length){clearReading();return;}clearReading();paragraphs[currentIndex].classList.add('reading');paragraphs[currentIndex].scrollIntoView({behavior:'smooth',block:'center'});speechSynthesis.speak(makeUtterance(paragraphs[currentIndex].innerText,()=>{currentIndex++;readNext();}));}
+function pauseSpeech(){speechSynthesis.pause();}
+function resumeSpeech(){speechSynthesis.resume();}
+function stopSpeech(doClear=true){speechSynthesis.cancel();if(doClear)clearReading();}
+paragraphs.forEach((p,i)=>p.addEventListener('click',()=>speakParagraph(i)));
+window.addEventListener('beforeunload',()=>speechSynthesis.cancel());
+</script>
+</body></html>
