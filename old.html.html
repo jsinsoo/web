@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>옛날 옛적에 TTS 번역 학습</title>
+<style>
+body{font-family:'Malgun Gothic',Arial,sans-serif;margin:0;background:linear-gradient(135deg,#fff8ec,#eef6ff);color:#222;}
+.wrap{max-width:1100px;margin:34px auto;padding:22px;}
+.card{background:#fff;border-radius:24px;padding:30px;box-shadow:0 12px 34px rgba(0,0,0,.12);}
+h1{text-align:center;color:#7b3f12;font-size:36px;margin:6px 0 10px;}
+.subtitle{text-align:center;line-height:1.7;color:#555;font-size:17px;}
+.info{background:#fff7ec;border-left:7px solid #cc7a28;padding:16px 20px;border-radius:16px;margin:20px 0;line-height:1.8;font-size:18px;}
+.controls{text-align:center;margin:20px 0;position:sticky;top:0;background:rgba(255,255,255,.92);padding:10px;border-radius:16px;z-index:5;}
+button{border:none;border-radius:999px;padding:9px 15px;margin:4px;background:#2f5e9a;color:white;cursor:pointer;font-weight:700;}
+button:hover{filter:brightness(1.08);}
+.btn-ko{background:#b46b1d;}
+.stop{background:#555;}
+.section{margin-top:30px;padding-top:18px;border-top:2px dashed #ddd;}
+h2{color:#7a4b00;font-size:25px;}
+.pair{display:grid;grid-template-columns:48px 1fr auto;gap:8px 12px;align-items:center;margin:11px 0;padding:15px;border:1px solid #eee;border-radius:18px;background:#fffdf9;}
+.num{grid-row:1 / span 2;font-size:21px;font-weight:800;color:#b58b61;text-align:center;}
+.ko{font-size:18px;font-weight:700;color:#5f3211;line-height:1.6;}
+.en{font-size:17px;color:#244a7c;line-height:1.6;}
+pre{white-space:pre-wrap;word-break:keep-all;background:#fffdf7;border-radius:18px;padding:20px;line-height:1.85;font-size:16px;border:1px solid #f0e5c8;}
+@media(max-width:720px){.pair{grid-template-columns:36px 1fr;}.pair button{grid-column:2;justify-self:start;}h1{font-size:28px;}}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+<h1>옛날 옛적에 — 한글·영어 TTS</h1>
+<div class="subtitle">한글 한 줄 + 영어 번역 한 줄 / 문장별 듣기 / 전체 듣기 / 맨 아래 전체 Text 첨부</div>
+<div class="info">
+<strong>구성:</strong> 원문의 추억 어린 표현을 살려 한 줄씩 영어로 번역했습니다.<br>
+<strong>사용:</strong> 한글 듣기, 영어 듣기, 전체 듣기 버튼을 눌러 TTS로 들을 수 있습니다.
+</div>
+<div class="controls">
+<button class="btn-ko" onclick="speakAll('ko-KR')">한글 전체 듣기</button>
+<button onclick="speakAll('en-US')">영어 전체 듣기</button>
+<button class="stop" onclick="speechSynthesis.cancel()">정지</button>
+</div>
+
+<div class="section">
+<h2>한글 한 줄 · 영어 번역 한 줄</h2>
+
+<div class="pair">
+  <div class="num">1</div>
+  <div class="ko">어쩌면 이렇게 재미나게 썼을까... 국보급이다!</div>
+  <button class="btn-ko" onclick="speak(\"어쩌면 이렇게 재미나게 썼을까... 국보급이다!\", 'ko-KR')">한글 듣기</button>
+  <div class="en">How could someone write this so delightfully? It is a national-treasure-level piece!</div>
+  <button onclick="speak(\"How could someone write this so delightfully? It is a national-treasure-level piece!\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">2</div>
+  <div class="ko">●옛날 옛적에</div>
+  <button class="btn-ko" onclick="speak(\"●옛날 옛적에\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Once upon a time, long ago.</div>
+  <button onclick="speak(\"Once upon a time, long ago.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">3</div>
+  <div class="ko">옛날 옛날</div>
+  <button class="btn-ko" onclick="speak(\"옛날 옛날\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Long, long ago,</div>
+  <button onclick="speak(\"Long, long ago,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">4</div>
+  <div class="ko">아주 가까운 옛날</div>
+  <button class="btn-ko" onclick="speak(\"아주 가까운 옛날\", 'ko-KR')">한글 듣기</button>
+  <div class="en">in a very recent old time,</div>
+  <button onclick="speak(\"in a very recent old time,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">5</div>
+  <div class="ko">시계가 밥 먹던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"시계가 밥 먹던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">in the days when clocks seemed to eat their meals.</div>
+  <button onclick="speak(\"in the days when clocks seemed to eat their meals.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">6</div>
+  <div class="ko">추워도 다 같이 춥고</div>
+  <button class="btn-ko" onclick="speak(\"추워도 다 같이 춥고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">When everyone was cold together,</div>
+  <button onclick="speak(\"When everyone was cold together,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">7</div>
+  <div class="ko">고파도 다 같이 배고팠던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"고파도 다 같이 배고팠던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and everyone was hungry together.</div>
+  <button onclick="speak(\"and everyone was hungry together.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">8</div>
+  <div class="ko">검정 솜이불에</div>
+  <button class="btn-ko" onclick="speak(\"검정 솜이불에\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Under a black cotton quilt,</div>
+  <button onclick="speak(\"Under a black cotton quilt,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">9</div>
+  <div class="ko">식구 모두가</div>
+  <button class="btn-ko" onclick="speak(\"식구 모두가\", 'ko-KR')">한글 듣기</button>
+  <div class="en">the whole family</div>
+  <button onclick="speak(\"the whole family\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">10</div>
+  <div class="ko">덮고 자던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"덮고 자던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">slept together in those days.</div>
+  <button onclick="speak(\"slept together in those days.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">11</div>
+  <div class="ko">집에서 태어나서</div>
+  <button class="btn-ko" onclick="speak(\"집에서 태어나서\", 'ko-KR')">한글 듣기</button>
+  <div class="en">People were born at home,</div>
+  <button onclick="speak(\"People were born at home,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">12</div>
+  <div class="ko">집에서 저 세상 가던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"집에서 저 세상 가던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and left this world at home in those days.</div>
+  <button onclick="speak(\"and left this world at home in those days.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">13</div>
+  <div class="ko">일그러지고, 찌그러지고,</div>
+  <button class="btn-ko" onclick="speak(\"일그러지고, 찌그러지고,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">With warped and dented mirrors,</div>
+  <button onclick="speak(\"With warped and dented mirrors,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">14</div>
+  <div class="ko">뒤통수 벗겨진 색경 보고</div>
+  <button class="btn-ko" onclick="speak(\"뒤통수 벗겨진 색경 보고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">looking into mirrors whose backs had peeled away,</div>
+  <button onclick="speak(\"looking into mirrors whose backs had peeled away,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">15</div>
+  <div class="ko">바리깡으로 상고머리 빡빡머리 깍던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"바리깡으로 상고머리 빡빡머리 깍던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">people got short cropped haircuts with hand clippers.</div>
+  <button onclick="speak(\"people got short cropped haircuts with hand clippers.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">16</div>
+  <div class="ko">쥐를 잡자,</div>
+  <button class="btn-ko" onclick="speak(\"쥐를 잡자,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">“Let’s catch rats,”</div>
+  <button onclick="speak(\"“Let’s catch rats,”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">17</div>
+  <div class="ko">저축의 달,</div>
+  <button class="btn-ko" onclick="speak(\"저축의 달,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">“Savings Month,”</div>
+  <button onclick="speak(\"“Savings Month,”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">18</div>
+  <div class="ko">불조심,</div>
+  <button class="btn-ko" onclick="speak(\"불조심,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">“Beware of fire,”</div>
+  <button onclick="speak(\"“Beware of fire,”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">19</div>
+  <div class="ko">방공방첩,</div>
+  <button class="btn-ko" onclick="speak(\"방공방첩,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">“Air defense and anti-espionage,”</div>
+  <button onclick="speak(\"“Air defense and anti-espionage,”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">20</div>
+  <div class="ko">가슴에 표어를 달고 살던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"가슴에 표어를 달고 살던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">people lived with slogans pinned to their chests.</div>
+  <button onclick="speak(\"people lived with slogans pinned to their chests.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">21</div>
+  <div class="ko">신문지로 모자 접고</div>
+  <button class="btn-ko" onclick="speak(\"신문지로 모자 접고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">We folded hats out of newspaper,</div>
+  <button onclick="speak(\"We folded hats out of newspaper,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">22</div>
+  <div class="ko">측간에 똥누고</div>
+  <button class="btn-ko" onclick="speak(\"측간에 똥누고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">used outdoor toilets,</div>
+  <button onclick="speak(\"used outdoor toilets,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">23</div>
+  <div class="ko">비료 포대로 똥닦고 글로브 만들던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"비료 포대로 똥닦고 글로브 만들던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and used fertilizer sacks as toilet paper and even made gloves from them.</div>
+  <button onclick="speak(\"and used fertilizer sacks as toilet paper and even made gloves from them.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">24</div>
+  <div class="ko">남자들이 미장원에 가면 큰일나고,</div>
+  <button class="btn-ko" onclick="speak(\"남자들이 미장원에 가면 큰일나고,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">When it was a big scandal for men to go to a beauty salon,</div>
+  <button onclick="speak(\"When it was a big scandal for men to go to a beauty salon,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">25</div>
+  <div class="ko">여자들이 겨드랑이털 깍지않던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"여자들이 겨드랑이털 깍지않던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and women did not shave their armpit hair.</div>
+  <button onclick="speak(\"and women did not shave their armpit hair.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">26</div>
+  <div class="ko">아무데서나 엄마들이 저고리 올리고</div>
+  <button class="btn-ko" onclick="speak(\"아무데서나 엄마들이 저고리 올리고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Mothers lifted their jackets anywhere</div>
+  <button onclick="speak(\"Mothers lifted their jackets anywhere\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">27</div>
+  <div class="ko">아기들 젖 먹이던 브라자없던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"아기들 젖 먹이던 브라자없던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">to breastfeed babies in the days before bras were common.</div>
+  <button onclick="speak(\"to breastfeed babies in the days before bras were common.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">28</div>
+  <div class="ko">신문이 오면</div>
+  <button class="btn-ko" onclick="speak(\"신문이 오면\", 'ko-KR')">한글 듣기</button>
+  <div class="en">When the newspaper arrived,</div>
+  <button onclick="speak(\"When the newspaper arrived,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">29</div>
+  <div class="ko">TV방송 편성표,</div>
+  <button class="btn-ko" onclick="speak(\"TV방송 편성표,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">people first checked the TV schedule,</div>
+  <button onclick="speak(\"people first checked the TV schedule,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">30</div>
+  <div class="ko">오늘의 운세 먼저보고,</div>
+  <button class="btn-ko" onclick="speak(\"오늘의 운세 먼저보고,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">then today’s fortune,</div>
+  <button onclick="speak(\"then today’s fortune,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">31</div>
+  <div class="ko">고우영의 수호지 보려고 일간스포츠 사던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"고우영의 수호지 보려고 일간스포츠 사던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and bought Ilgan Sports to read Go Woo-young’s Water Margin.</div>
+  <button onclick="speak(\"and bought Ilgan Sports to read Go Woo-young’s Water Margin.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">32</div>
+  <div class="ko">주간경향,</div>
+  <button class="btn-ko" onclick="speak(\"주간경향,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">They read Weekly Kyunghyang,</div>
+  <button onclick="speak(\"They read Weekly Kyunghyang,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">33</div>
+  <div class="ko">썬데이서울, 보고</div>
+  <button class="btn-ko" onclick="speak(\"썬데이서울, 보고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and Sunday Seoul,</div>
+  <button onclick="speak(\"and Sunday Seoul,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">34</div>
+  <div class="ko">펜팔하던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"펜팔하던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and exchanged pen-pal letters.</div>
+  <button onclick="speak(\"and exchanged pen-pal letters.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">35</div>
+  <div class="ko">밤마다 천정에서 쥐새끼들이 운동회하고</div>
+  <button class="btn-ko" onclick="speak(\"밤마다 천정에서 쥐새끼들이 운동회하고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Every night, rats held a sports day in the ceiling,</div>
+  <button onclick="speak(\"Every night, rats held a sports day in the ceiling,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">36</div>
+  <div class="ko">쥐꼬리,</div>
+  <button class="btn-ko" onclick="speak(\"쥐꼬리,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and we collected rat tails,</div>
+  <button onclick="speak(\"and we collected rat tails,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">37</div>
+  <div class="ko">회충,</div>
+  <button class="btn-ko" onclick="speak(\"회충,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">roundworms,</div>
+  <button onclick="speak(\"roundworms,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">38</div>
+  <div class="ko">모아서 학교 가던때</div>
+  <button class="btn-ko" onclick="speak(\"모아서 학교 가던때\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and took them to school.</div>
+  <button onclick="speak(\"and took them to school.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">39</div>
+  <div class="ko">두툼한 전화번호부를 베고누워 텔레비전 보다 깜빡 잠들던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"두툼한 전화번호부를 베고누워 텔레비전 보다 깜빡 잠들던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">We used thick telephone directories as pillows and fell asleep while watching TV.</div>
+  <button onclick="speak(\"We used thick telephone directories as pillows and fell asleep while watching TV.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">40</div>
+  <div class="ko">동네에TV한대밖에없던시절에~</div>
+  <button class="btn-ko" onclick="speak(\"동네에TV한대밖에없던시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">There was only one television in the whole neighborhood.</div>
+  <button onclick="speak(\"There was only one television in the whole neighborhood.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">41</div>
+  <div class="ko">다방마다</div>
+  <button class="btn-ko" onclick="speak(\"다방마다\", 'ko-KR')">한글 듣기</button>
+  <div class="en">In every coffee house,</div>
+  <button onclick="speak(\"In every coffee house,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">42</div>
+  <div class="ko">마담,</div>
+  <button class="btn-ko" onclick="speak(\"마담,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">there was a madam,</div>
+  <button onclick="speak(\"there was a madam,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">43</div>
+  <div class="ko">DJ있던 시절에</div>
+  <button class="btn-ko" onclick="speak(\"DJ있던 시절에\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and a DJ.</div>
+  <button onclick="speak(\"and a DJ.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">44</div>
+  <div class="ko">레승링,</div>
+  <button class="btn-ko" onclick="speak(\"레승링,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">When wrestling</div>
+  <button onclick="speak(\"When wrestling\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">45</div>
+  <div class="ko">권투,</div>
+  <button class="btn-ko" onclick="speak(\"권투,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and boxing</div>
+  <button onclick="speak(\"and boxing\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">46</div>
+  <div class="ko">경기에 다방마다</div>
+  <button class="btn-ko" onclick="speak(\"경기에 다방마다\", 'ko-KR')">한글 듣기</button>
+  <div class="en">were on, every coffee house</div>
+  <button onclick="speak(\"were on, every coffee house\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">47</div>
+  <div class="ko">앉을자리도 없어</div>
+  <button class="btn-ko" onclick="speak(\"앉을자리도 없어\", 'ko-KR')">한글 듣기</button>
+  <div class="en">had no seats left,</div>
+  <button onclick="speak(\"had no seats left,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">48</div>
+  <div class="ko">단골손님만 VlP대우</div>
+  <button class="btn-ko" onclick="speak(\"단골손님만 VlP대우\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and only regular customers received VIP treatment.</div>
+  <button onclick="speak(\"and only regular customers received VIP treatment.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">49</div>
+  <div class="ko">받던시절에~</div>
+  <button class="btn-ko" onclick="speak(\"받던시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Those were the days.</div>
+  <button onclick="speak(\"Those were the days.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">50</div>
+  <div class="ko">외국인은 모두 미국인이라고 했고</div>
+  <button class="btn-ko" onclick="speak(\"외국인은 모두 미국인이라고 했고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">All foreigners were called Americans,</div>
+  <button onclick="speak(\"All foreigners were called Americans,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">51</div>
+  <div class="ko">토요명화는 미국영화,</div>
+  <button class="btn-ko" onclick="speak(\"토요명화는 미국영화,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Saturday movies meant American movies,</div>
+  <button onclick="speak(\"Saturday movies meant American movies,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">52</div>
+  <div class="ko">외국 노래는 모두 팝송이던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"외국 노래는 모두 팝송이던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and all foreign songs were called pop songs.</div>
+  <button onclick="speak(\"and all foreign songs were called pop songs.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">53</div>
+  <div class="ko">급해서</div>
+  <button class="btn-ko" onclick="speak(\"급해서\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Even when in a hurry,</div>
+  <button onclick="speak(\"Even when in a hurry,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">54</div>
+  <div class="ko">뛰어가다 가도</div>
+  <button class="btn-ko" onclick="speak(\"뛰어가다 가도\", 'ko-KR')">한글 듣기</button>
+  <div class="en">even while running,</div>
+  <button onclick="speak(\"even while running,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">55</div>
+  <div class="ko">국기 하강식에 걸리면 그 자리에서 얼어붙고</div>
+  <button class="btn-ko" onclick="speak(\"국기 하강식에 걸리면 그 자리에서 얼어붙고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">if the national flag-lowering ceremony began, people froze on the spot.</div>
+  <button onclick="speak(\"if the national flag-lowering ceremony began, people froze on the spot.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">56</div>
+  <div class="ko">야간민방위 훈련 때 민방위대원이</div>
+  <button class="btn-ko" onclick="speak(\"야간민방위 훈련 때 민방위대원이\", 'ko-KR')">한글 듣기</button>
+  <div class="en">During night civil-defense drills, civil-defense members shouted,</div>
+  <button onclick="speak(\"During night civil-defense drills, civil-defense members shouted,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">57</div>
+  <div class="ko">“불 꺼요” 하던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"“불 꺼요” 하던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">“Turn off the lights!”</div>
+  <button onclick="speak(\"“Turn off the lights!”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">58</div>
+  <div class="ko">경인역전</div>
+  <button class="btn-ko" onclick="speak(\"경인역전\", 'ko-KR')">한글 듣기</button>
+  <div class="en">At the Gyeongin relay</div>
+  <button onclick="speak(\"At the Gyeongin relay\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">59</div>
+  <div class="ko">마라톤대회에</div>
+  <button class="btn-ko" onclick="speak(\"마라톤대회에\", 'ko-KR')">한글 듣기</button>
+  <div class="en">marathon race,</div>
+  <button onclick="speak(\"marathon race,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">60</div>
+  <div class="ko">맨발의 아베베 선수가 달리고</div>
+  <button class="btn-ko" onclick="speak(\"맨발의 아베베 선수가 달리고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">the barefoot runner Abebe raced,</div>
+  <button onclick="speak(\"the barefoot runner Abebe raced,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">61</div>
+  <div class="ko">외국 대통령이 오면 단체로 길에 나가 국기 흔들던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"외국 대통령이 오면 단체로 길에 나가 국기 흔들던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and when a foreign president visited, everyone went out together to wave flags.</div>
+  <button onclick="speak(\"and when a foreign president visited, everyone went out together to wave flags.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">62</div>
+  <div class="ko">수놈은 다 쫑(john,요한), 암놈은 무조건 메리(Mary,마리아)</div>
+  <button class="btn-ko" onclick="speak(\"수놈은 다 쫑(john,요한), 암놈은 무조건 메리(Mary,마리아)\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Every male pet was John, and every female pet was Mary.</div>
+  <button onclick="speak(\"Every male pet was John, and every female pet was Mary.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">63</div>
+  <div class="ko">동네 덕구(dog)들이 죄다 미국이름의 요한이요,</div>
+  <button class="btn-ko" onclick="speak(\"동네 덕구(dog)들이 죄다 미국이름의 요한이요,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">All the neighborhood dogs had American names like John,</div>
+  <button onclick="speak(\"All the neighborhood dogs had American names like John,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">64</div>
+  <div class="ko">성모 마리아 였던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"성모 마리아 였던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">or Saint Mary.</div>
+  <button onclick="speak(\"or Saint Mary.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">65</div>
+  <div class="ko">구두닦이,</div>
+  <button class="btn-ko" onclick="speak(\"구두닦이,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Shoe shiners,</div>
+  <button onclick="speak(\"Shoe shiners,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">66</div>
+  <div class="ko">넝마주이,</div>
+  <button class="btn-ko" onclick="speak(\"넝마주이,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">ragpickers,</div>
+  <button onclick="speak(\"ragpickers,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">67</div>
+  <div class="ko">지게꾼,</div>
+  <button class="btn-ko" onclick="speak(\"지게꾼,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">A-frame carriers,</div>
+  <button onclick="speak(\"A-frame carriers,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">68</div>
+  <div class="ko">신문팔이,</div>
+  <button class="btn-ko" onclick="speak(\"신문팔이,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">newspaper sellers,</div>
+  <button onclick="speak(\"newspaper sellers,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">69</div>
+  <div class="ko">우산장사,</div>
+  <button class="btn-ko" onclick="speak(\"우산장사,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">umbrella sellers,</div>
+  <button onclick="speak(\"umbrella sellers,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">70</div>
+  <div class="ko">상이군인,</div>
+  <button class="btn-ko" onclick="speak(\"상이군인,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">disabled veterans,</div>
+  <button onclick="speak(\"disabled veterans,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">71</div>
+  <div class="ko">연탄가스,</div>
+  <button class="btn-ko" onclick="speak(\"연탄가스,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">coal-briquette gas,</div>
+  <button onclick="speak(\"coal-briquette gas,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">72</div>
+  <div class="ko">토큰,</div>
+  <button class="btn-ko" onclick="speak(\"토큰,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">tokens,</div>
+  <button onclick="speak(\"tokens,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">73</div>
+  <div class="ko">회수권,</div>
+  <button class="btn-ko" onclick="speak(\"회수권,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">bus ticket booklets,</div>
+  <button onclick="speak(\"bus ticket booklets,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">74</div>
+  <div class="ko">장수만세,</div>
+  <button class="btn-ko" onclick="speak(\"장수만세,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Long Live Longevity,</div>
+  <button onclick="speak(\"Long Live Longevity,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">75</div>
+  <div class="ko">주택복권,</div>
+  <button class="btn-ko" onclick="speak(\"주택복권,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">housing lottery tickets,</div>
+  <button onclick="speak(\"housing lottery tickets,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">76</div>
+  <div class="ko">말표신발, 왕자표신발, 범표신발,</div>
+  <button class="btn-ko" onclick="speak(\"말표신발, 왕자표신발, 범표신발,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Horse-brand, Prince-brand, and Tiger-brand shoes,</div>
+  <button onclick="speak(\"Horse-brand, Prince-brand, and Tiger-brand shoes,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">77</div>
+  <div class="ko">흰 고무신,</div>
+  <button class="btn-ko" onclick="speak(\"흰 고무신,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">white rubber shoes,</div>
+  <button onclick="speak(\"white rubber shoes,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">78</div>
+  <div class="ko">검정 고무신,</div>
+  <button class="btn-ko" onclick="speak(\"검정 고무신,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">black rubber shoes,</div>
+  <button onclick="speak(\"black rubber shoes,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">79</div>
+  <div class="ko">커피는 맥스웰 하우스,</div>
+  <button class="btn-ko" onclick="speak(\"커피는 맥스웰 하우스,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">coffee was Maxwell House,</div>
+  <button onclick="speak(\"coffee was Maxwell House,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">80</div>
+  <div class="ko">프림은 동서식품,</div>
+  <button class="btn-ko" onclick="speak(\"프림은 동서식품,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">creamer was Dongsuh Foods,</div>
+  <button onclick="speak(\"creamer was Dongsuh Foods,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">81</div>
+  <div class="ko">감기엔 판피린,</div>
+  <button class="btn-ko" onclick="speak(\"감기엔 판피린,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Panpyrin was for colds,</div>
+  <button onclick="speak(\"Panpyrin was for colds,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">82</div>
+  <div class="ko">소화제는 훼스탈,</div>
+  <button class="btn-ko" onclick="speak(\"소화제는 훼스탈,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Festal was for digestion,</div>
+  <button onclick="speak(\"Festal was for digestion,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">83</div>
+  <div class="ko">매 맞아 멍든데는 안티프라민, 이명래고약, 송충이잡기, 칙뿌리캐기, 요괴인간,</div>
+  <button class="btn-ko" onclick="speak(\"매 맞아 멍든데는 안티프라민, 이명래고약, 송충이잡기, 칙뿌리캐기, 요괴인간,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">For bruises there was Antiphlamine, and there were Imyungrae plasters, pine-caterpillar catching, digging arrowroot roots, and Yokai Ningen.</div>
+  <button onclick="speak(\"For bruises there was Antiphlamine, and there were Imyungrae plasters, pine-caterpillar catching, digging arrowroot roots, and Yokai Ningen.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">84</div>
+  <div class="ko">우주소년 아톰,</div>
+  <button class="btn-ko" onclick="speak(\"우주소년 아톰,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Astro Boy,</div>
+  <button onclick="speak(\"Astro Boy,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">85</div>
+  <div class="ko">여로, 아씨, 법창야화,</div>
+  <button class="btn-ko" onclick="speak(\"여로, 아씨, 법창야화,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Yeoro, Assi, and Courtroom Night Stories,</div>
+  <button onclick="speak(\"Yeoro, Assi, and Courtroom Night Stories,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">86</div>
+  <div class="ko">오제도 검사, 전설의고향,</div>
+  <button class="btn-ko" onclick="speak(\"오제도 검사, 전설의고향,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Prosecutor Oh Je-do, and Hometown of Legends,</div>
+  <button onclick="speak(\"Prosecutor Oh Je-do, and Hometown of Legends,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">87</div>
+  <div class="ko">대연각호텔, 대왕코너,</div>
+  <button class="btn-ko" onclick="speak(\"대연각호텔, 대왕코너,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Daeyeongak Hotel and Daewang Corner,</div>
+  <button onclick="speak(\"Daeyeongak Hotel and Daewang Corner,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">88</div>
+  <div class="ko">시민회관, 쥬시후레시, 스피아민트,</div>
+  <button class="btn-ko" onclick="speak(\"시민회관, 쥬시후레시, 스피아민트,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Civic Hall, Juicy Fresh, and Spearmint,</div>
+  <button onclick="speak(\"Civic Hall, Juicy Fresh, and Spearmint,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">89</div>
+  <div class="ko">풍선 껌,은 오~오~..롯데껌,</div>
+  <button class="btn-ko" onclick="speak(\"풍선 껌,은 오~오~..롯데껌,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and bubble gum was, oh, oh, Lotte Gum.</div>
+  <button onclick="speak(\"and bubble gum was, oh, oh, Lotte Gum.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">90</div>
+  <div class="ko">김일의 박치기, 당수왕 천규덕, 시발택시, 크라운택시,</div>
+  <button class="btn-ko" onclick="speak(\"김일의 박치기, 당수왕 천규덕, 시발택시, 크라운택시,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Kim Il’s headbutt, karate king Cheon Gyu-deok, Sibal taxis, and Crown taxis,</div>
+  <button onclick="speak(\"Kim Il’s headbutt, karate king Cheon Gyu-deok, Sibal taxis, and Crown taxis,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">91</div>
+  <div class="ko">포니,</div>
+  <button class="btn-ko" onclick="speak(\"포니,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">the Pony car,</div>
+  <button onclick="speak(\"the Pony car,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">92</div>
+  <div class="ko">삼륜차,</div>
+  <button class="btn-ko" onclick="speak(\"삼륜차,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">three-wheeled vehicles,</div>
+  <button onclick="speak(\"three-wheeled vehicles,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">93</div>
+  <div class="ko">한강다리 전찻길엔 전차가</div>
+  <button class="btn-ko" onclick="speak(\"한강다리 전찻길엔 전차가\", 'ko-KR')">한글 듣기</button>
+  <div class="en">on the tram tracks of the Han River bridge, trams</div>
+  <button onclick="speak(\"on the tram tracks of the Han River bridge, trams\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">94</div>
+  <div class="ko">느리게 달리고, 아이들은 열쇠키를 만든다며 전차 철길에 대못을 올려놓고 도망가고, 우리 삼촌은 전차비 안내려고 뛰어 내리다 다리가 부러져 삼각지</div>
+  <button class="btn-ko" onclick="speak(\"느리게 달리고, 아이들은 열쇠키를 만든다며 전차 철길에 대못을 올려놓고 도망가고, 우리 삼촌은 전차비 안내려고 뛰어 내리다 다리가 부러져 삼각지\", 'ko-KR')">한글 듣기</button>
+  <div class="en">moved slowly, children placed big nails on the tracks to make key blanks and ran away, and my uncle broke his leg jumping off to avoid paying tram fare, so he went to Samgakji</div>
+  <button onclick="speak(\"moved slowly, children placed big nails on the tracks to make key blanks and ran away, and my uncle broke his leg jumping off to avoid paying tram fare, so he went to Samgakji\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">95</div>
+  <div class="ko">뼈 접골에 다녔던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"뼈 접골에 다녔던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">for bone-setting treatment.</div>
+  <button onclick="speak(\"for bone-setting treatment.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">96</div>
+  <div class="ko">다마네기,</div>
+  <button class="btn-ko" onclick="speak(\"다마네기,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Damanegi, meaning onion,</div>
+  <button onclick="speak(\"Damanegi, meaning onion,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">97</div>
+  <div class="ko">다꽝,</div>
+  <button class="btn-ko" onclick="speak(\"다꽝,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">dakkwang, meaning pickled radish,</div>
+  <button onclick="speak(\"dakkwang, meaning pickled radish,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">98</div>
+  <div class="ko">벤또,</div>
+  <button class="btn-ko" onclick="speak(\"벤또,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">bento, meaning lunch box,</div>
+  <button onclick="speak(\"bento, meaning lunch box,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">99</div>
+  <div class="ko">빠게스,</div>
+  <button class="btn-ko" onclick="speak(\"빠게스,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">bbageseu, meaning bucket,</div>
+  <button onclick="speak(\"bbageseu, meaning bucket,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">100</div>
+  <div class="ko">다라,</div>
+  <button class="btn-ko" onclick="speak(\"다라,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">dara, meaning basin,</div>
+  <button onclick="speak(\"dara, meaning basin,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">101</div>
+  <div class="ko">와루바시,</div>
+  <button class="btn-ko" onclick="speak(\"와루바시,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">warubashi, meaning disposable chopsticks,</div>
+  <button onclick="speak(\"warubashi, meaning disposable chopsticks,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">102</div>
+  <div class="ko">모찌,</div>
+  <button class="btn-ko" onclick="speak(\"모찌,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">mochi,</div>
+  <button onclick="speak(\"mochi,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">103</div>
+  <div class="ko">빤스~</div>
+  <button class="btn-ko" onclick="speak(\"빤스~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">pants,</div>
+  <button onclick="speak(\"pants,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">104</div>
+  <div class="ko">난닝구,</div>
+  <button class="btn-ko" onclick="speak(\"난닝구,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">running shirt,</div>
+  <button onclick="speak(\"running shirt,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">105</div>
+  <div class="ko">일본말이 너무많아</div>
+  <button class="btn-ko" onclick="speak(\"일본말이 너무많아\", 'ko-KR')">한글 듣기</button>
+  <div class="en">there were so many Japanese words</div>
+  <button onclick="speak(\"there were so many Japanese words\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">106</div>
+  <div class="ko">우리랑 같이 살던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"우리랑 같이 살던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">living together with us.</div>
+  <button onclick="speak(\"living together with us.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">107</div>
+  <div class="ko">인천 앞바다에 사이다가 떴어도</div>
+  <button class="btn-ko" onclick="speak(\"인천 앞바다에 사이다가 떴어도\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Even if soda floated in the sea off Incheon,</div>
+  <button onclick="speak(\"Even if soda floated in the sea off Incheon,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">108</div>
+  <div class="ko">고뿌 없이는 못 마시던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"고뿌 없이는 못 마시던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">we could not drink it without a cup.</div>
+  <button onclick="speak(\"we could not drink it without a cup.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">109</div>
+  <div class="ko">시골영감이 처음타는 기차 놀이에 차표파는 아가씨와 실갱이 하면서</div>
+  <button class="btn-ko" onclick="speak(\"시골영감이 처음타는 기차 놀이에 차표파는 아가씨와 실갱이 하면서\", 'ko-KR')">한글 듣기</button>
+  <div class="en">An old country man rode a train for the first time and argued with the ticket-selling lady,</div>
+  <button onclick="speak(\"An old country man rode a train for the first time and argued with the ticket-selling lady,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">110</div>
+  <div class="ko">이 세상에 에누리없는 장사가 어딨어 따지던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"이 세상에 에누리없는 장사가 어딨어 따지던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">saying, “What kind of business in this world has no bargaining?”</div>
+  <button onclick="speak(\"saying, “What kind of business in this world has no bargaining?”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">111</div>
+  <div class="ko">오후반이면 오전반 끝날 때까지 공기하고,</div>
+  <button class="btn-ko" onclick="speak(\"오후반이면 오전반 끝날 때까지 공기하고,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">If we were in the afternoon class, we played jacks until the morning class ended,</div>
+  <button onclick="speak(\"If we were in the afternoon class, we played jacks until the morning class ended,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">112</div>
+  <div class="ko">고무줄 하며 기다리고</div>
+  <button class="btn-ko" onclick="speak(\"고무줄 하며 기다리고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and waited while playing rubber-band games.</div>
+  <button onclick="speak(\"and waited while playing rubber-band games.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">113</div>
+  <div class="ko">소풍가기 전날,</div>
+  <button class="btn-ko" onclick="speak(\"소풍가기 전날,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">The day before a picnic,</div>
+  <button onclick="speak(\"The day before a picnic,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">114</div>
+  <div class="ko">비가 올까봐 연신 하늘을 살펴보던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"비가 올까봐 연신 하늘을 살펴보던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">we kept looking at the sky, worried it might rain.</div>
+  <button onclick="speak(\"we kept looking at the sky, worried it might rain.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">115</div>
+  <div class="ko">아랫목에 묻어둔 밥그릇 엎어지면 이불에 묻은 밥풀 떼어먹고</div>
+  <button class="btn-ko" onclick="speak(\"아랫목에 묻어둔 밥그릇 엎어지면 이불에 묻은 밥풀 떼어먹고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">If a rice bowl buried in the warm floor area tipped over, we picked rice grains off the blanket and ate them.</div>
+  <button onclick="speak(\"If a rice bowl buried in the warm floor area tipped over, we picked rice grains off the blanket and ate them.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">116</div>
+  <div class="ko">낮잠 자고 일어나 아침인 줄 알고 가방메고 다시 학교가던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"낮잠 자고 일어나 아침인 줄 알고 가방메고 다시 학교가던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">After a nap, we sometimes thought it was morning and went back to school with our bags.</div>
+  <button onclick="speak(\"After a nap, we sometimes thought it was morning and went back to school with our bags.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">117</div>
+  <div class="ko">이소룡의 정무문, 성룡의 취권,</div>
+  <button class="btn-ko" onclick="speak(\"이소룡의 정무문, 성룡의 취권,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Bruce Lee’s Fist of Fury and Jackie Chan’s Drunken Master,</div>
+  <button onclick="speak(\"Bruce Lee’s Fist of Fury and Jackie Chan’s Drunken Master,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">118</div>
+  <div class="ko">왕우의 외팔이 시리즈</div>
+  <button class="btn-ko" onclick="speak(\"왕우의 외팔이 시리즈\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Wang Yu’s One-Armed Swordsman series,</div>
+  <button onclick="speak(\"Wang Yu’s One-Armed Swordsman series,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">119</div>
+  <div class="ko">추석,설날 명절 특집 영화는 중국무협 영화이던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"추석,설날 명절 특집 영화는 중국무협 영화이던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and holiday specials for Chuseok and Lunar New Year were Chinese martial-arts films.</div>
+  <button onclick="speak(\"and holiday specials for Chuseok and Lunar New Year were Chinese martial-arts films.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">120</div>
+  <div class="ko">운동장을 돌며 맹호부태,</div>
+  <button class="btn-ko" onclick="speak(\"운동장을 돌며 맹호부태,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">We marched around the playground singing about the Tiger Division,</div>
+  <button onclick="speak(\"We marched around the playground singing about the Tiger Division,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">121</div>
+  <div class="ko">백마부대,</div>
+  <button class="btn-ko" onclick="speak(\"백마부대,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">the White Horse Division,</div>
+  <button onclick="speak(\"the White Horse Division,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">122</div>
+  <div class="ko">군가 부르고</div>
+  <button class="btn-ko" onclick="speak(\"군가 부르고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and military songs,</div>
+  <button onclick="speak(\"and military songs,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">123</div>
+  <div class="ko">옥수수빵 배급받던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"옥수수빵 배급받던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and received corn bread rations.</div>
+  <button onclick="speak(\"and received corn bread rations.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">124</div>
+  <div class="ko">씹던 껌을 벽에 붙여놨다가 다시 씹고</div>
+  <button class="btn-ko" onclick="speak(\"씹던 껌을 벽에 붙여놨다가 다시 씹고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">We stuck chewed gum on the wall and chewed it again later,</div>
+  <button onclick="speak(\"We stuck chewed gum on the wall and chewed it again later,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">125</div>
+  <div class="ko">덴찌 후라씨로 편먹고 놀던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"덴찌 후라씨로 편먹고 놀던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and chose teams with a flashlight game.</div>
+  <button onclick="speak(\"and chose teams with a flashlight game.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">126</div>
+  <div class="ko">어린 여자 아이들이 고무줄하며</div>
+  <button class="btn-ko" onclick="speak(\"어린 여자 아이들이 고무줄하며\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Little girls played rubber-band games</div>
+  <button onclick="speak(\"Little girls played rubber-band games\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">127</div>
+  <div class="ko">엄마에게 자기 죽으면 양지바른 곳에 묻어달라고 노래하던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"엄마에게 자기 죽으면 양지바른 곳에 묻어달라고 노래하던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">while singing to their mothers to bury them in a sunny place if they died.</div>
+  <button onclick="speak(\"while singing to their mothers to bury them in a sunny place if they died.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">128</div>
+  <div class="ko">딱지치기,</div>
+  <button class="btn-ko" onclick="speak(\"딱지치기,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Slap-match cards,</div>
+  <button onclick="speak(\"Slap-match cards,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">129</div>
+  <div class="ko">땅따먹기, 고무줄놀이,</div>
+  <button class="btn-ko" onclick="speak(\"땅따먹기, 고무줄놀이,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">territory games and rubber-band games,</div>
+  <button onclick="speak(\"territory games and rubber-band games,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">130</div>
+  <div class="ko">달고나,</div>
+  <button class="btn-ko" onclick="speak(\"달고나,\", 'ko-KR')">한글 듣기</button>
+  <div class="en">dalgona candy,</div>
+  <button onclick="speak(\"dalgona candy,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">131</div>
+  <div class="ko">무궁화꽃이 피었</div>
+  <button class="btn-ko" onclick="speak(\"무궁화꽃이 피었\", 'ko-KR')">한글 듣기</button>
+  <div class="en">“The hibiscus flower has bloomed,”</div>
+  <button onclick="speak(\"“The hibiscus flower has bloomed,”\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">132</div>
+  <div class="ko">습니다.</div>
+  <button class="btn-ko" onclick="speak(\"습니다.\", 'ko-KR')">한글 듣기</button>
+  <div class="en">they said.</div>
+  <button onclick="speak(\"they said.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">133</div>
+  <div class="ko">오징어게임이 생활이던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"오징어게임이 생활이던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Squid Game was part of everyday life.</div>
+  <button onclick="speak(\"Squid Game was part of everyday life.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">134</div>
+  <div class="ko">당구장에 갔다고 학생부에 끌려가 뒤지게 맞고</div>
+  <button class="btn-ko" onclick="speak(\"당구장에 갔다고 학생부에 끌려가 뒤지게 맞고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Students were dragged to the discipline office and beaten badly for going to a billiard hall,</div>
+  <button onclick="speak(\"Students were dragged to the discipline office and beaten badly for going to a billiard hall,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">135</div>
+  <div class="ko">극장에 갔다가 걸리면 처벌받던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"극장에 갔다가 걸리면 처벌받던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and punished if they were caught going to a movie theater.</div>
+  <button onclick="speak(\"and punished if they were caught going to a movie theater.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">136</div>
+  <div class="ko">안소영이 말을 타고 가슴 출렁이며 해변을 달리고</div>
+  <button class="btn-ko" onclick="speak(\"안소영이 말을 타고 가슴 출렁이며 해변을 달리고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Ahn So-young rode a horse along the beach in a sensational movie scene,</div>
+  <button onclick="speak(\"Ahn So-young rode a horse along the beach in a sensational movie scene,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">137</div>
+  <div class="ko">키스신이 나오면 단체로 휘바람 불던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"키스신이 나오면 단체로 휘바람 불던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">and when a kissing scene appeared, everyone whistled together.</div>
+  <button onclick="speak(\"and when a kissing scene appeared, everyone whistled together.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">138</div>
+  <div class="ko">친구 집에 갔는데 친구는 없고</div>
+  <button class="btn-ko" onclick="speak(\"친구 집에 갔는데 친구는 없고\", 'ko-KR')">한글 듣기</button>
+  <div class="en">When I went to a friend’s house and my friend was not there,</div>
+  <button onclick="speak(\"When I went to a friend’s house and my friend was not there,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">139</div>
+  <div class="ko">친구 누나 혼자서 잠자고 있던 기분 야릇했던 시절에~</div>
+  <button class="btn-ko" onclick="speak(\"친구 누나 혼자서 잠자고 있던 기분 야릇했던 시절에~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">but his older sister was sleeping alone, it felt strangely exciting.</div>
+  <button onclick="speak(\"but his older sister was sleeping alone, it felt strangely exciting.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">140</div>
+  <div class="ko">인천의 성냥공장, 성냥공장 아가씨는</div>
+  <button class="btn-ko" onclick="speak(\"인천의 성냥공장, 성냥공장 아가씨는\", 'ko-KR')">한글 듣기</button>
+  <div class="en">The match factory in Incheon, and the young woman from the match factory,</div>
+  <button onclick="speak(\"The match factory in Incheon, and the young woman from the match factory,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">141</div>
+  <div class="ko">아직도 몸 성히 성히 성히 잘 있느냐?</div>
+  <button class="btn-ko" onclick="speak(\"아직도 몸 성히 성히 성히 잘 있느냐?\", 'ko-KR')">한글 듣기</button>
+  <div class="en">are you still safe and well, safe and well?</div>
+  <button onclick="speak(\"are you still safe and well, safe and well?\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">142</div>
+  <div class="ko">옛날 옛날</div>
+  <button class="btn-ko" onclick="speak(\"옛날 옛날\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Long, long ago,</div>
+  <button onclick="speak(\"Long, long ago,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">143</div>
+  <div class="ko">아주 가까운 옛날</div>
+  <button class="btn-ko" onclick="speak(\"아주 가까운 옛날\", 'ko-KR')">한글 듣기</button>
+  <div class="en">in a very recent old time,</div>
+  <button onclick="speak(\"in a very recent old time,\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">144</div>
+  <div class="ko">우리 모두가 이제 막 피어나는 연두색이던 시절에....</div>
+  <button class="btn-ko" onclick="speak(\"우리 모두가 이제 막 피어나는 연두색이던 시절에....\", 'ko-KR')">한글 듣기</button>
+  <div class="en">when all of us were fresh light-green buds just beginning to bloom.</div>
+  <button onclick="speak(\"when all of us were fresh light-green buds just beginning to bloom.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">145</div>
+  <div class="ko">아 ~~  그립구나</div>
+  <button class="btn-ko" onclick="speak(\"아 ~~  그립구나\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Ah, how I miss it.</div>
+  <button onclick="speak(\"Ah, how I miss it.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">146</div>
+  <div class="ko">그 시절이 .....</div>
+  <button class="btn-ko" onclick="speak(\"그 시절이 .....\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Those days.</div>
+  <button onclick="speak(\"Those days.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">147</div>
+  <div class="ko">다시는 돌아갈 수 없는  그 시절이  그립구나~^.^</div>
+  <button class="btn-ko" onclick="speak(\"다시는 돌아갈 수 없는  그 시절이  그립구나~^.^\", 'ko-KR')">한글 듣기</button>
+  <div class="en">I miss those days that can never return.</div>
+  <button onclick="speak(\"I miss those days that can never return.\", 'en-US')">영어 듣기</button>
+</div>
+
+<div class="pair">
+  <div class="num">148</div>
+  <div class="ko">아~옛날이여~~</div>
+  <button class="btn-ko" onclick="speak(\"아~옛날이여~~\", 'ko-KR')">한글 듣기</button>
+  <div class="en">Ah, those old days.</div>
+  <button onclick="speak(\"Ah, those old days.\", 'en-US')">영어 듣기</button>
+</div>
+
+</div>
+
+<div class="section">
+<h2>전체 원문 Text</h2>
+<pre>어쩌면 이렇게 재미나게 썼을까... 국보급이다!
+How could someone write this so delightfully? It is a national-treasure-level piece!
+●옛날 옛적에
+Once upon a time, long ago.
+옛날 옛날
+Long, long ago,
+아주 가까운 옛날
+in a very recent old time,
+시계가 밥 먹던 시절에~
+in the days when clocks seemed to eat their meals.
+추워도 다 같이 춥고
+When everyone was cold together,
+고파도 다 같이 배고팠던 시절에~
+and everyone was hungry together.
+검정 솜이불에
+Under a black cotton quilt,
+식구 모두가
+the whole family
+덮고 자던 시절에~
+slept together in those days.
+집에서 태어나서
+People were born at home,
+집에서 저 세상 가던 시절에~
+and left this world at home in those days.
+일그러지고, 찌그러지고,
+With warped and dented mirrors,
+뒤통수 벗겨진 색경 보고
+looking into mirrors whose backs had peeled away,
+바리깡으로 상고머리 빡빡머리 깍던 시절에~
+people got short cropped haircuts with hand clippers.
+쥐를 잡자,
+“Let’s catch rats,”
+저축의 달,
+“Savings Month,”
+불조심,
+“Beware of fire,”
+방공방첩,
+“Air defense and anti-espionage,”
+가슴에 표어를 달고 살던 시절에~
+people lived with slogans pinned to their chests.
+신문지로 모자 접고
+We folded hats out of newspaper,
+측간에 똥누고
+used outdoor toilets,
+비료 포대로 똥닦고 글로브 만들던 시절에~
+and used fertilizer sacks as toilet paper and even made gloves from them.
+남자들이 미장원에 가면 큰일나고,
+When it was a big scandal for men to go to a beauty salon,
+여자들이 겨드랑이털 깍지않던 시절에~
+and women did not shave their armpit hair.
+아무데서나 엄마들이 저고리 올리고
+Mothers lifted their jackets anywhere
+아기들 젖 먹이던 브라자없던 시절에~
+to breastfeed babies in the days before bras were common.
+신문이 오면
+When the newspaper arrived,
+TV방송 편성표,
+people first checked the TV schedule,
+오늘의 운세 먼저보고,
+then today’s fortune,
+고우영의 수호지 보려고 일간스포츠 사던 시절에~
+and bought Ilgan Sports to read Go Woo-young’s Water Margin.
+주간경향,
+They read Weekly Kyunghyang,
+썬데이서울, 보고
+and Sunday Seoul,
+펜팔하던 시절에~
+and exchanged pen-pal letters.
+밤마다 천정에서 쥐새끼들이 운동회하고
+Every night, rats held a sports day in the ceiling,
+쥐꼬리,
+and we collected rat tails,
+회충,
+roundworms,
+모아서 학교 가던때
+and took them to school.
+두툼한 전화번호부를 베고누워 텔레비전 보다 깜빡 잠들던 시절에~
+We used thick telephone directories as pillows and fell asleep while watching TV.
+동네에TV한대밖에없던시절에~
+There was only one television in the whole neighborhood.
+다방마다
+In every coffee house,
+마담,
+there was a madam,
+DJ있던 시절에
+and a DJ.
+레승링,
+When wrestling
+권투,
+and boxing
+경기에 다방마다
+were on, every coffee house
+앉을자리도 없어
+had no seats left,
+단골손님만 VlP대우
+and only regular customers received VIP treatment.
+받던시절에~
+Those were the days.
+외국인은 모두 미국인이라고 했고
+All foreigners were called Americans,
+토요명화는 미국영화,
+Saturday movies meant American movies,
+외국 노래는 모두 팝송이던 시절에~
+and all foreign songs were called pop songs.
+급해서
+Even when in a hurry,
+뛰어가다 가도
+even while running,
+국기 하강식에 걸리면 그 자리에서 얼어붙고
+if the national flag-lowering ceremony began, people froze on the spot.
+야간민방위 훈련 때 민방위대원이
+During night civil-defense drills, civil-defense members shouted,
+“불 꺼요” 하던 시절에~
+“Turn off the lights!”
+경인역전
+At the Gyeongin relay
+마라톤대회에
+marathon race,
+맨발의 아베베 선수가 달리고
+the barefoot runner Abebe raced,
+외국 대통령이 오면 단체로 길에 나가 국기 흔들던 시절에~
+and when a foreign president visited, everyone went out together to wave flags.
+수놈은 다 쫑(john,요한), 암놈은 무조건 메리(Mary,마리아)
+Every male pet was John, and every female pet was Mary.
+동네 덕구(dog)들이 죄다 미국이름의 요한이요,
+All the neighborhood dogs had American names like John,
+성모 마리아 였던 시절에~
+or Saint Mary.
+구두닦이,
+Shoe shiners,
+넝마주이,
+ragpickers,
+지게꾼,
+A-frame carriers,
+신문팔이,
+newspaper sellers,
+우산장사,
+umbrella sellers,
+상이군인,
+disabled veterans,
+연탄가스,
+coal-briquette gas,
+토큰,
+tokens,
+회수권,
+bus ticket booklets,
+장수만세,
+Long Live Longevity,
+주택복권,
+housing lottery tickets,
+말표신발, 왕자표신발, 범표신발,
+Horse-brand, Prince-brand, and Tiger-brand shoes,
+흰 고무신,
+white rubber shoes,
+검정 고무신,
+black rubber shoes,
+커피는 맥스웰 하우스,
+coffee was Maxwell House,
+프림은 동서식품,
+creamer was Dongsuh Foods,
+감기엔 판피린,
+Panpyrin was for colds,
+소화제는 훼스탈,
+Festal was for digestion,
+매 맞아 멍든데는 안티프라민, 이명래고약, 송충이잡기, 칙뿌리캐기, 요괴인간,
+For bruises there was Antiphlamine, and there were Imyungrae plasters, pine-caterpillar catching, digging arrowroot roots, and Yokai Ningen.
+우주소년 아톰,
+Astro Boy,
+여로, 아씨, 법창야화,
+Yeoro, Assi, and Courtroom Night Stories,
+오제도 검사, 전설의고향,
+Prosecutor Oh Je-do, and Hometown of Legends,
+대연각호텔, 대왕코너,
+Daeyeongak Hotel and Daewang Corner,
+시민회관, 쥬시후레시, 스피아민트,
+Civic Hall, Juicy Fresh, and Spearmint,
+풍선 껌,은 오~오~..롯데껌,
+and bubble gum was, oh, oh, Lotte Gum.
+김일의 박치기, 당수왕 천규덕, 시발택시, 크라운택시,
+Kim Il’s headbutt, karate king Cheon Gyu-deok, Sibal taxis, and Crown taxis,
+포니,
+the Pony car,
+삼륜차,
+three-wheeled vehicles,
+한강다리 전찻길엔 전차가
+on the tram tracks of the Han River bridge, trams
+느리게 달리고, 아이들은 열쇠키를 만든다며 전차 철길에 대못을 올려놓고 도망가고, 우리 삼촌은 전차비 안내려고 뛰어 내리다 다리가 부러져 삼각지
+moved slowly, children placed big nails on the tracks to make key blanks and ran away, and my uncle broke his leg jumping off to avoid paying tram fare, so he went to Samgakji
+뼈 접골에 다녔던 시절에~
+for bone-setting treatment.
+다마네기,
+Damanegi, meaning onion,
+다꽝,
+dakkwang, meaning pickled radish,
+벤또,
+bento, meaning lunch box,
+빠게스,
+bbageseu, meaning bucket,
+다라,
+dara, meaning basin,
+와루바시,
+warubashi, meaning disposable chopsticks,
+모찌,
+mochi,
+빤스~
+pants,
+난닝구,
+running shirt,
+일본말이 너무많아
+there were so many Japanese words
+우리랑 같이 살던 시절에~
+living together with us.
+인천 앞바다에 사이다가 떴어도
+Even if soda floated in the sea off Incheon,
+고뿌 없이는 못 마시던 시절에~
+we could not drink it without a cup.
+시골영감이 처음타는 기차 놀이에 차표파는 아가씨와 실갱이 하면서
+An old country man rode a train for the first time and argued with the ticket-selling lady,
+이 세상에 에누리없는 장사가 어딨어 따지던 시절에~
+saying, “What kind of business in this world has no bargaining?”
+오후반이면 오전반 끝날 때까지 공기하고,
+If we were in the afternoon class, we played jacks until the morning class ended,
+고무줄 하며 기다리고
+and waited while playing rubber-band games.
+소풍가기 전날,
+The day before a picnic,
+비가 올까봐 연신 하늘을 살펴보던 시절에~
+we kept looking at the sky, worried it might rain.
+아랫목에 묻어둔 밥그릇 엎어지면 이불에 묻은 밥풀 떼어먹고
+If a rice bowl buried in the warm floor area tipped over, we picked rice grains off the blanket and ate them.
+낮잠 자고 일어나 아침인 줄 알고 가방메고 다시 학교가던 시절에~
+After a nap, we sometimes thought it was morning and went back to school with our bags.
+이소룡의 정무문, 성룡의 취권,
+Bruce Lee’s Fist of Fury and Jackie Chan’s Drunken Master,
+왕우의 외팔이 시리즈
+Wang Yu’s One-Armed Swordsman series,
+추석,설날 명절 특집 영화는 중국무협 영화이던 시절에~
+and holiday specials for Chuseok and Lunar New Year were Chinese martial-arts films.
+운동장을 돌며 맹호부태,
+We marched around the playground singing about the Tiger Division,
+백마부대,
+the White Horse Division,
+군가 부르고
+and military songs,
+옥수수빵 배급받던 시절에~
+and received corn bread rations.
+씹던 껌을 벽에 붙여놨다가 다시 씹고
+We stuck chewed gum on the wall and chewed it again later,
+덴찌 후라씨로 편먹고 놀던 시절에~
+and chose teams with a flashlight game.
+어린 여자 아이들이 고무줄하며
+Little girls played rubber-band games
+엄마에게 자기 죽으면 양지바른 곳에 묻어달라고 노래하던 시절에~
+while singing to their mothers to bury them in a sunny place if they died.
+딱지치기,
+Slap-match cards,
+땅따먹기, 고무줄놀이,
+territory games and rubber-band games,
+달고나,
+dalgona candy,
+무궁화꽃이 피었
+“The hibiscus flower has bloomed,”
+습니다.
+they said.
+오징어게임이 생활이던 시절에~
+Squid Game was part of everyday life.
+당구장에 갔다고 학생부에 끌려가 뒤지게 맞고
+Students were dragged to the discipline office and beaten badly for going to a billiard hall,
+극장에 갔다가 걸리면 처벌받던 시절에~
+and punished if they were caught going to a movie theater.
+안소영이 말을 타고 가슴 출렁이며 해변을 달리고
+Ahn So-young rode a horse along the beach in a sensational movie scene,
+키스신이 나오면 단체로 휘바람 불던 시절에~
+and when a kissing scene appeared, everyone whistled together.
+친구 집에 갔는데 친구는 없고
+When I went to a friend’s house and my friend was not there,
+친구 누나 혼자서 잠자고 있던 기분 야릇했던 시절에~
+but his older sister was sleeping alone, it felt strangely exciting.
+인천의 성냥공장, 성냥공장 아가씨는
+The match factory in Incheon, and the young woman from the match factory,
+아직도 몸 성히 성히 성히 잘 있느냐?
+are you still safe and well, safe and well?
+옛날 옛날
+Long, long ago,
+아주 가까운 옛날
+in a very recent old time,
+우리 모두가 이제 막 피어나는 연두색이던 시절에....
+when all of us were fresh light-green buds just beginning to bloom.
+아 ~~  그립구나
+Ah, how I miss it.
+그 시절이 .....
+Those days.
+다시는 돌아갈 수 없는  그 시절이  그립구나~^.^
+I miss those days that can never return.
+아~옛날이여~~
+Ah, those old days.</pre>
+</div>
+
+<script>
+const KO_TEXT = "어쩌면 이렇게 재미나게 썼을까... 국보급이다!\n●옛날 옛적에\n옛날 옛날\n아주 가까운 옛날\n시계가 밥 먹던 시절에~\n추워도 다 같이 춥고\n고파도 다 같이 배고팠던 시절에~\n검정 솜이불에\n식구 모두가\n덮고 자던 시절에~\n집에서 태어나서\n집에서 저 세상 가던 시절에~\n일그러지고, 찌그러지고,\n뒤통수 벗겨진 색경 보고\n바리깡으로 상고머리 빡빡머리 깍던 시절에~\n쥐를 잡자,\n저축의 달,\n불조심,\n방공방첩,\n가슴에 표어를 달고 살던 시절에~\n신문지로 모자 접고\n측간에 똥누고\n비료 포대로 똥닦고 글로브 만들던 시절에~\n남자들이 미장원에 가면 큰일나고,\n여자들이 겨드랑이털 깍지않던 시절에~\n아무데서나 엄마들이 저고리 올리고\n아기들 젖 먹이던 브라자없던 시절에~\n신문이 오면\nTV방송 편성표,\n오늘의 운세 먼저보고,\n고우영의 수호지 보려고 일간스포츠 사던 시절에~\n주간경향,\n썬데이서울, 보고\n펜팔하던 시절에~\n밤마다 천정에서 쥐새끼들이 운동회하고\n쥐꼬리,\n회충,\n모아서 학교 가던때\n두툼한 전화번호부를 베고누워 텔레비전 보다 깜빡 잠들던 시절에~\n동네에TV한대밖에없던시절에~\n다방마다\n마담,\nDJ있던 시절에\n레승링,\n권투,\n경기에 다방마다\n앉을자리도 없어\n단골손님만 VlP대우\n받던시절에~\n외국인은 모두 미국인이라고 했고\n토요명화는 미국영화,\n외국 노래는 모두 팝송이던 시절에~\n급해서\n뛰어가다 가도\n국기 하강식에 걸리면 그 자리에서 얼어붙고\n야간민방위 훈련 때 민방위대원이\n“불 꺼요” 하던 시절에~\n경인역전\n마라톤대회에\n맨발의 아베베 선수가 달리고\n외국 대통령이 오면 단체로 길에 나가 국기 흔들던 시절에~\n수놈은 다 쫑(john,요한), 암놈은 무조건 메리(Mary,마리아)\n동네 덕구(dog)들이 죄다 미국이름의 요한이요,\n성모 마리아 였던 시절에~\n구두닦이,\n넝마주이,\n지게꾼,\n신문팔이,\n우산장사,\n상이군인,\n연탄가스,\n토큰,\n회수권,\n장수만세,\n주택복권,\n말표신발, 왕자표신발, 범표신발,\n흰 고무신,\n검정 고무신,\n커피는 맥스웰 하우스,\n프림은 동서식품,\n감기엔 판피린,\n소화제는 훼스탈,\n매 맞아 멍든데는 안티프라민, 이명래고약, 송충이잡기, 칙뿌리캐기, 요괴인간,\n우주소년 아톰,\n여로, 아씨, 법창야화,\n오제도 검사, 전설의고향,\n대연각호텔, 대왕코너,\n시민회관, 쥬시후레시, 스피아민트,\n풍선 껌,은 오~오~..롯데껌,\n김일의 박치기, 당수왕 천규덕, 시발택시, 크라운택시,\n포니,\n삼륜차,\n한강다리 전찻길엔 전차가\n느리게 달리고, 아이들은 열쇠키를 만든다며 전차 철길에 대못을 올려놓고 도망가고, 우리 삼촌은 전차비 안내려고 뛰어 내리다 다리가 부러져 삼각지\n뼈 접골에 다녔던 시절에~\n다마네기,\n다꽝,\n벤또,\n빠게스,\n다라,\n와루바시,\n모찌,\n빤스~\n난닝구,\n일본말이 너무많아\n우리랑 같이 살던 시절에~\n인천 앞바다에 사이다가 떴어도\n고뿌 없이는 못 마시던 시절에~\n시골영감이 처음타는 기차 놀이에 차표파는 아가씨와 실갱이 하면서\n이 세상에 에누리없는 장사가 어딨어 따지던 시절에~\n오후반이면 오전반 끝날 때까지 공기하고,\n고무줄 하며 기다리고\n소풍가기 전날,\n비가 올까봐 연신 하늘을 살펴보던 시절에~\n아랫목에 묻어둔 밥그릇 엎어지면 이불에 묻은 밥풀 떼어먹고\n낮잠 자고 일어나 아침인 줄 알고 가방메고 다시 학교가던 시절에~\n이소룡의 정무문, 성룡의 취권,\n왕우의 외팔이 시리즈\n추석,설날 명절 특집 영화는 중국무협 영화이던 시절에~\n운동장을 돌며 맹호부태,\n백마부대,\n군가 부르고\n옥수수빵 배급받던 시절에~\n씹던 껌을 벽에 붙여놨다가 다시 씹고\n덴찌 후라씨로 편먹고 놀던 시절에~\n어린 여자 아이들이 고무줄하며\n엄마에게 자기 죽으면 양지바른 곳에 묻어달라고 노래하던 시절에~\n딱지치기,\n땅따먹기, 고무줄놀이,\n달고나,\n무궁화꽃이 피었\n습니다.\n오징어게임이 생활이던 시절에~\n당구장에 갔다고 학생부에 끌려가 뒤지게 맞고\n극장에 갔다가 걸리면 처벌받던 시절에~\n안소영이 말을 타고 가슴 출렁이며 해변을 달리고\n키스신이 나오면 단체로 휘바람 불던 시절에~\n친구 집에 갔는데 친구는 없고\n친구 누나 혼자서 잠자고 있던 기분 야릇했던 시절에~\n인천의 성냥공장, 성냥공장 아가씨는\n아직도 몸 성히 성히 성히 잘 있느냐?\n옛날 옛날\n아주 가까운 옛날\n우리 모두가 이제 막 피어나는 연두색이던 시절에....\n아 ~~  그립구나\n그 시절이 .....\n다시는 돌아갈 수 없는  그 시절이  그립구나~^.^\n아~옛날이여~~";
+const EN_TEXT = "How could someone write this so delightfully? It is a national-treasure-level piece!\nOnce upon a time, long ago.\nLong, long ago,\nin a very recent old time,\nin the days when clocks seemed to eat their meals.\nWhen everyone was cold together,\nand everyone was hungry together.\nUnder a black cotton quilt,\nthe whole family\nslept together in those days.\nPeople were born at home,\nand left this world at home in those days.\nWith warped and dented mirrors,\nlooking into mirrors whose backs had peeled away,\npeople got short cropped haircuts with hand clippers.\n“Let’s catch rats,”\n“Savings Month,”\n“Beware of fire,”\n“Air defense and anti-espionage,”\npeople lived with slogans pinned to their chests.\nWe folded hats out of newspaper,\nused outdoor toilets,\nand used fertilizer sacks as toilet paper and even made gloves from them.\nWhen it was a big scandal for men to go to a beauty salon,\nand women did not shave their armpit hair.\nMothers lifted their jackets anywhere\nto breastfeed babies in the days before bras were common.\nWhen the newspaper arrived,\npeople first checked the TV schedule,\nthen today’s fortune,\nand bought Ilgan Sports to read Go Woo-young’s Water Margin.\nThey read Weekly Kyunghyang,\nand Sunday Seoul,\nand exchanged pen-pal letters.\nEvery night, rats held a sports day in the ceiling,\nand we collected rat tails,\nroundworms,\nand took them to school.\nWe used thick telephone directories as pillows and fell asleep while watching TV.\nThere was only one television in the whole neighborhood.\nIn every coffee house,\nthere was a madam,\nand a DJ.\nWhen wrestling\nand boxing\nwere on, every coffee house\nhad no seats left,\nand only regular customers received VIP treatment.\nThose were the days.\nAll foreigners were called Americans,\nSaturday movies meant American movies,\nand all foreign songs were called pop songs.\nEven when in a hurry,\neven while running,\nif the national flag-lowering ceremony began, people froze on the spot.\nDuring night civil-defense drills, civil-defense members shouted,\n“Turn off the lights!”\nAt the Gyeongin relay\nmarathon race,\nthe barefoot runner Abebe raced,\nand when a foreign president visited, everyone went out together to wave flags.\nEvery male pet was John, and every female pet was Mary.\nAll the neighborhood dogs had American names like John,\nor Saint Mary.\nShoe shiners,\nragpickers,\nA-frame carriers,\nnewspaper sellers,\numbrella sellers,\ndisabled veterans,\ncoal-briquette gas,\ntokens,\nbus ticket booklets,\nLong Live Longevity,\nhousing lottery tickets,\nHorse-brand, Prince-brand, and Tiger-brand shoes,\nwhite rubber shoes,\nblack rubber shoes,\ncoffee was Maxwell House,\ncreamer was Dongsuh Foods,\nPanpyrin was for colds,\nFestal was for digestion,\nFor bruises there was Antiphlamine, and there were Imyungrae plasters, pine-caterpillar catching, digging arrowroot roots, and Yokai Ningen.\nAstro Boy,\nYeoro, Assi, and Courtroom Night Stories,\nProsecutor Oh Je-do, and Hometown of Legends,\nDaeyeongak Hotel and Daewang Corner,\nCivic Hall, Juicy Fresh, and Spearmint,\nand bubble gum was, oh, oh, Lotte Gum.\nKim Il’s headbutt, karate king Cheon Gyu-deok, Sibal taxis, and Crown taxis,\nthe Pony car,\nthree-wheeled vehicles,\non the tram tracks of the Han River bridge, trams\nmoved slowly, children placed big nails on the tracks to make key blanks and ran away, and my uncle broke his leg jumping off to avoid paying tram fare, so he went to Samgakji\nfor bone-setting treatment.\nDamanegi, meaning onion,\ndakkwang, meaning pickled radish,\nbento, meaning lunch box,\nbbageseu, meaning bucket,\ndara, meaning basin,\nwarubashi, meaning disposable chopsticks,\nmochi,\npants,\nrunning shirt,\nthere were so many Japanese words\nliving together with us.\nEven if soda floated in the sea off Incheon,\nwe could not drink it without a cup.\nAn old country man rode a train for the first time and argued with the ticket-selling lady,\nsaying, “What kind of business in this world has no bargaining?”\nIf we were in the afternoon class, we played jacks until the morning class ended,\nand waited while playing rubber-band games.\nThe day before a picnic,\nwe kept looking at the sky, worried it might rain.\nIf a rice bowl buried in the warm floor area tipped over, we picked rice grains off the blanket and ate them.\nAfter a nap, we sometimes thought it was morning and went back to school with our bags.\nBruce Lee’s Fist of Fury and Jackie Chan’s Drunken Master,\nWang Yu’s One-Armed Swordsman series,\nand holiday specials for Chuseok and Lunar New Year were Chinese martial-arts films.\nWe marched around the playground singing about the Tiger Division,\nthe White Horse Division,\nand military songs,\nand received corn bread rations.\nWe stuck chewed gum on the wall and chewed it again later,\nand chose teams with a flashlight game.\nLittle girls played rubber-band games\nwhile singing to their mothers to bury them in a sunny place if they died.\nSlap-match cards,\nterritory games and rubber-band games,\ndalgona candy,\n“The hibiscus flower has bloomed,”\nthey said.\nSquid Game was part of everyday life.\nStudents were dragged to the discipline office and beaten badly for going to a billiard hall,\nand punished if they were caught going to a movie theater.\nAhn So-young rode a horse along the beach in a sensational movie scene,\nand when a kissing scene appeared, everyone whistled together.\nWhen I went to a friend’s house and my friend was not there,\nbut his older sister was sleeping alone, it felt strangely exciting.\nThe match factory in Incheon, and the young woman from the match factory,\nare you still safe and well, safe and well?\nLong, long ago,\nin a very recent old time,\nwhen all of us were fresh light-green buds just beginning to bloom.\nAh, how I miss it.\nThose days.\nI miss those days that can never return.\nAh, those old days.";
+
+function speak(text, lang){
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = lang === 'en-US' ? 0.86 : 0.95;
+  u.pitch = 1;
+  speechSynthesis.speak(u);
+}
+
+function speakAll(lang){
+  speechSynthesis.cancel();
+  const text = lang === 'en-US' ? EN_TEXT : KO_TEXT;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = lang === 'en-US' ? 0.86 : 0.95;
+  u.pitch = 1;
+  speechSynthesis.speak(u);
+}
+</script>
+</div></div>
+</body>
+</html>
