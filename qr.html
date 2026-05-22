@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>QR 코드 생성기</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: "맑은 고딕", sans-serif;
+      background: #f4f7fb;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .box {
+      background: white;
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    input {
+      width: 90%;
+      padding: 15px;
+      font-size: 18px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 14px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    #qrcode {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      color: #2563eb;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>QR 코드 생성기</h1>
+
+    <input type="text" id="linkInput" placeholder="QR 코드로 만들 링크 입력">
+
+    <br>
+
+    <button onclick="makeQR()">QR 코드 만들기</button>
+
+    <div id="qrcode"></div>
+
+    <a id="downloadLink" style="display:none;" download="qrcode.png">
+      QR 코드 다운로드
+    </a>
+  </div>
+
+  <script>
+    let qr;
+
+    function makeQR() {
+      const link = document.getElementById("linkInput").value.trim();
+      const qrBox = document.getElementById("qrcode");
+      const downloadLink = document.getElementById("downloadLink");
+
+      if (link === "") {
+        alert("링크를 입력하세요.");
+        return;
+      }
+
+      qrBox.innerHTML = "";
+      downloadLink.style.display = "none";
+
+      qr = new QRCode(qrBox, {
+        text: link,
+        width: 220,
+        height: 220,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      setTimeout(() => {
+        const img = qrBox.querySelector("img");
+        if (img) {
+          downloadLink.href = img.src;
+          downloadLink.style.display = "inline-block";
+        }
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
