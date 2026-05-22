@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>한국인 이름·휴대전화번호 생성기</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        padding: 30px;
+    }
+
+    .box {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    input, button {
+        padding: 10px;
+        font-size: 16px;
+        margin: 5px;
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+        border-radius: 8px;
+        background: #2d8cff;
+        color: white;
+    }
+
+    button:hover {
+        background: #1b6fd1;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background: #2d8cff;
+        color: white;
+    }
+</style>
+</head>
+
+<body>
+<div class="box">
+    <h1>한국인 이름·휴대전화번호 생성기</h1>
+
+    <label>생성할 사람 수:</label>
+    <input type="number" id="count" value="100" min="1">
+
+    <button onclick="generateData()">생성하기</button>
+    <button onclick="downloadCSV()">CSV 저장</button>
+
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>휴대전화번호</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+const lastNames = [
+    "김", "이", "박", "최", "정", "강", "조", "윤", "장", "임",
+    "한", "오", "서", "신", "권", "황", "안", "송", "류", "홍",
+    "전", "고", "문", "양", "손", "배", "백", "허", "유", "남",
+    "심", "노", "하", "곽", "성", "차", "주", "우", "구", "민",
+    "진", "엄", "채", "원", "천", "방", "공", "현", "함", "변",
+    "염", "여", "추", "도", "소", "석", "선", "설", "마", "길",
+    "남궁", "황보", "제갈", "선우", "독고", "사공", "서문", "동방"
+];
+
+const firstSyllables = [
+    "가", "강", "건", "경", "규", "근", "도", "동", "민", "서",
+    "선", "성", "수", "승", "시", "아", "연", "영", "예", "우",
+    "원", "유", "윤", "은", "재", "정", "주", "준", "지", "진",
+    "찬", "채", "태", "하", "한", "현", "혜", "호", "효", "희"
+];
+
+const secondSyllables = [
+    "준", "우", "윤", "현", "진", "호", "빈", "율", "연", "아",
+    "린", "서", "원", "희", "성", "민", "하", "은", "재", "영",
+    "주", "찬", "솔", "규", "별", "수", "지", "정", "혜", "태"
+];
+
+let data = [];
+
+function choice(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function makeName() {
+    while (true) {
+        let last = choice(lastNames);
+        let first = choice(firstSyllables);
+        let second = choice(secondSyllables);
+
+        if (first !== second) {
+            return last + first + second;
+        }
+    }
+}
+
+function makePhone() {
+    let middle = Math.floor(1000 + Math.random() * 9000);
+    let last = Math.floor(1000 + Math.random() * 9000);
+    return `010-${middle}-${last}`;
+}
+
+function generateData() {
+    const n = Number(document.getElementById("count").value);
+    const tbody = document.querySelector("#resultTable tbody");
+
+    let names = new Set();
+    let phones = new Set();
+
+    data = [];
+    tbody.innerHTML = "";
+
+    while (data.length < n) {
+        let name = makeName();
+        let phone = makePhone();
+
+        if (names.has(name) || phones.has(phone)) {
+            continue;
+        }
+
+        names.add(name);
+        phones.add(phone);
+
+        data.push({
+            번호: data.length + 1,
+            이름: name,
+            휴대전화번호: phone
+        });
+    }
+
+    data.forEach(person => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${person.번호}</td>
+            <td>${person.이름}</td>
+            <td>${person.휴대전화번호}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+function downloadCSV() {
+    if (data.length === 0) {
+        alert("먼저 데이터를 생성하세요.");
+        return;
+    }
+
+    let csv = "번호,이름,휴대전화번호\n";
+
+    data.forEach(row => {
+        csv += `${row.번호},${row.이름},${row.휴대전화번호}\n`;
+    });
+
+    const blob = new Blob(["\uFEFF" + csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "한국인이름_전화번호.csv";
+    link.click();
+}
+</script>
+</body>
+</html>
