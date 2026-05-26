@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>서로 다른 딕셔너리 병합하는 방법 10가지</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+        background: #f3f6fb;
+        color: #1f2937;
+        line-height: 1.75;
+    }
+    header {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        padding: 36px 24px;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 34px;
+    }
+    header p {
+        margin: 10px 0 0;
+        font-size: 18px;
+    }
+    .layout {
+        display: flex;
+        min-height: calc(100vh - 130px);
+    }
+    nav {
+        width: 280px;
+        background: #ffffff;
+        border-right: 1px solid #dbe4f0;
+        padding: 18px;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+    }
+    nav a {
+        display: block;
+        text-decoration: none;
+        color: #1e40af;
+        padding: 9px 12px;
+        margin-bottom: 6px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    nav a:hover {
+        background: #eaf1ff;
+    }
+    main {
+        flex: 1;
+        padding: 28px;
+        max-width: 1180px;
+    }
+    section {
+        background: #ffffff;
+        margin-bottom: 24px;
+        padding: 24px;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+    }
+    h2 {
+        margin-top: 0;
+        color: #1e3a8a;
+        border-left: 7px solid #2563eb;
+        padding-left: 12px;
+    }
+    h3 {
+        color: #1d4ed8;
+    }
+    pre {
+        background: #0f172a;
+        color: #e5e7eb;
+        padding: 18px;
+        border-radius: 12px;
+        overflow-x: auto;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    pre.output {
+        background: #f1f5f9;
+        color: #111827;
+        border-left: 6px solid #64748b;
+    }
+    code {
+        font-family: Consolas, "Courier New", monospace;
+    }
+    .note {
+        background: #fff7df;
+        border-left: 6px solid #f59e0b;
+        padding: 14px 16px;
+        border-radius: 10px;
+        margin-top: 12px;
+    }
+    .good {
+        background: #ecfdf5;
+        border-left: 6px solid #10b981;
+        padding: 14px 16px;
+        border-radius: 10px;
+        margin-top: 12px;
+    }
+    .warn {
+        background: #fff1f2;
+        border-left: 6px solid #ef4444;
+        padding: 14px 16px;
+        border-radius: 10px;
+        margin-top: 12px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+    th, td {
+        border: 1px solid #d7e0ea;
+        padding: 10px;
+        vertical-align: top;
+    }
+    th {
+        background: #eaf1ff;
+        color: #1e3a8a;
+    }
+    .quiz {
+        padding: 14px;
+        background: #f8fbff;
+        border: 1px solid #d8e8ff;
+        border-radius: 10px;
+        margin: 12px 0;
+    }
+    button {
+        background: #1e40af;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 9px 14px;
+        cursor: pointer;
+        font-weight: 700;
+    }
+    button:hover {
+        background: #1e3a8a;
+    }
+    .answer {
+        display: none;
+        margin-top: 10px;
+        padding: 10px;
+        background: #ecfdf5;
+        border-left: 5px solid #22c55e;
+        border-radius: 8px;
+    }
+    footer {
+        text-align: center;
+        color: #64748b;
+        padding: 24px;
+    }
+    @media (max-width: 850px) {
+        .layout { flex-direction: column; }
+        nav {
+            width: 100%;
+            height: auto;
+            position: static;
+            border-right: none;
+            border-bottom: 1px solid #dbe4f0;
+        }
+        main { padding: 16px; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>서로 다른 딕셔너리 병합하는 방법 10가지</h1>
+    <p>파이썬 Dictionary Merge 예제 코드 · 출력 결과 · 상세 설명</p>
+</header>
+
+<div class="layout">
+<nav>
+    <a href="#intro">개념 이해</a>
+    <a href="#m1">1. | 연산자</a>
+    <a href="#m2">2. update()</a>
+    <a href="#m3">3. ** 언패킹</a>
+    <a href="#m4">4. copy() + update()</a>
+    <a href="#m5">5. for문 직접 병합</a>
+    <a href="#m6">6. 여러 딕셔너리 반복 병합</a>
+    <a href="#m7">7. 중복 키 값 더하기</a>
+    <a href="#m8">8. 중복 키 값을 리스트로 묶기</a>
+    <a href="#m9">9. ChainMap 사용</a>
+    <a href="#m10">10. 딕셔너리 컴프리헨션</a>
+    <a href="#compare">방법 비교표</a>
+    <a href="#quiz">확인 문제</a>
+</nav>
+
+<main>
+
+<section id="intro">
+    <h2>개념 이해</h2>
+    <p>
+        딕셔너리 병합이란 두 개 이상의 딕셔너리를 하나의 딕셔너리로 합치는 것입니다.
+    </p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}</code></pre>
+
+<p>두 딕셔너리를 병합하면 다음과 같은 결과를 만들 수 있습니다.</p>
+
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="warn">
+    주의: 두 딕셔너리에 같은 키가 있으면 일반적으로 뒤에 오는 딕셔너리의 값으로 덮어쓰기 됩니다.
+</div>
+</section>
+
+<section id="m1">
+    <h2>1. | 연산자로 병합하기</h2>
+    <p>Python 3.9 이상에서 사용할 수 있는 가장 간단한 방법입니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}
+
+result = dict1 | dict2
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="good">
+    원본 딕셔너리 dict1, dict2는 바뀌지 않고 새로운 딕셔너리가 만들어집니다.
+</div>
+</section>
+
+<section id="m2">
+    <h2>2. update() 메서드로 병합하기</h2>
+    <p><code>update()</code>는 기존 딕셔너리에 다른 딕셔너리의 내용을 추가합니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}
+
+dict1.update(dict2)
+
+print(dict1)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="warn">
+    update()는 dict1 자체를 직접 수정합니다. 원본을 보존해야 한다면 copy()를 함께 사용하는 것이 좋습니다.
+</div>
+</section>
+
+<section id="m3">
+    <h2>3. ** 언패킹으로 병합하기</h2>
+    <p>Python 3.5 이상에서 많이 사용하는 방법입니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}
+
+result = {**dict1, **dict2}
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="note">
+    <code>**dict1</code>은 dict1의 내용을 펼쳐서 새 딕셔너리에 넣는다는 뜻입니다.
+</div>
+</section>
+
+<section id="m4">
+    <h2>4. copy() + update()로 원본 보존하기</h2>
+    <p>원본 dict1을 바꾸지 않고 병합하고 싶을 때 사용합니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}
+
+result = dict1.copy()
+result.update(dict2)
+
+print("dict1:", dict1)
+print("result:", result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>dict1: {'이름': '민수', '나이': 17}
+result: {'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="good">
+    dict1은 그대로 두고, result라는 새로운 딕셔너리에 병합 결과를 저장합니다.
+</div>
+</section>
+
+<section id="m5">
+    <h2>5. for문으로 직접 병합하기</h2>
+    <p>딕셔너리의 키와 값을 하나씩 꺼내서 직접 추가할 수 있습니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}
+
+result = {}
+
+for key, value in dict1.items():
+    result[key] = value
+
+for key, value in dict2.items():
+    result[key] = value
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="note">
+    for문을 사용하면 중복 키를 어떻게 처리할지 직접 제어할 수 있습니다.
+</div>
+</section>
+
+<section id="m6">
+    <h2>6. 여러 개의 딕셔너리를 반복문으로 병합하기</h2>
+    <p>딕셔너리가 3개 이상일 때 유용합니다.</p>
+
+<pre><code>dict1 = {"이름": "민수"}
+dict2 = {"나이": 17}
+dict3 = {"학교": "과학고"}
+dict4 = {"학년": 2}
+
+dict_list = [dict1, dict2, dict3, dict4]
+
+result = {}
+
+for d in dict_list:
+    result.update(d)
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고', '학년': 2}</code></pre>
+
+<div class="good">
+    병합할 딕셔너리 개수가 많을 때 코드가 깔끔해집니다.
+</div>
+</section>
+
+<section id="m7">
+    <h2>7. 중복 키가 있을 때 값 더하기</h2>
+    <p>같은 키가 있으면 덮어쓰지 않고 값을 더할 수 있습니다.</p>
+
+<pre><code>score1 = {"국어": 80, "수학": 90}
+score2 = {"수학": 5, "영어": 85}
+
+result = score1.copy()
+
+for key, value in score2.items():
+    if key in result:
+        result[key] = result[key] + value
+    else:
+        result[key] = value
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'국어': 80, '수학': 95, '영어': 85}</code></pre>
+
+<div class="note">
+    수학은 score1에 90, score2에 5가 있으므로 90 + 5 = 95가 됩니다.
+</div>
+</section>
+
+<section id="m8">
+    <h2>8. 중복 키 값을 리스트로 묶기</h2>
+    <p>같은 키의 값을 모두 보존하고 싶을 때 사용합니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "취미": "독서"}
+dict2 = {"이름": "지아", "학교": "과학고"}
+
+result = {}
+
+for d in [dict1, dict2]:
+    for key, value in d.items():
+        if key in result:
+            result[key].append(value)
+        else:
+            result[key] = [value]
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': ['민수', '지아'], '취미': ['독서'], '학교': ['과학고']}</code></pre>
+
+<div class="good">
+    중복된 키의 값을 잃지 않고 모두 저장할 수 있습니다.
+</div>
+</section>
+
+<section id="m9">
+    <h2>9. collections.ChainMap으로 병합처럼 사용하기</h2>
+    <p><code>ChainMap</code>은 여러 딕셔너리를 실제로 합치지 않고 연결해서 하나처럼 사용할 수 있게 합니다.</p>
+
+<pre><code>from collections import ChainMap
+
+dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "학년": 2}
+
+merged = ChainMap(dict1, dict2)
+
+print(merged["이름"])
+print(merged["학교"])
+print(dict(merged))</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>민수
+과학고
+{'학교': '과학고', '학년': 2, '이름': '민수', '나이': 17}</code></pre>
+
+<div class="note">
+    ChainMap은 원본 딕셔너리를 복사하지 않고 연결하므로, 설정값을 여러 단계로 관리할 때 유용합니다.
+</div>
+</section>
+
+<section id="m10">
+    <h2>10. 딕셔너리 컴프리헨션으로 선택 병합하기</h2>
+    <p>필요한 키만 골라서 병합할 수 있습니다.</p>
+
+<pre><code>dict1 = {"이름": "민수", "나이": 17}
+dict2 = {"학교": "과학고", "비밀번호": "1234"}
+
+merged = {**dict1, **dict2}
+
+result = {
+    key: value
+    for key, value in merged.items()
+    if key != "비밀번호"
+}
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>{'이름': '민수', '나이': 17, '학교': '과학고'}</code></pre>
+
+<div class="good">
+    병합하면서 특정 키를 제외하거나 조건에 맞는 데이터만 남길 수 있습니다.
+</div>
+</section>
+
+<section id="compare">
+    <h2>방법 비교표</h2>
+
+<table>
+    <tr>
+        <th>방법</th>
+        <th>특징</th>
+        <th>원본 수정 여부</th>
+        <th>추천 상황</th>
+    </tr>
+    <tr>
+        <td>| 연산자</td>
+        <td>가장 간단하고 직관적</td>
+        <td>수정 안 함</td>
+        <td>Python 3.9 이상</td>
+    </tr>
+    <tr>
+        <td>update()</td>
+        <td>기존 딕셔너리에 추가</td>
+        <td>수정함</td>
+        <td>원본을 바꿔도 될 때</td>
+    </tr>
+    <tr>
+        <td>{**dict1, **dict2}</td>
+        <td>새 딕셔너리 생성</td>
+        <td>수정 안 함</td>
+        <td>Python 3.5 이상</td>
+    </tr>
+    <tr>
+        <td>copy() + update()</td>
+        <td>원본 보존</td>
+        <td>수정 안 함</td>
+        <td>안전한 병합</td>
+    </tr>
+    <tr>
+        <td>for문</td>
+        <td>세부 제어 가능</td>
+        <td>작성 방식에 따라 다름</td>
+        <td>중복 키 처리 규칙이 필요할 때</td>
+    </tr>
+    <tr>
+        <td>ChainMap</td>
+        <td>실제 병합 없이 연결</td>
+        <td>수정 안 함</td>
+        <td>설정값, 기본값 관리</td>
+    </tr>
+</table>
+</section>
+
+<section id="quiz">
+    <h2>확인 문제</h2>
+
+    <div class="quiz">
+        <b>문제 1.</b> Python 3.9 이상에서 딕셔너리를 병합하는 간단한 연산자는?
+        <p>① + &nbsp;&nbsp; ② | &nbsp;&nbsp; ③ & &nbsp;&nbsp; ④ *</p>
+        <button onclick="showAnswer('a1')">정답 확인</button>
+        <div id="a1" class="answer">정답: ② |<br>예: result = dict1 | dict2</div>
+    </div>
+
+    <div class="quiz">
+        <b>문제 2.</b> update() 메서드는 원본 딕셔너리를 직접 수정한다. O / X
+        <br><br>
+        <button onclick="showAnswer('a2')">정답 확인</button>
+        <div id="a2" class="answer">정답: O<br>dict1.update(dict2)를 실행하면 dict1의 내용이 바뀝니다.</div>
+    </div>
+
+    <div class="quiz">
+        <b>문제 3.</b> 다음 코드의 출력 결과는?
+<pre><code>a = {"점수": 80}
+b = {"점수": 95}
+
+print(a | b)</code></pre>
+        <button onclick="showAnswer('a3')">정답 확인</button>
+        <div id="a3" class="answer">정답: {'점수': 95}<br>중복 키가 있으면 뒤쪽 딕셔너리 b의 값으로 덮어쓰기 됩니다.</div>
+    </div>
+
+    <div class="quiz">
+        <b>문제 4.</b> 여러 딕셔너리를 실제로 합치지 않고 연결해서 사용하는 도구는?
+        <p>① zip &nbsp;&nbsp; ② ChainMap &nbsp;&nbsp; ③ range &nbsp;&nbsp; ④ split</p>
+        <button onclick="showAnswer('a4')">정답 확인</button>
+        <div id="a4" class="answer">정답: ② ChainMap<br>collections 모듈의 ChainMap을 사용합니다.</div>
+    </div>
+</section>
+
+<footer>
+    파이썬 딕셔너리 병합 학습 자료
+</footer>
+
+</main>
+</div>
+
+<script>
+function showAnswer(id) {
+    const box = document.getElementById(id);
+    box.style.display = box.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
