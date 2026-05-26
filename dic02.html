@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>딕셔너리 키와 값을 줄 바꿔 출력하는 방법 10가지</title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
+    line-height:1.75;
+}
+header{
+    background:linear-gradient(135deg,#0f766e,#14b8a6);
+    color:white;
+    padding:36px 24px;
+    text-align:center;
+}
+header h1{margin:0;font-size:32px}
+header p{margin:10px 0 0;font-size:18px}
+.layout{display:flex;min-height:calc(100vh - 130px)}
+nav{
+    width:290px;
+    background:#fff;
+    border-right:1px solid #dbe4f0;
+    padding:18px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+}
+nav a{
+    display:block;
+    text-decoration:none;
+    color:#0f766e;
+    padding:9px 12px;
+    margin-bottom:6px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:14px;
+}
+nav a:hover{background:#e6fffb}
+main{
+    flex:1;
+    padding:28px;
+    max-width:1180px;
+}
+section{
+    background:#fff;
+    margin-bottom:24px;
+    padding:24px;
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(15,23,42,.07);
+}
+h2{
+    margin-top:0;
+    color:#0f766e;
+    border-left:7px solid #14b8a6;
+    padding-left:12px;
+}
+h3{color:#0f766e}
+pre{
+    background:#0f172a;
+    color:#e5e7eb;
+    padding:18px;
+    border-radius:12px;
+    overflow-x:auto;
+    font-size:15px;
+    line-height:1.6;
+}
+pre.output{
+    background:#f1f5f9;
+    color:#111827;
+    border-left:6px solid #64748b;
+}
+code{font-family:Consolas,"Courier New",monospace}
+.note{
+    background:#fff7df;
+    border-left:6px solid #f59e0b;
+    padding:14px 16px;
+    border-radius:10px;
+    margin-top:12px;
+}
+.good{
+    background:#ecfdf5;
+    border-left:6px solid #10b981;
+    padding:14px 16px;
+    border-radius:10px;
+    margin-top:12px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+}
+th,td{
+    border:1px solid #d7e0ea;
+    padding:10px;
+    vertical-align:top;
+}
+th{background:#e6fffb;color:#0f766e}
+.quiz{
+    padding:14px;
+    background:#f8fbff;
+    border:1px solid #d8e8ff;
+    border-radius:10px;
+    margin:12px 0;
+}
+button{
+    background:#0f766e;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:9px 14px;
+    cursor:pointer;
+    font-weight:700;
+}
+button:hover{background:#115e59}
+.answer{
+    display:none;
+    margin-top:10px;
+    padding:10px;
+    background:#ecfdf5;
+    border-left:5px solid #22c55e;
+    border-radius:8px;
+}
+footer{text-align:center;color:#64748b;padding:24px}
+@media(max-width:850px){
+    .layout{flex-direction:column}
+    nav{
+        width:100%;
+        height:auto;
+        position:static;
+        border-right:none;
+        border-bottom:1px solid #dbe4f0;
+    }
+    main{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>딕셔너리 키와 값을 줄 바꿔 출력하는 방법 10가지</h1>
+<p>{'이름': '민수', '나이': 17, '학교': '과학고'} → 이름: 민수 / 나이: 17 / 학교: 과학고</p>
+</header>
+
+<div class="layout">
+<nav>
+<a href="#goal">출력 목표</a>
+<a href="#m1">1. for문 + items()</a>
+<a href="#m2">2. f-string</a>
+<a href="#m3">3. format()</a>
+<a href="#m4">4. 문자열 연결</a>
+<a href="#m5">5. join()</a>
+<a href="#m6">6. 리스트 컴프리헨션</a>
+<a href="#m7">7. for문 + keys()</a>
+<a href="#m8">8. enumerate()</a>
+<a href="#m9">9. 함수로 만들기</a>
+<a href="#m10">10. 한 줄 코드</a>
+<a href="#summary">비교 정리</a>
+<a href="#quiz">확인 문제</a>
+</nav>
+
+<main>
+
+<section id="goal">
+<h2>출력 목표</h2>
+<p>다음 딕셔너리를 줄 바꿔가며 <b>키: 값</b> 형식으로 출력합니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}</code></pre>
+
+<h3>원하는 출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+핵심은 딕셔너리의 <code>key</code>와 <code>value</code>를 하나씩 꺼내서 출력하는 것입니다.
+</div>
+</section>
+
+<section id="m1">
+<h2>1. for문 + items() 사용</h2>
+<p>가장 기본적이고 많이 사용하는 방법입니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+for key, value in student.items():
+    print(key, ":", value)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름 : 민수
+나이 : 17
+학교 : 과학고</code></pre>
+
+<div class="good">
+<code>items()</code>는 딕셔너리의 키와 값을 동시에 꺼낼 때 사용합니다.
+</div>
+</section>
+
+<section id="m2">
+<h2>2. f-string 사용</h2>
+<p>출력 형식을 깔끔하게 만들 수 있는 추천 방법입니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="good">
+가장 보기 좋고 실무에서도 많이 사용하는 방식입니다.
+</div>
+</section>
+
+<section id="m3">
+<h2>3. format() 함수 사용</h2>
+<p>f-string 대신 <code>format()</code>을 사용할 수도 있습니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+for key, value in student.items():
+    print("{}: {}".format(key, value))</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+Python 구버전 코드에서도 자주 볼 수 있는 방식입니다.
+</div>
+</section>
+
+<section id="m4">
+<h2>4. 문자열 연결 사용</h2>
+<p><code>+</code> 연산자로 문자열을 직접 연결합니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+for key, value in student.items():
+    print(key + ": " + str(value))</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+나이 17은 정수이므로 문자열과 연결하려면 <code>str(value)</code>로 바꿔야 합니다.
+</div>
+</section>
+
+<section id="m5">
+<h2>5. join() 사용</h2>
+<p>여러 줄 문자열을 만든 뒤 한 번에 출력하는 방법입니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+result = "\n".join(f"{key}: {value}" for key, value in student.items())
+
+print(result)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="good">
+<code>"\n"</code>은 줄 바꿈을 의미합니다.
+</div>
+</section>
+
+<section id="m6">
+<h2>6. 리스트 컴프리헨션 사용</h2>
+<p>출력할 문장을 리스트로 만든 뒤 합칩니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+lines = [f"{key}: {value}" for key, value in student.items()]
+
+print("\n".join(lines))</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+문자열을 먼저 리스트로 저장하므로, 중간 결과를 확인하거나 수정하기 쉽습니다.
+</div>
+</section>
+
+<section id="m7">
+<h2>7. for문 + keys() 사용</h2>
+<p>키를 먼저 꺼낸 뒤, 그 키로 값을 찾는 방법입니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+for key in student.keys():
+    print(f"{key}: {student[key]}")</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+<code>student[key]</code>는 해당 키에 저장된 값을 가져옵니다.
+</div>
+</section>
+
+<section id="m8">
+<h2>8. enumerate()로 번호와 함께 출력하기</h2>
+<p>각 항목에 번호를 붙이고 싶을 때 사용합니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+for number, (key, value) in enumerate(student.items(), start=1):
+    print(f"{number}. {key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>1. 이름: 민수
+2. 나이: 17
+3. 학교: 과학고</code></pre>
+
+<div class="good">
+문항 목록, 학생 정보 목록처럼 순서를 표시할 때 유용합니다.
+</div>
+</section>
+
+<section id="m9">
+<h2>9. 함수로 만들어 출력하기</h2>
+<p>반복해서 사용할 수 있도록 함수로 만들 수 있습니다.</p>
+
+<pre><code>def print_dict(data):
+    for key, value in data.items():
+        print(f"{key}: {value}")
+
+student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+print_dict(student)</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="good">
+여러 딕셔너리를 같은 형식으로 출력해야 할 때 좋습니다.
+</div>
+</section>
+
+<section id="m10">
+<h2>10. 한 줄 코드로 출력하기</h2>
+<p><code>print()</code>와 <code>join()</code>을 이용해 한 줄로 작성할 수 있습니다.</p>
+
+<pre><code>student = {'이름': '민수', '나이': 17, '학교': '과학고'}
+
+print("\n".join(f"{k}: {v}" for k, v in student.items()))</code></pre>
+
+<h3>출력 결과</h3>
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+짧고 깔끔하지만, 초보자는 2번 방법처럼 for문을 나누어 쓰는 것이 이해하기 쉽습니다.
+</div>
+</section>
+
+<section id="summary">
+<h2>비교 정리</h2>
+
+<table>
+<tr>
+<th>방법</th>
+<th>핵심 코드</th>
+<th>특징</th>
+<th>추천도</th>
+</tr>
+<tr>
+<td>for + items()</td>
+<td><code>for key, value in data.items()</code></td>
+<td>가장 기본적인 방법</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>f-string</td>
+<td><code>print(f"{key}: {value}")</code></td>
+<td>형식이 깔끔함</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>format()</td>
+<td><code>"{}: {}".format(key, value)</code></td>
+<td>구버전에서도 사용 가능</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>문자열 연결</td>
+<td><code>key + ": " + str(value)</code></td>
+<td>자료형 변환 필요</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>join()</td>
+<td><code>"\n".join(...)</code></td>
+<td>여러 줄을 한 번에 출력</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>함수 사용</td>
+<td><code>def print_dict(data):</code></td>
+<td>재사용 가능</td>
+<td>★★★★★</td>
+</tr>
+</table>
+</section>
+
+<section id="quiz">
+<h2>확인 문제</h2>
+
+<div class="quiz">
+<b>문제 1.</b> 딕셔너리에서 키와 값을 동시에 꺼낼 때 사용하는 메서드는?
+<p>① keys() &nbsp;&nbsp; ② values() &nbsp;&nbsp; ③ items() &nbsp;&nbsp; ④ append()</p>
+<button onclick="showAnswer('a1')">정답 확인</button>
+<div id="a1" class="answer">정답: ③ items()<br><code>items()</code>는 키와 값을 쌍으로 꺼냅니다.</div>
+</div>
+
+<div class="quiz">
+<b>문제 2.</b> 줄 바꿈을 의미하는 특수 문자는?
+<p>① \t &nbsp;&nbsp; ② \n &nbsp;&nbsp; ③ \s &nbsp;&nbsp; ④ \b</p>
+<button onclick="showAnswer('a2')">정답 확인</button>
+<div id="a2" class="answer">정답: ② \n<br><code>\n</code>은 new line, 즉 줄 바꿈입니다.</div>
+</div>
+
+<div class="quiz">
+<b>문제 3.</b> 다음 코드의 출력 결과는?
+<pre><code>student = {'이름': '민수', '나이': 17}
+
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+<button onclick="showAnswer('a3')">정답 확인</button>
+<div id="a3" class="answer">정답:<br>이름: 민수<br>나이: 17</div>
+</div>
+
+</section>
+
+<footer>
+파이썬 딕셔너리 키와 값 출력 학습 자료
+</footer>
+
+</main>
+</div>
+
+<script>
+function showAnswer(id){
+    const box=document.getElementById(id);
+    box.style.display=box.style.display==="block"?"none":"block";
+}
+</script>
+
+</body>
+</html>
