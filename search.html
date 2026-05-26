@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>탐색 알고리즘 시각화 (선형 vs 이진)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 { color: #333; }
+        .controls {
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        input, button, select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 250px;
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .bar {
+            flex: 1;
+            margin: 0 4px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 10px;
+            border-radius: 4px 4px 0 0;
+            transition: background-color 0.3s, transform 0.2s;
+            box-sizing: border-box;
+        }
+        .bar-index {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .indices-container {
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        .idx-label {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin: 0 4px;
+        }
+
+        /* 상태별 색상 */
+        .bar.checking { background-color: #f1c40f !important; transform: scale(1.05); } /* 검사 중 (노랑) */
+        .bar.found { background-color: #2ecc71 !important; transform: scale(1.1); }    /* 찾음 (초록) */
+        .bar.ignored { background-color: #d2d7d9 !important; opacity: 0.5; }            /* 후보 제외 (회색) */
+        .bar.boundary { border: 2px solid #e74c3c; }                                    /* 이진탐색 범위 경계 */
+
+        #status {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>탐색 알고리즘 시각화</h1>
+
+    <div class="controls">
+        <label for="algoSelect">알고리즘: </label>
+        <select id="algoSelect">
+            <option value="linear">선형 탐색 (Linear Search)</option>
+            <option value="binary">이진 탐색 (Binary Search)</option>
+        </select>
+
+        <label for="targetInput">찾을 숫자 (1~100): </label>
+        <input type="number" id="targetInput" min="1" max="100" value="45">
+
+        <button id="startBtn" onclick="startSearch()">탐색 시작</button>
+        <button onclick="resetArray()">배열 초기화</button>
+    </div>
+
+    <div class="container" id="arrayContainer"></div>
+    <div class="indices-container" id="indexContainer"></div>
+
+    <div id="status">조건을 설정하고 [탐색 시작]을 눌러주세요.</div>
+
+    <script>
+        const container = document.getElementById('arrayContainer');
+        const indexContainer = document.getElementById('indexContainer');
+        const statusText = document.getElementById('status');
+        const startBtn = document.getElementById('startBtn');
+        
+        const ARRAY_SIZE = 15;
+        let array = [];
+        let delay = 600; // 애니메이션 속도 (ms)
+
+        // 무작위 정렬된 배열 생성 (이진 탐색을 위해 기본 정렬 수행)
+        function resetArray() {
+            array = [];
+            statusText.innerText = "조건을 설정하고 [탐색 시작]을 눌러주세요.";
+            startBtn.disabled = false;
+            
+            // 1~100 중 중복 없는 15개 숫자 생성 후 정렬
+            let set = new Set();
+            while(set.size < ARRAY_SIZE) {
+                set.add(Math.floor(Math.random() * 95) + 5);
+            }
+            array = Array.from(set).sort((a, b) => a - b);
+
+            renderArray();
+        }
+
+        // 화면에 배열 그리기
+        function renderArray() {
+            container.innerHTML = '';
+            indexContainer.innerHTML = '';
+            
+            array.forEach((value, index) => {
+                // 막대 생성
+                const bar = document.createElement('div');
+                bar.classList.add('bar');
+                bar.style.height = `${value * 2}px`; // 값에 비례한 높이
+                bar.innerText = value;
+                bar.id = `bar-${index}`;
+                container.appendChild(bar);
+
+                // 인덱스 라벨 생성
+                const idxLabel = document.createElement('div');
+                idxLabel.classList.add('idx-label');
+                idxLabel.innerText = `[${index}]`;
+                indexContainer.appendChild(idxLabel);
+            });
+        }
+
+        // 딜레이용 헬퍼 함수
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // 전체 스타일 초기화
+        function clearStyles() {
+            for(let i=0; i<ARRAY_SIZE; i++) {
+                const bar = document.getElementById(`bar-${i}`);
+                bar.className = 'bar';
+            }
+        }
+
+        // 제어 버튼 활성화/비활성화
+        function setControlsDisabled(disabled) {
+            startBtn.disabled = disabled;
+            document.getElementById('algoSelect').disabled = disabled;
+            document.getElementById('targetInput').disabled = disabled;
+        }
+
+        // 메인 탐색 컨트롤러
+        async function startSearch() {
+            const algo = document.getElementById('algoSelect').value;
+            const target = parseInt(document.getElementById('targetInput').value);
+
+            if (isNaN(target)) {
+                alert("올바른 숫자를 입력하세요.");
+                return;
+            }
+
+            clearStyles();
+            setControlsDisabled(true);
+
+            if (algo === 'linear') {
+                await linearSearch(target);
+            } else {
+                await binarySearch(target);
+            }
+
+            setControlsDisabled(false);
+        }
+
+        // ① 선형 탐색 시각화 구현
+        async function linearSearch(target) {
+            statusText.innerText = `선형 탐색 시작: target = ${target}`;
+            await sleep(delay);
+
+            for (let i = 0; i < array.length; i++) {
+                const currentBar = document.getElementById(`bar-${i}`);
+                currentBar.classList.add('checking');
+                statusText.innerText = `인덱스 [${i}]의 값(${array[i]})을 확인 중...`;
+                
+                await sleep(delay);
+
+                if (array[i] === target) {
+                    currentBar.classList.remove('checking');
+                    currentBar.classList.add('found');
+                    statusText.innerText = `🎉 성공! 인덱스 [${i}]에서 ${target}을(를) 찾았습니다.`;
+                    return;
+                } else {
+                    currentBar.classList.remove('checking');
+                    currentBar.classList.add('ignored');
+                    statusText.innerText = `${array[i]}은(는) 찾는 값이 아닙니다. 패스!`;
+                    await sleep(delay / 2);
+                }
+            }
+            statusText.innerText = `❌ 탐색 실패: 배열에 ${target}이(가) 존재하지 않습니다.`;
+        }
+
+        // ② 이진 탐색 시각화 구현
+        async function binarySearch(target) {
+            statusText.innerText = `이진 탐색 시작: target = ${target} (배열이 정렬되어 있어야 합니다)`;
+            await sleep(delay * 1.5);
+
+            let low = 0;
+            let high = array.length - 1;
+
+            while (low <= high) {
+                let mid = Math.floor((low + high) / 2);
+                
+                // 현재 범위 외의 영역은 회색(ignored) 처리
+                for(let i=0; i<ARRAY_SIZE; i++) {
+                    const bar = document.getElementById(`bar-${i}`);
+                    if(i < low || i > high) {
+                        bar.classList.add('ignored');
+                    } else {
+                        bar.classList.remove('ignored');
+                    }
+                }
+
+                const midBar = document.getElementById(`bar-${mid}`);
+                midBar.classList.add('checking');
+                statusText.innerText = `범위: [${low} ~ ${high}], 중앙값 index [${mid}] = ${array[mid]} 확인 중...`;
+                
+                await sleep(delay * 1.5);
+
+                if (array[mid] === target) {
+                    midBar.classList.remove('checking');
+                    midBar.classList.add('found');
+                    statusText.innerText = `🎉 성공! 인덱스 [${mid}]에서 ${target}을(를) 찾았습니다.`;
+                    return;
+                } 
+                
+                if (array[mid] < target) {
+                    statusText.innerText = `${array[mid]} < ${target} 이므로 오른쪽 반을 탐색합니다. (low를 ${mid + 1}로 이동)`;
+                    midBar.classList.remove('checking');
+                    low = mid + 1;
+                } else {
+                    statusText.innerText = `${array[mid]} > ${target} 이므로 왼쪽 반을 탐색합니다. (high를 ${mid - 1}로 이동)`;
+                    midBar.classList.remove('checking');
+                    high = mid - 1;
+                }
+                await sleep(delay * 1.5);
+            }
+
+            // 실패 시 남은 바 전부 흐리게
+            for(let i=0; i<ARRAY_SIZE; i++) {
+                document.getElementById(`bar-${i}`).classList.add('ignored');
+            }
+            statusText.innerText = `❌ 탐색 실패: 배열에 ${target}이(가) 존재하지 않습니다.`;
+        }
+
+        // 처음 로드될 때 배열 자동 생성
+        resetArray();
+    </script>
+</body>
+</html>
