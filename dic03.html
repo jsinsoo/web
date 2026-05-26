@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>딕셔너리 순서 바꾸어 출력하는 방법 10가지</title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
+    line-height:1.75;
+}
+header{
+    background:linear-gradient(135deg,#7c3aed,#a855f7);
+    color:white;
+    padding:36px 24px;
+    text-align:center;
+}
+header h1{margin:0;font-size:34px}
+header p{margin-top:10px;font-size:18px}
+.layout{display:flex;min-height:calc(100vh - 120px)}
+nav{
+    width:280px;
+    background:white;
+    border-right:1px solid #dbe4f0;
+    padding:18px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+}
+nav a{
+    display:block;
+    text-decoration:none;
+    color:#7c3aed;
+    padding:9px 12px;
+    margin-bottom:6px;
+    border-radius:8px;
+    font-weight:700;
+}
+nav a:hover{background:#f3e8ff}
+main{
+    flex:1;
+    padding:28px;
+    max-width:1180px;
+}
+section{
+    background:white;
+    margin-bottom:24px;
+    padding:24px;
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(15,23,42,.07);
+}
+h2{
+    margin-top:0;
+    color:#6d28d9;
+    border-left:7px solid #a855f7;
+    padding-left:12px;
+}
+pre{
+    background:#0f172a;
+    color:#e5e7eb;
+    padding:18px;
+    border-radius:12px;
+    overflow-x:auto;
+    font-size:15px;
+}
+pre.output{
+    background:#f1f5f9;
+    color:#111827;
+    border-left:6px solid #64748b;
+}
+.note{
+    background:#fff7df;
+    border-left:6px solid #f59e0b;
+    padding:14px 16px;
+    border-radius:10px;
+    margin-top:12px;
+}
+.good{
+    background:#ecfdf5;
+    border-left:6px solid #10b981;
+    padding:14px 16px;
+    border-radius:10px;
+    margin-top:12px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+}
+th,td{
+    border:1px solid #d7e0ea;
+    padding:10px;
+}
+th{
+    background:#f3e8ff;
+    color:#6d28d9;
+}
+footer{
+    text-align:center;
+    color:#64748b;
+    padding:24px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>딕셔너리 순서 바꾸어 출력하는 방법 10가지</h1>
+<p>pop(), break, continue, slice, sorted(), reversed() 등 다양한 활용</p>
+</header>
+
+<div class="layout">
+
+<nav>
+<a href="#base">기본 딕셔너리</a>
+<a href="#m1">1. reversed()</a>
+<a href="#m2">2. sorted() 키 정렬</a>
+<a href="#m3">3. sorted() 값 정렬</a>
+<a href="#m4">4. popitem()</a>
+<a href="#m5">5. pop()</a>
+<a href="#m6">6. slice 활용</a>
+<a href="#m7">7. continue</a>
+<a href="#m8">8. break</a>
+<a href="#m9">9. index 활용</a>
+<a href="#m10">10. 사용자 지정 순서</a>
+<a href="#summary">정리</a>
+</nav>
+
+<main>
+
+<section id="base">
+<h2>기본 딕셔너리</h2>
+
+<pre><code>student = {
+    '이름': '민수',
+    '나이': 17,
+    '학교': '과학고'
+}</code></pre>
+
+<h3>기본 출력 순서</h3>
+
+<pre class="output"><code>이름: 민수
+나이: 17
+학교: 과학고</code></pre>
+
+<div class="note">
+Python 3.7 이상에서는 딕셔너리가 입력 순서를 유지합니다.
+</div>
+</section>
+
+<section id="m1">
+<h2>1. reversed()로 역순 출력</h2>
+
+<pre><code>student = {
+    '이름': '민수',
+    '나이': 17,
+    '학교': '과학고'
+}
+
+for key in reversed(student):
+    print(f"{key}: {student[key]}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>학교: 과학고
+나이: 17
+이름: 민수</code></pre>
+
+<div class="good">
+reversed()는 순서를 뒤집어서 출력합니다.
+</div>
+</section>
+
+<section id="m2">
+<h2>2. sorted()로 키 이름 순 정렬</h2>
+
+<pre><code>for key in sorted(student):
+    print(f"{key}: {student[key]}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>나이: 17
+이름: 민수
+학교: 과학고</code></pre>
+
+<div class="note">
+한글도 가나다 순으로 정렬됩니다.
+</div>
+</section>
+
+<section id="m3">
+<h2>3. 값(value) 기준 정렬</h2>
+
+<pre><code>score = {
+    '국어': 80,
+    '수학': 95,
+    '영어': 70
+}
+
+for key, value in sorted(score.items(), key=lambda x: x[1]):
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>영어: 70
+국어: 80
+수학: 95</code></pre>
+
+<div class="good">
+x[1]은 value를 의미합니다.
+</div>
+</section>
+
+<section id="m4">
+<h2>4. popitem()으로 마지막 항목부터 출력</h2>
+
+<pre><code>student = {
+    '이름': '민수',
+    '나이': 17,
+    '학교': '과학고'
+}
+
+while student:
+    key, value = student.popitem()
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>학교: 과학고
+나이: 17
+이름: 민수</code></pre>
+
+<div class="note">
+popitem()은 마지막 항목을 제거하면서 반환합니다.
+</div>
+</section>
+
+<section id="m5">
+<h2>5. pop()으로 특정 키를 먼저 출력</h2>
+
+<pre><code>student = {
+    '이름': '민수',
+    '나이': 17,
+    '학교': '과학고'
+}
+
+school = student.pop('학교')
+
+print("학교:", school)
+
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>학교: 과학고
+이름: 민수
+나이: 17</code></pre>
+
+<div class="good">
+원하는 키를 먼저 꺼내서 출력 순서를 조정할 수 있습니다.
+</div>
+</section>
+
+<section id="m6">
+<h2>6. 리스트로 변환 후 slice 사용</h2>
+
+<pre><code>items = list(student.items())
+
+for key, value in items[::-1]:
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>학교: 과학고
+나이: 17
+이름: 민수</code></pre>
+
+<div class="note">
+[::-1]은 리스트를 역순으로 뒤집는 슬라이싱입니다.
+</div>
+</section>
+
+<section id="m7">
+<h2>7. continue로 특정 항목 건너뛰기</h2>
+
+<pre><code>for key, value in student.items():
+
+    if key == '나이':
+        continue
+
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>이름: 민수
+학교: 과학고</code></pre>
+
+<div class="good">
+continue는 현재 반복을 건너뛰고 다음 반복으로 이동합니다.
+</div>
+</section>
+
+<section id="m8">
+<h2>8. break로 특정 위치에서 멈추기</h2>
+
+<pre><code>for key, value in student.items():
+
+    print(f"{key}: {value}")
+
+    if key == '나이':
+        break</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>이름: 민수
+나이: 17</code></pre>
+
+<div class="note">
+break는 반복문을 즉시 종료합니다.
+</div>
+</section>
+
+<section id="m9">
+<h2>9. index()로 원하는 순서 출력</h2>
+
+<pre><code>order = ['학교', '이름', '나이']
+
+for key in order:
+    print(f"{key}: {student[key]}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>학교: 과학고
+이름: 민수
+나이: 17</code></pre>
+
+<div class="good">
+원하는 순서를 직접 리스트로 지정할 수 있습니다.
+</div>
+</section>
+
+<section id="m10">
+<h2>10. 사용자 지정 함수로 출력 순서 바꾸기</h2>
+
+<pre><code>student = {
+    '이름': '민수',
+    '나이': 17,
+    '학교': '과학고'
+}
+
+priority = {
+    '학교': 0,
+    '이름': 1,
+    '나이': 2
+}
+
+for key, value in sorted(student.items(),
+                         key=lambda x: priority[x[0]]):
+
+    print(f"{key}: {value}")</code></pre>
+
+<h3>출력 결과</h3>
+
+<pre class="output"><code>학교: 과학고
+이름: 민수
+나이: 17</code></pre>
+
+<div class="good">
+복잡한 사용자 정의 출력 순서를 만들 수 있습니다.
+</div>
+</section>
+
+<section id="summary">
+<h2>방법 비교 정리</h2>
+
+<table>
+<tr>
+<th>방법</th>
+<th>특징</th>
+<th>추천 상황</th>
+</tr>
+
+<tr>
+<td>reversed()</td>
+<td>역순 출력</td>
+<td>순서를 뒤집고 싶을 때</td>
+</tr>
+
+<tr>
+<td>sorted()</td>
+<td>자동 정렬</td>
+<td>가나다 순 정렬</td>
+</tr>
+
+<tr>
+<td>popitem()</td>
+<td>마지막 항목 제거</td>
+<td>스택 구조 처리</td>
+</tr>
+
+<tr>
+<td>pop()</td>
+<td>특정 키 먼저 출력</td>
+<td>중요 정보 우선 출력</td>
+</tr>
+
+<tr>
+<td>slice[::-1]</td>
+<td>리스트 역순</td>
+<td>간단한 역순 처리</td>
+</tr>
+
+<tr>
+<td>continue</td>
+<td>일부 건너뜀</td>
+<td>특정 데이터 제외</td>
+</tr>
+
+<tr>
+<td>break</td>
+<td>중간 종료</td>
+<td>일부만 출력</td>
+</tr>
+
+<tr>
+<td>사용자 지정 순서</td>
+<td>원하는 순서 직접 지정</td>
+<td>보고서 출력</td>
+</tr>
+
+</table>
+</section>
+
+<footer>
+파이썬 딕셔너리 순서 변경 출력 학습 자료
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>
