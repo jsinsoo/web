@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>어린 왕자 이야기와 함께하는 파이썬 문법</title>
+<style>
+body{margin:0;font-family:'Malgun Gothic','NanumGothic',sans-serif;background:#f5f7fb;color:#1f2937;line-height:1.7}
+header{background:linear-gradient(135deg,#172554,#2563eb,#7c3aed);color:white;padding:38px 22px;text-align:center}
+header h1{margin:0;font-size:34px} header p{font-size:17px;margin:10px 0 0}
+nav{position:sticky;top:0;background:white;border-bottom:1px solid #ddd;z-index:10;padding:10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+nav select{font-size:16px;padding:9px 13px;border-radius:10px;border:1px solid #aaa;max-width:95%}
+main{max-width:1100px;margin:auto;padding:24px}
+.card{background:white;margin:22px 0;padding:22px;border-radius:18px;box-shadow:0 8px 24px rgba(15,23,42,.08);border-left:8px solid #3b82f6}
+.level{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:4px 12px;font-weight:bold;font-size:14px}
+h2{margin:10px 0;color:#172554;font-size:24px}.ko{font-size:19px;font-weight:bold;color:#111827}.en{font-size:17px;color:#475569;margin-bottom:14px}.point{background:#fff7ed;border-left:5px solid #f97316;padding:10px 14px;border-radius:10px;margin:12px 0}.point b{color:#c2410c}
+pre{background:#0f172a;color:#e5e7eb;padding:16px;border-radius:14px;overflow:auto;font-size:15px;line-height:1.55} code{font-family:Consolas,'Courier New',monospace}.out{background:#f8fafc;border:1px dashed #94a3b8;color:#0f172a;padding:12px;border-radius:12px;white-space:pre-wrap}.tag{color:#64748b;font-size:14px}.topbtn{position:fixed;right:18px;bottom:18px;background:#2563eb;color:white;border:none;border-radius:999px;padding:12px 16px;font-weight:bold;box-shadow:0 6px 18px rgba(0,0,0,.2);cursor:pointer}.summary{background:#ecfeff;border:1px solid #67e8f9;padding:18px;border-radius:16px;margin:20px 0}.grid{display:grid;grid-template-columns:1fr;gap:8px}@media (max-width:700px){header h1{font-size:26px}main{padding:14px}.card{padding:16px}}
+</style>
+<script>
+function go(){const v=document.getElementById('jump').value;if(v) location.hash=v;}
+</script>
+</head>
+<body>
+<header id="top">
+<h1>어린 왕자 이야기와 함께하는 파이썬 문법</h1>
+<p>한글 문장 한 줄, 영어 번역 한 줄, 그리고 그 문장을 활용한 서로 다른 파이썬 문법 예시 코드</p>
+</header>
+<nav>
+<select id="jump" onchange="go()">
+<option value="">학습 단계 바로가기</option>
+<option value='s01'>01단계</option>
+<option value='s02'>02단계</option>
+<option value='s03'>03단계</option>
+<option value='s04'>04단계</option>
+<option value='s05'>05단계</option>
+<option value='s06'>06단계</option>
+<option value='s07'>07단계</option>
+<option value='s08'>08단계</option>
+<option value='s09'>09단계</option>
+<option value='s10'>10단계</option>
+<option value='s11'>11단계</option>
+<option value='s12'>12단계</option>
+<option value='s13'>13단계</option>
+<option value='s14'>14단계</option>
+<option value='s15'>15단계</option>
+<option value='s16'>16단계</option>
+<option value='s17'>17단계</option>
+<option value='s18'>18단계</option>
+<option value='s19'>19단계</option>
+<option value='s20'>20단계</option>
+<option value='s21'>21단계</option>
+<option value='s22'>22단계</option>
+<option value='s23'>23단계</option>
+<option value='s24'>24단계</option>
+<option value='s25'>25단계</option>
+<option value='s26'>26단계</option>
+<option value='s27'>27단계</option>
+<option value='s28'>28단계</option>
+<option value='s29'>29단계</option>
+<option value='s30'>30단계</option>
+<option value='s31'>31단계</option>
+<option value='s32'>32단계</option>
+<option value='s33'>33단계</option>
+<option value='s34'>34단계</option>
+<option value='s35'>35단계</option>
+<option value='s36'>36단계</option>
+<option value='s37'>37단계</option>
+<option value='s38'>38단계</option>
+<option value='s39'>39단계</option>
+<option value='s40'>40단계</option>
+<option value='s41'>41단계</option>
+<option value='s42'>42단계</option>
+<option value='s43'>43단계</option>
+<option value='s44'>44단계</option>
+<option value='s45'>45단계</option>
+<option value='s46'>46단계</option>
+<option value='s47'>47단계</option>
+<option value='s48'>48단계</option>
+<option value='s49'>49단계</option>
+<option value='s50'>50단계</option>
+</select>
+</nav>
+<main>
+<div class="summary">
+<b>학습 안내</b><br>
+이 HTML은 《어린 왕자》 줄거리 문장 50개를 따라가며 파이썬 문법을 익히도록 구성했습니다. 앞부분은 변수·출력·문자열 같은 기초 문법, 중간은 리스트·딕셔너리·반복문·함수, 뒷부분은 클래스·예외 처리·파일 저장·데이터 처리·제너레이터·데코레이터 등 응용·심화 문법으로 이어집니다.
+</div>
+
+<section class="card" id="s01">
+<span class="level">01단계 · 기초</span>
+<h2>print()와 문자열 출력</h2>
+<div class="ko">어린 시절 비행사는 코끼리를 삼킨 보아뱀 그림을 그렸지만 어른들은 모자로만 보았다.</div>
+<div class="en">As a child, the pilot drew a boa constrictor swallowing an elephant, but adults saw only a hat.</div>
+<div class="point"><b>문법 포인트:</b> print()와 문자열 출력</div>
+<div class="tag">예시 코드</div>
+<pre><code>scene = &quot;코끼리를 삼킨 보아뱀&quot;
+adults = &quot;모자&quot;
+print(&quot;비행사가 그린 그림:&quot;, scene)
+print(&quot;어른들이 본 그림:&quot;, adults)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">비행사가 그린 그림: 코끼리를 삼킨 보아뱀
+어른들이 본 그림: 모자</div>
+</section>
+
+<section class="card" id="s02">
+<span class="level">02단계 · 기초</span>
+<h2>변수 값 바꾸기</h2>
+<div class="ko">어른들의 이해 부족에 실망한 그는 화가의 꿈을 포기하고 비행사가 되었다.</div>
+<div class="en">Disappointed by adults&#x27; lack of understanding, he gave up his dream of becoming an artist and became a pilot.</div>
+<div class="point"><b>문법 포인트:</b> 변수 값 바꾸기</div>
+<div class="tag">예시 코드</div>
+<pre><code>dream = &quot;화가&quot;
+job = &quot;비행사&quot;
+print(&quot;처음 꿈:&quot;, dream)
+dream = job
+print(&quot;나중 직업:&quot;, dream)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">처음 꿈: 화가
+나중 직업: 비행사</div>
+</section>
+
+<section class="card" id="s03">
+<span class="level">03단계 · 기초</span>
+<h2>f-string 기초</h2>
+<div class="ko">어느 날 비행기는 사하라 사막에 불시착하였다.</div>
+<div class="en">One day, his airplane crash-landed in the Sahara Desert.</div>
+<div class="point"><b>문법 포인트:</b> f-string 기초</div>
+<div class="tag">예시 코드</div>
+<pre><code>place = &quot;사하라 사막&quot;
+vehicle = &quot;비행기&quot;
+print(f&quot;{vehicle}가 {place}에 불시착했습니다.&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">비행기가 사하라 사막에 불시착했습니다.</div>
+</section>
+
+<section class="card" id="s04">
+<span class="level">04단계 · 기초</span>
+<h2>숫자와 산술 연산</h2>
+<div class="ko">그는 물도 부족한 상태에서 홀로 비행기를 수리해야 했다.</div>
+<div class="en">With very little water, he had to repair the airplane alone.</div>
+<div class="point"><b>문법 포인트:</b> 숫자와 산술 연산</div>
+<div class="tag">예시 코드</div>
+<pre><code>water = 3
+needed = 10
+shortage = needed - water
+print(&quot;필요한 물:&quot;, needed)
+print(&quot;부족한 물:&quot;, shortage)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">필요한 물: 10
+부족한 물: 7</div>
+</section>
+
+<section class="card" id="s05">
+<span class="level">05단계 · 기초</span>
+<h2>input() 형태 이해</h2>
+<div class="ko">다음 날 아침 작은 소년이 나타나 양 한 마리를 그려 달라고 부탁했다.</div>
+<div class="en">The next morning, a little boy appeared and asked him to draw a sheep.</div>
+<div class="point"><b>문법 포인트:</b> input() 형태 이해</div>
+<div class="tag">예시 코드</div>
+<pre><code>request = &quot;양 한 마리를 그려 주세요&quot;
+print(&quot;어린 왕자의 부탁:&quot;, request)
+# 실제 입력을 받을 때는 아래처럼 씁니다.
+# request = input(&quot;무엇을 그려 줄까요? &quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">어린 왕자의 부탁: 양 한 마리를 그려 주세요</div>
+</section>
+
+<section class="card" id="s06">
+<span class="level">06단계 · 기초</span>
+<h2>비교 연산자</h2>
+<div class="ko">그 소년이 바로 어린 왕자였다.</div>
+<div class="en">That little boy was the Little Prince.</div>
+<div class="point"><b>문법 포인트:</b> 비교 연산자</div>
+<div class="tag">예시 코드</div>
+<pre><code>boy = &quot;어린 왕자&quot;
+print(boy == &quot;어린 왕자&quot;)
+print(boy != &quot;왕&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">True
+True</div>
+</section>
+
+<section class="card" id="s07">
+<span class="level">07단계 · 기초</span>
+<h2>문자열 인덱싱</h2>
+<div class="ko">어린 왕자는 B-612라는 작은 별에서 왔다고 말했다.</div>
+<div class="en">The Little Prince said he came from a small asteroid called B-612.</div>
+<div class="point"><b>문법 포인트:</b> 문자열 인덱싱</div>
+<div class="tag">예시 코드</div>
+<pre><code>planet = &quot;B-612&quot;
+print(planet[0])
+print(planet[-1])</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">B
+2</div>
+</section>
+
+<section class="card" id="s08">
+<span class="level">08단계 · 기초</span>
+<h2>리스트 생성</h2>
+<div class="ko">그의 별에는 세 개의 화산과 한 송이의 장미가 있었다.</div>
+<div class="en">His planet contained three volcanoes and a single rose.</div>
+<div class="point"><b>문법 포인트:</b> 리스트 생성</div>
+<div class="tag">예시 코드</div>
+<pre><code>things = [&quot;화산&quot;, &quot;화산&quot;, &quot;화산&quot;, &quot;장미&quot;]
+print(things)
+print(&quot;개수:&quot;, len(things))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">[&#x27;화산&#x27;, &#x27;화산&#x27;, &#x27;화산&#x27;, &#x27;장미&#x27;]
+개수: 4</div>
+</section>
+
+<section class="card" id="s09">
+<span class="level">09단계 · 기초</span>
+<h2>리스트에서 값 제거</h2>
+<div class="ko">그는 매일 바오밥나무 싹을 뽑으며 별을 깨끗하게 관리했다.</div>
+<div class="en">He pulled up baobab sprouts every day to keep his planet clean.</div>
+<div class="point"><b>문법 포인트:</b> 리스트에서 값 제거</div>
+<div class="tag">예시 코드</div>
+<pre><code>sprouts = [&quot;바오밥&quot;, &quot;풀&quot;, &quot;바오밥&quot;, &quot;꽃&quot;]
+sprouts.remove(&quot;바오밥&quot;)
+print(sprouts)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">[&#x27;풀&#x27;, &#x27;바오밥&#x27;, &#x27;꽃&#x27;]</div>
+</section>
+
+<section class="card" id="s10">
+<span class="level">10단계 · 기초</span>
+<h2>딕셔너리 생성</h2>
+<div class="ko">어느 날 아름다운 장미꽃이 그의 별에 피어났다.</div>
+<div class="en">One day, a beautiful rose bloomed on his planet.</div>
+<div class="point"><b>문법 포인트:</b> 딕셔너리 생성</div>
+<div class="tag">예시 코드</div>
+<pre><code>rose = {&quot;이름&quot;: &quot;장미&quot;, &quot;상태&quot;: &quot;피어남&quot;, &quot;색&quot;: &quot;아름다움&quot;}
+print(rose[&quot;이름&quot;])
+print(rose[&quot;상태&quot;])</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">장미
+피어남</div>
+</section>
+
+<section class="card" id="s11">
+<span class="level">11단계 · 기초</span>
+<h2>불 자료형</h2>
+<div class="ko">어린 왕자는 장미를 진심으로 사랑하게 되었다.</div>
+<div class="en">The Little Prince came to love the rose sincerely.</div>
+<div class="point"><b>문법 포인트:</b> 불 자료형</div>
+<div class="tag">예시 코드</div>
+<pre><code>love_rose = True
+miss_rose = False
+print(&quot;장미를 사랑하나요?&quot;, love_rose)
+print(&quot;처음부터 그리워했나요?&quot;, miss_rose)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">장미를 사랑하나요? True
+처음부터 그리워했나요? False</div>
+</section>
+
+<section class="card" id="s12">
+<span class="level">12단계 · 기초</span>
+<h2>문자열 메서드</h2>
+<div class="ko">하지만 장미는 자존심이 강하고 까다로운 성격을 가지고 있었다.</div>
+<div class="en">However, the rose was proud and demanding.</div>
+<div class="point"><b>문법 포인트:</b> 문자열 메서드</div>
+<div class="tag">예시 코드</div>
+<pre><code>personality = &quot;proud and demanding&quot;
+print(personality.upper())
+print(personality.replace(&quot;demanding&quot;, &quot;delicate&quot;))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">PROUD AND DEMANDING
+proud and delicate</div>
+</section>
+
+<section class="card" id="s13">
+<span class="level">13단계 · 기초</span>
+<h2>조건문 if</h2>
+<div class="ko">어린 왕자는 장미의 진심을 이해하지 못한 채 별을 떠났다.</div>
+<div class="en">Unable to understand her true feelings, he left his planet.</div>
+<div class="point"><b>문법 포인트:</b> 조건문 if</div>
+<div class="tag">예시 코드</div>
+<pre><code>understand = False
+if not understand:
+    print(&quot;어린 왕자는 별을 떠납니다.&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">어린 왕자는 별을 떠납니다.</div>
+</section>
+
+<section class="card" id="s14">
+<span class="level">14단계 · 기초</span>
+<h2>for 반복문</h2>
+<div class="ko">그는 여러 행성을 여행하며 다양한 어른들을 만났다.</div>
+<div class="en">He traveled to various planets and met many different adults.</div>
+<div class="point"><b>문법 포인트:</b> for 반복문</div>
+<div class="tag">예시 코드</div>
+<pre><code>planets = [&quot;첫 번째 별&quot;, &quot;두 번째 별&quot;, &quot;세 번째 별&quot;]
+for p in planets:
+    print(p, &quot;방문&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">첫 번째 별 방문
+두 번째 별 방문
+세 번째 별 방문</div>
+</section>
+
+<section class="card" id="s15">
+<span class="level">15단계 · 기초</span>
+<h2>딕셔너리 값 접근</h2>
+<div class="ko">첫 번째 행성에는 자신을 모든 것의 왕이라 여기는 왕이 살고 있었다.</div>
+<div class="en">On the first planet lived a king who believed he ruled everything.</div>
+<div class="point"><b>문법 포인트:</b> 딕셔너리 값 접근</div>
+<div class="tag">예시 코드</div>
+<pre><code>adult = {&quot;행성&quot;: 1, &quot;인물&quot;: &quot;왕&quot;, &quot;특징&quot;: &quot;명령&quot;}
+print(adult[&quot;인물&quot;])
+print(adult[&quot;특징&quot;])</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">왕
+명령</div>
+</section>
+
+<section class="card" id="s16">
+<span class="level">16단계 · 기초</span>
+<h2>if-else</h2>
+<div class="ko">왕은 신하도 없으면서 명령만 내리려 했다.</div>
+<div class="en">The king tried to give orders despite having no subjects.</div>
+<div class="point"><b>문법 포인트:</b> if-else</div>
+<div class="tag">예시 코드</div>
+<pre><code>subjects = 0
+if subjects &gt; 0:
+    print(&quot;명령을 내릴 수 있습니다.&quot;)
+else:
+    print(&quot;들을 신하가 없습니다.&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">들을 신하가 없습니다.</div>
+</section>
+
+<section class="card" id="s17">
+<span class="level">17단계 · 응용</span>
+<h2>리스트 append</h2>
+<div class="ko">두 번째 행성에는 칭찬만 받고 싶어 하는 허영쟁이가 살고 있었다.</div>
+<div class="en">On the second planet lived a vain man who wanted only admiration.</div>
+<div class="point"><b>문법 포인트:</b> 리스트 append</div>
+<div class="tag">예시 코드</div>
+<pre><code>praises = []
+praises.append(&quot;멋집니다&quot;)
+praises.append(&quot;훌륭합니다&quot;)
+print(praises)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">[&#x27;멋집니다&#x27;, &#x27;훌륭합니다&#x27;]</div>
+</section>
+
+<section class="card" id="s18">
+<span class="level">18단계 · 응용</span>
+<h2>all() 함수</h2>
+<div class="ko">허영쟁이는 모든 사람이 자신을 존경한다고 믿었다.</div>
+<div class="en">The vain man believed everyone admired him.</div>
+<div class="point"><b>문법 포인트:</b> all() 함수</div>
+<div class="tag">예시 코드</div>
+<pre><code>admiration = [True, True, False]
+print(&quot;모두 존경하나요?&quot;, all(admiration))
+print(&quot;한 명이라도 존경하나요?&quot;, any(admiration))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">모두 존경하나요? False
+한 명이라도 존경하나요? True</div>
+</section>
+
+<section class="card" id="s19">
+<span class="level">19단계 · 응용</span>
+<h2>while 반복문</h2>
+<div class="ko">세 번째 행성에는 술주정뱅이가 살고 있었다.</div>
+<div class="en">On the third planet lived a drunkard.</div>
+<div class="point"><b>문법 포인트:</b> while 반복문</div>
+<div class="tag">예시 코드</div>
+<pre><code>shame = 3
+while shame &gt; 0:
+    print(&quot;부끄러움 단계:&quot;, shame)
+    shame -= 1</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">부끄러움 단계: 3
+부끄러움 단계: 2
+부끄러움 단계: 1</div>
+</section>
+
+<section class="card" id="s20">
+<span class="level">20단계 · 응용</span>
+<h2>순환 구조 표현</h2>
+<div class="ko">그는 술을 마시는 것이 부끄러워서 술을 마신다고 말했다.</div>
+<div class="en">He said he drank because he was ashamed of drinking.</div>
+<div class="point"><b>문법 포인트:</b> 순환 구조 표현</div>
+<div class="tag">예시 코드</div>
+<pre><code>reason = &quot;부끄러움&quot;
+action = &quot;마심&quot;
+for i in range(3):
+    print(i+1, reason, &quot;때문에&quot;, action)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">1 부끄러움 때문에 마심
+2 부끄러움 때문에 마심
+3 부끄러움 때문에 마심</div>
+</section>
+
+<section class="card" id="s21">
+<span class="level">21단계 · 응용</span>
+<h2>range와 합계</h2>
+<div class="ko">네 번째 행성에는 사업가가 살고 있었다.</div>
+<div class="en">On the fourth planet lived a businessman.</div>
+<div class="point"><b>문법 포인트:</b> range와 합계</div>
+<div class="tag">예시 코드</div>
+<pre><code>stars = range(1, 6)
+total = sum(stars)
+print(&quot;센 별의 합:&quot;, total)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">센 별의 합: 15</div>
+</section>
+
+<section class="card" id="s22">
+<span class="level">22단계 · 응용</span>
+<h2>집합 set</h2>
+<div class="ko">그는 별들을 자신의 소유라고 주장하며 숫자만 세고 있었다.</div>
+<div class="en">He claimed ownership of the stars and spent his time counting them.</div>
+<div class="point"><b>문법 포인트:</b> 집합 set</div>
+<div class="tag">예시 코드</div>
+<pre><code>claimed = {&quot;별1&quot;, &quot;별2&quot;, &quot;별3&quot;, &quot;별1&quot;}
+print(claimed)
+print(&quot;소유 주장 개수:&quot;, len(claimed))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">{&#x27;별3&#x27;, &#x27;별2&#x27;, &#x27;별1&#x27;}
+소유 주장 개수: 3</div>
+</section>
+
+<section class="card" id="s23">
+<span class="level">23단계 · 응용</span>
+<h2>함수 정의</h2>
+<div class="ko">다섯 번째 행성에는 점등인이 살고 있었다.</div>
+<div class="en">On the fifth planet lived a lamplighter.</div>
+<div class="point"><b>문법 포인트:</b> 함수 정의</div>
+<div class="tag">예시 코드</div>
+<pre><code>def light_lamp():
+    return &quot;가로등을 켭니다&quot;
+print(light_lamp())</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">가로등을 켭니다</div>
+</section>
+
+<section class="card" id="s24">
+<span class="level">24단계 · 응용</span>
+<h2>함수와 반복</h2>
+<div class="ko">그는 쉴 틈 없이 가로등을 켜고 끄는 일을 반복했다.</div>
+<div class="en">He endlessly turned a lamp on and off without rest.</div>
+<div class="point"><b>문법 포인트:</b> 함수와 반복</div>
+<div class="tag">예시 코드</div>
+<pre><code>def switch_lamp(state):
+    return &quot;켜기&quot; if state else &quot;끄기&quot;
+for state in [True, False, True, False]:
+    print(switch_lamp(state))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">켜기
+끄기
+켜기
+끄기</div>
+</section>
+
+<section class="card" id="s25">
+<span class="level">25단계 · 응용</span>
+<h2>max와 key</h2>
+<div class="ko">어린 왕자는 점등인을 가장 훌륭한 어른이라고 생각했다.</div>
+<div class="en">The Little Prince considered the lamplighter the most admirable adult.</div>
+<div class="point"><b>문법 포인트:</b> max와 key</div>
+<div class="tag">예시 코드</div>
+<pre><code>adults = {&quot;왕&quot;: 1, &quot;허영쟁이&quot;: 1, &quot;점등인&quot;: 5}
+best = max(adults, key=adults.get)
+print(&quot;가장 훌륭한 어른:&quot;, best)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">가장 훌륭한 어른: 점등인</div>
+</section>
+
+<section class="card" id="s26">
+<span class="level">26단계 · 응용</span>
+<h2>튜플</h2>
+<div class="ko">여섯 번째 행성에는 지리학자가 살고 있었다.</div>
+<div class="en">On the sixth planet lived a geographer.</div>
+<div class="point"><b>문법 포인트:</b> 튜플</div>
+<div class="tag">예시 코드</div>
+<pre><code>location = (6, &quot;지리학자&quot;, &quot;책상&quot;)
+print(location[0])
+print(location[1])</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">6
+지리학자</div>
+</section>
+
+<section class="card" id="s27">
+<span class="level">27단계 · 응용</span>
+<h2>논리 연산</h2>
+<div class="ko">그는 세상을 연구했지만 직접 탐험하지는 않았다.</div>
+<div class="en">He studied the world but never explored it himself.</div>
+<div class="point"><b>문법 포인트:</b> 논리 연산</div>
+<div class="tag">예시 코드</div>
+<pre><code>study = True
+explore = False
+print(study and explore)
+print(study or explore)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">False
+True</div>
+</section>
+
+<section class="card" id="s28">
+<span class="level">28단계 · 응용</span>
+<h2>함수 매개변수</h2>
+<div class="ko">지리학자는 어린 왕자에게 지구를 방문해 보라고 권했다.</div>
+<div class="en">The geographer recommended that the Little Prince visit Earth.</div>
+<div class="point"><b>문법 포인트:</b> 함수 매개변수</div>
+<div class="tag">예시 코드</div>
+<pre><code>def recommend(place):
+    return f&quot;{place}를 방문해 보세요.&quot;
+print(recommend(&quot;지구&quot;))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">지구를 방문해 보세요.</div>
+</section>
+
+<section class="card" id="s29">
+<span class="level">29단계 · 응용</span>
+<h2>문자열 포맷</h2>
+<div class="ko">어린 왕자는 마침내 지구에 도착했다.</div>
+<div class="en">The Little Prince finally arrived on Earth.</div>
+<div class="point"><b>문법 포인트:</b> 문자열 포맷</div>
+<div class="tag">예시 코드</div>
+<pre><code>traveler = &quot;어린 왕자&quot;
+destination = &quot;지구&quot;
+print(&quot;{}는 {}에 도착했습니다.&quot;.format(traveler, destination))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">어린 왕자는 지구에 도착했습니다.</div>
+</section>
+
+<section class="card" id="s30">
+<span class="level">30단계 · 응용</span>
+<h2>리스트 컴프리헨션</h2>
+<div class="ko">지구에서 그는 신비로운 뱀을 만났다.</div>
+<div class="en">On Earth, he met a mysterious snake.</div>
+<div class="point"><b>문법 포인트:</b> 리스트 컴프리헨션</div>
+<div class="tag">예시 코드</div>
+<pre><code>animals = [&quot;여우&quot;, &quot;뱀&quot;, &quot;양&quot;]
+found = [a for a in animals if a == &quot;뱀&quot;]
+print(found)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">[&#x27;뱀&#x27;]</div>
+</section>
+
+<section class="card" id="s31">
+<span class="level">31단계 · 응용</span>
+<h2>return 사용</h2>
+<div class="ko">뱀은 자신이 사람을 원래 있던 곳으로 돌려보낼 수 있다고 말했다.</div>
+<div class="en">The snake said it could send people back to where they came from.</div>
+<div class="point"><b>문법 포인트:</b> return 사용</div>
+<div class="tag">예시 코드</div>
+<pre><code>def send_back(home):
+    return home
+print(&quot;돌아갈 곳:&quot;, send_back(&quot;B-612&quot;))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">돌아갈 곳: B-612</div>
+</section>
+
+<section class="card" id="s32">
+<span class="level">32단계 · 응용</span>
+<h2>문자열 곱셈</h2>
+<div class="ko">어린 왕자는 장미가 가득한 정원을 발견했다.</div>
+<div class="en">The Little Prince discovered a garden full of roses.</div>
+<div class="point"><b>문법 포인트:</b> 문자열 곱셈</div>
+<div class="tag">예시 코드</div>
+<pre><code>rose = &quot;🌹&quot;
+garden = rose * 10
+print(garden)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹</div>
+</section>
+
+<section class="card" id="s33">
+<span class="level">33단계 · 응용</span>
+<h2>count 메서드</h2>
+<div class="ko">그는 자신의 장미가 유일한 존재가 아니라는 사실에 슬퍼했다.</div>
+<div class="en">He was saddened to learn that his rose was not unique.</div>
+<div class="point"><b>문법 포인트:</b> count 메서드</div>
+<div class="tag">예시 코드</div>
+<pre><code>garden = [&quot;장미&quot;, &quot;장미&quot;, &quot;장미&quot;]
+print(&quot;장미 수:&quot;, garden.count(&quot;장미&quot;))
+print(&quot;유일한가?&quot;, garden.count(&quot;장미&quot;) == 1)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">장미 수: 3
+유일한가? False</div>
+</section>
+
+<section class="card" id="s34">
+<span class="level">34단계 · 응용</span>
+<h2>딕셔너리 추가</h2>
+<div class="ko">그때 여우가 나타나 친구가 되어 달라고 부탁했다.</div>
+<div class="en">Then a fox appeared and asked him to become friends.</div>
+<div class="point"><b>문법 포인트:</b> 딕셔너리 추가</div>
+<div class="tag">예시 코드</div>
+<pre><code>friends = {}
+friends[&quot;여우&quot;] = &quot;친구가 되고 싶음&quot;
+print(friends)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">{&#x27;여우&#x27;: &#x27;친구가 되고 싶음&#x27;}</div>
+</section>
+
+<section class="card" id="s35">
+<span class="level">35단계 · 응용</span>
+<h2>함수 기본값</h2>
+<div class="ko">여우는 길들인다는 것은 서로에게 특별한 존재가 되는 것이라고 설명했다.</div>
+<div class="en">The fox explained that taming means becoming special to one another.</div>
+<div class="point"><b>문법 포인트:</b> 함수 기본값</div>
+<div class="tag">예시 코드</div>
+<pre><code>def tame(name, relation=&quot;특별한 존재&quot;):
+    return f&quot;{name}: {relation}&quot;
+print(tame(&quot;여우&quot;))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">여우: 특별한 존재</div>
+</section>
+
+<section class="card" id="s36">
+<span class="level">36단계 · 응용</span>
+<h2>누적 합계</h2>
+<div class="ko">어린 왕자는 여우와 시간을 보내며 진정한 우정의 의미를 배웠다.</div>
+<div class="en">The Little Prince spent time with the fox and learned the meaning of true friendship.</div>
+<div class="point"><b>문법 포인트:</b> 누적 합계</div>
+<div class="tag">예시 코드</div>
+<pre><code>days = [1, 1, 1, 1, 1]
+time = 0
+for d in days:
+    time += d
+print(&quot;함께 보낸 날:&quot;, time)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">함께 보낸 날: 5</div>
+</section>
+
+<section class="card" id="s37">
+<span class="level">37단계 · 응용</span>
+<h2>람다 함수</h2>
+<div class="ko">여우는 가장 중요한 것은 눈에 보이지 않는다고 말했다.</div>
+<div class="en">The fox said that what is most important is invisible to the eye.</div>
+<div class="point"><b>문법 포인트:</b> 람다 함수</div>
+<div class="tag">예시 코드</div>
+<pre><code>invisible = lambda value: f&quot;{value}은/는 눈에 보이지 않습니다.&quot;
+print(invisible(&quot;마음&quot;))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">마음은/는 눈에 보이지 않습니다.</div>
+</section>
+
+<section class="card" id="s38">
+<span class="level">38단계 · 응용</span>
+<h2>가중치 계산</h2>
+<div class="ko">여우는 장미가 특별한 이유는 어린 왕자가 사랑과 시간을 쏟았기 때문이라고 말했다.</div>
+<div class="en">The fox explained that the rose was special because the Little Prince had devoted his love and time to her.</div>
+<div class="point"><b>문법 포인트:</b> 가중치 계산</div>
+<div class="tag">예시 코드</div>
+<pre><code>love = 70
+time = 30
+special = love * 0.7 + time * 0.3
+print(&quot;특별함 점수:&quot;, special)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">특별함 점수: 58.0</div>
+</section>
+
+<section class="card" id="s39">
+<span class="level">39단계 · 응용</span>
+<h2>상태 변경</h2>
+<div class="ko">어린 왕자는 비로소 자신의 장미를 이해하게 되었다.</div>
+<div class="en">The Little Prince finally came to understand his rose.</div>
+<div class="point"><b>문법 포인트:</b> 상태 변경</div>
+<div class="tag">예시 코드</div>
+<pre><code>understanding = {&quot;장미&quot;: False}
+understanding[&quot;장미&quot;] = True
+print(understanding)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">{&#x27;장미&#x27;: True}</div>
+</section>
+
+<section class="card" id="s40">
+<span class="level">40단계 · 심화</span>
+<h2>클래스 기초</h2>
+<div class="ko">사막에서 그는 비행사와 깊은 우정을 나누었다.</div>
+<div class="en">In the desert, he developed a deep friendship with the pilot.</div>
+<div class="point"><b>문법 포인트:</b> 클래스 기초</div>
+<div class="tag">예시 코드</div>
+<pre><code>class Friendship:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+    def show(self):
+        return f&quot;{self.a}와 {self.b}의 우정&quot;
+
+f = Friendship(&quot;어린 왕자&quot;, &quot;비행사&quot;)
+print(f.show())</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">어린 왕자와 비행사의 우정</div>
+</section>
+
+<section class="card" id="s41">
+<span class="level">41단계 · 심화</span>
+<h2>enumerate</h2>
+<div class="ko">두 사람은 함께 우물을 찾아 헤매었다.</div>
+<div class="en">Together they searched for a well.</div>
+<div class="point"><b>문법 포인트:</b> enumerate</div>
+<div class="tag">예시 코드</div>
+<pre><code>places = [&quot;모래언덕&quot;, &quot;바위&quot;, &quot;우물&quot;]
+for idx, place in enumerate(places, start=1):
+    print(idx, place)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">1 모래언덕
+2 바위
+3 우물</div>
+</section>
+
+<section class="card" id="s42">
+<span class="level">42단계 · 심화</span>
+<h2>join</h2>
+<div class="ko">어린 왕자는 자신의 별과 장미가 몹시 그리워졌다.</div>
+<div class="en">The Little Prince greatly missed his planet and his rose.</div>
+<div class="point"><b>문법 포인트:</b> join</div>
+<div class="tag">예시 코드</div>
+<pre><code>miss = [&quot;별&quot;, &quot;장미&quot;, &quot;여우&quot;]
+print(&quot;그리운 것: &quot; + &quot;, &quot;.join(miss))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">그리운 것: 별, 장미, 여우</div>
+</section>
+
+<section class="card" id="s43">
+<span class="level">43단계 · 심화</span>
+<h2>삼항 연산자</h2>
+<div class="ko">그는 고향으로 돌아가기로 결심했다.</div>
+<div class="en">He decided to return home.</div>
+<div class="point"><b>문법 포인트:</b> 삼항 연산자</div>
+<div class="tag">예시 코드</div>
+<pre><code>home = &quot;B-612&quot;
+decision = True
+message = f&quot;{home}로 돌아갑니다&quot; if decision else &quot;남아 있습니다&quot;
+print(message)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">B-612로 돌아갑니다</div>
+</section>
+
+<section class="card" id="s44">
+<span class="level">44단계 · 심화</span>
+<h2>try-except</h2>
+<div class="ko">뱀은 어린 왕자가 별로 돌아갈 수 있도록 도와주겠다고 말했다.</div>
+<div class="en">The snake said it would help him return to his star.</div>
+<div class="point"><b>문법 포인트:</b> try-except</div>
+<div class="tag">예시 코드</div>
+<pre><code>try:
+    path = &quot;별로 가는 길&quot;
+    print(path)
+except Exception as e:
+    print(&quot;문제가 생겼습니다:&quot;, e)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">별로 가는 길</div>
+</section>
+
+<section class="card" id="s45">
+<span class="level">45단계 · 심화</span>
+<h2>함수에 여러 인자 전달</h2>
+<div class="ko">어린 왕자는 비행사에게 작별 인사를 했다.</div>
+<div class="en">The Little Prince said goodbye to the pilot.</div>
+<div class="point"><b>문법 포인트:</b> 함수에 여러 인자 전달</div>
+<div class="tag">예시 코드</div>
+<pre><code>def goodbye(*names):
+    for name in names:
+        print(name, &quot;안녕&quot;)
+
+goodbye(&quot;비행사&quot;, &quot;여우&quot;, &quot;장미&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">비행사 안녕
+여우 안녕
+장미 안녕</div>
+</section>
+
+<section class="card" id="s46">
+<span class="level">46단계 · 심화</span>
+<h2>필터링</h2>
+<div class="ko">그는 자신의 몸은 너무 무거워서 가져갈 수 없다고 말했다.</div>
+<div class="en">He said his body was too heavy to take with him.</div>
+<div class="point"><b>문법 포인트:</b> 필터링</div>
+<div class="tag">예시 코드</div>
+<pre><code>items = {&quot;몸&quot;: 100, &quot;마음&quot;: 1, &quot;별빛&quot;: 0}
+light_items = {k:v for k,v in items.items() if v &lt;= 1}
+print(light_items)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">{&#x27;마음&#x27;: 1, &#x27;별빛&#x27;: 0}</div>
+</section>
+
+<section class="card" id="s47">
+<span class="level">47단계 · 심화</span>
+<h2>시간 조건 분기</h2>
+<div class="ko">밤이 되자 뱀이 어린 왕자를 물었다.</div>
+<div class="en">When night came, the snake bit the Little Prince.</div>
+<div class="point"><b>문법 포인트:</b> 시간 조건 분기</div>
+<div class="tag">예시 코드</div>
+<pre><code>time = &quot;밤&quot;
+if time == &quot;밤&quot;:
+    event = &quot;뱀이 나타남&quot;
+elif time == &quot;낮&quot;:
+    event = &quot;사막을 걸음&quot;
+else:
+    event = &quot;기다림&quot;
+print(event)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">뱀이 나타남</div>
+</section>
+
+<section class="card" id="s48">
+<span class="level">48단계 · 심화</span>
+<h2>None과 상태 표현</h2>
+<div class="ko">어린 왕자는 조용히 쓰러졌다.</div>
+<div class="en">The Little Prince quietly fell to the ground.</div>
+<div class="point"><b>문법 포인트:</b> None과 상태 표현</div>
+<div class="tag">예시 코드</div>
+<pre><code>state = &quot;standing&quot;
+state = None
+print(&quot;현재 상태:&quot;, state)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">현재 상태: None</div>
+</section>
+
+<section class="card" id="s49">
+<span class="level">49단계 · 심화</span>
+<h2>검색 함수</h2>
+<div class="ko">다음 날 아침 그의 몸은 어디에서도 찾을 수 없었다.</div>
+<div class="en">The next morning, his body could not be found anywhere.</div>
+<div class="point"><b>문법 포인트:</b> 검색 함수</div>
+<div class="tag">예시 코드</div>
+<pre><code>def find_body(places):
+    return &quot;몸&quot; in places
+
+print(find_body([&quot;모래&quot;, &quot;별빛&quot;, &quot;발자국&quot;]))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">False</div>
+</section>
+
+<section class="card" id="s50">
+<span class="level">50단계 · 심화</span>
+<h2>데이터 클래스처럼 객체 표현</h2>
+<div class="ko">비행사는 어린 왕자가 자신의 별로 돌아갔다고 믿었다.</div>
+<div class="en">The pilot believed that the Little Prince had returned to his planet.</div>
+<div class="point"><b>문법 포인트:</b> 데이터 클래스처럼 객체 표현</div>
+<div class="tag">예시 코드</div>
+<pre><code>class Belief:
+    def __init__(self, who, thought):
+        self.who = who
+        self.thought = thought
+    def __repr__(self):
+        return f&quot;{self.who}의 믿음: {self.thought}&quot;
+
+print(Belief(&quot;비행사&quot;, &quot;어린 왕자는 별로 돌아갔다&quot;))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">비행사의 믿음: 어린 왕자는 별로 돌아갔다</div>
+</section>
+
+<section class="card" id="s51">
+<span class="level">51단계 · 심화</span>
+<h2>제너레이터</h2>
+<div class="ko">그 이후 비행사는 밤하늘의 별을 볼 때마다 어린 왕자를 떠올렸다.</div>
+<div class="en">After that, the pilot remembered the Little Prince whenever he looked at the stars.</div>
+<div class="point"><b>문법 포인트:</b> 제너레이터</div>
+<div class="tag">예시 코드</div>
+<pre><code>def star_memory(n):
+    for i in range(1, n+1):
+        yield f&quot;{i}번째 별: 어린 왕자를 떠올림&quot;
+
+for memory in star_memory(3):
+    print(memory)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">1번째 별: 어린 왕자를 떠올림
+2번째 별: 어린 왕자를 떠올림
+3번째 별: 어린 왕자를 떠올림</div>
+</section>
+
+<section class="card" id="s52">
+<span class="level">52단계 · 심화</span>
+<h2>JSON 형태 데이터</h2>
+<div class="ko">이 이야기는 사랑과 우정, 책임과 삶의 의미를 전하는 아름다운 작품으로 남았다.</div>
+<div class="en">This story remains a beautiful work that conveys love, friendship, responsibility, and the meaning of life.</div>
+<div class="point"><b>문법 포인트:</b> JSON 형태 데이터</div>
+<div class="tag">예시 코드</div>
+<pre><code>import json
+message = {&quot;사랑&quot;: 1, &quot;우정&quot;: 1, &quot;책임&quot;: 1, &quot;삶의 의미&quot;: 1}
+print(json.dumps(message, ensure_ascii=False, indent=2))</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">{
+  &quot;사랑&quot;: 1,
+  &quot;우정&quot;: 1,
+  &quot;책임&quot;: 1,
+  &quot;삶의 의미&quot;: 1
+}</div>
+</section>
+
+<section class="card" id="s53">
+<span class="level">53단계 · 심화</span>
+<h2>데코레이터</h2>
+<div class="ko">가장 중요한 것은 눈에 보이지 않는다는 말은 작품 전체를 대표하는 메시지이다.</div>
+<div class="en">The saying that what is most important is invisible to the eye is the central message of the entire work.</div>
+<div class="point"><b>문법 포인트:</b> 데코레이터</div>
+<div class="tag">예시 코드</div>
+<pre><code>def emphasize(func):
+    def wrapper():
+        return &quot;★ &quot; + func() + &quot; ★&quot;
+    return wrapper
+
+@emphasize
+def message():
+    return &quot;가장 중요한 것은 눈에 보이지 않는다&quot;
+
+print(message())</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">★ 가장 중요한 것은 눈에 보이지 않는다 ★</div>
+</section>
+
+<section class="card" id="s54">
+<span class="level">54단계 · 심화</span>
+<h2>파일 저장</h2>
+<div class="ko">네가 길들인 것에 대해 너는 영원히 책임이 있다는 말은 작품의 또 다른 핵심 가르침이다.</div>
+<div class="en">You become responsible forever for what you have tamed is another key lesson of the story.</div>
+<div class="point"><b>문법 포인트:</b> 파일 저장</div>
+<div class="tag">예시 코드</div>
+<pre><code>lesson = &quot;네가 길들인 것에 대해 너는 영원히 책임이 있다.&quot;
+with open(&quot;little_prince_lesson.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(lesson)
+print(&quot;교훈을 파일에 저장했습니다.&quot;)</code></pre>
+<div class="tag">예상 출력</div>
+<div class="out">교훈을 파일에 저장했습니다.</div>
+</section>
+
+<div class="summary">
+<b>마무리 학습</b><br>
+이제 같은 문장으로 변수명, 조건, 반복, 함수, 클래스, 파일 저장을 바꾸어 직접 응용해 보세요. 예를 들어 '장미'를 '별', '여우'를 '친구', '비행사'를 '나'로 바꾸면 나만의 이야기형 파이썬 학습 자료가 됩니다.
+</div>
+</main>
+<button class="topbtn" onclick="location.href='#top'">TOP</button>
+</body>
+</html>
