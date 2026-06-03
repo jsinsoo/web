@@ -1,0 +1,868 @@
+<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>위대한 유산 이야기로 배우는 파이썬 문법 10단계</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&display=swap');
+*{box-sizing:border-box}
+body{font-family:'Noto Sans KR',sans-serif;margin:0;background:#f4efe7;color:#2b2118;line-height:1.75}
+header{background:linear-gradient(135deg,#3b2a20,#7a5537);color:white;padding:34px 24px;text-align:center}
+header h1{margin:0;font-size:32px}
+header p{margin:12px auto 0;max-width:900px;font-size:17px}
+nav{position:sticky;top:0;background:#fff8ee;border-bottom:1px solid #dac8b4;padding:12px;z-index:10;text-align:center}
+nav select{font-size:16px;padding:10px 14px;border-radius:10px;border:1px solid #b99c7d;background:white;max-width:95%}
+main{max-width:1180px;margin:28px auto;padding:0 18px}
+.stage{background:white;border:1px solid #e0d1c1;border-radius:18px;margin:28px 0;padding:26px;box-shadow:0 6px 18px rgba(60,40,25,.08)}
+.stage h2{margin-top:0;color:#5a351f;font-size:26px;border-bottom:3px solid #e8d7c3;padding-bottom:10px}
+.story{background:#fff4df;border-left:6px solid #a86d35;padding:16px 18px;border-radius:10px;margin:14px 0 22px}
+.code-card{border:1px solid #e3d8cd;border-radius:14px;margin:18px 0;overflow:hidden;background:#fffdf9}
+.code-card h3{margin:0;background:#ead8c5;padding:12px 16px;font-size:18px;color:#3b2a20}
+pre{margin:0;background:#27211d;color:#f8f0e3;padding:16px;overflow:auto;font-size:15px;line-height:1.55}
+code{font-family:Consolas,Menlo,monospace}
+.explain{padding:13px 16px;background:#fffdf9}
+.tag{display:inline-block;background:#7a5537;color:white;border-radius:999px;padding:3px 10px;font-size:13px;margin-right:8px}
+.mission{background:#eef7f1;border-left:6px solid #5e8f69;padding:15px 18px;border-radius:10px;margin-top:20px}
+footer{text-align:center;padding:30px;color:#7a6a5a}
+button.top{position:fixed;right:18px;bottom:18px;border:0;background:#7a5537;color:white;padding:12px 16px;border-radius:999px;box-shadow:0 4px 12px #0003;cursor:pointer}
+</style>
+<script>
+function goStage(v){ if(v) location.hash=v; }
+function copyCode(id){
+  const text=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text);
+  alert("코드가 복사되었습니다.");
+}
+</script>
+</head><body>
+<header><h1>위대한 유산 이야기로 배우는 파이썬 문법 10단계</h1><p>찰스 디킨스의 《위대한 유산》 상세 줄거리를 따라가며 파이썬 문법을 기초부터 응용·심화까지 익히는 10단계 학습 자료입니다. 각 단계는 이야기, 문법 핵심, 예시 코드 10개, 응용 미션으로 구성되어 있습니다.</p></header>
+<nav><select onchange='goStage(this.value)'><option value=''>단계별 이동</option>
+<option value='#stage1'>1단계 - 공동묘지의 핍 — 출력, 변수, 문자열 기초</option>
+<option value='#stage2'>2단계 - 탈옥수 매그위치 — 숫자, 연산자, 형 변환</option>
+<option value='#stage3'>3단계 - 새티스 하우스 — 조건문 if, elif, else</option>
+<option value='#stage4'>4단계 - 조 가저리의 대장간 — 리스트와 반복문</option>
+<option value='#stage5'>5단계 - 런던으로 가는 핍 — 딕셔너리, 튜플, 세트</option>
+<option value='#stage6'>6단계 - 신사 수업 — 함수와 매개변수</option>
+<option value='#stage7'>7단계 - 뜻밖의 후원자 — 파일, 예외 처리, 모듈</option>
+<option value='#stage8'>8단계 - 매그위치의 귀환 — 클래스와 객체</option>
+<option value='#stage9'>9단계 - 도망 계획과 추적 — 리스트 컴프리헨션, 람다, 정렬</option>
+<option value='#stage10'>10단계 - 진짜 위대한 유산 — 종합 프로젝트</option>
+</select></nav><main>
+<section class='stage' id='stage1'>
+<h2>1단계. 공동묘지의 핍 — 출력, 변수, 문자열 기초</h2>
+<div class='story'><b>이야기 흐름</b><br>어린 핍은 안개 낀 공동묘지에서 자신의 이름과 두려움을 마주합니다. 이 단계에서는 print(), 변수, 문자열을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. print()로 문장 출력 <button onclick="copyCode('code1')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code1'>print(&quot;핍은 안개 낀 공동묘지에 서 있었다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 문장을 화면에 출력합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 변수에 이름 저장 <button onclick="copyCode('code2')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code2'>name = &quot;핍&quot;
+print(name)</code></pre>
+<div class='explain'><b>설명:</b> 값을 변수에 저장하고 출력합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 문자열 연결 <button onclick="copyCode('code3')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code3'>hero = &quot;핍&quot;
+place = &quot;공동묘지&quot;
+print(hero + &quot;은 &quot; + place + &quot;에 있었다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> +로 문자열을 이어 붙입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. f-string 사용 <button onclick="copyCode('code4')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code4'>name = &quot;핍&quot;
+feeling = &quot;두려움&quot;
+print(f&quot;{name}은 {feeling}을 느꼈다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> f-string으로 변수 값을 문장 안에 넣습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. 여러 줄 출력 <button onclick="copyCode('code5')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code5'>print(&quot;안개&quot;)
+print(&quot;묘비&quot;)
+print(&quot;작은 소년&quot;)</code></pre>
+<div class='explain'><b>설명:</b> print()를 여러 번 사용합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. 문자열 반복 <button onclick="copyCode('code6')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code6'>sound = &quot;쿵 &quot;
+print(sound * 3)</code></pre>
+<div class='explain'><b>설명:</b> 문자열에 숫자를 곱하면 반복됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 문자열 길이 <button onclick="copyCode('code7')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code7'>sentence = &quot;Great Expectations&quot;
+print(len(sentence))</code></pre>
+<div class='explain'><b>설명:</b> len()은 문자열 길이를 구합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 인덱싱 <button onclick="copyCode('code8')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code8'>word = &quot;Pip&quot;
+print(word[0])
+print(word[-1])</code></pre>
+<div class='explain'><b>설명:</b> 문자열에서 특정 위치 글자를 꺼냅니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 슬라이싱 <button onclick="copyCode('code9')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code9'>word = &quot;Expectations&quot;
+print(word[0:6])</code></pre>
+<div class='explain'><b>설명:</b> 문자열의 일부를 잘라냅니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 입력 예시 <button onclick="copyCode('code10')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code10'>name = input(&quot;이름을 입력하세요: &quot;)
+print(name + &quot;의 이야기가 시작됩니다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> input()으로 사용자 입력을 받습니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 공동묘지의 핍 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage2'>
+<h2>2단계. 탈옥수 매그위치 — 숫자, 연산자, 형 변환</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 탈옥수에게 먹을 것과 줄칼을 가져다줍니다. 물건의 개수와 시간을 계산하며 숫자와 연산을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 정수 계산 <button onclick="copyCode('code11')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code11'>bread = 2
+file = 1
+print(bread + file)</code></pre>
+<div class='explain'><b>설명:</b> 정수끼리 더합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 뺄셈 <button onclick="copyCode('code12')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code12'>food = 5
+given = 2
+print(food - given)</code></pre>
+<div class='explain'><b>설명:</b> 남은 양을 계산합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 곱셈 <button onclick="copyCode('code13')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code13'>days = 3
+fear = 10
+print(days * fear)</code></pre>
+<div class='explain'><b>설명:</b> 반복되는 값을 곱합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. 나눗셈 <button onclick="copyCode('code14')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code14'>coins = 10
+people = 2
+print(coins / people)</code></pre>
+<div class='explain'><b>설명:</b> 나눗셈 결과는 실수입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. 몫과 나머지 <button onclick="copyCode('code15')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code15'>chains = 17
+cut_each_day = 5
+print(chains // cut_each_day)
+print(chains % cut_each_day)</code></pre>
+<div class='explain'><b>설명:</b> 몫과 나머지를 구합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. 거듭제곱 <button onclick="copyCode('code16')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code16'>hope = 2
+print(hope ** 3)</code></pre>
+<div class='explain'><b>설명:</b> 제곱 계산입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 비교 연산 <button onclick="copyCode('code17')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code17'>pip_age = 7
+magwitch_age = 40
+print(pip_age &lt; magwitch_age)</code></pre>
+<div class='explain'><b>설명:</b> 비교 결과는 True 또는 False입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 문자열 숫자 변환 <button onclick="copyCode('code18')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code18'>text = &quot;15&quot;
+num = int(text)
+print(num + 5)</code></pre>
+<div class='explain'><b>설명:</b> 문자열을 정수로 바꿉니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 실수 변환 <button onclick="copyCode('code19')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code19'>distance = &quot;3.5&quot;
+print(float(distance) * 2)</code></pre>
+<div class='explain'><b>설명:</b> 문자열을 실수로 바꿉니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 복합 대입 <button onclick="copyCode('code20')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code20'>fear = 10
+fear += 5
+print(fear)</code></pre>
+<div class='explain'><b>설명:</b> 기존 변수에 값을 더해 저장합니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 탈옥수 매그위치 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage3'>
+<h2>3단계. 새티스 하우스 — 조건문 if, elif, else</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 미스 해비셤의 저택에서 차가운 에스텔라를 만납니다. 상황에 따라 판단하는 조건문을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 기본 if <button onclick="copyCode('code21')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code21'>visitor = &quot;핍&quot;
+if visitor == &quot;핍&quot;:
+    print(&quot;저택에 들어간다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 조건이 참이면 들여쓰기 된 코드가 실행됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. if-else <button onclick="copyCode('code22')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code22'>shoe = &quot;낡음&quot;
+if shoe == &quot;깨끗함&quot;:
+    print(&quot;자신감&quot;)
+else:
+    print(&quot;부끄러움&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 조건이 거짓이면 else가 실행됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. elif <button onclick="copyCode('code23')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code23'>mood = 70
+if mood &gt;= 90:
+    print(&quot;기쁨&quot;)
+elif mood &gt;= 50:
+    print(&quot;긴장&quot;)
+else:
+    print(&quot;슬픔&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 여러 조건을 순서대로 검사합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. and 조건 <button onclick="copyCode('code24')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code24'>dress = True
+manners = True
+if dress and manners:
+    print(&quot;신사처럼 보인다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 두 조건이 모두 참이어야 합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. or 조건 <button onclick="copyCode('code25')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code25'>money = False
+kindness = True
+if money or kindness:
+    print(&quot;가치 있는 사람&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 둘 중 하나만 참이어도 됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. not 조건 <button onclick="copyCode('code26')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code26'>afraid = False
+if not afraid:
+    print(&quot;한 걸음 앞으로&quot;)</code></pre>
+<div class='explain'><b>설명:</b> not은 참과 거짓을 뒤집습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 중첩 조건문 <button onclick="copyCode('code27')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code27'>place = &quot;저택&quot;
+feeling = &quot;긴장&quot;
+if place == &quot;저택&quot;:
+    if feeling == &quot;긴장&quot;:
+        print(&quot;조심스럽게 걷는다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 조건문 안에 조건문을 넣을 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 점수 판정 <button onclick="copyCode('code28')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code28'>score = 85
+if score &gt;= 80:
+    print(&quot;훌륭한 태도&quot;)
+else:
+    print(&quot;더 배워야 함&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 기준 점수로 결과를 나눕니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 삼항 표현식 <button onclick="copyCode('code29')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code29'>rich = False
+result = &quot;신사&quot; if rich else &quot;대장장이 견습생&quot;
+print(result)</code></pre>
+<div class='explain'><b>설명:</b> 간단한 조건은 한 줄로 표현할 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 문자 포함 조건 <button onclick="copyCode('code30')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code30'>words = &quot;거친 손과 투박한 구두&quot;
+if &quot;구두&quot; in words:
+    print(&quot;핍은 상처를 받았다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> in으로 포함 여부를 확인합니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 새티스 하우스 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage4'>
+<h2>4단계. 조 가저리의 대장간 — 리스트와 반복문</h2>
+<div class='story'><b>이야기 흐름</b><br>대장간에는 망치, 쇠, 불꽃, 땀이 있습니다. 여러 데이터를 모아 다루는 리스트와 반복문을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 리스트 생성 <button onclick="copyCode('code31')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code31'>tools = [&quot;망치&quot;, &quot;모루&quot;, &quot;집게&quot;]
+print(tools)</code></pre>
+<div class='explain'><b>설명:</b> 여러 값을 리스트에 저장합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 리스트 인덱싱 <button onclick="copyCode('code32')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code32'>tools = [&quot;망치&quot;, &quot;모루&quot;, &quot;집게&quot;]
+print(tools[0])</code></pre>
+<div class='explain'><b>설명:</b> 리스트의 첫 번째 값을 꺼냅니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. append <button onclick="copyCode('code33')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code33'>tools = [&quot;망치&quot;]
+tools.append(&quot;줄칼&quot;)
+print(tools)</code></pre>
+<div class='explain'><b>설명:</b> append()는 리스트 끝에 값을 추가합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. 반복문 for <button onclick="copyCode('code34')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code34'>tools = [&quot;망치&quot;, &quot;모루&quot;, &quot;집게&quot;]
+for tool in tools:
+    print(tool)</code></pre>
+<div class='explain'><b>설명:</b> 리스트의 값을 하나씩 꺼냅니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. range <button onclick="copyCode('code35')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code35'>for strike in range(5):
+    print(&quot;탕!&quot;)</code></pre>
+<div class='explain'><b>설명:</b> range()로 정해진 횟수만큼 반복합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. len과 반복 <button onclick="copyCode('code36')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code36'>tools = [&quot;망치&quot;, &quot;모루&quot;, &quot;집게&quot;]
+for i in range(len(tools)):
+    print(i, tools[i])</code></pre>
+<div class='explain'><b>설명:</b> 인덱스와 값을 함께 다룹니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 리스트 수정 <button onclick="copyCode('code37')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code37'>tools = [&quot;낡은 망치&quot;, &quot;모루&quot;]
+tools[0] = &quot;새 망치&quot;
+print(tools)</code></pre>
+<div class='explain'><b>설명:</b> 리스트 값은 바꿀 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. remove <button onclick="copyCode('code38')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code38'>tools = [&quot;망치&quot;, &quot;줄칼&quot;, &quot;모루&quot;]
+tools.remove(&quot;줄칼&quot;)
+print(tools)</code></pre>
+<div class='explain'><b>설명:</b> 특정 값을 제거합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 리스트 합계 <button onclick="copyCode('code39')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code39'>strength = [10, 20, 30]
+print(sum(strength))</code></pre>
+<div class='explain'><b>설명:</b> sum()은 숫자 리스트의 합을 구합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 리스트 컴프리헨션 기초 <button onclick="copyCode('code40')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code40'>sparks = [i * 2 for i in range(5)]
+print(sparks)</code></pre>
+<div class='explain'><b>설명:</b> 반복으로 새 리스트를 간단히 만듭니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 조 가저리의 대장간 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage5'>
+<h2>5단계. 런던으로 가는 핍 — 딕셔너리, 튜플, 세트</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 신사가 되기 위해 런던으로 떠납니다. 인물 정보와 관계를 구조화하며 자료구조를 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 딕셔너리 생성 <button onclick="copyCode('code41')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code41'>pip = {&quot;이름&quot;: &quot;핍&quot;, &quot;목표&quot;: &quot;신사&quot;}
+print(pip)</code></pre>
+<div class='explain'><b>설명:</b> 키와 값으로 데이터를 저장합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 딕셔너리 값 꺼내기 <button onclick="copyCode('code42')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code42'>pip = {&quot;이름&quot;: &quot;핍&quot;, &quot;나이&quot;: 17}
+print(pip[&quot;이름&quot;])</code></pre>
+<div class='explain'><b>설명:</b> 키를 사용해 값을 꺼냅니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 값 추가 <button onclick="copyCode('code43')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code43'>pip = {&quot;이름&quot;: &quot;핍&quot;}
+pip[&quot;도시&quot;] = &quot;런던&quot;
+print(pip)</code></pre>
+<div class='explain'><b>설명:</b> 새로운 키와 값을 추가합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. 값 수정 <button onclick="copyCode('code44')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code44'>pip = {&quot;마음&quot;: &quot;순수&quot;}
+pip[&quot;마음&quot;] = &quot;허영&quot;
+print(pip)</code></pre>
+<div class='explain'><b>설명:</b> 기존 키의 값을 바꿉니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. items 반복 <button onclick="copyCode('code45')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code45'>pip = {&quot;이름&quot;: &quot;핍&quot;, &quot;목표&quot;: &quot;신사&quot;}
+for key, value in pip.items():
+    print(key, value)</code></pre>
+<div class='explain'><b>설명:</b> 딕셔너리의 키와 값을 함께 반복합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. get 사용 <button onclick="copyCode('code46')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code46'>pip = {&quot;이름&quot;: &quot;핍&quot;}
+print(pip.get(&quot;재산&quot;, &quot;아직 모름&quot;))</code></pre>
+<div class='explain'><b>설명:</b> get()은 기본값을 지정할 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 튜플 <button onclick="copyCode('code47')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code47'>location = (&quot;런던&quot;, 1861)
+print(location[0])</code></pre>
+<div class='explain'><b>설명:</b> 튜플은 변경하기 어려운 묶음 데이터입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 세트 <button onclick="copyCode('code48')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code48'>friends = {&quot;조&quot;, &quot;비디&quot;, &quot;조&quot;}
+print(friends)</code></pre>
+<div class='explain'><b>설명:</b> 세트는 중복을 제거합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 세트 추가 <button onclick="copyCode('code49')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code49'>friends = {&quot;조&quot;}
+friends.add(&quot;허버트&quot;)
+print(friends)</code></pre>
+<div class='explain'><b>설명:</b> add()로 세트에 값을 추가합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 딕셔너리 안 리스트 <button onclick="copyCode('code50')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code50'>life = {&quot;도움&quot;: [&quot;조&quot;, &quot;비디&quot;, &quot;매그위치&quot;]}
+print(life[&quot;도움&quot;][2])</code></pre>
+<div class='explain'><b>설명:</b> 자료구조를 중첩할 수 있습니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 런던으로 가는 핍 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage6'>
+<h2>6단계. 신사 수업 — 함수와 매개변수</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 말투, 예절, 독서, 사교를 배웁니다. 반복되는 행동을 함수로 정리하는 법을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 함수 정의 <button onclick="copyCode('code51')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code51'>def greet():
+    print(&quot;안녕하세요, 저는 핍입니다.&quot;)
+
+greet()</code></pre>
+<div class='explain'><b>설명:</b> def로 함수를 만듭니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 매개변수 <button onclick="copyCode('code52')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code52'>def greet(name):
+    print(f&quot;{name}님, 런던에 오신 것을 환영합니다.&quot;)
+
+greet(&quot;핍&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 함수에 값을 전달합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. return <button onclick="copyCode('code53')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code53'>def add_coin(a, b):
+    return a + b
+
+print(add_coin(3, 5))</code></pre>
+<div class='explain'><b>설명:</b> return은 결과를 돌려줍니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. 기본값 매개변수 <button onclick="copyCode('code54')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code54'>def lesson(name, topic=&quot;예절&quot;):
+    print(f&quot;{name}은 {topic}을 배운다.&quot;)
+
+lesson(&quot;핍&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 값을 생략하면 기본값을 사용합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. 여러 반환값 <button onclick="copyCode('code55')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code55'>def status():
+    return &quot;핍&quot;, &quot;런던&quot;
+
+name, city = status()
+print(name, city)</code></pre>
+<div class='explain'><b>설명:</b> 여러 값을 한 번에 반환할 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. 지역 변수 <button onclick="copyCode('code56')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code56'>def room():
+    candle = &quot;촛불&quot;
+    print(candle)
+
+room()</code></pre>
+<div class='explain'><b>설명:</b> 함수 안에서 만든 변수는 함수 안에서 주로 사용됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 전역 변수 읽기 <button onclick="copyCode('code57')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code57'>city = &quot;런던&quot;
+def show_city():
+    print(city)
+
+show_city()</code></pre>
+<div class='explain'><b>설명:</b> 함수 밖 변수도 읽을 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 리스트를 함수에 전달 <button onclick="copyCode('code58')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code58'>def show(items):
+    for item in items:
+        print(item)
+
+show([&quot;책&quot;, &quot;모자&quot;, &quot;장갑&quot;])</code></pre>
+<div class='explain'><b>설명:</b> 리스트도 함수에 전달할 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 조건이 있는 함수 <button onclick="copyCode('code59')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code59'>def judge(money):
+    if money &gt; 100:
+        return &quot;부자&quot;
+    return &quot;평범&quot;
+
+print(judge(150))</code></pre>
+<div class='explain'><b>설명:</b> 함수 안에서 조건문을 사용할 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 문자열 처리 함수 <button onclick="copyCode('code60')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code60'>def clean_name(name):
+    return name.strip().title()
+
+print(clean_name(&quot; pip &quot;))</code></pre>
+<div class='explain'><b>설명:</b> 문자열 메서드를 함수로 묶습니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 신사 수업 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage7'>
+<h2>7단계. 뜻밖의 후원자 — 파일, 예외 처리, 모듈</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 후원자의 정체를 알지 못한 채 돈과 편지를 받습니다. 파일과 오류를 다루는 법을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 파일 쓰기 <button onclick="copyCode('code61')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code61'>with open(&quot;letter.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(&quot;핍에게: 런던에서 배워라.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> with open으로 파일을 안전하게 씁니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 파일 읽기 <button onclick="copyCode('code62')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code62'>with open(&quot;letter.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    print(f.read())</code></pre>
+<div class='explain'><b>설명:</b> 파일 내용을 읽습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 여러 줄 쓰기 <button onclick="copyCode('code63')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code63'>lines = [&quot;첫 번째 편지\n&quot;, &quot;두 번째 편지\n&quot;]
+with open(&quot;letters.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.writelines(lines)</code></pre>
+<div class='explain'><b>설명:</b> writelines()로 여러 줄을 저장합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. try-except <button onclick="copyCode('code64')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code64'>try:
+    print(10 / 0)
+except ZeroDivisionError:
+    print(&quot;0으로 나눌 수 없습니다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 오류가 발생해도 프로그램이 멈추지 않게 합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. 파일 없음 처리 <button onclick="copyCode('code65')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code65'>try:
+    with open(&quot;unknown.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+        print(f.read())
+except FileNotFoundError:
+    print(&quot;편지를 찾을 수 없습니다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 파일이 없을 때 예외를 처리합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. finally <button onclick="copyCode('code66')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code66'>try:
+    number = int(&quot;100&quot;)
+except ValueError:
+    print(&quot;변환 실패&quot;)
+finally:
+    print(&quot;확인은 끝났다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> finally는 마지막에 실행됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. import math <button onclick="copyCode('code67')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code67'>import math
+print(math.sqrt(49))</code></pre>
+<div class='explain'><b>설명:</b> 모듈을 불러와 기능을 사용합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. random <button onclick="copyCode('code68')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code68'>import random
+people = [&quot;조&quot;, &quot;허버트&quot;, &quot;재거스&quot;]
+print(random.choice(people))</code></pre>
+<div class='explain'><b>설명:</b> 무작위 선택을 합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. datetime <button onclick="copyCode('code69')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code69'>from datetime import datetime
+print(datetime.now().year)</code></pre>
+<div class='explain'><b>설명:</b> 현재 날짜와 시간을 다룹니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 사용자 정의 예외 흐름 <button onclick="copyCode('code70')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code70'>money = -5
+if money &lt; 0:
+    print(&quot;빚이 생겼다.&quot;)
+else:
+    print(&quot;여유가 있다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 조건으로 위험 상황을 처리합니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 뜻밖의 후원자 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage8'>
+<h2>8단계. 매그위치의 귀환 — 클래스와 객체</h2>
+<div class='story'><b>이야기 흐름</b><br>폭풍우 치는 밤, 후원자의 정체가 드러납니다. 인물과 행동을 객체로 표현하는 OOP를 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 클래스 만들기 <button onclick="copyCode('code71')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code71'>class Person:
+    pass
+
+pip = Person()
+print(type(pip))</code></pre>
+<div class='explain'><b>설명:</b> class로 새로운 자료형을 만듭니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 생성자 <button onclick="copyCode('code72')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code72'>class Person:
+    def __init__(self, name):
+        self.name = name
+
+pip = Person(&quot;핍&quot;)
+print(pip.name)</code></pre>
+<div class='explain'><b>설명:</b> __init__은 객체가 만들어질 때 실행됩니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 메서드 <button onclick="copyCode('code73')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code73'>class Person:
+    def __init__(self, name):
+        self.name = name
+    def speak(self):
+        print(f&quot;{self.name}이 말한다.&quot;)
+
+Person(&quot;핍&quot;).speak()</code></pre>
+<div class='explain'><b>설명:</b> 클래스 안 함수는 메서드입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. 속성 변경 <button onclick="copyCode('code74')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code74'>class Person:
+    def __init__(self, name, mood):
+        self.name = name
+        self.mood = mood
+
+pip = Person(&quot;핍&quot;, &quot;혼란&quot;)
+pip.mood = &quot;깨달음&quot;
+print(pip.mood)</code></pre>
+<div class='explain'><b>설명:</b> 객체 속성은 바꿀 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. 여러 객체 <button onclick="copyCode('code75')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code75'>class Person:
+    def __init__(self, name):
+        self.name = name
+
+people = [Person(&quot;핍&quot;), Person(&quot;조&quot;), Person(&quot;매그위치&quot;)]
+for p in people:
+    print(p.name)</code></pre>
+<div class='explain'><b>설명:</b> 같은 클래스로 여러 객체를 만들 수 있습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. 문자열 표현 <button onclick="copyCode('code76')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code76'>class Person:
+    def __init__(self, name):
+        self.name = name
+    def __str__(self):
+        return f&quot;인물: {self.name}&quot;
+
+print(Person(&quot;에스텔라&quot;))</code></pre>
+<div class='explain'><b>설명:</b> __str__은 객체 출력 방식을 정합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 상속 <button onclick="copyCode('code77')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code77'>class Person:
+    def speak(self):
+        print(&quot;말한다&quot;)
+class Gentleman(Person):
+    pass
+
+Gentleman().speak()</code></pre>
+<div class='explain'><b>설명:</b> 자식 클래스는 부모 기능을 물려받습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 메서드 오버라이딩 <button onclick="copyCode('code78')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code78'>class Person:
+    def role(self):
+        print(&quot;사람&quot;)
+class Pip(Person):
+    def role(self):
+        print(&quot;성장하는 주인공&quot;)
+
+Pip().role()</code></pre>
+<div class='explain'><b>설명:</b> 자식 클래스에서 부모 메서드를 새로 정의합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 캡슐화 느낌 <button onclick="copyCode('code79')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code79'>class Secret:
+    def __init__(self):
+        self.__name = &quot;후원자&quot;
+    def reveal(self):
+        return self.__name
+
+print(Secret().reveal())</code></pre>
+<div class='explain'><b>설명:</b> __가 붙은 속성은 직접 접근을 어렵게 합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 클래스 종합 <button onclick="copyCode('code80')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code80'>class Character:
+    def __init__(self, name, lesson):
+        self.name = name
+        self.lesson = lesson
+    def show(self):
+        print(f&quot;{self.name}: {self.lesson}&quot;)
+
+Character(&quot;매그위치&quot;, &quot;은혜는 돌아온다&quot;).show()</code></pre>
+<div class='explain'><b>설명:</b> 속성과 메서드를 함께 사용합니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 매그위치의 귀환 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage9'>
+<h2>9단계. 도망 계획과 추적 — 리스트 컴프리헨션, 람다, 정렬</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 매그위치를 구하려고 계획을 세웁니다. 데이터를 빠르게 가공하고 정렬하는 응용 문법을 배웁니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 조건 리스트 컴프리헨션 <button onclick="copyCode('code81')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code81'>debts = [5, 20, 100, 3]
+big = [d for d in debts if d &gt;= 20]
+print(big)</code></pre>
+<div class='explain'><b>설명:</b> 조건에 맞는 값만 새 리스트에 담습니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 값 변환 <button onclick="copyCode('code82')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code82'>coins = [1, 2, 3]
+doubled = [c * 2 for c in coins]
+print(doubled)</code></pre>
+<div class='explain'><b>설명:</b> 각 값을 변환합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 람다 <button onclick="copyCode('code83')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code83'>add = lambda a, b: a + b
+print(add(3, 4))</code></pre>
+<div class='explain'><b>설명:</b> lambda는 짧은 익명 함수입니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. sorted <button onclick="copyCode('code84')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code84'>names = [&quot;Pip&quot;, &quot;Joe&quot;, &quot;Magwitch&quot;]
+print(sorted(names))</code></pre>
+<div class='explain'><b>설명:</b> sorted()는 정렬된 새 리스트를 만듭니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. key 정렬 <button onclick="copyCode('code85')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code85'>people = [(&quot;핍&quot;, 17), (&quot;조&quot;, 35), (&quot;에스텔라&quot;, 18)]
+print(sorted(people, key=lambda x: x[1]))</code></pre>
+<div class='explain'><b>설명:</b> key로 정렬 기준을 지정합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. reverse 정렬 <button onclick="copyCode('code86')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code86'>money = [10, 200, 50]
+print(sorted(money, reverse=True))</code></pre>
+<div class='explain'><b>설명:</b> 큰 값부터 정렬합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. map <button onclick="copyCode('code87')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code87'>nums = [1, 2, 3]
+print(list(map(lambda x: x * 10, nums)))</code></pre>
+<div class='explain'><b>설명:</b> map은 각 요소에 함수를 적용합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. filter <button onclick="copyCode('code88')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code88'>nums = [1, 2, 3, 4, 5]
+print(list(filter(lambda x: x % 2 == 0, nums)))</code></pre>
+<div class='explain'><b>설명:</b> filter는 조건에 맞는 값만 남깁니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. zip <button onclick="copyCode('code89')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code89'>names = [&quot;핍&quot;, &quot;조&quot;]
+roles = [&quot;학생&quot;, &quot;대장장이&quot;]
+print(list(zip(names, roles)))</code></pre>
+<div class='explain'><b>설명:</b> zip은 여러 리스트를 짝지어 줍니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. enumerate <button onclick="copyCode('code90')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code90'>plans = [&quot;배 준비&quot;, &quot;시간 확인&quot;, &quot;강 건너기&quot;]
+for i, plan in enumerate(plans, start=1):
+    print(i, plan)</code></pre>
+<div class='explain'><b>설명:</b> 번호와 값을 함께 반복합니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 도망 계획과 추적 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+<section class='stage' id='stage10'>
+<h2>10단계. 진짜 위대한 유산 — 종합 프로젝트</h2>
+<div class='story'><b>이야기 흐름</b><br>핍은 돈보다 사랑, 용서, 성숙이 진짜 유산임을 깨닫습니다. 지금까지 배운 문법을 종합해 작은 프로그램을 만듭니다.</div>
+<p><span class='tag'>학습 목표</span> 이야기 속 인물과 사건을 데이터로 표현하며 파이썬 문법을 익힙니다.</p>
+<article class='code-card'>
+<h3>예시 1. 인물 카드 만들기 <button onclick="copyCode('code91')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code91'>characters = [{&quot;name&quot;: &quot;핍&quot;, &quot;lesson&quot;: &quot;성장&quot;}, {&quot;name&quot;: &quot;조&quot;, &quot;lesson&quot;: &quot;사랑&quot;}]
+for c in characters:
+    print(f&quot;{c[&#x27;name&#x27;]}의 유산: {c[&#x27;lesson&#x27;]}&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 딕셔너리 리스트를 반복합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 2. 점수 계산 프로젝트 <button onclick="copyCode('code92')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code92'>scores = {&quot;용기&quot;: 80, &quot;겸손&quot;: 60, &quot;사랑&quot;: 100}
+avg = sum(scores.values()) / len(scores)
+print(round(avg, 1))</code></pre>
+<div class='explain'><b>설명:</b> 딕셔너리 값으로 평균을 구합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 3. 감정 분석 미니 <button onclick="copyCode('code93')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code93'>text = &quot;핍은 조에게 미안했고 사랑을 깨달았다&quot;
+keywords = [&quot;미안&quot;, &quot;사랑&quot;, &quot;깨달음&quot;]
+count = sum(1 for k in keywords if k in text)
+print(count)</code></pre>
+<div class='explain'><b>설명:</b> 문자열 포함 여부로 간단히 분석합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 4. 선택형 이야기 <button onclick="copyCode('code94')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code94'>choice = &quot;조&quot;
+if choice == &quot;조&quot;:
+    print(&quot;핍은 진정한 사랑을 배운다.&quot;)
+elif choice == &quot;돈&quot;:
+    print(&quot;핍은 허영에 빠진다.&quot;)
+else:
+    print(&quot;새로운 길을 찾는다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 조건문으로 이야기 흐름을 만듭니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 5. 함수형 요약기 <button onclick="copyCode('code95')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code95'>def summarize(name, lesson):
+    return f&quot;{name}은 {lesson}을 배웠다.&quot;
+print(summarize(&quot;핍&quot;, &quot;겸손&quot;))</code></pre>
+<div class='explain'><b>설명:</b> 함수로 문장 생성을 자동화합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 6. 클래스 프로젝트 <button onclick="copyCode('code96')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code96'>class Legacy:
+    def __init__(self, owner, value):
+        self.owner = owner
+        self.value = value
+    def message(self):
+        return f&quot;{self.owner}의 진짜 유산은 {self.value}이다.&quot;
+
+print(Legacy(&quot;핍&quot;, &quot;사랑과 용서&quot;).message())</code></pre>
+<div class='explain'><b>설명:</b> 객체로 핵심 메시지를 표현합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 7. 파일 저장 프로젝트 <button onclick="copyCode('code97')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code97'>result = &quot;핍의 진짜 유산: 사랑과 성숙&quot;
+with open(&quot;legacy.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(result)
+print(&quot;저장 완료&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 결과를 파일로 저장합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 8. 예외 포함 입력 처리 <button onclick="copyCode('code98')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code98'>text = &quot;25&quot;
+try:
+    age = int(text)
+    print(age + 1)
+except ValueError:
+    print(&quot;숫자가 아닙니다.&quot;)</code></pre>
+<div class='explain'><b>설명:</b> 입력값 오류에 대비합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 9. 정렬 종합 <button onclick="copyCode('code99')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code99'>data = [{&quot;name&quot;: &quot;핍&quot;, &quot;growth&quot;: 90}, {&quot;name&quot;: &quot;드러멀&quot;, &quot;growth&quot;: 20}, {&quot;name&quot;: &quot;조&quot;, &quot;growth&quot;: 100}]
+for item in sorted(data, key=lambda x: x[&quot;growth&quot;], reverse=True):
+    print(item[&quot;name&quot;], item[&quot;growth&quot;])</code></pre>
+<div class='explain'><b>설명:</b> 딕셔너리 리스트를 기준값으로 정렬합니다.</div>
+</article>
+<article class='code-card'>
+<h3>예시 10. 최종 메시지 생성기 <button onclick="copyCode('code100')" style='float:right;border:0;border-radius:8px;padding:6px 10px;background:#7a5537;color:white'>복사</button></h3>
+<pre><code id='code100'>lessons = [&quot;겸손&quot;, &quot;감사&quot;, &quot;용서&quot;, &quot;사랑&quot;]
+message = &quot;핍이 배운 것: &quot; + &quot;, &quot;.join(lessons)
+print(message)</code></pre>
+<div class='explain'><b>설명:</b> join()으로 리스트를 하나의 문자열로 합칩니다.</div>
+</article>
+<div class='mission'><b>응용 미션:</b> 진짜 위대한 유산 장면을 바탕으로 변수 이름, 인물 이름, 문장을 바꾸어 자신만의 짧은 파이썬 이야기 코드를 만들어 보세요.</div>
+</section>
+</main><button class='top' onclick='scrollTo({top:0,behavior:"smooth"})'>맨 위로</button><footer>총 10단계 · 예시 코드 100개 · 《위대한 유산》 이야기 기반 파이썬 문법 학습 HTML</footer></body></html>
