@@ -1,0 +1,4401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정수론과 함께 배우는 파이썬 문법 - 100개 정리 300개 코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin:0;
+    font-family: "Malgun Gothic", "Noto Sans KR", Arial, sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
+    line-height:1.65;
+  }
+  header {
+    background:linear-gradient(135deg,#172554,#2563eb);
+    color:white;
+    padding:32px 24px;
+    text-align:center;
+  }
+  header h1 { margin:0 0 10px; font-size:32px; }
+  header p { margin:6px 0; font-size:16px; }
+  .layout {
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:20px;
+    max-width:1500px;
+    margin:0 auto;
+    padding:20px;
+  }
+  nav {
+    position:sticky;
+    top:12px;
+    align-self:start;
+    max-height:92vh;
+    overflow:auto;
+    background:white;
+    border:1px solid #dbe4f0;
+    border-radius:16px;
+    padding:14px;
+    box-shadow:0 8px 22px rgba(15,23,42,.08);
+  }
+  nav h3 { margin:0 0 10px; color:#1d4ed8; }
+  nav input {
+    width:100%;
+    padding:10px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    margin-bottom:10px;
+  }
+  nav a {
+    display:block;
+    padding:7px 8px;
+    margin:2px 0;
+    color:#334155;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:14px;
+  }
+  nav a:hover { background:#eff6ff; color:#1d4ed8; }
+  main { min-width:0; }
+  .notice {
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:7px solid #f97316;
+    padding:16px 18px;
+    border-radius:14px;
+    margin-bottom:20px;
+  }
+  .card {
+    background:white;
+    border:1px solid #dbe4f0;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 8px 24px rgba(15,23,42,.07);
+  }
+  .num {
+    display:inline-block;
+    background:#dbeafe;
+    color:#1d4ed8;
+    font-weight:800;
+    padding:4px 12px;
+    border-radius:999px;
+    margin-bottom:8px;
+  }
+  h2 {
+    margin:0 0 10px;
+    font-size:24px;
+    color:#0f172a;
+  }
+  h2 span {
+    display:block;
+    color:#475569;
+    font-size:17px;
+    margin-top:4px;
+    font-weight:500;
+  }
+  .ko, .en {
+    background:#f8fafc;
+    border-radius:10px;
+    padding:10px 12px;
+    margin:8px 0;
+  }
+  details {
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    margin-top:12px;
+    overflow:hidden;
+    background:#fbfdff;
+  }
+  summary {
+    cursor:pointer;
+    padding:13px 15px;
+    font-weight:800;
+    color:#1e40af;
+    background:#eef6ff;
+  }
+  .code-title {
+    padding:10px 15px 0;
+    color:#475569;
+    font-size:14px;
+  }
+  pre {
+    margin:12px 15px 16px;
+    padding:16px;
+    overflow:auto;
+    background:#0f172a;
+    color:#e5e7eb;
+    border-radius:12px;
+    font-size:14px;
+    line-height:1.55;
+  }
+  code { font-family: Consolas, Monaco, "Courier New", monospace; }
+  .topbtn {
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    background:#1d4ed8;
+    color:white;
+    padding:10px 14px;
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:0 8px 20px rgba(30,64,175,.35);
+  }
+  footer {
+    text-align:center;
+    padding:28px;
+    color:#64748b;
+  }
+  @media (max-width:900px) {
+    .layout { grid-template-columns:1fr; padding:12px; }
+    nav { position:relative; top:0; max-height:320px; }
+    header h1 { font-size:24px; }
+  }
+</style>
+<script>
+function filterNav(){
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('nav a').forEach(a => {
+    a.style.display = a.textContent.toLowerCase().includes(q) ? 'block' : 'none';
+  });
+}
+function openAll(){
+  document.querySelectorAll('details').forEach(d => d.open = true);
+}
+function closeAll(){
+  document.querySelectorAll('details').forEach(d => d.open = false);
+}
+</script>
+</head>
+<body>
+<header id="top">
+  <h1>정수론과 함께 배우는 파이썬 문법</h1>
+  <p>100개의 중요한 정리 × 기초·응용·심화 파이썬 예시 코드 = 총 300개 코드</p>
+  <p>Number Theory Theorems with Python Grammar Examples</p>
+</header>
+
+<div class="layout">
+  <nav>
+    <h3>정리 바로가기</h3>
+    <input id="search" onkeyup="filterNav()" placeholder="정리 검색">
+    <p>
+      <button onclick="openAll()">전체 코드 열기</button>
+      <button onclick="closeAll()">전체 코드 닫기</button>
+    </p>
+    <a href="#t1">1. 유클리드 정리</a>
+<a href="#t2">2. 산술의 기본정리</a>
+<a href="#t3">3. 유클리드 호제법</a>
+<a href="#t4">4. 베주의 정리</a>
+<a href="#t5">5. 나머지 정리</a>
+<a href="#t6">6. 중국인의 나머지 정리</a>
+<a href="#t7">7. 페르마의 소정리</a>
+<a href="#t8">8. 오일러 정리</a>
+<a href="#t9">9. 윌슨의 정리</a>
+<a href="#t10">10. 라그랑주 정리</a>
+<a href="#t11">11. 가우스 보조정리</a>
+<a href="#t12">12. 이차 상호법칙</a>
+<a href="#t13">13. 오일러 판정법</a>
+<a href="#t14">14. 자코비 기호 정리</a>
+<a href="#t15">15. 르장드르 기호 정리</a>
+<a href="#t16">16. 디리클레 정리</a>
+<a href="#t17">17. 체비쇼프 정리</a>
+<a href="#t18">18. 소수정리</a>
+<a href="#t19">19. 베르트랑 공준</a>
+<a href="#t20">20. 메르텐스 정리</a>
+<a href="#t21">21. 빈그라도프 정리</a>
+<a href="#t22">22. 골드바흐-빈그라도프 정리</a>
+<a href="#t23">23. 브룬 정리</a>
+<a href="#t24">24. 그린-타오 정리</a>
+<a href="#t25">25. 첸의 정리</a>
+<a href="#t26">26. 리틀우드 정리</a>
+<a href="#t27">27. 드라발레푸생 정리</a>
+<a href="#t28">28. 하디-리틀우드 정리</a>
+<a href="#t29">29. 지겔 정리</a>
+<a href="#t30">30. 란다우 정리</a>
+<a href="#t31">31. 카르마이클 정리</a>
+<a href="#t32">32. 코르셀트 기준</a>
+<a href="#t33">33. 미할레스쿠 정리</a>
+<a href="#t34">34. 카탈랑 정리</a>
+<a href="#t35">35. 리프시츠 정리</a>
+<a href="#t36">36. 튜에 정리</a>
+<a href="#t37">37. 튜에-지겔-로스 정리</a>
+<a href="#t38">38. 로스 정리</a>
+<a href="#t39">39. 베이커 정리</a>
+<a href="#t40">40. 겔폰트-슈나이더 정리</a>
+<a href="#t41">41. 린데만 정리</a>
+<a href="#t42">42. 린데만-바이어슈트라스 정리</a>
+<a href="#t43">43. 크로네커 정리</a>
+<a href="#t44">44. 민코프스키 정리</a>
+<a href="#t45">45. 민코프스키 볼록체 정리</a>
+<a href="#t46">46. 헤르미트 정리</a>
+<a href="#t47">47. 하세 정리</a>
+<a href="#t48">48. 하세-민코프스키 정리</a>
+<a href="#t49">49. 체보타레프 밀도 정리</a>
+<a href="#t50">50. 클래스 수 정리</a>
+<a href="#t51">51. 쿠머 정리</a>
+<a href="#t52">52. 쿠머 판정법</a>
+<a href="#t53">53. 소피 제르맹 정리</a>
+<a href="#t54">54. LTE 정리</a>
+<a href="#t55">55. 지그몬디 정리</a>
+<a href="#t56">56. 뤼카 정리</a>
+<a href="#t57">57. 뤼카-레머 정리</a>
+<a href="#t58">58. 뤼카 소수 판정법</a>
+<a href="#t59">59. 페핀 정리</a>
+<a href="#t60">60. 프로트 정리</a>
+<a href="#t61">61. AKS 소수 판정 정리</a>
+<a href="#t62">62. 밀러 정리</a>
+<a href="#t63">63. 라빈 정리</a>
+<a href="#t64">64. 솔로베이-스트라센 정리</a>
+<a href="#t65">65. 코헨-렌스트라 휴리스틱</a>
+<a href="#t66">66. 모듈러성 정리</a>
+<a href="#t67">67. 페르마의 마지막 정리</a>
+<a href="#t68">68. 타니야마-시무라 정리</a>
+<a href="#t69">69. 와일스 정리</a>
+<a href="#t70">70. 모데일 정리</a>
+<a href="#t71">71. 팔팅스 정리</a>
+<a href="#t72">72. 나겔-루츠 정리</a>
+<a href="#t73">73. 마주르 정리</a>
+<a href="#t74">74. 리베트 정리</a>
+<a href="#t75">75. 디오판토스 근사 정리</a>
+<a href="#t76">76. 리우빌 정리</a>
+<a href="#t77">77. 르베그 정리</a>
+<a href="#t78">78. 람베르트 정리</a>
+<a href="#t79">79. 스톨츠 정리</a>
+<a href="#t80">80. 필라이 정리</a>
+<a href="#t81">81. 람누잔 합동 정리</a>
+<a href="#t82">82. 람누잔-나겔 정리</a>
+<a href="#t83">83. 버코프 정리</a>
+<a href="#t84">84. 르머 정리</a>
+<a href="#t85">85. 스티켈베르거 정리</a>
+<a href="#t86">86. 헤그너 정리</a>
+<a href="#t87">87. 스타크-헤그너 정리</a>
+<a href="#t88">88. 안드레-오르트 정리</a>
+<a href="#t89">89. 슈니렐만 정리</a>
+<a href="#t90">90. 반 데르 바르덴 정리</a>
+<a href="#t91">91. 세메레디 정리</a>
+<a href="#t92">92. 로스-세메레디 정리</a>
+<a href="#t93">93. 힌친 정리</a>
+<a href="#t94">94. 쿠르츠바일 정리</a>
+<a href="#t95">95. 다벤포트 정리</a>
+<a href="#t96">96. 에르되시-카츠 정리</a>
+<a href="#t97">97. 투란 정리</a>
+<a href="#t98">98. 셀버그 정리</a>
+<a href="#t99">99. 봄비에리-비노그라도프 정리</a>
+<a href="#t100">100. 베이커-스타크 정리</a>
+  </nav>
+  <main>
+    <div class="notice">
+      <b>활용 방법:</b> 각 정리의 내용을 읽고, 기초 코드는 문법 입문, 응용 코드는 문제 해결 사고, 심화 코드는 객체지향·자료처리·예외처리 연습에 사용하세요.
+    </div>
+    
+<section class="card" id="t1">
+  <div class="num">001</div>
+  <h2>1. 유클리드 정리 <span>Euclid&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수는 무한히 많이 존재한다.</p>
+  <p class="en"><b>English:</b> There are infinitely many prime numbers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;유클리드 정리&quot;
+english = &quot;Euclid&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;소수는 무한히 많이 존재한다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(1, &quot;유클리드 정리&quot;, &quot;Euclid&#x27;s Theorem&quot;, &quot;소수는 무한히 많이 존재한다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t2">
+  <div class="num">002</div>
+  <h2>2. 산술의 기본정리 <span>Fundamental Theorem of Arithmetic</span></h2>
+  <p class="ko"><b>한글 설명:</b> 1보다 큰 모든 자연수는 소수의 곱으로 유일하게 표현된다.</p>
+  <p class="en"><b>English:</b> Every integer greater than 1 can be expressed uniquely as a product of primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;산술의 기본정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;산술의 기본정리&quot;,
+    &quot;1보다 큰 모든 자연수는 소수의 곱으로 유일하게 표현된다.&quot;,
+    &quot;Every integer greater than 1 can be expressed uniquely as a product of primes.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;산술의 기본정리&quot;, len(&quot;산술의 기본정리&quot;)),
+    (&quot;Fundamental Theorem of Arithmetic&quot;, len(&quot;Fundamental Theorem of Arithmetic&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t3">
+  <div class="num">003</div>
+  <h2>3. 유클리드 호제법 <span>Euclidean Algorithm</span></h2>
+  <p class="ko"><b>한글 설명:</b> 두 정수의 최대공약수를 반복 나눗셈으로 구한다.</p>
+  <p class="en"><b>English:</b> Finds the greatest common divisor using repeated division.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;유클리드 호제법&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(3, &quot;유클리드 호제법&quot;, &quot;Euclidean Algorithm&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;두 정수의 최대공약수를 반복 나눗셈으로 구한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t4">
+  <div class="num">004</div>
+  <h2>4. 베주의 정리 <span>Bézout&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> gcd(a,b)는 ax+by 꼴로 표현된다.</p>
+  <p class="en"><b>English:</b> gcd(a,b) can be written as ax+by for integers x and y.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 4
+name = &quot;베주의 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;기초정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 베주의 정리&quot;
+    yield &quot;영어 이름: Bézout&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: gcd(a,b)는 ax+by 꼴로 표현된다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t5">
+  <div class="num">005</div>
+  <h2>5. 나머지 정리 <span>Remainder Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 정수를 나누면 몫과 나머지로 표현할 수 있다.</p>
+  <p class="en"><b>English:</b> An integer can be expressed using quotient and remainder.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;나머지 정리&quot;, &quot;영어&quot;: &quot;Remainder Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;정수를 나누면 몫과 나머지로 표현할 수 있다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 5,
+    &quot;ko&quot;: &quot;나머지 정리&quot;,
+    &quot;en&quot;: &quot;Remainder Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;정수를 나누면 몫과 나머지로 표현할 수 있다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t6">
+  <div class="num">006</div>
+  <h2>6. 중국인의 나머지 정리 <span>Chinese Remainder Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 서로소인 모듈러 조건들은 하나의 해로 합칠 수 있다.</p>
+  <p class="en"><b>English:</b> Pairwise coprime congruences can be combined into one solution.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;중국인의 나머지 정리&quot;
+english = &quot;Chinese Remainder Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;서로소인 모듈러 조건들은 하나의 해로 합칠 수 있다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(6, &quot;중국인의 나머지 정리&quot;, &quot;Chinese Remainder Theorem&quot;, &quot;서로소인 모듈러 조건들은 하나의 해로 합칠 수 있다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t7">
+  <div class="num">007</div>
+  <h2>7. 페르마의 소정리 <span>Fermat&#x27;s Little Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> p가 소수이고 p∤a이면 a^(p-1)≡1 (mod p).</p>
+  <p class="en"><b>English:</b> If p is prime and p∤a, then a^(p-1)≡1 mod p.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;페르마의 소정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;페르마의 소정리&quot;,
+    &quot;p가 소수이고 p∤a이면 a^(p-1)≡1 (mod p).&quot;,
+    &quot;If p is prime and p∤a, then a^(p-1)≡1 mod p.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;페르마의 소정리&quot;, len(&quot;페르마의 소정리&quot;)),
+    (&quot;Fermat&#x27;s Little Theorem&quot;, len(&quot;Fermat&#x27;s Little Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t8">
+  <div class="num">008</div>
+  <h2>8. 오일러 정리 <span>Euler&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> gcd(a,n)=1이면 a^φ(n)≡1 (mod n).</p>
+  <p class="en"><b>English:</b> If gcd(a,n)=1, then a^φ(n)≡1 mod n.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;오일러 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(8, &quot;오일러 정리&quot;, &quot;Euler&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;gcd(a,n)=1이면 a^φ(n)≡1 (mod n).&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t9">
+  <div class="num">009</div>
+  <h2>9. 윌슨의 정리 <span>Wilson&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> p가 소수일 필요충분조건은 (p-1)!≡-1 (mod p).</p>
+  <p class="en"><b>English:</b> p is prime iff (p-1)!≡-1 mod p.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 9
+name = &quot;윌슨의 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;기초정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 윌슨의 정리&quot;
+    yield &quot;영어 이름: Wilson&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: p가 소수일 필요충분조건은 (p-1)!≡-1 (mod p).&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t10">
+  <div class="num">010</div>
+  <h2>10. 라그랑주 정리 <span>Lagrange&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 다항식 합동식의 해 개수를 제한한다.</p>
+  <p class="en"><b>English:</b> Limits the number of roots of polynomial congruences.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;라그랑주 정리&quot;, &quot;영어&quot;: &quot;Lagrange&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;다항식 합동식의 해 개수를 제한한다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 10,
+    &quot;ko&quot;: &quot;라그랑주 정리&quot;,
+    &quot;en&quot;: &quot;Lagrange&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;다항식 합동식의 해 개수를 제한한다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t11">
+  <div class="num">011</div>
+  <h2>11. 가우스 보조정리 <span>Gauss&#x27;s Lemma</span></h2>
+  <p class="ko"><b>한글 설명:</b> 이차잉여 판정에 쓰이는 정리이다.</p>
+  <p class="en"><b>English:</b> Used to determine quadratic residues.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;가우스 보조정리&quot;
+english = &quot;Gauss&#x27;s Lemma&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;이차잉여 판정에 쓰이는 정리이다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(11, &quot;가우스 보조정리&quot;, &quot;Gauss&#x27;s Lemma&quot;, &quot;이차잉여 판정에 쓰이는 정리이다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t12">
+  <div class="num">012</div>
+  <h2>12. 이차 상호법칙 <span>Quadratic Reciprocity Law</span></h2>
+  <p class="ko"><b>한글 설명:</b> 두 홀수 소수의 이차잉여 관계를 연결한다.</p>
+  <p class="en"><b>English:</b> Relates quadratic residues between two odd primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;이차 상호법칙&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;이차 상호법칙&quot;,
+    &quot;두 홀수 소수의 이차잉여 관계를 연결한다.&quot;,
+    &quot;Relates quadratic residues between two odd primes.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;이차 상호법칙&quot;, len(&quot;이차 상호법칙&quot;)),
+    (&quot;Quadratic Reciprocity Law&quot;, len(&quot;Quadratic Reciprocity Law&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t13">
+  <div class="num">013</div>
+  <h2>13. 오일러 판정법 <span>Euler&#x27;s Criterion</span></h2>
+  <p class="ko"><b>한글 설명:</b> a^((p-1)/2)로 이차잉여 여부를 판정한다.</p>
+  <p class="en"><b>English:</b> Determines quadratic residues using a^((p-1)/2).</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;오일러 판정법&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(13, &quot;오일러 판정법&quot;, &quot;Euler&#x27;s Criterion&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;a^((p-1)/2)로 이차잉여 여부를 판정한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t14">
+  <div class="num">014</div>
+  <h2>14. 자코비 기호 정리 <span>Jacobi Symbol Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 르장드르 기호를 합성수 모듈러로 확장한다.</p>
+  <p class="en"><b>English:</b> Extends the Legendre symbol to composite moduli.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 14
+name = &quot;자코비 기호 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;소수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 자코비 기호 정리&quot;
+    yield &quot;영어 이름: Jacobi Symbol Theorem&quot;
+    yield &quot;핵심 내용: 르장드르 기호를 합성수 모듈러로 확장한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t15">
+  <div class="num">015</div>
+  <h2>15. 르장드르 기호 정리 <span>Legendre Symbol Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수 모듈러에서 이차잉여를 기호로 나타낸다.</p>
+  <p class="en"><b>English:</b> Represents quadratic residue status modulo a prime.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;르장드르 기호 정리&quot;, &quot;영어&quot;: &quot;Legendre Symbol Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;소수 모듈러에서 이차잉여를 기호로 나타낸다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 15,
+    &quot;ko&quot;: &quot;르장드르 기호 정리&quot;,
+    &quot;en&quot;: &quot;Legendre Symbol Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;소수 모듈러에서 이차잉여를 기호로 나타낸다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t16">
+  <div class="num">016</div>
+  <h2>16. 디리클레 정리 <span>Dirichlet&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 서로소 a,d에 대해 a+nd 꼴 소수는 무한히 많다.</p>
+  <p class="en"><b>English:</b> If gcd(a,d)=1, infinitely many primes are in a+nd.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;디리클레 정리&quot;
+english = &quot;Dirichlet&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;서로소 a,d에 대해 a+nd 꼴 소수는 무한히 많다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(16, &quot;디리클레 정리&quot;, &quot;Dirichlet&#x27;s Theorem&quot;, &quot;서로소 a,d에 대해 a+nd 꼴 소수는 무한히 많다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t17">
+  <div class="num">017</div>
+  <h2>17. 체비쇼프 정리 <span>Chebyshev&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> n과 2n 사이에는 소수가 존재한다.</p>
+  <p class="en"><b>English:</b> There is a prime between n and 2n.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;체비쇼프 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;체비쇼프 정리&quot;,
+    &quot;n과 2n 사이에는 소수가 존재한다.&quot;,
+    &quot;There is a prime between n and 2n.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;체비쇼프 정리&quot;, len(&quot;체비쇼프 정리&quot;)),
+    (&quot;Chebyshev&#x27;s Theorem&quot;, len(&quot;Chebyshev&#x27;s Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t18">
+  <div class="num">018</div>
+  <h2>18. 소수정리 <span>Prime Number Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> x 이하 소수 개수는 x/ln x에 가까워진다.</p>
+  <p class="en"><b>English:</b> The number of primes up to x is asymptotic to x/ln x.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;소수정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(18, &quot;소수정리&quot;, &quot;Prime Number Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;x 이하 소수 개수는 x/ln x에 가까워진다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t19">
+  <div class="num">019</div>
+  <h2>19. 베르트랑 공준 <span>Bertrand&#x27;s Postulate</span></h2>
+  <p class="ko"><b>한글 설명:</b> n&gt;1이면 n과 2n 사이에 소수가 있다.</p>
+  <p class="en"><b>English:</b> For n&gt;1, there is a prime between n and 2n.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 19
+name = &quot;베르트랑 공준&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;소수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 베르트랑 공준&quot;
+    yield &quot;영어 이름: Bertrand&#x27;s Postulate&quot;
+    yield &quot;핵심 내용: n&gt;1이면 n과 2n 사이에 소수가 있다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t20">
+  <div class="num">020</div>
+  <h2>20. 메르텐스 정리 <span>Mertens&#x27; Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수와 곱·합의 점근적 관계를 다룬다.</p>
+  <p class="en"><b>English:</b> Deals with asymptotic sums and products over primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;메르텐스 정리&quot;, &quot;영어&quot;: &quot;Mertens&#x27; Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;소수와 곱·합의 점근적 관계를 다룬다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 20,
+    &quot;ko&quot;: &quot;메르텐스 정리&quot;,
+    &quot;en&quot;: &quot;Mertens&#x27; Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;소수와 곱·합의 점근적 관계를 다룬다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t21">
+  <div class="num">021</div>
+  <h2>21. 빈그라도프 정리 <span>Vinogradov&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 충분히 큰 홀수는 세 소수의 합이다.</p>
+  <p class="en"><b>English:</b> Every sufficiently large odd number is a sum of three primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;빈그라도프 정리&quot;
+english = &quot;Vinogradov&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;충분히 큰 홀수는 세 소수의 합이다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(21, &quot;빈그라도프 정리&quot;, &quot;Vinogradov&#x27;s Theorem&quot;, &quot;충분히 큰 홀수는 세 소수의 합이다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t22">
+  <div class="num">022</div>
+  <h2>22. 골드바흐-빈그라도프 정리 <span>Goldbach–Vinogradov Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 약한 골드바흐 추측의 핵심 결과이다.</p>
+  <p class="en"><b>English:</b> A central result related to the weak Goldbach conjecture.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;골드바흐-빈그라도프 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;골드바흐-빈그라도프 정리&quot;,
+    &quot;약한 골드바흐 추측의 핵심 결과이다.&quot;,
+    &quot;A central result related to the weak Goldbach conjecture.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;골드바흐-빈그라도프 정리&quot;, len(&quot;골드바흐-빈그라도프 정리&quot;)),
+    (&quot;Goldbach–Vinogradov Theorem&quot;, len(&quot;Goldbach–Vinogradov Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t23">
+  <div class="num">023</div>
+  <h2>23. 브룬 정리 <span>Brun&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 쌍둥이 소수 역수의 합은 수렴한다.</p>
+  <p class="en"><b>English:</b> The reciprocal sum of twin primes converges.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;브룬 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(23, &quot;브룬 정리&quot;, &quot;Brun&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;쌍둥이 소수 역수의 합은 수렴한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t24">
+  <div class="num">024</div>
+  <h2>24. 그린-타오 정리 <span>Green–Tao Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수 안에는 임의 길이의 등차수열이 있다.</p>
+  <p class="en"><b>English:</b> The primes contain arbitrarily long arithmetic progressions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 24
+name = &quot;그린-타오 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;소수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 그린-타오 정리&quot;
+    yield &quot;영어 이름: Green–Tao Theorem&quot;
+    yield &quot;핵심 내용: 소수 안에는 임의 길이의 등차수열이 있다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t25">
+  <div class="num">025</div>
+  <h2>25. 첸의 정리 <span>Chen&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 충분히 큰 짝수는 소수+준소수로 표현된다.</p>
+  <p class="en"><b>English:</b> Every sufficiently large even number is prime plus semiprime.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;첸의 정리&quot;, &quot;영어&quot;: &quot;Chen&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;충분히 큰 짝수는 소수+준소수로 표현된다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 25,
+    &quot;ko&quot;: &quot;첸의 정리&quot;,
+    &quot;en&quot;: &quot;Chen&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;충분히 큰 짝수는 소수+준소수로 표현된다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t26">
+  <div class="num">026</div>
+  <h2>26. 리틀우드 정리 <span>Littlewood&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수계수 함수 오차항의 부호가 무한히 바뀐다.</p>
+  <p class="en"><b>English:</b> The error term in prime counting changes sign infinitely often.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;리틀우드 정리&quot;
+english = &quot;Littlewood&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;소수계수 함수 오차항의 부호가 무한히 바뀐다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(26, &quot;리틀우드 정리&quot;, &quot;Littlewood&#x27;s Theorem&quot;, &quot;소수계수 함수 오차항의 부호가 무한히 바뀐다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t27">
+  <div class="num">027</div>
+  <h2>27. 드라발레푸생 정리 <span>de la Vallée-Poussin Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수정리의 정밀한 증명과 관련된다.</p>
+  <p class="en"><b>English:</b> Related to a refined proof of the Prime Number Theorem.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;드라발레푸생 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;드라발레푸생 정리&quot;,
+    &quot;소수정리의 정밀한 증명과 관련된다.&quot;,
+    &quot;Related to a refined proof of the Prime Number Theorem.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;드라발레푸생 정리&quot;, len(&quot;드라발레푸생 정리&quot;)),
+    (&quot;de la Vallée-Poussin Theorem&quot;, len(&quot;de la Vallée-Poussin Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t28">
+  <div class="num">028</div>
+  <h2>28. 하디-리틀우드 정리 <span>Hardy–Littlewood Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수 분포에 대한 깊은 예측을 제시한다.</p>
+  <p class="en"><b>English:</b> Gives deep predictions about prime distributions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;하디-리틀우드 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(28, &quot;하디-리틀우드 정리&quot;, &quot;Hardy–Littlewood Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;소수 분포에 대한 깊은 예측을 제시한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t29">
+  <div class="num">029</div>
+  <h2>29. 지겔 정리 <span>Siegel&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 특정 곡선의 정수해가 유한함을 보인다.</p>
+  <p class="en"><b>English:</b> Shows finiteness of integer points on certain curves.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 29
+name = &quot;지겔 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;합동식&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 지겔 정리&quot;
+    yield &quot;영어 이름: Siegel&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 특정 곡선의 정수해가 유한함을 보인다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t30">
+  <div class="num">030</div>
+  <h2>30. 란다우 정리 <span>Landau&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수 분포와 해석적 정수론의 고전 결과이다.</p>
+  <p class="en"><b>English:</b> A classical result in analytic number theory.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;란다우 정리&quot;, &quot;영어&quot;: &quot;Landau&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;소수 분포와 해석적 정수론의 고전 결과이다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 30,
+    &quot;ko&quot;: &quot;란다우 정리&quot;,
+    &quot;en&quot;: &quot;Landau&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;소수 분포와 해석적 정수론의 고전 결과이다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t31">
+  <div class="num">031</div>
+  <h2>31. 카르마이클 정리 <span>Carmichael&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 카르마이클 함수와 합동 주기를 다룬다.</p>
+  <p class="en"><b>English:</b> Concerns the Carmichael function and modular periods.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;카르마이클 정리&quot;
+english = &quot;Carmichael&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;카르마이클 함수와 합동 주기를 다룬다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(31, &quot;카르마이클 정리&quot;, &quot;Carmichael&#x27;s Theorem&quot;, &quot;카르마이클 함수와 합동 주기를 다룬다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t32">
+  <div class="num">032</div>
+  <h2>32. 코르셀트 기준 <span>Korselt&#x27;s Criterion</span></h2>
+  <p class="ko"><b>한글 설명:</b> 카르마이클 수 판별 기준이다.</p>
+  <p class="en"><b>English:</b> A criterion for Carmichael numbers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;코르셀트 기준&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;코르셀트 기준&quot;,
+    &quot;카르마이클 수 판별 기준이다.&quot;,
+    &quot;A criterion for Carmichael numbers.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;코르셀트 기준&quot;, len(&quot;코르셀트 기준&quot;)),
+    (&quot;Korselt&#x27;s Criterion&quot;, len(&quot;Korselt&#x27;s Criterion&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t33">
+  <div class="num">033</div>
+  <h2>33. 미할레스쿠 정리 <span>Mihăilescu&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 연속된 완전거듭제곱은 8과 9뿐이다.</p>
+  <p class="en"><b>English:</b> The only consecutive perfect powers are 8 and 9.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;미할레스쿠 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(33, &quot;미할레스쿠 정리&quot;, &quot;Mihăilescu&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;연속된 완전거듭제곱은 8과 9뿐이다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t34">
+  <div class="num">034</div>
+  <h2>34. 카탈랑 정리 <span>Catalan&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> x^a-y^b=1의 유일한 비자명 해는 3^2-2^3=1이다.</p>
+  <p class="en"><b>English:</b> The only nontrivial solution of x^a-y^b=1 is 3^2-2^3=1.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 34
+name = &quot;카탈랑 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;합동식&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 카탈랑 정리&quot;
+    yield &quot;영어 이름: Catalan&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: x^a-y^b=1의 유일한 비자명 해는 3^2-2^3=1이다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t35">
+  <div class="num">035</div>
+  <h2>35. 리프시츠 정리 <span>Lipschitz Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 격자점과 근사 문제에서 활용된다.</p>
+  <p class="en"><b>English:</b> Used in lattice point and approximation problems.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;리프시츠 정리&quot;, &quot;영어&quot;: &quot;Lipschitz Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;격자점과 근사 문제에서 활용된다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 35,
+    &quot;ko&quot;: &quot;리프시츠 정리&quot;,
+    &quot;en&quot;: &quot;Lipschitz Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;격자점과 근사 문제에서 활용된다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t36">
+  <div class="num">036</div>
+  <h2>36. 튜에 정리 <span>Thue&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 특정 디오판토스 방정식은 유한 해만 가진다.</p>
+  <p class="en"><b>English:</b> Certain Diophantine equations have finitely many solutions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;튜에 정리&quot;
+english = &quot;Thue&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;특정 디오판토스 방정식은 유한 해만 가진다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(36, &quot;튜에 정리&quot;, &quot;Thue&#x27;s Theorem&quot;, &quot;특정 디오판토스 방정식은 유한 해만 가진다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t37">
+  <div class="num">037</div>
+  <h2>37. 튜에-지겔-로스 정리 <span>Thue–Siegel–Roth Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 대수적 무리수의 유리수 근사를 제한한다.</p>
+  <p class="en"><b>English:</b> Limits rational approximation to algebraic irrational numbers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;튜에-지겔-로스 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;튜에-지겔-로스 정리&quot;,
+    &quot;대수적 무리수의 유리수 근사를 제한한다.&quot;,
+    &quot;Limits rational approximation to algebraic irrational numbers.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;튜에-지겔-로스 정리&quot;, len(&quot;튜에-지겔-로스 정리&quot;)),
+    (&quot;Thue–Siegel–Roth Theorem&quot;, len(&quot;Thue–Siegel–Roth Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t38">
+  <div class="num">038</div>
+  <h2>38. 로스 정리 <span>Roth&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 대수적 무리수는 지나치게 잘 근사될 수 없다.</p>
+  <p class="en"><b>English:</b> Algebraic irrational numbers cannot be approximated too well.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;로스 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(38, &quot;로스 정리&quot;, &quot;Roth&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;대수적 무리수는 지나치게 잘 근사될 수 없다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t39">
+  <div class="num">039</div>
+  <h2>39. 베이커 정리 <span>Baker&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 로그 선형형식의 하한을 제공한다.</p>
+  <p class="en"><b>English:</b> Provides lower bounds for linear forms in logarithms.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 39
+name = &quot;베이커 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;합동식&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 베이커 정리&quot;
+    yield &quot;영어 이름: Baker&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 로그 선형형식의 하한을 제공한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t40">
+  <div class="num">040</div>
+  <h2>40. 겔폰트-슈나이더 정리 <span>Gelfond–Schneider Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 특정 거듭제곱이 초월수임을 보인다.</p>
+  <p class="en"><b>English:</b> Shows that certain powers are transcendental.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;겔폰트-슈나이더 정리&quot;, &quot;영어&quot;: &quot;Gelfond–Schneider Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;특정 거듭제곱이 초월수임을 보인다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 40,
+    &quot;ko&quot;: &quot;겔폰트-슈나이더 정리&quot;,
+    &quot;en&quot;: &quot;Gelfond–Schneider Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;특정 거듭제곱이 초월수임을 보인다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t41">
+  <div class="num">041</div>
+  <h2>41. 린데만 정리 <span>Lindemann&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> π가 초월수임을 보인다.</p>
+  <p class="en"><b>English:</b> Shows that pi is transcendental.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;린데만 정리&quot;
+english = &quot;Lindemann&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;π가 초월수임을 보인다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(41, &quot;린데만 정리&quot;, &quot;Lindemann&#x27;s Theorem&quot;, &quot;π가 초월수임을 보인다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t42">
+  <div class="num">042</div>
+  <h2>42. 린데만-바이어슈트라스 정리 <span>Lindemann–Weierstrass Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 초월수 이론의 핵심 정리이다.</p>
+  <p class="en"><b>English:</b> A central theorem in transcendental number theory.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;린데만-바이어슈트라스 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;린데만-바이어슈트라스 정리&quot;,
+    &quot;초월수 이론의 핵심 정리이다.&quot;,
+    &quot;A central theorem in transcendental number theory.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;린데만-바이어슈트라스 정리&quot;, len(&quot;린데만-바이어슈트라스 정리&quot;)),
+    (&quot;Lindemann–Weierstrass Theorem&quot;, len(&quot;Lindemann–Weierstrass Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t43">
+  <div class="num">043</div>
+  <h2>43. 크로네커 정리 <span>Kronecker&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 동시 근사와 대수적 정수에 관련된다.</p>
+  <p class="en"><b>English:</b> Related to simultaneous approximation and algebraic integers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;크로네커 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(43, &quot;크로네커 정리&quot;, &quot;Kronecker&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;동시 근사와 대수적 정수에 관련된다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t44">
+  <div class="num">044</div>
+  <h2>44. 민코프스키 정리 <span>Minkowski&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 격자점 존재를 보장한다.</p>
+  <p class="en"><b>English:</b> Guarantees the existence of lattice points.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 44
+name = &quot;민코프스키 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;디오판토스&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 민코프스키 정리&quot;
+    yield &quot;영어 이름: Minkowski&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 격자점 존재를 보장한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t45">
+  <div class="num">045</div>
+  <h2>45. 민코프스키 볼록체 정리 <span>Minkowski Convex Body Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 충분히 큰 대칭 볼록체는 비영 격자점을 포함한다.</p>
+  <p class="en"><b>English:</b> A sufficiently large symmetric convex body contains a nonzero lattice point.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;민코프스키 볼록체 정리&quot;, &quot;영어&quot;: &quot;Minkowski Convex Body Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;충분히 큰 대칭 볼록체는 비영 격자점을 포함한다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 45,
+    &quot;ko&quot;: &quot;민코프스키 볼록체 정리&quot;,
+    &quot;en&quot;: &quot;Minkowski Convex Body Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;충분히 큰 대칭 볼록체는 비영 격자점을 포함한다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t46">
+  <div class="num">046</div>
+  <h2>46. 헤르미트 정리 <span>Hermite&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 대수적 수체와 격자 연구에 쓰인다.</p>
+  <p class="en"><b>English:</b> Used in algebraic number fields and lattices.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;헤르미트 정리&quot;
+english = &quot;Hermite&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;대수적 수체와 격자 연구에 쓰인다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(46, &quot;헤르미트 정리&quot;, &quot;Hermite&#x27;s Theorem&quot;, &quot;대수적 수체와 격자 연구에 쓰인다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t47">
+  <div class="num">047</div>
+  <h2>47. 하세 정리 <span>Hasse&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 타원곡선의 유한체 위 점 개수 범위를 준다.</p>
+  <p class="en"><b>English:</b> Gives bounds for points on elliptic curves over finite fields.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;하세 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;하세 정리&quot;,
+    &quot;타원곡선의 유한체 위 점 개수 범위를 준다.&quot;,
+    &quot;Gives bounds for points on elliptic curves over finite fields.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;하세 정리&quot;, len(&quot;하세 정리&quot;)),
+    (&quot;Hasse&#x27;s Theorem&quot;, len(&quot;Hasse&#x27;s Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t48">
+  <div class="num">048</div>
+  <h2>48. 하세-민코프스키 정리 <span>Hasse–Minkowski Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 이차형식의 전역 해를 국소 해로 판정한다.</p>
+  <p class="en"><b>English:</b> Determines global solvability of quadratic forms via local solvability.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;하세-민코프스키 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(48, &quot;하세-민코프스키 정리&quot;, &quot;Hasse–Minkowski Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;이차형식의 전역 해를 국소 해로 판정한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t49">
+  <div class="num">049</div>
+  <h2>49. 체보타레프 밀도 정리 <span>Chebotarev Density Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수 분포를 갈루아 군과 연결한다.</p>
+  <p class="en"><b>English:</b> Connects prime distribution with Galois groups.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 49
+name = &quot;체보타레프 밀도 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;디오판토스&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 체보타레프 밀도 정리&quot;
+    yield &quot;영어 이름: Chebotarev Density Theorem&quot;
+    yield &quot;핵심 내용: 소수 분포를 갈루아 군과 연결한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t50">
+  <div class="num">050</div>
+  <h2>50. 클래스 수 정리 <span>Class Number Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 수체의 클래스 수를 해석적 대상으로 표현한다.</p>
+  <p class="en"><b>English:</b> Expresses class numbers using analytic objects.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;클래스 수 정리&quot;, &quot;영어&quot;: &quot;Class Number Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;수체의 클래스 수를 해석적 대상으로 표현한다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 50,
+    &quot;ko&quot;: &quot;클래스 수 정리&quot;,
+    &quot;en&quot;: &quot;Class Number Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;수체의 클래스 수를 해석적 대상으로 표현한다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t51">
+  <div class="num">051</div>
+  <h2>51. 쿠머 정리 <span>Kummer&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 이항계수의 p-진 지수를 자리올림으로 해석한다.</p>
+  <p class="en"><b>English:</b> Interprets p-adic valuation of binomial coefficients via carries.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;쿠머 정리&quot;
+english = &quot;Kummer&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;이항계수의 p-진 지수를 자리올림으로 해석한다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(51, &quot;쿠머 정리&quot;, &quot;Kummer&#x27;s Theorem&quot;, &quot;이항계수의 p-진 지수를 자리올림으로 해석한다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t52">
+  <div class="num">052</div>
+  <h2>52. 쿠머 판정법 <span>Kummer Criterion</span></h2>
+  <p class="ko"><b>한글 설명:</b> 정칙 소수 판정과 관련된다.</p>
+  <p class="en"><b>English:</b> Related to criteria for regular primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;쿠머 판정법&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;쿠머 판정법&quot;,
+    &quot;정칙 소수 판정과 관련된다.&quot;,
+    &quot;Related to criteria for regular primes.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;쿠머 판정법&quot;, len(&quot;쿠머 판정법&quot;)),
+    (&quot;Kummer Criterion&quot;, len(&quot;Kummer Criterion&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t53">
+  <div class="num">053</div>
+  <h2>53. 소피 제르맹 정리 <span>Sophie Germain Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 페르마 마지막 정리의 특수 경우에 쓰인다.</p>
+  <p class="en"><b>English:</b> Used for special cases of Fermat&#x27;s Last Theorem.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;소피 제르맹 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(53, &quot;소피 제르맹 정리&quot;, &quot;Sophie Germain Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;페르마 마지막 정리의 특수 경우에 쓰인다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t54">
+  <div class="num">054</div>
+  <h2>54. LTE 정리 <span>Lifting The Exponent Lemma</span></h2>
+  <p class="ko"><b>한글 설명:</b> 거듭제곱 차의 p-진 지수를 계산한다.</p>
+  <p class="en"><b>English:</b> Computes p-adic valuations of power differences.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 54
+name = &quot;LTE 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;대수적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: LTE 정리&quot;
+    yield &quot;영어 이름: Lifting The Exponent Lemma&quot;
+    yield &quot;핵심 내용: 거듭제곱 차의 p-진 지수를 계산한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t55">
+  <div class="num">055</div>
+  <h2>55. 지그몬디 정리 <span>Zsigmondy&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> a^n-b^n에는 새 소인수가 나타난다.</p>
+  <p class="en"><b>English:</b> A^n-b^n usually has a primitive prime divisor.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;지그몬디 정리&quot;, &quot;영어&quot;: &quot;Zsigmondy&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;a^n-b^n에는 새 소인수가 나타난다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 55,
+    &quot;ko&quot;: &quot;지그몬디 정리&quot;,
+    &quot;en&quot;: &quot;Zsigmondy&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;a^n-b^n에는 새 소인수가 나타난다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t56">
+  <div class="num">056</div>
+  <h2>56. 뤼카 정리 <span>Lucas&#x27; Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 이항계수를 소수 모듈러에서 자리수로 계산한다.</p>
+  <p class="en"><b>English:</b> Computes binomial coefficients modulo a prime using digits.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;뤼카 정리&quot;
+english = &quot;Lucas&#x27; Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;이항계수를 소수 모듈러에서 자리수로 계산한다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(56, &quot;뤼카 정리&quot;, &quot;Lucas&#x27; Theorem&quot;, &quot;이항계수를 소수 모듈러에서 자리수로 계산한다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t57">
+  <div class="num">057</div>
+  <h2>57. 뤼카-레머 정리 <span>Lucas–Lehmer Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 메르센 소수 판정에 사용된다.</p>
+  <p class="en"><b>English:</b> Used to test Mersenne primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;뤼카-레머 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;뤼카-레머 정리&quot;,
+    &quot;메르센 소수 판정에 사용된다.&quot;,
+    &quot;Used to test Mersenne primes.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;뤼카-레머 정리&quot;, len(&quot;뤼카-레머 정리&quot;)),
+    (&quot;Lucas–Lehmer Theorem&quot;, len(&quot;Lucas–Lehmer Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t58">
+  <div class="num">058</div>
+  <h2>58. 뤼카 소수 판정법 <span>Lucas Primality Test</span></h2>
+  <p class="ko"><b>한글 설명:</b> 특정 조건으로 소수성을 검사한다.</p>
+  <p class="en"><b>English:</b> Tests primality under Lucas sequence conditions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;뤼카 소수 판정법&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(58, &quot;뤼카 소수 판정법&quot;, &quot;Lucas Primality Test&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;특정 조건으로 소수성을 검사한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t59">
+  <div class="num">059</div>
+  <h2>59. 페핀 정리 <span>Pépin&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 페르마 수의 소수성을 판정한다.</p>
+  <p class="en"><b>English:</b> Tests primality of Fermat numbers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 59
+name = &quot;페핀 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;대수적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 페핀 정리&quot;
+    yield &quot;영어 이름: Pépin&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 페르마 수의 소수성을 판정한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t60">
+  <div class="num">060</div>
+  <h2>60. 프로트 정리 <span>Proth&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 프로트 수의 소수성을 판정한다.</p>
+  <p class="en"><b>English:</b> Tests primality of Proth numbers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;프로트 정리&quot;, &quot;영어&quot;: &quot;Proth&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;프로트 수의 소수성을 판정한다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 60,
+    &quot;ko&quot;: &quot;프로트 정리&quot;,
+    &quot;en&quot;: &quot;Proth&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;프로트 수의 소수성을 판정한다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t61">
+  <div class="num">061</div>
+  <h2>61. AKS 소수 판정 정리 <span>AKS Primality Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 결정론적 다항시간 소수 판정법이다.</p>
+  <p class="en"><b>English:</b> A deterministic polynomial-time primality test.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;AKS 소수 판정 정리&quot;
+english = &quot;AKS Primality Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;결정론적 다항시간 소수 판정법이다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(61, &quot;AKS 소수 판정 정리&quot;, &quot;AKS Primality Theorem&quot;, &quot;결정론적 다항시간 소수 판정법이다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t62">
+  <div class="num">062</div>
+  <h2>62. 밀러 정리 <span>Miller&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 리만 가설 조건하의 소수 판정과 관련된다.</p>
+  <p class="en"><b>English:</b> Related to primality testing under GRH.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;밀러 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;밀러 정리&quot;,
+    &quot;리만 가설 조건하의 소수 판정과 관련된다.&quot;,
+    &quot;Related to primality testing under GRH.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;밀러 정리&quot;, len(&quot;밀러 정리&quot;)),
+    (&quot;Miller&#x27;s Theorem&quot;, len(&quot;Miller&#x27;s Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t63">
+  <div class="num">063</div>
+  <h2>63. 라빈 정리 <span>Rabin&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 확률적 소수 판정의 이론적 기반이다.</p>
+  <p class="en"><b>English:</b> A theoretical basis for probabilistic primality testing.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;라빈 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(63, &quot;라빈 정리&quot;, &quot;Rabin&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;확률적 소수 판정의 이론적 기반이다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t64">
+  <div class="num">064</div>
+  <h2>64. 솔로베이-스트라센 정리 <span>Solovay–Strassen Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 자코비 기호 기반 확률적 소수 판정이다.</p>
+  <p class="en"><b>English:</b> A probabilistic primality test using Jacobi symbols.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 64
+name = &quot;솔로베이-스트라센 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;대수적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 솔로베이-스트라센 정리&quot;
+    yield &quot;영어 이름: Solovay–Strassen Theorem&quot;
+    yield &quot;핵심 내용: 자코비 기호 기반 확률적 소수 판정이다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t65">
+  <div class="num">065</div>
+  <h2>65. 코헨-렌스트라 휴리스틱 <span>Cohen–Lenstra Heuristics</span></h2>
+  <p class="ko"><b>한글 설명:</b> 클래스군의 분포를 예측한다.</p>
+  <p class="en"><b>English:</b> Predicts distributions of class groups.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;코헨-렌스트라 휴리스틱&quot;, &quot;영어&quot;: &quot;Cohen–Lenstra Heuristics&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;클래스군의 분포를 예측한다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 65,
+    &quot;ko&quot;: &quot;코헨-렌스트라 휴리스틱&quot;,
+    &quot;en&quot;: &quot;Cohen–Lenstra Heuristics&quot;,
+    &quot;summary_length&quot;: len(&quot;클래스군의 분포를 예측한다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t66">
+  <div class="num">066</div>
+  <h2>66. 모듈러성 정리 <span>Modularity Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 유리수체 위 타원곡선은 모듈러 형식과 연결된다.</p>
+  <p class="en"><b>English:</b> Elliptic curves over Q are modular.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;모듈러성 정리&quot;
+english = &quot;Modularity Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;유리수체 위 타원곡선은 모듈러 형식과 연결된다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(66, &quot;모듈러성 정리&quot;, &quot;Modularity Theorem&quot;, &quot;유리수체 위 타원곡선은 모듈러 형식과 연결된다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t67">
+  <div class="num">067</div>
+  <h2>67. 페르마의 마지막 정리 <span>Fermat&#x27;s Last Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> n&gt;2에서 x^n+y^n=z^n의 양의 정수해가 없다.</p>
+  <p class="en"><b>English:</b> For n&gt;2, x^n+y^n=z^n has no positive integer solutions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;페르마의 마지막 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;페르마의 마지막 정리&quot;,
+    &quot;n&gt;2에서 x^n+y^n=z^n의 양의 정수해가 없다.&quot;,
+    &quot;For n&gt;2, x^n+y^n=z^n has no positive integer solutions.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;페르마의 마지막 정리&quot;, len(&quot;페르마의 마지막 정리&quot;)),
+    (&quot;Fermat&#x27;s Last Theorem&quot;, len(&quot;Fermat&#x27;s Last Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t68">
+  <div class="num">068</div>
+  <h2>68. 타니야마-시무라 정리 <span>Taniyama–Shimura Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 모듈러성 정리의 역사적 이름이다.</p>
+  <p class="en"><b>English:</b> A historical name for the Modularity Theorem.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;타니야마-시무라 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(68, &quot;타니야마-시무라 정리&quot;, &quot;Taniyama–Shimura Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;모듈러성 정리의 역사적 이름이다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t69">
+  <div class="num">069</div>
+  <h2>69. 와일스 정리 <span>Wiles&#x27; Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 페르마의 마지막 정리를 증명한 핵심 결과이다.</p>
+  <p class="en"><b>English:</b> The key result proving Fermat&#x27;s Last Theorem.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 69
+name = &quot;와일스 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;타원곡선&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 와일스 정리&quot;
+    yield &quot;영어 이름: Wiles&#x27; Theorem&quot;
+    yield &quot;핵심 내용: 페르마의 마지막 정리를 증명한 핵심 결과이다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t70">
+  <div class="num">070</div>
+  <h2>70. 모데일 정리 <span>Mordell&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 타원곡선의 유리점군은 유한 생성이다.</p>
+  <p class="en"><b>English:</b> The rational points on an elliptic curve form a finitely generated group.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;모데일 정리&quot;, &quot;영어&quot;: &quot;Mordell&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;타원곡선의 유리점군은 유한 생성이다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 70,
+    &quot;ko&quot;: &quot;모데일 정리&quot;,
+    &quot;en&quot;: &quot;Mordell&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;타원곡선의 유리점군은 유한 생성이다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t71">
+  <div class="num">071</div>
+  <h2>71. 팔팅스 정리 <span>Faltings&#x27; Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 종수 1보다 큰 곡선의 유리점은 유한하다.</p>
+  <p class="en"><b>English:</b> Curves of genus greater than one have finitely many rational points.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;팔팅스 정리&quot;
+english = &quot;Faltings&#x27; Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;종수 1보다 큰 곡선의 유리점은 유한하다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(71, &quot;팔팅스 정리&quot;, &quot;Faltings&#x27; Theorem&quot;, &quot;종수 1보다 큰 곡선의 유리점은 유한하다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t72">
+  <div class="num">072</div>
+  <h2>72. 나겔-루츠 정리 <span>Nagell–Lutz Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 타원곡선 비틀림점의 좌표 조건을 준다.</p>
+  <p class="en"><b>English:</b> Gives coordinate conditions for torsion points on elliptic curves.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;나겔-루츠 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;나겔-루츠 정리&quot;,
+    &quot;타원곡선 비틀림점의 좌표 조건을 준다.&quot;,
+    &quot;Gives coordinate conditions for torsion points on elliptic curves.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;나겔-루츠 정리&quot;, len(&quot;나겔-루츠 정리&quot;)),
+    (&quot;Nagell–Lutz Theorem&quot;, len(&quot;Nagell–Lutz Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t73">
+  <div class="num">073</div>
+  <h2>73. 마주르 정리 <span>Mazur&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 유리수체 위 타원곡선 비틀림 부분군을 분류한다.</p>
+  <p class="en"><b>English:</b> Classifies torsion subgroups of elliptic curves over Q.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;마주르 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(73, &quot;마주르 정리&quot;, &quot;Mazur&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;유리수체 위 타원곡선 비틀림 부분군을 분류한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t74">
+  <div class="num">074</div>
+  <h2>74. 리베트 정리 <span>Ribet&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 모듈러성 정리와 페르마 마지막 정리를 연결했다.</p>
+  <p class="en"><b>English:</b> Connected modularity to Fermat&#x27;s Last Theorem.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 74
+name = &quot;리베트 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;타원곡선&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 리베트 정리&quot;
+    yield &quot;영어 이름: Ribet&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 모듈러성 정리와 페르마 마지막 정리를 연결했다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t75">
+  <div class="num">075</div>
+  <h2>75. 디오판토스 근사 정리 <span>Diophantine Approximation Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 실수를 유리수로 근사하는 정도를 연구한다.</p>
+  <p class="en"><b>English:</b> Studies how well real numbers can be approximated by rationals.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;디오판토스 근사 정리&quot;, &quot;영어&quot;: &quot;Diophantine Approximation Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;실수를 유리수로 근사하는 정도를 연구한다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 75,
+    &quot;ko&quot;: &quot;디오판토스 근사 정리&quot;,
+    &quot;en&quot;: &quot;Diophantine Approximation Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;실수를 유리수로 근사하는 정도를 연구한다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t76">
+  <div class="num">076</div>
+  <h2>76. 리우빌 정리 <span>Liouville&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 대수적 수의 근사 한계를 통해 초월수를 보인다.</p>
+  <p class="en"><b>English:</b> Shows transcendence via approximation limits of algebraic numbers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;리우빌 정리&quot;
+english = &quot;Liouville&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;대수적 수의 근사 한계를 통해 초월수를 보인다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(76, &quot;리우빌 정리&quot;, &quot;Liouville&#x27;s Theorem&quot;, &quot;대수적 수의 근사 한계를 통해 초월수를 보인다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t77">
+  <div class="num">077</div>
+  <h2>77. 르베그 정리 <span>Lebesgue&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 특정 지수형 방정식의 정수해와 관련된다.</p>
+  <p class="en"><b>English:</b> Related to integer solutions of certain exponential equations.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;르베그 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;르베그 정리&quot;,
+    &quot;특정 지수형 방정식의 정수해와 관련된다.&quot;,
+    &quot;Related to integer solutions of certain exponential equations.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;르베그 정리&quot;, len(&quot;르베그 정리&quot;)),
+    (&quot;Lebesgue&#x27;s Theorem&quot;, len(&quot;Lebesgue&#x27;s Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t78">
+  <div class="num">078</div>
+  <h2>78. 람베르트 정리 <span>Lambert&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> π의 무리성 증명과 관련된다.</p>
+  <p class="en"><b>English:</b> Related to the proof that pi is irrational.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;람베르트 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(78, &quot;람베르트 정리&quot;, &quot;Lambert&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;π의 무리성 증명과 관련된다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t79">
+  <div class="num">079</div>
+  <h2>79. 스톨츠 정리 <span>Stolz&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 수열 극한과 정수론적 점근 계산에 쓰인다.</p>
+  <p class="en"><b>English:</b> Used for sequence limits and asymptotic number theory.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 79
+name = &quot;스톨츠 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;해석적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 스톨츠 정리&quot;
+    yield &quot;영어 이름: Stolz&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 수열 극한과 정수론적 점근 계산에 쓰인다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t80">
+  <div class="num">080</div>
+  <h2>80. 필라이 정리 <span>Pillai&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 완전거듭제곱 사이의 차이를 다룬다.</p>
+  <p class="en"><b>English:</b> Deals with gaps between perfect powers.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;필라이 정리&quot;, &quot;영어&quot;: &quot;Pillai&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;완전거듭제곱 사이의 차이를 다룬다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 80,
+    &quot;ko&quot;: &quot;필라이 정리&quot;,
+    &quot;en&quot;: &quot;Pillai&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;완전거듭제곱 사이의 차이를 다룬다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t81">
+  <div class="num">081</div>
+  <h2>81. 람누잔 합동 정리 <span>Ramanujan Congruence Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 분할함수의 놀라운 합동식을 제시한다.</p>
+  <p class="en"><b>English:</b> Gives remarkable congruences for the partition function.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;람누잔 합동 정리&quot;
+english = &quot;Ramanujan Congruence Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;분할함수의 놀라운 합동식을 제시한다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(81, &quot;람누잔 합동 정리&quot;, &quot;Ramanujan Congruence Theorem&quot;, &quot;분할함수의 놀라운 합동식을 제시한다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t82">
+  <div class="num">082</div>
+  <h2>82. 람누잔-나겔 정리 <span>Ramanujan–Nagell Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> x^2+7=2^n의 정수해를 결정한다.</p>
+  <p class="en"><b>English:</b> Determines integer solutions of x^2+7=2^n.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;람누잔-나겔 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;람누잔-나겔 정리&quot;,
+    &quot;x^2+7=2^n의 정수해를 결정한다.&quot;,
+    &quot;Determines integer solutions of x^2+7=2^n.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;람누잔-나겔 정리&quot;, len(&quot;람누잔-나겔 정리&quot;)),
+    (&quot;Ramanujan–Nagell Theorem&quot;, len(&quot;Ramanujan–Nagell Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t83">
+  <div class="num">083</div>
+  <h2>83. 버코프 정리 <span>Birkhoff&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 대수적·조합적 구조에 응용된다.</p>
+  <p class="en"><b>English:</b> Applied to algebraic and combinatorial structures.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;버코프 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(83, &quot;버코프 정리&quot;, &quot;Birkhoff&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;대수적·조합적 구조에 응용된다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t84">
+  <div class="num">084</div>
+  <h2>84. 르머 정리 <span>Lehmer&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 오일러 함수와 소수 판정 문제에 관련된다.</p>
+  <p class="en"><b>English:</b> Related to Euler&#x27;s totient and primality questions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 84
+name = &quot;르머 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;해석적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 르머 정리&quot;
+    yield &quot;영어 이름: Lehmer&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 오일러 함수와 소수 판정 문제에 관련된다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t85">
+  <div class="num">085</div>
+  <h2>85. 스티켈베르거 정리 <span>Stickelberger&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 클래스군과 가우스 합에 관한 대수적 정수론 정리이다.</p>
+  <p class="en"><b>English:</b> An algebraic number theory theorem on class groups and Gauss sums.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;스티켈베르거 정리&quot;, &quot;영어&quot;: &quot;Stickelberger&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;클래스군과 가우스 합에 관한 대수적 정수론 정리이다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 85,
+    &quot;ko&quot;: &quot;스티켈베르거 정리&quot;,
+    &quot;en&quot;: &quot;Stickelberger&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;클래스군과 가우스 합에 관한 대수적 정수론 정리이다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t86">
+  <div class="num">086</div>
+  <h2>86. 헤그너 정리 <span>Heegner&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 클래스 수 1인 허수 이차체를 분류한다.</p>
+  <p class="en"><b>English:</b> Classifies imaginary quadratic fields of class number one.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;헤그너 정리&quot;
+english = &quot;Heegner&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;클래스 수 1인 허수 이차체를 분류한다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(86, &quot;헤그너 정리&quot;, &quot;Heegner&#x27;s Theorem&quot;, &quot;클래스 수 1인 허수 이차체를 분류한다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t87">
+  <div class="num">087</div>
+  <h2>87. 스타크-헤그너 정리 <span>Stark–Heegner Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 클래스 수 문제와 특수값을 연결한다.</p>
+  <p class="en"><b>English:</b> Connects class number problems with special values.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;스타크-헤그너 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;스타크-헤그너 정리&quot;,
+    &quot;클래스 수 문제와 특수값을 연결한다.&quot;,
+    &quot;Connects class number problems with special values.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;스타크-헤그너 정리&quot;, len(&quot;스타크-헤그너 정리&quot;)),
+    (&quot;Stark–Heegner Theorem&quot;, len(&quot;Stark–Heegner Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t88">
+  <div class="num">088</div>
+  <h2>88. 안드레-오르트 정리 <span>André–Oort Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 특별점의 분포를 설명하는 현대 정리이다.</p>
+  <p class="en"><b>English:</b> A modern theorem on the distribution of special points.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;안드레-오르트 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(88, &quot;안드레-오르트 정리&quot;, &quot;André–Oort Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;특별점의 분포를 설명하는 현대 정리이다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t89">
+  <div class="num">089</div>
+  <h2>89. 슈니렐만 정리 <span>Schnirelmann&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 모든 자연수는 유한 개 소수의 합으로 표현된다.</p>
+  <p class="en"><b>English:</b> Every natural number is a sum of boundedly many primes.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 89
+name = &quot;슈니렐만 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;해석적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 슈니렐만 정리&quot;
+    yield &quot;영어 이름: Schnirelmann&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 모든 자연수는 유한 개 소수의 합으로 표현된다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t90">
+  <div class="num">090</div>
+  <h2>90. 반 데르 바르덴 정리 <span>van der Waerden&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 색칠된 정수 집합에는 긴 등차수열이 있다.</p>
+  <p class="en"><b>English:</b> Any finite coloring contains long arithmetic progressions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;반 데르 바르덴 정리&quot;, &quot;영어&quot;: &quot;van der Waerden&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;색칠된 정수 집합에는 긴 등차수열이 있다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 90,
+    &quot;ko&quot;: &quot;반 데르 바르덴 정리&quot;,
+    &quot;en&quot;: &quot;van der Waerden&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;색칠된 정수 집합에는 긴 등차수열이 있다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t91">
+  <div class="num">091</div>
+  <h2>91. 세메레디 정리 <span>Szemerédi&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 양의 밀도 집합은 임의 길이의 등차수열을 포함한다.</p>
+  <p class="en"><b>English:</b> Positive-density sets contain arbitrarily long arithmetic progressions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;세메레디 정리&quot;
+english = &quot;Szemerédi&#x27;s Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;양의 밀도 집합은 임의 길이의 등차수열을 포함한다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(91, &quot;세메레디 정리&quot;, &quot;Szemerédi&#x27;s Theorem&quot;, &quot;양의 밀도 집합은 임의 길이의 등차수열을 포함한다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t92">
+  <div class="num">092</div>
+  <h2>92. 로스-세메레디 정리 <span>Roth–Szemerédi Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 등차수열과 조합적 구조 연구에 중요하다.</p>
+  <p class="en"><b>English:</b> Important for arithmetic progressions and combinatorial structure.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;로스-세메레디 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;로스-세메레디 정리&quot;,
+    &quot;등차수열과 조합적 구조 연구에 중요하다.&quot;,
+    &quot;Important for arithmetic progressions and combinatorial structure.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;로스-세메레디 정리&quot;, len(&quot;로스-세메레디 정리&quot;)),
+    (&quot;Roth–Szemerédi Theorem&quot;, len(&quot;Roth–Szemerédi Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t93">
+  <div class="num">093</div>
+  <h2>93. 힌친 정리 <span>Khintchine&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 디오판토스 근사와 측도를 연결한다.</p>
+  <p class="en"><b>English:</b> Connects Diophantine approximation and measure theory.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;힌친 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(93, &quot;힌친 정리&quot;, &quot;Khintchine&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;디오판토스 근사와 측도를 연결한다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t94">
+  <div class="num">094</div>
+  <h2>94. 쿠르츠바일 정리 <span>Kurzweil&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 근사 가능성과 동역학을 연결한다.</p>
+  <p class="en"><b>English:</b> Links approximation properties and dynamics.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 94
+name = &quot;쿠르츠바일 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;조합적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 쿠르츠바일 정리&quot;
+    yield &quot;영어 이름: Kurzweil&#x27;s Theorem&quot;
+    yield &quot;핵심 내용: 근사 가능성과 동역학을 연결한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t95">
+  <div class="num">095</div>
+  <h2>95. 다벤포트 정리 <span>Davenport&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 격자점·합동식·분포 문제에 쓰인다.</p>
+  <p class="en"><b>English:</b> Used in lattice point, congruence, and distribution problems.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;다벤포트 정리&quot;, &quot;영어&quot;: &quot;Davenport&#x27;s Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;격자점·합동식·분포 문제에 쓰인다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 95,
+    &quot;ko&quot;: &quot;다벤포트 정리&quot;,
+    &quot;en&quot;: &quot;Davenport&#x27;s Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;격자점·합동식·분포 문제에 쓰인다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t96">
+  <div class="num">096</div>
+  <h2>96. 에르되시-카츠 정리 <span>Erdős–Kac Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소인수 개수는 정규분포를 따른다.</p>
+  <p class="en"><b>English:</b> The number of prime factors follows a normal distribution.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 변수와 출력
+theorem = &quot;에르되시-카츠 정리&quot;
+english = &quot;Erdős–Kac Theorem&quot;
+print(theorem)
+print(english)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 조건문으로 핵심어 찾기
+summary = &quot;소인수 개수는 정규분포를 따른다.&quot;
+if &quot;소수&quot; in summary:
+    print(&quot;소수와 관련된 정리입니다.&quot;)
+else:
+    print(&quot;정수론의 다른 주제와 관련된 정리입니다.&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 클래스로 정리 표현
+class Theorem:
+    def __init__(self, number, ko, en, summary):
+        self.number = number
+        self.ko = ko
+        self.en = en
+        self.summary = summary
+
+    def show(self):
+        return f&quot;{self.number}. {self.ko}({self.en}): {self.summary}&quot;
+
+t = Theorem(96, &quot;에르되시-카츠 정리&quot;, &quot;Erdős–Kac Theorem&quot;, &quot;소인수 개수는 정규분포를 따른다.&quot;)
+print(t.show())</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t97">
+  <div class="num">097</div>
+  <h2>97. 투란 정리 <span>Turán&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 확률적 정수론과 소수 분포에 쓰인다.</p>
+  <p class="en"><b>English:</b> Used in probabilistic number theory and prime distribution.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 리스트 만들기
+keywords = [&quot;정수론&quot;, &quot;투란 정리&quot;, &quot;소수&quot;, &quot;합동식&quot;]
+print(keywords[0])
+print(keywords[1])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 반복문으로 설명 출력
+lines = [
+    &quot;투란 정리&quot;,
+    &quot;확률적 정수론과 소수 분포에 쓰인다.&quot;,
+    &quot;Used in probabilistic number theory and prime distribution.&quot;
+]
+for idx, line in enumerate(lines, 1):
+    print(idx, line)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 람다와 정렬
+items = [
+    (&quot;투란 정리&quot;, len(&quot;투란 정리&quot;)),
+    (&quot;Turán&#x27;s Theorem&quot;, len(&quot;Turán&#x27;s Theorem&quot;)),
+    (&quot;정수론&quot;, len(&quot;정수론&quot;))
+]
+items.sort(key=lambda x: x[1], reverse=True)
+print(items)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t98">
+  <div class="num">098</div>
+  <h2>98. 셀버그 정리 <span>Selberg&#x27;s Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 소수정리의 초등적 증명에 기여했다.</p>
+  <p class="en"><b>English:</b> Contributed to an elementary proof of the Prime Number Theorem.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 문자열 길이
+name = &quot;셀버그 정리&quot;
+print(name)
+print(&quot;글자 수:&quot;, len(name))</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 함수로 정리 카드 만들기
+def make_card(num, ko, en):
+    return f&quot;[{num}] {ko} / {en}&quot;
+
+print(make_card(98, &quot;셀버그 정리&quot;, &quot;Selberg&#x27;s Theorem&quot;))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 예외 처리
+def safe_ratio(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return &quot;0으로 나눌 수 없습니다.&quot;
+
+print(safe_ratio(len(&quot;소수정리의 초등적 증명에 기여했다.&quot;), 3))</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t99">
+  <div class="num">099</div>
+  <h2>99. 봄비에리-비노그라도프 정리 <span>Bombieri–Vinogradov Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 산술수열 속 소수의 평균 분포를 설명한다.</p>
+  <p class="en"><b>English:</b> Describes average distribution of primes in arithmetic progressions.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: f-string
+number = 99
+name = &quot;봄비에리-비노그라도프 정리&quot;
+print(f&quot;{number}번 정리: {name}&quot;)</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 집합으로 분야 태그 관리
+tags = {&quot;정수론&quot;, &quot;정리&quot;, &quot;조합적정수론&quot;}
+tags.add(&quot;파이썬&quot;)
+print(sorted(tags))</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 제너레이터
+def theorem_steps():
+    yield &quot;정리 이름: 봄비에리-비노그라도프 정리&quot;
+    yield &quot;영어 이름: Bombieri–Vinogradov Theorem&quot;
+    yield &quot;핵심 내용: 산술수열 속 소수의 평균 분포를 설명한다.&quot;
+
+for step in theorem_steps():
+    print(step)</code></pre>
+  </details>
+</section>
+
+<section class="card" id="t100">
+  <div class="num">100</div>
+  <h2>100. 베이커-스타크 정리 <span>Baker–Stark Theorem</span></h2>
+  <p class="ko"><b>한글 설명:</b> 클래스 수와 대수적 수론의 특수값 문제에 관련된다.</p>
+  <p class="en"><b>English:</b> Related to class numbers and special values in algebraic number theory.</p>
+
+  <details open>
+    <summary>① 기초 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 변수, 출력, 문자열, 리스트, 딕셔너리 기초</div>
+    <pre><code># 기초: 딕셔너리
+theorem = {&quot;한글&quot;: &quot;베이커-스타크 정리&quot;, &quot;영어&quot;: &quot;Baker–Stark Theorem&quot;}
+print(theorem[&quot;한글&quot;])
+print(theorem[&quot;영어&quot;])</code></pre>
+  </details>
+
+  <details>
+    <summary>② 응용 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 조건문, 반복문, 함수, 집합, 리스트 컴프리헨션</div>
+    <pre><code># 응용: 리스트 컴프리헨션
+words = &quot;클래스 수와 대수적 수론의 특수값 문제에 관련된다.&quot;.split()
+long_words = [w for w in words if len(w) &gt;= 3]
+print(long_words)</code></pre>
+  </details>
+
+  <details>
+    <summary>③ 심화 파이썬 문법 예시 코드</summary>
+    <div class="code-title">학습 요소: 클래스, 람다, 예외 처리, 제너레이터, 데이터 처리</div>
+    <pre><code># 심화: 데이터 분석형 딕셔너리 처리
+data = {
+    &quot;number&quot;: 100,
+    &quot;ko&quot;: &quot;베이커-스타크 정리&quot;,
+    &quot;en&quot;: &quot;Baker–Stark Theorem&quot;,
+    &quot;summary_length&quot;: len(&quot;클래스 수와 대수적 수론의 특수값 문제에 관련된다.&quot;)
+}
+
+for key, value in data.items():
+    print(key, &quot;=&gt;&quot;, value)</code></pre>
+  </details>
+</section>
+
+  </main>
+</div>
+<a class="topbtn" href="#top">TOP</a>
+<footer>
+  생성일: 2026-06-03 · 정수론 100개 정리와 파이썬 문법 통합 학습 자료
+</footer>
+</body>
+</html>
