@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아름답고 감동스런 이야기로 배우는 파이썬 문법 10단계</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:'Noto Sans KR','Malgun Gothic',Arial,sans-serif;background:#f6f8fb;color:#20242a;line-height:1.75} header{background:linear-gradient(135deg,#334155,#6366f1);color:white;padding:44px 24px;text-align:center} header h1{margin:0;font-size:32px} header p{font-size:18px;margin:14px auto 0;max-width:900px}.wrap{max-width:1180px;margin:0 auto;padding:24px}.nav{position:sticky;top:0;background:white;border:1px solid #e5e7eb;border-radius:16px;padding:16px;margin:-18px auto 24px;box-shadow:0 8px 20px rgba(0,0,0,.06);z-index:5}.nav select{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;font-size:17px}.card{background:white;border:1px solid #e5e7eb;border-radius:20px;margin:24px 0;padding:28px;box-shadow:0 10px 25px rgba(15,23,42,.06)}h2{margin-top:0;color:#3730a3;font-size:26px}.tag{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:999px;padding:5px 12px;font-weight:700;margin-bottom:10px}.story{background:#fff7ed;border-left:7px solid #fb923c;border-radius:14px;padding:18px;margin:16px 0}.concept{background:#f0fdf4;border-left:7px solid #22c55e;border-radius:14px;padding:18px;margin:16px 0}.mission{background:#fdf2f8;border-left:7px solid #ec4899;border-radius:14px;padding:18px;margin:16px 0}.output{background:#111827;color:#d1fae5;border-radius:14px;padding:16px;white-space:pre-wrap;font-family:Consolas,monospace;font-size:15px;overflow:auto}pre{background:#0f172a;color:#e5e7eb;border-radius:16px;padding:18px;overflow:auto;font-size:15px;line-height:1.55}code{font-family:Consolas,monospace}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.mini{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:14px}.quiz{background:#eff6ff;border-left:7px solid #3b82f6;border-radius:14px;padding:18px;margin-top:16px}.answer{background:#f1f5f9;border-radius:12px;padding:12px;margin-top:10px}.top{display:inline-block;margin-top:12px;color:#4f46e5;text-decoration:none;font-weight:700}.footer{text-align:center;color:#64748b;padding:40px 10px}.level{font-weight:800;color:#be123c}
+</style>
+<script>
+function goStep(){const v=document.getElementById('stepMove').value;if(v) location.href=v;}
+</script>
+</head>
+<body>
+<header id="top">
+<h1>아름답고 감동스런 이야기로 배우는 파이썬 문법 10단계</h1>
+<p>한 소년과 마을 사람들이 함께 성장하는 이야기를 따라가며, 파이썬 기초 문법부터 응용·심화 개념까지 자연스럽게 익히는 통합 학습 HTML입니다.</p>
+</header>
+<div class="wrap">
+<div class="nav">
+<select id="stepMove" onchange="goStep()">
+<option value="">단계 선택하기</option>
+<option value="#s1">1단계 변수와 출력</option><option value="#s2">2단계 자료형</option><option value="#s3">3단계 입력과 형 변환</option><option value="#s4">4단계 조건문</option><option value="#s5">5단계 반복문</option><option value="#s6">6단계 리스트와 튜플</option><option value="#s7">7단계 딕셔너리와 집합</option><option value="#s8">8단계 함수</option><option value="#s9">9단계 파일 처리와 예외 처리</option><option value="#s10">10단계 클래스와 프로젝트</option>
+</select>
+</div>
+
+<section class="card" id="s1">
+<span class="tag">1단계 · 기초</span><h2>변수와 출력: 작은 이름표가 희망이 되다</h2>
+<div class="story"><b>이야기</b><br>산골 마을 도서관에는 낡은 책들이 많았습니다. 어느 날, 민재는 책마다 이름표를 붙였습니다. 이름표가 생기자 사람들은 책을 더 쉽게 찾았고, 도서관은 다시 활기를 찾았습니다. 파이썬의 변수도 값에 붙이는 이름표입니다.</div>
+<div class="concept"><b>핵심 문법</b><br>변수는 데이터를 저장하는 이름입니다. <code>print()</code>는 값을 화면에 출력합니다.</div>
+<pre><code>book = "어린 왕자"
+owner = "민재"
+message = owner + "가 " + book + "에 이름표를 붙였습니다."
+
+print(book)
+print(owner)
+print(message)</code></pre>
+<div class="output">어린 왕자
+민재
+민재가 어린 왕자에 이름표를 붙였습니다.</div>
+<div class="mission"><b>응용 미션</b><br>자신의 이름, 좋아하는 책, 오늘의 다짐을 변수에 저장하고 세 줄로 출력해 보세요.</div>
+<div class="quiz"><b>확인 문제</b><br>변수 <code>school = "전북과학고"</code>를 출력하려면 어떤 코드를 써야 할까요?<div class="answer">정답: <code>print(school)</code></div></div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s2">
+<span class="tag">2단계 · 기초</span><h2>자료형: 서로 다른 마음을 담는 그릇</h2>
+<div class="story"><b>이야기</b><br>마을 축제 준비를 하며 아이들은 초대 인원, 응원 문구, 참가 여부를 기록했습니다. 숫자, 글자, 참과 거짓은 모두 다른 그릇에 담겨야 했습니다.</div>
+<div class="concept"><b>핵심 문법</b><br>대표 자료형: 정수 <code>int</code>, 실수 <code>float</code>, 문자열 <code>str</code>, 불리언 <code>bool</code>.</div>
+<pre><code>people = 30
+budget = 12500.5
+slogan = "함께하면 길이 됩니다"
+is_ready = True
+
+print(type(people))
+print(type(budget))
+print(type(slogan))
+print(type(is_ready))</code></pre>
+<div class="output">&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;</div>
+<div class="mission"><b>응용 미션</b><br>나이, 키, 좌우명, 오늘 공부 완료 여부를 각각 다른 자료형으로 저장하세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s3">
+<span class="tag">3단계 · 기초</span><h2>입력과 형 변환: 누군가의 목소리를 숫자로 바꾸다</h2>
+<div class="story"><b>이야기</b><br>도서관 모금함에는 사람들의 작은 정성이 모였습니다. 민재는 사람들이 입력한 금액을 모아 새 책을 사기로 했습니다.</div>
+<div class="concept"><b>핵심 문법</b><br><code>input()</code>은 문자열로 입력받습니다. 계산하려면 <code>int()</code>, <code>float()</code>로 바꾸어야 합니다.</div>
+<pre><code>name = input("이름: ")
+coin = int(input("기부 금액: "))
+
+print(name + "님, 고맙습니다.")
+print("두 배의 마음:", coin * 2)</code></pre>
+<div class="output">입력 예: 이름 = 지아, 기부 금액 = 5000
+지아님, 고맙습니다.
+두 배의 마음: 10000</div>
+<div class="mission"><b>응용 미션</b><br>사용자에게 두 수를 입력받아 합, 차, 곱을 출력해 보세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s4">
+<span class="tag">4단계 · 기초→응용</span><h2>조건문: 비 오는 날 우산을 나누다</h2>
+<div class="story"><b>이야기</b><br>비가 오는 날, 민재는 우산이 없는 친구에게 자신의 우산을 건넸습니다. 상황에 따라 선택하는 마음, 그것이 조건문입니다.</div>
+<div class="concept"><b>핵심 문법</b><br><code>if</code>, <code>elif</code>, <code>else</code>로 조건에 따라 다른 코드를 실행합니다.</div>
+<pre><code>rain = True
+umbrella = 1
+
+if rain and umbrella > 0:
+    print("우산을 나눠 씁니다.")
+elif rain:
+    print("잠시 비를 피합니다.")
+else:
+    print("맑은 길을 걷습니다.")</code></pre>
+<div class="output">우산을 나눠 씁니다.</div>
+<div class="mission"><b>응용 미션</b><br>점수를 입력받아 90점 이상 A, 80점 이상 B, 그 외 C를 출력하세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s5">
+<span class="tag">5단계 · 응용</span><h2>반복문: 매일 한 줄의 편지가 기적을 만들다</h2>
+<div class="story"><b>이야기</b><br>아픈 친구를 위해 반 친구들은 매일 응원 편지를 썼습니다. 하루하루 반복된 작은 문장이 친구에게 큰 힘이 되었습니다.</div>
+<div class="concept"><b>핵심 문법</b><br><code>for</code>는 정해진 횟수나 자료를 순회하고, <code>while</code>은 조건이 참인 동안 반복합니다.</div>
+<pre><code>messages = ["괜찮아", "힘내", "우리가 함께해"]
+
+for msg in messages:
+    print("편지:", msg)
+
+count = 3
+while count > 0:
+    print("응원", count)
+    count -= 1</code></pre>
+<div class="output">편지: 괜찮아
+편지: 힘내
+편지: 우리가 함께해
+응원 3
+응원 2
+응원 1</div>
+<div class="mission"><b>응용 미션</b><br>1부터 100까지의 합을 <code>for</code>문으로 구해 보세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s6">
+<span class="tag">6단계 · 응용</span><h2>리스트와 튜플: 추억을 순서대로 보관하다</h2>
+<div class="story"><b>이야기</b><br>졸업식 날, 친구들은 함께한 순간들을 순서대로 적었습니다. 바꿀 수 있는 추억 목록은 리스트, 변하지 않는 약속은 튜플과 닮았습니다.</div>
+<div class="concept"><b>핵심 문법</b><br>리스트는 수정 가능, 튜플은 수정이 어렵습니다. 인덱스로 값을 꺼냅니다.</div>
+<pre><code>memories = ["첫 만남", "도서관 청소", "축제 준비"]
+promise = ("서로 돕기", "끝까지 포기하지 않기")
+
+memories.append("졸업식")
+print(memories[0])
+print(memories[-1])
+print(promise[1])</code></pre>
+<div class="output">첫 만남
+졸업식
+끝까지 포기하지 않기</div>
+<div class="mission"><b>응용 미션</b><br>좋아하는 과목 5개를 리스트에 넣고, 첫 번째와 마지막 과목을 출력하세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s7">
+<span class="tag">7단계 · 응용</span><h2>딕셔너리와 집합: 사람마다 빛나는 이름이 있다</h2>
+<div class="story"><b>이야기</b><br>선생님은 학생들의 장점을 하나씩 기록했습니다. 이름과 장점이 연결된 기록은 딕셔너리, 중복 없는 장점 목록은 집합입니다.</div>
+<div class="concept"><b>핵심 문법</b><br>딕셔너리는 키와 값의 쌍입니다. 집합은 중복을 제거합니다.</div>
+<pre><code>strengths = {
+    "민재": "끈기",
+    "지아": "배려",
+    "하준": "창의력"
+}
+words = ["배려", "끈기", "배려", "용기"]
+unique_words = set(words)
+
+print(strengths["지아"])
+print(unique_words)</code></pre>
+<div class="output">배려
+{'배려', '끈기', '용기'}  # 출력 순서는 달라질 수 있음</div>
+<div class="mission"><b>응용 미션</b><br>학생 3명의 이름과 점수를 딕셔너리에 저장하고 평균 점수를 구하세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s8">
+<span class="tag">8단계 · 응용→심화</span><h2>함수: 따뜻한 일을 다시 사용할 수 있게 하다</h2>
+<div class="story"><b>이야기</b><br>마을 사람들은 누군가 힘들 때마다 같은 방식으로 위로했습니다. 좋은 행동을 하나의 함수로 만들면 필요할 때마다 다시 사용할 수 있습니다.</div>
+<div class="concept"><b>핵심 문법</b><br>함수는 입력을 받아 처리하고 결과를 반환하는 코드 묶음입니다.</div>
+<pre><code>def cheer(name, count=3):
+    result = []
+    for i in range(count):
+        result.append(name + "아, 넌 할 수 있어!")
+    return result
+
+for line in cheer("민재", 2):
+    print(line)</code></pre>
+<div class="output">민재아, 넌 할 수 있어!
+민재아, 넌 할 수 있어!</div>
+<div class="mission"><b>응용 미션</b><br>두 수와 연산자(+, -, *, /)를 받아 계산 결과를 반환하는 함수를 만드세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s9">
+<span class="tag">9단계 · 심화</span><h2>파일 처리와 예외 처리: 사라지지 않는 마음의 기록</h2>
+<div class="story"><b>이야기</b><br>민재는 도서관을 도운 사람들의 이름을 파일에 남겼습니다. 실수로 파일이 없어도 당황하지 않고 다시 만들었습니다.</div>
+<div class="concept"><b>핵심 문법</b><br><code>open()</code>으로 파일을 읽고 씁니다. <code>try-except</code>는 오류를 안전하게 처리합니다.</div>
+<pre><code>try:
+    with open("thanks.txt", "w", encoding="utf-8") as f:
+        f.write("고마운 사람들\n")
+        f.write("민재\n지아\n하준\n")
+
+    with open("thanks.txt", "r", encoding="utf-8") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("파일을 찾을 수 없습니다.")</code></pre>
+<div class="output">고마운 사람들
+민재
+지아
+하준</div>
+<div class="mission"><b>응용 미션</b><br>학번, 이름, 점수를 입력받아 <code>학번_이름_점수.txt</code> 파일로 저장해 보세요.</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card" id="s10">
+<span class="tag">10단계 · 심화 프로젝트</span><h2>클래스와 프로젝트: 마을 도서관 시스템 만들기</h2>
+<div class="story"><b>이야기</b><br>작은 도서관은 이제 마을의 중심이 되었습니다. 민재는 책, 사람, 대출 기록을 하나의 프로그램으로 관리하기로 했습니다. 클래스는 현실의 대상을 코드로 표현하는 방법입니다.</div>
+<div class="concept"><b>핵심 문법</b><br>클래스는 속성과 기능을 가진 객체를 만드는 설계도입니다.</div>
+<pre><code>class Book:
+    def __init__(self, title, writer):
+        self.title = title
+        self.writer = writer
+        self.borrowed = False
+
+    def borrow(self):
+        if not self.borrowed:
+            self.borrowed = True
+            return self.title + " 대출 완료"
+        return self.title + "은 이미 대출 중"
+
+    def info(self):
+        state = "대출 중" if self.borrowed else "대출 가능"
+        return f"{self.title} / {self.writer} / {state}"
+
+book1 = Book("어린 왕자", "생텍쥐페리")
+print(book1.info())
+print(book1.borrow())
+print(book1.info())</code></pre>
+<div class="output">어린 왕자 / 생텍쥐페리 / 대출 가능
+어린 왕자 대출 완료
+어린 왕자 / 생텍쥐페리 / 대출 중</div>
+<div class="mission"><b>최종 프로젝트</b><br><span class="level">도서관 관리 프로그램</span>을 확장해 보세요. 책 추가, 책 검색, 대출, 반납, 전체 목록 출력 기능을 함수 또는 클래스로 구현합니다.</div>
+<div class="grid">
+<div class="mini"><b>기초 확장</b><br>책 3권을 객체로 만들고 정보를 출력하기</div>
+<div class="mini"><b>응용 확장</b><br>리스트에 여러 책 객체를 저장하고 제목으로 검색하기</div>
+<div class="mini"><b>심화 확장</b><br>파일에 책 목록과 대출 상태를 저장하고 다시 불러오기</div>
+</div>
+<a class="top" href="#top">▲ 위로</a>
+</section>
+
+<section class="card">
+<h2>10단계 전체 요약</h2>
+<div class="grid">
+<div class="mini">1. 변수와 출력</div><div class="mini">2. 자료형</div><div class="mini">3. 입력과 형 변환</div><div class="mini">4. 조건문</div><div class="mini">5. 반복문</div><div class="mini">6. 리스트와 튜플</div><div class="mini">7. 딕셔너리와 집합</div><div class="mini">8. 함수</div><div class="mini">9. 파일·예외 처리</div><div class="mini">10. 클래스와 프로젝트</div>
+</div>
+</section>
+</div>
+<div class="footer">배움은 한 줄의 코드에서 시작되어, 누군가를 돕는 따뜻한 프로그램으로 자랍니다.</div>
+</body>
+</html>
