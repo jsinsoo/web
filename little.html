@@ -15,9 +15,66 @@ main{max-width:1100px;margin:auto;padding:24px}
 .level{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:4px 12px;font-weight:bold;font-size:14px}
 h2{margin:10px 0;color:#172554;font-size:24px}.ko{font-size:19px;font-weight:bold;color:#111827}.en{font-size:17px;color:#475569;margin-bottom:14px}.point{background:#fff7ed;border-left:5px solid #f97316;padding:10px 14px;border-radius:10px;margin:12px 0}.point b{color:#c2410c}
 pre{background:#0f172a;color:#e5e7eb;padding:16px;border-radius:14px;overflow:auto;font-size:15px;line-height:1.55} code{font-family:Consolas,'Courier New',monospace}.out{background:#f8fafc;border:1px dashed #94a3b8;color:#0f172a;padding:12px;border-radius:12px;white-space:pre-wrap}.tag{color:#64748b;font-size:14px}.topbtn{position:fixed;right:18px;bottom:18px;background:#2563eb;color:white;border:none;border-radius:999px;padding:12px 16px;font-weight:bold;box-shadow:0 6px 18px rgba(0,0,0,.2);cursor:pointer}.summary{background:#ecfeff;border:1px solid #67e8f9;padding:18px;border-radius:16px;margin:20px 0}.grid{display:grid;grid-template-columns:1fr;gap:8px}@media (max-width:700px){header h1{font-size:26px}main{padding:14px}.card{padding:16px}}
+
+.tts-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.tts-btn{background:#7c3aed;color:white;border:none;border-radius:999px;padding:7px 12px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.14)}
+.tts-btn:hover{background:#6d28d9}
+.tts-btn.stop{background:#ef4444}
+.tts-btn.stop:hover{background:#dc2626}
+
+.codebox{position:relative;margin-top:6px}
+.copy-btn{position:absolute;right:10px;top:10px;background:#2563eb;color:white;border:none;border-radius:9px;padding:6px 10px;font-size:13px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.copy-btn:hover{background:#1d4ed8}
+.copy-btn.copied{background:#16a34a}
+.codebox pre{margin-top:0}
+
 </style>
 <script>
 function go(){const v=document.getElementById('jump').value;if(v) location.hash=v;}
+
+function copyCode(btn){
+  const code = btn.parentElement.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(()=>{
+    const old = btn.innerText;
+    btn.innerText = '복사 완료!';
+    btn.classList.add('copied');
+    setTimeout(()=>{
+      btn.innerText = old;
+      btn.classList.remove('copied');
+    }, 1200);
+  }).catch(()=>{
+    const textarea = document.createElement('textarea');
+    textarea.value = code;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    btn.innerText = '복사 완료!';
+    setTimeout(()=>btn.innerText='코드 복사',1200);
+  });
+}
+
+function speakText(btn, lang){
+  if (!('speechSynthesis' in window)) {
+    alert('이 브라우저는 음성 읽기 기능을 지원하지 않습니다.');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const card = btn.closest('.card');
+  const target = lang === 'ko' ? card.querySelector('.ko') : card.querySelector('.en');
+  const text = target ? target.innerText.trim() : '';
+  if (!text) return;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
+  utter.rate = lang === 'ko' ? 0.92 : 0.88;
+  utter.pitch = 1;
+  window.speechSynthesis.speak(utter);
+}
+
+function stopTTS(){
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
 </script>
 </head>
 <body>
@@ -91,12 +148,17 @@ function go(){const v=document.getElementById('jump').value;if(v) location.hash=
 <h2>print()와 문자열 출력</h2>
 <div class="ko">어린 시절 비행사는 코끼리를 삼킨 보아뱀 그림을 그렸지만 어른들은 모자로만 보았다.</div>
 <div class="en">As a child, the pilot drew a boa constrictor swallowing an elephant, but adults saw only a hat.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> print()와 문자열 출력</div>
 <div class="tag">예시 코드</div>
-<pre><code>scene = &quot;코끼리를 삼킨 보아뱀&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>scene = &quot;코끼리를 삼킨 보아뱀&quot;
 adults = &quot;모자&quot;
 print(&quot;비행사가 그린 그림:&quot;, scene)
-print(&quot;어른들이 본 그림:&quot;, adults)</code></pre>
+print(&quot;어른들이 본 그림:&quot;, adults)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">비행사가 그린 그림: 코끼리를 삼킨 보아뱀
 어른들이 본 그림: 모자</div>
@@ -107,13 +169,18 @@ print(&quot;어른들이 본 그림:&quot;, adults)</code></pre>
 <h2>변수 값 바꾸기</h2>
 <div class="ko">어른들의 이해 부족에 실망한 그는 화가의 꿈을 포기하고 비행사가 되었다.</div>
 <div class="en">Disappointed by adults&#x27; lack of understanding, he gave up his dream of becoming an artist and became a pilot.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 변수 값 바꾸기</div>
 <div class="tag">예시 코드</div>
-<pre><code>dream = &quot;화가&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>dream = &quot;화가&quot;
 job = &quot;비행사&quot;
 print(&quot;처음 꿈:&quot;, dream)
 dream = job
-print(&quot;나중 직업:&quot;, dream)</code></pre>
+print(&quot;나중 직업:&quot;, dream)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">처음 꿈: 화가
 나중 직업: 비행사</div>
@@ -124,11 +191,16 @@ print(&quot;나중 직업:&quot;, dream)</code></pre>
 <h2>f-string 기초</h2>
 <div class="ko">어느 날 비행기는 사하라 사막에 불시착하였다.</div>
 <div class="en">One day, his airplane crash-landed in the Sahara Desert.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> f-string 기초</div>
 <div class="tag">예시 코드</div>
-<pre><code>place = &quot;사하라 사막&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>place = &quot;사하라 사막&quot;
 vehicle = &quot;비행기&quot;
-print(f&quot;{vehicle}가 {place}에 불시착했습니다.&quot;)</code></pre>
+print(f&quot;{vehicle}가 {place}에 불시착했습니다.&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">비행기가 사하라 사막에 불시착했습니다.</div>
 </section>
@@ -138,13 +210,18 @@ print(f&quot;{vehicle}가 {place}에 불시착했습니다.&quot;)</code></pre>
 <h2>숫자와 산술 연산</h2>
 <div class="ko">그는 물도 부족한 상태에서 홀로 비행기를 수리해야 했다.</div>
 <div class="en">With very little water, he had to repair the airplane alone.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 숫자와 산술 연산</div>
 <div class="tag">예시 코드</div>
-<pre><code>water = 3
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>water = 3
 needed = 10
 shortage = needed - water
 print(&quot;필요한 물:&quot;, needed)
-print(&quot;부족한 물:&quot;, shortage)</code></pre>
+print(&quot;부족한 물:&quot;, shortage)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">필요한 물: 10
 부족한 물: 7</div>
@@ -155,12 +232,17 @@ print(&quot;부족한 물:&quot;, shortage)</code></pre>
 <h2>input() 형태 이해</h2>
 <div class="ko">다음 날 아침 작은 소년이 나타나 양 한 마리를 그려 달라고 부탁했다.</div>
 <div class="en">The next morning, a little boy appeared and asked him to draw a sheep.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> input() 형태 이해</div>
 <div class="tag">예시 코드</div>
-<pre><code>request = &quot;양 한 마리를 그려 주세요&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>request = &quot;양 한 마리를 그려 주세요&quot;
 print(&quot;어린 왕자의 부탁:&quot;, request)
 # 실제 입력을 받을 때는 아래처럼 씁니다.
-# request = input(&quot;무엇을 그려 줄까요? &quot;)</code></pre>
+# request = input(&quot;무엇을 그려 줄까요? &quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">어린 왕자의 부탁: 양 한 마리를 그려 주세요</div>
 </section>
@@ -170,11 +252,16 @@ print(&quot;어린 왕자의 부탁:&quot;, request)
 <h2>비교 연산자</h2>
 <div class="ko">그 소년이 바로 어린 왕자였다.</div>
 <div class="en">That little boy was the Little Prince.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 비교 연산자</div>
 <div class="tag">예시 코드</div>
-<pre><code>boy = &quot;어린 왕자&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>boy = &quot;어린 왕자&quot;
 print(boy == &quot;어린 왕자&quot;)
-print(boy != &quot;왕&quot;)</code></pre>
+print(boy != &quot;왕&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">True
 True</div>
@@ -185,11 +272,16 @@ True</div>
 <h2>문자열 인덱싱</h2>
 <div class="ko">어린 왕자는 B-612라는 작은 별에서 왔다고 말했다.</div>
 <div class="en">The Little Prince said he came from a small asteroid called B-612.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 문자열 인덱싱</div>
 <div class="tag">예시 코드</div>
-<pre><code>planet = &quot;B-612&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>planet = &quot;B-612&quot;
 print(planet[0])
-print(planet[-1])</code></pre>
+print(planet[-1])</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">B
 2</div>
@@ -200,11 +292,16 @@ print(planet[-1])</code></pre>
 <h2>리스트 생성</h2>
 <div class="ko">그의 별에는 세 개의 화산과 한 송이의 장미가 있었다.</div>
 <div class="en">His planet contained three volcanoes and a single rose.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 리스트 생성</div>
 <div class="tag">예시 코드</div>
-<pre><code>things = [&quot;화산&quot;, &quot;화산&quot;, &quot;화산&quot;, &quot;장미&quot;]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>things = [&quot;화산&quot;, &quot;화산&quot;, &quot;화산&quot;, &quot;장미&quot;]
 print(things)
-print(&quot;개수:&quot;, len(things))</code></pre>
+print(&quot;개수:&quot;, len(things))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">[&#x27;화산&#x27;, &#x27;화산&#x27;, &#x27;화산&#x27;, &#x27;장미&#x27;]
 개수: 4</div>
@@ -215,11 +312,16 @@ print(&quot;개수:&quot;, len(things))</code></pre>
 <h2>리스트에서 값 제거</h2>
 <div class="ko">그는 매일 바오밥나무 싹을 뽑으며 별을 깨끗하게 관리했다.</div>
 <div class="en">He pulled up baobab sprouts every day to keep his planet clean.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 리스트에서 값 제거</div>
 <div class="tag">예시 코드</div>
-<pre><code>sprouts = [&quot;바오밥&quot;, &quot;풀&quot;, &quot;바오밥&quot;, &quot;꽃&quot;]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>sprouts = [&quot;바오밥&quot;, &quot;풀&quot;, &quot;바오밥&quot;, &quot;꽃&quot;]
 sprouts.remove(&quot;바오밥&quot;)
-print(sprouts)</code></pre>
+print(sprouts)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">[&#x27;풀&#x27;, &#x27;바오밥&#x27;, &#x27;꽃&#x27;]</div>
 </section>
@@ -229,11 +331,16 @@ print(sprouts)</code></pre>
 <h2>딕셔너리 생성</h2>
 <div class="ko">어느 날 아름다운 장미꽃이 그의 별에 피어났다.</div>
 <div class="en">One day, a beautiful rose bloomed on his planet.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 딕셔너리 생성</div>
 <div class="tag">예시 코드</div>
-<pre><code>rose = {&quot;이름&quot;: &quot;장미&quot;, &quot;상태&quot;: &quot;피어남&quot;, &quot;색&quot;: &quot;아름다움&quot;}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>rose = {&quot;이름&quot;: &quot;장미&quot;, &quot;상태&quot;: &quot;피어남&quot;, &quot;색&quot;: &quot;아름다움&quot;}
 print(rose[&quot;이름&quot;])
-print(rose[&quot;상태&quot;])</code></pre>
+print(rose[&quot;상태&quot;])</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">장미
 피어남</div>
@@ -244,12 +351,17 @@ print(rose[&quot;상태&quot;])</code></pre>
 <h2>불 자료형</h2>
 <div class="ko">어린 왕자는 장미를 진심으로 사랑하게 되었다.</div>
 <div class="en">The Little Prince came to love the rose sincerely.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 불 자료형</div>
 <div class="tag">예시 코드</div>
-<pre><code>love_rose = True
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>love_rose = True
 miss_rose = False
 print(&quot;장미를 사랑하나요?&quot;, love_rose)
-print(&quot;처음부터 그리워했나요?&quot;, miss_rose)</code></pre>
+print(&quot;처음부터 그리워했나요?&quot;, miss_rose)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">장미를 사랑하나요? True
 처음부터 그리워했나요? False</div>
@@ -260,11 +372,16 @@ print(&quot;처음부터 그리워했나요?&quot;, miss_rose)</code></pre>
 <h2>문자열 메서드</h2>
 <div class="ko">하지만 장미는 자존심이 강하고 까다로운 성격을 가지고 있었다.</div>
 <div class="en">However, the rose was proud and demanding.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 문자열 메서드</div>
 <div class="tag">예시 코드</div>
-<pre><code>personality = &quot;proud and demanding&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>personality = &quot;proud and demanding&quot;
 print(personality.upper())
-print(personality.replace(&quot;demanding&quot;, &quot;delicate&quot;))</code></pre>
+print(personality.replace(&quot;demanding&quot;, &quot;delicate&quot;))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">PROUD AND DEMANDING
 proud and delicate</div>
@@ -275,11 +392,16 @@ proud and delicate</div>
 <h2>조건문 if</h2>
 <div class="ko">어린 왕자는 장미의 진심을 이해하지 못한 채 별을 떠났다.</div>
 <div class="en">Unable to understand her true feelings, he left his planet.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 조건문 if</div>
 <div class="tag">예시 코드</div>
-<pre><code>understand = False
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>understand = False
 if not understand:
-    print(&quot;어린 왕자는 별을 떠납니다.&quot;)</code></pre>
+    print(&quot;어린 왕자는 별을 떠납니다.&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">어린 왕자는 별을 떠납니다.</div>
 </section>
@@ -289,11 +411,16 @@ if not understand:
 <h2>for 반복문</h2>
 <div class="ko">그는 여러 행성을 여행하며 다양한 어른들을 만났다.</div>
 <div class="en">He traveled to various planets and met many different adults.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> for 반복문</div>
 <div class="tag">예시 코드</div>
-<pre><code>planets = [&quot;첫 번째 별&quot;, &quot;두 번째 별&quot;, &quot;세 번째 별&quot;]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>planets = [&quot;첫 번째 별&quot;, &quot;두 번째 별&quot;, &quot;세 번째 별&quot;]
 for p in planets:
-    print(p, &quot;방문&quot;)</code></pre>
+    print(p, &quot;방문&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">첫 번째 별 방문
 두 번째 별 방문
@@ -305,11 +432,16 @@ for p in planets:
 <h2>딕셔너리 값 접근</h2>
 <div class="ko">첫 번째 행성에는 자신을 모든 것의 왕이라 여기는 왕이 살고 있었다.</div>
 <div class="en">On the first planet lived a king who believed he ruled everything.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 딕셔너리 값 접근</div>
 <div class="tag">예시 코드</div>
-<pre><code>adult = {&quot;행성&quot;: 1, &quot;인물&quot;: &quot;왕&quot;, &quot;특징&quot;: &quot;명령&quot;}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>adult = {&quot;행성&quot;: 1, &quot;인물&quot;: &quot;왕&quot;, &quot;특징&quot;: &quot;명령&quot;}
 print(adult[&quot;인물&quot;])
-print(adult[&quot;특징&quot;])</code></pre>
+print(adult[&quot;특징&quot;])</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">왕
 명령</div>
@@ -320,13 +452,18 @@ print(adult[&quot;특징&quot;])</code></pre>
 <h2>if-else</h2>
 <div class="ko">왕은 신하도 없으면서 명령만 내리려 했다.</div>
 <div class="en">The king tried to give orders despite having no subjects.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> if-else</div>
 <div class="tag">예시 코드</div>
-<pre><code>subjects = 0
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>subjects = 0
 if subjects &gt; 0:
     print(&quot;명령을 내릴 수 있습니다.&quot;)
 else:
-    print(&quot;들을 신하가 없습니다.&quot;)</code></pre>
+    print(&quot;들을 신하가 없습니다.&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">들을 신하가 없습니다.</div>
 </section>
@@ -336,12 +473,17 @@ else:
 <h2>리스트 append</h2>
 <div class="ko">두 번째 행성에는 칭찬만 받고 싶어 하는 허영쟁이가 살고 있었다.</div>
 <div class="en">On the second planet lived a vain man who wanted only admiration.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 리스트 append</div>
 <div class="tag">예시 코드</div>
-<pre><code>praises = []
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>praises = []
 praises.append(&quot;멋집니다&quot;)
 praises.append(&quot;훌륭합니다&quot;)
-print(praises)</code></pre>
+print(praises)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">[&#x27;멋집니다&#x27;, &#x27;훌륭합니다&#x27;]</div>
 </section>
@@ -351,11 +493,16 @@ print(praises)</code></pre>
 <h2>all() 함수</h2>
 <div class="ko">허영쟁이는 모든 사람이 자신을 존경한다고 믿었다.</div>
 <div class="en">The vain man believed everyone admired him.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> all() 함수</div>
 <div class="tag">예시 코드</div>
-<pre><code>admiration = [True, True, False]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>admiration = [True, True, False]
 print(&quot;모두 존경하나요?&quot;, all(admiration))
-print(&quot;한 명이라도 존경하나요?&quot;, any(admiration))</code></pre>
+print(&quot;한 명이라도 존경하나요?&quot;, any(admiration))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">모두 존경하나요? False
 한 명이라도 존경하나요? True</div>
@@ -366,12 +513,17 @@ print(&quot;한 명이라도 존경하나요?&quot;, any(admiration))</code></pr
 <h2>while 반복문</h2>
 <div class="ko">세 번째 행성에는 술주정뱅이가 살고 있었다.</div>
 <div class="en">On the third planet lived a drunkard.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> while 반복문</div>
 <div class="tag">예시 코드</div>
-<pre><code>shame = 3
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>shame = 3
 while shame &gt; 0:
     print(&quot;부끄러움 단계:&quot;, shame)
-    shame -= 1</code></pre>
+    shame -= 1</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">부끄러움 단계: 3
 부끄러움 단계: 2
@@ -383,12 +535,17 @@ while shame &gt; 0:
 <h2>순환 구조 표현</h2>
 <div class="ko">그는 술을 마시는 것이 부끄러워서 술을 마신다고 말했다.</div>
 <div class="en">He said he drank because he was ashamed of drinking.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 순환 구조 표현</div>
 <div class="tag">예시 코드</div>
-<pre><code>reason = &quot;부끄러움&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>reason = &quot;부끄러움&quot;
 action = &quot;마심&quot;
 for i in range(3):
-    print(i+1, reason, &quot;때문에&quot;, action)</code></pre>
+    print(i+1, reason, &quot;때문에&quot;, action)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">1 부끄러움 때문에 마심
 2 부끄러움 때문에 마심
@@ -400,11 +557,16 @@ for i in range(3):
 <h2>range와 합계</h2>
 <div class="ko">네 번째 행성에는 사업가가 살고 있었다.</div>
 <div class="en">On the fourth planet lived a businessman.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> range와 합계</div>
 <div class="tag">예시 코드</div>
-<pre><code>stars = range(1, 6)
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>stars = range(1, 6)
 total = sum(stars)
-print(&quot;센 별의 합:&quot;, total)</code></pre>
+print(&quot;센 별의 합:&quot;, total)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">센 별의 합: 15</div>
 </section>
@@ -414,11 +576,16 @@ print(&quot;센 별의 합:&quot;, total)</code></pre>
 <h2>집합 set</h2>
 <div class="ko">그는 별들을 자신의 소유라고 주장하며 숫자만 세고 있었다.</div>
 <div class="en">He claimed ownership of the stars and spent his time counting them.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 집합 set</div>
 <div class="tag">예시 코드</div>
-<pre><code>claimed = {&quot;별1&quot;, &quot;별2&quot;, &quot;별3&quot;, &quot;별1&quot;}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>claimed = {&quot;별1&quot;, &quot;별2&quot;, &quot;별3&quot;, &quot;별1&quot;}
 print(claimed)
-print(&quot;소유 주장 개수:&quot;, len(claimed))</code></pre>
+print(&quot;소유 주장 개수:&quot;, len(claimed))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">{&#x27;별3&#x27;, &#x27;별2&#x27;, &#x27;별1&#x27;}
 소유 주장 개수: 3</div>
@@ -429,11 +596,16 @@ print(&quot;소유 주장 개수:&quot;, len(claimed))</code></pre>
 <h2>함수 정의</h2>
 <div class="ko">다섯 번째 행성에는 점등인이 살고 있었다.</div>
 <div class="en">On the fifth planet lived a lamplighter.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 함수 정의</div>
 <div class="tag">예시 코드</div>
-<pre><code>def light_lamp():
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def light_lamp():
     return &quot;가로등을 켭니다&quot;
-print(light_lamp())</code></pre>
+print(light_lamp())</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">가로등을 켭니다</div>
 </section>
@@ -443,12 +615,17 @@ print(light_lamp())</code></pre>
 <h2>함수와 반복</h2>
 <div class="ko">그는 쉴 틈 없이 가로등을 켜고 끄는 일을 반복했다.</div>
 <div class="en">He endlessly turned a lamp on and off without rest.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 함수와 반복</div>
 <div class="tag">예시 코드</div>
-<pre><code>def switch_lamp(state):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def switch_lamp(state):
     return &quot;켜기&quot; if state else &quot;끄기&quot;
 for state in [True, False, True, False]:
-    print(switch_lamp(state))</code></pre>
+    print(switch_lamp(state))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">켜기
 끄기
@@ -461,11 +638,16 @@ for state in [True, False, True, False]:
 <h2>max와 key</h2>
 <div class="ko">어린 왕자는 점등인을 가장 훌륭한 어른이라고 생각했다.</div>
 <div class="en">The Little Prince considered the lamplighter the most admirable adult.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> max와 key</div>
 <div class="tag">예시 코드</div>
-<pre><code>adults = {&quot;왕&quot;: 1, &quot;허영쟁이&quot;: 1, &quot;점등인&quot;: 5}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>adults = {&quot;왕&quot;: 1, &quot;허영쟁이&quot;: 1, &quot;점등인&quot;: 5}
 best = max(adults, key=adults.get)
-print(&quot;가장 훌륭한 어른:&quot;, best)</code></pre>
+print(&quot;가장 훌륭한 어른:&quot;, best)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">가장 훌륭한 어른: 점등인</div>
 </section>
@@ -475,11 +657,16 @@ print(&quot;가장 훌륭한 어른:&quot;, best)</code></pre>
 <h2>튜플</h2>
 <div class="ko">여섯 번째 행성에는 지리학자가 살고 있었다.</div>
 <div class="en">On the sixth planet lived a geographer.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 튜플</div>
 <div class="tag">예시 코드</div>
-<pre><code>location = (6, &quot;지리학자&quot;, &quot;책상&quot;)
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>location = (6, &quot;지리학자&quot;, &quot;책상&quot;)
 print(location[0])
-print(location[1])</code></pre>
+print(location[1])</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">6
 지리학자</div>
@@ -490,12 +677,17 @@ print(location[1])</code></pre>
 <h2>논리 연산</h2>
 <div class="ko">그는 세상을 연구했지만 직접 탐험하지는 않았다.</div>
 <div class="en">He studied the world but never explored it himself.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 논리 연산</div>
 <div class="tag">예시 코드</div>
-<pre><code>study = True
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>study = True
 explore = False
 print(study and explore)
-print(study or explore)</code></pre>
+print(study or explore)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">False
 True</div>
@@ -506,11 +698,16 @@ True</div>
 <h2>함수 매개변수</h2>
 <div class="ko">지리학자는 어린 왕자에게 지구를 방문해 보라고 권했다.</div>
 <div class="en">The geographer recommended that the Little Prince visit Earth.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 함수 매개변수</div>
 <div class="tag">예시 코드</div>
-<pre><code>def recommend(place):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def recommend(place):
     return f&quot;{place}를 방문해 보세요.&quot;
-print(recommend(&quot;지구&quot;))</code></pre>
+print(recommend(&quot;지구&quot;))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">지구를 방문해 보세요.</div>
 </section>
@@ -520,11 +717,16 @@ print(recommend(&quot;지구&quot;))</code></pre>
 <h2>문자열 포맷</h2>
 <div class="ko">어린 왕자는 마침내 지구에 도착했다.</div>
 <div class="en">The Little Prince finally arrived on Earth.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 문자열 포맷</div>
 <div class="tag">예시 코드</div>
-<pre><code>traveler = &quot;어린 왕자&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>traveler = &quot;어린 왕자&quot;
 destination = &quot;지구&quot;
-print(&quot;{}는 {}에 도착했습니다.&quot;.format(traveler, destination))</code></pre>
+print(&quot;{}는 {}에 도착했습니다.&quot;.format(traveler, destination))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">어린 왕자는 지구에 도착했습니다.</div>
 </section>
@@ -534,11 +736,16 @@ print(&quot;{}는 {}에 도착했습니다.&quot;.format(traveler, destination))
 <h2>리스트 컴프리헨션</h2>
 <div class="ko">지구에서 그는 신비로운 뱀을 만났다.</div>
 <div class="en">On Earth, he met a mysterious snake.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 리스트 컴프리헨션</div>
 <div class="tag">예시 코드</div>
-<pre><code>animals = [&quot;여우&quot;, &quot;뱀&quot;, &quot;양&quot;]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>animals = [&quot;여우&quot;, &quot;뱀&quot;, &quot;양&quot;]
 found = [a for a in animals if a == &quot;뱀&quot;]
-print(found)</code></pre>
+print(found)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">[&#x27;뱀&#x27;]</div>
 </section>
@@ -548,11 +755,16 @@ print(found)</code></pre>
 <h2>return 사용</h2>
 <div class="ko">뱀은 자신이 사람을 원래 있던 곳으로 돌려보낼 수 있다고 말했다.</div>
 <div class="en">The snake said it could send people back to where they came from.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> return 사용</div>
 <div class="tag">예시 코드</div>
-<pre><code>def send_back(home):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def send_back(home):
     return home
-print(&quot;돌아갈 곳:&quot;, send_back(&quot;B-612&quot;))</code></pre>
+print(&quot;돌아갈 곳:&quot;, send_back(&quot;B-612&quot;))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">돌아갈 곳: B-612</div>
 </section>
@@ -562,11 +774,16 @@ print(&quot;돌아갈 곳:&quot;, send_back(&quot;B-612&quot;))</code></pre>
 <h2>문자열 곱셈</h2>
 <div class="ko">어린 왕자는 장미가 가득한 정원을 발견했다.</div>
 <div class="en">The Little Prince discovered a garden full of roses.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 문자열 곱셈</div>
 <div class="tag">예시 코드</div>
-<pre><code>rose = &quot;🌹&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>rose = &quot;🌹&quot;
 garden = rose * 10
-print(garden)</code></pre>
+print(garden)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹</div>
 </section>
@@ -576,11 +793,16 @@ print(garden)</code></pre>
 <h2>count 메서드</h2>
 <div class="ko">그는 자신의 장미가 유일한 존재가 아니라는 사실에 슬퍼했다.</div>
 <div class="en">He was saddened to learn that his rose was not unique.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> count 메서드</div>
 <div class="tag">예시 코드</div>
-<pre><code>garden = [&quot;장미&quot;, &quot;장미&quot;, &quot;장미&quot;]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>garden = [&quot;장미&quot;, &quot;장미&quot;, &quot;장미&quot;]
 print(&quot;장미 수:&quot;, garden.count(&quot;장미&quot;))
-print(&quot;유일한가?&quot;, garden.count(&quot;장미&quot;) == 1)</code></pre>
+print(&quot;유일한가?&quot;, garden.count(&quot;장미&quot;) == 1)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">장미 수: 3
 유일한가? False</div>
@@ -591,11 +813,16 @@ print(&quot;유일한가?&quot;, garden.count(&quot;장미&quot;) == 1)</code></
 <h2>딕셔너리 추가</h2>
 <div class="ko">그때 여우가 나타나 친구가 되어 달라고 부탁했다.</div>
 <div class="en">Then a fox appeared and asked him to become friends.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 딕셔너리 추가</div>
 <div class="tag">예시 코드</div>
-<pre><code>friends = {}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>friends = {}
 friends[&quot;여우&quot;] = &quot;친구가 되고 싶음&quot;
-print(friends)</code></pre>
+print(friends)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">{&#x27;여우&#x27;: &#x27;친구가 되고 싶음&#x27;}</div>
 </section>
@@ -605,11 +832,16 @@ print(friends)</code></pre>
 <h2>함수 기본값</h2>
 <div class="ko">여우는 길들인다는 것은 서로에게 특별한 존재가 되는 것이라고 설명했다.</div>
 <div class="en">The fox explained that taming means becoming special to one another.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 함수 기본값</div>
 <div class="tag">예시 코드</div>
-<pre><code>def tame(name, relation=&quot;특별한 존재&quot;):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def tame(name, relation=&quot;특별한 존재&quot;):
     return f&quot;{name}: {relation}&quot;
-print(tame(&quot;여우&quot;))</code></pre>
+print(tame(&quot;여우&quot;))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">여우: 특별한 존재</div>
 </section>
@@ -619,13 +851,18 @@ print(tame(&quot;여우&quot;))</code></pre>
 <h2>누적 합계</h2>
 <div class="ko">어린 왕자는 여우와 시간을 보내며 진정한 우정의 의미를 배웠다.</div>
 <div class="en">The Little Prince spent time with the fox and learned the meaning of true friendship.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 누적 합계</div>
 <div class="tag">예시 코드</div>
-<pre><code>days = [1, 1, 1, 1, 1]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>days = [1, 1, 1, 1, 1]
 time = 0
 for d in days:
     time += d
-print(&quot;함께 보낸 날:&quot;, time)</code></pre>
+print(&quot;함께 보낸 날:&quot;, time)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">함께 보낸 날: 5</div>
 </section>
@@ -635,10 +872,15 @@ print(&quot;함께 보낸 날:&quot;, time)</code></pre>
 <h2>람다 함수</h2>
 <div class="ko">여우는 가장 중요한 것은 눈에 보이지 않는다고 말했다.</div>
 <div class="en">The fox said that what is most important is invisible to the eye.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 람다 함수</div>
 <div class="tag">예시 코드</div>
-<pre><code>invisible = lambda value: f&quot;{value}은/는 눈에 보이지 않습니다.&quot;
-print(invisible(&quot;마음&quot;))</code></pre>
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>invisible = lambda value: f&quot;{value}은/는 눈에 보이지 않습니다.&quot;
+print(invisible(&quot;마음&quot;))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">마음은/는 눈에 보이지 않습니다.</div>
 </section>
@@ -648,12 +890,17 @@ print(invisible(&quot;마음&quot;))</code></pre>
 <h2>가중치 계산</h2>
 <div class="ko">여우는 장미가 특별한 이유는 어린 왕자가 사랑과 시간을 쏟았기 때문이라고 말했다.</div>
 <div class="en">The fox explained that the rose was special because the Little Prince had devoted his love and time to her.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 가중치 계산</div>
 <div class="tag">예시 코드</div>
-<pre><code>love = 70
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>love = 70
 time = 30
 special = love * 0.7 + time * 0.3
-print(&quot;특별함 점수:&quot;, special)</code></pre>
+print(&quot;특별함 점수:&quot;, special)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">특별함 점수: 58.0</div>
 </section>
@@ -663,11 +910,16 @@ print(&quot;특별함 점수:&quot;, special)</code></pre>
 <h2>상태 변경</h2>
 <div class="ko">어린 왕자는 비로소 자신의 장미를 이해하게 되었다.</div>
 <div class="en">The Little Prince finally came to understand his rose.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 상태 변경</div>
 <div class="tag">예시 코드</div>
-<pre><code>understanding = {&quot;장미&quot;: False}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>understanding = {&quot;장미&quot;: False}
 understanding[&quot;장미&quot;] = True
-print(understanding)</code></pre>
+print(understanding)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">{&#x27;장미&#x27;: True}</div>
 </section>
@@ -677,9 +929,14 @@ print(understanding)</code></pre>
 <h2>클래스 기초</h2>
 <div class="ko">사막에서 그는 비행사와 깊은 우정을 나누었다.</div>
 <div class="en">In the desert, he developed a deep friendship with the pilot.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 클래스 기초</div>
 <div class="tag">예시 코드</div>
-<pre><code>class Friendship:
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>class Friendship:
     def __init__(self, a, b):
         self.a = a
         self.b = b
@@ -687,7 +944,7 @@ print(understanding)</code></pre>
         return f&quot;{self.a}와 {self.b}의 우정&quot;
 
 f = Friendship(&quot;어린 왕자&quot;, &quot;비행사&quot;)
-print(f.show())</code></pre>
+print(f.show())</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">어린 왕자와 비행사의 우정</div>
 </section>
@@ -697,11 +954,16 @@ print(f.show())</code></pre>
 <h2>enumerate</h2>
 <div class="ko">두 사람은 함께 우물을 찾아 헤매었다.</div>
 <div class="en">Together they searched for a well.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> enumerate</div>
 <div class="tag">예시 코드</div>
-<pre><code>places = [&quot;모래언덕&quot;, &quot;바위&quot;, &quot;우물&quot;]
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>places = [&quot;모래언덕&quot;, &quot;바위&quot;, &quot;우물&quot;]
 for idx, place in enumerate(places, start=1):
-    print(idx, place)</code></pre>
+    print(idx, place)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">1 모래언덕
 2 바위
@@ -713,10 +975,15 @@ for idx, place in enumerate(places, start=1):
 <h2>join</h2>
 <div class="ko">어린 왕자는 자신의 별과 장미가 몹시 그리워졌다.</div>
 <div class="en">The Little Prince greatly missed his planet and his rose.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> join</div>
 <div class="tag">예시 코드</div>
-<pre><code>miss = [&quot;별&quot;, &quot;장미&quot;, &quot;여우&quot;]
-print(&quot;그리운 것: &quot; + &quot;, &quot;.join(miss))</code></pre>
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>miss = [&quot;별&quot;, &quot;장미&quot;, &quot;여우&quot;]
+print(&quot;그리운 것: &quot; + &quot;, &quot;.join(miss))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">그리운 것: 별, 장미, 여우</div>
 </section>
@@ -726,12 +993,17 @@ print(&quot;그리운 것: &quot; + &quot;, &quot;.join(miss))</code></pre>
 <h2>삼항 연산자</h2>
 <div class="ko">그는 고향으로 돌아가기로 결심했다.</div>
 <div class="en">He decided to return home.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 삼항 연산자</div>
 <div class="tag">예시 코드</div>
-<pre><code>home = &quot;B-612&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>home = &quot;B-612&quot;
 decision = True
 message = f&quot;{home}로 돌아갑니다&quot; if decision else &quot;남아 있습니다&quot;
-print(message)</code></pre>
+print(message)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">B-612로 돌아갑니다</div>
 </section>
@@ -741,13 +1013,18 @@ print(message)</code></pre>
 <h2>try-except</h2>
 <div class="ko">뱀은 어린 왕자가 별로 돌아갈 수 있도록 도와주겠다고 말했다.</div>
 <div class="en">The snake said it would help him return to his star.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> try-except</div>
 <div class="tag">예시 코드</div>
-<pre><code>try:
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>try:
     path = &quot;별로 가는 길&quot;
     print(path)
 except Exception as e:
-    print(&quot;문제가 생겼습니다:&quot;, e)</code></pre>
+    print(&quot;문제가 생겼습니다:&quot;, e)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">별로 가는 길</div>
 </section>
@@ -757,13 +1034,18 @@ except Exception as e:
 <h2>함수에 여러 인자 전달</h2>
 <div class="ko">어린 왕자는 비행사에게 작별 인사를 했다.</div>
 <div class="en">The Little Prince said goodbye to the pilot.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 함수에 여러 인자 전달</div>
 <div class="tag">예시 코드</div>
-<pre><code>def goodbye(*names):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def goodbye(*names):
     for name in names:
         print(name, &quot;안녕&quot;)
 
-goodbye(&quot;비행사&quot;, &quot;여우&quot;, &quot;장미&quot;)</code></pre>
+goodbye(&quot;비행사&quot;, &quot;여우&quot;, &quot;장미&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">비행사 안녕
 여우 안녕
@@ -775,11 +1057,16 @@ goodbye(&quot;비행사&quot;, &quot;여우&quot;, &quot;장미&quot;)</code></p
 <h2>필터링</h2>
 <div class="ko">그는 자신의 몸은 너무 무거워서 가져갈 수 없다고 말했다.</div>
 <div class="en">He said his body was too heavy to take with him.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 필터링</div>
 <div class="tag">예시 코드</div>
-<pre><code>items = {&quot;몸&quot;: 100, &quot;마음&quot;: 1, &quot;별빛&quot;: 0}
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>items = {&quot;몸&quot;: 100, &quot;마음&quot;: 1, &quot;별빛&quot;: 0}
 light_items = {k:v for k,v in items.items() if v &lt;= 1}
-print(light_items)</code></pre>
+print(light_items)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">{&#x27;마음&#x27;: 1, &#x27;별빛&#x27;: 0}</div>
 </section>
@@ -789,16 +1076,21 @@ print(light_items)</code></pre>
 <h2>시간 조건 분기</h2>
 <div class="ko">밤이 되자 뱀이 어린 왕자를 물었다.</div>
 <div class="en">When night came, the snake bit the Little Prince.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 시간 조건 분기</div>
 <div class="tag">예시 코드</div>
-<pre><code>time = &quot;밤&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>time = &quot;밤&quot;
 if time == &quot;밤&quot;:
     event = &quot;뱀이 나타남&quot;
 elif time == &quot;낮&quot;:
     event = &quot;사막을 걸음&quot;
 else:
     event = &quot;기다림&quot;
-print(event)</code></pre>
+print(event)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">뱀이 나타남</div>
 </section>
@@ -808,11 +1100,16 @@ print(event)</code></pre>
 <h2>None과 상태 표현</h2>
 <div class="ko">어린 왕자는 조용히 쓰러졌다.</div>
 <div class="en">The Little Prince quietly fell to the ground.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> None과 상태 표현</div>
 <div class="tag">예시 코드</div>
-<pre><code>state = &quot;standing&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>state = &quot;standing&quot;
 state = None
-print(&quot;현재 상태:&quot;, state)</code></pre>
+print(&quot;현재 상태:&quot;, state)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">현재 상태: None</div>
 </section>
@@ -822,12 +1119,17 @@ print(&quot;현재 상태:&quot;, state)</code></pre>
 <h2>검색 함수</h2>
 <div class="ko">다음 날 아침 그의 몸은 어디에서도 찾을 수 없었다.</div>
 <div class="en">The next morning, his body could not be found anywhere.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 검색 함수</div>
 <div class="tag">예시 코드</div>
-<pre><code>def find_body(places):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def find_body(places):
     return &quot;몸&quot; in places
 
-print(find_body([&quot;모래&quot;, &quot;별빛&quot;, &quot;발자국&quot;]))</code></pre>
+print(find_body([&quot;모래&quot;, &quot;별빛&quot;, &quot;발자국&quot;]))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">False</div>
 </section>
@@ -837,16 +1139,21 @@ print(find_body([&quot;모래&quot;, &quot;별빛&quot;, &quot;발자국&quot;])
 <h2>데이터 클래스처럼 객체 표현</h2>
 <div class="ko">비행사는 어린 왕자가 자신의 별로 돌아갔다고 믿었다.</div>
 <div class="en">The pilot believed that the Little Prince had returned to his planet.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 데이터 클래스처럼 객체 표현</div>
 <div class="tag">예시 코드</div>
-<pre><code>class Belief:
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>class Belief:
     def __init__(self, who, thought):
         self.who = who
         self.thought = thought
     def __repr__(self):
         return f&quot;{self.who}의 믿음: {self.thought}&quot;
 
-print(Belief(&quot;비행사&quot;, &quot;어린 왕자는 별로 돌아갔다&quot;))</code></pre>
+print(Belief(&quot;비행사&quot;, &quot;어린 왕자는 별로 돌아갔다&quot;))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">비행사의 믿음: 어린 왕자는 별로 돌아갔다</div>
 </section>
@@ -856,14 +1163,19 @@ print(Belief(&quot;비행사&quot;, &quot;어린 왕자는 별로 돌아갔다&q
 <h2>제너레이터</h2>
 <div class="ko">그 이후 비행사는 밤하늘의 별을 볼 때마다 어린 왕자를 떠올렸다.</div>
 <div class="en">After that, the pilot remembered the Little Prince whenever he looked at the stars.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 제너레이터</div>
 <div class="tag">예시 코드</div>
-<pre><code>def star_memory(n):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def star_memory(n):
     for i in range(1, n+1):
         yield f&quot;{i}번째 별: 어린 왕자를 떠올림&quot;
 
 for memory in star_memory(3):
-    print(memory)</code></pre>
+    print(memory)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">1번째 별: 어린 왕자를 떠올림
 2번째 별: 어린 왕자를 떠올림
@@ -875,11 +1187,16 @@ for memory in star_memory(3):
 <h2>JSON 형태 데이터</h2>
 <div class="ko">이 이야기는 사랑과 우정, 책임과 삶의 의미를 전하는 아름다운 작품으로 남았다.</div>
 <div class="en">This story remains a beautiful work that conveys love, friendship, responsibility, and the meaning of life.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> JSON 형태 데이터</div>
 <div class="tag">예시 코드</div>
-<pre><code>import json
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>import json
 message = {&quot;사랑&quot;: 1, &quot;우정&quot;: 1, &quot;책임&quot;: 1, &quot;삶의 의미&quot;: 1}
-print(json.dumps(message, ensure_ascii=False, indent=2))</code></pre>
+print(json.dumps(message, ensure_ascii=False, indent=2))</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">{
   &quot;사랑&quot;: 1,
@@ -894,9 +1211,14 @@ print(json.dumps(message, ensure_ascii=False, indent=2))</code></pre>
 <h2>데코레이터</h2>
 <div class="ko">가장 중요한 것은 눈에 보이지 않는다는 말은 작품 전체를 대표하는 메시지이다.</div>
 <div class="en">The saying that what is most important is invisible to the eye is the central message of the entire work.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 데코레이터</div>
 <div class="tag">예시 코드</div>
-<pre><code>def emphasize(func):
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>def emphasize(func):
     def wrapper():
         return &quot;★ &quot; + func() + &quot; ★&quot;
     return wrapper
@@ -905,7 +1227,7 @@ print(json.dumps(message, ensure_ascii=False, indent=2))</code></pre>
 def message():
     return &quot;가장 중요한 것은 눈에 보이지 않는다&quot;
 
-print(message())</code></pre>
+print(message())</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">★ 가장 중요한 것은 눈에 보이지 않는다 ★</div>
 </section>
@@ -915,12 +1237,17 @@ print(message())</code></pre>
 <h2>파일 저장</h2>
 <div class="ko">네가 길들인 것에 대해 너는 영원히 책임이 있다는 말은 작품의 또 다른 핵심 가르침이다.</div>
 <div class="en">You become responsible forever for what you have tamed is another key lesson of the story.</div>
+<div class="tts-row">
+<button class="tts-btn" onclick="speakText(this,'ko')">🔊 한글 읽기</button>
+<button class="tts-btn" onclick="speakText(this,'en')">🔊 영어 읽기</button>
+<button class="tts-btn stop" onclick="stopTTS()">■ 읽기 정지</button>
+</div>
 <div class="point"><b>문법 포인트:</b> 파일 저장</div>
 <div class="tag">예시 코드</div>
-<pre><code>lesson = &quot;네가 길들인 것에 대해 너는 영원히 책임이 있다.&quot;
+<div class="codebox"><button class="copy-btn" onclick="copyCode(this)">코드 복사</button><pre><code>lesson = &quot;네가 길들인 것에 대해 너는 영원히 책임이 있다.&quot;
 with open(&quot;little_prince_lesson.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
     f.write(lesson)
-print(&quot;교훈을 파일에 저장했습니다.&quot;)</code></pre>
+print(&quot;교훈을 파일에 저장했습니다.&quot;)</code></pre></div>
 <div class="tag">예상 출력</div>
 <div class="out">교훈을 파일에 저장했습니다.</div>
 </section>
