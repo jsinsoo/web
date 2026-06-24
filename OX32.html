@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>골고루 OX·5지선다형 32문항</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:Malgun Gothic,Arial,sans-serif;background:#f3f6fb;color:#182235}
+header{position:sticky;top:0;background:#173b73;color:white;padding:14px 22px;z-index:10}
+h1{font-size:22px;margin:0}
+main{max-width:1200px;margin:20px auto;padding:0 16px}
+.info,.result{background:white;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #0001}
+.student input{padding:10px;margin:6px 6px 0 0;border:1px solid #ccd6e2;border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px}
+.card{background:white;border:1px solid #dce5f2;border-radius:16px;padding:16px;box-shadow:0 3px 12px #0001}
+.unit{display:inline-block;background:#eaf2ff;color:#174a94;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:bold}
+.no{font-weight:bold;color:#173b73;margin-top:8px}
+.q{font-weight:bold;margin:8px 0 10px}
+label{display:block;background:#f8fafc;border:1px solid #d9e3ef;border-radius:10px;padding:8px 10px;margin:6px 0;cursor:pointer}
+.correct{background:#edf9f2!important;border-color:#1f9d60!important}
+.wrong{background:#fff0f0!important;border-color:#d33!important}
+.exp{display:none;background:#fff7e6;border-left:5px solid #f0a202;border-radius:10px;padding:9px;margin-top:8px;font-size:14px}
+button{border:0;border-radius:12px;background:#173b73;color:white;padding:12px 18px;font-weight:bold;margin:16px 8px 16px 0;cursor:pointer}
+button.gray{background:#65758a}
+</style>
+</head>
+<body>
+<header><h1>골고루 OX 퀴즈 2개 + 5지선다형 2개 × 8단원 = 32문항</h1></header>
+<main>
+<div class="info">
+<b>총 32문항</b>입니다. 각 단원별 OX 2문항, 5지선다형 2문항으로 구성했습니다.
+<div class="student">
+<input id="sid" placeholder="학번">
+<input id="sname" placeholder="이름">
+</div>
+</div>
+<form id="quiz" class="grid"></form>
+<button type="button" onclick="grade()">제출 및 채점</button>
+<button type="button" class="gray" onclick="saveTxt()">결과 TXT 저장</button>
+<button type="button" class="gray" onclick="location.reload()">다시 풀기</button>
+<div id="result" class="result">아직 제출하지 않았습니다.</div>
+</main>
+<script>
+const questions = [["311 알고리즘과 문제 해결", "OX", "알고리즘은 문제를 해결하기 위해 필요한 구체적인 방법과 절차이다.", ["O", "X"], "O", "알고리즘은 문제 해결을 위한 구체적인 방법과 절차입니다."], ["311 알고리즘과 문제 해결", "OX", "컴퓨터 문제 해결 절차에는 추상화, 알고리즘 설계, 자동화가 포함된다.", ["O", "X"], "O", "컴퓨터로 문제를 해결할 때는 추상화, 알고리즘 설계, 자동화가 필요합니다."], ["311 알고리즘과 문제 해결", "5지선다형", "문제 해결 절차로 가장 알맞은 것은?", ["추상화 → 알고리즘 설계 → 자동화", "출력 → 삭제 → 종료", "암기 → 복사 → 붙여넣기", "실행 → 무시 → 종료", "검색 → 재부팅 → 삭제"], "추상화 → 알고리즘 설계 → 자동화", "문제의 핵심을 추상화하고 절차를 설계한 뒤 컴퓨터가 실행하도록 자동화합니다."], ["311 알고리즘과 문제 해결", "5지선다형", "일상생활 속 알고리즘의 예로 알맞은 것은?", ["라면 끓이는 순서", "아무렇게나 행동하기", "문제를 읽지 않기", "결과를 확인하지 않기", "절차 없이 추측하기"], "라면 끓이는 순서", "라면 끓이기는 정해진 순서가 있는 절차입니다."], ["312 문제 분해와 모델링", "OX", "복잡한 문제는 작은 단위의 문제로 분해하여 해결할 수 있다.", ["O", "X"], "O", "문제 분해는 복잡한 문제를 작은 문제로 나누는 것입니다."], ["312 문제 분해와 모델링", "OX", "문제 분해에서는 작은 문제 사이의 순서나 포함 관계를 고려하지 않아도 된다.", ["O", "X"], "X", "작은 문제의 순서와 포함 관계를 고려해야 전체 문제가 오류 없이 해결됩니다."], ["312 문제 분해와 모델링", "5지선다형", "가족 여행 계획 문제를 분해한 예로 가장 적절한 것은?", ["여행지 결정하기", "모든 계획 삭제하기", "문제 숨기기", "결과 확인 생략하기", "무작위로 출발하기"], "여행지 결정하기", "여행지, 교통수단, 숙소, 식당 등으로 나눌 수 있습니다."], ["312 문제 분해와 모델링", "5지선다형", "문제 분해의 장점은?", ["복잡한 문제를 쉽게 해결할 수 있다", "문제가 항상 더 어려워진다", "해결 결과를 종합할 수 없다", "작은 문제를 만들 수 없다", "오류 확인이 불가능하다"], "복잡한 문제를 쉽게 해결할 수 있다", "작은 문제를 해결하고 종합하면 복잡한 문제를 쉽게 해결할 수 있습니다."], ["321 자료형과 변수", "OX", "파이썬의 기본 자료형에는 수치형, 문자열, 불 자료형 등이 있다.", ["O", "X"], "O", "파이썬에는 수치형, 문자열, 불 자료형 등이 있습니다."], ["321 자료형과 변수", "OX", "3.14는 소수점이 있으므로 실수형이다.", ["O", "X"], "O", "3.14는 float 자료형입니다."], ["321 자료형과 변수", "5지선다형", "따옴표로 감싸 표현하는 자료형은?", ["문자열", "정수형", "실수형", "불 자료형", "반복문"], "문자열", "문자열은 작은따옴표나 큰따옴표로 감싸 표현합니다."], ["321 자료형과 변수", "5지선다형", "자료형을 확인하는 함수는?", ["type()", "range()", "open()", "append()", "sort()"], "type()", "type() 함수는 데이터의 자료형을 확인합니다."], ["322 표준 입출력과 파일 입출력", "OX", "표준 입출력은 일반적으로 키보드 입력과 모니터 출력을 의미한다.", ["O", "X"], "O", "특별한 장치를 지정하지 않으면 키보드와 모니터가 표준 입출력입니다."], ["322 표준 입출력과 파일 입출력", "OX", "print() 함수는 모니터 화면에 값을 출력할 때 사용한다.", ["O", "X"], "O", "print()는 값을 화면에 출력하는 함수입니다."], ["322 표준 입출력과 파일 입출력", "5지선다형", "print()에서 쉼표로 여러 값을 출력하면 값 사이에 보통 무엇이 들어가는가?", ["공백", "파일 삭제 명령", "암호", "오류", "줄 번호"], "공백", "쉼표로 구분해 출력하면 값 사이에 공백이 들어갑니다."], ["322 표준 입출력과 파일 입출력", "5지선다형", "수치형 데이터를 문자열과 연결할 때 사용할 수 있는 함수는?", ["str()", "type()", "range()", "open()", "input()"], "str()", "str()은 데이터를 문자열로 변환합니다."], ["331 제어 구조와 데이터 구조", "OX", "순차 구조는 명령을 순서대로 실행한다.", ["O", "X"], "O", "순차 구조는 작성된 순서대로 명령을 실행합니다."], ["331 제어 구조와 데이터 구조", "OX", "반복 구조는 같은 명령을 반복 실행할 때 사용한다.", ["O", "X"], "O", "반복 구조는 동일한 명령을 여러 번 실행할 때 사용합니다."], ["331 제어 구조와 데이터 구조", "5지선다형", "조건에 따라 프로그램 흐름을 달리하는 구조는?", ["선택 구조", "순차 구조만", "파일 구조", "문자열 구조", "고정 구조"], "선택 구조", "선택 구조는 조건의 참과 거짓에 따라 실행 흐름을 바꿉니다."], ["331 제어 구조와 데이터 구조", "5지선다형", "반복문을 사용하는 이유로 가장 적절한 것은?", ["반복되는 코드를 간결하게 표현하기 위해", "무조건 오류를 만들기 위해", "모든 변수를 삭제하기 위해", "출력을 막기 위해", "프로그램을 실행하지 않기 위해"], "반복되는 코드를 간결하게 표현하기 위해", "반복문은 같은 명령의 반복을 효율적으로 표현합니다."], ["332 객체 지향과 클래스", "OX", "객체는 속성과 메서드를 하나로 묶은 것이다.", ["O", "X"], "O", "객체는 자료인 속성과 기능인 메서드를 함께 가집니다."], ["332 객체 지향과 클래스", "OX", "클래스는 객체를 만들기 위한 틀이다.", ["O", "X"], "O", "클래스는 객체의 속성과 메서드를 정의하는 틀입니다."], ["332 객체 지향과 클래스", "5지선다형", "객체가 가지고 있는 자료를 무엇이라고 하는가?", ["속성", "메서드", "오류", "반복", "출력"], "속성", "속성은 객체가 가지고 있는 자료입니다."], ["332 객체 지향과 클래스", "5지선다형", "객체가 수행하는 기능을 무엇이라고 하는가?", ["메서드", "속성", "상수", "문자", "주석"], "메서드", "메서드는 객체가 수행하는 기능입니다."], ["341 정렬과 탐색 알고리즘", "OX", "정렬은 데이터를 일정한 기준에 따라 순서대로 나열하는 것이다.", ["O", "X"], "O", "정렬은 데이터를 기준에 따라 순서대로 나열하는 것입니다."], ["341 정렬과 탐색 알고리즘", "OX", "정렬된 데이터는 원하는 자료를 더 쉽고 빠르게 찾는 데 도움이 된다.", ["O", "X"], "O", "정렬된 자료는 탐색을 더 효율적으로 만듭니다."], ["341 정렬과 탐색 알고리즘", "5지선다형", "가장 작은 데이터를 선택해 알맞은 위치로 옮기는 정렬은?", ["선택 정렬", "무작위 정렬", "삭제 정렬", "출력 정렬", "입력 정렬"], "선택 정렬", "선택 정렬은 가장 작은 데이터를 선택해 위치를 바꾸는 과정을 반복합니다."], ["341 정렬과 탐색 알고리즘", "5지선다형", "퀵 정렬에서 기준이 되는 값은?", ["피벗", "파일", "출력값", "주석", "자료형"], "피벗", "퀵 정렬은 피벗을 기준으로 데이터를 나눕니다."], ["342 협력적 문제 해결 프로젝트", "OX", "문제 해결 프로젝트는 계획, 구현, 개선 과정을 포함한다.", ["O", "X"], "O", "프로젝트는 계획하고 구현하고 개선하는 과정을 포함합니다."], ["342 협력적 문제 해결 프로젝트", "OX", "디버깅은 오류가 있는 부분을 찾아 수정하는 과정이다.", ["O", "X"], "O", "디버깅은 프로그램의 오류를 찾아 고치는 과정입니다."], ["342 협력적 문제 해결 프로젝트", "5지선다형", "문제 해결 프로젝트 절차로 가장 적절한 것은?", ["주제 선정 및 문제 정의 → 추상화 → 알고리즘 설계 → 프로그램 작성 → 성능 평가 및 공유", "프로그램 작성 → 문제 숨기기 → 평가 생략", "공유 → 삭제 → 종료", "오류 발생 → 방치 → 제출", "아이디어 금지 → 구현 금지 → 평가 금지"], "주제 선정 및 문제 정의 → 추상화 → 알고리즘 설계 → 프로그램 작성 → 성능 평가 및 공유", "프로젝트는 문제 정의부터 평가와 공유까지 단계적으로 진행됩니다."], ["342 협력적 문제 해결 프로젝트", "5지선다형", "자유롭게 다양한 아이디어를 제안하는 방법은?", ["브레인스토밍", "디버깅", "선택 정렬", "파일 삭제", "표준 출력"], "브레인스토밍", "브레인스토밍은 자유롭게 아이디어를 제안하는 방법입니다."]];
+const quiz = document.getElementById("quiz");
+
+questions.forEach((x,i)=>{
+  const unit=x[0], type=x[1], q=x[2], choices=x[3];
+  const card=document.createElement("div");
+  card.className="card";
+  let choiceHtml="";
+  choices.forEach(c=>{
+    choiceHtml += `<label><input type="radio" name="q${i}" value="${c}"> ${c}</label>`;
+  });
+  card.innerHTML=`
+    <span class="unit">${unit}</span>
+    <div class="no">문항 ${i+1} · ${type}</div>
+    <div class="q">${q}</div>
+    ${choiceHtml}
+    <div class="exp" id="exp${i}"></div>
+  `;
+  quiz.appendChild(card);
+});
+
+let score=0, graded=false;
+
+function grade(){
+  score=0;
+  questions.forEach((x,i)=>{
+    const ans=x[4], exp=x[5];
+    const radios=[...document.querySelectorAll(`input[name=q${i}]`)];
+    const picked=document.querySelector(`input[name=q${i}]:checked`);
+    radios.forEach(r=>{
+      r.parentElement.classList.remove("correct","wrong");
+      if(r.value===ans) r.parentElement.classList.add("correct");
+    });
+    if(picked){
+      if(picked.value===ans) score++;
+      else picked.parentElement.classList.add("wrong");
+    }
+    const e=document.getElementById("exp"+i);
+    e.style.display="block";
+    e.innerHTML=`<b>정답:</b> ${ans}<br><b>풀이:</b> ${exp}`;
+  });
+  graded=true;
+  document.getElementById("result").innerHTML=`점수: ${score} / ${questions.length}점`;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function saveTxt(){
+  if(!graded) grade();
+  const sid=document.getElementById("sid").value.trim()||"학번";
+  const name=document.getElementById("sname").value.trim()||"이름";
+  const now=new Date();
+  let lines=[];
+  lines.push(`학번: ${sid}`);
+  lines.push(`이름: ${name}`);
+  lines.push(`점수: ${score}/${questions.length}`);
+  lines.push(`응시시각: ${now.toLocaleString()}`);
+  lines.push("=".repeat(50));
+  questions.forEach((x,i)=>{
+    const picked=document.querySelector(`input[name=q${i}]:checked`);
+    const user=picked?picked.value:"미응답";
+    lines.push(`${i+1}. [${x[0]}] ${x[2]}`);
+    lines.push(`내 답: ${user} / 정답: ${x[4]} / ${user===x[4]?"정답":"오답"}`);
+    lines.push(`풀이: ${x[5]}`);
+    lines.push("-".repeat(50));
+  });
+  const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`${sid}_${name}_${score}점_골고루퀴즈32문항.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
