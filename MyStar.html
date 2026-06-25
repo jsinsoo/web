@@ -1,0 +1,286 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Star 셀 코드 상세 설명과 출력 서답형 퀴즈</title><style>
+body{font-family:Malgun Gothic,Arial,sans-serif;margin:0;background:#f6f8fb;color:#172033}header{position:sticky;top:0;background:#172033;color:white;padding:14px 24px;z-index:10}main{max-width:1180px;margin:24px auto;padding:0 18px}.cell{background:white;border:1px solid #d8e0ea;border-radius:18px;margin:22px 0;padding:22px;box-shadow:0 8px 24px rgba(0,0,0,.06)}h2{margin-top:0;color:#1e3a8a}.code{background:#0f172a;color:#e5e7eb;border-radius:14px;padding:16px;overflow:auto;white-space:pre;font-size:15px;line-height:1.55}.explain{background:#eff6ff;border-left:6px solid #2563eb;border-radius:10px;padding:12px 18px}.quiz{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:15px;margin-top:14px}textarea{width:100%;min-height:70px;border:1px solid #cbd5e1;border-radius:10px;padding:10px;font-family:Consolas,monospace;font-size:15px;box-sizing:border-box}button{margin-top:10px;border:0;border-radius:10px;background:#2563eb;color:white;padding:10px 16px;cursor:pointer}.answer{display:none;background:#ecfdf5;border:1px solid #86efac;border-radius:10px;margin-top:10px;padding:12px;white-space:pre-wrap;font-family:Consolas,monospace}.note{color:#475569}</style></head><body><header><h1>셀 출력 서답형 퀴즈</h1><div>각 셀의 코드를 읽고 출력 결과를 직접 써 본 뒤 정답을 확인하세요.</div></header><main>
+<section class="cell"><h2>셀 1</h2><h3>코드</h3><pre class="code"><code>ai1 = [
+    &#x27;박&#x27;,
+    &#x27;구&#x27;,
+    &#x27;마&#x27;,
+    &#x27;수&#x27;,
+    &#x27;고&#x27;
+]
+
+ai2 = [
+    &#x27;D&#x27;,
+    &#x27;B&#x27;,
+    &#x27;C&#x27;,
+    &#x27;A&#x27;,
+    &#x27;E&#x27;
+]
+
+ai3 = [
+    &#x27;호&#x27;,
+    &#x27;대&#x27;,
+    &#x27;랑&#x27;,
+    &#x27;늑&#x27;,
+    &#x27;이&#x27;
+]
+
+e = [4, 3, 2, 1, 0]
+d = [1, 0, 2, 4, 3]
+
+for i in [1]:
+    print(f&#x27;{ai1[i]}({ai2[e[i]]}){ai3[d[i]]}&#x27;)</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>ai1, ai2, ai3는 같은 위치 또는 변환 인덱스를 이용해 값을 꺼내는 리스트입니다.</li>
+<li>e와 d는 직접 출력할 위치를 바꾸는 인덱스 리스트입니다.</li>
+<li>반복문은 for i in [1]이므로 i 값은 1 한 번만 사용됩니다.</li>
+<li>ai1[1]은 구, e[1]은 3이므로 ai2[3]은 A, d[1]은 0이므로 ai3[0]은 호입니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans1')">정답 확인</button><div class="answer" id="ans1">구(A)호</div></div></section>
+<section class="cell"><h2>셀 2</h2><h3>코드</h3><pre class="code"><code>quantum = [
+    &#x27;구&#x27;,
+    &#x27;수&#x27;,
+    &#x27;마&#x27;,
+    &#x27;박&#x27;,
+    &#x27;고&#x27;
+]
+
+eng = [
+    &#x27;A&#x27;,
+    &#x27;B&#x27;,
+    &#x27;C&#x27;,
+    &#x27;D&#x27;,
+    &#x27;E&#x27;
+]
+
+kor = [
+    &#x27;호&#x27;,
+    &#x27;대&#x27;,
+    &#x27;랑&#x27;,
+    &#x27;늑&#x27;,
+    &#x27;이&#x27;
+]
+
+data = {
+    &#x27;마&#x27;: (2, 3),
+    &#x27;박&#x27;: (0, 1),
+    &#x27;구&#x27;: (1, 4),
+    &#x27;수&#x27;: (4, 0),
+    &#x27;고&#x27;: (3, 2),
+}
+
+for k in [2]:
+    a, b = data[quantum[k]]
+    print(f&#x27;{quantum[k]} ▷ {eng[a]} {kor[b]}&#x27;)</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>quantum 리스트에서 k=2 위치의 값은 마입니다.</li>
+<li>data 딕셔너리에서 data[&quot;마&quot;]는 (2, 3)입니다.</li>
+<li>a=2, b=3으로 나누어 저장됩니다.</li>
+<li>eng[2]는 C, kor[3]은 늑이므로 형식에 맞게 출력됩니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans2')">정답 확인</button><div class="answer" id="ans2">마 ▷ C 늑</div></div></section>
+<section class="cell"><h2>셀 3</h2><h3>코드</h3><pre class="code"><code>t = &#x27;&#x27;&#x27;
+배/A:
+마/D:
+양/C:
+구/F:
+추/B:
+고/E:
+&#x27;&#x27;&#x27;
+
+u = &#x27;&#x27;&#x27;
+호,
+리,
+랑,
+끼,
+이,
+코
+&#x27;&#x27;&#x27;
+
+a = t.splitlines()[1:]
+b = u.split(&#x27;,&#x27;)[::-1]
+
+for i in [3]:
+    k, e = a[i][:-1].split(&#x27;/&#x27;)
+    print(f&#x27;{k}→{e}←{b[i].strip()}&#x27;)</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>t는 여러 줄 문자열이고 splitlines()[1:]로 첫 빈 줄을 제외한 줄 목록을 만듭니다.</li>
+<li>u는 쉼표 기준으로 나눈 뒤 [::-1]로 순서를 뒤집습니다.</li>
+<li>for i in [3]이므로 네 번째 줄인 구/F:를 선택합니다.</li>
+<li>a[i][:-1]은 마지막 콜론을 제거하고, split(&quot;/&quot;)로 구와 F를 나눕니다.</li>
+<li>뒤집힌 b의 3번째 인덱스 값은 랑입니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans3')">정답 확인</button><div class="answer" id="ans3">구→F←랑</div></div></section>
+<section class="cell"><h2>셀 4</h2><h3>코드</h3><pre class="code"><code>ERA = {
+    &quot;고&quot;: {
+        &quot;eng&quot;: &quot;B&quot;,
+        &quot;kor&quot;: &quot;코&quot;,
+    },
+
+    &quot;추&quot;: {
+        &quot;eng&quot;: &quot;E&quot;,
+        &quot;kor&quot;: &quot;랑&quot;,
+    },
+
+    &quot;마&quot;: {
+        &quot;eng&quot;: &quot;A&quot;,
+        &quot;kor&quot;: &quot;이&quot;,
+    },
+
+    &quot;배&quot;: {
+        &quot;eng&quot;: &quot;F&quot;,
+        &quot;kor&quot;: &quot;끼&quot;,
+    },
+
+    &quot;구&quot;: {
+        &quot;eng&quot;: &quot;C&quot;,
+        &quot;kor&quot;: &quot;호&quot;,
+    },
+
+    &quot;양&quot;: {
+        &quot;eng&quot;: &quot;D&quot;,
+        &quot;kor&quot;: &quot;리&quot;,
+    }
+}
+
+a = list(ERA.items())
+
+for i in [4]:
+    k, v = a[i]
+    print(f&#x27;[{k}] {v[&quot;eng&quot;]} {v[&quot;kor&quot;]}&#x27;)</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>ERA는 글자 하나를 key로 하고, eng와 kor 값을 가진 중첩 딕셔너리입니다.</li>
+<li>list(ERA.items())는 입력된 순서대로 (key, value) 쌍을 리스트로 만듭니다.</li>
+<li>for i in [4]이므로 다섯 번째 항목을 선택합니다.</li>
+<li>다섯 번째 항목의 key는 구이고 value의 eng는 C, kor는 호입니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans4')">정답 확인</button><div class="answer" id="ans4">[구] C 호</div></div></section>
+<section class="cell"><h2>셀 5</h2><h3>코드</h3><pre class="code"><code>class B:
+    def __init__(s, b):
+        s.__b = b
+        print(f&quot;가:{s.__b}원&quot;, end=&quot;→&quot;)
+
+    def d(s, a):
+        s.__b += a
+        print(f&quot;나:{a}원&quot;, end=&quot;→&quot;)
+
+    def g(s):
+        return s.__b
+
+a = B(10000)
+a.d(5000)
+print(f&quot;다:{a.g()}원&quot;)</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>B 클래스는 금액 b를 비공개 속성 __b에 저장합니다.</li>
+<li>B(10000)을 만들 때 생성자에서 가:10000원→을 출력합니다.</li>
+<li>a.d(5000)은 __b에 5000을 더하고 나:5000원→을 출력합니다.</li>
+<li>a.g()는 현재 금액 15000을 반환합니다.</li>
+<li>마지막 print가 다:15000원을 이어서 출력합니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans5')">정답 확인</button><div class="answer" id="ans5">가:10000원→나:5000원→다:15000원</div></div></section>
+<section class="cell"><h2>셀 6</h2><h3>코드</h3><pre class="code"><code>import pandas as pd
+
+data = {
+    &#x27;AA&#x27;: [&#x27;배&#x27;, &#x27;박&#x27;, &#x27;호&#x27;, &#x27;추&#x27;],
+    &#x27;BB&#x27;: [4, 7, 8, 5],
+    &#x27;CC&#x27;: [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;d&#x27;, &#x27;c&#x27;]
+}
+
+df = pd.DataFrame(data)
+
+print(
+    f&quot;{df.iloc[3, 1]}D &quot;
+    f&quot;{df.loc[0, &#x27;AA&#x27;]}E &quot;
+    f&quot;{df.iloc[1, 0]}C &quot;
+    f&quot;{df.loc[2, &#x27;BB&#x27;]}F &quot;
+    f&quot;{df.loc[0, &#x27;CC&#x27;]}B &quot;
+    f&quot;{df.iloc[2, 1]}H &quot;
+    f&quot;{df.loc[3, &#x27;AA&#x27;]}G &quot;
+    f&quot;{df.iloc[1, 2]}A &quot;
+)</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>data 딕셔너리로 DataFrame df를 만듭니다.</li>
+<li>iloc은 행과 열을 숫자 위치로 선택하고, loc은 행 번호와 열 이름으로 선택합니다.</li>
+<li>df.iloc[3,1]은 4행 BB 값 5입니다.</li>
+<li>df.loc[0,&quot;AA&quot;]는 배, df.iloc[1,0]은 박, df.loc[2,&quot;BB&quot;]는 8입니다.</li>
+<li>나머지 값도 같은 방식으로 찾아 f-string 하나로 이어 출력합니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans6')">정답 확인</button><div class="answer" id="ans6">5D 배E 박C 8F aB 8H 추G bA</div></div></section>
+<section class="cell"><h2>셀 7</h2><h3>코드</h3><pre class="code"><code>def C(f):
+    def w():
+        return f() + &quot;배→&quot;
+    return w
+
+def B(f):
+    def w():
+        return f() + &quot;마→&quot;
+    return w
+
+def E(f):
+    def w():
+        return f() + &quot;추→&quot;
+    return w
+
+def F(f):
+    def w():
+        return f() + &quot;구&quot;
+    return w
+
+def D(f):
+    def w():
+        return f() + &quot;양→&quot;
+    return w
+
+@F
+@D
+@B
+@C
+@E
+def A():
+    return &quot;고:&quot;
+
+print(A())</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>C, B, E, F, D는 함수를 받아 문자열을 뒤에 붙이는 데코레이터입니다.</li>
+<li>데코레이터 적용은 아래에서 위로 먼저 감싸집니다: E → C → B → D → F 순서입니다.</li>
+<li>실행할 때는 가장 바깥 F가 호출되지만 내부 함수 결과를 먼저 받아 문자열을 덧붙입니다.</li>
+<li>A()의 기본 반환값 고:에 추→, 배→, 마→, 양→, 구가 차례로 붙습니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>위 코드의 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans7')">정답 확인</button><div class="answer" id="ans7">고:추→배→마→양→구</div></div></section>
+<section class="cell"><h2>셀 8</h2><h3>코드</h3><pre class="code"><code>class N:
+    def __init__(s, n):
+        s.n = n
+
+    def p(s):
+        for i in range(2, int(s.n**0.5) + 1):
+            if s.n % i == 0:
+                return 0
+        return s.n &gt; 1
+
+    def f(s):
+        n, r, d = s.n, [], 2
+        while d * d &lt;= n:
+            while n % d == 0:
+                r += [d]
+                n //= d
+            d += 1
+        return r + [n] if n &gt; 1 else r
+
+    def r(s):
+        t = &quot;소수&quot; if s.p() else &quot;합성수&quot;
+
+        print(f&#x27;{s.n}은(는) {t}입니다.&#x27;)
+
+        if not s.p():
+            print(f&#x27;{s.n} =&#x27;, &#x27;×&#x27;.join(map(str, s.f())))
+
+N(int(input(&quot;정수 n 입력: &quot;))).r()</code></pre>
+<h3>상세 설명</h3><div class="explain"><ol>
+<li>N 클래스는 정수 n을 받아 소수 판별과 소인수분해를 수행합니다.</li>
+<li>p()는 2부터 √n까지 나누어 떨어지는 수가 있으면 합성수로 판단합니다.</li>
+<li>f()는 작은 수부터 반복해서 나누며 소인수를 리스트에 저장합니다.</li>
+<li>r()은 소수/합성수를 출력하고, 합성수이면 소인수분해 결과도 출력합니다.</li>
+<li>이 HTML에서는 예시 입력을 12로 두었으므로 12의 출력 결과를 묻습니다.</li>
+</ol></div>
+<div class="quiz"><h3>서답형 퀴즈</h3><p>입력값으로 12를 넣었을 때 출력 결과를 쓰세요.</p><textarea placeholder="출력 결과를 여기에 입력하세요"></textarea><br><button onclick="showAnswer('ans8')">정답 확인</button><div class="answer" id="ans8">12은(는) 합성수입니다.
+12 = 2×2×3</div></div></section>
+</main><script>function showAnswer(id){const el=document.getElementById(id);el.style.display=el.style.display==='block'?'none':'block';}</script></body></html>
