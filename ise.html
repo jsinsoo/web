@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보과학 16선 핵심 코드 형성평가</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; max-width: 900px; margin: 20px auto; padding: 20px; background-color: #f4f7f6; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .user-info { margin-bottom: 30px; padding: 15px; background: #e8f4fd; border-radius: 5px; }
+        .code-box { background: #2d3436; color: #dfe6e9; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Consolas', monospace; margin: 10px 0; white-space: pre-wrap; font-size: 14px; }
+        .question { margin-bottom: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .options { list-style: none; padding: 0; }
+        .options li { margin: 10px 0; padding: 12px; background: #f9f9f9; border: 1px solid #eee; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .options li:hover { background: #ecf0f1; }
+        .explanation { display: none; margin-top: 15px; padding: 10px; background: #fff3cd; border-left: 5px solid #ffc107; font-size: 0.9em; }
+        button { background: #3498db; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 16px; display: block; margin: 20px auto; font-weight: bold; }
+        button:hover { background: #2980b9; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>정보과학 알고리즘 & 프로그래밍 테스트</h1>
+    
+    <div class="user-info">
+        <strong>학번:</strong> <input type="text" id="student_id" placeholder="예: 30101"> 
+        <strong>이름:</strong> <input type="text" id="student_name" placeholder="홍길동">
+    </div>
+
+    <div id="quiz_area"></div>
+
+    <button onclick="submitQuiz()">시험 종료 및 결과 저장 (.txt)</button>
+</div>
+
+<script>
+const quizData = [
+    {
+        title: "코드 1: 게임 플레이어 간접 재귀 [p.330]",
+        code: "def turnA(left):\n    if left == 0: return\n    print('A의 턴')\n    turnB(left - 1)\n\ndef turnB(left):\n    if left == 0: return\n    print('B의 턴')\n    turnA(left - 1)",
+        options: ["turnA와 turnB가 서로를 교대로 호출하는 간접 재귀 구조이다.", "left가 0이 되는 것이 재귀의 종료 조건(기저 조건)이다.", "함수 호출 시마다 left 값이 1씩 감소하며 종료 상태에 접근한다.", "종료 조건이 없다면 두 함수는 무한히 서로를 호출하게 된다.", "이 코드는 turnA 함수가 자기 자신을 직접 호출하는 직접 재귀 방식이다."],
+        answer: 4,
+        desc: "이 코드는 한 함수가 다른 함수를 거쳐 자신을 다시 호출하는 '간접 재귀' 방식입니다. [1]"
+    },
+    {
+        title: "코드 2: n명 플레이어 순환 시스템 [p.330]",
+        code: "number = number % len(player)\nprint(player[number], '의 턴')\nturnGame(left - 1, number + 1)",
+        options: ["나머지 연산(%)을 통해 플레이어 번호를 순환시킨다.", "player 리스트의 인덱스 범위를 벗어나지 않게 관리한다.", "4명일 경우 인덱스는 0, 1, 2, 3 순으로 반복된다.", "매개 변수 number는 다음 턴의 플레이어를 결정하는 역할을 한다.", "number + 1을 인자로 넘기면 나머지 연산 없이도 자동으로 순환이 완료된다."],
+        answer: 4,
+        desc: "number + 1만으로는 리스트 범위를 초과하므로 반드시 나머지 연산 처리가 필요합니다. [2]"
+    },
+    {
+        title: "코드 3: 단어 퍼즐 게임 [p.331]",
+        code: "for i in range(len(hint) // 2):\n    hint[random.randint(0, len(hint) - 1)] = '_'",
+        options: ["random.choice는 리스트에서 무작위로 단어 하나를 선택한다.", "list(word)를 사용하는 이유는 문자열의 특정 문자를 수정하기 위해서이다.", "for-else 구조에서 break가 실행되면 else문은 실행되지 않는다.", "힌트 생성 시 단어 길이의 절반 정도를 '_'로 대체한다.", "random.randint(a, b)는 끝값 b를 포함하지 않고 정수를 생성한다."],
+        answer: 4,
+        desc: "파이썬의 random.randint(a, b)는 끝값 b를 포함하여 무작위 정수를 생성합니다. [3]"
+    },
+    {
+        title: "코드 4: 콜라츠 추측(우박수열) [p.332]",
+        code: "def collatz(n):\n    if n == 1: return\n    elif n % 2 == 0: collatz(n // 2)\n    else: collatz(3 * n + 1)",
+        options: ["입력된 값이 짝수이면 2로 나눈 값을 인자로 재귀 호출한다.", "입력된 값이 홀수이면 3을 곱하고 1을 더해 재귀 호출한다.", "모든 자연수는 결국 1에 도달한다는 수학적 추측을 바탕으로 한다.", "n == 1일 때 return을 수행하여 재귀를 중단한다.", "이 함수는 수열의 각 항을 더해 최종 합계를 반환(return)하고 있다."],
+        answer: 4,
+        desc: "코드 4는 수열을 '출력'할 뿐 합계를 반환(return)하는 로직은 없습니다. [4]"
+    },
+    {
+        title: "코드 5: 우박수열의 길이 구하기 [p.332]",
+        code: "def collatz_length(n):\n    if n == 1: return 1\n    elif n % 2 == 0: return 1 + collatz_length(n // 2)\n    else: return 1 + collatz_length(3 * n + 1)",
+        options: ["기본 단계(n=1)에서 길이의 최소 단위인 1을 반환한다.", "재귀 단계마다 결과값에 1을 더해 전체 항의 개수를 센다.", "함수의 호출 횟수가 곧 우박수열의 길이와 같다.", "반환값(Return value)을 활용한 누적 계산의 전형적인 예이다.", "n이 짝수일 때 1을 더하지 않고 호출만 해도 수열 전체 길이를 구할 수 있다."],
+        answer: 4,
+        desc: "매 단계마다 현재 항을 카운트하기 위해 반드시 '1 +'를 통해 호출 결과를 누적해야 합니다. [4]"
+    },
+    {
+        title: "코드 6: 지도 색칠 문제(백트래킹) [p.333]",
+        code: "if am[v][i] > 0 and visited[i] == c: return\nvisited[v] = c",
+        options: ["am[v][i] > 0은 노드 v와 i가 서로 인접해 있음을 의미한다.", "인접한 노드 i가 이미 색 c로 칠해져 있다면 현재 시도는 실패로 간주한다.", "visited 리스트는 각 노드에 어떤 색이 칠해졌는지 저장한다.", "모든 노드 탐색 후 visited에 0이 남아있으면 색칠이 불가능한 경우이다.", "이 알고리즘은 단 하나의 색깔만 사용하여 모든 노드를 색칠한다."],
+        answer: 4,
+        desc: "이 코드는 인접한 노드끼리 서로 다른 색을 칠할 수 있는지 확인하는 알고리즘입니다. [5]"
+    },
+    {
+        title: "코드 7: 웹 브라우저 방문 기록(스택) [p.334]",
+        code: "def visit(self, url):\n    self.back_stack.push(self.current_page)\n    self.current_page = url\n    self.forward_stack = Stack()",
+        options: ["스택(Stack)은 나중에 들어간 데이터가 먼저 나오는 LIFO 구조이다.", "새 페이지 방문 시 이전 페이지는 back_stack에 push된다.", "새 페이지를 방문하면 앞으로 가기 기록(forward_stack)은 초기화된다.", "뒤로 가기 실행 시 back_stack에서 pop된 데이터가 현재 페이지가 된다.", "스택의 특성상 가장 먼저 방문했던 페이지가 뒤로 가기 시 가장 먼저 나온다."],
+        answer: 4,
+        desc: "스택은 LIFO 구조이므로 가장 '나중에' 방문한 페이지가 뒤로 가기 시 먼저 나옵니다. [6]"
+    },
+    {
+        title: "코드 8: 플레이리스트 관리 [p.335]",
+        code: "def reset_playlist():\n    global playlist\n    playlist = []",
+        options: ["함수 내부에서 전역 변수 리스트를 새로 할당하려면 global 선언이 필요하다.", "append() 메소드는 리스트의 마지막에 새로운 곡을 추가한다.", "remove() 메소드는 리스트에서 특정 곡 이름을 찾아 삭제한다.", "enumerate() 함수를 쓰면 노래 목록에 번호를 붙여 출력하기 쉽다.", "playlist.remove(song)은 곡이 리스트에 없어도 오류 없이 무시한다."],
+        answer: 4,
+        desc: "remove()는 찾는 항목이 없으면 에러가 발생하므로 존재 여부를 먼저 확인해야 합니다. [6]"
+    },
+    {
+        title: "코드 9: 가위바위보 게임 로직 [p.335]",
+        code: "elif (user == '가위' and comp == '보') or ... :\n    score = 100\n    print('게이머 승리')",
+        options: ["random.choice를 통해 컴퓨터가 무작위로 하나를 선택하게 한다.", "사용자의 입력값과 컴퓨터의 선택이 같으면 비긴 것으로 판정한다.", "승리 조건을 여러 개의 논리 연산자(and, or)로 조합하여 판정한다.", "전역 변수 score를 수정하기 위해 함수 내에서 global 키워드를 사용했다.", "사용자가 승리했을 때 score 변수에 50점을 할당한다."],
+        answer: 4,
+        desc: "코드상에서 게이머 승리 시 점수(score)는 100점으로 설정되어 있습니다. [7]"
+    },
+    {
+        title: "코드 10: 터틀 다각형 그리기 [p.336]",
+        code: "angle = 360 / sides\nfor _ in range(sides):\n    t.forward(size)\n    t.left(angle)",
+        options: ["정다각형의 외각의 합은 360도이므로 한 번 회전 각도는 360/변의개수이다.", "변의 개수(sides)를 매개 변수로 받아 다양한 다각형을 그릴 수 있다.", "t.penup()과 t.pendown()을 사용하여 이동 시 선을 그릴지 결정한다.", "random()을 활용해 다각형마다 서로 다른 색상을 지정할 수 있다.", "사각형을 그릴 때 angle 값은 180도가 되어야 한다."],
+        answer: 4,
+        desc: "사각형을 그리려면 외각인 90도(360/4)를 회전해야 합니다. [8]"
+    },
+    {
+        title: "코드 11: 프랙털 트리(Fractal Tree) [p.336]",
+        code: "draw_tree(length / 2, depth - 1)\nturtle.backward(length)",
+        options: ["재귀 호출마다 가지의 길이(length)를 절반으로 줄여 나간다.", "depth가 0이 되면 더 이상 가지를 치지 않고 함수를 종료한다.", "왼쪽 가지를 그린 후 오른쪽 가지를 그리기 위해 각도를 조절한다.", "backward(length)는 가지를 그린 후 다시 원래 분기점으로 돌아오게 한다.", "이 코드는 반복문을 사용하여 트리의 모든 단계를 한 번에 그린다."],
+        answer: 4,
+        desc: "프랙털 트리는 반복문이 아닌 '재귀 호출'을 통해 기하학적 구조를 완성합니다. [8]"
+    },
+    {
+        title: "코드 12: 파일 시스템 재귀 탐색 [p.337]",
+        code: "if os.path.isdir(item_path):\n    result = find_item(item_path, target)",
+        options: ["os.listdir()은 해당 경로의 모든 파일과 폴더 목록을 가져온다.", "항목이 폴더(isdir)인 경우 다시 그 내부를 찾기 위해 재귀 호출을 한다.", "원하는 파일(target)을 찾으면 즉시 해당 경로(path)를 반환한다.", "모든 탐색이 끝났는데도 못 찾으면 None을 반환하도록 설계되었다.", "이 함수는 현재 폴더의 파일만 검색하며 하위 폴더는 무시한다."],
+        answer: 4,
+        desc: "폴더일 경우 자신을 다시 호출하므로 하위 디렉터리까지 모두 탐색합니다. [9]"
+    },
+    {
+        title: "코드 13: 괄호 쌍 검사(Stack 활용) [p.339]",
+        code: "if ch in '{[(':\n    s.push(ch)\nelif ch in '}])':\n    left = s.pop()",
+        options: ["여는 괄호를 만나면 스택에 push하여 저장한다.", "닫는 괄호를 만나면 스택에서 가장 최근의 여는 괄호를 pop하여 비교한다.", "모든 검사 후 스택이 비어 있어야(isEmpty) 괄호 쌍이 맞는 것이다.", "중간에 짝이 맞지 않는 괄호가 나오면 즉시 False를 반환한다.", "스택이 비어 있는 상태에서 닫는 괄호가 나오면 True를 반환한다."],
+        answer: 4,
+        desc: "스택이 비어 있는데 닫는 괄호가 나오면 쌍이 맞지 않는 것이므로 False입니다. [10]"
+    },
+    {
+        title: "코드 14: N-Queen 문제(백트래킹) [p.344]",
+        code: "if abs(board[i] - col) == abs(i - row): return False\nboard.pop()",
+        options: ["board 리스트에는 각 행(row)에 배치된 퀸의 열(column) 위치가 저장된다.", "abs()를 이용한 조건문은 두 퀸이 서로 대각선 위치에 있는지 확인한다.", "is_safe 함수는 현재 자리에 퀸을 놓아도 안전한지 검사한다.", "퀸 배치가 실패하면 pop()을 호출하여 이전 상태로 되돌아간다.", "이 알고리즘은 퀸이 같은 열에만 있지 않으면 무조건 안전하다고 본다."],
+        answer: 4,
+        desc: "N-Queen은 같은 열뿐만 아니라 '대각선' 충돌 여부도 반드시 확인해야 합니다. [11]"
+    },
+    {
+        title: "코드 15: 동전 교환(동적 계획법) [p.345]",
+        code: "if dt[n] > 0: return dt[n]\ndt[n] = min(f(n-1), f(n-3), f(n-4)) + 1",
+        options: ["dt 리스트는 이미 계산된 최소 동전 개수를 저장하는 '동적 테이블'이다.", "이미 계산된 값이 있다면 다시 계산하지 않고 값을 반환(메모이제이션)한다.", "작은 문제의 해를 이용해 큰 문제의 해를 구하는 점화식을 사용한다.", "재귀 호출 횟수를 획기적으로 줄여 시간 복잡도를 개선한다.", "이 방식은 매 순간 가장 큰 동전만 선택하는 탐욕 알고리즘 방식이다."],
+        answer: 4,
+        desc: "이 코드는 모든 경우를 고려하되 기록을 남기는 '동적 계획법'입니다. [12]"
+    },
+    {
+        title: "코드 16: 1 만들기(탐욕법) [p.345]",
+        code: "if N % K == 0: N //= K\nelse: N -= 1",
+        options: ["주어진 N을 최대한 빨리 1로 만드는 연산 횟수를 구한다.", "나누어떨어질 때는 나누는 것이 1을 빼는 것보다 수치를 빠르게 줄인다.", "매 단계에서 최선의 선택(나눗셈 우선)을 하는 탐욕 알고리즘이다.", "N이 1보다 큰 동안 반복문(while)을 수행한다.", "이 알고리즘은 항상 1을 먼저 빼보고 안 되면 나누는 순으로 작동한다."],
+        answer: 4,
+        desc: "탐욕법 관점에서 숫자를 빨리 줄이려면 '나눌 수 있을 때 먼저 나누는 것'이 핵심입니다. [12]"
+    }
+];
+
+let userAnswers = new Array(quizData.length).fill(null);
+
+function initQuiz() {
+    const area = document.getElementById('quiz_area');
+    quizData.forEach((q, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        
+        let optionsHtml = '';
+        q.options.forEach((opt, i) => {
+            optionsHtml += `<li onclick="selectOption(${index}, ${i})">${i + 1}. ${opt}</li>`;
+        });
+
+        qDiv.innerHTML = `
+            <h3>문항 ${index + 1}. ${q.title}</h3>
+            <p>다음 소스 코드를 보고 <b>틀린 설명</b>을 하나 고르시오.</p>
+            <div class="code-box">${q.code}</div>
+            <ul class="options" id="opt_${index}">
+                ${optionsHtml}
+            </ul>
+            <div class="explanation" id="exp_${index}">
+                <strong>정답: ${q.answer + 1}번</strong><br>${q.desc}
+            </div>
+        `;
+        area.appendChild(qDiv);
+    });
+}
+
+function selectOption(qIdx, oIdx) {
+    userAnswers[qIdx] = oIdx;
+    const opts = document.querySelectorAll(`#opt_${qIdx} li`);
+    opts.forEach((li, i) => {
+        li.style.background = (i === oIdx) ? '#d1e7ff' : '#f9f9f9';
+        li.style.borderColor = (i === oIdx) ? '#3498db' : '#eee';
+    });
+}
+
+function submitQuiz() {
+    const id = document.getElementById('student_id').value;
+    const name = document.getElementById('student_name').value;
+    
+    if(!id || !name) {
+        alert("학번과 이름을 입력해야 제출할 수 있습니다.");
+        return;
+    }
+
+    let score = 0;
+    let resultLog = `[정보과학 핵심 코드 형성평가 결과]\n`;
+    resultLog += `학번: ${id} / 이름: ${name}\n`;
+    resultLog += `응시 시각: ${new Date().toLocaleString()}\n`;
+    resultLog += `------------------------------------------\n`;
+
+    quizData.forEach((q, i) => {
+        const isCorrect = (userAnswers[i] === q.answer);
+        if(isCorrect) score += (100 / quizData.length);
+        
+        resultLog += `문항 ${i + 1}: ${isCorrect ? 'O' : 'X'} (선택: ${userAnswers[i] !== null ? userAnswers[i] + 1 : '미선택'} / 정답: ${q.answer + 1})\n`;
+        document.getElementById(`exp_${i}`).style.display = 'block';
+    });
+
+    const finalScore = Math.round(score);
+    resultLog += `------------------------------------------\n`;
+    resultLog += `최종 점수: ${finalScore}점\n`;
+
+    alert(`평가가 완료되었습니다. 점수: ${finalScore}점\n결과 파일이 생성됩니다.`);
+
+    const fileName = `${id}_${name}_${finalScore}_정보과학_응시시각.txt`;
+    const blob = new Blob([resultLog], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+}
+
+window.onload = initQuiz;
+</script>
+
+</body>
+</html>
