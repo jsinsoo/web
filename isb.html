@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>정보과학 16개 코드 빈칸 5지선다 평가</title>
+<style>
+:root{
+  --bg:#f4f8ff;--card:#fff;--ink:#172033;--muted:#64748b;--main:#2563eb;--main2:#06b6d4;
+  --soft:#eaf2ff;--line:#dbe7f6;--good:#16a34a;--bad:#dc2626;--warn:#f59e0b;
+  --code:#0f172a;--codeText:#e5e7eb;--blank:#fff7ed;--blankLine:#fb923c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(circle at top left,rgba(37,99,235,.13),transparent 34rem),
+  radial-gradient(circle at top right,rgba(6,182,212,.16),transparent 30rem),
+  var(--bg);color:var(--ink);font-family:Arial,'Malgun Gothic',sans-serif;line-height:1.65
+}
+header{background:linear-gradient(135deg,#1d4ed8,#06b6d4);color:white;padding:36px 20px 48px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 18px}
+.badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:999px;font-weight:800}
+h1{font-size:34px;margin:14px 0 8px;letter-spacing:-1px}
+.lead{max-width:940px;font-size:17px;opacity:.96;margin:0}
+.panel{background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:24px;padding:20px;margin-top:-28px;position:relative;box-shadow:0 18px 45px rgba(15,23,42,.12)}
+.infoGrid{display:grid;grid-template-columns:1fr 1fr auto auto;gap:12px;align-items:end}
+label{font-weight:900;color:#334155;font-size:14px}
+input[type=text]{width:100%;margin-top:6px;border:1px solid #cbd5e1;border-radius:14px;padding:13px 14px;font-size:16px;background:white}
+button{border:0;border-radius:14px;padding:13px 16px;font-weight:900;cursor:pointer;transition:.18s;white-space:nowrap}
+button:hover{transform:translateY(-1px)}
+.primary{background:linear-gradient(135deg,var(--main),var(--main2));color:white;box-shadow:0 10px 20px rgba(37,99,235,.22)}
+.secondary{background:#eef2ff;color:#1e3a8a;border:1px solid #c7d2fe}
+.status{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;color:#475569}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid var(--line);padding:7px 10px;border-radius:999px;font-size:13px}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:22px 0}
+.toc a{text-decoration:none;color:#1e3a8a;background:white;border:1px solid var(--line);padding:10px 12px;border-radius:14px;font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(15,23,42,.04)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;margin:24px 0;padding:22px;box-shadow:0 12px 34px rgba(15,23,42,.07);overflow:hidden}
+.cardHead{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.num{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--main),var(--main2));color:white;font-weight:1000}
+.card h2{font-size:22px;letter-spacing:-.4px;margin:0}
+.meta{color:var(--muted);font-size:13px;margin-top:3px}
+.codeBox{position:relative;margin:14px 0}
+.copy{position:absolute;right:12px;top:12px;padding:7px 10px;border-radius:10px;font-size:12px;background:#334155;color:white;opacity:.92}
+pre{margin:0;background:var(--code);color:var(--codeText);border-radius:18px;padding:18px;overflow:auto;font-size:14px;line-height:1.58;border:1px solid #334155}
+code{font-family:Consolas,'D2Coding','Courier New',monospace}
+.blankLine{display:inline-block;background:#fff7ed;color:#c2410c;border:1px dashed #fb923c;border-radius:9px;padding:1px 8px;font-weight:900}
+.quizBox{background:linear-gradient(180deg,#f8fbff,#ffffff);border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}
+.qTitle{font-weight:1000;color:#0f172a;margin-bottom:12px}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.option{display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid #dbe7f6;border-radius:15px;padding:12px 13px;cursor:pointer;transition:.15s}
+.option:hover{border-color:#93c5fd;background:#f8fbff}
+.option input{margin-top:5px;transform:scale(1.12)}
+.optionText{flex:1}
+.optionCode{font-family:Consolas,'D2Coding',monospace;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:5px 8px;display:inline-block;white-space:pre-wrap}
+.feedback{display:none;margin-top:14px;border-radius:16px;padding:14px;border:1px solid var(--line);background:#f8fafc}
+.feedback.good{border-color:#bbf7d0;background:#f0fdf4}
+.feedback.bad{border-color:#fecaca;background:#fff7f7}
+.explain{margin-top:8px;color:#334155}
+.correctList{font-weight:900}
+.resultBox{display:none;background:white;border:2px solid #bfdbfe;border-radius:24px;padding:22px;margin:24px 0;box-shadow:0 16px 38px rgba(37,99,235,.12)}
+.scoreBig{font-size:40px;font-weight:1000;color:#1d4ed8;margin:4px 0}
+.warning{color:#b45309;font-weight:900;margin-top:8px}
+.footer{color:#64748b;text-align:center;padding:30px 0 42px}
+@media(max-width:860px){.infoGrid{grid-template-columns:1fr}h1{font-size:28px}.card{padding:16px}.options{grid-template-columns:1fr}}
+@media print{.panel button,.copy{display:none}body{background:white}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="badge">🧩 정보과학 · 코드 빈칸 평가</div>
+    <h1>16개 코드 한 줄 빈칸 5지선다 문제</h1>
+    <p class="lead">각 문항은 <b>전체 코드에서 한 줄을 빈칸으로 가린 코드</b>를 먼저 읽고, 빈칸에 들어갈 알맞은 코드를 5개 보기 중 하나 고르는 방식입니다. 제출하면 정오답과 상세 설명이 표시되고 TXT 파일로 저장할 수 있습니다.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel">
+    <div class="infoGrid">
+      <div>
+        <label for="studentId">학번</label>
+        <input id="studentId" type="text" placeholder="예: 1101">
+      </div>
+      <div>
+        <label for="studentName">이름</label>
+        <input id="studentName" type="text" placeholder="예: 홍길동">
+      </div>
+      <button class="primary" onclick="gradeQuiz()">제출 및 채점</button>
+      <button class="secondary" onclick="downloadTxt()">TXT 저장</button>
+    </div>
+    <div class="status">
+      <span class="chip">✅ 총 16문항</span>
+      <span class="chip">☑️ 문항마다 정답 1개</span>
+      <span class="chip">📄 파일명: 학번_이름_점수_정보과학_응시시각.txt</span>
+    </div>
+    <div id="globalWarn" class="warning"></div>
+  </section>
+
+  <section id="resultBox" class="resultBox">
+    <h2>채점 결과</h2>
+    <div id="scoreBig" class="scoreBig">0점</div>
+    <div id="scoreDetail"></div>
+  </section>
+
+  <nav class="toc" id="toc"></nav>
+  <section id="cards"></section>
+  <div class="footer">코드의 흐름을 읽고 빈칸 한 줄의 역할을 판단하는 정보과학 학습용 HTML</div>
+</main>
+
+<script>
+const quizData = [{"num": 1, "title": "활동 1: 게임 플레이어와 남은 게임 수 확인", "code": "def turnA(left):\n    █ 빈칸 █\n        print('게임 종료')\n        return\n    print('A의 턴: 남은 게임 수', left)\n    turnB(left - 1)\n\ndef turnB(left):\n    if left == 0:\n        print('게임 종료')\n        return\n    print('B의 턴: 남은 게임 수', left)\n    turnA(left - 1)\n\ntotal = 6\nturnA(total)", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    if left != 0:", "    if left == 0:", "    if total == 0:", "    if left < 0:", "    while left == 0:"], "answer": 1, "correctCode": "if left == 0:", "explanation": "left가 0이면 더 진행할 게임이 없다는 뜻이므로 종료 메시지를 출력하고 return해야 합니다. 이 줄이 재귀의 종료 조건입니다."}, {"num": 2, "title": "활동 1 응용: n명 플레이어 턴 진행", "code": "def turnGame(left, number):\n    if left == 0:\n        print('game over')\n        return\n    █ 빈칸 █\n    print(player[number], '의 턴: 남은 게임 수', left)\n    turnGame(left - 1, number + 1)\n\nplayer = ['A', 'B', 'C', 'D']\nnumber = 0\ntotal = 6\nturnGame(total, number)", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    number = number + len(player)", "    number = player % len(number)", "    number = len(player) % number", "    number = number // len(player)", "    number = number % len(player)"], "answer": 4, "correctCode": "number = number % len(player)", "explanation": "플레이어 인덱스가 리스트 길이를 넘어가도 0부터 다시 순환하도록 나머지 연산을 사용합니다."}, {"num": 3, "title": "활동 2: 단어 퍼즐 게임", "code": "import random\n\nwords = ['python', 'programming', 'science', 'education', 'computer']\n█ 빈칸 █\nhint = list(word)\n\nfor i in range(len(hint) // 2):\n    hint[random.randint(0, len(hint) - 1)] = '_'\n\nprint('단어 퍼즐 게임에 오신 것을 환영합니다!')\nprint('힌트:', ''.join(hint))\nprint('기회는 5번입니다.')\n\nfor attempt in range(5):\n    guess = input(f'({attempt + 1}/5) 단어를 추측해 보세요: ')\n    if guess == word:\n        print('정답입니다!')\n        break\n    else:\n        print('틀렸습니다.')\nelse:\n    print(f'실패! 정답은 {word}입니다.')", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["word = choice.random(words)", "word = random.randint(words)", "word = random.choice(words)", "word = words.random()", "word = words.choice(random)"], "answer": 2, "correctCode": "word = random.choice(words)", "explanation": "random.choice(리스트)는 리스트 안의 요소 하나를 무작위로 선택합니다."}, {"num": 4, "title": "활동 3: 콜라츠 추측과 우박수열", "code": "def collatz(n):\n    print(n, end=' ')\n    if n == 1:\n        return\n    elif n % 2 == 0:\n    █ 빈칸 █\n    else:\n        collatz(3 * n + 1)\n\nstart = int(input('자연수를 입력하세요: '))\nprint('콜라츠 추측에 의한 우박수열:', end=' ')\ncollatz(start)", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["        collatz(n * 2)", "        collatz(3 * n + 1)", "        collatz(n // 2)", "        print(n // 2)", "        return n // 2"], "answer": 2, "correctCode": "collatz(n // 2)", "explanation": "콜라츠 규칙에서 n이 짝수이면 2로 나눈 값을 다음 재귀 호출에 전달합니다."}, {"num": 5, "title": "활동 3 응용: 우박수열 길이", "code": "def collatz_length(n):\n    if n == 1:\n        return 1\n    elif n % 2 == 0:\n    █ 빈칸 █\n    else:\n        return 1 + collatz_length(3 * n + 1)\n\nstart = int(input('자연수를 입력하세요: '))\nprint('우박수열의 길이:', collatz_length(start))", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["        return collatz_length(n // 2) - 1", "        print(1 + collatz_length(n // 2))", "        return n // 2", "        return 1 + collatz_length(3 * n + 1)", "        return 1 + collatz_length(n // 2)"], "answer": 4, "correctCode": "return 1 + collatz_length(n // 2)", "explanation": "현재 항도 길이에 포함해야 하므로 1을 더하고, 짝수의 다음 값인 n // 2의 길이를 재귀적으로 구합니다."}, {"num": 6, "title": "활동 4: 지도 색칠 문제", "code": "def solve(v, c):\n    for i in range(n):\n    █ 빈칸 █\n            return\n    visited[v] = c\n    for i in range(n):\n        if am[v][i] > 0 and visited[i] == 0:\n            solve(i, 1)\n            solve(i, 2)\n\nn, m, cn = list(map(int, input().split()))\nvisited = [0 for _ in range(n)]\nam = [[0 for _ in range(n)] for _ in range(n)]\n\nfor i in range(m):\n    v1, v2 = list(map(int, input().split()))\n    am[v1][v2] = am[v2][v1] = 1\n\nsolve(0, 1)\nprint(visited)\n\nif visited.count(0) > 0:\n    print('색칠 불가능')\nelse:\n    print('색칠 가능')", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["        if am[v][i] > 0 or visited[i] != c:", "        while am[v][i] > 0 and visited[i] == c:", "        if visited[v] == 0 and am[i][v] == 0:", "        if am[v][i] > 0 and visited[i] == c:", "        if am[v][i] == 0 and visited[i] == c:"], "answer": 3, "correctCode": "if am[v][i] > 0 and visited[i] == c:", "explanation": "현재 노드 v와 i가 인접하고 이미 같은 색 c가 칠해져 있으면 색칠 충돌이므로 중단해야 합니다."}, {"num": 7, "title": "활동 5: 웹 브라우저 방문 동작", "code": "class Stack:\n    def __init__(self):\n        self.stack = []\n    def isEmpty(self):\n        return len(self.stack) == 0\n    def push(self, data):\n        self.stack.append(data)\n    def pop(self):\n        if not self.isEmpty():\n            return self.stack.pop()\n\nclass BrowserHistory:\n    def __init__(self, homepage):\n        self.back_stack = Stack()\n        self.forward_stack = Stack()\n        self.current_page = homepage\n\n    def visit(self, url):\n    █ 빈칸 █\n        self.current_page = url\n        self.forward_stack = Stack()\n        print('방문:', self.current_page)\n\n    def go_back(self):\n        if not self.back_stack.isEmpty():\n            self.forward_stack.push(self.current_page)\n            self.current_page = self.back_stack.pop()\n            print('뒤로 가기:', self.current_page)\n        else:\n            print('뒤로 갈 수 없습니다!')\n\n    def go_forward(self):\n        if not self.forward_stack.isEmpty():\n            self.back_stack.push(self.current_page)\n            self.current_page = self.forward_stack.pop()\n            print('앞으로 가기:', self.current_page)\n        else:\n            print('앞으로 갈 수 없습니다!')\n\nbrowser = BrowserHistory('google.com')\nbrowser.visit('naver.com')\nbrowser.visit('youtube.com')\nbrowser.go_back()", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["        self.back_stack = self.current_page", "        self.current_page.push(self.back_stack)", "        self.forward_stack.push(url)", "        self.forward_stack.pop(self.current_page)", "        self.back_stack.push(self.current_page)"], "answer": 4, "correctCode": "self.back_stack.push(self.current_page)", "explanation": "새 페이지를 방문하기 전의 현재 페이지는 뒤로 가기 기록에 저장해야 하므로 back_stack에 push합니다."}, {"num": 8, "title": "정답: 플레이리스트 함수", "code": "playlist = []\nplaylist_name = 'My Playlist'\n\ndef add_song(song):\n    █ 빈칸 █\n    print(f\"'{song}'이(가) '{playlist_name}'에 추가되었습니다.\")\n\ndef remove_song(song):\n    if song in playlist:\n        playlist.remove(song)\n        print(f\"'{song}'이(가) '{playlist_name}'에서 제거되었습니다.\")\n    else:\n        print(f\"'{song}'은(는) '{playlist_name}'에 없습니다.\")\n\ndef reset_playlist():\n    global playlist\n    playlist = []\n    print(f\"'{playlist_name}'이(가) 초기화되었습니다.\")\n\ndef show_playlist():\n    if not playlist:\n        print(f\"'{playlist_name}'이(가) 비어 있습니다.\")\n    else:\n        print(f\"현재 '{playlist_name}'의 노래:\")\n        for index, song in enumerate(playlist, 1):\n            print(f'{index}. {song}')\n\ndef print_song_count():\n    print(f\"'{playlist_name}'의 현재 곡 수: {len(playlist)}\")", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    playlist.remove(song)", "    playlist = song", "    playlist.append(song)", "    song.append(playlist)", "    playlist.clear(song)"], "answer": 2, "correctCode": "playlist.append(song)", "explanation": "append는 리스트의 끝에 새 요소를 추가합니다. 노래를 플레이리스트에 넣는 핵심 줄입니다."}, {"num": 9, "title": "정답: 가위바위보 게임", "code": "import random\n\nscore = 0\n\ndef get_user_input():\n    return input('가위, 바위, 보를 입력하세요: ').strip()\n\ndef get_computer_input():\n    █ 빈칸 █\n\ndef print_result(user, comp):\n    global score\n    print(f'사용자의 선택: {user}')\n    print(f'컴퓨터의 선택: {comp}')\n    if user == comp:\n        score = 50\n        print('비겼습니다!')\n    elif (user == '가위' and comp == '보') or \\\n         (user == '바위' and comp == '가위') or \\\n         (user == '보' and comp == '바위'):\n        score = 100\n        print('게이머 승리')\n    else:\n        score = 0\n        print('컴퓨터 승리')\n    print('점수:', score)\n\ndef play_game():\n    user = get_user_input()\n    comp = get_computer_input()\n    print_result(user, comp)\n\nplay_game()", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    return input(['가위', '바위', '보'])", "    return random.choice(['가위', '바위', '보'])", "    return ['가위', '바위', '보'].strip()", "    return random.randint(['가위', '바위', '보'])", "    return choice.random('가위', '바위', '보')"], "answer": 1, "correctCode": "return random.choice(['가위', '바위', '보'])", "explanation": "컴퓨터의 선택은 리스트에서 무작위로 하나를 고르는 random.choice로 구현합니다."}, {"num": 10, "title": "정답: 터틀 다각형 그리기", "code": "from turtle import Turtle, Screen\nfrom random import random\n\ndef move_turtle(t, distance):\n    t.penup()\n    t.forward(distance)\n    t.pendown()\n\ndef draw_shape(t, sides, size):\n    t.color((random(), random(), random()))\n    █ 빈칸 █\n    for _ in range(sides):\n        t.forward(size)\n        t.left(angle)\n    move_turtle(t, size * 1.5)\n\nscreen = Screen()\nscreen.setup(600, 300)\nt = Turtle()\nt.pensize(3)\nmove_turtle(t, -200)\n\ndraw_shape(t, 3, 120)\ndraw_shape(t, 4, 100)\ndraw_shape(t, 5, 80)", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    angle = 180 / size", "    angle = size / sides", "    angle = 360 * sides", "    angle = sides / 360", "    angle = 360 / sides"], "answer": 4, "correctCode": "angle = 360 / sides", "explanation": "정다각형을 그릴 때 한 꼭짓점에서 회전할 외각은 360도를 변의 개수로 나눈 값입니다."}, {"num": 11, "title": "정답: 프랙털 트리 재귀", "code": "import turtle\n\ndef draw_tree(length, depth):\n    █ 빈칸 █\n        return\n    turtle.forward(length)\n    turtle.left(45)\n    draw_tree(length / 2, depth - 1)\n    turtle.right(90)\n    draw_tree(length / 2, depth - 1)\n    turtle.left(45)\n    turtle.backward(length)\n\nturtle.speed(3)\nturtle.left(90)\ndraw_tree(100, 5)\nturtle.done()", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    if length == 0:", "    if depth > 0:", "    while depth == 0:", "    if depth == 0:", "    if turtle == 0:"], "answer": 3, "correctCode": "if depth == 0:", "explanation": "프랙털 트리 재귀는 깊이가 0이 되면 더 이상 가지를 그리지 않고 종료해야 합니다."}, {"num": 12, "title": "정답: 디렉터리 파일 찾기", "code": "import os\n\ndef find_item(root_path, target):\n    for item in os.listdir(root_path):\n        item_path = os.path.join(root_path, item)\n    █ 빈칸 █\n            result = find_item(item_path, target)\n            if result:\n                return result\n        elif item == target:\n            return item_path\n    return None\n\nroot_directory = '경로'\ntarget_item = '파일명'\nresult = find_item(root_directory, target_item)\n\nif result:\n    print(target_item, '을(를) 찾았습니다', result)\nelse:\n    print(target_item, '을(를) 찾지 못했습니다.')", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["        if os.path.isdir(item_path):", "        if os.listdir(item_path):", "        if item == os.path.isdir:", "        if os.path.isfile(root_path):", "        if target in root_path:"], "answer": 0, "correctCode": "if os.path.isdir(item_path):", "explanation": "현재 항목이 폴더인지 확인해야 하위 폴더를 재귀적으로 탐색할 수 있습니다."}, {"num": 13, "title": "정답: 괄호 검사 Stack", "code": "class Stack:\n    def __init__(self):\n        self.stack = []\n    def isEmpty(self):\n        return len(self.stack) == 0\n    def push(self, data):\n        self.stack.append(data)\n    def pop(self):\n        if not self.isEmpty():\n            return self.stack.pop()\n    def peek(self):\n        if not self.isEmpty():\n            return self.stack[-1]\n\ndef check(string):\n    s = Stack()\n    for ch in string:\n        if ch in '{[(':\n            s.push(ch)\n        elif ch in '}])':\n            if s.isEmpty():\n                return False\n    █ 빈칸 █\n            if (ch == '}' and left != '{') or \\\n               (ch == ']' and left != '[') or \\\n               (ch == ')' and left != '('):\n                return False\n    return s.isEmpty()\n\nprint(check('if(i == 0) && (j == 0)'))\nprint(check('while(a < 10)'))", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["            left = s.pop()", "            left = s.push(ch)", "            left = string.pop(0)", "            left = Stack.pop(s, ch, left)", "            left = s.peek(ch)"], "answer": 0, "correctCode": "left = s.pop()", "explanation": "닫는 괄호를 만나면 가장 최근에 저장된 여는 괄호를 스택에서 꺼내 짝이 맞는지 확인합니다."}, {"num": 14, "title": "정답: N-Queen", "code": "def is_safe(board, row, col):\n    for i in range(row):\n        if board[i] == col:\n            return False\n    for i in range(row):\n        if abs(board[i] - col) == abs(i - row):\n            return False\n    return True\n\ndef solve_n_queens(n, row=0, board=[]):\n    if row == n:\n        print_board(board)\n        return True\n    for col in range(n):\n        if is_safe(board, row, col):\n    █ 빈칸 █\n            if solve_n_queens(n, row + 1, board):\n                return True\n            board.pop()\n    return False\n\ndef print_board(board):\n    for row in board:\n        line = ''\n        for i in range(len(board)):\n            line += 'Q' if i == row else '.'\n        print(line)\n    print('\\n')\n\nsolve_n_queens(4)", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["            board.pop(col)", "            board[row] = []", "            board.append(col)", "            row.append(col)", "            col.append(board)"], "answer": 2, "correctCode": "board.append(col)", "explanation": "안전한 열 col을 찾으면 현재 행의 퀸 위치로 저장하기 위해 board에 추가합니다."}, {"num": 15, "title": "정답: 동적 계획법 동전 최소 개수", "code": "k = int(input())\ndt = [0 for _ in range(k + 1)]\ndt[1] = dt[3] = dt[4] = 1\n\ndef f(n):\n    if n < 1:\n        return 0\n    if dt[n] > 0:\n        return dt[n]\n    █ 빈칸 █\n    return dt[n]\n\nprint(f(k))", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["    dt[n] = f(n) + 1", "    dt[n] = dt[n - 1] - dt[n - 3] - dt[n - 4]", "    dt[n] = min(n - 1, n - 3, n - 4)", "    dt[n] = min(f(n - 1), f(n - 3), f(n - 4)) + 1", "    dt[n] = max(f(n - 1), f(n - 3), f(n - 4)) + 1"], "answer": 3, "correctCode": "dt[n] = min(f(n - 1), f(n - 3), f(n - 4)) + 1", "explanation": "1원, 3원, 4원 중 하나를 마지막에 사용한다고 보고 가능한 이전 상태의 최소값에 동전 1개를 더합니다."}, {"num": 16, "title": "정답: 1 만들기 연산", "code": "def min_operations_to_one(N, K):\n    count = 0\n    while N > 1:\n        if N % K == 0:\n    █ 빈칸 █\n        else:\n            N -= 1\n        count += 1\n    return count\n\nprint(min_operations_to_one(17, 4))", "question": "빈칸에 들어갈 코드로 가장 알맞은 것을 고르세요.", "options": ["            N //= K", "            K //= N", "            N %= K", "            N -= K", "            N *= K"], "answer": 0, "correctCode": "N //= K", "explanation": "N이 K로 나누어떨어지면 정수 나눗셈으로 N을 K로 나누어 값을 빠르게 줄입니다."}];
+let submitted = false;
+let lastResult = null;
+const startTime = new Date();
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function escCodeWithBlank(s){
+  return esc(s).replace(/█ 빈칸 █/g, '<span class="blankLine">█ 빈칸 █</span>');
+}
+function render(){
+  const toc = document.getElementById('toc');
+  const cards = document.getElementById('cards');
+  toc.innerHTML = quizData.map((q,i)=>`<a href="#q${i+1}">${String(i+1).padStart(2,'0')}. ${esc(q.title)}</a>`).join('');
+  cards.innerHTML = quizData.map((q,i)=>{
+    const opts = q.options.map((op,j)=>`
+      <label class="option" id="opt-${i}-${j}">
+        <input type="radio" name="q${i}" value="${j}">
+        <span class="optionText"><b>${String.fromCharCode(9312+j)}</b> <span class="optionCode">${esc(op)}</span></span>
+      </label>`).join('');
+    return `
+      <article class="card" id="q${i+1}">
+        <div class="cardHead">
+          <div class="num">${String(i+1).padStart(2,'0')}</div>
+          <div>
+            <h2>${esc(q.title)}</h2>
+            <div class="meta">전체 코드에서 한 줄을 가린 뒤, 빈칸에 알맞은 코드 고르기</div>
+          </div>
+        </div>
+        <div class="codeBox">
+          <button class="copy" onclick="copyCode(${i})">코드 복사</button>
+          <pre><code id="code-${i}">${escCodeWithBlank(q.code)}</code></pre>
+        </div>
+        <div class="quizBox">
+          <div class="qTitle">${esc(q.question)}</div>
+          <div class="options">${opts}</div>
+          <div class="feedback" id="fb-${i}"></div>
+        </div>
+      </article>`;
+  }).join('');
+}
+function selectedOf(i){
+  const checked = document.querySelector(`input[name="q${i}"]:checked`);
+  return checked ? Number(checked.value) : null;
+}
+function gradeQuiz(){
+  const sid = document.getElementById('studentId').value.trim();
+  const name = document.getElementById('studentName').value.trim();
+  const warn = document.getElementById('globalWarn');
+  warn.textContent = '';
+  if(!sid || !name){
+    warn.textContent = '학번과 이름을 먼저 입력해 주세요.';
+    return;
+  }
+  let incomplete = [];
+  let correctCount = 0;
+  const details = [];
+  quizData.forEach((q,i)=>{ if(selectedOf(i) === null) incomplete.push(i+1); });
+  if(incomplete.length){
+    warn.textContent = '모든 문항에 답을 선택해야 합니다. 미완료 문항: ' + incomplete.join(', ');
+    return;
+  }
+  quizData.forEach((q,i)=>{
+    const sel = selectedOf(i);
+    const ans = q.answer;
+    const ok = sel === ans;
+    if(ok) correctCount++;
+    const fb = document.getElementById(`fb-${i}`);
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (ok ? 'good' : 'bad');
+    q.options.forEach((_,j)=>{
+      const el = document.getElementById(`opt-${i}-${j}`);
+      el.style.borderColor = '#dbe7f6';
+      el.style.background = 'white';
+      if(j === ans){
+        el.style.borderColor = '#86efac';
+        el.style.background = '#f0fdf4';
+      }
+      if(j === sel && j !== ans){
+        el.style.borderColor = '#fca5a5';
+        el.style.background = '#fff1f2';
+      }
+    });
+    const ansText = String.fromCharCode(9312+ans);
+    const selText = String.fromCharCode(9312+sel);
+    fb.innerHTML = `
+      <div><b>${ok ? '정답입니다.' : '오답입니다.'}</b></div>
+      <div class="correctList">선택: ${selText} / 정답: ${ansText} <span class="optionCode">${esc(q.correctCode)}</span></div>
+      <div class="explain">${esc(q.explanation)}</div>
+    `;
+    details.push({num:i+1,title:q.title,selected:sel,answer:ans,correct:ok,correctCode:q.correctCode,explanation:q.explanation});
+  });
+  const score = Math.round(correctCount / quizData.length * 100);
+  const endTime = new Date();
+  lastResult = {sid,name,score,correctCount,total:quizData.length,startTime,endTime,details};
+  submitted = true;
+  document.getElementById('resultBox').style.display = 'block';
+  document.getElementById('scoreBig').textContent = `${score}점`;
+  document.getElementById('scoreDetail').innerHTML = `
+    <b>${esc(sid)} ${esc(name)}</b> · 정답 ${correctCount} / ${quizData.length}문항 · 제출 시각: ${formatDate(endTime)}<br>
+    아래 각 카드에서 정오답과 상세 설명을 확인하세요.
+  `;
+  document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function formatDate(d){
+  const z = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())} ${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}`;
+}
+function fileDate(d){
+  const z = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}${z(d.getMonth()+1)}${z(d.getDate())}_${z(d.getHours())}${z(d.getMinutes())}${z(d.getSeconds())}`;
+}
+function circ(j){ return String.fromCharCode(9312+j); }
+function makeTxt(){
+  if(!submitted || !lastResult) return null;
+  let lines = [];
+  lines.push('정보과학 16개 코드 빈칸 5지선다 평가 결과');
+  lines.push('='.repeat(60));
+  lines.push(`학번: ${lastResult.sid}`);
+  lines.push(`이름: ${lastResult.name}`);
+  lines.push(`점수: ${lastResult.score}점`);
+  lines.push(`정답 문항: ${lastResult.correctCount} / ${lastResult.total}`);
+  lines.push(`시작 시각: ${formatDate(lastResult.startTime)}`);
+  lines.push(`제출 시각: ${formatDate(lastResult.endTime)}`);
+  lines.push('');
+  quizData.forEach((q,i)=>{
+    const d = lastResult.details[i];
+    lines.push(`[${String(i+1).padStart(2,'0')}] ${q.title}`);
+    lines.push(`정오답: ${d.correct ? '정답' : '오답'}`);
+    lines.push(`선택: ${circ(d.selected)} ${q.options[d.selected].trim()}`);
+    lines.push(`정답: ${circ(d.answer)} ${q.options[d.answer].trim()}`);
+    lines.push('빈칸 정답 코드: ' + d.correctCode);
+    lines.push('보기:');
+    q.options.forEach((op,j)=> lines.push(`  ${circ(j)} ${op}`));
+    lines.push(`상세 설명: ${d.explanation}`);
+    lines.push('-'.repeat(60));
+  });
+  return lines.join('\n');
+}
+function downloadTxt(){
+  if(!submitted){
+    alert('먼저 제출 및 채점을 해 주세요.');
+    return;
+  }
+  const txt = makeTxt();
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  const safeSid = lastResult.sid.replace(/[\\/:*?"<>|\s]/g,'_');
+  const safeName = lastResult.name.replace(/[\\/:*?"<>|\s]/g,'_');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${safeSid}_${safeName}_${lastResult.score}점_정보과학_${fileDate(lastResult.endTime)}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+}
+function copyCode(i){
+  navigator.clipboard.writeText(quizData[i].code.replace(/█ 빈칸 █/g, '__________'));
+  alert('빈칸 코드가 복사되었습니다.');
+}
+render();
+</script>
+</body>
+</html>
