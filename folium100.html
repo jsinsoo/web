@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folium 라이브러리 예제 코드 100개</title>
+<style>
+:root { --bg:#f6f8fb; --card:#ffffff; --ink:#172033; --muted:#5c667a; --line:#dbe3ef; --accent:#2563eb; --soft:#eaf2ff; --code:#0f172a; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif; background:var(--bg); color:var(--ink); }
+header { position:sticky; top:0; z-index:10; background:rgba(255,255,255,.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:14px 24px; }
+.header-wrap { max-width:1280px; margin:auto; display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+h1 { font-size:24px; margin:0; }
+.meta { color:var(--muted); font-size:14px; margin-top:4px; }
+.controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+input { width:260px; max-width:70vw; border:1px solid var(--line); border-radius:12px; padding:10px 12px; font-size:15px; }
+button, .topbtn { border:0; background:var(--accent); color:white; border-radius:10px; padding:9px 12px; cursor:pointer; text-decoration:none; font-size:14px; }
+.layout { max-width:1280px; margin:22px auto; padding:0 18px; display:grid; grid-template-columns:290px 1fr; gap:18px; }
+aside { position:sticky; top:92px; height:calc(100vh - 110px); overflow:auto; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:14px; }
+aside h2 { font-size:16px; margin:0 0 10px; }
+aside a { display:block; padding:7px 8px; color:#263247; text-decoration:none; border-radius:8px; font-size:13px; line-height:1.35; }
+aside a:hover { background:var(--soft); color:var(--accent); }
+.intro { background:linear-gradient(135deg,#ffffff,#eef5ff); border:1px solid var(--line); border-radius:20px; padding:22px; margin-bottom:18px; }
+.intro h2 { margin:0 0 8px; font-size:20px; }
+.intro ul { margin:8px 0 0; padding-left:22px; line-height:1.8; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px; margin-bottom:16px; box-shadow:0 8px 22px rgba(15,23,42,.04); }
+.card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.card h2 { display:inline; font-size:20px; margin:0 0 0 8px; }
+.num { display:inline-block; background:var(--accent); color:white; border-radius:999px; padding:5px 9px; font-weight:700; font-size:13px; }
+.desc, .point { color:var(--muted); line-height:1.75; margin:12px 0 0; }
+.point { background:var(--soft); color:#24416f; padding:10px 12px; border-radius:12px; }
+pre { background:var(--code); color:#e5e7eb; border-radius:16px; padding:16px; overflow:auto; line-height:1.55; font-size:14px; }
+code { font-family:Consolas,'D2Coding','Courier New',monospace; }
+.copy { background:#334155; white-space:nowrap; }
+.hidden { display:none; }
+footer { max-width:1280px; margin:26px auto; padding:20px; color:var(--muted); text-align:center; }
+@media (max-width:900px) { .layout { grid-template-columns:1fr; } aside { position:relative; top:0; height:auto; max-height:280px; } header { position:relative; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-wrap">
+    <div>
+      <h1>Folium 라이브러리 예제 코드 100개</h1>
+      <div class="meta">파이썬 지도 시각화 · 마커 · 경로 · 히트맵 · 단계구분도 · 실생활 프로젝트 예제</div>
+    </div>
+    <div class="controls">
+      <input id="search" placeholder="예: HeatMap, 마커, Choropleth, 학교">
+      <a class="topbtn" href="#top">맨 위</a>
+    </div>
+  </div>
+</header>
+<div class="layout" id="top">
+  <aside>
+    <h2>목차</h2>
+    <nav><a href="#ex001">001. 서울 중심 지도 만들기</a><a href="#ex002">002. 부산 중심 지도 만들기</a><a href="#ex003">003. 전주 중심 지도 만들기</a><a href="#ex004">004. 지도 크기 조절하기</a><a href="#ex005">005. 타일을 OpenStreetMap으로 지정하기</a><a href="#ex006">006. CartoDB positron 밝은 지도</a><a href="#ex007">007. CartoDB dark_matter 어두운 지도</a><a href="#ex008">008. Stamen Terrain 스타일 지도</a><a href="#ex009">009. 확대 축소 제한하기</a><a href="#ex010">010. 지도 중심 자동 맞춤 준비</a><a href="#ex011">011. 기본 마커 추가</a><a href="#ex012">012. 툴팁 마커 만들기</a><a href="#ex013">013. 아이콘 색상 바꾸기</a><a href="#ex014">014. 아이콘 모양 지정하기</a><a href="#ex015">015. 여러 마커 반복문으로 표시</a><a href="#ex016">016. CircleMarker로 작은 원 표시</a><a href="#ex017">017. Circle로 실제 반경 표시</a><a href="#ex018">018. 마커 팝업에 HTML 넣기</a><a href="#ex019">019. 마커에 사진 링크 팝업 넣기</a><a href="#ex020">020. 마커 색으로 범주 구분</a><a href="#ex021">021. 마커에 번호 표시</a><a href="#ex022">022. DataFrame에서 마커 만들기</a><a href="#ex023">023. 조건에 따라 마커 색 바꾸기</a><a href="#ex024">024. 마커 팝업에 표 넣기</a><a href="#ex025">025. 마커 투명도와 원 크기 조절</a><a href="#ex026">026. 두 지점을 선으로 연결</a><a href="#ex027">027. 여러 지점을 경로로 연결</a><a href="#ex028">028. 선 색상과 두께 설정</a><a href="#ex029">029. 점선 경로 만들기</a><a href="#ex030">030. 삼각형 영역 표시</a><a href="#ex031">031. 사각형 영역 표시</a><a href="#ex032">032. 원형 생활권 분석</a><a href="#ex033">033. 두 경로 비교하기</a><a href="#ex034">034. 경로 위 지점 번호 표시</a><a href="#ex035">035. 영역 경계선만 표시</a><a href="#ex036">036. 다각형 안에 팝업 설명 넣기</a><a href="#ex037">037. PolyLine으로 하천 흐름 표현</a><a href="#ex038">038. 등교 경로와 학교 반경</a><a href="#ex039">039. 다중 영역 비교</a><a href="#ex040">040. 경로 길이 설명 팝업</a><a href="#ex041">041. 레이어 그룹 만들기</a><a href="#ex042">042. 여러 배경지도 전환</a><a href="#ex043">043. 미니맵 추가</a><a href="#ex044">044. 마우스 위치 좌표 표시</a><a href="#ex045">045. 거리 측정 도구 추가</a><a href="#ex046">046. 전체화면 버튼 추가</a><a href="#ex047">047. 마커 클러스터 기본</a><a href="#ex048">048. FastMarkerCluster 사용</a><a href="#ex049">049. HeatMap 기본</a><a href="#ex050">050. 가중치 HeatMap</a><a href="#ex051">051. HeatMapWithTime 시간 변화</a><a href="#ex052">052. Draw 도구로 지도에 그리기</a><a href="#ex053">053. Search 플러그인 기초</a><a href="#ex054">054. LocateControl 현재 위치 버튼</a><a href="#ex055">055. GroupedLayerControl 느낌의 그룹 관리</a><a href="#ex056">056. 인구 밀도 단계구분도</a><a href="#ex057">057. 교통 사고 건수 단계구분도</a><a href="#ex058">058. 도서관 이용률 단계구분도</a><a href="#ex059">059. 대기질 지수 단계구분도</a><a href="#ex060">060. 학급별 조사 결과 지도</a><a href="#ex061">061. 선거 득표율 지도 예시</a><a href="#ex062">062. 위험도 등급 지도</a><a href="#ex063">063. 매출 분포 지도</a><a href="#ex064">064. 관광객 수 지도</a><a href="#ex065">065. 의료 접근성 지도</a><a href="#ex066">066. 교육 자료용 가상 행정구역 지도</a><a href="#ex067">067. 간단한 GeoJSON 영역 표시</a><a href="#ex068">068. GeoJSON 스타일 지정</a><a href="#ex069">069. GeoJSON 툴팁 표시</a><a href="#ex070">070. Choropleth 기본 구조</a><a href="#ex071">071. 편의점 위치 지도</a><a href="#ex072">072. 병원 위치 지도</a><a href="#ex073">073. 버스 정류장 지도</a><a href="#ex074">074. 카페 밀집 지도</a><a href="#ex075">075. 도서관 접근성 지도</a><a href="#ex076">076. 학교 주변 안전 지도</a><a href="#ex077">077. 관광지 답사 지도</a><a href="#ex078">078. 택배 배송 지점 지도</a><a href="#ex079">079. 지진 관측 지점 지도</a><a href="#ex080">080. 강수량 관측 지도</a><a href="#ex081">081. 대기오염 측정소 지도</a><a href="#ex082">082. 자전거 대여소 지도</a><a href="#ex083">083. 응급 출동 경로 지도</a><a href="#ex084">084. 산불 위험 지점 지도</a><a href="#ex085">085. 현장체험학습 코스 지도</a><a href="#ex086">086. Jupyter Notebook에서 지도 표시</a><a href="#ex087">087. HTML 파일로 저장하기</a><a href="#ex088">088. 지도 제목 넣기</a><a href="#ex089">089. 범례 직접 추가하기</a><a href="#ex090">090. CSV 파일에서 지도 만들기</a><a href="#ex091">091. 엑셀 파일에서 지도 만들기</a><a href="#ex092">092. 결측 좌표 제거 후 지도화</a><a href="#ex093">093. 좌표 평균으로 중심 잡기</a><a href="#ex094">094. 값에 따라 원 크기 정규화</a><a href="#ex095">095. 색상 함수 만들기</a><a href="#ex096">096. IFrame 팝업 사용</a><a href="#ex097">097. 지도에 클릭 좌표 팝업 추가</a><a href="#ex098">098. 클릭 지점 마커 기능</a><a href="#ex099">099. 지도 HTML을 문자열로 얻기</a><a href="#ex100">100. 프로젝트형 종합 지도</a></nav>
+  </aside>
+  <main>
+    <section class="intro">
+      <h2>사용 방법</h2>
+      <ul>
+        <li>각 예제는 독립적으로 실행할 수 있도록 <b>import folium</b>부터 작성했습니다.</li>
+        <li>실행 전 설치: <code>pip install folium pandas openpyxl</code></li>
+        <li>생성된 <code>.html</code> 파일을 브라우저에서 열면 인터랙티브 지도를 확인할 수 있습니다.</li>
+        <li>GeoJSON 예제의 좌표는 교육용 가상 좌표입니다. 실제 프로젝트에서는 행정구역 GeoJSON과 공공데이터 CSV를 연결하면 됩니다.</li>
+      </ul>
+    </section>
+    
+<section class="card" id="ex001" data-title="서울 중심 지도 만들기">
+  <div class="card-head">
+    <div><span class="num">001</span><h2>서울 중심 지도 만들기</h2></div>
+    <button class="copy" data-target="code001">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 서울시청 부근 좌표를 중심으로 기본 지도를 생성한다. location은 위도와 경도 순서이며 zoom_start가 클수록 더 확대된다.</p>
+  <p class="point"><b>활용 포인트:</b> folium.Map()은 Folium의 가장 기본 객체이다.</p>
+  <pre><code id="code001">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+m.save(&#x27;01_seoul_basic_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex002" data-title="부산 중심 지도 만들기">
+  <div class="card-head">
+    <div><span class="num">002</span><h2>부산 중심 지도 만들기</h2></div>
+    <button class="copy" data-target="code002">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 부산 중심 좌표를 기준으로 지도를 만든다. 지역 탐구, 여행 동선, 도시 시설 위치 분석의 출발점으로 사용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 좌표만 바꾸면 원하는 지역 지도를 쉽게 만들 수 있다.</p>
+  <pre><code id="code002">import folium
+m = folium.Map(location=[35.1796, 129.0756], zoom_start=11)
+m.save(&#x27;02_busan_basic_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex003" data-title="전주 중심 지도 만들기">
+  <div class="card-head">
+    <div><span class="num">003</span><h2>전주 중심 지도 만들기</h2></div>
+    <button class="copy" data-target="code003">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 전주 중심 지도를 만든다. 한옥마을, 학교, 공공기관 등 지역 자료를 시각화할 때 활용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> zoom_start=13은 도시 내부를 살펴보기에 적당하다.</p>
+  <pre><code id="code003">import folium
+m = folium.Map(location=[35.8242, 127.1480], zoom_start=13)
+m.save(&#x27;03_jeonju_basic_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex004" data-title="지도 크기 조절하기">
+  <div class="card-head">
+    <div><span class="num">004</span><h2>지도 크기 조절하기</h2></div>
+    <button class="copy" data-target="code004">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> HTML 안에서 지도의 너비와 높이를 지정한다. width=&#x27;100%&#x27;는 화면 폭에 맞게 지도를 넓게 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 웹 학습자료에 넣을 때 높이를 적절히 지정하면 가독성이 좋아진다.</p>
+  <pre><code id="code004">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12, width=&#x27;100%&#x27;, height=&#x27;600px&#x27;)
+m.save(&#x27;04_map_size.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex005" data-title="타일을 OpenStreetMap으로 지정하기">
+  <div class="card-head">
+    <div><span class="num">005</span><h2>타일을 OpenStreetMap으로 지정하기</h2></div>
+    <button class="copy" data-target="code005">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 기본 지도 타일을 명시적으로 OpenStreetMap으로 설정한다. 도로, 지명, 주요 시설을 기본적으로 확인하기 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> tiles 옵션은 지도의 배경 스타일을 결정한다.</p>
+  <pre><code id="code005">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12, tiles=&#x27;OpenStreetMap&#x27;)
+m.save(&#x27;05_osm_tile.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex006" data-title="CartoDB positron 밝은 지도">
+  <div class="card-head">
+    <div><span class="num">006</span><h2>CartoDB positron 밝은 지도</h2></div>
+    <button class="copy" data-target="code006">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 밝고 단순한 배경지도를 사용한다. 마커나 색상 레이어를 강조해야 할 때 배경이 복잡하지 않아 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> 데이터 시각화에서는 배경보다 데이터가 더 잘 보여야 한다.</p>
+  <pre><code id="code006">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12, tiles=&#x27;CartoDB positron&#x27;)
+m.save(&#x27;06_positron_tile.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex007" data-title="CartoDB dark_matter 어두운 지도">
+  <div class="card-head">
+    <div><span class="num">007</span><h2>CartoDB dark_matter 어두운 지도</h2></div>
+    <button class="copy" data-target="code007">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 어두운 배경 지도를 만든다. 야간 교통량, 빛 공해, 경로 추적 같은 자료를 표현할 때 시각적 효과가 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> 어두운 배경에는 밝은 색 마커가 잘 보인다.</p>
+  <pre><code id="code007">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12, tiles=&#x27;CartoDB dark_matter&#x27;)
+m.save(&#x27;07_dark_tile.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex008" data-title="Stamen Terrain 스타일 지도">
+  <div class="card-head">
+    <div><span class="num">008</span><h2>Stamen Terrain 스타일 지도</h2></div>
+    <button class="copy" data-target="code008">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지형 느낌이 있는 지도 스타일을 사용한다. 산지, 하천, 지형과 관련된 탐구 활동에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> Folium 버전과 타일 제공 상태에 따라 외부 타일 사용 가능 여부가 달라질 수 있다.</p>
+  <pre><code id="code008">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=10, tiles=&#x27;Stamen Terrain&#x27;)
+m.save(&#x27;08_terrain_tile.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex009" data-title="확대 축소 제한하기">
+  <div class="card-head">
+    <div><span class="num">009</span><h2>확대 축소 제한하기</h2></div>
+    <button class="copy" data-target="code009">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 사용자가 지나치게 멀리 축소하거나 너무 자세히 확대하지 못하도록 범위를 제한한다. 수업용 지도에서 관찰 범위를 통제할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> min_zoom과 max_zoom은 지도 탐색 범위를 조절한다.</p>
+  <pre><code id="code009">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=11, min_zoom=8, max_zoom=15)
+m.save(&#x27;09_zoom_limit.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex010" data-title="지도 중심 자동 맞춤 준비">
+  <div class="card-head">
+    <div><span class="num">010</span><h2>지도 중심 자동 맞춤 준비</h2></div>
+    <button class="copy" data-target="code010">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 여러 지점이 모두 보이도록 지도의 표시 범위를 자동 조정한다. 여러 도시를 한 화면에 보여 줄 때 유용하다.</p>
+  <p class="point"><b>활용 포인트:</b> fit_bounds()는 포함해야 할 좌표 목록을 기준으로 화면을 맞춘다.</p>
+  <pre><code id="code010">import folium
+m = folium.Map(location=[36.5, 127.8], zoom_start=7)
+points = [[37.5665,126.9780], [35.1796,129.0756], [35.8242,127.1480]]
+for p in points:
+    folium.Marker(p).add_to(m)
+m.fit_bounds(points)
+m.save(&#x27;10_fit_bounds.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex011" data-title="기본 마커 추가">
+  <div class="card-head">
+    <div><span class="num">011</span><h2>기본 마커 추가</h2></div>
+    <button class="copy" data-target="code011">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도 위에 하나의 기본 마커를 표시한다. popup은 마커를 클릭했을 때 나타나는 설명이다.</p>
+  <p class="point"><b>활용 포인트:</b> Marker는 위치 정보를 점으로 표시하는 가장 기본적인 방법이다.</p>
+  <pre><code id="code011">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+folium.Marker([37.5665, 126.9780], popup=&#x27;서울시청&#x27;).add_to(m)
+m.save(&#x27;11_basic_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex012" data-title="툴팁 마커 만들기">
+  <div class="card-head">
+    <div><span class="num">012</span><h2>툴팁 마커 만들기</h2></div>
+    <button class="copy" data-target="code012">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> tooltip은 클릭하지 않고 마우스를 올렸을 때 보이는 짧은 설명이다. popup보다 빠른 정보 확인에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> tooltip은 짧게, popup은 자세하게 쓰는 방식이 좋다.</p>
+  <pre><code id="code012">import folium
+m = folium.Map(location=[37.5796, 126.9770], zoom_start=15)
+folium.Marker([37.5796, 126.9770], tooltip=&#x27;마우스를 올리면 보입니다&#x27;, popup=&#x27;경복궁&#x27;).add_to(m)
+m.save(&#x27;12_tooltip_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex013" data-title="아이콘 색상 바꾸기">
+  <div class="card-head">
+    <div><span class="num">013</span><h2>아이콘 색상 바꾸기</h2></div>
+    <button class="copy" data-target="code013">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 마커 아이콘 색을 빨간색으로 지정한다. 위험 지역, 중요 시설, 우선 방문 장소를 강조할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> folium.Icon(color=&#x27;red&#x27;)처럼 색상을 지정한다.</p>
+  <pre><code id="code013">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+folium.Marker([37.5665, 126.9780], popup=&#x27;중요 지점&#x27;, icon=folium.Icon(color=&#x27;red&#x27;)).add_to(m)
+m.save(&#x27;13_colored_icon.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex014" data-title="아이콘 모양 지정하기">
+  <div class="card-head">
+    <div><span class="num">014</span><h2>아이콘 모양 지정하기</h2></div>
+    <button class="copy" data-target="code014">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> Font Awesome 아이콘을 사용해 마커의 의미를 시각적으로 표현한다. 도서관, 병원, 학교 등 시설 유형을 구분하기 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> prefix=&#x27;fa&#x27;는 Font Awesome 아이콘을 사용한다는 뜻이다.</p>
+  <pre><code id="code014">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+folium.Marker([37.5651, 126.9895], popup=&#x27;도서관&#x27;, icon=folium.Icon(icon=&#x27;book&#x27;, prefix=&#x27;fa&#x27;)).add_to(m)
+m.save(&#x27;14_fa_icon.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex015" data-title="여러 마커 반복문으로 표시">
+  <div class="card-head">
+    <div><span class="num">015</span><h2>여러 마커 반복문으로 표시</h2></div>
+    <button class="copy" data-target="code015">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 장소 목록을 반복문으로 처리해 여러 개의 마커를 한 번에 표시한다. 실제 데이터 분석에서는 리스트나 DataFrame을 자주 사용한다.</p>
+  <p class="point"><b>활용 포인트:</b> 반복문을 쓰면 장소가 많아져도 코드 구조가 단순하다.</p>
+  <pre><code id="code015">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+places = [(&#x27;서울시청&#x27;,37.5665,126.9780), (&#x27;경복궁&#x27;,37.5796,126.9770), (&#x27;남산타워&#x27;,37.5512,126.9882)]
+for name, lat, lon in places:
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+m.save(&#x27;15_multiple_markers.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex016" data-title="CircleMarker로 작은 원 표시">
+  <div class="card-head">
+    <div><span class="num">016</span><h2>CircleMarker로 작은 원 표시</h2></div>
+    <button class="copy" data-target="code016">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> CircleMarker는 화면 픽셀 기준 반지름을 가진 원형 마커이다. 확대해도 원의 시각적 크기가 크게 변하지 않는다.</p>
+  <p class="point"><b>활용 포인트:</b> 점 데이터가 많을 때 일반 Marker보다 깔끔하다.</p>
+  <pre><code id="code016">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+folium.CircleMarker([37.5665,126.9780], radius=8, popup=&#x27;서울시청&#x27;, fill=True).add_to(m)
+m.save(&#x27;16_circle_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex017" data-title="Circle로 실제 반경 표시">
+  <div class="card-head">
+    <div><span class="num">017</span><h2>Circle로 실제 반경 표시</h2></div>
+    <button class="copy" data-target="code017">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> Circle은 실제 거리 단위인 미터를 반지름으로 사용한다. 학교 주변 500m, 병원 주변 1km 같은 생활권 분석에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> Circle의 radius=1000은 실제 1km 반경이다.</p>
+  <pre><code id="code017">import folium
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+folium.Circle([37.5665,126.9780], radius=1000, popup=&#x27;반경 1km&#x27;, fill=True).add_to(m)
+m.save(&#x27;17_circle_radius.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex018" data-title="마커 팝업에 HTML 넣기">
+  <div class="card-head">
+    <div><span class="num">018</span><h2>마커 팝업에 HTML 넣기</h2></div>
+    <button class="copy" data-target="code018">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 팝업 안에 굵은 글씨, 줄바꿈, 기울임 등 HTML 표현을 넣는다. 설명이 필요한 답사지도 제작에 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> Popup 객체를 쓰면 팝업 폭도 조절할 수 있다.</p>
+  <pre><code id="code018">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=13)
+html = &#x27;&lt;b&gt;서울시청&lt;/b&gt;&lt;br&gt;행정 중심지&lt;br&gt;&lt;i&gt;방문 지점&lt;/i&gt;&#x27;
+folium.Marker([37.5665,126.9780], popup=folium.Popup(html, max_width=250)).add_to(m)
+m.save(&#x27;18_html_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex019" data-title="마커에 사진 링크 팝업 넣기">
+  <div class="card-head">
+    <div><span class="num">019</span><h2>마커에 사진 링크 팝업 넣기</h2></div>
+    <button class="copy" data-target="code019">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 팝업에 이미지 태그를 넣어 장소 사진을 보여 준다. 현장체험학습 안내 지도에 활용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 인터넷 이미지 주소가 바뀌면 사진이 보이지 않을 수 있다.</p>
+  <pre><code id="code019">import folium
+m = folium.Map(location=[37.5796,126.9770], zoom_start=15)
+html = &#x27;&lt;b&gt;경복궁&lt;/b&gt;&lt;br&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Gyeongbokgung-GeunJeongJeon.jpg/240px-Gyeongbokgung-GeunJeongJeon.jpg&quot; width=&quot;220&quot;&gt;&#x27;
+folium.Marker([37.5796,126.9770], popup=folium.Popup(html, max_width=260)).add_to(m)
+m.save(&#x27;19_image_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex020" data-title="마커 색으로 범주 구분">
+  <div class="card-head">
+    <div><span class="num">020</span><h2>마커 색으로 범주 구분</h2></div>
+    <button class="copy" data-target="code020">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 시설 종류에 따라 다른 색의 마커를 사용한다. 범주형 데이터를 지도에서 구분할 때 기본적인 방법이다.</p>
+  <p class="point"><b>활용 포인트:</b> 색상은 의미가 분명하도록 일관되게 사용해야 한다.</p>
+  <pre><code id="code020">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+places = [(&#x27;학교&#x27;,37.57,126.98,&#x27;blue&#x27;), (&#x27;병원&#x27;,37.56,126.99,&#x27;red&#x27;), (&#x27;공원&#x27;,37.55,126.97,&#x27;green&#x27;)]
+for name, lat, lon, color in places:
+    folium.Marker([lat, lon], popup=name, icon=folium.Icon(color=color)).add_to(m)
+m.save(&#x27;20_category_color_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex021" data-title="마커에 번호 표시">
+  <div class="card-head">
+    <div><span class="num">021</span><h2>마커에 번호 표시</h2></div>
+    <button class="copy" data-target="code021">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> DivIcon을 이용해 숫자가 들어간 사용자 정의 마커를 만든다. 답사 순서나 미션 지점 번호를 표시하기 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> DivIcon은 HTML/CSS로 마커 모양을 직접 만들 수 있다.</p>
+  <pre><code id="code021">import folium
+m = folium.Map(location=[35.8242,127.1480], zoom_start=14)
+route = [(&#x27;1&#x27;,35.815,127.153), (&#x27;2&#x27;,35.817,127.150), (&#x27;3&#x27;,35.819,127.147)]
+for num, lat, lon in route:
+    folium.Marker([lat, lon], popup=f&#x27;{num}번 지점&#x27;, icon=folium.DivIcon(html=f&#x27;&lt;div style=&quot;font-size:18px;color:white;background:navy;border-radius:12px;padding:4px&quot;&gt;{num}&lt;/div&gt;&#x27;)).add_to(m)
+m.save(&#x27;21_number_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex022" data-title="DataFrame에서 마커 만들기">
+  <div class="card-head">
+    <div><span class="num">022</span><h2>DataFrame에서 마커 만들기</h2></div>
+    <button class="copy" data-target="code022">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> pandas DataFrame의 행을 반복하며 마커를 표시한다. CSV 파일에서 읽어 온 장소 데이터를 지도화할 때 자주 쓰는 구조이다.</p>
+  <p class="point"><b>활용 포인트:</b> iterrows()는 각 행의 값을 꺼내 지도에 추가할 수 있게 해 준다.</p>
+  <pre><code id="code022">import folium
+import pandas as pd
+
+df = pd.DataFrame({
+    &#x27;이름&#x27;:[&#x27;서울시청&#x27;,&#x27;경복궁&#x27;,&#x27;남산타워&#x27;],
+    &#x27;위도&#x27;:[37.5665,37.5796,37.5512],
+    &#x27;경도&#x27;:[126.9780,126.9770,126.9882]
+})
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+for _, row in df.iterrows():
+    folium.Marker([row[&#x27;위도&#x27;], row[&#x27;경도&#x27;]], popup=row[&#x27;이름&#x27;]).add_to(m)
+m.save(&#x27;22_dataframe_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex023" data-title="조건에 따라 마커 색 바꾸기">
+  <div class="card-head">
+    <div><span class="num">023</span><h2>조건에 따라 마커 색 바꾸기</h2></div>
+    <button class="copy" data-target="code023">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 혼잡도가 높은 장소는 빨간색, 낮은 장소는 초록색으로 표시한다. 수치 조건을 시각적 의미로 바꾸는 예제이다.</p>
+  <p class="point"><b>활용 포인트:</b> 조건문과 지도 시각화를 결합하면 해석이 쉬워진다.</p>
+  <pre><code id="code023">import folium
+import pandas as pd
+
+df = pd.DataFrame({
+    &#x27;장소&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;위도&#x27;:[37.56,37.57,37.58], &#x27;경도&#x27;:[126.97,126.98,126.99], &#x27;혼잡도&#x27;:[30,80,55]
+})
+m = folium.Map(location=[37.57,126.98], zoom_start=13)
+for _, r in df.iterrows():
+    color = &#x27;red&#x27; if r[&#x27;혼잡도&#x27;] &gt;= 70 else &#x27;green&#x27;
+    folium.Marker([r[&#x27;위도&#x27;],r[&#x27;경도&#x27;]], popup=f&quot;{r[&#x27;장소&#x27;]} 혼잡도:{r[&#x27;혼잡도&#x27;]}&quot;, icon=folium.Icon(color=color)).add_to(m)
+m.save(&#x27;23_conditional_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex024" data-title="마커 팝업에 표 넣기">
+  <div class="card-head">
+    <div><span class="num">024</span><h2>마커 팝업에 표 넣기</h2></div>
+    <button class="copy" data-target="code024">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 팝업에 HTML 표를 넣어 여러 속성값을 정리해 보여 준다. 시설 정보, 조사 결과, 통계 요약을 표현하기 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> 팝업 안의 정보는 너무 길지 않게 정리하는 것이 좋다.</p>
+  <pre><code id="code024">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=13)
+html = &#x27;&#x27;&#x27;&lt;table border=&quot;1&quot;&gt;&lt;tr&gt;&lt;th&gt;항목&lt;/th&gt;&lt;th&gt;값&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;방문자&lt;/td&gt;&lt;td&gt;120명&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;만족도&lt;/td&gt;&lt;td&gt;4.5&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#x27;&#x27;&#x27;
+folium.Marker([37.5665,126.9780], popup=folium.Popup(html, max_width=300)).add_to(m)
+m.save(&#x27;24_table_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex025" data-title="마커 투명도와 원 크기 조절">
+  <div class="card-head">
+    <div><span class="num">025</span><h2>마커 투명도와 원 크기 조절</h2></div>
+    <button class="copy" data-target="code025">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 원형 마커의 크기와 투명도를 조절한다. 값이 클수록 큰 원으로 나타내면 수량 차이를 직관적으로 볼 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> radius는 시각적 크기, fill_opacity는 채움 투명도를 의미한다.</p>
+  <pre><code id="code025">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+for radius, lat in [(5,37.55),(10,37.56),(15,37.57)]:
+    folium.CircleMarker([lat,126.98], radius=radius, fill=True, fill_opacity=0.5, popup=f&#x27;반지름 {radius}&#x27;).add_to(m)
+m.save(&#x27;25_marker_opacity.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex026" data-title="두 지점을 선으로 연결">
+  <div class="card-head">
+    <div><span class="num">026</span><h2>두 지점을 선으로 연결</h2></div>
+    <button class="copy" data-target="code026">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 두 좌표를 PolyLine으로 연결한다. 이동 경로, 통학로, 하천 흐름 등을 표현할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> PolyLine에는 좌표 목록을 순서대로 넣는다.</p>
+  <pre><code id="code026">import folium
+m = folium.Map(location=[37.565,126.982], zoom_start=13)
+line = [[37.5665,126.9780], [37.5796,126.9770]]
+folium.PolyLine(line, tooltip=&#x27;서울시청 → 경복궁&#x27;).add_to(m)
+m.save(&#x27;26_polyline_two_points.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex027" data-title="여러 지점을 경로로 연결">
+  <div class="card-head">
+    <div><span class="num">027</span><h2>여러 지점을 경로로 연결</h2></div>
+    <button class="copy" data-target="code027">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 답사 지점들을 순서대로 연결해 이동 경로를 만든다. 각 지점에는 원형 마커도 함께 표시한다.</p>
+  <p class="point"><b>활용 포인트:</b> 선과 점을 함께 쓰면 경로와 지점을 동시에 파악할 수 있다.</p>
+  <pre><code id="code027">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+route = [[37.5665,126.9780], [37.5796,126.9770], [37.5512,126.9882]]
+folium.PolyLine(route, tooltip=&#x27;답사 경로&#x27;, weight=5).add_to(m)
+for p in route:
+    folium.CircleMarker(p, radius=5, fill=True).add_to(m)
+m.save(&#x27;27_route_many_points.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex028" data-title="선 색상과 두께 설정">
+  <div class="card-head">
+    <div><span class="num">028</span><h2>선 색상과 두께 설정</h2></div>
+    <button class="copy" data-target="code028">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 경로 선의 색상, 두께, 투명도를 지정한다. 중요한 이동 경로나 위험 구간을 강조할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> weight는 선의 굵기, opacity는 투명도이다.</p>
+  <pre><code id="code028">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+route = [[37.5665,126.9780], [37.5796,126.9770], [37.5512,126.9882]]
+folium.PolyLine(route, color=&#x27;red&#x27;, weight=8, opacity=0.7, popup=&#x27;강조 경로&#x27;).add_to(m)
+m.save(&#x27;28_line_style.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex029" data-title="점선 경로 만들기">
+  <div class="card-head">
+    <div><span class="num">029</span><h2>점선 경로 만들기</h2></div>
+    <button class="copy" data-target="code029">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> dash_array를 사용해 점선 경로를 만든다. 예정 경로, 대안 경로, 추정 경로를 실선과 구분할 때 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> 점선은 확정되지 않은 정보를 나타낼 때 유용하다.</p>
+  <pre><code id="code029">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+route = [[37.5665,126.9780], [37.5796,126.9770], [37.5512,126.9882]]
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, dash_array=&#x27;10, 10&#x27;).add_to(m)
+m.save(&#x27;29_dashed_line.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex030" data-title="삼각형 영역 표시">
+  <div class="card-head">
+    <div><span class="num">030</span><h2>삼각형 영역 표시</h2></div>
+    <button class="copy" data-target="code030">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> Polygon으로 여러 좌표를 이어 닫힌 영역을 만든다. 조사 구역, 위험 구역, 보호 구역 등을 표현할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> Polygon은 마지막 점과 첫 점을 자동으로 연결해 영역을 만든다.</p>
+  <pre><code id="code030">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+area = [[37.56,126.97], [37.58,126.98], [37.55,126.99]]
+folium.Polygon(area, popup=&#x27;조사 영역&#x27;, fill=True, fill_opacity=0.3).add_to(m)
+m.save(&#x27;30_polygon_area.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex031" data-title="사각형 영역 표시">
+  <div class="card-head">
+    <div><span class="num">031</span><h2>사각형 영역 표시</h2></div>
+    <button class="copy" data-target="code031">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> Rectangle은 두 꼭짓점 좌표만으로 사각형 영역을 만든다. 지도상에서 분석 범위를 간단히 설정할 때 편리하다.</p>
+  <p class="point"><b>활용 포인트:</b> bounds에는 남서쪽과 북동쪽 좌표를 넣는 방식이 일반적이다.</p>
+  <pre><code id="code031">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+bounds = [[37.55,126.96], [37.58,127.00]]
+folium.Rectangle(bounds=bounds, popup=&#x27;사각 조사 구역&#x27;, fill=True, fill_opacity=0.2).add_to(m)
+m.save(&#x27;31_rectangle_area.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex032" data-title="원형 생활권 분석">
+  <div class="card-head">
+    <div><span class="num">032</span><h2>원형 생활권 분석</h2></div>
+    <button class="copy" data-target="code032">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 중심 시설 주변 500m와 1km 반경을 표시한다. 학교, 병원, 도서관 접근성 분석에 활용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 여러 반경을 겹쳐 그리면 거리 단계가 보인다.</p>
+  <pre><code id="code032">import folium
+m = folium.Map(location=[35.8242,127.1480], zoom_start=13)
+center = [35.8242,127.1480]
+folium.Marker(center, popup=&#x27;중심 시설&#x27;).add_to(m)
+folium.Circle(center, radius=500, popup=&#x27;500m 생활권&#x27;, fill=True, fill_opacity=0.2).add_to(m)
+folium.Circle(center, radius=1000, popup=&#x27;1km 생활권&#x27;, fill=False).add_to(m)
+m.save(&#x27;32_service_area_circle.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex033" data-title="두 경로 비교하기">
+  <div class="card-head">
+    <div><span class="num">033</span><h2>두 경로 비교하기</h2></div>
+    <button class="copy" data-target="code033">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 두 가지 이동 경로를 서로 다른 색으로 표시한다. 최단 거리, 안전 경로, 관광 경로를 비교할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 비교 시각화에서는 색상과 tooltip 이름을 명확히 넣는다.</p>
+  <pre><code id="code033">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+route_a = [[37.566,126.978], [37.570,126.980], [37.579,126.977]]
+route_b = [[37.566,126.978], [37.560,126.985], [37.551,126.988]]
+folium.PolyLine(route_a, color=&#x27;blue&#x27;, weight=5, tooltip=&#x27;경로 A&#x27;).add_to(m)
+folium.PolyLine(route_b, color=&#x27;green&#x27;, weight=5, tooltip=&#x27;경로 B&#x27;).add_to(m)
+m.save(&#x27;33_compare_routes.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex034" data-title="경로 위 지점 번호 표시">
+  <div class="card-head">
+    <div><span class="num">034</span><h2>경로 위 지점 번호 표시</h2></div>
+    <button class="copy" data-target="code034">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 경로의 각 좌표에 순서 번호를 붙인다. 답사 활동지나 현장 학습 지도에서 이동 순서를 안내할 때 유용하다.</p>
+  <p class="point"><b>활용 포인트:</b> enumerate()를 사용하면 번호와 좌표를 동시에 다룰 수 있다.</p>
+  <pre><code id="code034">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+route = [[37.566,126.978], [37.570,126.980], [37.579,126.977]]
+folium.PolyLine(route, color=&#x27;purple&#x27;, weight=4).add_to(m)
+for i, p in enumerate(route, start=1):
+    folium.Marker(p, icon=folium.DivIcon(html=f&#x27;&lt;b&gt;{i}&lt;/b&gt;&#x27;), popup=f&#x27;{i}번 지점&#x27;).add_to(m)
+m.save(&#x27;34_route_number_points.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex035" data-title="영역 경계선만 표시">
+  <div class="card-head">
+    <div><span class="num">035</span><h2>영역 경계선만 표시</h2></div>
+    <button class="copy" data-target="code035">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> Polygon을 채우지 않고 경계선만 표시한다. 행정구역 경계, 조사 범위 외곽선 등을 깔끔하게 보여 줄 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> fill=False를 사용하면 내부가 채워지지 않는다.</p>
+  <pre><code id="code035">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+area = [[37.55,126.96], [37.58,126.96], [37.58,127.00], [37.55,127.00]]
+folium.Polygon(area, color=&#x27;black&#x27;, weight=3, fill=False, popup=&#x27;경계선&#x27;).add_to(m)
+m.save(&#x27;35_polygon_boundary.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex036" data-title="다각형 안에 팝업 설명 넣기">
+  <div class="card-head">
+    <div><span class="num">036</span><h2>다각형 안에 팝업 설명 넣기</h2></div>
+    <button class="copy" data-target="code036">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 영역을 클릭하면 설명이 나타나게 한다. 지도 위의 면 데이터에 의미를 부여하는 기본 방법이다.</p>
+  <p class="point"><b>활용 포인트:</b> 면 데이터도 점 데이터처럼 popup을 가질 수 있다.</p>
+  <pre><code id="code036">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+area = [[37.55,126.96], [37.58,126.96], [37.58,127.00], [37.55,127.00]]
+folium.Polygon(area, popup=&#x27;이 지역은 표본 조사 대상입니다.&#x27;, fill=True, fill_opacity=0.25).add_to(m)
+m.save(&#x27;36_polygon_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex037" data-title="PolyLine으로 하천 흐름 표현">
+  <div class="card-head">
+    <div><span class="num">037</span><h2>PolyLine으로 하천 흐름 표현</h2></div>
+    <button class="copy" data-target="code037">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 하천이나 이동 흐름처럼 방향성을 가진 선형 데이터를 표현한다. 실제 방향 화살표는 아니지만 좌표 순서를 통해 흐름을 설명할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 선형 지리 데이터는 PolyLine으로 표현한다.</p>
+  <pre><code id="code037">import folium
+m = folium.Map(location=[35.82,127.15], zoom_start=13)
+stream = [[35.835,127.12], [35.828,127.14], [35.820,127.16], [35.812,127.18]]
+folium.PolyLine(stream, color=&#x27;blue&#x27;, weight=6, tooltip=&#x27;하천 흐름 방향&#x27;).add_to(m)
+m.save(&#x27;37_stream_line.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex038" data-title="등교 경로와 학교 반경">
+  <div class="card-head">
+    <div><span class="num">038</span><h2>등교 경로와 학교 반경</h2></div>
+    <button class="copy" data-target="code038">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 학교 위치, 등교 경로, 학교 주변 반경을 한 지도에 함께 표시한다. 생활 속 공간 분석 수업에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> 점, 선, 원을 결합하면 풍부한 공간 이야기를 만들 수 있다.</p>
+  <pre><code id="code038">import folium
+m = folium.Map(location=[35.8242,127.1480], zoom_start=14)
+school = [35.8242,127.1480]
+route = [[35.815,127.140], [35.819,127.144], school]
+folium.Marker(school, popup=&#x27;학교&#x27;, icon=folium.Icon(color=&#x27;blue&#x27;, icon=&#x27;home&#x27;)).add_to(m)
+folium.PolyLine(route, color=&#x27;green&#x27;, weight=5, tooltip=&#x27;등교 경로&#x27;).add_to(m)
+folium.Circle(school, radius=800, fill=True, fill_opacity=0.15, popup=&#x27;학교 주변 800m&#x27;).add_to(m)
+m.save(&#x27;38_school_route_radius.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex039" data-title="다중 영역 비교">
+  <div class="card-head">
+    <div><span class="num">039</span><h2>다중 영역 비교</h2></div>
+    <button class="copy" data-target="code039">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 여러 조사 구역을 반복문으로 지도에 추가한다. 구역별 통계나 역할 분담을 나타낼 때 사용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 딕셔너리 구조를 쓰면 구역 이름과 좌표를 함께 관리하기 쉽다.</p>
+  <pre><code id="code039">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+areas = {
+    &#x27;A구역&#x27;: [[37.55,126.96],[37.57,126.96],[37.57,126.98],[37.55,126.98]],
+    &#x27;B구역&#x27;: [[37.57,126.98],[37.59,126.98],[37.59,127.00],[37.57,127.00]]
+}
+for name, coords in areas.items():
+    folium.Polygon(coords, popup=name, fill=True, fill_opacity=0.25).add_to(m)
+m.save(&#x27;39_multiple_polygons.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex040" data-title="경로 길이 설명 팝업">
+  <div class="card-head">
+    <div><span class="num">040</span><h2>경로 길이 설명 팝업</h2></div>
+    <button class="copy" data-target="code040">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 두 지점을 선으로 연결할 때 실제 도로 경로가 아니라 직선 연결임을 팝업으로 설명한다. 지도 해석의 오해를 줄인다.</p>
+  <p class="point"><b>활용 포인트:</b> 지도 시각화에는 데이터의 한계도 함께 표시하는 것이 좋다.</p>
+  <pre><code id="code040">import folium
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+route = [[37.5665,126.9780], [37.5796,126.9770]]
+folium.PolyLine(route, color=&#x27;red&#x27;, weight=5, popup=&#x27;직선 연결: 실제 도로 거리와는 다를 수 있음&#x27;).add_to(m)
+m.save(&#x27;40_route_note_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex041" data-title="레이어 그룹 만들기">
+  <div class="card-head">
+    <div><span class="num">041</span><h2>레이어 그룹 만들기</h2></div>
+    <button class="copy" data-target="code041">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> FeatureGroup으로 마커를 주제별로 묶고 LayerControl로 켜고 끌 수 있게 한다. 복잡한 지도에서 정보량을 조절할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 레이어 기능은 여러 종류의 데이터를 한 지도에 넣을 때 중요하다.</p>
+  <pre><code id="code041">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+schools = folium.FeatureGroup(name=&#x27;학교&#x27;)
+hospitals = folium.FeatureGroup(name=&#x27;병원&#x27;)
+folium.Marker([37.56,126.98], popup=&#x27;학교 A&#x27;).add_to(schools)
+folium.Marker([37.57,126.99], popup=&#x27;병원 B&#x27;, icon=folium.Icon(color=&#x27;red&#x27;)).add_to(hospitals)
+schools.add_to(m); hospitals.add_to(m)
+folium.LayerControl().add_to(m)
+m.save(&#x27;41_feature_group.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex042" data-title="여러 배경지도 전환">
+  <div class="card-head">
+    <div><span class="num">042</span><h2>여러 배경지도 전환</h2></div>
+    <button class="copy" data-target="code042">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 여러 배경지도 타일을 추가하고 사용자가 선택할 수 있게 한다. 같은 데이터도 배경에 따라 해석 느낌이 달라질 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> TileLayer와 LayerControl을 함께 사용한다.</p>
+  <pre><code id="code042">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12, tiles=&#x27;OpenStreetMap&#x27;)
+folium.TileLayer(&#x27;CartoDB positron&#x27;, name=&#x27;밝은 지도&#x27;).add_to(m)
+folium.TileLayer(&#x27;CartoDB dark_matter&#x27;, name=&#x27;어두운 지도&#x27;).add_to(m)
+folium.LayerControl().add_to(m)
+m.save(&#x27;42_tile_layers.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex043" data-title="미니맵 추가">
+  <div class="card-head">
+    <div><span class="num">043</span><h2>미니맵 추가</h2></div>
+    <button class="copy" data-target="code043">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 화면 한쪽에 작은 미니맵을 추가한다. 현재 보고 있는 위치가 넓은 지역 안에서 어디인지 파악하기 쉽다.</p>
+  <p class="point"><b>활용 포인트:</b> MiniMap은 위치 맥락을 제공한다.</p>
+  <pre><code id="code043">import folium
+from folium import plugins
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+plugins.MiniMap(toggle_display=True).add_to(m)
+m.save(&#x27;43_minimap.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex044" data-title="마우스 위치 좌표 표시">
+  <div class="card-head">
+    <div><span class="num">044</span><h2>마우스 위치 좌표 표시</h2></div>
+    <button class="copy" data-target="code044">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 마우스를 지도 위에 올리면 현재 위치의 위도와 경도를 표시한다. 좌표 개념 학습에 유용하다.</p>
+  <p class="point"><b>활용 포인트:</b> MousePosition은 좌표 읽기 활동에 적합하다.</p>
+  <pre><code id="code044">import folium
+from folium import plugins
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+plugins.MousePosition().add_to(m)
+m.save(&#x27;44_mouse_position.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex045" data-title="거리 측정 도구 추가">
+  <div class="card-head">
+    <div><span class="num">045</span><h2>거리 측정 도구 추가</h2></div>
+    <button class="copy" data-target="code045">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 사용자가 지도 위에서 직접 거리를 재볼 수 있는 도구를 추가한다. 통학 거리, 답사 거리, 시설 간 거리 비교에 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> MeasureControl은 상호작용형 지도 수업에 유용하다.</p>
+  <pre><code id="code045">import folium
+from folium import plugins
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+plugins.MeasureControl(primary_length_unit=&#x27;kilometers&#x27;).add_to(m)
+m.save(&#x27;45_measure_control.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex046" data-title="전체화면 버튼 추가">
+  <div class="card-head">
+    <div><span class="num">046</span><h2>전체화면 버튼 추가</h2></div>
+    <button class="copy" data-target="code046">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 전체화면 버튼을 추가해 지도를 크게 볼 수 있게 한다. 발표나 수업 시 시각적 집중도를 높인다.</p>
+  <p class="point"><b>활용 포인트:</b> Fullscreen 플러그인은 지도 탐색 화면을 넓혀 준다.</p>
+  <pre><code id="code046">import folium
+from folium import plugins
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+plugins.Fullscreen(position=&#x27;topright&#x27;).add_to(m)
+m.save(&#x27;46_fullscreen.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex047" data-title="마커 클러스터 기본">
+  <div class="card-head">
+    <div><span class="num">047</span><h2>마커 클러스터 기본</h2></div>
+    <button class="copy" data-target="code047">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 마커가 많을 때 가까운 마커들을 묶어서 보여 준다. 확대하면 개별 마커로 나뉘어 복잡도를 줄일 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> MarkerCluster는 대량 점 데이터 시각화의 기본 도구이다.</p>
+  <pre><code id="code047">import folium
+from folium.plugins import MarkerCluster
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+cluster = MarkerCluster().add_to(m)
+for i in range(30):
+    folium.Marker([37.55 + i*0.002, 126.95 + i*0.002], popup=f&#x27;지점 {i+1}&#x27;).add_to(cluster)
+m.save(&#x27;47_marker_cluster.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex048" data-title="FastMarkerCluster 사용">
+  <div class="card-head">
+    <div><span class="num">048</span><h2>FastMarkerCluster 사용</h2></div>
+    <button class="copy" data-target="code048">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 많은 좌표를 빠르게 클러스터링하여 표시한다. 단순 위치 점이 매우 많을 때 일반 MarkerCluster보다 가볍게 사용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> FastMarkerCluster는 popup이 복잡하지 않은 대량 좌표에 적합하다.</p>
+  <pre><code id="code048">import folium
+from folium.plugins import FastMarkerCluster
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+data = [[37.55 + i*0.001, 126.95 + i*0.001] for i in range(200)]
+FastMarkerCluster(data).add_to(m)
+m.save(&#x27;48_fast_marker_cluster.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex049" data-title="HeatMap 기본">
+  <div class="card-head">
+    <div><span class="num">049</span><h2>HeatMap 기본</h2></div>
+    <button class="copy" data-target="code049">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 점 데이터의 밀집 정도를 열지도 형태로 표현한다. 사고 지점, 방문자 위치, 민원 발생 위치 분석에 활용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> HeatMap은 점의 개별 위치보다 밀도를 강조한다.</p>
+  <pre><code id="code049">import folium
+from folium.plugins import HeatMap
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+data = [[37.55 + i*0.001, 126.95 + i*0.001] for i in range(100)]
+HeatMap(data).add_to(m)
+m.save(&#x27;49_heatmap_basic.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex050" data-title="가중치 HeatMap">
+  <div class="card-head">
+    <div><span class="num">050</span><h2>가중치 HeatMap</h2></div>
+    <button class="copy" data-target="code050">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 좌표 뒤에 가중치를 추가해 값이 큰 지점이 더 강하게 나타나도록 한다. 단순 개수보다 강도나 규모가 중요할 때 사용한다.</p>
+  <p class="point"><b>활용 포인트:</b> HeatMap 데이터는 [위도, 경도, 가중치] 형태도 가능하다.</p>
+  <pre><code id="code050">import folium
+from folium.plugins import HeatMap
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+data = [[37.55,126.97,1], [37.56,126.98,5], [37.57,126.99,10]]
+HeatMap(data, radius=30).add_to(m)
+m.save(&#x27;50_weighted_heatmap.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex051" data-title="HeatMapWithTime 시간 변화">
+  <div class="card-head">
+    <div><span class="num">051</span><h2>HeatMapWithTime 시간 변화</h2></div>
+    <button class="copy" data-target="code051">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 시간에 따라 밀도가 어떻게 변하는지 애니메이션처럼 보여 준다. 시간대별 유동 인구나 사건 발생 변화를 표현할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> HeatMapWithTime은 시간 단계별 좌표 목록을 입력한다.</p>
+  <pre><code id="code051">import folium
+from folium.plugins import HeatMapWithTime
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+data = [
+    [[37.55,126.97,1],[37.56,126.98,2]],
+    [[37.56,126.98,3],[37.57,126.99,5]],
+    [[37.57,126.99,7],[37.58,127.00,4]]
+]
+HeatMapWithTime(data, index=[&#x27;1교시&#x27;,&#x27;2교시&#x27;,&#x27;3교시&#x27;]).add_to(m)
+m.save(&#x27;51_heatmap_time.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex052" data-title="Draw 도구로 지도에 그리기">
+  <div class="card-head">
+    <div><span class="num">052</span><h2>Draw 도구로 지도에 그리기</h2></div>
+    <button class="copy" data-target="code052">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 사용자가 지도 위에 점, 선, 다각형을 직접 그릴 수 있는 도구를 추가한다. 조사 영역을 학생이 직접 표시하는 활동에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> Draw(export=True)는 그린 내용을 GeoJSON으로 내보낼 수 있게 한다.</p>
+  <pre><code id="code052">import folium
+from folium.plugins import Draw
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+Draw(export=True).add_to(m)
+m.save(&#x27;52_draw_tool.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex053" data-title="Search 플러그인 기초">
+  <div class="card-head">
+    <div><span class="num">053</span><h2>Search 플러그인 기초</h2></div>
+    <button class="copy" data-target="code053">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도 안의 장소를 검색할 수 있는 기능을 추가한다. 지점이 많을 때 원하는 장소를 빠르게 찾을 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 검색 대상이 될 레이어와 검색 라벨을 지정해야 한다.</p>
+  <pre><code id="code053">import folium
+from folium.plugins import Search
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+fg = folium.FeatureGroup(name=&#x27;장소&#x27;).add_to(m)
+for name, lat, lon in [(&#x27;서울시청&#x27;,37.5665,126.9780),(&#x27;경복궁&#x27;,37.5796,126.9770)]:
+    folium.Marker([lat,lon], popup=name, tooltip=name).add_to(fg)
+Search(layer=fg, search_label=&#x27;tooltip&#x27;, placeholder=&#x27;장소 검색&#x27;).add_to(m)
+m.save(&#x27;53_search_plugin.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex054" data-title="LocateControl 현재 위치 버튼">
+  <div class="card-head">
+    <div><span class="num">054</span><h2>LocateControl 현재 위치 버튼</h2></div>
+    <button class="copy" data-target="code054">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 브라우저의 위치 권한을 사용해 사용자의 현재 위치를 지도에 표시하는 버튼을 추가한다. 현장 활동 지도에 활용 가능하다.</p>
+  <p class="point"><b>활용 포인트:</b> 사용자 브라우저에서 위치 권한을 허용해야 작동한다.</p>
+  <pre><code id="code054">import folium
+from folium.plugins import LocateControl
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+LocateControl(auto_start=False).add_to(m)
+m.save(&#x27;54_locate_control.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex055" data-title="GroupedLayerControl 느낌의 그룹 관리">
+  <div class="card-head">
+    <div><span class="num">055</span><h2>GroupedLayerControl 느낌의 그룹 관리</h2></div>
+    <button class="copy" data-target="code055">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 여러 주제 레이어를 만들고 LayerControl을 펼친 상태로 표시한다. 사용자는 필요한 주제만 선택해 볼 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> collapsed=False는 레이어 선택창을 처음부터 펼쳐 보여 준다.</p>
+  <pre><code id="code055">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+for group_name, color, lat in [(&#x27;교통&#x27;,&#x27;blue&#x27;,37.56), (&#x27;문화&#x27;,&#x27;green&#x27;,37.57), (&#x27;안전&#x27;,&#x27;red&#x27;,37.58)]:
+    fg = folium.FeatureGroup(name=group_name)
+    folium.Marker([lat,126.98], popup=group_name, icon=folium.Icon(color=color)).add_to(fg)
+    fg.add_to(m)
+folium.LayerControl(collapsed=False).add_to(m)
+m.save(&#x27;55_layer_control_open.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex056" data-title="인구 밀도 단계구분도">
+  <div class="card-head">
+    <div><span class="num">056</span><h2>인구 밀도 단계구분도</h2></div>
+    <button class="copy" data-target="code056">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 구역별 인구 밀도를 색상으로 표현한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code056">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[14,30,48]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;인구 밀도 단계구분도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;60_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex057" data-title="교통 사고 건수 단계구분도">
+  <div class="card-head">
+    <div><span class="num">057</span><h2>교통 사고 건수 단계구분도</h2></div>
+    <button class="copy" data-target="code057">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 구역별 사고 건수를 색으로 비교한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code057">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[15,31,49]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;교통 사고 건수 단계구분도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;61_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex058" data-title="도서관 이용률 단계구분도">
+  <div class="card-head">
+    <div><span class="num">058</span><h2>도서관 이용률 단계구분도</h2></div>
+    <button class="copy" data-target="code058">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 문화 시설 이용률을 지역별로 표현한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code058">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[16,32,50]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;도서관 이용률 단계구분도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;62_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex059" data-title="대기질 지수 단계구분도">
+  <div class="card-head">
+    <div><span class="num">059</span><h2>대기질 지수 단계구분도</h2></div>
+    <button class="copy" data-target="code059">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 환경 지수를 구역별 색으로 보여 준다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code059">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[10,33,51]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;대기질 지수 단계구분도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;63_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex060" data-title="학급별 조사 결과 지도">
+  <div class="card-head">
+    <div><span class="num">060</span><h2>학급별 조사 결과 지도</h2></div>
+    <button class="copy" data-target="code060">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 가상의 학급 조사 결과를 구역별로 나타낸다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code060">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[11,34,52]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;학급별 조사 결과 지도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;64_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex061" data-title="선거 득표율 지도 예시">
+  <div class="card-head">
+    <div><span class="num">061</span><h2>선거 득표율 지도 예시</h2></div>
+    <button class="copy" data-target="code061">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 비율 데이터를 지역별 색으로 표현한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code061">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[12,35,40]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;선거 득표율 지도 예시&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;65_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex062" data-title="위험도 등급 지도">
+  <div class="card-head">
+    <div><span class="num">062</span><h2>위험도 등급 지도</h2></div>
+    <button class="copy" data-target="code062">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 위험도 점수를 색상 단계로 표현한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code062">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[13,25,41]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;위험도 등급 지도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;66_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex063" data-title="매출 분포 지도">
+  <div class="card-head">
+    <div><span class="num">063</span><h2>매출 분포 지도</h2></div>
+    <button class="copy" data-target="code063">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 상권별 매출 차이를 공간적으로 비교한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code063">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[14,26,42]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;매출 분포 지도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;67_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex064" data-title="관광객 수 지도">
+  <div class="card-head">
+    <div><span class="num">064</span><h2>관광객 수 지도</h2></div>
+    <button class="copy" data-target="code064">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 방문객이 많은 지역과 적은 지역을 구분한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code064">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[15,27,43]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;관광객 수 지도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;68_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex065" data-title="의료 접근성 지도">
+  <div class="card-head">
+    <div><span class="num">065</span><h2>의료 접근성 지도</h2></div>
+    <button class="copy" data-target="code065">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 구역별 의료 접근성 점수를 색으로 표현한다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code065">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[16,28,44]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;의료 접근성 지도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;69_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex066" data-title="교육 자료용 가상 행정구역 지도">
+  <div class="card-head">
+    <div><span class="num">066</span><h2>교육 자료용 가상 행정구역 지도</h2></div>
+    <button class="copy" data-target="code066">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 실제 행정구역 파일 없이 원리를 설명하는 가상 데이터 예제이다. Choropleth는 값을 지역 색으로 바꾸어 공간적 차이를 직관적으로 보여 준다.</p>
+  <p class="point"><b>활용 포인트:</b> 실제 수업에서는 GeoJSON 행정구역 파일과 통계 CSV를 연결하면 된다.</p>
+  <pre><code id="code066">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.95,37.55],[126.97,37.55],[126.97,37.57],[126.95,37.57],[126.95,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.97,37.55],[126.99,37.55],[126.99,37.57],[126.97,37.57],[126.97,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;C&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;C구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.99,37.55],[127.01,37.55],[127.01,37.57],[126.99,37.57],[126.99,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;값&#x27;:[10,29,45]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13, tiles=&#x27;CartoDB positron&#x27;)
+folium.Choropleth(
+    geo_data=geojson,
+    data=df,
+    columns=[&#x27;구역&#x27;,&#x27;값&#x27;],
+    key_on=&#x27;feature.id&#x27;,
+    fill_color=&#x27;YlOrRd&#x27;,
+    fill_opacity=0.7,
+    line_opacity=0.8,
+    legend_name=&#x27;교육 자료용 가상 행정구역 지도&#x27;
+).add_to(m)
+folium.GeoJson(geojson, tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;], aliases=[&#x27;구역명&#x27;])).add_to(m)
+m.save(&#x27;70_choropleth_example.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex067" data-title="간단한 GeoJSON 영역 표시">
+  <div class="card-head">
+    <div><span class="num">067</span><h2>간단한 GeoJSON 영역 표시</h2></div>
+    <button class="copy" data-target="code067">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> GeoJSON 형식의 면 데이터를 지도에 표시한다. GeoJSON은 웹 지도에서 널리 쓰이는 지리 데이터 형식이다.</p>
+  <p class="point"><b>활용 포인트:</b> GeoJSON 좌표는 [경도, 위도] 순서라는 점에 주의한다.</p>
+  <pre><code id="code067">import folium
+
+geojson = {
+  &#x27;type&#x27;: &#x27;FeatureCollection&#x27;,
+  &#x27;features&#x27;: [{
+    &#x27;type&#x27;:&#x27;Feature&#x27;,
+    &#x27;properties&#x27;: {&#x27;name&#x27;:&#x27;가상 조사구역&#x27;},
+    &#x27;geometry&#x27;: {&#x27;type&#x27;:&#x27;Polygon&#x27;, &#x27;coordinates&#x27;: [[[126.96,37.55],[127.00,37.55],[127.00,37.58],[126.96,37.58],[126.96,37.55]]]}
+  }]
+}
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+folium.GeoJson(geojson, name=&#x27;GeoJSON 영역&#x27;).add_to(m)
+m.save(&#x27;56_geojson_basic.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex068" data-title="GeoJSON 스타일 지정">
+  <div class="card-head">
+    <div><span class="num">068</span><h2>GeoJSON 스타일 지정</h2></div>
+    <button class="copy" data-target="code068">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> style_function으로 GeoJSON 영역의 색, 선 두께, 투명도를 지정한다. 면 데이터의 의미를 강조하는 데 사용한다.</p>
+  <p class="point"><b>활용 포인트:</b> style_function은 각 feature마다 스타일을 반환하는 함수이다.</p>
+  <pre><code id="code068">import folium
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[{&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.96,37.55],[127.00,37.55],[127.00,37.58],[126.96,37.58],[126.96,37.55]]]}}]}
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+folium.GeoJson(geojson, style_function=lambda x: {&#x27;fillColor&#x27;:&#x27;orange&#x27;,&#x27;color&#x27;:&#x27;black&#x27;,&#x27;weight&#x27;:2,&#x27;fillOpacity&#x27;:0.4}).add_to(m)
+m.save(&#x27;57_geojson_style.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex069" data-title="GeoJSON 툴팁 표시">
+  <div class="card-head">
+    <div><span class="num">069</span><h2>GeoJSON 툴팁 표시</h2></div>
+    <button class="copy" data-target="code069">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> GeoJSON 속성값을 툴팁으로 보여 준다. 지도 위 영역에 마우스를 올리면 구역명과 점수를 확인할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> GeoJsonTooltip은 속성 테이블을 지도 설명으로 연결한다.</p>
+  <pre><code id="code069">import folium
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[{&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;,&#x27;score&#x27;:85},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.96,37.55],[127.00,37.55],[127.00,37.58],[126.96,37.58],[126.96,37.55]]]}}]}
+m = folium.Map(location=[37.565,126.98], zoom_start=13)
+folium.GeoJson(
+    geojson,
+    tooltip=folium.GeoJsonTooltip(fields=[&#x27;name&#x27;,&#x27;score&#x27;], aliases=[&#x27;구역&#x27;,&#x27;점수&#x27;])
+).add_to(m)
+m.save(&#x27;58_geojson_tooltip.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex070" data-title="Choropleth 기본 구조">
+  <div class="card-head">
+    <div><span class="num">070</span><h2>Choropleth 기본 구조</h2></div>
+    <button class="copy" data-target="code070">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 구역별 값을 색의 농도로 표현하는 Choropleth 지도이다. 인구, 매출, 사고 건수 같은 지역별 통계 표현에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> key_on과 data의 구역 코드가 서로 맞아야 색이 입혀진다.</p>
+  <pre><code id="code070">import folium
+import pandas as pd
+
+geojson = {&#x27;type&#x27;:&#x27;FeatureCollection&#x27;,&#x27;features&#x27;:[
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;A&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;A구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.96,37.55],[126.98,37.55],[126.98,37.57],[126.96,37.57],[126.96,37.55]]]}},
+ {&#x27;type&#x27;:&#x27;Feature&#x27;,&#x27;id&#x27;:&#x27;B&#x27;,&#x27;properties&#x27;:{&#x27;name&#x27;:&#x27;B구역&#x27;},&#x27;geometry&#x27;:{&#x27;type&#x27;:&#x27;Polygon&#x27;,&#x27;coordinates&#x27;:[[[126.98,37.55],[127.00,37.55],[127.00,37.57],[126.98,37.57],[126.98,37.55]]]}}
+]}
+df = pd.DataFrame({&#x27;구역&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;], &#x27;값&#x27;:[10,30]})
+m = folium.Map(location=[37.56,126.98], zoom_start=13)
+folium.Choropleth(geo_data=geojson, data=df, columns=[&#x27;구역&#x27;,&#x27;값&#x27;], key_on=&#x27;feature.id&#x27;, fill_opacity=0.6, legend_name=&#x27;값&#x27;).add_to(m)
+m.save(&#x27;59_choropleth_basic.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex071" data-title="편의점 위치 지도">
+  <div class="card-head">
+    <div><span class="num">071</span><h2>편의점 위치 지도</h2></div>
+    <button class="copy" data-target="code071">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 편의점 지점을 지도에 표시하고 상권 분석의 기초 자료로 활용한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code071">import folium
+
+points = [(&#x27;편의점A&#x27;, 37.56, 126.98), (&#x27;편의점B&#x27;, 37.565, 126.985), (&#x27;편의점C&#x27;, 37.57, 126.975)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;편의점 위치 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;71_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex072" data-title="병원 위치 지도">
+  <div class="card-head">
+    <div><span class="num">072</span><h2>병원 위치 지도</h2></div>
+    <button class="copy" data-target="code072">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 병원 위치를 표시해 의료 접근성을 살펴본다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code072">import folium
+
+points = [(&#x27;병원A&#x27;, 37.55, 126.97), (&#x27;병원B&#x27;, 37.565, 126.99), (&#x27;병원C&#x27;, 37.575, 126.98)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;병원 위치 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;72_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex073" data-title="버스 정류장 지도">
+  <div class="card-head">
+    <div><span class="num">073</span><h2>버스 정류장 지도</h2></div>
+    <button class="copy" data-target="code073">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 정류장 위치를 시각화해 교통망 분포를 파악한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code073">import folium
+
+points = [(&#x27;정류장1&#x27;, 37.56, 126.97), (&#x27;정류장2&#x27;, 37.565, 126.975), (&#x27;정류장3&#x27;, 37.57, 126.985)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;버스 정류장 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;73_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex074" data-title="카페 밀집 지도">
+  <div class="card-head">
+    <div><span class="num">074</span><h2>카페 밀집 지도</h2></div>
+    <button class="copy" data-target="code074">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 카페가 모여 있는 지역을 확인한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code074">import folium
+
+points = [(&#x27;카페A&#x27;, 37.56, 126.98), (&#x27;카페B&#x27;, 37.561, 126.981), (&#x27;카페C&#x27;, 37.562, 126.982)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;카페 밀집 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;74_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex075" data-title="도서관 접근성 지도">
+  <div class="card-head">
+    <div><span class="num">075</span><h2>도서관 접근성 지도</h2></div>
+    <button class="copy" data-target="code075">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 도서관 위치와 주변 반경을 함께 표시한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code075">import folium
+
+points = [(&#x27;도서관A&#x27;, 37.56, 126.98), (&#x27;도서관B&#x27;, 37.575, 126.99), (&#x27;도서관C&#x27;, 37.55, 126.965)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;도서관 접근성 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;75_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex076" data-title="학교 주변 안전 지도">
+  <div class="card-head">
+    <div><span class="num">076</span><h2>학교 주변 안전 지도</h2></div>
+    <button class="copy" data-target="code076">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 학교와 위험 신고 지점을 함께 나타낸다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code076">import folium
+
+points = [(&#x27;학교&#x27;, 37.566, 126.978), (&#x27;신고1&#x27;, 37.568, 126.98), (&#x27;신고2&#x27;, 37.563, 126.975)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;학교 주변 안전 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;76_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex077" data-title="관광지 답사 지도">
+  <div class="card-head">
+    <div><span class="num">077</span><h2>관광지 답사 지도</h2></div>
+    <button class="copy" data-target="code077">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 관광지 지점과 이동 순서를 표현한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code077">import folium
+
+points = [(&#x27;출발&#x27;, 37.5796, 126.977), (&#x27;중간&#x27;, 37.572, 126.982), (&#x27;도착&#x27;, 37.5512, 126.9882)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;관광지 답사 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;77_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex078" data-title="택배 배송 지점 지도">
+  <div class="card-head">
+    <div><span class="num">078</span><h2>택배 배송 지점 지도</h2></div>
+    <button class="copy" data-target="code078">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 배송 지점을 표시해 동선을 계획한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code078">import folium
+
+points = [(&#x27;배송1&#x27;, 37.56, 126.97), (&#x27;배송2&#x27;, 37.565, 126.98), (&#x27;배송3&#x27;, 37.57, 126.99)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;택배 배송 지점 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;78_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex079" data-title="지진 관측 지점 지도">
+  <div class="card-head">
+    <div><span class="num">079</span><h2>지진 관측 지점 지도</h2></div>
+    <button class="copy" data-target="code079">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지진 관측소 위치를 점으로 표시한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code079">import folium
+
+points = [(&#x27;관측소A&#x27;, 36.5, 127.5), (&#x27;관측소B&#x27;, 35.8, 128.1), (&#x27;관측소C&#x27;, 37.2, 126.9)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;지진 관측 지점 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;79_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex080" data-title="강수량 관측 지도">
+  <div class="card-head">
+    <div><span class="num">080</span><h2>강수량 관측 지도</h2></div>
+    <button class="copy" data-target="code080">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 관측소별 강수량을 원의 크기로 표현한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code080">import folium
+
+points = [(&#x27;A&#x27;, 37.56, 126.98, 10), (&#x27;B&#x27;, 37.57, 126.99, 30), (&#x27;C&#x27;, 37.55, 126.97, 50)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+bounds = []
+for name, lat, lon, value in points:
+    bounds.append([lat, lon])
+    color = &#x27;red&#x27; if value &gt;= 50 else &#x27;green&#x27;
+    folium.CircleMarker([lat, lon], radius=max(6, value/3), popup=f&#x27;{name}: {value}&#x27;, color=color, fill=True, fill_opacity=0.5).add_to(m)
+m.fit_bounds(bounds)
+m.save(&#x27;80_real_value_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex081" data-title="대기오염 측정소 지도">
+  <div class="card-head">
+    <div><span class="num">081</span><h2>대기오염 측정소 지도</h2></div>
+    <button class="copy" data-target="code081">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 측정소별 PM10 값을 색상으로 표현한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code081">import folium
+
+points = [(&#x27;측정소A&#x27;, 37.56, 126.98, 20), (&#x27;측정소B&#x27;, 37.57, 126.99, 80), (&#x27;측정소C&#x27;, 37.55, 126.97, 45)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+bounds = []
+for name, lat, lon, value in points:
+    bounds.append([lat, lon])
+    color = &#x27;red&#x27; if value &gt;= 50 else &#x27;green&#x27;
+    folium.CircleMarker([lat, lon], radius=max(6, value/3), popup=f&#x27;{name}: {value}&#x27;, color=color, fill=True, fill_opacity=0.5).add_to(m)
+m.fit_bounds(bounds)
+m.save(&#x27;81_real_value_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex082" data-title="자전거 대여소 지도">
+  <div class="card-head">
+    <div><span class="num">082</span><h2>자전거 대여소 지도</h2></div>
+    <button class="copy" data-target="code082">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 대여소 위치와 자전거 수를 함께 보여 준다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code082">import folium
+
+points = [(&#x27;대여소A&#x27;, 37.56, 126.98, 5), (&#x27;대여소B&#x27;, 37.57, 126.99, 18), (&#x27;대여소C&#x27;, 37.55, 126.97, 9)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+bounds = []
+for name, lat, lon, value in points:
+    bounds.append([lat, lon])
+    color = &#x27;red&#x27; if value &gt;= 50 else &#x27;green&#x27;
+    folium.CircleMarker([lat, lon], radius=max(6, value/3), popup=f&#x27;{name}: {value}&#x27;, color=color, fill=True, fill_opacity=0.5).add_to(m)
+m.fit_bounds(bounds)
+m.save(&#x27;82_real_value_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex083" data-title="응급 출동 경로 지도">
+  <div class="card-head">
+    <div><span class="num">083</span><h2>응급 출동 경로 지도</h2></div>
+    <button class="copy" data-target="code083">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 출동 지점에서 도착 지점까지의 경로를 선으로 표시한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code083">import folium
+
+points = [(&#x27;출동지&#x27;, 37.56, 126.98), (&#x27;경유지&#x27;, 37.565, 126.985), (&#x27;도착지&#x27;, 37.57, 126.99)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;응급 출동 경로 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;83_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex084" data-title="산불 위험 지점 지도">
+  <div class="card-head">
+    <div><span class="num">084</span><h2>산불 위험 지점 지도</h2></div>
+    <button class="copy" data-target="code084">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 위험 지점과 위험 반경을 표시한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code084">import folium
+
+points = [(&#x27;위험1&#x27;, 37.56, 126.98, 500), (&#x27;위험2&#x27;, 37.57, 126.99, 800), (&#x27;위험3&#x27;, 37.55, 126.97, 300)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+bounds = []
+for name, lat, lon, value in points:
+    bounds.append([lat, lon])
+    color = &#x27;red&#x27; if value &gt;= 50 else &#x27;green&#x27;
+    folium.CircleMarker([lat, lon], radius=max(6, value/3), popup=f&#x27;{name}: {value}&#x27;, color=color, fill=True, fill_opacity=0.5).add_to(m)
+m.fit_bounds(bounds)
+m.save(&#x27;84_real_value_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex085" data-title="현장체험학습 코스 지도">
+  <div class="card-head">
+    <div><span class="num">085</span><h2>현장체험학습 코스 지도</h2></div>
+    <button class="copy" data-target="code085">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 학생 이동 코스를 지도 위에 순서대로 표시한다. 실제 공공데이터나 학교 조사 자료로 바꾸면 프로젝트형 활동으로 확장할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 점의 위치, 색, 크기, 경로를 조합하면 실생활 데이터를 효과적으로 설명할 수 있다.</p>
+  <pre><code id="code085">import folium
+
+points = [(&#x27;집결&#x27;, 35.815, 127.153), (&#x27;한옥마을&#x27;, 35.817, 127.15), (&#x27;경기전&#x27;, 35.819, 127.149)]
+m = folium.Map(location=[points[0][1], points[0][2]], zoom_start=13)
+route = []
+for name, lat, lon in points:
+    route.append([lat, lon])
+    folium.Marker([lat, lon], popup=name, tooltip=name).add_to(m)
+folium.PolyLine(route, color=&#x27;blue&#x27;, weight=4, tooltip=&#x27;현장체험학습 코스 지도 경로&#x27;).add_to(m)
+m.fit_bounds(route)
+m.save(&#x27;85_real_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex086" data-title="Jupyter Notebook에서 지도 표시">
+  <div class="card-head">
+    <div><span class="num">086</span><h2>Jupyter Notebook에서 지도 표시</h2></div>
+    <button class="copy" data-target="code086">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 주피터 노트북이나 코랩에서는 마지막 줄에 m을 적으면 지도가 셀 출력으로 표시된다. 파일 저장 없이 빠르게 확인할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 노트북 환경에서는 객체 자체를 출력하면 인터랙티브 지도가 나타난다.</p>
+  <pre><code id="code086">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+m</code></pre>
+</section>
+
+<section class="card" id="ex087" data-title="HTML 파일로 저장하기">
+  <div class="card-head">
+    <div><span class="num">087</span><h2>HTML 파일로 저장하기</h2></div>
+    <button class="copy" data-target="code087">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도를 HTML 파일로 저장한다. 생성된 파일은 브라우저에서 열 수 있고, 수업 자료나 보고서에 첨부할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> Folium 결과물은 기본적으로 HTML 웹 지도이다.</p>
+  <pre><code id="code087">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+m.save(&#x27;my_folium_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex088" data-title="지도 제목 넣기">
+  <div class="card-head">
+    <div><span class="num">088</span><h2>지도 제목 넣기</h2></div>
+    <button class="copy" data-target="code088">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도 위쪽에 제목을 넣는다. 독자가 이 지도가 무엇을 보여 주는지 바로 이해할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> folium.Element로 사용자 정의 HTML을 추가할 수 있다.</p>
+  <pre><code id="code088">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+title_html = &#x27;&lt;h3 align=&quot;center&quot; style=&quot;font-size:20px&quot;&gt;&lt;b&gt;서울 주요 지점 지도&lt;/b&gt;&lt;/h3&gt;&#x27;
+m.get_root().html.add_child(folium.Element(title_html))
+m.save(&#x27;88_map_title.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex089" data-title="범례 직접 추가하기">
+  <div class="card-head">
+    <div><span class="num">089</span><h2>범례 직접 추가하기</h2></div>
+    <button class="copy" data-target="code089">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도에 직접 만든 HTML 범례를 추가한다. 마커 색이나 영역 색의 의미를 설명하는 데 꼭 필요하다.</p>
+  <p class="point"><b>활용 포인트:</b> 시각화에는 색의 의미를 설명하는 범례가 중요하다.</p>
+  <pre><code id="code089">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+legend = &#x27;&#x27;&#x27;
+&lt;div style=&quot;position: fixed; bottom: 30px; left: 30px; width: 150px; background: white; border:2px solid gray; padding:10px; z-index:9999;&quot;&gt;
+&lt;b&gt;범례&lt;/b&gt;&lt;br&gt;
+&lt;span style=&quot;color:red&quot;&gt;●&lt;/span&gt; 위험&lt;br&gt;
+&lt;span style=&quot;color:green&quot;&gt;●&lt;/span&gt; 안전
+&lt;/div&gt;
+&#x27;&#x27;&#x27;
+m.get_root().html.add_child(folium.Element(legend))
+m.save(&#x27;89_custom_legend.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex090" data-title="CSV 파일에서 지도 만들기">
+  <div class="card-head">
+    <div><span class="num">090</span><h2>CSV 파일에서 지도 만들기</h2></div>
+    <button class="copy" data-target="code090">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> CSV 파일에 저장된 장소 목록을 읽어 지도에 표시한다. 실제 프로젝트에서 가장 많이 쓰는 입력 방식이다.</p>
+  <p class="point"><b>활용 포인트:</b> CSV 열 이름과 코드의 열 이름이 일치해야 한다.</p>
+  <pre><code id="code090">import folium
+import pandas as pd
+
+df = pd.read_csv(&#x27;places.csv&#x27;)  # columns: name, lat, lon
+m = folium.Map(location=[df[&#x27;lat&#x27;].mean(), df[&#x27;lon&#x27;].mean()], zoom_start=12)
+for _, r in df.iterrows():
+    folium.Marker([r[&#x27;lat&#x27;], r[&#x27;lon&#x27;]], popup=r[&#x27;name&#x27;]).add_to(m)
+m.save(&#x27;90_csv_to_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex091" data-title="엑셀 파일에서 지도 만들기">
+  <div class="card-head">
+    <div><span class="num">091</span><h2>엑셀 파일에서 지도 만들기</h2></div>
+    <button class="copy" data-target="code091">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 엑셀 파일의 위도, 경도, 장소명 열을 읽어 Folium 지도에 나타낸다. 학교 현장에서 조사표를 지도화하기 좋다.</p>
+  <p class="point"><b>활용 포인트:</b> read_excel을 쓰려면 openpyxl 설치가 필요할 수 있다.</p>
+  <pre><code id="code091">import folium
+import pandas as pd
+
+df = pd.read_excel(&#x27;places.xlsx&#x27;)  # columns: name, lat, lon
+m = folium.Map(location=[df[&#x27;lat&#x27;].mean(), df[&#x27;lon&#x27;].mean()], zoom_start=12)
+for _, r in df.iterrows():
+    folium.Marker([r[&#x27;lat&#x27;], r[&#x27;lon&#x27;]], popup=r[&#x27;name&#x27;]).add_to(m)
+m.save(&#x27;91_excel_to_map.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex092" data-title="결측 좌표 제거 후 지도화">
+  <div class="card-head">
+    <div><span class="num">092</span><h2>결측 좌표 제거 후 지도화</h2></div>
+    <button class="copy" data-target="code092">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 위도나 경도가 없는 행을 제거한 뒤 지도에 표시한다. 좌표 결측값을 처리하지 않으면 지도 생성 과정에서 오류가 날 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 공간 데이터 전처리에서는 좌표 결측 확인이 필수이다.</p>
+  <pre><code id="code092">import folium
+import pandas as pd
+
+df = pd.DataFrame({&#x27;name&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;lat&#x27;:[37.56,None,37.58], &#x27;lon&#x27;:[126.98,126.99,None]})
+df = df.dropna(subset=[&#x27;lat&#x27;,&#x27;lon&#x27;])
+m = folium.Map(location=[df[&#x27;lat&#x27;].mean(), df[&#x27;lon&#x27;].mean()], zoom_start=12)
+for _, r in df.iterrows():
+    folium.Marker([r[&#x27;lat&#x27;], r[&#x27;lon&#x27;]], popup=r[&#x27;name&#x27;]).add_to(m)
+m.save(&#x27;92_drop_missing_coords.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex093" data-title="좌표 평균으로 중심 잡기">
+  <div class="card-head">
+    <div><span class="num">093</span><h2>좌표 평균으로 중심 잡기</h2></div>
+    <button class="copy" data-target="code093">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 데이터 전체의 위도와 경도 평균을 지도 중심으로 설정한다. 어느 지역의 데이터인지 모를 때 자동 중심 설정에 유용하다.</p>
+  <p class="point"><b>활용 포인트:</b> 평균 중심은 모든 지점을 대략 포괄하는 초기 화면을 만드는 데 도움이 된다.</p>
+  <pre><code id="code093">import folium
+import pandas as pd
+
+df = pd.DataFrame({&#x27;name&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;lat&#x27;:[37.55,37.56,37.58], &#x27;lon&#x27;:[126.97,126.98,127.00]})
+center = [df[&#x27;lat&#x27;].mean(), df[&#x27;lon&#x27;].mean()]
+m = folium.Map(location=center, zoom_start=12)
+for _, r in df.iterrows():
+    folium.Marker([r[&#x27;lat&#x27;], r[&#x27;lon&#x27;]], popup=r[&#x27;name&#x27;]).add_to(m)
+m.save(&#x27;93_center_by_mean.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex094" data-title="값에 따라 원 크기 정규화">
+  <div class="card-head">
+    <div><span class="num">094</span><h2>값에 따라 원 크기 정규화</h2></div>
+    <button class="copy" data-target="code094">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 값의 최대치에 비례해 원의 크기를 조절한다. 값 차이가 있는 데이터를 지도에서 직관적으로 비교할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> 원 크기 시각화는 큰 값과 작은 값을 한눈에 구분하게 한다.</p>
+  <pre><code id="code094">import folium
+import pandas as pd
+
+df = pd.DataFrame({&#x27;name&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;lat&#x27;:[37.55,37.56,37.57], &#x27;lon&#x27;:[126.97,126.98,126.99], &#x27;value&#x27;:[10,50,100]})
+m = folium.Map(location=[37.56,126.98], zoom_start=12)
+max_value = df[&#x27;value&#x27;].max()
+for _, r in df.iterrows():
+    radius = 5 + 25 * r[&#x27;value&#x27;] / max_value
+    folium.CircleMarker([r[&#x27;lat&#x27;],r[&#x27;lon&#x27;]], radius=radius, popup=f&quot;{r[&#x27;name&#x27;]}: {r[&#x27;value&#x27;]}&quot;, fill=True).add_to(m)
+m.save(&#x27;94_scaled_circle.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex095" data-title="색상 함수 만들기">
+  <div class="card-head">
+    <div><span class="num">095</span><h2>색상 함수 만들기</h2></div>
+    <button class="copy" data-target="code095">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 값을 기준으로 색을 반환하는 함수를 만들고 마커 색상에 적용한다. 코드 재사용성과 가독성이 좋아진다.</p>
+  <p class="point"><b>활용 포인트:</b> 복잡한 조건은 함수로 분리하면 관리하기 쉽다.</p>
+  <pre><code id="code095">import folium
+import pandas as pd
+
+def color_by_value(v):
+    if v &gt;= 80:
+        return &#x27;red&#x27;
+    elif v &gt;= 50:
+        return &#x27;orange&#x27;
+    return &#x27;green&#x27;
+
+df = pd.DataFrame({&#x27;name&#x27;:[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;], &#x27;lat&#x27;:[37.55,37.56,37.57], &#x27;lon&#x27;:[126.97,126.98,126.99], &#x27;value&#x27;:[30,60,90]})
+m = folium.Map(location=[37.56,126.98], zoom_start=12)
+for _, r in df.iterrows():
+    folium.Marker([r[&#x27;lat&#x27;],r[&#x27;lon&#x27;]], popup=f&quot;{r[&#x27;name&#x27;]}: {r[&#x27;value&#x27;]}&quot;, icon=folium.Icon(color=color_by_value(r[&#x27;value&#x27;]))).add_to(m)
+m.save(&#x27;95_color_function.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex096" data-title="IFrame 팝업 사용">
+  <div class="card-head">
+    <div><span class="num">096</span><h2>IFrame 팝업 사용</h2></div>
+    <button class="copy" data-target="code096">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> IFrame을 사용해 팝업 안의 HTML 영역 크기를 안정적으로 조절한다. 설명이 조금 긴 팝업에 적합하다.</p>
+  <p class="point"><b>활용 포인트:</b> IFrame은 팝업 콘텐츠의 너비와 높이를 세밀하게 지정할 수 있다.</p>
+  <pre><code id="code096">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=13)
+html = &#x27;&lt;h4&gt;장소 설명&lt;/h4&gt;&lt;p&gt;긴 설명을 IFrame 안에 넣을 수 있습니다.&lt;/p&gt;&#x27;
+iframe = folium.IFrame(html=html, width=260, height=120)
+popup = folium.Popup(iframe, max_width=300)
+folium.Marker([37.5665,126.9780], popup=popup).add_to(m)
+m.save(&#x27;96_iframe_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex097" data-title="지도에 클릭 좌표 팝업 추가">
+  <div class="card-head">
+    <div><span class="num">097</span><h2>지도에 클릭 좌표 팝업 추가</h2></div>
+    <button class="copy" data-target="code097">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도를 클릭하면 해당 지점의 위도와 경도가 팝업으로 표시된다. 좌표 수집 활동이나 지리 정보 수업에 유용하다.</p>
+  <p class="point"><b>활용 포인트:</b> LatLngPopup은 좌표를 직접 확인하고 기록하는 데 편리하다.</p>
+  <pre><code id="code097">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+folium.LatLngPopup().add_to(m)
+m.save(&#x27;97_latlng_popup.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex098" data-title="클릭 지점 마커 기능">
+  <div class="card-head">
+    <div><span class="num">098</span><h2>클릭 지점 마커 기능</h2></div>
+    <button class="copy" data-target="code098">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 사용자가 지도를 클릭하면 그 위치에 마커가 생긴다. 학생들이 관심 지점을 직접 찍어 보는 활동에 활용할 수 있다.</p>
+  <p class="point"><b>활용 포인트:</b> ClickForMarker는 사용자 참여형 지도 만들기에 적합하다.</p>
+  <pre><code id="code098">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+folium.ClickForMarker(popup=&#x27;선택한 위치&#x27;).add_to(m)
+m.save(&#x27;98_click_for_marker.html&#x27;)</code></pre>
+</section>
+
+<section class="card" id="ex099" data-title="지도 HTML을 문자열로 얻기">
+  <div class="card-head">
+    <div><span class="num">099</span><h2>지도 HTML을 문자열로 얻기</h2></div>
+    <button class="copy" data-target="code099">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 지도 객체의 HTML 표현 일부를 문자열로 얻는다. 웹 페이지 안에 Folium 지도를 삽입하는 원리를 이해할 때 도움이 된다.</p>
+  <p class="point"><b>활용 포인트:</b> _repr_html_()은 노트북 출력에 사용되는 HTML 표현을 반환한다.</p>
+  <pre><code id="code099">import folium
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12)
+html_string = m._repr_html_()
+print(html_string[:200])</code></pre>
+</section>
+
+<section class="card" id="ex100" data-title="프로젝트형 종합 지도">
+  <div class="card-head">
+    <div><span class="num">100</span><h2>프로젝트형 종합 지도</h2></div>
+    <button class="copy" data-target="code100">코드 복사</button>
+  </div>
+  <p class="desc"><b>상세 설명:</b> 마커 클러스터, 경로, 측정 도구, 미니맵, 레이어 제어를 함께 사용하는 종합 예제이다. 실제 수행평가나 탐구 보고서 지도에 가까운 형태이다.</p>
+  <p class="point"><b>활용 포인트:</b> Folium 프로젝트는 여러 기능을 조합해 하나의 공간 이야기를 만드는 것이 핵심이다.</p>
+  <pre><code id="code100">import folium
+from folium.plugins import MarkerCluster, MeasureControl, MiniMap
+
+m = folium.Map(location=[37.5665,126.9780], zoom_start=12, tiles=&#x27;CartoDB positron&#x27;)
+cluster = MarkerCluster(name=&#x27;조사 지점&#x27;).add_to(m)
+points = [(&#x27;A&#x27;,37.56,126.97,20),(&#x27;B&#x27;,37.57,126.98,50),(&#x27;C&#x27;,37.58,126.99,80)]
+for name, lat, lon, value in points:
+    color = &#x27;red&#x27; if value &gt;= 70 else &#x27;blue&#x27;
+    folium.Marker([lat,lon], popup=f&#x27;{name}: {value}&#x27;, icon=folium.Icon(color=color)).add_to(cluster)
+folium.PolyLine([[p[1],p[2]] for p in points], color=&#x27;green&#x27;, weight=4, tooltip=&#x27;조사 이동 경로&#x27;).add_to(m)
+MeasureControl().add_to(m)
+MiniMap().add_to(m)
+folium.LayerControl().add_to(m)
+m.save(&#x27;100_project_map.html&#x27;)</code></pre>
+</section>
+
+  </main>
+</div>
+<footer>Folium 100 Examples for Python Data Visualization</footer>
+<script>
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const id = btn.dataset.target;
+    const text = document.getElementById(id).innerText;
+    try {
+      await navigator.clipboard.writeText(text);
+      const old = btn.innerText;
+      btn.innerText = '복사 완료';
+      setTimeout(() => btn.innerText = old, 1000);
+    } catch(e) {
+      alert('복사할 코드를 직접 선택해 주세요.');
+    }
+  });
+});
+const search = document.getElementById('search');
+search.addEventListener('input', () => {
+  const q = search.value.trim().toLowerCase();
+  document.querySelectorAll('.card').forEach(card => {
+    const text = card.innerText.toLowerCase();
+    card.classList.toggle('hidden', q && !text.includes(q));
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>대한민국 시도·시군구 선택 Folium 지도</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --bg:#f3f6fb; --panel:#ffffff; --ink:#172033; --muted:#667085;
+      --line:#d0d7e2; --accent:#2563eb; --accent2:#0f766e;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: 'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif; background:var(--bg); color:var(--ink); }
+    header { padding:18px 22px; background:linear-gradient(135deg,#1d4ed8,#0f766e); color:white; }
+    header h1 { margin:0 0 6px; font-size:24px; }
+    header p { margin:0; opacity:.94; font-size:14px; }
+    .wrap { display:grid; grid-template-columns: 330px 1fr; gap:14px; padding:14px; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 8px 24px rgba(15,23,42,.08); }
+    .panel h2 { margin:0 0 12px; font-size:18px; }
+    label { display:block; margin:14px 0 6px; font-weight:700; }
+    select, button, input { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; font-size:15px; background:white; }
+    button { margin-top:10px; cursor:pointer; border:0; color:white; background:var(--accent); font-weight:700; }
+    button.secondary { background:var(--accent2); }
+    button.gray { background:#475569; }
+    #map { width:100%; height:calc(100vh - 128px); min-height:610px; border-radius:16px; border:1px solid var(--line); box-shadow:0 8px 24px rgba(15,23,42,.08); }
+    .status { margin-top:14px; padding:12px; background:#eff6ff; border-left:5px solid var(--accent); border-radius:10px; font-size:14px; line-height:1.55; }
+    .small { color:var(--muted); font-size:13px; line-height:1.55; }
+    .pill { display:inline-block; padding:3px 8px; border-radius:999px; background:#e0f2fe; color:#075985; font-size:12px; margin-top:8px; }
+    pre { white-space:pre-wrap; background:#0f172a; color:#e5e7eb; border-radius:12px; padding:12px; overflow:auto; max-height:260px; font-size:12px; }
+    details { margin-top:14px; }
+    summary { cursor:pointer; font-weight:700; }
+    @media (max-width: 900px) { .wrap{grid-template-columns:1fr;} #map{height:66vh; min-height:440px;} }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>대한민국 시도·시군구 선택 Folium 지도</h1>
+    <p>시도와 시군구를 드롭다운으로 선택하면 해당 지역 경계를 표시하고 지도가 자동 이동합니다.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>지역 선택</h2>
+      <label for="sidoSelect">1. 시도 선택</label>
+      <select id="sidoSelect"><option value="">데이터 불러오는 중...</option></select>
+      <label for="sigunguSelect">2. 시군구 선택</label>
+      <select id="sigunguSelect"><option value="">먼저 시도를 선택하세요</option></select>
+      <button type="button" id="moveBtn">선택 지역 지도 보기</button>
+      <button type="button" class="secondary" id="allBtn">대한민국 전체 보기</button>
+      <button type="button" class="gray" id="clearBtn">선택 경계 지우기</button>
+      <div class="status" id="status">행정구역 경계 GeoJSON을 불러오고 있습니다.</div>
+      <p class="small"><span class="pill">사용 방법</span><br>① 시도 선택 → ② 시군구 선택 → ③ 지도 보기. 마우스로 확대·축소, 드래그 이동이 가능합니다.</p>
+      <details>
+        <summary>Folium에서 같은 구조로 생성하는 기본 코드</summary>
+        <pre><code>import folium
+
+m = folium.Map(
+    location=[36.5, 127.8],
+    zoom_start=7,
+    tiles="OpenStreetMap"
+)
+
+# Folium은 Python에서 HTML/JavaScript 지도를 생성합니다.
+# 시도·시군구 드롭다운처럼 브라우저 안에서 동작하는 기능은
+# Folium HTML에 JavaScript를 추가하여 구현합니다.
+
+m.save("korea_folium_dropdown_map.html")</code></pre>
+      </details>
+    </section>
+
+    <section>
+      <div id="map"></div>
+    </section>
+  </main>
+
+<script>
+const GEOJSON_URLS = [
+  'https://cdn.jsdelivr.net/gh/southkorea/southkorea-maps@master/kostat/2013/json/skorea_municipalities_geo_simple.json',
+  'https://cdn.jsdelivr.net/gh/southkorea/southkorea-maps@master/kostat/2012/json/skorea_municipalities_geo_simple.json',
+  'https://cdn.jsdelivr.net/gh/southkorea/southkorea-maps@master/gadm/json/skorea-municipalities-geo.json'
+];
+
+const SIDO_CODE = {
+  '11':'서울특별시', '21':'부산광역시', '22':'대구광역시', '23':'인천광역시',
+  '24':'광주광역시', '25':'대전광역시', '26':'울산광역시', '29':'세종특별자치시',
+  '31':'경기도', '32':'강원특별자치도', '33':'충청북도', '34':'충청남도',
+  '35':'전북특별자치도', '36':'전라남도', '37':'경상북도', '38':'경상남도', '39':'제주특별자치도'
+};
+
+const EN_SIDO = {
+  'Seoul':'서울특별시','Busan':'부산광역시','Daegu':'대구광역시','Incheon':'인천광역시',
+  'Gwangju':'광주광역시','Daejeon':'대전광역시','Ulsan':'울산광역시','Sejong':'세종특별자치시',
+  'Gyeonggi':'경기도','Gyeonggi-do':'경기도','Gangwon':'강원특별자치도','Gangwon-do':'강원특별자치도',
+  'North Chungcheong':'충청북도','Chungcheongbuk-do':'충청북도','South Chungcheong':'충청남도','Chungcheongnam-do':'충청남도',
+  'North Jeolla':'전북특별자치도','Jeollabuk-do':'전북특별자치도','South Jeolla':'전라남도','Jeollanam-do':'전라남도',
+  'North Gyeongsang':'경상북도','Gyeongsangbuk-do':'경상북도','South Gyeongsang':'경상남도','Gyeongsangnam-do':'경상남도',
+  'Jeju':'제주특별자치도','Jeju-do':'제주특별자치도'
+};
+
+const cityCenterFallback = {
+  '서울특별시': [37.5665, 126.9780], '부산광역시': [35.1796, 129.0756], '대구광역시': [35.8714, 128.6014],
+  '인천광역시': [37.4563, 126.7052], '광주광역시': [35.1595, 126.8526], '대전광역시': [36.3504, 127.3845],
+  '울산광역시': [35.5384, 129.3114], '세종특별자치시': [36.4800, 127.2890], '경기도': [37.4138, 127.5183],
+  '강원특별자치도': [37.8228, 128.1555], '충청북도': [36.8000, 127.7000], '충청남도': [36.5184, 126.8000],
+  '전북특별자치도': [35.7175, 127.1530], '전라남도': [34.8679, 126.9910], '경상북도': [36.4919, 128.8889],
+  '경상남도': [35.4606, 128.2132], '제주특별자치도': [33.4996, 126.5312]
+};
+
+let allFeatures = [];
+let selectedLayer = null;
+let sidoLayer = null;
+
+const map = L.map('map', { preferCanvas: true }).setView([36.5, 127.8], 7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+const sidoSelect = document.getElementById('sidoSelect');
+const sigunguSelect = document.getElementById('sigunguSelect');
+const statusBox = document.getElementById('status');
+
+function getProp(feature, keys) {
+  const p = feature.properties || {};
+  for (const k of keys) {
+    if (p[k] !== undefined && p[k] !== null && String(p[k]).trim() !== '') return String(p[k]).trim();
+  }
+  return '';
+}
+
+function getCode(feature) {
+  return getProp(feature, ['code','CODE','adm_cd','ADM_CD','SIG_CD','sgg_cd','id','ID','GID_2']);
+}
+
+function getSido(feature) {
+  const p = feature.properties || {};
+  const direct = getProp(feature, ['sido','SIDO','sido_nm','SIDO_NM','CTP_KOR_NM','name_1','NAME_1','province','Province']);
+  if (direct) return EN_SIDO[direct] || direct;
+  const code = getCode(feature).replace(/\D/g, '');
+  if (code.length >= 2 && SIDO_CODE[code.slice(0,2)]) return SIDO_CODE[code.slice(0,2)];
+  const name = getProp(feature, ['name','NAME','adm_nm','ADM_NM']);
+  if (name.includes(' ')) return name.split(' ')[0];
+  return '기타';
+}
+
+function getSigungu(feature) {
+  let name = getProp(feature, ['sigungu','SIGUNGU','sgg_nm','SIG_KOR_NM','name','NAME','name_2','NAME_2','adm_nm','ADM_NM']);
+  if (!name) name = getProp(feature, ['NL_NAME_2','VARNAME_2','HASC_2']);
+  if (name.includes(' ')) {
+    const parts = name.split(/\s+/);
+    name = parts[parts.length - 1];
+  }
+  return name || '이름 없음';
+}
+
+function featureLabel(feature) {
+  return `${getSido(feature)} ${getSigungu(feature)}`;
+}
+
+function setStatus(html) { statusBox.innerHTML = html; }
+
+async function fetchFirstAvailable(urls) {
+  let lastError = null;
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { cache: 'force-cache' });
+      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+      const data = await res.json();
+      return { data, url };
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError || new Error('GeoJSON URL을 불러오지 못했습니다.');
+}
+
+function normalizeFeatures(data) {
+  if (data.type === 'FeatureCollection') return data.features || [];
+  if (Array.isArray(data.features)) return data.features;
+  return [];
+}
+
+function populateSido() {
+  const sidoNames = Array.from(new Set(allFeatures.map(getSido))).filter(Boolean).sort((a,b)=>a.localeCompare(b,'ko'));
+  sidoSelect.innerHTML = '<option value="">시도 선택</option>' + sidoNames.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+}
+
+function populateSigungu(sido) {
+  const list = allFeatures
+    .filter(f => getSido(f) === sido)
+    .map((f, i) => ({ name: getSigungu(f), index: allFeatures.indexOf(f) }))
+    .sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+  sigunguSelect.innerHTML = '<option value="">시군구 선택</option>' + list.map(item => `<option value="${item.index}">${escapeHtml(item.name)}</option>`).join('');
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+}
+
+function showSidoBoundary(sido) {
+  if (sidoLayer) map.removeLayer(sidoLayer);
+  const features = allFeatures.filter(f => getSido(f) === sido);
+  if (!features.length) return;
+  sidoLayer = L.geoJSON({type:'FeatureCollection', features}, {
+    style: { color:'#64748b', weight:1.2, fillColor:'#93c5fd', fillOpacity:0.08 },
+    onEachFeature: (feature, layer) => layer.bindTooltip(featureLabel(feature))
+  }).addTo(map);
+  try { map.fitBounds(sidoLayer.getBounds(), { padding:[20,20] }); } catch(e) {}
+}
+
+function showSigungu(index) {
+  if (selectedLayer) map.removeLayer(selectedLayer);
+  const feature = allFeatures[Number(index)];
+  if (!feature) return;
+  selectedLayer = L.geoJSON(feature, {
+    style: { color:'#dc2626', weight:3, fillColor:'#f97316', fillOpacity:0.24 }
+  }).addTo(map);
+  selectedLayer.bindPopup(`<b>${escapeHtml(featureLabel(feature))}</b><br>선택한 시군구 경계입니다.`).openPopup();
+  try { map.fitBounds(selectedLayer.getBounds(), { padding:[30,30] }); } catch(e) {}
+  setStatus(`<b>${escapeHtml(featureLabel(feature))}</b> 지역을 표시했습니다.`);
+}
+
+sidoSelect.addEventListener('change', () => {
+  const sido = sidoSelect.value;
+  sigunguSelect.innerHTML = '<option value="">시군구 선택</option>';
+  if (!sido) return;
+  populateSigungu(sido);
+  showSidoBoundary(sido);
+  setStatus(`<b>${escapeHtml(sido)}</b>의 시군구 목록을 불러왔습니다.`);
+});
+
+sigunguSelect.addEventListener('change', () => {
+  if (sigunguSelect.value !== '') showSigungu(sigunguSelect.value);
+});
+
+document.getElementById('moveBtn').addEventListener('click', () => {
+  if (sigunguSelect.value !== '') showSigungu(sigunguSelect.value);
+  else if (sidoSelect.value) showSidoBoundary(sidoSelect.value);
+  else setStatus('먼저 시도와 시군구를 선택하세요.');
+});
+
+document.getElementById('allBtn').addEventListener('click', () => {
+  map.setView([36.5, 127.8], 7);
+  setStatus('대한민국 전체 지도로 이동했습니다.');
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (selectedLayer) { map.removeLayer(selectedLayer); selectedLayer = null; }
+  if (sidoLayer) { map.removeLayer(sidoLayer); sidoLayer = null; }
+  setStatus('선택 경계를 지웠습니다.');
+});
+
+async function init() {
+  try {
+    const { data, url } = await fetchFirstAvailable(GEOJSON_URLS);
+    allFeatures = normalizeFeatures(data);
+    if (!allFeatures.length) throw new Error('GeoJSON Feature가 없습니다.');
+    populateSido();
+    setStatus(`행정구역 경계 데이터 <b>${allFeatures.length}개</b>를 불러왔습니다.<br><span class="small">자료 URL: ${escapeHtml(url)}</span>`);
+  } catch (err) {
+    allFeatures = [];
+    sidoSelect.innerHTML = '<option value="">경계 데이터 불러오기 실패</option>';
+    sigunguSelect.innerHTML = '<option value="">인터넷 연결 또는 URL 확인 필요</option>';
+    Object.entries(cityCenterFallback).forEach(([name, latlng]) => {
+      L.circleMarker(latlng, { radius:5, color:'#2563eb', fillOpacity:.75 }).addTo(map).bindTooltip(name);
+    });
+    setStatus('외부 GeoJSON 데이터를 불러오지 못했습니다. 인터넷 연결 상태를 확인한 뒤 다시 여세요.<br>기본 시도 중심점만 표시했습니다.');
+  }
+}
+
+init();
+</script>
+</body>
+</html>
