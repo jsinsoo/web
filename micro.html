@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>마이크로비트 라디오 통신 퀴즈</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:'Malgun Gothic',Arial,sans-serif;background:linear-gradient(135deg,#eef7ff,#f8fbff);color:#172033;line-height:1.65}
+  header{background:linear-gradient(135deg,#2563eb,#14b8a6);color:white;padding:28px 18px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.14)}
+  header h1{margin:0;font-size:30px} header p{margin:8px 0 0;opacity:.95}
+  main{width:min(1180px,96vw);margin:22px auto 50px}.card{background:white;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 8px 22px rgba(15,23,42,.09);border:1px solid #e5edf7}
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:12px}.info label{font-weight:700}.info input{width:100%;padding:12px;border:1px solid #bfdbfe;border-radius:12px;font-size:16px;margin-top:5px}
+  .q{border:1px solid #dbeafe;border-radius:16px;padding:18px;margin:16px 0;background:#fbfdff}.q h3{margin:0 0 10px;color:#1d4ed8}.choice{display:block;padding:9px 10px;margin:7px 0;border-radius:10px;border:1px solid #e2e8f0;background:#fff;cursor:pointer}.choice:hover{background:#eff6ff}
+  input[type=radio]{margin-right:8px}.btns{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.btn{border:0;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:800;cursor:pointer;color:white;background:#2563eb}.btn.secondary{background:#64748b}.btn.green{background:#059669}.btn:hover{filter:brightness(.96)}
+  #result{font-size:20px;font-weight:900;color:#0f766e}.answerBox{display:none;margin-top:12px;padding:12px;border-radius:12px;background:#f0fdf4;border-left:6px solid #10b981}.wrong{background:#fff1f2;border-left-color:#f43f5e}.correctText{font-weight:900;color:#047857}.wrongText{font-weight:900;color:#be123c}.small{font-size:14px;color:#475569}.badge{display:inline-block;background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:3px 10px;font-size:13px;margin-right:6px}.code{font-family:Consolas,monospace;background:#0f172a;color:#e2e8f0;padding:12px;border-radius:10px;overflow:auto;white-space:pre-wrap}.topNote{background:#ecfeff;border-left:6px solid #06b6d4}.scoreTable{width:100%;border-collapse:collapse;margin-top:10px}.scoreTable th,.scoreTable td{border:1px solid #dbeafe;padding:8px;text-align:center}.scoreTable th{background:#eff6ff}@media(max-width:700px){.info{grid-template-columns:1fr} header h1{font-size:23px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>마이크로비트 라디오 통신 퀴즈</h1>
+  <p>OX 10문항 + 5지선다형 10문항 · 자동 채점 · 상세 풀이 · 결과 TXT 저장</p>
+</header>
+<main>
+  <section class="card topNote">
+    <b>학습 핵심</b><br>
+    마이크로비트의 라디오 통신은 같은 그룹 번호를 사용하는 기기끼리 무선으로 문자열, 숫자, 이름-값 쌍 등을 주고받는 기능입니다. 송신과 수신을 구분하고, 그룹 번호·전송 데이터 형식·수신 이벤트를 정확히 이해하는 것이 중요합니다.
+  </section>
+
+  <section class="card">
+    <h2>응시자 정보</h2>
+    <div class="info">
+      <label>학번<input id="studentId" placeholder="예: 1101"></label>
+      <label>이름<input id="studentName" placeholder="예: 홍길동"></label>
+    </div>
+    <p class="small">제출 후 <b>학번_이름_점수_마이크로비트.txt</b> 파일이 저장됩니다.</p>
+  </section>
+
+  <form id="quizForm"></form>
+
+  <section class="card">
+    <div class="btns">
+      <button class="btn" onclick="gradeQuiz()" type="button">채점하기</button>
+      <button class="btn green" onclick="downloadTxt()" type="button">TXT 저장</button>
+      <button class="btn secondary" onclick="resetQuiz()" type="button">다시 풀기</button>
+    </div>
+    <div id="result"></div>
+    <div id="summary"></div>
+  </section>
+</main>
+<script>
+const questions = [
+  {type:'OX', q:'마이크로비트 라디오 통신에서 두 기기가 서로 메시지를 주고받으려면 같은 라디오 그룹 번호를 사용하는 것이 좋다.', choices:['O','X'], answer:'O', exp:'라디오 그룹 번호는 같은 채널처럼 작동합니다. 같은 그룹을 설정해야 같은 공간의 여러 마이크로비트 중 원하는 기기끼리 통신하기 쉽습니다.'},
+  {type:'OX', q:'radio.send_string("hello")는 숫자만 보낼 수 있는 명령이다.', choices:['O','X'], answer:'X', exp:'send_string은 문자열을 보내는 명령입니다. 숫자를 보낼 때는 send_number를 사용할 수 있습니다.'},
+  {type:'OX', q:'라디오 통신은 유선 USB 케이블로 연결된 마이크로비트끼리만 가능하다.', choices:['O','X'], answer:'X', exp:'라디오 통신은 무선 통신입니다. USB 케이블은 프로그램 업로드나 전원 공급에 쓰일 수 있지만, 라디오 메시지 전송 자체는 무선으로 이루어집니다.'},
+  {type:'OX', q:'수신 프로그램에는 받은 메시지를 처리하는 코드가 필요하다.', choices:['O','X'], answer:'O', exp:'송신기가 메시지를 보내도 수신기가 그 메시지를 읽고 처리하는 코드가 없으면 화면 출력이나 동작 변화가 나타나지 않습니다.'},
+  {type:'OX', q:'같은 그룹을 사용하는 주변 마이크로비트가 많으면 의도하지 않은 메시지를 받을 수 있다.', choices:['O','X'], answer:'O', exp:'라디오 그룹이 같으면 여러 기기가 같은 메시지를 받을 수 있습니다. 수업에서는 그룹 번호를 팀별로 다르게 정하는 것이 좋습니다.'},
+  {type:'OX', q:'라디오 통신으로 받은 문자열은 LED 화면에 출력하거나 조건문으로 판단할 수 있다.', choices:['O','X'], answer:'O', exp:'받은 문자열을 변수에 저장한 뒤 display.show(), if 문 등으로 활용할 수 있습니다.'},
+  {type:'OX', q:'radio.on() 또는 radio.config(group=번호) 없이도 모든 상황에서 라디오 통신이 자동으로 완벽하게 동작한다고 볼 수 있다.', choices:['O','X'], answer:'X', exp:'파이썬에서는 radio.on()으로 라디오 기능을 켜고, 필요하면 radio.config(group=번호)로 그룹을 맞추는 과정이 중요합니다.'},
+  {type:'OX', q:'마이크로비트 라디오 통신은 신호 범위와 주변 환경의 영향을 받을 수 있다.', choices:['O','X'], answer:'O', exp:'무선 통신은 거리, 장애물, 전파 간섭 등 환경의 영향을 받을 수 있으므로 실험 시 기기 간 거리를 조절해야 합니다.'},
+  {type:'OX', q:'송신기는 메시지를 보내기만 하고, 수신기는 메시지를 받기만 하도록 만들 수도 있다.', choices:['O','X'], answer:'O', exp:'역할을 나누어 한 기기는 송신 전용, 다른 기기는 수신 전용처럼 설계할 수 있습니다. 양방향 통신도 가능합니다.'},
+  {type:'OX', q:'라디오 통신에서 보안이나 개인정보 보호는 전혀 고려하지 않아도 된다.', choices:['O','X'], answer:'X', exp:'무선 메시지는 같은 그룹을 사용하는 다른 기기에 수신될 수 있으므로 이름, 전화번호, 비밀번호 같은 개인정보는 보내지 않는 것이 바람직합니다.'},
+  {type:'5지선다', q:'다음 중 마이크로비트 라디오 통신에서 그룹 번호를 설정하는 주된 이유로 가장 알맞은 것은?', choices:['LED 밝기를 자동으로 조절하기 위해','통신할 기기끼리 같은 채널을 사용하도록 하기 위해','버튼 A와 B를 동시에 누르기 위해','배터리 충전을 빠르게 하기 위해','파이썬 문법 오류를 자동 수정하기 위해'], answer:'통신할 기기끼리 같은 채널을 사용하도록 하기 위해', exp:'그룹 번호는 통신 채널처럼 작동합니다. 같은 그룹의 기기끼리 메시지를 주고받도록 설정합니다.'},
+  {type:'5지선다', q:'다음 코드의 역할로 가장 알맞은 것은?\n\nradio.send_string("ON")', choices:['받은 문자열을 삭제한다','문자열 ON을 라디오로 전송한다','라디오 그룹을 0으로 바꾼다','LED를 모두 끈다','가속도 센서를 초기화한다'], answer:'문자열 ON을 라디오로 전송한다', exp:'send_string("ON")은 문자열 데이터 ON을 무선 라디오 메시지로 보내는 명령입니다.'},
+  {type:'5지선다', q:'라디오 통신 실험에서 송신기는 메시지를 보내는데 수신기가 반응하지 않을 때 가장 먼저 확인할 내용으로 적절한 것은?', choices:['두 기기의 라디오 그룹 번호가 같은지 확인한다','마이크로비트를 물에 담가 본다','파이썬 파일 이름을 무조건 길게 바꾼다','LED 화면을 손으로 가린다','버튼을 모두 제거한다'], answer:'두 기기의 라디오 그룹 번호가 같은지 확인한다', exp:'수신이 안 될 때는 라디오 기능이 켜졌는지, 그룹 번호가 같은지, 수신 코드가 있는지, 거리와 전원 상태를 확인해야 합니다.'},
+  {type:'5지선다', q:'다음 중 라디오 통신으로 보내기에 가장 부적절한 데이터는?', choices:['팀 번호','온도 측정값','버튼을 눌렀다는 신호','간단한 게임 점수','개인 비밀번호'], answer:'개인 비밀번호', exp:'라디오 메시지는 같은 그룹의 다른 기기에 수신될 수 있으므로 개인정보나 비밀번호를 보내면 안 됩니다.'},
+  {type:'5지선다', q:'수신한 메시지가 "LEFT"이면 왼쪽 화살표를 표시하고, "RIGHT"이면 오른쪽 화살표를 표시하려고 한다. 가장 필요한 프로그래밍 구조는?', choices:['반복 없이 무조건 한 줄 출력만 사용','조건문을 사용하여 받은 문자열을 비교','파일 저장 명령만 사용','그래프 그리기 명령만 사용','정렬 알고리즘만 사용'], answer:'조건문을 사용하여 받은 문자열을 비교', exp:'받은 문자열 값에 따라 서로 다른 동작을 하려면 if, elif 같은 조건문이 필요합니다.'},
+  {type:'5지선다', q:'마이크로비트 두 대로 간단한 무선 신호등을 만들 때 송신기가 보낼 수 있는 문자열로 가장 자연스러운 묶음은?', choices:['"RED", "GREEN", "YELLOW"','"CAT", "DOG", "BIRD"','"HTML", "CSS", "JS"','"MON", "TUE", "WED"','"CPU", "RAM", "SSD"'], answer:'"RED", "GREEN", "YELLOW"', exp:'신호등 상태를 표현하려면 빨강, 초록, 노랑 같은 상태 문자열을 보내는 것이 자연스럽습니다.'},
+  {type:'5지선다', q:'여러 모둠이 한 교실에서 동시에 마이크로비트 라디오 실험을 할 때 가장 좋은 방법은?', choices:['모든 모둠이 반드시 같은 그룹 1만 사용한다','모둠별로 서로 다른 그룹 번호를 배정한다','수신 코드를 모두 삭제한다','전원을 끄고 실험한다','메시지는 모두 비밀번호로만 보낸다'], answer:'모둠별로 서로 다른 그룹 번호를 배정한다', exp:'모둠별 그룹 번호를 다르게 하면 다른 모둠의 메시지를 잘못 받는 문제를 줄일 수 있습니다.'},
+  {type:'5지선다', q:'다음 중 라디오 통신 프로젝트 예시로 가장 알맞은 것은?', choices:['버튼을 누르면 다른 마이크로비트에 점수 1점을 보내는 게임','종이에 연필로만 표를 그리는 활동','전원을 연결하지 않고 LED를 켜는 활동','HTML 문서의 글꼴만 바꾸는 활동','엑셀 파일을 인쇄만 하는 활동'], answer:'버튼을 누르면 다른 마이크로비트에 점수 1점을 보내는 게임', exp:'라디오 통신은 무선으로 신호나 값을 보내는 데 적합하므로 무선 게임, 리모컨, 알림 장치 등에 활용할 수 있습니다.'},
+  {type:'5지선다', q:'radio.receive()로 받은 값이 없을 때 일반적으로 반환될 수 있는 값에 대한 설명으로 가장 알맞은 것은?', choices:['항상 숫자 100을 반환한다','항상 문자열 SUCCESS를 반환한다','받은 메시지가 없으면 None처럼 비어 있음을 나타낼 수 있다','무조건 컴퓨터가 꺼진다','라디오 그룹이 자동으로 99가 된다'], answer:'받은 메시지가 없으면 None처럼 비어 있음을 나타낼 수 있다', exp:'수신할 메시지가 없으면 None과 같은 값으로 판단할 수 있으므로, 실제 메시지가 있을 때만 처리하도록 조건문을 쓰는 것이 좋습니다.'},
+  {type:'5지선다', q:'마이크로비트 라디오 통신 프로그램을 설계할 때 가장 바람직한 태도는?', choices:['송신 데이터 형식과 수신 처리 방식을 미리 정한다','아무 그룹이나 매번 무작위로 바꾼다','개인정보를 테스트 메시지로 보낸다','오류가 나도 원인을 확인하지 않는다','수신 장치는 항상 필요 없다고 가정한다'], answer:'송신 데이터 형식과 수신 처리 방식을 미리 정한다', exp:'무선 통신 프로젝트는 어떤 값을 보낼지, 어떤 조건에서 보낼지, 받은 뒤 어떻게 처리할지 미리 정하면 오류를 줄일 수 있습니다.'}
+];
+
+function renderQuiz(){
+  const form = document.getElementById('quizForm');
+  form.innerHTML = '';
+  questions.forEach((item, idx)=>{
+    const div = document.createElement('section');
+    div.className = 'card q';
+    const qText = item.q.replace(/\n/g,'<br>');
+    div.innerHTML = `<h3><span class="badge">${item.type}</span>문항 ${idx+1}</h3><p>${qText}</p>`;
+    item.choices.forEach((ch, cidx)=>{
+      const id = `q${idx}_${cidx}`;
+      const label = document.createElement('label');
+      label.className = 'choice';
+      label.innerHTML = `<input type="radio" name="q${idx}" value="${escapeHtml(ch)}" id="${id}">${escapeHtml(ch)}`;
+      div.appendChild(label);
+    });
+    const ans = document.createElement('div');
+    ans.className = 'answerBox';
+    ans.id = `ans${idx}`;
+    div.appendChild(ans);
+    form.appendChild(div);
+  });
+}
+function escapeHtml(str){return String(str).replace(/[&<>'"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
+function getSelected(i){const el=document.querySelector(`input[name="q${i}"]:checked`);return el?el.value:'';}
+function gradeQuiz(){
+  let score=0, rows='';
+  questions.forEach((item,idx)=>{
+    const user = getSelected(idx);
+    const ok = user === item.answer;
+    if(ok) score += 5;
+    const box = document.getElementById(`ans${idx}`);
+    box.style.display='block';
+    box.className = ok ? 'answerBox' : 'answerBox wrong';
+    box.innerHTML = `${ok?'<span class="correctText">정답</span>':'<span class="wrongText">오답</span>'}<br>
+      내 답: <b>${user?escapeHtml(user):'미응답'}</b><br>
+      정답: <b>${escapeHtml(item.answer)}</b><br>
+      풀이: ${escapeHtml(item.exp)}`;
+    rows += `<tr><td>${idx+1}</td><td>${item.type}</td><td>${ok?'O':'X'}</td><td>${user?escapeHtml(user):'미응답'}</td><td>${escapeHtml(item.answer)}</td></tr>`;
+  });
+  document.getElementById('result').innerHTML = `총점: ${score}점 / 100점`;
+  document.getElementById('summary').innerHTML = `<table class="scoreTable"><tr><th>문항</th><th>유형</th><th>정오</th><th>내 답</th><th>정답</th></tr>${rows}</table>`;
+  return score;
+}
+function downloadTxt(){
+  const sid = document.getElementById('studentId').value.trim();
+  const name = document.getElementById('studentName').value.trim();
+  if(!sid || !name){alert('학번과 이름을 입력하세요.');return;}
+  const score = gradeQuiz();
+  const now = new Date();
+  const time = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  let txt = '';
+  txt += `마이크로비트 라디오통신 퀴즈 결과\n`;
+  txt += `학번: ${sid}\n이름: ${name}\n점수: ${score}/100\n응시시각: ${time}\n`;
+  txt += `====================================\n\n`;
+  questions.forEach((item,idx)=>{
+    const user = getSelected(idx) || '미응답';
+    const ok = user === item.answer;
+    txt += `[${idx+1}] ${item.type}\n`;
+    txt += `문제: ${item.q}\n`;
+    txt += `내 답: ${user}\n정답: ${item.answer}\n결과: ${ok?'정답':'오답'}\n`;
+    txt += `상세 풀이: ${item.exp}\n`;
+    txt += `------------------------------------\n`;
+  });
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${sid}_${name}_${score}_마이크로비트.txt`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(a.href);
+}
+function resetQuiz(){
+  document.getElementById('quizForm').reset();
+  document.querySelectorAll('.answerBox').forEach(b=>{b.style.display='none';b.innerHTML='';});
+  document.getElementById('result').innerHTML='';
+  document.getElementById('summary').innerHTML='';
+}
+renderQuiz();
+</script>
+</body>
+</html>
