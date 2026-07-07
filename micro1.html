@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이크로비트 라디오 통신 퀴즈</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:'Malgun Gothic',Arial,sans-serif;background:#f3f7fb;color:#172033;line-height:1.7}.top{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,#1e3a8a,#0f766e);color:#fff;padding:18px 28px;box-shadow:0 4px 16px rgba(0,0,0,.18)}.top h1{margin:0;font-size:25px}.top p{margin:4px 0 0;color:#e0f2fe}.wrap{width:min(1200px,96%);margin:24px auto 70px}.panel,.q,.result{background:#fff;border:1px solid #d8e2ef;border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.07);padding:22px;margin:18px 0}.info{display:grid;grid-template-columns:1fr 1fr;gap:14px}.info label{font-weight:700}.info input{width:100%;padding:12px;border:1px solid #b8c6d9;border-radius:12px;font-size:16px;margin-top:6px}.summary{background:#ecfeff;border-left:6px solid #06b6d4;padding:14px;border-radius:12px;margin-top:14px}.q h3{margin:0 0 10px;color:#1e3a8a}.tag{display:inline-block;background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:3px 10px;font-weight:700;font-size:13px;margin-right:8px}.choice{display:block;margin:8px 0;padding:11px 13px;border:1px solid #d4dde9;border-radius:12px;background:#f8fafc;cursor:pointer}.choice:hover{background:#eef6ff}.choice input{margin-right:8px}.btns{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}button{border:0;border-radius:12px;padding:12px 18px;font-weight:800;cursor:pointer;font-size:15px}.primary{background:#2563eb;color:white}.secondary{background:#475569;color:white}.danger{background:#ef4444;color:white}.result{display:none}.correct{border-color:#22c55e;background:#f0fdf4}.wrong{border-color:#ef4444;background:#fef2f2}.explain{margin-top:12px;padding:13px;border-radius:12px;background:#f8fafc;border-left:5px solid #64748b}.ok{color:#15803d;font-weight:800}.no{color:#b91c1c;font-weight:800}.score{font-size:24px;font-weight:900;color:#1e40af}.footer{font-size:13px;color:#64748b;text-align:center;margin-top:30px}@media(max-width:760px){.info{grid-template-columns:1fr}.top h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header class="top">
+<h1>마이크로비트 라디오 통신 퀴즈</h1>
+<p>OX 10문항 + 5지선다형 10문항 · 자동 채점 · 상세 풀이 · TXT 저장</p>
+</header>
+<main class="wrap">
+<section class="panel">
+<h2>응시자 정보</h2>
+<div class="info">
+<div><label for="studentId">학번</label><input id="studentId" placeholder="예: 1101"></div>
+<div><label for="studentName">이름</label><input id="studentName" placeholder="예: 홍길동"></div>
+</div>
+<div class="summary">
+<b>핵심 정리:</b> 마이크로비트 라디오 통신은 같은 radio group을 설정한 장치끼리 문자열, 숫자, 이름-값 형태의 데이터를 주고받는 무선 통신 기능입니다. 송신 명령과 수신 이벤트의 자료형이 서로 맞아야 안정적으로 동작합니다.
+</div>
+</section>
+<form id="quizForm"></form>
+<div class="btns">
+<button class="primary" onclick="gradeQuiz()" type="button">제출하고 채점하기</button>
+<button class="secondary" onclick="downloadTxt()" type="button">TXT 저장하기</button>
+<button class="danger" onclick="location.reload()" type="button">다시 풀기</button>
+</div>
+<section id="result" class="result"></section>
+<p class="footer">파일명: 학번_이름_점수_마이크로비트.txt</p>
+</main>
+<script>
+const questions = [
+{type:'OX',q:'마이크로비트 라디오 통신에서 두 장치가 서로 통신하려면 radio.set_group()의 그룹 번호가 같아야 한다.',choices:['O','X'],answer:'O',ex:'radio.set_group(번호)는 무선 통신 그룹을 정합니다. 송신기와 수신기의 그룹 번호가 같아야 같은 채널에서 데이터를 주고받을 수 있습니다.'},
+{type:'OX',q:'radio.send_string("Hello")는 숫자 데이터를 전송할 때 사용하는 명령이다.',choices:['O','X'],answer:'X',ex:'send_string은 문자열을 전송할 때 사용합니다. 숫자 데이터는 radio.send_number(숫자)를 사용하는 것이 적절합니다.'},
+{type:'OX',q:'radio.on_received_string()은 문자열 메시지를 받았을 때 실행되는 이벤트 함수와 연결된다.',choices:['O','X'],answer:'O',ex:'문자열을 받는 수신 코드는 on_received_string 이벤트를 사용합니다. 받은 문자열을 LED에 출력하거나 조건문으로 구분할 수 있습니다.'},
+{type:'OX',q:'라디오 그룹 번호가 다르면 같은 공간에 있어도 메시지를 받지 못할 수 있다.',choices:['O','X'],answer:'O',ex:'그룹 번호는 통신 채널 역할을 합니다. 같은 장소에 있어도 그룹이 다르면 일반적으로 서로의 메시지를 처리하지 않습니다.'},
+{type:'OX',q:'radio.send_value("temp", t)는 이름과 값을 함께 보내는 방식이다.',choices:['O','X'],answer:'O',ex:'send_value는 name과 value를 함께 보냅니다. 예를 들어 temp라는 이름으로 온도값을 보내면 수신 쪽에서 name이 temp인지 확인할 수 있습니다.'},
+{type:'OX',q:'수신 코드에서 msg == "LEFT"처럼 문자열을 비교할 때 송신 문자열의 대소문자는 달라도 항상 같은 값으로 인식된다.',choices:['O','X'],answer:'X',ex:'문자열 비교는 대소문자와 철자를 정확히 구분합니다. "LEFT"와 "left"는 서로 다른 문자열입니다.'},
+{type:'OX',q:'radio.send_number(n)으로 보낸 값은 radio.on_received_number()에서 받을 수 있다.',choices:['O','X'],answer:'O',ex:'숫자 전송은 send_number, 숫자 수신은 on_received_number를 함께 사용합니다. 송신과 수신의 자료형을 맞추는 것이 중요합니다.'},
+{type:'OX',q:'마이크로비트 라디오 통신은 센서값을 다른 마이크로비트로 보내는 활동에 활용할 수 있다.',choices:['O','X'],answer:'O',ex:'온도, 기울기, 밝기, 버튼 입력 등 여러 센서값을 라디오로 전송하여 원격 측정이나 협동 프로젝트를 만들 수 있습니다.'},
+{type:'OX',q:'수신 이벤트 함수는 데이터를 받지 않아도 계속 반복 실행되는 기본 반복문이다.',choices:['O','X'],answer:'X',ex:'수신 이벤트 함수는 해당 자료형의 데이터가 도착했을 때 실행됩니다. 계속 반복 실행되는 코드는 basic.forever와 같은 반복 구조입니다.'},
+{type:'OX',q:'무선 가위바위보 예제에서 (choice + 1) % 3은 선택값을 0, 1, 2 범위에서 순환시키는 데 사용할 수 있다.',choices:['O','X'],answer:'O',ex:'나머지 연산 % 3을 사용하면 choice가 0, 1, 2를 반복합니다. 0=바위, 1=가위, 2=보처럼 선택 상태를 관리할 수 있습니다.'},
+{type:'MC',q:'마이크로비트 2대가 같은 라디오 통신을 하기 위해 가장 먼저 맞춰야 할 설정은?',choices:['LED 밝기','radio.set_group() 번호','버튼 A의 이름','화면 회전 방향','전원 케이블 색상'],answer:'radio.set_group() 번호',ex:'라디오 그룹 번호는 통신 채널입니다. 송신기와 수신기가 같은 그룹 번호를 사용해야 메시지가 전달됩니다.'},
+{type:'MC',q:'문자열 "LEFT"를 보내는 데 가장 알맞은 명령은?',choices:['radio.send_number("LEFT")','radio.send_string("LEFT")','basic.show_number("LEFT")','radio.on_received_string("LEFT")','input.temperature("LEFT")'],answer:'radio.send_string("LEFT")',ex:'LEFT는 문자열이므로 radio.send_string("LEFT")로 보내야 합니다. on_received_string은 보내는 명령이 아니라 받았을 때 실행되는 이벤트입니다.'},
+{type:'MC',q:'숫자 6을 무선으로 보낸 뒤 수신 쪽에서 처리하려면 가장 어울리는 수신 이벤트는?',choices:['radio.on_received_number','radio.on_received_string','input.on_button_pressed','basic.forever','music.play'],answer:'radio.on_received_number',ex:'숫자를 보낼 때는 send_number, 받을 때는 on_received_number를 사용합니다.'},
+{type:'MC',q:'radio.send_value("temp", 25)에서 "temp"의 역할로 가장 알맞은 것은?',choices:['그룹 번호','버튼 이름','값의 이름표','LED 밝기','전송 거리'],answer:'값의 이름표',ex:'send_value는 이름과 값을 함께 보냅니다. temp는 이 값이 온도라는 뜻을 알려 주는 이름표 역할을 합니다.'},
+{type:'MC',q:'버튼 A를 누르면 메시지를 보내도록 만들 때 주로 사용하는 이벤트는?',choices:['input.on_button_pressed(Button.A, 함수)','radio.set_group(Button.A)','basic.pause(Button.A)','radio.send_value(Button.A)','led.plot_bar_graph(Button.A)'],answer:'input.on_button_pressed(Button.A, 함수)',ex:'버튼 입력 이벤트는 input.on_button_pressed를 사용합니다. 이 이벤트 안에서 radio.send_string이나 radio.send_number를 실행하면 버튼으로 송신할 수 있습니다.'},
+{type:'MC',q:'수신한 문자열이 "RIGHT"일 때 오른쪽 화살표를 표시하려면 필요한 프로그래밍 개념은?',choices:['조건문','파일 저장','정렬 알고리즘','웹 크롤링','데이터베이스 조인'],answer:'조건문',ex:'받은 메시지가 LEFT인지 RIGHT인지 구분하려면 if, elif 조건문이 필요합니다.'},
+{type:'MC',q:'온도값을 3초마다 보내는 예제에서 basic.pause(3000)의 의미는?',choices:['3초 동안 기다린다','3000개의 그룹을 만든다','온도를 3000도로 바꾼다','문자열을 숫자로 변환한다','수신 기능을 삭제한다'],answer:'3초 동안 기다린다',ex:'MakeCode Python에서 basic.pause(3000)은 3000밀리초, 즉 3초 동안 기다리라는 뜻입니다.'},
+{type:'MC',q:'다음 중 라디오 통신 예제로 가장 적절한 활동은?',choices:['한 장치의 화면 색만 바꾸기','두 장치가 같은 그룹에서 주사위 숫자 주고받기','종이에 손으로 코드 베껴 쓰기','컴퓨터 전원을 끄기','마이크로비트 이름을 바꾸기만 하기'],answer:'두 장치가 같은 그룹에서 주사위 숫자 주고받기',ex:'라디오 통신은 한 장치가 만든 숫자나 문자열을 다른 장치로 보내는 활동에 적합합니다.'},
+{type:'MC',q:'radio.on_received_string(function)에서 function이 실행되는 시점은?',choices:['문자열 메시지를 받았을 때','전원이 꺼졌을 때','학번을 입력했을 때','그룹 번호가 삭제될 때','컴퓨터가 인터넷에 연결될 때'],answer:'문자열 메시지를 받았을 때',ex:'on_received_string은 문자열 데이터가 수신되는 순간 호출되는 이벤트입니다.'},
+{type:'MC',q:'무선 가위바위보에서 choice = (choice + 1) % 3을 사용하는 가장 큰 이유는?',choices:['선택값을 0,1,2로 순환시키기 위해','라디오 그룹을 무작위로 바꾸기 위해','문자열을 모두 지우기 위해','온도를 낮추기 위해','수신 이벤트를 멈추기 위해'],answer:'선택값을 0,1,2로 순환시키기 위해',ex:'% 3은 3으로 나눈 나머지를 구하므로 값이 0, 1, 2 범위에서 반복됩니다. 세 가지 선택지를 순환시키기에 좋습니다.'}
+];
+let graded=false, lastScore=0, detailLines=[];
+function render(){const form=document.getElementById('quizForm');form.innerHTML='';questions.forEach((item,i)=>{const box=document.createElement('section');box.className='q';box.id='q'+i;box.innerHTML=`<h3><span class="tag">${item.type}</span>문항 ${i+1}. ${item.q}</h3>`+item.choices.map((c,j)=>`<label class="choice"><input type="radio" name="q${i}" value="${escapeHtml(c)}"> ${String.fromCharCode(9312+j)} ${escapeHtml(c)}</label>`).join('')+`<div class="explain" id="ex${i}" style="display:none"></div>`;form.appendChild(box);});}
+function escapeHtml(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');}
+function gradeQuiz(){const id=document.getElementById('studentId').value.trim();const name=document.getElementById('studentName').value.trim();if(!id||!name){alert('학번과 이름을 입력하세요.');return;}let correct=0;detailLines=[];questions.forEach((item,i)=>{const selected=document.querySelector(`input[name="q${i}"]:checked`);const user=selected?selected.value:'미응답';const ok=user===item.answer;if(ok)correct++;const qbox=document.getElementById('q'+i);qbox.classList.remove('correct','wrong');qbox.classList.add(ok?'correct':'wrong');const ex=document.getElementById('ex'+i);ex.style.display='block';ex.innerHTML=`<div>${ok?'<span class="ok">정답</span>':'<span class="no">오답</span>'}</div><div><b>나의 답:</b> ${escapeHtml(user)}</div><div><b>정답:</b> ${escapeHtml(item.answer)}</div><div><b>상세 풀이:</b> ${escapeHtml(item.ex)}</div>`;detailLines.push(`${i+1}. [${item.type}] ${item.q}\n나의 답: ${user}\n정답: ${item.answer}\n채점: ${ok?'정답':'오답'}\n상세 풀이: ${item.ex}`);});lastScore=correct*5;graded=true;const result=document.getElementById('result');result.style.display='block';result.innerHTML=`<h2>채점 결과</h2><p class="score">${id} ${name} : ${lastScore}점 / 100점</p><p>정답 ${correct}개, 오답 ${questions.length-correct}개입니다. 각 문항 아래에서 정오답과 상세 풀이를 확인할 수 있습니다.</p>`;window.scrollTo({top:result.offsetTop-90,behavior:'smooth'});}
+function downloadTxt(){if(!graded){gradeQuiz();if(!graded)return;}const id=document.getElementById('studentId').value.trim();const name=document.getElementById('studentName').value.trim();const now=new Date();const time=now.toLocaleString('ko-KR');const content=`마이크로비트 라디오 통신 퀴즈 결과\n학번: ${id}\n이름: ${name}\n점수: ${lastScore}점 / 100점\n응시시각: ${time}\n\n[문항별 정오답 및 상세 풀이]\n\n${detailLines.join('\n\n')}`;const blob=new Blob([content],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${id}_${name}_${lastScore}_마이크로비트.txt`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);}
+render();
+</script>
+</body>
+</html>
