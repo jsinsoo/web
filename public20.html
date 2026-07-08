@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학고 정보 수업용 공공데이터 활용 프로젝트 소논문 주제 20</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#64748b;--line:#dbe4f0;--blue:#2563eb;--green:#0f766e;--orange:#c2410c;--code:#0b1220;--soft:#eef6ff}
+*{box-sizing:border-box} body{margin:0;font-family:Malgun Gothic,Apple SD Gothic Neo,Noto Sans KR,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.68} 
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+header h1{font-size:17px;margin:0 12px 0 0;white-space:nowrap} select,button{font-size:12px;border:1px solid var(--line);border-radius:9px;padding:7px 10px;background:#fff} button{background:var(--blue);color:white;border:0;cursor:pointer}.btn2{background:#334155}.copy{float:right;background:#475569;margin-top:-3px}
+main{width:min(1500px,96vw);margin:22px auto 70px}.hero{border:1px solid var(--line);border-radius:20px;background:linear-gradient(135deg,#eaf3ff,#f8fffb);padding:25px;margin-bottom:18px}.hero h2{margin-top:0}.toc{columns:2;column-gap:30px}.toc a{display:block;color:#1d4ed8;text-decoration:none;margin:4px 0;break-inside:avoid}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 22px rgba(15,23,42,.06)}.card h3{margin:0 0 8px;font-size:20px;color:#0f172a}.tag{display:inline-block;border:1px solid #bfdbfe;background:var(--soft);color:#1d4ed8;border-radius:999px;padding:3px 9px;font-size:12px;margin:2px}.std{background:#f0fdfa;color:#115e59;border-color:#99f6e4}.level{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.data{background:#f8fafc;color:#334155;border-color:#cbd5e1}.section-title{font-weight:800;color:#111827;margin:13px 0 4px} ul{padding-left:20px;margin:7px 0}.note{font-size:13px;color:var(--muted)}
+pre{background:var(--code);color:#d8ecff;border-radius:14px;padding:14px;overflow:auto;font-size:13px;line-height:1.45;border:1px solid #1e293b} code{font-family:Consolas,Menlo,monospace}.rubric{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}.rubric th,.rubric td{border:1px solid var(--line);padding:7px;vertical-align:top}.rubric th{background:#f8fafc}.footer{text-align:center;color:#64748b;font-size:13px;margin-top:28px}
+@media print{header{position:static}.card{break-inside:avoid}.copy,button,select{display:none}.grid{display:block}.card{margin-bottom:14px}}
+</style>
+<script>
+function jump(){const v=document.getElementById('topicSelect').value;if(v) location.hash=v;}
+function copyCode(id){navigator.clipboard.writeText(document.getElementById(id).innerText).then(()=>alert('코드가 복사되었습니다.'));}
+</script>
+</head>
+<body>
+<header>
+<h1>과학고 정보 수업용 공공데이터 프로젝트 소논문 20</h1>
+<select id="topicSelect" onchange="jump()"><option value="">주제 바로가기</option>
+<option value="t01">01. 대기질·기상 기반 미세먼지 예측</option><option value="t02">02. 생활기상지수 기반 야외활동 위험도</option><option value="t03">03. 교통사고 다발 지역 위험도 지도</option><option value="t04">04. 버스 도착 정보와 지연 패턴 분석</option><option value="t05">05. 인구소멸 위험과 생활 인프라 분석</option><option value="t06">06. 지역별 고령화와 의료 접근성</option><option value="t07">07. 전력 사용량과 기온의 상관 분석</option><option value="t08">08. 태양광 발전량 예측</option><option value="t09">09. 수질 측정 데이터 이상 탐지</option><option value="t10">10. 감염병 발생 추세 시각화</option><option value="t11">11. 학교 주변 보행 안전 지수</option><option value="t12">12. 도서관·문화시설 접근성 분석</option><option value="t13">13. 공공자전거 이용량 예측</option><option value="t14">14. 주차장 혼잡도 예측</option><option value="t15">15. 생활폐기물 배출량 예측</option><option value="t16">16. 재난 문자 데이터 분류</option><option value="t17">17. 지역별 물가 변동 분석</option><option value="t18">18. 교육 통계 기반 진학·과목 수요 분석</option><option value="t19">19. 관광·유동인구 데이터 군집 분석</option><option value="t20">20. 범죄 예방 환경 데이터 분석</option>
+</select><button class="btn2" onclick="window.print()">인쇄/PDF 저장</button>
+</header>
+<main>
+<section class="hero">
+<h2>공공데이터 활용 프로젝트 소논문 주제 예시</h2>
+<p>공공데이터포털, 기상자료개방포털, 지자체 열린데이터, 교육·환경·교통·보건 분야 공개 자료를 활용하여 과학고 정보 수업에서 <b>데이터 수집, 전처리, 시각화, 알고리즘, 인공지능 모델링, 디지털 윤리</b>를 통합적으로 평가할 수 있도록 설계하였다.</p>
+<p class="note">※ API는 대부분 인증키가 필요할 수 있다. 수업에서는 CSV 샘플 파일을 먼저 제공하고, 심화 학생은 API 호출로 확장하도록 운영하면 안정적이다.</p>
+<div class="toc">
+<a href="#t01">01. 대기질·기상 기반 미세먼지 예측</a><a href="#t02">02. 생활기상지수 기반 야외활동 위험도</a><a href="#t03">03. 교통사고 다발 지역 위험도 지도</a><a href="#t04">04. 버스 도착 정보와 지연 패턴 분석</a><a href="#t05">05. 인구소멸 위험과 생활 인프라 분석</a><a href="#t06">06. 지역별 고령화와 의료 접근성</a><a href="#t07">07. 전력 사용량과 기온의 상관 분석</a><a href="#t08">08. 태양광 발전량 예측</a><a href="#t09">09. 수질 측정 데이터 이상 탐지</a><a href="#t10">10. 감염병 발생 추세 시각화</a><a href="#t11">11. 학교 주변 보행 안전 지수</a><a href="#t12">12. 도서관·문화시설 접근성 분석</a><a href="#t13">13. 공공자전거 이용량 예측</a><a href="#t14">14. 주차장 혼잡도 예측</a><a href="#t15">15. 생활폐기물 배출량 예측</a><a href="#t16">16. 재난 문자 데이터 분류</a><a href="#t17">17. 지역별 물가 변동 분석</a><a href="#t18">18. 교육 통계 기반 진학·과목 수요 분석</a><a href="#t19">19. 관광·유동인구 데이터 군집 분석</a><a href="#t20">20. 범죄 예방 환경 데이터 분석</a>
+</div>
+</section>
+<div class="grid">
+
+<article class="card" id="t01">
+<h3>01. 대기질·기상 기반 미세먼지 예측</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 환경·기상</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>대기오염 측정소 PM2.5와 기온·습도·풍속 자료를 결합하면 다음 시간대 미세먼지를 예측할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>AirKorea 대기오염 자료, 기상청 기상 관측 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>결측치 보정, 시차 변수 생성, 랜덤포레스트 회귀, 변수 중요도 분석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>예측 그래프, MAE/RMSE, 변수 중요도, 고농도 예보 기준 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code01')">복사</button></p>
+<pre><code id="code01">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_01.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='대기질·기상 기반 미세먼지 예측 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t02">
+<h3>02. 생활기상지수 기반 야외활동 위험도</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 기상·건강</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>자외선·체감온도·대기정체지수로 학교 야외활동 위험 등급을 만들 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>기상청 생활기상지수, 기온·습도·풍속 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>가중치 기반 지수 설계, 등급 분류, 실제 사례 검증</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>야외활동 안전 지수표, 등급별 안내 문구, 시각화 대시보드</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code02')">복사</button></p>
+<pre><code id="code02">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_02.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='생활기상지수 기반 야외활동 위험도 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t03">
+<h3>03. 교통사고 다발 지역 위험도 지도</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 교통·안전</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>학교 주변과 지역 주요 도로의 사고 위험은 어떤 공간적 패턴을 보이는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>교통사고 다발지역, 어린이보호구역, 도로명주소 좌표 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>위경도 지도 시각화, 사고 건수 정규화, 위험도 점수화</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>Folium 위험지도, 개선 우선순위, 보행 안전 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code03')">복사</button></p>
+<pre><code id="code03">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_03.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='교통사고 다발 지역 위험도 지도 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t04">
+<h3>04. 버스 도착 정보와 지연 패턴 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 교통·시계열</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>시간대·요일·날씨에 따라 버스 지연 시간이 어떻게 달라지는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>버스 도착 정보 API, 정류소 정보, 기상 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>도착 예정·실제 도착 차이 계산, 시간대별 그룹 분석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>지연 시간 히트맵, 혼잡 시간대 분석, 등하교 경로 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code04')">복사</button></p>
+<pre><code id="code04">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_04.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='버스 도착 정보와 지연 패턴 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t05">
+<h3>05. 인구소멸 위험과 생활 인프라 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 인구·사회</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>청년 인구 비율과 병원·학교·문화시설 접근성은 지역 소멸 위험과 어떤 관련이 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>주민등록 인구, 행정구역 경계, 공공시설 위치 데이터</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>고령화율·청년비율 계산, 시설 수 정규화, 상관분석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>지역별 소멸 위험 지도, 인프라 격차 분석</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code05')">복사</button></p>
+<pre><code id="code05">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_05.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='인구소멸 위험과 생활 인프라 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t06">
+<h3>06. 지역별 고령화와 의료 접근성</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 보건·공간분석</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>고령 인구가 많은 지역일수록 의료기관 접근성이 충분한가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>연령별 인구, 병원·약국 위치, 응급의료기관 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>행정구역별 의료기관 밀도, 고령인구 대비 의료 접근성 지표</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>의료 취약 지역 표, 지도, 정책 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code06')">복사</button></p>
+<pre><code id="code06">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_06.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='지역별 고령화와 의료 접근성 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t07">
+<h3>07. 전력 사용량과 기온의 상관 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 에너지·기후</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>기온 변화가 학교 또는 지역 전력 사용량에 어떤 영향을 주는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>전력 사용량 통계, 기상 관측 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>월별·일별 병합, 산점도, 선형회귀, 냉난방 민감도 추정</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>기온-전력 회귀식, 에너지 절약 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code07')">복사</button></p>
+<pre><code id="code07">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_07.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='전력 사용량과 기온의 상관 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t08">
+<h3>08. 태양광 발전량 예측</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 에너지·AI</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>일사량·운량·기온으로 태양광 발전량을 예측할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>신재생에너지 발전량, 기상청 일사량·운량 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>회귀 모델 비교, 예측 오차 분석, 계절성 반영</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>발전량 예측 모델, 계절별 성능 비교</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code08')">복사</button></p>
+<pre><code id="code08">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_08.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='태양광 발전량 예측 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t09">
+<h3>09. 수질 측정 데이터 이상 탐지</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 환경·이상탐지</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>하천 수질 측정값에서 비정상 오염 징후를 자동으로 탐지할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>수질 측정망 자료, 강수량 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>pH·DO·BOD 변수 분석, IQR 또는 Isolation Forest 이상 탐지</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>이상치 목록, 원인 추정, 수질 변화 그래프</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code09')">복사</button></p>
+<pre><code id="code09">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_09.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='수질 측정 데이터 이상 탐지 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t10">
+<h3>10. 감염병 발생 추세 시각화</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 보건·데이터시각화</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>감염병 발생은 계절·지역·인구 밀도와 어떤 관계를 가지는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>감염병 통계, 지역별 인구, 기상 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>발생률 계산, 이동평균, 지역별 비교 시각화</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>발생 추세 그래프, 지역별 발생률 지도</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code10')">복사</button></p>
+<pre><code id="code10">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_10.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='감염병 발생 추세 시각화 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t11">
+<h3>11. 학교 주변 보행 안전 지수</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 안전·융합</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>횡단보도·신호등·사고 이력·속도 제한 정보를 종합해 보행 안전 지수를 만들 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>교통안전시설, 사고 이력, 어린이보호구역, 도로 정보</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>시설 점수화, 사고 가중치, 위험 등급 분류</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>학교 주변 안전지도, 개선 지점 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code11')">복사</button></p>
+<pre><code id="code11">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_11.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='학교 주변 보행 안전 지수 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t12">
+<h3>12. 도서관·문화시설 접근성 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 문화·공간분석</span> <span class="tag level">난이도: 초중급</span>
+<p class="section-title">연구 질문</p><p>지역별 공공도서관과 문화시설 접근성은 인구 규모와 균형을 이루는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>공공도서관·문화시설 위치, 인구 통계</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>인구 1만 명당 시설 수, 거리 기반 접근성 비교</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>접근성 순위표, 지역 격차 해석</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code12')">복사</button></p>
+<pre><code id="code12">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_12.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='도서관·문화시설 접근성 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t13">
+<h3>13. 공공자전거 이용량 예측</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 교통·AI</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>날씨와 시간대 자료로 공공자전거 대여량을 예측할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>공공자전거 대여 이력, 정류소 정보, 기상 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>회귀 모델, 범주형 변수 인코딩, 특성 중요도 분석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>대여량 예측 모델, 피크 시간 분석</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code13')">복사</button></p>
+<pre><code id="code13">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_13.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='공공자전거 이용량 예측 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t14">
+<h3>14. 주차장 혼잡도 예측</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 도시·시계열</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>공영주차장 입출차 데이터로 혼잡 시간대를 예측할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>공영주차장 정보, 실시간 주차 가능 대수, 행사 일정</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>시간대별 점유율 계산, 이상 혼잡일 탐색</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>혼잡도 그래프, 방문 시간 추천</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code14')">복사</button></p>
+<pre><code id="code14">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_14.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='주차장 혼잡도 예측 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t15">
+<h3>15. 생활폐기물 배출량 예측</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 환경·지속가능성</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>요일·계절·인구 자료로 생활폐기물 배출량을 예측하고 감축 방안을 제안할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>생활폐기물 배출량, 인구, 기온 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>1인당 배출량 계산, 회귀분석, 계절성 분석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>배출량 예측표, 감축 캠페인 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code15')">복사</button></p>
+<pre><code id="code15">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_15.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='생활폐기물 배출량 예측 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t16">
+<h3>16. 재난 문자 데이터 분류</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 자연어처리·안전</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>재난 문자 내용을 유형별로 자동 분류해 위험 정보를 빠르게 요약할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>재난문자 공개 데이터, 지역·시간 정보</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>키워드 전처리, TF-IDF, 나이브베이즈 또는 로지스틱 회귀</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>재난 유형 분류기, 오분류 사례 분석</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code16')">복사</button></p>
+<pre><code id="code16">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_16.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='재난 문자 데이터 분류 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t17">
+<h3>17. 지역별 물가 변동 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 경제·데이터</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>생활필수품 가격은 지역·유통업태·시기에 따라 어떻게 변하는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>생필품 가격 정보, 소비자물가 통계</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>품목별 평균가격, 지역별 편차, 가격 변동률 계산</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>가격 변동 그래프, 합리적 소비 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code17')">복사</button></p>
+<pre><code id="code17">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_17.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='지역별 물가 변동 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t18">
+<h3>18. 교육 통계 기반 진학·과목 수요 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 교육·데이터</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>지역·학교 유형에 따른 과목 선택 또는 진학 경향은 어떤 차이를 보이는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>교육통계, 학교알리미 공개 자료, 진학 현황</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>그룹별 비율 비교, 추세 분석, 상관분석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>과목 수요 예측, 교육과정 운영 제안</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code18')">복사</button></p>
+<pre><code id="code18">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_18.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='교육 통계 기반 진학·과목 수요 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t19">
+<h3>19. 관광·유동인구 데이터 군집 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 도시·군집화</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>관광지별 방문 패턴을 군집화하면 어떤 유형으로 나눌 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>관광지 방문객, 유동인구, 날씨·행사 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>KMeans 군집화, 표준화, 군집별 특징 해석</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>관광지 유형 분류, 활성화 전략</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code19')">복사</button></p>
+<pre><code id="code19">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_19.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='관광·유동인구 데이터 군집 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+
+<article class="card" id="t20">
+<h3>20. 범죄 예방 환경 데이터 분석</h3>
+<span class="tag std">성취기준: 데이터·알고리즘·인공지능</span> <span class="tag data">분야: 안전·윤리</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>CCTV·가로등·유동인구·신고 데이터를 바탕으로 안전 취약 구역을 탐색할 수 있는가?</p>
+<p class="section-title">활용 가능한 공공데이터</p><p>CCTV·가로등 위치, 112 신고 통계, 유동인구 자료</p>
+<p class="section-title">탐구 설계</p><ul><li>공공데이터를 CSV 또는 API로 수집하고 변수명·단위·갱신 주기를 정리한다.</li><li>공간 격자화, 밀도 분석, 개인정보 비식별화 검토</li><li>결측치, 이상치, 편향 가능성을 검토하고 분석 결과를 표와 그래프로 제시한다.</li></ul>
+<p class="section-title">예상 산출물</p><p>안전 취약 지도, 환경 개선 우선순위</p>
+<p class="section-title">소논문 목차 예시</p><ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 분석 결과와 시각화</li><li>Ⅴ. 정보 윤리, 한계, 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="copy" onclick="copyCode('code20')">복사</button></p>
+<pre><code id="code20">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 예시 파일명은 수업용 샘플 CSV로 바꾸어 사용합니다.
+df = pd.read_csv('public_data_topic_20.csv')
+print(df.head())
+print(df.info())
+
+# 숫자형 열의 기초 통계와 결측치 확인
+num = df.select_dtypes('number')
+print(num.describe())
+print(df.isnull().sum())
+
+# 첫 번째 숫자형 열을 기준으로 간단 시각화
+if len(num.columns) &gt; 0:
+    col = num.columns[0]
+    df[col].plot(kind='hist', bins=20, title='범죄 예방 환경 데이터 분석 - ' + col)
+    plt.xlabel(col)
+    plt.ylabel('빈도')
+    plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>데이터 이해</td><td>데이터 출처·변수·단위·갱신 주기를 정확히 설명함</td><td>주요 변수는 설명하나 품질 검토가 일부 부족함</td><td>출처와 변수 의미 설명이 불충분함</td></tr>
+<tr><td>분석 역량</td><td>전처리, 시각화, 알고리즘 선택 근거가 명확함</td><td>기본 분석은 수행하나 모델 비교나 해석이 제한적임</td><td>단순 출력 위주로 연구 질문과 연결이 약함</td></tr>
+<tr><td>윤리·활용</td><td>개인정보·편향·오남용 가능성을 검토하고 공익적 활용 방안을 제시함</td><td>윤리 고려가 있으나 구체성이 부족함</td><td>데이터 활용 책임을 거의 다루지 않음</td></tr></table>
+</article>
+</div><p class='footer'>과학고 정보 수업용 공공데이터 활용 프로젝트 소논문 주제 20 | 데이터 수집·전처리·시각화·모델링·윤리 통합형 수행평가 자료</p></main></body></html>
