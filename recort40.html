@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>고등학교 정보 성취기준별 수행활동·척도·과세특·파이썬 코드</title>
+<style>
+:root {
+  --bg:#f6f7fb; --card:#ffffff; --main:#1d4ed8; --main2:#0f766e; --ink:#111827;
+  --muted:#64748b; --line:#dbe3ef; --soft:#eff6ff; --green:#ecfdf5; --orange:#fff7ed;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eef2ff,#f8fafc 45%,#ecfeff);color:var(--ink);line-height:1.68}
+header{position:sticky;top:0;z-index:10;background:rgba(30,64,175,.94);color:#fff;padding:14px 22px;box-shadow:0 4px 18px #0002;backdrop-filter:blur(8px)}
+header h1{margin:0;font-size:22px}
+header p{margin:4px 0 0;color:#dbeafe;font-size:13px}
+.layout{display:grid;grid-template-columns:245px 1fr;gap:18px;max-width:1500px;margin:0 auto;padding:18px}
+aside{position:sticky;top:88px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 28px #0001;max-height:calc(100vh - 110px);overflow:auto}
+aside h2{font-size:16px;margin:0 0 10px;color:#1e3a8a}
+nav{display:grid;gap:7px}
+nav a{text-decoration:none;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
+nav a:hover{background:#dbeafe}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,#1d4ed8,#0f766e);color:white;border-radius:24px;padding:26px;box-shadow:0 16px 40px #0002;margin-bottom:18px}
+.hero h2{margin:0 0 8px;font-size:30px}
+.hero p{margin:6px 0;color:#e0f2fe}
+.note{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 8px 28px #0001}
+.note-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.note-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;margin:18px 0;box-shadow:0 10px 28px #00000012}
+.card-head{display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:start;border-bottom:1px solid #e5e7eb;padding-bottom:14px;margin-bottom:16px}
+.num{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:16px;background:#dbeafe;color:#1e40af;font-weight:900;font-size:20px}
+.area{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:900;margin-bottom:6px}
+h2{font-size:20px;margin:0;color:#0f172a;line-height:1.45}
+h3{margin:20px 0 8px;color:#0f766e;font-size:18px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:14px}
+.box p{margin-top:0}
+.chips span{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:999px;padding:4px 9px;margin:3px;font-size:12px;font-weight:800}
+.rubric{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px;font-size:14px}
+.rubric th{background:#1e40af;color:white;padding:10px;border:1px solid #bfdbfe}
+.rubric td{border:1px solid #dbeafe;padding:10px;vertical-align:top}
+.rubric td:first-child{width:90px;text-align:center;font-weight:900;color:#1e40af;background:#eff6ff}
+.rubric span{font-size:11px;color:#64748b}
+.record{background:#fff7ed;border-left:5px solid #f97316;padding:10px 12px;border-radius:10px;margin:8px 0}
+.code-wrap{position:relative;background:#0f172a;border-radius:16px;overflow:hidden}
+.code-wrap button{position:absolute;right:10px;top:10px;border:0;border-radius:10px;background:#22c55e;color:#052e16;font-weight:900;padding:7px 10px;cursor:pointer}
+pre{margin:0;padding:46px 16px 16px;overflow:auto;color:#e5e7eb;font-family:Consolas,'Courier New',monospace;font-size:14px;line-height:1.55}
+footer{text-align:center;color:#64748b;padding:30px}
+@media(max-width:900px){.layout{display:block;padding:10px}aside{position:static;max-height:none;margin-bottom:12px}.cols{grid-template-columns:1fr}header{position:static}}
+@media print{header,aside,.code-wrap button{display:none}.layout{display:block}.card{break-inside:avoid;box-shadow:none}body{background:white}}
+</style>
+</head>
+<body>
+<header>
+  <h1>고등학교 정보 과목 성취기준별 수행활동·척도·과세특·파이썬 코드</h1>
+  <p>2022 개정 교육과정 고등학교 정보 성취수준을 바탕으로 수업·평가·기록에 바로 활용할 수 있도록 재구성</p>
+</header>
+<div class="layout">
+<aside>
+  <h2>성취기준 바로가기</h2>
+  <nav><a href="#12정01-01">12정01-01</a>
+<a href="#12정01-02">12정01-02</a>
+<a href="#12정01-03">12정01-03</a>
+<a href="#12정02-01">12정02-01</a>
+<a href="#12정02-02">12정02-02</a>
+<a href="#12정02-03">12정02-03</a>
+<a href="#12정02-04">12정02-04</a>
+<a href="#12정03-01">12정03-01</a>
+<a href="#12정03-02">12정03-02</a>
+<a href="#12정03-03">12정03-03</a>
+<a href="#12정03-04">12정03-04</a>
+<a href="#12정03-05">12정03-05</a>
+<a href="#12정03-06">12정03-06</a>
+<a href="#12정03-07">12정03-07</a>
+<a href="#12정03-08">12정03-08</a>
+<a href="#12정03-09">12정03-09</a>
+<a href="#12정03-10">12정03-10</a>
+<a href="#12정04-01">12정04-01</a>
+<a href="#12정04-02">12정04-02</a>
+<a href="#12정04-03">12정04-03</a>
+<a href="#12정05-01">12정05-01</a>
+<a href="#12정05-02">12정05-02</a>
+<a href="#12정05-03">12정05-03</a></nav>
+</aside>
+<main>
+<section class="hero">
+  <h2>고등학교 정보 성취기준별 수행평가 설계 자료</h2>
+  <p>각 성취기준마다 수행활동 예시, 평가 요소, A~E 척도 기준, 성취기준별로 구체화한 과세특 기록 예시, 파이썬 코드 예시를 포함했습니다.</p>
+</section>
+<section class="note">
+  <h2>활용 안내</h2>
+  <div class="note-grid">
+    <div class="note-card"><b>수행활동</b><br>한 차시 활동 또는 미니 프로젝트로 활용할 수 있습니다.</div>
+    <div class="note-card"><b>척도 기준</b><br>성취수준 A~E 일반 특성을 반영한 공통 루브릭입니다.</div>
+    <div class="note-card"><b>과세특</b><br>상·중·하 기록 예시를 학생 수행 과정에 맞게 수정해 사용하세요.</div>
+    <div class="note-card"><b>코드</b><br>복사 버튼으로 파이썬 예시 코드를 바로 가져갈 수 있습니다.</div>
+  </div>
+</section>
+
+<section class="card" id="12정01-01">
+  <div class="card-head">
+    <span class="num">01</span>
+    <div>
+      <div class="area">컴퓨팅 시스템</div>
+      <h2>12정01-01 유무선 네트워크의 특성을 이해하고, 컴퓨팅 시스템 간 공유, 협력, 소통을 위한 네트워크 환경을 구성한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>교실/가정 네트워크 구성도 설계 및 공유 폴더·접속 권한 설정 실습</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>네트워크 장비와 유무선 특성을 비교하고, 실제 협업 목적에 맞는 네트워크 구성·공유 설정안을 작성한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 학교 무선망 접속 지연 문제를 사례로 삼아 AP, 공유기, 스위치, 단말의 역할을 실제 배치도에 표시하고, 협업 수업을 위한 공유 폴더 권한을 읽기·쓰기·관리자로 세분화함. 유선은 안정성과 속도, 무선은 이동성과 확장성이 강점이라는 점을 근거 자료와 함께 설명하였으며, 개인정보가 포함된 산출물은 제한 공유로 설정해야 한다는 보안 관점까지 반영함. 네트워크 구성 결과를 발표할 때 “접속은 쉽지만 권한은 최소화한다”는 원칙을 스스로 도출한 점이 인상적임.</div>
+  <div class="record"><b>중:</b> 교실 네트워크 구성도 작성 활동에서 유무선 네트워크의 차이를 이해하고 공유 폴더 사용 목적에 맞게 접속 권한을 설정함. 처음에는 모든 사용자를 동일 권한으로 두었으나 피드백 후 발표자, 편집자, 열람자를 구분하여 수정하였고, 협업 상황에서 네트워크 환경이 학습 결과물의 공유 방식에 영향을 준다는 점을 설명함.</div>
+  <div class="record"><b>하:</b> 네트워크 장비의 명칭과 기능을 예시 자료를 참고하여 정리하고, 교실 네트워크 구성도에 일부 반영함. 공유 권한 설정 과정에서 읽기와 쓰기 권한의 차이를 헷갈려 했으나 교사의 안내를 받아 수정하였으며, 협력 활동에서 안전한 공유 설정이 필요하다는 점을 인식함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>devices = [&quot;교사용PC&quot;,&quot;학생노트북&quot;,&quot;프린터&quot;,&quot;NAS&quot;,&quot;스마트폰&quot;]
+connections = {
+    &quot;공유기&quot;: [&quot;교사용PC&quot;,&quot;학생노트북&quot;,&quot;프린터&quot;,&quot;NAS&quot;,&quot;스마트폰&quot;],
+    &quot;NAS&quot;: [&quot;수업자료&quot;,&quot;제출함&quot;],
+    &quot;프린터&quot;: [&quot;교사용PC&quot;,&quot;학생노트북&quot;]
+}
+for hub, nodes in connections.items():
+    print(hub, &quot;-&gt;&quot;, &quot;, &quot;.join(nodes))</code></pre></div>
+</section>
+
+<section class="card" id="12정01-02">
+  <div class="card-head">
+    <span class="num">02</span>
+    <div>
+      <div class="area">컴퓨팅 시스템</div>
+      <h2>12정01-02 사물인터넷의 구성과 동작 원리를 분석하고, 사물인터넷 기술로 인한 개인의 삶과 사회의 변화를 예측한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>스마트 교실 IoT 서비스 분석 보고서 만들기</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>센서-네트워크-서버-앱의 흐름을 분석하고, 편의성·안전·개인정보 측면의 변화를 예측한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 스마트 교실의 온습도 센서, 조도 센서, 출입 감지 장치를 사물인터넷 구성 요소로 분류하고 센서-네트워크-서버-사용자 서비스의 데이터 흐름을 도식화함. 단순 편리성 설명에 그치지 않고, 자동 냉난방이 에너지 절약에 기여하는 점과 동시에 위치·행동 데이터 수집에 따른 사생활 침해 가능성을 함께 분석함. 기술 수용의 조건으로 “목적의 명확성, 최소 수집, 사용자 동의”를 제안하여 사회 변화 예측과 윤리적 판단이 균형 있게 드러남.</div>
+  <div class="record"><b>중:</b> 스마트홈과 스마트스쿨 사례를 조사하여 센서가 데이터를 수집하고 네트워크를 통해 서버로 전달되는 과정을 설명함. 사물인터넷이 생활 편의를 높이는 동시에 개인정보 관리 문제가 발생할 수 있음을 언급하고, 기기별 수집 정보와 활용 목적을 표로 정리하는 등 분석 활동에 성실히 참여함.</div>
+  <div class="record"><b>하:</b> 사물인터넷의 기본 구성 요소를 그림 자료를 보고 구분하고, 스마트 조명 사례에서 센서와 제어 장치의 역할을 설명함. 사회 변화 예측은 다소 단순했으나 피드백을 통해 편리함뿐 아니라 보안 문제도 함께 고려해야 함을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>iot = {
+    &quot;센서&quot;: [&quot;온도&quot;,&quot;습도&quot;,&quot;조도&quot;],
+    &quot;네트워크&quot;: &quot;Wi-Fi&quot;,
+    &quot;서버&quot;: &quot;데이터 저장 및 분석&quot;,
+    &quot;앱&quot;: &quot;알림과 제어&quot;
+}
+for k,v in iot.items():
+    print(k, &quot;:&quot;, v)</code></pre></div>
+</section>
+
+<section class="card" id="12정01-03">
+  <div class="card-head">
+    <span class="num">03</span>
+    <div>
+      <div class="area">컴퓨팅 시스템</div>
+      <h2>12정01-03 문제 해결에 적합한 피지컬 컴퓨팅 시스템 장치를 선택하여 사물인터넷 시스템을 설계한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>미세먼지·소음·조도 중 하나를 해결하는 IoT 시스템 설계서 작성</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>문제 상황을 정의하고 입력장치, 처리장치, 출력장치, 통신 방식, 데이터 흐름을 근거 있게 선택한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 미세먼지 알림 IoT 시스템 설계에서 먼지 센서, LED, 부저, LCD 표시 장치의 역할을 문제 상황과 연결하여 선택함. 임계값을 단계별로 나누어 초록·노랑·빨강 LED가 작동하도록 설계하고, 센서 오차를 줄이기 위해 여러 번 측정한 평균값을 사용하는 개선안을 제시함. 장치 선택 이유, 데이터 흐름, 사용자 알림 방식이 명확하여 피지컬 컴퓨팅을 실생활 문제 해결에 적용하는 능력이 뛰어남.</div>
+  <div class="record"><b>중:</b> 조도 센서를 활용한 자동 조명 시스템을 설계하며 입력 장치와 출력 장치를 구분하고, 조건에 따라 LED가 켜지는 흐름을 순서도로 표현함. 부품 선택 이유를 설명하려 노력하였으며, 실제 사용 상황에서 전원 공급과 설치 위치를 고려해야 한다는 점을 활동 후 정리함.</div>
+  <div class="record"><b>하:</b> 센서와 출력 장치의 예를 참고하여 간단한 IoT 시스템을 구성함. 처음에는 입력과 출력 장치의 역할을 혼동했으나 예시 회로를 보며 수정하였고, 특정 문제를 해결하기 위해 알맞은 장치를 골라야 한다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>problem = &quot;교실 공기질 알림&quot;
+parts = {
+    &quot;입력&quot;: &quot;미세먼지 센서&quot;,
+    &quot;처리&quot;: &quot;마이크로컨트롤러&quot;,
+    &quot;출력&quot;: &quot;LED, 부저&quot;,
+    &quot;통신&quot;: &quot;Wi-Fi&quot;,
+}
+for role, device in parts.items():
+    print(f&quot;{role}: {device}&quot;)</code></pre></div>
+</section>
+
+<section class="card" id="12정02-01">
+  <div class="card-head">
+    <span class="num">04</span>
+    <div>
+      <div class="area">데이터</div>
+      <h2>12정02-01 디지털 데이터 압축의 개념과 필요성을 이해하고, 압축의 효율성을 분석하여 평가한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>문자열 압축 전후 크기 비교 실험</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>압축 전후의 길이, 압축률, 손실 여부를 계산하고 자료 특성에 따라 압축 효과를 설명한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 문자열 압축 실험에서 반복 문자가 많은 데이터와 불규칙한 데이터의 압축률을 직접 계산하고, 압축 효율이 데이터의 패턴성에 따라 달라진다는 결론을 도출함. 원본 크기, 압축 후 크기, 압축률을 표와 그래프로 제시하였으며, “무조건 압축하면 작아진다”는 오개념을 실험 결과로 반박함. 이미지·음악·문서 파일에서 손실/무손실 압축을 구분하여 설명한 점이 우수함.</div>
+  <div class="record"><b>중:</b> 간단한 문자열 압축 코드를 실행하여 원본과 압축 결과의 길이를 비교함. 반복 문자가 많을수록 압축 효과가 커진다는 사실을 확인하고, 압축률 계산식을 적용하여 결과를 정리함. 압축이 저장 공간과 전송 시간 절약에 필요하다는 점을 이해함.</div>
+  <div class="record"><b>하:</b> 문자열 압축 예시를 따라 실행하고 원본 길이와 압축 길이를 비교함. 압축률 계산 과정에서 일부 오류가 있었으나 피드백 후 수정하였으며, 데이터 압축이 파일 크기를 줄이기 위한 방법임을 설명할 수 있음.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>text = &quot;AAAABBBCCDAA&quot;
+compressed = []
+count = 1
+for i in range(1, len(text)+1):
+    if i &lt; len(text) and text[i] == text[i-1]:
+        count += 1
+    else:
+        compressed.append(text[i-1] + str(count))
+        count = 1
+result = &quot;&quot;.join(compressed)
+print(&quot;원본:&quot;, text, len(text))
+print(&quot;압축:&quot;, result, len(result))
+print(&quot;압축률:&quot;, round(len(result)/len(text), 2))</code></pre></div>
+</section>
+
+<section class="card" id="12정02-02">
+  <div class="card-head">
+    <span class="num">05</span>
+    <div>
+      <div class="area">데이터</div>
+      <h2>12정02-02 암호화의 개념을 이해하고, 암호화를 활용하여 데이터를 안전하게 관리하는 사례를 비교ㆍ분석한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>시저 암호와 해시의 차이 비교 실습</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>암호화와 해싱의 목적, 복호화 가능성, 활용 사례를 비교하고 안전한 데이터 관리 방안을 제안한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 시저 암호, 해시, 대칭키 암호의 차이를 실제 문자열 변환 실습으로 비교하고, 암호화는 복호화 가능성이 있으며 해시는 무결성 확인에 적합하다는 점을 정확히 설명함. 로그인 비밀번호 저장 사례에서 평문 저장의 위험성을 지적하고, 해시와 솔트의 필요성을 추가 조사하여 발표함. 데이터 보호 기술을 단순 기능이 아니라 안전한 관리 절차와 연결해 분석한 점이 돋보임.</div>
+  <div class="record"><b>중:</b> 시저 암호 실습을 통해 문자가 일정한 규칙으로 변환되는 과정을 확인하고, 해시값은 입력이 같을 때 같은 결과가 나온다는 특징을 설명함. 암호화가 개인정보 보호에 필요하다는 점을 사례와 연결하였으며, 비밀번호를 평문으로 저장하면 위험하다는 결론을 제시함.</div>
+  <div class="record"><b>하:</b> 암호화 예제 코드를 참고하여 문자열이 다른 형태로 바뀌는 과정을 확인함. 암호화와 해시의 차이를 완전히 구분하는 데는 어려움이 있었으나, 데이터를 안전하게 관리하기 위해 변환·보호 기술이 필요하다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>import hashlib
+message = &quot;student_password&quot;
+hashed = hashlib.sha256(message.encode()).hexdigest()
+print(&quot;원문:&quot;, message)
+print(&quot;SHA-256:&quot;, hashed)
+print(&quot;길이:&quot;, len(hashed))</code></pre></div>
+</section>
+
+<section class="card" id="12정02-03">
+  <div class="card-head">
+    <span class="num">06</span>
+    <div>
+      <div class="area">데이터</div>
+      <h2>12정02-03 빅데이터의 개념과 특징에 대한 이해를 바탕으로, 문제 해결에 적합한 데이터를 수집한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>학교 생활 개선 주제 데이터 수집 계획서 작성</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>문제 정의, 수집 항목, 데이터 출처, 수집 방법, 개인정보 보호 방안을 함께 제시한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 학교생활 개선 주제로 “급식 대기 시간 감소”를 선정하고, 수집할 데이터 항목을 시간대, 메뉴, 학년, 배식 창구 수, 만족도 등으로 구체화함. 수집 방법별 장단점과 개인정보 최소 수집 원칙을 함께 제시했으며, 결측·편향 가능성을 사전에 예상하여 보완 질문을 설계함. 빅데이터의 규모, 다양성, 속도, 가치 특성을 실제 문제 해결 계획에 자연스럽게 연결함.</div>
+  <div class="record"><b>중:</b> 학교 생활 개선을 위한 설문 데이터를 수집하는 계획서를 작성하고, 수집 항목과 활용 목적을 표로 정리함. 데이터가 많을수록 분석 가능성이 커지지만 개인정보 보호가 필요하다는 점을 인식하고, 이름 대신 익명 응답을 사용하는 방안을 제안함.</div>
+  <div class="record"><b>하:</b> 관심 있는 학교 문제를 정하고 필요한 데이터를 생각해 보는 활동에 참여함. 수집 항목이 처음에는 넓고 모호했으나 예시를 참고하여 시간, 장소, 선택지 등으로 나누어 정리하였고, 데이터 수집 전에 목적을 정해야 함을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>survey = [
+    {&quot;시간&quot;: 10, &quot;만족도&quot;: 4},
+    {&quot;시간&quot;: 15, &quot;만족도&quot;: 3},
+    {&quot;시간&quot;: 7, &quot;만족도&quot;: 5},
+]
+avg_wait = sum(d[&quot;시간&quot;] for d in survey) / len(survey)
+avg_sat = sum(d[&quot;만족도&quot;] for d in survey) / len(survey)
+print(&quot;평균 대기 시간:&quot;, avg_wait)
+print(&quot;평균 만족도:&quot;, avg_sat)</code></pre></div>
+</section>
+
+<section class="card" id="12정02-04">
+  <div class="card-head">
+    <span class="num">07</span>
+    <div>
+      <div class="area">데이터</div>
+      <h2>12정02-04 빅데이터 분석 도구를 활용하여 데이터를 시각화하고 그 의미와 가치를 해석한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>공공데이터 또는 설문 데이터를 그래프로 시각화하고 인사이트 도출</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>데이터를 정리해 적절한 그래프를 선택하고, 시각화 결과의 의미와 한계, 윤리적 유의점을 해석한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 공공데이터를 활용하여 지역별 청소년 인구 변화와 학교 수 변화를 시각화하고, 막대그래프와 꺾은선그래프를 목적에 맞게 선택함. 단순히 그래프를 만드는 데 그치지 않고 축 범위, 단위, 결측값 처리 여부가 해석에 미치는 영향을 설명하였으며, 인구 감소 지역에서 교육·교통 정책이 함께 고려되어야 한다는 인사이트를 도출함. 시각화 결과의 사회적 의미를 설득력 있게 해석함.</div>
+  <div class="record"><b>중:</b> 설문 데이터를 표로 정리한 뒤 항목별 빈도를 그래프로 나타내고, 가장 높은 응답과 낮은 응답을 비교하여 의미를 설명함. 그래프 제목과 축 이름을 수정하며 전달력을 높였고, 데이터 시각화가 결과를 쉽게 이해하게 해 준다는 점을 활동을 통해 확인함.</div>
+  <div class="record"><b>하:</b> 제공된 데이터를 이용하여 기본 그래프를 작성함. 그래프 종류 선택과 축 해석에서 어려움이 있었으나 교사의 안내에 따라 제목과 범례를 보완하였고, 시각화가 데이터의 특징을 파악하는 데 도움이 된다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>import matplotlib.pyplot as plt
+months = [&quot;3월&quot;,&quot;4월&quot;,&quot;5월&quot;,&quot;6월&quot;]
+values = [120, 150, 130, 180]
+plt.plot(months, values, marker=&quot;o&quot;)
+plt.title(&quot;월별 이용량&quot;)
+plt.xlabel(&quot;월&quot;)
+plt.ylabel(&quot;이용량&quot;)
+plt.show()</code></pre></div>
+</section>
+
+<section class="card" id="12정03-01">
+  <div class="card-head">
+    <span class="num">08</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-01 복잡한 문제를 해결 가능한 작은 문제로 분해하고 모델링한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>급식 잔반 줄이기 문제를 하위 문제와 데이터 모델로 표현</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>복잡한 문제를 입력·처리·출력·제약 조건으로 나누고, 컴퓨팅 시스템에서 처리 가능한 구조로 모델링한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 급식 잔반 문제를 메뉴 선호도, 배식량, 날씨, 행사 여부, 학년별 식수 인원으로 분해하고 각 요소 간 관계를 데이터 모델로 표현함. 잔반량을 단순 결과값으로 보지 않고 원인 후보를 구조화하여 변수와 제약 조건을 설정했으며, 분석에 불필요한 항목은 제외하는 추상화 과정이 명확함. 복잡한 실생활 문제를 계산 가능한 형태로 바꾸는 모델링 역량이 뛰어남.</div>
+  <div class="record"><b>중:</b> 급식 잔반 줄이기 문제를 여러 하위 문제로 나누고, 메뉴별 선호도와 잔반량을 딕셔너리 형태로 표현함. 문제를 한 번에 해결하려 하기보다 데이터 수집, 분석, 해결 방안 제시 단계로 나누어 설명하였으며, 모델링의 필요성을 이해함.</div>
+  <div class="record"><b>하:</b> 생활 속 문제를 작은 단계로 나누는 활동에 참여하고, 급식 문제의 원인으로 메뉴와 배식량을 제시함. 데이터 모델 표현은 단순했으나 예시를 참고하여 항목과 값을 구분하였고, 문제 분해가 해결 절차를 쉽게 만든다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>problem = {
+    &quot;목표&quot;: &quot;잔반 줄이기&quot;,
+    &quot;입력&quot;: [&quot;메뉴&quot;, &quot;선호도&quot;, &quot;예상잔반&quot;],
+    &quot;처리&quot;: &quot;예상잔반이 작은 메뉴 추천&quot;,
+    &quot;출력&quot;: &quot;추천 메뉴&quot;
+}
+for k, v in problem.items():
+    print(k, &quot;:&quot;, v)</code></pre></div>
+</section>
+
+<section class="card" id="12정03-02">
+  <div class="card-head">
+    <span class="num">09</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-02 데이터를 정렬하는 다양한 알고리즘의 특징과 효율을 비교ㆍ분석한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>버블·선택·삽입 정렬 실행 횟수 비교 실험</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>정렬 알고리즘의 수행 과정을 추적하고 비교 횟수, 교환 횟수, 시간 복잡도를 근거로 효율을 설명한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 버블·선택·삽입 정렬을 같은 데이터에 적용하여 비교 횟수와 교환 횟수를 기록하고, 데이터가 거의 정렬된 경우 삽입 정렬이 유리할 수 있다는 점을 실험으로 설명함. 코드 실행 결과와 손 계산 과정을 대조하여 오류를 수정했으며, 알고리즘 선택이 입력 데이터의 특성에 따라 달라진다는 결론을 근거 있게 제시함.</div>
+  <div class="record"><b>중:</b> 여러 정렬 알고리즘의 실행 과정을 표로 비교하고, 오름차순 정렬 결과가 같아도 과정과 효율이 다를 수 있음을 설명함. 비교 횟수 기록에서 일부 누락이 있었으나 수정 후 알고리즘별 특징을 정리함.</div>
+  <div class="record"><b>하:</b> 정렬 알고리즘 예시를 따라 실행하고 결과가 오름차순으로 바뀌는 것을 확인함. 알고리즘별 차이를 자세히 설명하는 데는 어려움이 있었으나, 데이터를 일정한 기준으로 나열하는 것이 정렬임을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>def selection_sort(a):
+    count = 0
+    for i in range(len(a)):
+        m = i
+        for j in range(i+1, len(a)):
+            count += 1
+            if a[j] &lt; a[m]:
+                m = j
+        a[i], a[m] = a[m], a[i]
+    return a, count
+print(selection_sort([5, 2, 4, 1, 3]))</code></pre></div>
+</section>
+
+<section class="card" id="12정03-03">
+  <div class="card-head">
+    <span class="num">10</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-03 데이터를 탐색하는 다양한 알고리즘의 특징과 효율을 비교ㆍ분석한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>선형 탐색과 이진 탐색 비교 실험</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>정렬 여부, 비교 횟수, 데이터 크기에 따른 탐색 효율 차이를 분석한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 선형 탐색과 이진 탐색을 동일한 데이터 크기에서 비교하고, 정렬 여부가 이진 탐색의 전제 조건임을 명확히 검증함. 탐색 횟수를 직접 세어 데이터 크기가 커질수록 두 알고리즘의 차이가 커지는 현상을 설명했으며, 잘못 정렬되지 않은 리스트에 이진 탐색을 적용했을 때 발생하는 문제를 반례로 제시함.</div>
+  <div class="record"><b>중:</b> 선형 탐색과 이진 탐색 코드를 실행하여 찾는 값의 위치와 비교 횟수를 기록함. 이진 탐색은 중간값을 기준으로 범위를 줄인다는 점을 이해하고, 정렬된 데이터에서 더 효율적이라는 설명을 할 수 있음.</div>
+  <div class="record"><b>하:</b> 탐색 프로그램을 실행하여 목표 값의 인덱스를 찾는 활동에 참여함. 선형 탐색과 이진 탐색의 차이를 처음에는 혼동했으나 예시를 통해 선형 탐색은 앞에서부터 차례로 찾는 방법임을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>def binary_search(data, target):
+    left, right = 0, len(data)-1
+    count = 0
+    while left &lt;= right:
+        count += 1
+        mid = (left + right) // 2
+        if data[mid] == target:
+            return mid, count
+        elif data[mid] &lt; target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1, count
+print(binary_search([1,3,5,7,9,11,13], 11))</code></pre></div>
+</section>
+
+<section class="card" id="12정03-04">
+  <div class="card-head">
+    <span class="num">11</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-04 자료형의 종류와 특성을 알고, 적합한 자료형을 선택하여 프로그램을 작성한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>학생 성적 관리 문제에 적합한 리스트·딕셔너리 자료형 선택</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>자료형의 특성을 설명하고 문제 해결에 적합한 구조를 선택하여 프로그램으로 구현한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 학생 성적 관리 프로그램에서 리스트, 딕셔너리, 튜플의 특성을 비교한 뒤 학생별 점수와 과목별 평균을 처리하기에 딕셔너리와 리스트의 조합이 적합하다고 판단함. 자료형 선택 이유를 데이터 접근 방식, 수정 가능성, 반복 처리 편의성과 연결하여 설명했으며, 잘못된 자료형을 사용했을 때 코드가 복잡해지는 사례도 제시함.</div>
+  <div class="record"><b>중:</b> 성적 데이터를 리스트와 딕셔너리로 표현하고, 이름으로 점수를 찾는 경우 딕셔너리가 편리하다는 점을 설명함. 자료형별 특징을 표로 정리하며 문제 상황에 맞게 자료형을 선택하려는 태도를 보임.</div>
+  <div class="record"><b>하:</b> 리스트와 딕셔너리의 기본 형태를 예시로 작성하고 데이터를 저장함. 자료형 선택 이유는 다소 단순했으나, 여러 값을 순서대로 저장할 때 리스트를 사용할 수 있음을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>students = [
+    {&quot;이름&quot;: &quot;가온&quot;, &quot;정보&quot;: 95},
+    {&quot;이름&quot;: &quot;나래&quot;, &quot;정보&quot;: 88},
+    {&quot;이름&quot;: &quot;다온&quot;, &quot;정보&quot;: 91}
+]
+best = max(students, key=lambda s: s[&quot;정보&quot;])
+print(&quot;최고점:&quot;, best[&quot;이름&quot;], best[&quot;정보&quot;])</code></pre></div>
+</section>
+
+<section class="card" id="12정03-05">
+  <div class="card-head">
+    <span class="num">12</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-05 표준입출력과 파일입출력을 활용한 프로그램을 작성한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>설문 결과를 파일로 저장하고 다시 읽어 요약하기</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>표준 입력·출력과 파일 읽기·쓰기를 활용해 데이터를 저장, 불러오기, 처리하는 프로그램을 작성한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 설문 결과를 파일로 저장하고 다시 읽어 응답 수, 최빈 응답, 평균값을 요약하는 프로그램을 작성함. 파일이 없을 때 발생하는 예외를 처리하고, 저장 형식을 CSV 형태로 개선하여 재사용성을 높였으며, 입력·처리·출력 단계가 명확하게 구분된 프로그램 구조를 완성함. 실제 데이터 관리 상황을 고려한 안정적인 파일 입출력 활용 능력이 돋보임.</div>
+  <div class="record"><b>중:</b> 사용자 입력을 받아 파일에 저장하고 다시 읽어 출력하는 프로그램을 작성함. 파일 열기 모드의 차이를 실습을 통해 확인하고, 저장된 내용이 프로그램 종료 후에도 남는다는 점을 설명함.</div>
+  <div class="record"><b>하:</b> 파일에 문자열을 쓰고 읽는 기본 예제를 실행함. 파일 경로와 열기 모드에서 오류가 있었으나 안내를 받아 수정하였고, 표준입출력과 파일입출력의 차이를 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>data = [&quot;가온,95&quot;, &quot;나래,88&quot;, &quot;다온,91&quot;]
+with open(&quot;score.csv&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(&quot;\n&quot;.join(data))
+with open(&quot;score.csv&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    lines = f.read().splitlines()
+for line in lines:
+    name, score = line.split(&quot;,&quot;)
+    print(name, int(score))</code></pre></div>
+</section>
+
+<section class="card" id="12정03-06">
+  <div class="card-head">
+    <span class="num">13</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-06 다차원 데이터 구조를 활용한 프로그램을 작성한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>좌석표·시간표·게임 맵을 2차원 리스트로 구현</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>행과 열의 의미를 설명하고 2차원 리스트를 활용해 탐색, 수정, 집계 기능을 구현한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 교실 좌석표를 2차원 리스트로 구현하고, 행과 열 인덱스를 이용해 빈자리 찾기, 자리 변경, 특정 학생 위치 검색 기능을 작성함. 중첩 반복문을 활용하여 전체 좌석을 탐색하고, 인덱스 범위 오류를 방지하는 조건을 추가함. 다차원 데이터 구조가 실제 공간 정보를 표현하는 데 효과적임을 코드와 결과로 보여줌.</div>
+  <div class="record"><b>중:</b> 시간표 데이터를 2차원 리스트로 표현하고 요일과 교시를 기준으로 과목을 조회하는 프로그램을 작성함. 행과 열의 의미를 구분하여 설명하였으며, 중첩 리스트를 사용하면 표 형태의 데이터를 다룰 수 있음을 이해함.</div>
+  <div class="record"><b>하:</b> 2차원 리스트 예제를 참고하여 간단한 좌석표를 만들고 특정 위치의 값을 출력함. 행과 열 인덱스를 혼동하는 경우가 있었으나 반복 연습을 통해 다차원 데이터가 표 형태 자료를 표현한다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>seats = [
+    [&quot;빈자리&quot;, &quot;예약&quot;],
+    [&quot;빈자리&quot;, &quot;빈자리&quot;],
+    [&quot;예약&quot;, &quot;빈자리&quot;]
+]
+empty = 0
+for row in seats:
+    empty += row.count(&quot;빈자리&quot;)
+print(&quot;빈자리 수:&quot;, empty)</code></pre></div>
+</section>
+
+<section class="card" id="12정03-07">
+  <div class="card-head">
+    <span class="num">14</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-07 다양한 제어 구조를 복합적으로 활용한 프로그램을 작성한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>조건문·반복문을 활용한 정렬 또는 데이터 판정 프로그램 작성</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>순차, 선택, 반복 구조를 복합적으로 활용하여 요구 조건을 만족하는 프로그램을 작성한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 조건문, 반복문, 중첩 제어 구조를 활용하여 점수 목록을 등급별로 분류하고 평균 이상 학생을 추출하는 프로그램을 작성함. 테스트 데이터를 여러 개 만들어 경계값을 검증했으며, 오류가 발생한 조건 순서를 스스로 수정하여 정확도를 높임. 제어 구조의 흐름을 순서도와 코드로 함께 설명한 점이 우수함.</div>
+  <div class="record"><b>중:</b> 조건문과 반복문을 활용하여 리스트의 값을 판정하는 프로그램을 작성함. 처음에는 조건의 순서가 적절하지 않아 일부 결과가 잘못 나왔으나 테스트 후 수정하였고, 다양한 제어 구조를 함께 사용할 수 있음을 이해함.</div>
+  <div class="record"><b>하:</b> 간단한 조건문과 반복문 예제를 작성하여 값을 출력함. 중첩 구조에서는 어려움이 있었으나 예시 코드를 수정하며 프로그램 흐름이 조건에 따라 달라질 수 있음을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>scores = [72, 95, 61, 88, 100]
+for score in scores:
+    if score &gt;= 90:
+        level = &quot;A&quot;
+    elif score &gt;= 80:
+        level = &quot;B&quot;
+    elif score &gt;= 70:
+        level = &quot;C&quot;
+    else:
+        level = &quot;보충&quot;
+    print(score, level)</code></pre></div>
+</section>
+
+<section class="card" id="12정03-08">
+  <div class="card-head">
+    <span class="num">15</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-08 객체를 구현하는 클래스와 인스턴스를 활용하여 프로그램을 작성한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>학생·계좌·센서 객체를 클래스로 모델링</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>클래스와 인스턴스의 역할을 설명하고 속성·메서드를 정의하여 문제 해결 객체를 구현한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 은행 계좌 클래스를 설계하여 잔액 속성, 입금·출금·조회 메서드를 구현하고, 잘못된 출금 요청을 막는 조건을 추가함. 클래스와 인스턴스의 관계를 실제 계좌 여러 개 생성 사례로 설명했으며, 데이터와 기능을 하나로 묶는 객체지향 설계의 장점을 코드 구조 개선과 연결하여 발표함.</div>
+  <div class="record"><b>중:</b> 학생 객체 클래스를 만들고 이름, 점수 속성과 총점 계산 메서드를 작성함. 인스턴스를 여러 개 생성해 서로 다른 값을 저장할 수 있음을 확인하고, 클래스가 객체를 만들기 위한 설계도라는 점을 설명함.</div>
+  <div class="record"><b>하:</b> 클래스 예제를 따라 작성하여 객체를 생성하고 속성을 출력함. 메서드와 속성의 차이를 구분하는 데 어려움이 있었으나 피드백을 통해 객체가 데이터와 동작을 함께 가질 수 있음을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+    def level(self):
+        return &quot;우수&quot; if self.score &gt;= 90 else &quot;성장&quot;
+
+s = Student(&quot;가온&quot;, 95)
+print(s.name, s.level())</code></pre></div>
+</section>
+
+<section class="card" id="12정03-09">
+  <div class="card-head">
+    <span class="num">16</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-09 실생활 및 다양한 학문 분야의 문제 해결을 위한 프로그램을 협력적으로 설계ㆍ구현한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>팀별 생활 문제 해결 앱 또는 데이터 분석 프로그램 제작</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>역할 분담, 알고리즘 설계, 코드 구현, 테스트, 협업 기록을 바탕으로 프로그램을 완성한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 팀 프로젝트에서 “분실물 관리 프로그램”을 주제로 역할을 데이터 설계, 화면 흐름, 검색 기능, 테스트로 나누어 협력함. 본인은 분실물 등록·검색 기능을 맡아 딕셔너리 기반 데이터 구조를 제안하고, 팀원이 작성한 코드와 연결될 수 있도록 함수 이름과 입출력 형식을 조정함. 의견 충돌 상황에서 사용자 관점의 테스트 기준을 제안하여 팀 산출물의 완성도를 높임.</div>
+  <div class="record"><b>중:</b> 팀별 생활 문제 해결 프로그램 제작에서 검색 기능 구현을 담당하고, 회의 내용을 바탕으로 코드 일부를 수정함. 역할 분담에 따라 맡은 기능을 구현하려 노력하였으며, 팀원의 피드백을 반영해 입력 안내 문구와 예외 상황을 보완함.</div>
+  <div class="record"><b>하:</b> 협력 프로젝트에서 자료 조사와 간단한 코드 작성에 참여함. 프로그램 전체 구조 이해는 다소 부족했으나 팀원의 설명을 듣고 자신의 역할을 수행하려 노력했으며, 협업 과정에서 소통과 역할 분담의 필요성을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>tasks = {
+    &quot;기획&quot;: &quot;문제 정의&quot;,
+    &quot;개발&quot;: &quot;기능 구현&quot;,
+    &quot;검증&quot;: &quot;테스트&quot;,
+    &quot;발표&quot;: &quot;결과 공유&quot;
+}
+for role, task in tasks.items():
+    print(role, &quot;담당:&quot;, task)</code></pre></div>
+</section>
+
+<section class="card" id="12정03-10">
+  <div class="card-head">
+    <span class="num">17</span>
+    <div>
+      <div class="area">알고리즘과 프로그래밍</div>
+      <h2>12정03-10 문제 해결을 위한 프로그램의 성능을 평가하고 공유한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>작성한 프로그램의 정확도·실행 시간·가독성 평가 보고서 작성</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>테스트 케이스로 정확성을 확인하고 실행 시간, 코드 가독성, 개선점을 평가하여 공유한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 직접 작성한 탐색 프로그램을 정확도, 실행 시간, 코드 가독성 기준으로 평가하고 개선 전후 결과를 표로 비교함. time 모듈로 측정한 실행 시간이 입력 크기에 따라 달라지는 양상을 분석했으며, 함수 분리와 변수명 수정으로 가독성을 높인 개선 과정을 공유함. 성능 평가를 단순 점수 확인이 아니라 개선 근거로 활용하는 태도가 뛰어남.</div>
+  <div class="record"><b>중:</b> 작성한 프로그램을 여러 테스트 케이스로 실행하고 오류 여부를 확인함. 실행 시간과 코드 길이를 비교하며 성능 평가 항목을 이해했고, 발표 과정에서 개선할 점을 구체적으로 제시함.</div>
+  <div class="record"><b>하:</b> 프로그램 실행 결과가 맞는지 확인하고 일부 오류를 수정함. 성능 평가 기준을 다양하게 적용하는 데는 어려움이 있었으나, 프로그램을 완성한 뒤 테스트와 공유 과정이 필요하다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>import time
+def total_loop(n):
+    s = 0
+    for i in range(1, n+1):
+        s += i
+    return s
+
+start = time.time()
+print(total_loop(100000))
+print(&quot;실행시간:&quot;, round(time.time()-start, 6))</code></pre></div>
+</section>
+
+<section class="card" id="12정04-01">
+  <div class="card-head">
+    <span class="num">18</span>
+    <div>
+      <div class="area">인공지능</div>
+      <h2>12정04-01 지능 에이전트의 개념과 특성을 이해하고, 인간과 인공지능의 관계를 분석한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>챗봇·추천 시스템·자율주행 서비스를 지능 에이전트 관점으로 분석</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>환경, 센서, 판단, 행동, 목표를 기준으로 지능 에이전트의 역할과 인간과의 관계를 설명한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 추천 시스템을 지능 에이전트 관점에서 분석하여 센서에 해당하는 입력 데이터, 에이전트의 판단 과정, 환경에 대한 행동을 구분함. 인간의 선택을 돕는 인공지능이 편리함을 제공하지만 정보 편식과 과도한 의존을 만들 수 있다는 점을 사례로 설명함. 인간과 인공지능의 관계를 경쟁이 아니라 역할 분담과 책임의 관점에서 해석한 점이 깊이 있음.</div>
+  <div class="record"><b>중:</b> 챗봇 서비스를 지능 에이전트의 인식·판단·행동 과정으로 나누어 설명함. 인공지능이 사용자의 질문에 응답하는 원리를 이해하고, 인간이 최종 판단 책임을 가져야 한다는 의견을 제시함.</div>
+  <div class="record"><b>하:</b> 지능 에이전트의 예로 챗봇과 자율주행을 들고 기본 특징을 정리함. 인식, 판단, 행동의 구분이 아직 명확하지 않았으나 예시를 통해 인공지능이 환경 정보를 바탕으로 작동한다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>agent = {
+    &quot;환경&quot;: &quot;온라인 쇼핑몰&quot;,
+    &quot;센서&quot;: &quot;사용자 클릭 데이터&quot;,
+    &quot;판단&quot;: &quot;관심 상품 예측&quot;,
+    &quot;행동&quot;: &quot;상품 추천&quot;
+}
+for k, v in agent.items():
+    print(k, &quot;:&quot;, v)</code></pre></div>
+</section>
+
+<section class="card" id="12정04-02">
+  <div class="card-head">
+    <span class="num">19</span>
+    <div>
+      <div class="area">인공지능</div>
+      <h2>12정04-02 기계학습의 개념을 이해하고, 지도학습과 비지도학습의 차이를 비교ㆍ분석한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>지도학습·비지도학습 사례 분류 카드 만들기</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>정답 데이터의 유무, 학습 목적, 활용 사례를 기준으로 지도학습과 비지도학습을 비교한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 지도학습과 비지도학습을 데이터의 정답 유무, 목표, 결과 형태로 비교하고, 학생 성적 예측은 지도학습, 관심사별 동아리 분류는 비지도학습에 가깝다는 사례를 스스로 구성함. 단순 암기가 아니라 입력 데이터, 레이블, 모델의 역할을 연결하여 설명했으며, 학습 데이터의 편향이 결과에 영향을 줄 수 있다는 점까지 언급함.</div>
+  <div class="record"><b>중:</b> 지도학습과 비지도학습 사례 카드를 분류하고, 정답 데이터가 있으면 지도학습이라는 기준을 적용함. 군집화 사례를 통해 비지도학습의 특징을 이해하고 두 학습 방식의 차이를 표로 정리함.</div>
+  <div class="record"><b>하:</b> 기계학습의 기본 개념과 지도학습 예시를 정리함. 비지도학습과의 차이를 설명하는 데는 어려움이 있었으나, 데이터로부터 규칙을 찾는 과정이 기계학습이라는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>cases = {
+    &quot;스팸메일 분류&quot;: &quot;지도학습&quot;,
+    &quot;고객 유형 묶기&quot;: &quot;비지도학습&quot;,
+    &quot;집값 예측&quot;: &quot;지도학습&quot;,
+    &quot;뉴스 주제 군집&quot;: &quot;비지도학습&quot;
+}
+for task, kind in cases.items():
+    print(task, &quot;-&gt;&quot;, kind)</code></pre></div>
+</section>
+
+<section class="card" id="12정04-03">
+  <div class="card-head">
+    <span class="num">20</span>
+    <div>
+      <div class="area">인공지능</div>
+      <h2>12정04-03 기계학습을 활용하여 해결할 수 있는 문제와 그렇지 않은 문제를 구분하고, 사회문제 해결에 기계학습을 적용한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>사회문제 중 기계학습 적용 가능 문제 선정 및 간단한 예측 모델 설계</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>데이터 확보 가능성, 예측 대상, 윤리적 쟁점을 고려하여 기계학습 적용 가능성을 판단한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 학교 내 에너지 사용량 예측 문제를 기계학습 적용 가능 사례로 선정하고, 입력 변수로 날씨, 요일, 사용 교실 수, 행사 여부를 제안함. 반면 가치 판단이 중심인 생활지도 결정은 데이터 예측만으로 해결하기 어렵다고 구분하며, 모델 활용의 한계와 책임 소재를 함께 논의함. 사회문제 해결에 기계학습을 적용하되 검증과 윤리적 판단이 필요하다는 균형 잡힌 관점을 보임.</div>
+  <div class="record"><b>중:</b> 사회문제 중 교통량 예측 문제를 선택하고, 날씨와 시간대 같은 데이터를 활용할 수 있음을 설명함. 기계학습으로 해결 가능한 문제와 그렇지 않은 문제를 구분하려 노력했으며, 예측 결과를 그대로 믿기보다 확인이 필요하다는 점을 정리함.</div>
+  <div class="record"><b>하:</b> 기계학습 적용 사례를 조사하고 환경, 교통, 건강 분야의 예를 제시함. 문제 구분 기준이 다소 모호했으나, 충분한 데이터가 있어야 기계학습 활용이 가능하다는 점을 이해함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>data = [
+    {&quot;공부시간&quot;: 2, &quot;통과&quot;: 0},
+    {&quot;공부시간&quot;: 5, &quot;통과&quot;: 1},
+    {&quot;공부시간&quot;: 7, &quot;통과&quot;: 1}
+]
+threshold = 4
+for d in data:
+    pred = 1 if d[&quot;공부시간&quot;] &gt;= threshold else 0
+    print(d[&quot;공부시간&quot;], &quot;시간 예측:&quot;, pred)</code></pre></div>
+</section>
+
+<section class="card" id="12정05-01">
+  <div class="card-head">
+    <span class="num">21</span>
+    <div>
+      <div class="area">디지털 문화</div>
+      <h2>12정05-01 디지털 기술이 사회에 미치는 영향력을 분석하고 발전 방향을 예측하여 진로를 설계한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>관심 직업의 디지털 전환 영향 분석과 진로 역량 로드맵 작성</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>디지털 기술이 직업에 미치는 영향을 분석하고 필요한 역량과 학습 계획을 구체적으로 제시한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 관심 진로인 생명정보학 연구자의 업무가 데이터 분석, 자동화 실험, 인공지능 모델 활용으로 변화하고 있음을 조사함. 필요한 역량을 파이썬, 통계, 윤리적 데이터 활용, 협업 능력으로 구체화하고 1년 학습 로드맵을 작성함. 디지털 기술의 사회적 영향과 개인 진로 준비를 연결하여 미래 변화에 능동적으로 대응하려는 태도가 돋보임.</div>
+  <div class="record"><b>중:</b> 관심 직업의 디지털 전환 사례를 조사하고 필요한 역량을 정리함. 인공지능과 데이터 분석이 여러 직업에 영향을 준다는 점을 이해하고, 자신에게 필요한 학습 계획을 간단한 단계로 제시함.</div>
+  <div class="record"><b>하:</b> 디지털 기술이 직업에 영향을 준다는 사례를 조사함. 진로와 연결한 분석은 다소 단순했으나, 관심 분야에서 컴퓨팅 역량이 필요할 수 있음을 인식함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>job = &quot;교사&quot;
+skills = [&quot;AI 활용&quot;, &quot;데이터 분석&quot;, &quot;디지털 콘텐츠 제작&quot;]
+print(job, &quot;에게 필요한 디지털 역량&quot;)
+for i, skill in enumerate(skills, 1):
+    print(i, skill)</code></pre></div>
+</section>
+
+<section class="card" id="12정05-02">
+  <div class="card-head">
+    <span class="num">22</span>
+    <div>
+      <div class="area">디지털 문화</div>
+      <h2>12정05-02 보호해야 할 정보와 공유해야 할 정보를 구분하고, 올바른 정보 보호 방법을 실천한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>개인정보·공공정보 분류와 보호 실천 체크리스트 만들기</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>보호 정보와 공유 정보의 기준을 세우고 실제 상황에서 정보 보호 방법을 적용한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 학급 행사 안내 자료를 예로 들어 공개 가능한 정보와 보호해야 할 개인정보를 구분하고, 이름·연락처·사진·위치 정보의 공개 범위를 상황별로 판단함. 공유 문서 권한 설정, 익명화, 비밀번호 관리 방법을 실천 체크리스트로 만들었으며, 정보 공유의 공익성과 개인정보 보호의 균형을 구체적 사례로 설명함.</div>
+  <div class="record"><b>중:</b> 개인정보와 공공정보를 분류하고 보호 방법을 정리함. 공유가 필요한 정보라도 공개 범위를 설정해야 함을 이해하고, 비밀번호 변경과 2단계 인증 등 기본적인 보호 방법을 실천 항목으로 제시함.</div>
+  <div class="record"><b>하:</b> 보호해야 할 정보의 예를 조사하고 개인정보가 함부로 공개되면 안 된다는 점을 설명함. 정보 공유와 보호의 기준을 세우는 데는 어려움이 있었으나 체크리스트를 참고하여 기본 보호 방법을 정리함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>items = {
+    &quot;주민등록번호&quot;: &quot;보호&quot;,
+    &quot;재난 대피 정보&quot;: &quot;공유&quot;,
+    &quot;개인 비밀번호&quot;: &quot;보호&quot;,
+    &quot;날씨 정보&quot;: &quot;공유&quot;
+}
+for info, action in items.items():
+    print(info, &quot;-&gt;&quot;, action)</code></pre></div>
+</section>
+
+<section class="card" id="12정05-03">
+  <div class="card-head">
+    <span class="num">23</span>
+    <div>
+      <div class="area">디지털 문화</div>
+      <h2>12정05-03 정보보안의 필요성을 이해하고, 보안 기술을 활용하여 디지털 윤리를 실천한다.</h2>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="box">
+      <h3>수행활동 예시</h3>
+      <p>비밀번호 강도 점검, 접근 제어, 백신 업데이트 실천 보고서</p>
+      <ul>
+        <li>문제 상황 또는 자료를 분석한다.</li>
+        <li>핵심 개념을 적용해 산출물을 만든다.</li>
+        <li>결과를 발표하고 한계와 개선 방향을 정리한다.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>평가 요소</h3>
+      <p>정보보안의 필요성을 설명하고 암호, 접근 권한, 백신, 업데이트 등 보안 기술을 실제로 적용한다.</p>
+      <div class="chips"><span>개념 이해</span><span>적용·구현</span><span>분석·해석</span><span>성찰·공유</span></div>
+    </div>
+  </div>
+  <h3>척도 기준</h3>
+  
+<table class="rubric">
+<thead><tr><th>척도</th><th>평정 기준</th></tr></thead>
+<tbody>
+<tr><td>A<br><span>90~100</span></td><td>개념을 정확히 설명하고, 다양한 맥락에 적용하여 결과물을 완성도 높게 구현하며, 한계와 개선점을 스스로 제안한다.</td></tr>
+<tr><td>B<br><span>80~89</span></td><td>개념을 정확히 이해하고, 주어진 맥락에 맞게 기능을 구현하며, 일부 개선점을 설명한다.</td></tr>
+<tr><td>C<br><span>70~79</span></td><td>핵심 개념을 설명하고 기본 기능을 구현하며, 교사의 안내에 따라 오류를 수정한다.</td></tr>
+<tr><td>D<br><span>60~69</span></td><td>개념의 일부를 이해하고 제한된 조건에서 부분 기능을 구현한다.</td></tr>
+<tr><td>E<br><span>40~59</span></td><td>개념을 부분적으로 인지하고 예시를 참고하여 일부 절차를 수행한다.</td></tr>
+</tbody>
+</table>
+
+  <h3>과세특 기록 예시</h3>
+    <div class="record"><b>상:</b> 비밀번호 강도 점검 프로그램을 작성하고 길이, 문자 종류, 반복 패턴을 기준으로 보안 수준을 평가함. 해시, 접근 제어, 백신 업데이트를 정보보안의 기밀성·무결성·가용성과 연결하여 설명했으며, 강한 비밀번호 만들기 캠페인 문구를 제작해 친구들에게 공유함. 보안 기술을 개인 실천과 디지털 윤리로 확장한 점이 우수함.</div>
+  <div class="record"><b>중:</b> 비밀번호 강도 점검 활동에서 길이와 문자 조합이 보안 수준에 영향을 준다는 점을 이해함. 정보보안이 개인정보 보호와 안전한 디지털 생활에 필요하다는 의견을 제시하고, 백신 업데이트와 의심 링크 주의 같은 실천 방안을 정리함.</div>
+  <div class="record"><b>하:</b> 정보보안의 필요성과 비밀번호 관리 방법을 예시 중심으로 정리함. 보안 기술의 원리 설명은 다소 부족했으나, 안전한 디지털 생활을 위해 기본 보안 수칙을 지켜야 함을 인식함.</div>
+
+  <h3>파이썬 코드 예시</h3>
+  <div class="code-wrap"><button onclick="copyCode(this)">코드 복사</button><pre><code>password = &quot;Ai2026!safe&quot;
+checks = [
+    len(password) &gt;= 8,
+    any(ch.isdigit() for ch in password),
+    any(ch.isupper() for ch in password),
+    any(not ch.isalnum() for ch in password)
+]
+print(&quot;비밀번호 점검 통과:&quot;, all(checks))</code></pre></div>
+</section>
+
+</main>
+</div>
+<footer>고등학교 정보 과목 수행평가 설계용 HTML</footer>
+<script>
+function copyCode(btn){
+  const code = btn.parentElement.querySelector('code').innerText;
+  navigator.clipboard.writeText(code);
+  const old = btn.textContent;
+  btn.textContent = '복사됨';
+  setTimeout(()=>btn.textContent=old,900);
+}
+</script>
+</body>
+</html>
