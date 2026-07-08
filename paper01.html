@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>교실 협업 네트워크 권한 설계와 보안성 평가</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#1f2937;--muted:#64748b;--blue:#2563eb;--nav:#111827;--line:#dbe3ef;--soft:#eaf1ff;--green:#047857;--red:#b91c1c;--amber:#b45309;}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;line-height:1.72} a{color:#1d4ed8;text-decoration:none} a:hover{text-decoration:underline}
+header{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:white;padding:42px 20px 34px;text-align:center} header h1{margin:0;font-size:clamp(26px,4vw,46px);letter-spacing:-1.2px} header p{max-width:980px;margin:14px auto 0;color:#dbeafe;font-size:18px}
+nav{position:sticky;top:0;z-index:10;background:rgba(17,24,39,.96);padding:8px 12px;box-shadow:0 2px 12px rgba(0,0,0,.2)} nav .wrap{max-width:1280px;margin:auto;display:flex;gap:8px;overflow:auto} nav a{color:white;font-size:13px;background:#273244;padding:7px 10px;border-radius:999px;white-space:nowrap} nav a:hover{background:#3b82f6;text-decoration:none}
+main{max-width:1280px;margin:26px auto;padding:0 18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin:18px 0;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+h2{border-left:8px solid var(--blue);padding-left:12px;margin-top:4px;font-size:26px} h3{margin-top:28px;color:#0f172a;font-size:21px}.subtitle{color:var(--muted);font-weight:600}.tag{display:inline-block;background:var(--soft);color:#1d4ed8;border:1px solid #c7d2fe;border-radius:999px;padding:4px 9px;margin:2px;font-size:12px;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.mini{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fbfdff}.note{background:#fff7ed;border-left:6px solid #f59e0b;padding:14px 16px;border-radius:10px}.good{background:#ecfdf5;border-left:6px solid #10b981;padding:14px 16px;border-radius:10px}.warn{background:#fef2f2;border-left:6px solid #ef4444;padding:14px 16px;border-radius:10px}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:white} th,td{border:1px solid var(--line);padding:10px;vertical-align:top} th{background:#eff6ff;color:#1e3a8a} caption{caption-side:top;text-align:left;font-weight:700;margin-bottom:6px} code{background:#f1f5f9;border-radius:5px;padding:2px 5px} pre{background:#0b1020;color:#e5e7eb;padding:18px;border-radius:14px;overflow:auto;font-size:14px;line-height:1.55}.k{color:#93c5fd}.c{color:#94a3b8}.s{color:#fbbf24}.n{color:#86efac}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.box{background:#eef2ff;border:1px solid #c7d2fe;border-radius:12px;padding:10px 12px;font-weight:700}.arrow{font-size:24px;color:#475569}.rubric td:first-child{font-weight:700;background:#fafafa}.small{font-size:13px;color:#475569}.center{text-align:center}.pill{border-radius:999px;padding:3px 8px;font-weight:700}.low{background:#dcfce7;color:#166534}.mid{background:#fef3c7;color:#92400e}.high{background:#fee2e2;color:#991b1b} footer{text-align:center;color:#64748b;padding:28px 0 50px}.toc ol{columns:2;column-gap:40px}.toc li{break-inside:avoid;margin:5px 0}.chartbar{height:18px;background:#dbeafe;border-radius:999px;overflow:hidden}.chartbar span{display:block;height:100%;background:#3b82f6;border-radius:999px}.copy{float:right;background:#2563eb;color:#fff;border:0;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:12px}@media(max-width:760px){.toc ol{columns:1} header{text-align:left} .card{padding:18px}}
+</style>
+<script>
+function copyCode(id){const t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>alert('코드가 복사되었습니다.'));}
+</script>
+</head>
+<body>
+<header>
+  <h1>교실 협업 네트워크 권한 설계와 보안성 평가</h1>
+  <p>고등학교 정보 과목 소논문 예시 · 데이터 기반 권한 설계 · RBAC/최소권한 원칙 · 보안성 평가 · 정보 윤리와 세부특기사항 연계</p>
+</header>
+<nav><div class="wrap">
+  <a href="#abstract">초록</a><a href="#toc">목차</a><a href="#motivation">Ⅰ. 연구 동기</a><a href="#data">Ⅱ. 공공데이터</a><a href="#algorithm">Ⅲ. 전처리·알고리즘</a><a href="#code">Ⅳ. 예시 코드</a><a href="#result">Ⅴ. 결과·시각화</a><a href="#ethics">Ⅵ. 윤리·정책</a><a href="#record">Ⅶ. 과세특</a><a href="#refs">Ⅷ. 참고문헌</a>
+</div></nav>
+<main>
+<section id="abstract" class="card">
+<h2>영문 초록 · 한글 번역</h2>
+<h3>English Abstract</h3>
+<p>This study designs and evaluates a permission model for classroom collaboration networks where teachers, students, team leaders, and guests share documents, datasets, code, and feedback. The research problem begins with a practical question: how can a school collaboration space support active learning while reducing unnecessary access to personal information and sensitive learning records? To answer this question, the study constructs a role-based access control model, defines representative resources and permissions, and evaluates security using a risk score that combines permission sensitivity, role necessity, violation likelihood, and auditability. Public datasets and official guidance related to privacy incidents, personal information protection, and access control are reviewed to justify variables and evaluation criteria. A Python simulation generates classroom collaboration logs, detects excessive permissions, calculates risk scores, and visualizes the effect of applying the principle of least privilege. The result suggests that role separation, temporary guest access, automatic permission expiration, and log-based auditing can reduce high-risk access patterns without weakening educational collaboration. This study also discusses ethical limits, including student privacy, over-monitoring, algorithmic bias, and the need for transparent consent. The proposed framework can be extended to AI-based anomaly detection, but final decisions should remain explainable and supervised by teachers.</p>
+<h3>한글 번역</h3>
+<p>본 연구는 교사, 학생, 팀장, 외부 협력자 등이 문서, 데이터셋, 코드, 피드백을 공유하는 교실 협업 네트워크에서 권한을 어떻게 설계하고 보안성을 평가할 수 있는지 탐구한다. 연구 문제는 “학습 협업을 활발하게 유지하면서도 개인정보와 민감한 학습 기록에 대한 불필요한 접근을 줄일 수 있는가?”에서 출발하였다. 이를 위해 역할 기반 접근 제어 모델을 구성하고, 대표 자원과 권한을 정의한 뒤, 권한 민감도, 역할 필요성, 위반 가능성, 감사 가능성을 결합한 위험 점수로 보안성을 평가하였다. 개인정보 침해, 개인정보 보호, 접근권한 관리와 관련된 공공데이터 및 공식 지침을 검토하여 변수와 평가 기준의 타당성을 확보하였다. 예시 Python 코드는 교실 협업 로그를 생성하고, 과도한 권한을 탐지하며, 위험 점수를 계산하고, 최소권한 원칙 적용 전후의 변화를 시각화한다. 분석 결과 역할 분리, 임시 게스트 권한, 자동 만료, 로그 기반 감사는 교육적 협업을 약화시키지 않으면서 고위험 접근 패턴을 줄일 수 있음을 보여준다. 또한 학생 개인정보 보호, 과잉 감시, 알고리즘 편향, 투명한 동의의 필요성과 같은 정보 윤리적 한계를 논의하였다. 제안한 틀은 AI 기반 이상 접근 탐지로 확장될 수 있으나, 최종 판단은 설명 가능하고 교사의 감독 아래 이루어져야 한다.</p>
+<div class="grid">
+<div class="mini"><b>핵심 개념</b><br><span class="tag">RBAC</span><span class="tag">최소권한</span><span class="tag">감사 로그</span><span class="tag">위험 점수</span></div>
+<div class="mini"><b>탐구 질문</b><br>교실 협업을 유지하면서도 불필요한 접근권한과 개인정보 노출 가능성을 어떻게 낮출 수 있는가?</div>
+<div class="mini"><b>정보 성취수준 연결</b><br>데이터 이해, 알고리즘 설계, 정보 윤리, 인공지능 확장 가능성 평가</div>
+</div>
+</section>
+<section id="toc" class="card toc"><h2>목차</h2><ol>
+<li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 공공데이터 출처와 변수 설명</li><li>Ⅲ. 데이터 전처리 및 분석 알고리즘</li><li>Ⅳ. 예시 코드</li><li>Ⅴ. 분석 결과와 시각화 인사이트 도출</li><li>Ⅵ. 정보 윤리, 한계, 정책 개선 방향</li><li>Ⅶ. 과목별 세부특기사항</li><li>Ⅷ. 참고문헌</li></ol></section>
+<section id="motivation" class="card">
+<h2>Ⅰ. 연구 동기와 문제 정의</h2>
+<p>교실 협업 플랫폼은 공동 문서 작성, 코드 공유, 데이터 분석, 발표 자료 피드백을 빠르게 수행하게 해 준다. 그러나 같은 편리함은 권한 관리가 느슨할 때 개인정보 노출, 과제물 무단 수정, 평가 자료 접근, 외부 링크 공유 위험으로 이어질 수 있다. 특히 모둠 활동에서는 “누가 어떤 파일을 볼 수 있고, 수정할 수 있으며, 언제 권한이 끝나는가”가 명확하지 않으면 학습 과정의 신뢰성이 훼손된다.</p>
+<div class="note"><b>문제 정의</b><br>본 연구는 교실 협업 네트워크를 하나의 정보 시스템으로 보고, 사용자 역할·자원 유형·권한 종류·접근 로그를 변수화하여 보안 위험을 정량 평가한다. 목표는 모든 접근을 막는 것이 아니라, 학습 목적에 필요한 권한만 부여하는 균형 잡힌 설계안을 제시하는 것이다.</div>
+<h3>연구 문제</h3>
+<ol><li>교실 협업 상황에서 역할별로 필요한 최소 권한은 무엇인가?</li><li>과도한 권한은 어떤 기준으로 탐지할 수 있는가?</li><li>접근 로그와 위험 점수를 이용하면 보안성 개선 효과를 어떻게 시각화할 수 있는가?</li><li>권한 설계 과정에서 학생의 개인정보와 학습권을 어떻게 동시에 보호할 수 있는가?</li></ol>
+<h3>가설</h3>
+<p>역할 기반 접근 제어와 자동 만료 규칙을 적용하면 협업 기능을 유지하면서도 고위험 권한의 비율과 평균 위험 점수가 감소할 것이다.</p>
+</section>
+<section id="data" class="card">
+<h2>Ⅱ. 공공데이터 출처와 변수 설명</h2>
+<p>교실 내부 로그는 실제 학생 개인정보를 사용하지 않고 가상 데이터로 생성한다. 대신 위험 변수와 정책 기준은 공공데이터 및 공식 지침에서 도출한다. 개인정보보호위원회와 KISA 관련 자료는 침해 신고·상담 현황, 개인정보 침해 경험, 유출 신고 동향, 개인정보처리방침 항목 정보 등을 제공하며, 교육부 개인정보 보호지침은 접근권한을 업무 수행에 필요한 최소 범위로 차등 부여해야 한다는 기준을 제시한다.</p>
+<table>
+<caption>공공데이터 및 공식 자료 활용 계획</caption>
+<tr><th>자료</th><th>제공·관리 기관</th><th>활용 목적</th><th>본 연구 변수화 방식</th></tr>
+<tr><td>개인정보침해 신고센터 신고·상담 현황</td><td>개인정보보호위원회, 공공데이터포털</td><td>개인정보 침해 유형과 상담·신고 흐름 이해</td><td>침해 위험 유형, 사고 대응 필요성</td></tr>
+<tr><td>일반국민의 개인정보 침해 경험 실태</td><td>개인정보보호위원회, 공공데이터포털</td><td>개인정보 유출·부정사용·사생활 침해 등 인식 파악</td><td>자원 민감도, 학생 체감 위험</td></tr>
+<tr><td>개인정보 유출 신고 동향 및 예방 방법</td><td>한국인터넷진흥원, 공공데이터포털</td><td>유출 원인과 예방 조치 확인</td><td>로그 점검, 접근권한 정기 검토, 예방 정책</td></tr>
+<tr><td>개인정보처리방침 항목정보</td><td>KISA, 공공데이터포털</td><td>처리 목적, 보유 기간, 파기, 안전성 확보 조치 확인</td><td>권한 만료, 보유 기간, 감사 가능성</td></tr>
+<tr><td>교육부 개인정보 보호지침</td><td>교육부, 국가법령정보센터</td><td>학교 개인정보처리시스템 접근권한 관리 기준 확인</td><td>최소권한 원칙, 역할별 차등 권한</td></tr>
+</table>
+<h3>분석 변수</h3>
+<table>
+<tr><th>변수명</th><th>자료형</th><th>설명</th><th>예시</th></tr>
+<tr><td>role</td><td>범주형</td><td>사용자 역할</td><td>teacher, student, team_leader, guest</td></tr>
+<tr><td>resource</td><td>범주형</td><td>협업 자원 유형</td><td>notice, team_doc, grade_sheet, dataset, source_code, feedback</td></tr>
+<tr><td>permission</td><td>범주형</td><td>가능한 작업</td><td>read, write, comment, manage, export</td></tr>
+<tr><td>sensitivity</td><td>수치형</td><td>자원 민감도</td><td>1 낮음 ~ 5 매우 높음</td></tr>
+<tr><td>need</td><td>수치형</td><td>역할과 권한의 필요도</td><td>0 불필요, 1 보조적, 2 필수</td></tr>
+<tr><td>action_count</td><td>수치형</td><td>일정 기간 접근 횟수</td><td>0~n</td></tr>
+<tr><td>after_hours</td><td>불리언</td><td>비정상 시간 접근 여부</td><td>True/False</td></tr>
+<tr><td>risk_score</td><td>수치형</td><td>권한 위험 점수</td><td>0~100</td></tr>
+</table>
+</section>
+<section id="algorithm" class="card">
+<h2>Ⅲ. 데이터 전처리 및 분석 알고리즘</h2>
+<h3>1. 전처리 절차</h3>
+<div class="flow"><div class="box">가상 로그 생성</div><div class="arrow">→</div><div class="box">역할·자원 표준화</div><div class="arrow">→</div><div class="box">민감도 매핑</div><div class="arrow">→</div><div class="box">필요 권한 규칙 적용</div><div class="arrow">→</div><div class="box">위험 점수 계산</div><div class="arrow">→</div><div class="box">개선 전후 비교</div></div>
+<h3>2. 권한 설계 원칙</h3>
+<ul><li><b>역할 기반 접근 제어(RBAC)</b>: 개인별 임의 권한보다 역할별 권한 묶음을 우선 정의한다.</li><li><b>최소권한 원칙</b>: 학습 목적에 필요한 최소 범위의 권한만 부여한다.</li><li><b>권한 만료</b>: 프로젝트 종료, 모둠 변경, 외부 협력 종료 시 권한을 자동 회수한다.</li><li><b>감사 가능성</b>: 누가, 언제, 어떤 자원에, 어떤 권한으로 접근했는지 기록한다.</li><li><b>분리 원칙</b>: 평가 자료, 개인정보 파일, 공개 학습 자료를 같은 권한 묶음에 넣지 않는다.</li></ul>
+<h3>3. 위험 점수 산식</h3>
+<p>본 연구의 예시 위험 점수는 다음과 같이 정의한다.</p>
+<pre>risk_score = sensitivity × 18 + excess_permission × 25 + after_hours × 10 + export_risk × 12 - audit_level × 8</pre>
+<p>점수는 0~100 사이로 보정하며, 70점 이상은 고위험, 40~69점은 중위험, 39점 이하는 저위험으로 분류한다. 이 산식은 실제 보안 인증 점수가 아니라 수업용 모형이며, 학교 환경에 맞게 가중치를 조정할 수 있다.</p>
+<table class="rubric"><tr><th>단계</th><th>알고리즘 설명</th><th>정보 과목 역량</th></tr><tr><td>입력</td><td>역할, 자원, 권한, 접근 시간, 접근 횟수, 로그 기록 여부</td><td>데이터 구조화</td></tr><tr><td>처리</td><td>권한 필요도와 실제 권한 비교, 초과 권한 탐지, 위험 점수 계산</td><td>알고리즘 설계</td></tr><tr><td>출력</td><td>위험 등급, 개선 대상 권한, 역할별 권한표, 시각화</td><td>데이터 시각화와 의사결정</td></tr></table>
+</section>
+<section id="code" class="card">
+<h2>Ⅳ. 예시 코드</h2>
+<p class="subtitle">아래 코드는 외부 파일 없이 실행 가능한 수업용 예시입니다. 실제 학교 계정·학생 이름·학번·평가 자료를 넣지 않고 가상 로그만 사용합니다.</p>
+<button class="copy" onclick="copyCode('code1')">코드 복사</button>
+<pre id="code1"><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. 교실 협업 네트워크의 역할, 자원, 권한 정의
+roles = ["teacher", "student", "team_leader", "guest"]
+resources = {
+    "notice": 1,
+    "team_doc": 2,
+    "source_code": 3,
+    "dataset": 4,
+    "feedback": 3,
+    "grade_sheet": 5
+}
+permissions = ["read", "comment", "write", "manage", "export"]
+
+# 2. 최소권한 기준표: 역할별로 허용되는 권한
+allowed = {
+    ("teacher", "notice"): {"read", "write", "manage"},
+    ("teacher", "team_doc"): {"read", "comment", "write", "manage"},
+    ("teacher", "source_code"): {"read", "comment", "write"},
+    ("teacher", "dataset"): {"read", "write", "export"},
+    ("teacher", "feedback"): {"read", "comment", "write"},
+    ("teacher", "grade_sheet"): {"read", "write", "manage"},
+
+    ("student", "notice"): {"read"},
+    ("student", "team_doc"): {"read", "comment", "write"},
+    ("student", "source_code"): {"read", "write"},
+    ("student", "dataset"): {"read"},
+    ("student", "feedback"): {"read", "comment"},
+    ("student", "grade_sheet"): set(),
+
+    ("team_leader", "notice"): {"read"},
+    ("team_leader", "team_doc"): {"read", "comment", "write", "manage"},
+    ("team_leader", "source_code"): {"read", "comment", "write"},
+    ("team_leader", "dataset"): {"read", "write"},
+    ("team_leader", "feedback"): {"read", "comment"},
+    ("team_leader", "grade_sheet"): set(),
+
+    ("guest", "notice"): {"read"},
+    ("guest", "team_doc"): {"read", "comment"},
+    ("guest", "source_code"): {"read"},
+    ("guest", "dataset"): set(),
+    ("guest", "feedback"): set(),
+    ("guest", "grade_sheet"): set()
+}
+
+# 3. 가상 접근 로그 생성
+logs = [
+    ["teacher", "grade_sheet", "manage", False, 5, 2],
+    ["student", "team_doc", "write", False, 12, 1],
+    ["student", "grade_sheet", "read", True, 1, 0],
+    ["team_leader", "dataset", "write", False, 7, 1],
+    ["guest", "team_doc", "comment", False, 3, 1],
+    ["guest", "dataset", "read", True, 2, 0],
+    ["student", "source_code", "export", False, 1, 0],
+    ["teacher", "dataset", "export", False, 4, 2],
+    ["team_leader", "team_doc", "manage", False, 8, 1],
+    ["guest", "notice", "read", False, 2, 1]
+]
+
+columns = ["role", "resource", "permission", "after_hours", "action_count", "audit_level"]
+df = pd.DataFrame(logs, columns=columns)
+
+# 4. 위험 점수 계산 함수
+def is_excess(row):
+    return row["permission"] not in allowed.get((row["role"], row["resource"]), set())
+
+def calc_risk(row):
+    sensitivity = resources[row["resource"]]
+    excess = 1 if row["excess_permission"] else 0
+    after = 1 if row["after_hours"] else 0
+    export = 1 if row["permission"] == "export" else 0
+    audit = row["audit_level"]
+    score = sensitivity * 18 + excess * 25 + after * 10 + export * 12 - audit * 8
+    return max(0, min(100, score))
+
+df["sensitivity"] = df["resource"].map(resources)
+df["excess_permission"] = df.apply(is_excess, axis=1)
+df["risk_score"] = df.apply(calc_risk, axis=1)
+df["risk_level"] = pd.cut(
+    df["risk_score"],
+    bins=[-1, 39, 69, 100],
+    labels=["low", "middle", "high"]
+)
+
+print("=== 접근 로그 위험 평가 ===")
+print(df)
+
+# 5. 최소권한 적용 후: 초과 권한 제거를 가정한 개선 점수 계산
+df_after = df.copy()
+df_after.loc[df_after["excess_permission"], "permission"] = "blocked"
+df_after["excess_permission"] = False
+df_after["risk_score_after"] = df_after.apply(calc_risk, axis=1)
+
+before_mean = df["risk_score"].mean()
+after_mean = df_after["risk_score_after"].mean()
+print("\n개선 전 평균 위험 점수:", round(before_mean, 2))
+print("개선 후 평균 위험 점수:", round(after_mean, 2))
+
+# 6. 시각화
+summary = pd.DataFrame({
+    "상태": ["개선 전", "개선 후"],
+    "평균 위험 점수": [before_mean, after_mean]
+})
+
+plt.rcParams["font.family"] = "Malgun Gothic"
+plt.rcParams["axes.unicode_minus"] = False
+summary.plot(kind="bar", x="상태", y="평균 위험 점수", legend=False, figsize=(6, 4))
+plt.title("최소권한 적용 전후 평균 위험 점수")
+plt.ylabel("위험 점수")
+plt.ylim(0, 100)
+plt.tight_layout()
+plt.show()</code></pre>
+<h3>코드 해설</h3>
+<ul><li><code>resources</code>는 자원별 민감도를 수치화한다. 성적표는 5, 공지사항은 1로 설정하였다.</li><li><code>allowed</code>는 역할과 자원 조합별 허용 권한을 집합으로 저장한다.</li><li><code>is_excess()</code>는 실제 권한이 최소권한 기준을 벗어나는지 판단한다.</li><li><code>calc_risk()</code>는 민감도, 초과 권한, 야간 접근, 내보내기 권한, 감사 수준을 종합해 위험 점수를 계산한다.</li><li>마지막 시각화는 최소권한 적용 전후 평균 위험 점수 변화를 비교한다.</li></ul>
+</section>
+<section id="result" class="card">
+<h2>Ⅴ. 분석 결과와 시각화 인사이트 도출</h2>
+<h3>1. 예시 결과 요약</h3>
+<table><tr><th>접근 사례</th><th>위험 해석</th><th>개선 방안</th></tr><tr><td>학생이 성적표를 읽으려는 접근</td><td><span class="pill high">고위험</span> 민감도 5의 자원에 불필요한 접근</td><td>학생 역할에서 grade_sheet 권한 제거, 접근 시도 로그 기록, 교사 알림</td></tr><tr><td>게스트가 데이터셋에 접근</td><td><span class="pill high">고위험</span> 외부 사용자의 데이터 접근</td><td>게스트 권한은 공개 문서 읽기·댓글로 제한, 만료일 설정</td></tr><tr><td>팀장이 모둠 문서를 관리</td><td><span class="pill mid">중위험</span> 관리 권한은 필요하지만 남용 가능성 존재</td><td>모둠 문서에 한정해 관리 권한 부여, 변경 이력 보관</td></tr><tr><td>교사가 데이터셋을 내보내기</td><td><span class="pill mid">중위험</span> 교육 목적상 가능하나 유출 가능성 존재</td><td>익명화 후 내보내기, 다운로드 사유 기록</td></tr><tr><td>학생이 팀 문서를 수정</td><td><span class="pill low">저위험</span> 협업 목적에 부합</td><td>버전 기록과 댓글 피드백 유지</td></tr></table>
+<h3>2. 시각화 예시</h3>
+<table><tr><th>구분</th><th>평균 위험 점수</th><th>막대 표현</th></tr><tr><td>최소권한 적용 전</td><td>54.2</td><td><div class="chartbar"><span style="width:54%"></span></div></td></tr><tr><td>최소권한 적용 후</td><td>32.7</td><td><div class="chartbar"><span style="width:33%"></span></div></td></tr></table>
+<div class="good"><b>인사이트</b><br>가상 실험에서 가장 큰 위험 감소 요인은 학생·게스트의 초과 권한 차단이었다. 특히 민감도가 높은 성적표, 개인 피드백, 원본 데이터셋에 대해 읽기 권한만 있어도 위험 점수가 크게 상승하였다. 따라서 협업 플랫폼 설계에서는 “편의를 위해 전체 공유”하는 방식보다 “역할별 권한 묶음 + 기간 제한 + 로그 점검”이 더 안전하다.</div>
+<h3>3. 권한 설계 제안</h3>
+<table><tr><th>역할</th><th>권장 권한</th><th>제한 권한</th><th>관리 규칙</th></tr><tr><td>교사</td><td>공지 작성, 모둠 문서 관리, 평가 자료 관리</td><td>불필요한 원본 개인정보 다운로드</td><td>중요 파일 접근 시 사유 기록</td></tr><tr><td>학생</td><td>자기 모둠 문서 읽기·쓰기, 코드 수정, 댓글</td><td>성적표, 타 모둠 비공개 문서, 전체 데이터 내보내기</td><td>모둠 변경 시 권한 자동 갱신</td></tr><tr><td>팀장</td><td>자기 모둠 문서 관리, 제출물 정리</td><td>성적·개인정보·타 모둠 파일 관리</td><td>관리 권한은 프로젝트 기간으로 제한</td></tr><tr><td>게스트</td><td>공개 자료 읽기, 지정 문서 댓글</td><td>데이터셋, 성적, 학생 개인정보, 내보내기</td><td>초대 링크 만료와 재공유 차단</td></tr></table>
+</section>
+<section id="ethics" class="card">
+<h2>Ⅵ. 정보 윤리, 한계, 정책 개선 방향</h2>
+<h3>정보 윤리</h3>
+<ul><li><b>개인정보 최소 수집</b>: 권한 평가를 위해 실제 이름, 학번, 성적, 민감 정보가 필요하지 않다면 수집하지 않는다.</li><li><b>투명성</b>: 학생에게 어떤 로그가 기록되는지, 왜 기록되는지, 언제 삭제되는지 안내한다.</li><li><b>과잉 감시 방지</b>: 보안 로그는 처벌 목적이 아니라 사고 예방과 시스템 개선 목적으로 사용한다.</li><li><b>차별 방지</b>: 특정 학생의 야간 접속이나 낮은 활동량을 무조건 위험 행동으로 단정하지 않는다.</li><li><b>책임 있는 AI</b>: AI 이상 탐지를 사용하더라도 학생의 의도와 맥락을 교사가 확인해야 한다.</li></ul>
+<h3>연구의 한계</h3>
+<p>본 연구는 실제 학교 서버 로그가 아니라 가상 로그를 사용하므로 현실의 모든 보안 상황을 반영하지 못한다. 또한 위험 점수 산식의 가중치는 수업용 모델이므로 학교 정책, 플랫폼 기능, 법적 요구 사항에 따라 달라질 수 있다. 실제 적용 시에는 학교 개인정보 보호 책임자, 정보 담당 교사, 학급 교사의 검토가 필요하다.</p>
+<h3>정책 개선 방향</h3>
+<ol><li>프로젝트 생성 시 기본 권한을 “전체 공개”가 아니라 “모둠 제한”으로 설정한다.</li><li>게스트 링크는 자동 만료일을 필수로 입력하게 한다.</li><li>성적·상담·평가 자료는 별도 저장소로 분리하고 학생 계정 접근을 차단한다.</li><li>모둠 변경, 전학, 학기 종료 시 권한 회수 체크리스트를 운영한다.</li><li>권한 변경 기록을 정기적으로 검토하고, 학생에게 개인정보 보호 교육을 병행한다.</li></ol>
+</section>
+<section id="record" class="card">
+<h2>Ⅶ. 과목별 세부특기사항</h2>
+<h3>고등학교 정보 성취수준 관점에서 과세특 기록에 반영할 수 있는 내용</h3>
+<table><tr><th>관점</th><th>반영 내용</th><th>관찰 가능한 행동</th></tr><tr><td>데이터 이해</td><td>협업 로그를 역할, 자원, 권한, 시간, 감사 수준 등 변수로 구조화하고 민감도와 위험도를 수치화함.</td><td>공공데이터와 공식 지침을 비교하여 변수 정의의 근거를 설명함.</td></tr><tr><td>알고리즘 설계</td><td>역할 기반 접근 제어와 최소권한 규칙을 조건문·집합 자료형으로 모델링하고 초과 권한 탐지 알고리즘을 구현함.</td><td>위험 점수 산식을 직접 설계하고 가중치 변화에 따른 결과 차이를 해석함.</td></tr><tr><td>인공지능 확장</td><td>접근 로그가 충분히 축적되면 이상 접근 탐지, 군집 분석, 분류 모델로 확장할 수 있음을 제안함.</td><td>AI 판단의 설명 가능성과 오탐 문제를 함께 언급함.</td></tr><tr><td>정보 윤리</td><td>개인정보 최소 수집, 로그 투명성, 과잉 감시 방지, 권한 만료 정책의 필요성을 논리적으로 제시함.</td><td>보안성과 학습권의 균형을 고려한 개선안을 작성함.</td></tr></table>
+<h3>세부특기사항 예시 1</h3>
+<div class="mini">교실 협업 네트워크에서 발생할 수 있는 권한 남용 문제를 정보 시스템 관점에서 분석하고, 역할 기반 접근 제어와 최소권한 원칙을 적용한 권한 설계안을 제시함. 공공데이터와 개인정보 보호 지침을 참고하여 역할, 자원, 권한, 민감도, 감사 수준을 변수화하였으며, Python으로 가상 접근 로그를 생성하고 초과 권한 여부와 위험 점수를 계산하는 알고리즘을 구현함. 단순히 코드를 작성하는 데 그치지 않고, 학생·교사·팀장·게스트의 권한 차이를 교육 활동의 실제 맥락과 연결하여 설명한 점이 돋보임.</div>
+<h3>세부특기사항 예시 2</h3>
+<div class="mini">협업 플랫폼의 편의성과 개인정보 보호 사이의 균형을 주제로 탐구하면서 데이터 이해, 알고리즘 설계, 정보 윤리 역량을 종합적으로 발휘함. 민감도가 높은 성적 자료와 공개 가능한 학습 자료를 구분하고, 권한 만료·로그 감사·게스트 접근 제한 등 현실적인 보안 개선안을 제안함. AI 기반 이상 접근 탐지로 확장할 수 있는 가능성을 제시하되, 오탐과 과잉 감시의 위험을 함께 고려하여 책임 있는 정보 활용 태도를 보임.</div>
+</section>
+<section id="refs" class="card">
+<h2>Ⅷ. 참고문헌</h2>
+<ol>
+<li>개인정보보호위원회. 개인정보침해 신고센터 신고 상담 현황. 공공데이터포털. https://www.data.go.kr/data/15119353/fileData.do</li>
+<li>개인정보보호위원회. 일반국민의 개인정보 침해 경험 실태. 공공데이터포털. https://www.data.go.kr/data/15119394/fileData.do</li>
+<li>한국인터넷진흥원. 개인정보 유출 신고 동향 및 예방 방법. 공공데이터포털. https://www.data.go.kr/data/15145110/fileData.do</li>
+<li>한국인터넷진흥원. 개인정보포털 개인정보처리방침 항목정보. 공공데이터포털. https://www.data.go.kr/data/15132913/fileData.do</li>
+<li>교육부. 교육부 개인정보 보호지침. 국가법령정보센터. https://www.law.go.kr</li>
+<li>교육부. 개인정보처리방침: 개인정보의 안전성 확보 조치. https://www.moe.go.kr</li>
+<li>개인정보 포털. 개인정보보호 교육 및 침해신고 안내. https://www.privacy.go.kr</li>
+<li>NIST. Guide to Attribute Based Access Control Definition and Considerations. NIST Special Publication 800-162.</li>
+<li>Sandhu, R. S., Coyne, E. J., Feinstein, H. L., & Youman, C. E. Role-Based Access Control Models. IEEE Computer, 1996.</li>
+</ol>
+<p class="small">※ 본 HTML은 수업용 소논문 예시이며, 실제 학교 시스템에 적용할 때에는 학교 보안 정책, 개인정보보호 책임자 검토, 플랫폼별 권한 기능 확인이 필요하다.</p>
+</section>
+</main>
+<footer>교실 협업 네트워크 권한 설계와 보안성 평가 · 고등학교 정보 소논문 예시</footer>
+</body>
+</html>
