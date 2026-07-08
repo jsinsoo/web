@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학교 주변 보행 안전 지수 소논문 예시</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#1f2937;--muted:#64748b;--line:#d8e0ee;--accent:#2563eb;--accent2:#0f766e;--soft:#eef6ff;--warn:#fff7ed;--code:#0b1020}
+*{box-sizing:border-box} body{margin:0;font-family:Malgun Gothic,Apple SD Gothic Neo,Noto Sans KR,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.72}
+header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+header h1{font-size:18px;margin:0 12px 0 0}.btn{border:0;border-radius:8px;background:var(--accent);color:#fff;padding:7px 11px;cursor:pointer;font-size:12px}.btn2{background:#334155}.copy{float:right;background:#475569}
+main{width:min(1250px,96vw);margin:24px auto 80px}.paper{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px;box-shadow:0 10px 28px rgba(15,23,42,.07)}
+h2{font-size:25px;border-bottom:2px solid #e5edf8;padding-bottom:8px;margin-top:34px} h3{font-size:20px;color:#0f172a;margin-top:24px}.title{text-align:center;margin-bottom:24px}.title h2{border:0;font-size:30px;margin-bottom:6px}.meta{color:var(--muted);font-size:14px}.tag{display:inline-block;background:var(--soft);color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:4px 10px;font-size:13px;margin:3px}.tag2{background:#f0fdfa;color:#115e59;border-color:#99f6e4}.tag3{background:var(--warn);color:#9a3412;border-color:#fed7aa}
+.abstract{background:linear-gradient(135deg,#eef6ff,#f8fffb);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}.abstract h3{margin-top:0}.keywords{font-size:14px;color:#334155;background:#f8fafc;border-left:4px solid var(--accent);padding:10px 12px;margin-top:10px}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px} th,td{border:1px solid var(--line);padding:9px;vertical-align:top} th{background:#f8fafc}.eq{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px;font-family:Consolas,Menlo,monospace;overflow:auto}.note{color:var(--muted);font-size:14px}.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}.result{background:#f0fdfa;border-color:#99f6e4}.limit{background:#fff7ed;border-color:#fed7aa}
+pre{background:var(--code);color:#d1e7ff;border-radius:14px;padding:15px;overflow:auto;font-size:13px;line-height:1.5;border:1px solid #1e293b} code{font-family:Consolas,Menlo,monospace}.toc{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:16px;margin:20px 0}.toc a{display:block;color:#1d4ed8;text-decoration:none;margin:4px 0}.footer{text-align:center;color:#64748b;font-size:13px;margin-top:28px}@media print{header{position:static}.btn{display:none}body{background:white}.paper{box-shadow:none;border:0}}
+</style>
+<script>
+function copyCode(id){navigator.clipboard.writeText(document.getElementById(id).innerText).then(()=>alert('코드가 복사되었습니다.'));}
+</script>
+</head>
+<body>
+<header>
+<h1>과학고 정보 수업용 소논문 예시</h1>
+<button class="btn btn2" onclick="window.print()">인쇄/PDF 저장</button>
+</header>
+<main>
+<article class="paper">
+<section class="title">
+<h2>공공데이터를 활용한 학교 주변 보행 안전 지수 설계 및 분석</h2>
+<p class="meta">A Study on the Design and Analysis of a Pedestrian Safety Index around Schools Using Public Data</p>
+<p><span class="tag">성취기준: 데이터·알고리즘·인공지능</span><span class="tag tag2">분야: 안전·융합</span><span class="tag tag3">난이도: 중급</span></p>
+</section>
+
+<section class="abstract">
+<h3>Abstract</h3>
+<p>This study proposes a pedestrian safety index around schools by integrating public data such as crosswalk locations, traffic signal availability, traffic accident history, school zone information, and speed limits. The research question is whether heterogeneous public datasets can be transformed into interpretable variables and combined into a practical safety score. The proposed method assigns positive scores to protective facilities and negative weights to accident frequency, accident severity, and high-speed road conditions. A sample Python program using pandas and matplotlib is presented to clean missing values, normalize variables, calculate the safety index, classify risk levels, and visualize the results. The expected outcome is a school-area safety map that helps students identify risky walking routes and propose improvement points. This project also emphasizes responsible data use, including source verification, update-cycle checking, bias awareness, and the avoidance of personally identifiable information. The study shows that public data can support evidence-based safety decisions when computational thinking, data preprocessing, algorithm design, and ethical interpretation are combined.</p>
+<div class="keywords"><b>Keywords:</b> public data, pedestrian safety, school zone, safety index, data preprocessing, algorithmic decision-making</div>
+</section>
+
+<section class="abstract">
+<h3>초록 번역</h3>
+<p>본 연구는 횡단보도 위치, 신호등 설치 여부, 교통사고 이력, 어린이보호구역 정보, 제한속도 등 공공데이터를 통합하여 학교 주변 보행 안전 지수를 설계하는 것을 목적으로 한다. 연구 질문은 서로 다른 형식의 공공데이터를 해석 가능한 변수로 변환하고, 이를 실제 활용 가능한 안전 점수로 결합할 수 있는가이다. 제안한 방법은 보행자를 보호하는 시설에는 가점을 부여하고, 사고 빈도·사고 심각도·고속 도로 조건에는 위험 가중치를 부여한다. pandas와 matplotlib를 활용한 예시 코드는 결측치 처리, 변수 정규화, 안전 지수 계산, 위험 등급 분류, 결과 시각화 과정을 포함한다. 예상 산출물은 학생들이 위험한 보행 경로를 파악하고 개선 지점을 제안할 수 있는 학교 주변 안전지도이다. 또한 본 프로젝트는 데이터 출처 확인, 갱신 주기 검토, 편향 가능성 인식, 개인정보 미수집 등 책임 있는 데이터 활용을 강조한다. 본 연구는 컴퓨팅 사고력, 데이터 전처리, 알고리즘 설계, 윤리적 해석이 결합될 때 공공데이터가 근거 기반 안전 의사결정에 활용될 수 있음을 보여준다.</p>
+<div class="keywords"><b>핵심어:</b> 공공데이터, 보행 안전, 어린이보호구역, 안전 지수, 데이터 전처리, 알고리즘 의사결정</div>
+</section>
+
+<nav class="toc">
+<b>목차</b>
+<a href="#i">Ⅰ. 연구 동기와 문제 정의</a>
+<a href="#ii">Ⅱ. 공공데이터 출처와 변수 설명</a>
+<a href="#iii">Ⅲ. 데이터 전처리 및 분석 알고리즘</a>
+<a href="#iv">Ⅳ. 분석 결과와 시각화</a>
+<a href="#v">Ⅴ. 정보 윤리, 한계, 개선 방향</a>
+<a href="#code">Ⅵ. 예시 코드</a>
+</nav>
+
+<section id="i">
+<h2>Ⅰ. 연구 동기와 문제 정의</h2>
+<p>학교 주변 도로는 등교와 하교 시간에 학생, 차량, 버스, 자전거가 동시에 이동하는 공간이다. 횡단보도와 신호등이 충분히 설치되어 있어도 사고 이력이 잦거나 제한속도가 높은 도로는 학생에게 위험할 수 있다. 반대로 사고 이력만으로 위험을 판단하면 보행 안전시설의 개선 효과를 충분히 반영하지 못할 수 있다.</p>
+<p>따라서 본 연구는 여러 공공데이터를 하나의 지표로 결합하여 <b>학교 주변 보행 안전 지수</b>를 설계하고, 위험 등급을 분류하는 알고리즘을 제안한다.</p>
+<div class="box">
+<b>연구 질문</b>
+<p>횡단보도·신호등·사고 이력·속도 제한 정보를 종합해 학교 주변 보행 안전 지수를 만들 수 있는가?</p>
+</div>
+</section>
+
+<section id="ii">
+<h2>Ⅱ. 공공데이터 출처와 변수 설명</h2>
+<p>실제 수업에서는 공공데이터포털, 교통사고분석시스템, 지자체 교통안전시설 데이터, 어린이보호구역 현황, 도로명주소 또는 도로 정보 데이터를 CSV 또는 API로 수집할 수 있다. 본 예시는 수업용 샘플 CSV 구조를 기준으로 작성하였다.</p>
+<table>
+<tr><th>데이터 범주</th><th>예시 변수</th><th>의미</th><th>분석 활용</th></tr>
+<tr><td>교통안전시설</td><td>crosswalk_count, signal_count</td><td>학교 반경 내 횡단보도와 신호등 수</td><td>보호 시설 점수 계산</td></tr>
+<tr><td>사고 이력</td><td>accident_count, severe_accident_count</td><td>최근 일정 기간 보행자 사고와 중상 이상 사고 수</td><td>위험 가중치 계산</td></tr>
+<tr><td>어린이보호구역</td><td>school_zone</td><td>보호구역 포함 여부</td><td>안전 보정 점수 부여</td></tr>
+<tr><td>도로 정보</td><td>speed_limit, lane_count</td><td>제한속도와 차로 수</td><td>차량 위험도 추정</td></tr>
+<tr><td>위치 정보</td><td>lat, lon, distance_m</td><td>분석 지점의 위도·경도·학교와의 거리</td><td>지도 시각화와 반경 필터링</td></tr>
+</table>
+<p class="note">※ 학생 개인의 이동 경로, 얼굴, 전화번호, 실명 위치 기록은 수집하지 않는다. 분석 단위는 도로 구간 또는 시설 지점으로 설정한다.</p>
+</section>
+
+<section id="iii">
+<h2>Ⅲ. 데이터 전처리 및 분석 알고리즘</h2>
+<h3>1. 전처리 절차</h3>
+<ul>
+<li>CSV 또는 API 응답의 변수명을 통일한다.</li>
+<li>결측치는 0, 평균, 또는 분석 제외 중 하나로 처리하고 그 이유를 기록한다.</li>
+<li>학교 반경 300m, 500m, 1km 등 분석 범위를 명확히 정한다.</li>
+<li>시설 수와 사고 수처럼 단위가 다른 변수는 0~1 범위로 정규화한다.</li>
+</ul>
+
+<h3>2. 보행 안전 지수 산식 예시</h3>
+<div class="eq">
+시설점수 = 10 × 횡단보도정규화 + 12 × 신호등정규화 + 8 × 보호구역여부<br>
+위험점수 = 15 × 사고정규화 + 20 × 중상사고정규화 + 10 × 제한속도정규화 + 5 × 차로수정규화<br>
+보행안전지수 = 100 + 시설점수 - 위험점수
+</div>
+<p>점수가 높을수록 상대적으로 안전한 구간으로 해석한다. 다만 이 지수는 절대적 안전을 보장하는 값이 아니라, 여러 지점을 비교하기 위한 수업용 분석 지표이다.</p>
+
+<h3>3. 위험 등급 분류</h3>
+<table>
+<tr><th>안전 지수</th><th>등급</th><th>해석</th></tr>
+<tr><td>90 이상</td><td>안전</td><td>보호 시설이 충분하고 사고 위험 변수가 낮음</td></tr>
+<tr><td>75 이상 90 미만</td><td>주의</td><td>일부 개선이 필요하거나 특정 시간대 위험 가능성 있음</td></tr>
+<tr><td>75 미만</td><td>위험</td><td>사고 이력, 높은 제한속도, 시설 부족 등이 복합적으로 나타남</td></tr>
+</table>
+</section>
+
+<section id="iv">
+<h2>Ⅳ. 분석 결과와 시각화 예시</h2>
+<div class="box result">
+<b>가상의 분석 결과 예시</b>
+<p>학교 정문 앞 도로 구간은 횡단보도와 신호등이 모두 존재하여 시설점수는 높았으나, 최근 보행자 사고 이력이 반복되어 최종 등급은 ‘주의’로 분류되었다. 반면 후문 인근 이면도로는 사고 이력은 적었지만 제한속도 정보가 누락되어 데이터 품질 검토가 필요하였다. 가장 낮은 점수를 받은 구간은 제한속도와 차로 수가 높고 신호등 수가 부족한 지점으로, 보행 안전 개선 제안의 우선순위로 선정할 수 있다.</p>
+</div>
+<table>
+<tr><th>구간</th><th>보행 안전 지수</th><th>등급</th><th>개선 제안</th></tr>
+<tr><td>정문 앞 교차로</td><td>82.4</td><td>주의</td><td>등교 시간 안전 지도, 사고 원인 추가 조사</td></tr>
+<tr><td>후문 이면도로</td><td>88.1</td><td>주의</td><td>제한속도 결측치 보완, 야간 조도 조사</td></tr>
+<tr><td>버스정류장 인근</td><td>71.6</td><td>위험</td><td>신호등 설치 검토, 감속 유도 표지 강화</td></tr>
+<tr><td>체육관 옆 도로</td><td>94.3</td><td>안전</td><td>현재 시설 유지, 정기 모니터링</td></tr>
+</table>
+</section>
+
+<section id="v">
+<h2>Ⅴ. 정보 윤리, 한계, 개선 방향</h2>
+<h3>1. 정보 윤리</h3>
+<ul>
+<li>학생 개인의 실제 이동 경로나 위치 기록을 수집하지 않는다.</li>
+<li>사고 데이터는 특정 개인이나 차량을 식별하지 않는 집계 자료만 사용한다.</li>
+<li>안전 지수 결과를 특정 지역에 대한 낙인으로 사용하지 않고, 개선 제안의 근거로 활용한다.</li>
+</ul>
+<h3>2. 연구의 한계</h3>
+<div class="box limit">
+<p>공공데이터의 갱신 주기가 서로 다를 수 있으며, 사고가 적게 기록된 구간이 반드시 안전하다고 단정할 수 없다. 또한 제한속도, 차로 수, 신호등 수만으로 실제 보행자의 체감 위험을 모두 설명하기 어렵다. 불법 주정차, 야간 조도, 보도 폭, 학생 밀집도, 운전자 시야 확보 여부 등 추가 변수를 포함하면 지수의 설명력이 높아질 수 있다.</p>
+</div>
+<h3>3. 개선 방향</h3>
+<ul>
+<li>Folium을 활용해 지점별 안전 등급을 지도에 표시한다.</li>
+<li>시간대별 사고 자료가 있다면 등교·하교 시간 위험도를 따로 계산한다.</li>
+<li>랜덤포레스트 등 지도학습 모델을 사용해 사고 발생 가능성 예측으로 확장한다.</li>
+<li>실제 현장 관찰 결과와 공공데이터 분석 결과를 비교하여 지수의 타당성을 검토한다.</li>
+</ul>
+</section>
+
+<section id="code">
+<h2>Ⅵ. 예시 코드</h2>
+<p>아래 코드는 수업용 샘플 CSV인 <code>public_data_topic_11.csv</code>를 가정한다. 실제 공공데이터를 사용할 때는 열 이름을 데이터에 맞게 수정한다.</p>
+<button class="btn copy" onclick="copyCode('pycode')">코드 복사</button>
+<pre><code id="pycode">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 수업용 샘플 CSV 예시 열:
+# place, crosswalk_count, signal_count, school_zone,
+# accident_count, severe_accident_count, speed_limit, lane_count
+
+df = pd.read_csv('public_data_topic_11.csv')
+
+print('데이터 미리보기')
+print(df.head())
+print('\n데이터 정보')
+print(df.info())
+print('\n결측치 확인')
+print(df.isnull().sum())
+
+# 필요한 숫자형 열의 결측치를 0으로 처리한다.
+# 실제 연구에서는 결측 원인을 먼저 확인한 뒤 처리 방법을 정해야 한다.
+num_cols = [
+    'crosswalk_count', 'signal_count', 'school_zone',
+    'accident_count', 'severe_accident_count',
+    'speed_limit', 'lane_count'
+]
+for col in num_cols:
+    df[col] = df[col].fillna(0)
+
+# 0~1 정규화 함수
+def normalize(series):
+    min_v = series.min()
+    max_v = series.max()
+    if max_v == min_v:
+        return series * 0
+    return (series - min_v) / (max_v - min_v)
+
+# 시설 관련 변수: 많을수록 안전 점수 증가
+facility_score = (
+    10 * normalize(df['crosswalk_count']) +
+    12 * normalize(df['signal_count']) +
+    8 * df['school_zone']
+)
+
+# 위험 관련 변수: 많을수록 안전 점수 감소
+risk_score = (
+    15 * normalize(df['accident_count']) +
+    20 * normalize(df['severe_accident_count']) +
+    10 * normalize(df['speed_limit']) +
+    5 * normalize(df['lane_count'])
+)
+
+# 최종 보행 안전 지수
+df['safety_index'] = 100 + facility_score - risk_score
+
+def classify(score):
+    if score >= 90:
+        return '안전'
+    if score >= 75:
+        return '주의'
+    return '위험'
+
+df['risk_level'] = df['safety_index'].apply(classify)
+
+print('\n보행 안전 지수 결과')
+print(df[['place', 'safety_index', 'risk_level']].sort_values('safety_index'))
+
+# 시각화
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+result = df.sort_values('safety_index')
+plt.figure(figsize=(10, 5))
+plt.bar(result['place'], result['safety_index'])
+plt.axhline(90, linestyle='--', label='안전 기준')
+plt.axhline(75, linestyle='--', label='주의 기준')
+plt.title('학교 주변 보행 안전 지수')
+plt.xlabel('분석 지점')
+plt.ylabel('보행 안전 지수')
+plt.xticks(rotation=30, ha='right')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# CSV 저장
+df.to_csv('school_pedestrian_safety_index_result.csv', index=False, encoding='utf-8-sig')
+print('결과 파일 저장 완료: school_pedestrian_safety_index_result.csv')</code></pre>
+</section>
+
+<section>
+<h2>Ⅶ. 과목별 세부특기사항 작성 관점</h2>
+<table>
+<tr><th>관찰 요소</th><th>기록에 반영할 수 있는 내용</th></tr>
+<tr><td>데이터 이해</td><td>공공데이터의 출처, 변수, 단위, 갱신 주기를 비교하고 분석 목적에 맞는 변수를 선별함</td></tr>
+<tr><td>알고리즘 설계</td><td>시설점수와 위험점수를 분리하여 보행 안전 지수를 계산하고 등급 분류 기준을 설계함</td></tr>
+<tr><td>인공지능 확장</td><td>사고 발생 여부를 목표 변수로 설정하면 분류 모델로 확장할 수 있음을 설명함</td></tr>
+<tr><td>정보 윤리</td><td>개인 위치정보를 수집하지 않는 방식으로 공익적 데이터 활용 방안을 제시함</td></tr>
+</table>
+</section>
+
+<section>
+<h2>참고문헌 작성 예시</h2>
+<ol>
+<li>공공데이터포털, 교통안전시설 및 도로 관련 공공데이터.</li>
+<li>도로교통공단, 교통사고분석시스템 관련 통계 자료.</li>
+<li>행정안전부, 어린이보호구역 및 생활안전 관련 공개 자료.</li>
+<li>Scikit-learn Developers, Machine Learning in Python Documentation.</li>
+<li>Pandas Development Team, pandas Documentation.</li>
+</ol>
+<p class="note">※ 실제 소논문에는 사용한 데이터셋의 정확한 제목, 제공 기관, 내려받은 날짜, URL을 기록한다.</p>
+</section>
+
+<div class="footer">과학고 정보 수업용 공공데이터 활용 프로젝트 소논문 예시</div>
+</article>
+</main>
+</body>
+</html>
