@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학고 정보 수업 프로젝트 소논문 주제 20개</title>
+<style>
+  :root{--bg:#f6f8fb;--card:#fff;--ink:#1f2937;--muted:#5b6472;--line:#dbe3ef;--accent:#2563eb;--accent2:#0f766e;--code:#0b1020;--soft:#eef6ff;}
+  *{box-sizing:border-box} body{margin:0;font-family:Malgun Gothic,Apple SD Gothic Neo,Noto Sans KR,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  header h1{font-size:18px;margin:0 10px 0 0;white-space:nowrap} select{font-size:12px;padding:6px;border:1px solid var(--line);border-radius:8px;background:white;max-width:520px}.btn{border:0;border-radius:8px;background:var(--accent);color:#fff;padding:7px 10px;cursor:pointer;font-size:12px}.btn2{background:#334155}
+  main{width:min(1500px,96vw);margin:22px auto 80px}.intro{background:linear-gradient(135deg,#eaf3ff,#f7fffb);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:20px}.intro h2{margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 22px rgba(15,23,42,.06)}.card h3{margin:0 0 8px;color:#0f172a;font-size:20px}.tag{display:inline-block;background:var(--soft);color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:3px 9px;font-size:12px;margin:2px}.std{background:#f0fdfa;color:#115e59;border-color:#99f6e4}.level{background:#fff7ed;color:#9a3412;border-color:#fed7aa} ul{padding-left:20px;margin:8px 0} .section-title{font-weight:700;color:#111827;margin-top:12px}
+  pre{background:var(--code);color:#d1e7ff;border-radius:14px;padding:14px;overflow:auto;font-size:13px;line-height:1.45;border:1px solid #1e293b;position:relative} code{font-family:Consolas,Menlo,monospace}.copy{float:right;margin-top:-2px;background:#475569}.rubric{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}.rubric th,.rubric td{border:1px solid var(--line);padding:7px;vertical-align:top}.rubric th{background:#f8fafc}.note{color:var(--muted);font-size:13px}.toc{columns:2;column-gap:30px}.toc a{display:block;color:#1d4ed8;text-decoration:none;margin:3px 0;break-inside:avoid}.footer{margin-top:28px;color:#64748b;font-size:13px;text-align:center}
+</style>
+<script>
+function jump(){const v=document.getElementById('topicSelect').value;if(v) location.hash=v;}
+function copyCode(id){const t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>alert('코드가 복사되었습니다.'));}
+</script>
+</head>
+<body>
+<header>
+  <h1>과학고 정보 프로젝트 소논문 20</h1>
+  <select id="topicSelect" onchange="jump()"><option value="">주제 바로가기</option>
+<option value="t01">01. 교내 미세먼지 데이터 예측</option>
+<option value="t02">02. 급식 잔반량 예측과 최적화</option>
+<option value="t03">03. 교실 CO₂ 농도와 학습 환경 분석</option>
+<option value="t04">04. 도서관 이용 로그 기반 추천</option>
+<option value="t05">05. 학교 와이파이 혼잡도 분석</option>
+<option value="t06">06. 스마트폰 과의존 설문 데이터 분석</option>
+<option value="t07">07. 피지컬 컴퓨팅 기반 스마트 온실</option>
+<option value="t08">08. 라즈베리파이 피코 WH 장애물 회피 자동차</option>
+<option value="t09">09. 마이크로비트 라디오 네트워크 실험</option>
+<option value="t10">10. 학교 에너지 사용량 이상 탐지</option>
+<option value="t11">11. 진로 선택 과목 수요 예측</option>
+<option value="t12">12. 기상 데이터와 등교 안전 지수</option>
+<option value="t13">13. 뉴스 댓글 감성 분석</option>
+<option value="t14">14. 학교 공지 챗봇 RAG 모형</option>
+<option value="t15">15. 얼굴 인식 없는 출결 보조 시스템</option>
+<option value="t16">16. 암호 해시와 개인정보 보호 실험</option>
+<option value="t17">17. 그래프 이론 기반 동아리 매칭</option>
+<option value="t18">18. 유전 알고리즘 시간표 최적화</option>
+<option value="t19">19. 생명과학 실험 이미지 분류</option>
+<option value="t20">20. 천문 관측 데이터로 변광성 탐색</option>
+  </select>
+  <button class="btn btn2" onclick="window.print()">인쇄/PDF 저장</button>
+</header>
+<main>
+<section class="intro">
+<h2>과학고 정보 수업용 프로젝트 소논문 주제 예시</h2>
+<p>2022 개정 고등학교 정보 과목의 흐름인 <b>컴퓨팅 시스템, 데이터, 알고리즘과 프로그래밍, 인공지능, 디지털 문화</b>를 중심으로 과학고 학생이 탐구 보고서·소논문·수행평가로 발전시킬 수 있는 주제 20개를 구성하였다. 각 주제는 연구 질문, 성취기준 연결, 수행 절차, 산출물, 평가 포인트, 예시 파이썬 코드로 이루어진다.</p>
+<div class="toc">
+<a href="#t01">01. 교내 미세먼지 데이터 예측</a>
+<a href="#t02">02. 급식 잔반량 예측과 최적화</a>
+<a href="#t03">03. 교실 CO₂ 농도와 학습 환경 분석</a>
+<a href="#t04">04. 도서관 이용 로그 기반 추천</a>
+<a href="#t05">05. 학교 와이파이 혼잡도 분석</a>
+<a href="#t06">06. 스마트폰 과의존 설문 데이터 분석</a>
+<a href="#t07">07. 피지컬 컴퓨팅 기반 스마트 온실</a>
+<a href="#t08">08. 라즈베리파이 피코 WH 장애물 회피 자동차</a>
+<a href="#t09">09. 마이크로비트 라디오 네트워크 실험</a>
+<a href="#t10">10. 학교 에너지 사용량 이상 탐지</a>
+<a href="#t11">11. 진로 선택 과목 수요 예측</a>
+<a href="#t12">12. 기상 데이터와 등교 안전 지수</a>
+<a href="#t13">13. 뉴스 댓글 감성 분석</a>
+<a href="#t14">14. 학교 공지 챗봇 RAG 모형</a>
+<a href="#t15">15. 얼굴 인식 없는 출결 보조 시스템</a>
+<a href="#t16">16. 암호 해시와 개인정보 보호 실험</a>
+<a href="#t17">17. 그래프 이론 기반 동아리 매칭</a>
+<a href="#t18">18. 유전 알고리즘 시간표 최적화</a>
+<a href="#t19">19. 생명과학 실험 이미지 분류</a>
+<a href="#t20">20. 천문 관측 데이터로 변광성 탐색</a>
+</div>
+<p class="note">※ 실제 연구에서는 공개 데이터, 직접 측정 데이터, 익명 설문 데이터만 사용하고 개인정보는 수집하지 않도록 설계한다.</p>
+</section>
+<div class="grid">
+<article class="card" id="t01">
+<h3>01. 교내 미세먼지 데이터 예측</h3>
+<span class="tag std">성취기준 연결: 데이터·인공지능</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>교내외 미세먼지, 기온, 습도, 풍속 자료로 다음 시간대 미세먼지를 예측할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>센서 또는 공공데이터를 수집하고 결측치를 보정한 뒤 선형회귀·랜덤포레스트를 비교한다.</p>
+<p class="section-title">예상 산출물</p><p>시간대별 PM2.5 예측 그래프, 변수 중요도, 예측 오차 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code01')">복사</button></p>
+<pre><code id="code01">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
+
+df = pd.read_csv(&#x27;school_air.csv&#x27;)
+X = df[[&#x27;temperature&#x27;,&#x27;humidity&#x27;,&#x27;wind&#x27;,&#x27;pm25_prev&#x27;]]
+y = df[&#x27;pm25_next&#x27;]
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+model = RandomForestRegressor(n_estimators=200, random_state=42)
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print(&#x27;MAE:&#x27;, mean_absolute_error(y_test, pred))
+print(pd.Series(model.feature_importances_, index=X.columns))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t02">
+<h3>02. 급식 잔반량 예측과 최적화</h3>
+<span class="tag std">성취기준 연결: 데이터·알고리즘</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>메뉴, 요일, 날씨, 시험 기간 정보로 급식 잔반량을 예측하고 낭비를 줄일 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>급식 메뉴와 잔반량을 표로 정리하고 범주형 변수를 원-핫 인코딩하여 회귀 모델을 만든다.</p>
+<p class="section-title">예상 산출물</p><p>잔반량 예측 모델, 감축 시나리오, 지속가능발전 관점 제안</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code02')">복사</button></p>
+<pre><code id="code02">import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import GradientBoostingRegressor
+
+df = pd.read_csv(&#x27;lunch_waste.csv&#x27;)
+X = df[[&#x27;day&#x27;,&#x27;main_menu&#x27;,&#x27;temperature&#x27;,&#x27;exam_week&#x27;]]
+y = df[&#x27;waste_kg&#x27;]
+pre = ColumnTransformer([(&#x27;cat&#x27;, OneHotEncoder(handle_unknown=&#x27;ignore&#x27;), [&#x27;day&#x27;,&#x27;main_menu&#x27;])], remainder=&#x27;passthrough&#x27;)
+model = Pipeline([(&#x27;preprocess&#x27;, pre), (&#x27;reg&#x27;, GradientBoostingRegressor(random_state=0))])
+model.fit(X, y)
+print(model.predict(pd.DataFrame([{&#x27;day&#x27;:&#x27;월&#x27;,&#x27;main_menu&#x27;:&#x27;비빔밥&#x27;,&#x27;temperature&#x27;:24,&#x27;exam_week&#x27;:0}])))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t03">
+<h3>03. 교실 CO₂ 농도와 학습 환경 분석</h3>
+<span class="tag std">성취기준 연결: 피지컬 컴퓨팅·데이터</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>교실 CO₂ 농도 변화는 환기 시간, 인원수, 수업 형태와 어떤 관계가 있는가?</p>
+<p class="section-title">탐구 설계</p><p>CO₂ 센서 데이터를 시간 단위로 기록하고 이동평균·상관분석으로 환기 효과를 분석한다.</p>
+<p class="section-title">예상 산출물</p><p>환기 권장 기준표, 시간대별 CO₂ 그래프, 자동 알림 프로토타입</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code03')">복사</button></p>
+<pre><code id="code03">import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(&#x27;co2_classroom.csv&#x27;, parse_dates=[&#x27;time&#x27;])
+df[&#x27;co2_ma&#x27;] = df[&#x27;co2&#x27;].rolling(5).mean()
+print(df[[&#x27;co2&#x27;,&#x27;students&#x27;,&#x27;window_open&#x27;]].corr(numeric_only=True))
+plt.plot(df[&#x27;time&#x27;], df[&#x27;co2&#x27;], label=&#x27;CO2&#x27;)
+plt.plot(df[&#x27;time&#x27;], df[&#x27;co2_ma&#x27;], label=&#x27;moving average&#x27;)
+plt.axhline(1000, linestyle=&#x27;--&#x27;, label=&#x27;ventilation guide&#x27;)
+plt.legend(); plt.show()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t04">
+<h3>04. 도서관 이용 로그 기반 추천</h3>
+<span class="tag std">성취기준 연결: 데이터 구조·추천 알고리즘</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>대출 기록으로 과학고 학생에게 맞는 도서를 추천할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>학생 이름 대신 익명 ID를 사용하고 도서-사용자 행렬을 만들어 코사인 유사도 추천을 구현한다.</p>
+<p class="section-title">예상 산출물</p><p>개인정보 비식별화 절차, 추천 정확도 평가, 추천 결과 예시</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code04')">복사</button></p>
+<pre><code id="code04">import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+
+logs = pd.read_csv(&#x27;library_logs.csv&#x27;)  # user_id, book, count
+mat = logs.pivot_table(index=&#x27;user_id&#x27;, columns=&#x27;book&#x27;, values=&#x27;count&#x27;, fill_value=0)
+sim = cosine_similarity(mat)
+sim_df = pd.DataFrame(sim, index=mat.index, columns=mat.index)
+target = &#x27;U003&#x27;
+near = sim_df[target].drop(target).idxmax()
+recommend = mat.loc[near][mat.loc[target] == 0].sort_values(ascending=False).head(5)
+print(recommend)</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t05">
+<h3>05. 학교 와이파이 혼잡도 분석</h3>
+<span class="tag std">성취기준 연결: 컴퓨팅 시스템·데이터</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>요일과 시간대에 따라 무선 네트워크 지연 시간이 어떻게 달라지는가?</p>
+<p class="section-title">탐구 설계</p><p>속도 측정 로그를 수집하고 시간대별 평균, 사분위수, 이상치를 분석한다.</p>
+<p class="section-title">예상 산출물</p><p>혼잡 시간대 히트맵, 네트워크 사용 개선 제안, 측정 방법의 한계</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code05')">복사</button></p>
+<pre><code id="code05">import pandas as pd
+
+df = pd.read_csv(&#x27;wifi_latency.csv&#x27;)
+summary = df.groupby([&#x27;weekday&#x27;,&#x27;hour&#x27;])[&#x27;ping_ms&#x27;].agg([&#x27;mean&#x27;,&#x27;median&#x27;,&#x27;max&#x27;,&#x27;count&#x27;])
+print(summary.sort_values(&#x27;mean&#x27;, ascending=False).head(10))
+df[&#x27;slow&#x27;] = df[&#x27;ping_ms&#x27;] &gt; 100
+print(df.groupby(&#x27;hour&#x27;)[&#x27;slow&#x27;].mean())</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t06">
+<h3>06. 스마트폰 과의존 설문 데이터 분석</h3>
+<span class="tag std">성취기준 연결: 디지털 문화·통계</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>스마트폰 사용 시간, 알림 빈도, 수면 시간이 학습 집중도와 어떤 관련이 있는가?</p>
+<p class="section-title">탐구 설계</p><p>익명 설문을 실시하고 상관분석, 그룹 비교, 시각화를 통해 과의존 요인을 탐색한다.</p>
+<p class="section-title">예상 산출물</p><p>익명 설문지, 통계 분석표, 예방 캠페인 제안</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code06')">복사</button></p>
+<pre><code id="code06">import pandas as pd
+
+df = pd.read_csv(&#x27;phone_survey.csv&#x27;)
+cols = [&#x27;screen_time&#x27;,&#x27;notifications&#x27;,&#x27;sleep_hours&#x27;,&#x27;focus_score&#x27;]
+print(df[cols].corr())
+df[&#x27;risk_group&#x27;] = pd.cut(df[&#x27;screen_time&#x27;], bins=[0,2,5,24], labels=[&#x27;낮음&#x27;,&#x27;보통&#x27;,&#x27;높음&#x27;])
+print(df.groupby(&#x27;risk_group&#x27;)[&#x27;focus_score&#x27;].mean())</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t07">
+<h3>07. 피지컬 컴퓨팅 기반 스마트 온실</h3>
+<span class="tag std">성취기준 연결: 피지컬 컴퓨팅·알고리즘</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>온도·습도·토양 수분 센서값으로 자동 급수 판단을 할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>센서값을 조건문으로 처리하고 임계값 방식과 간단한 점수화 방식을 비교한다.</p>
+<p class="section-title">예상 산출물</p><p>센서 회로도, 제어 알고리즘, 작동 영상, 로그 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code07')">복사</button></p>
+<pre><code id="code07"># MicroPython 예시: Raspberry Pi Pico WH
+from machine import ADC, Pin
+import time
+
+soil = ADC(26)
+pump = Pin(15, Pin.OUT)
+
+while True:
+    value = soil.read_u16()
+    dry = value &lt; 28000
+    pump.value(1 if dry else 0)
+    print(&#x27;soil:&#x27;, value, &#x27;pump:&#x27;, pump.value())
+    time.sleep(2)</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t08">
+<h3>08. 라즈베리파이 피코 WH 장애물 회피 자동차</h3>
+<span class="tag std">성취기준 연결: 컴퓨팅 시스템·피지컬 컴퓨팅</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>초음파 센서 거리값과 모터 제어 알고리즘에 따라 장애물 회피 성능이 어떻게 달라지는가?</p>
+<p class="section-title">탐구 설계</p><p>직진·정지·회전 알고리즘을 구현하고 장애물 거리, 회전 시간, 성공률을 실험한다.</p>
+<p class="section-title">예상 산출물</p><p>배선도, 제어 코드, 성공률 표, 실패 원인 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code08')">복사</button></p>
+<pre><code id="code08">from machine import Pin, time_pulse_us
+import time
+
+trig = Pin(3, Pin.OUT); echo = Pin(2, Pin.IN)
+in1 = Pin(10, Pin.OUT); in2 = Pin(11, Pin.OUT)
+in3 = Pin(12, Pin.OUT); in4 = Pin(13, Pin.OUT)
+
+def distance_cm():
+    trig.low(); time.sleep_us(2)
+    trig.high(); time.sleep_us(10); trig.low()
+    us = time_pulse_us(echo, 1, 30000)
+    return us / 58
+
+def forward(): in1.high(); in2.low(); in3.high(); in4.low()
+def turn(): in1.low(); in2.high(); in3.high(); in4.low()
+def stop(): in1.low(); in2.low(); in3.low(); in4.low()
+
+while True:
+    d = distance_cm()
+    if d &lt; 18:
+        stop(); time.sleep(0.2); turn(); time.sleep(0.5)
+    else:
+        forward()</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t09">
+<h3>09. 마이크로비트 라디오 네트워크 실험</h3>
+<span class="tag std">성취기준 연결: 네트워크·컴퓨팅 시스템</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>라디오 그룹, 송신 간격, 장애물에 따라 메시지 수신률은 어떻게 변하는가?</p>
+<p class="section-title">탐구 설계</p><p>여러 micro:bit를 노드로 사용하여 송신 횟수와 수신 횟수를 기록한다.</p>
+<p class="section-title">예상 산출물</p><p>수신률 그래프, 통신 거리 실험표, 네트워크 충돌 설명</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code09')">복사</button></p>
+<pre><code id="code09"># micro:bit MicroPython 송신기
+from microbit import *
+import radio
+
+radio.on()
+radio.config(group=7, power=6)
+count = 0
+while True:
+    count += 1
+    radio.send(&#x27;A:&#x27; + str(count))
+    display.scroll(str(count))
+    sleep(1000)</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t10">
+<h3>10. 학교 에너지 사용량 이상 탐지</h3>
+<span class="tag std">성취기준 연결: 데이터 과학·인공지능</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>전력 사용량 로그에서 비정상 패턴을 자동으로 찾아낼 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>시간대별 전력 사용량의 평균과 표준편차를 계산하고 Isolation Forest로 이상치를 탐지한다.</p>
+<p class="section-title">예상 산출물</p><p>이상 사용 시간 목록, 원인 추정, 에너지 절약 제안</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code10')">복사</button></p>
+<pre><code id="code10">import pandas as pd
+from sklearn.ensemble import IsolationForest
+
+df = pd.read_csv(&#x27;electricity.csv&#x27;)
+X = df[[&#x27;kwh&#x27;,&#x27;temperature&#x27;,&#x27;hour&#x27;]]
+model = IsolationForest(contamination=0.05, random_state=42)
+df[&#x27;anomaly&#x27;] = model.fit_predict(X)
+print(df[df[&#x27;anomaly&#x27;] == -1][[&#x27;date&#x27;,&#x27;hour&#x27;,&#x27;kwh&#x27;,&#x27;temperature&#x27;]].head(20))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t11">
+<h3>11. 진로 선택 과목 수요 예측</h3>
+<span class="tag std">성취기준 연결: 데이터·의사결정</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>과거 신청 자료와 설문 자료로 다음 학기 선택 과목 수요를 예측할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>학년, 관심 분야, 이전 이수 과목을 바탕으로 과목별 신청 가능성을 추정한다.</p>
+<p class="section-title">예상 산출물</p><p>과목별 예상 수요, 분반 시나리오, 데이터 편향 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code11')">복사</button></p>
+<pre><code id="code11">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report
+
+df = pd.read_csv(&#x27;course_choice.csv&#x27;)
+X = pd.get_dummies(df[[&#x27;grade&#x27;,&#x27;interest&#x27;,&#x27;prev_course&#x27;]])
+y = df[&#x27;selected_course&#x27;]
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+model = DecisionTreeClassifier(max_depth=5, random_state=1)
+model.fit(X_train, y_train)
+print(classification_report(y_test, model.predict(X_test)))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t12">
+<h3>12. 기상 데이터와 등교 안전 지수</h3>
+<span class="tag std">성취기준 연결: 데이터 융합·알고리즘</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>강수량, 적설량, 체감온도, 풍속을 종합하여 등교 안전 지수를 만들 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>여러 기상 요소에 가중치를 부여하고 위험 등급 분류 알고리즘을 설계한다.</p>
+<p class="section-title">예상 산출물</p><p>안전 지수 공식, 등급별 안내 문구, 사례 검증</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code12')">복사</button></p>
+<pre><code id="code12">def safety_index(rain, snow, wind, feels_like):
+    score = 0
+    score += min(rain * 2, 30)
+    score += min(snow * 8, 35)
+    score += min(wind * 1.5, 20)
+    if feels_like &lt; -5: score += 15
+    if score &gt;= 60: return score, &#x27;위험&#x27;
+    if score &gt;= 35: return score, &#x27;주의&#x27;
+    return score, &#x27;보통&#x27;
+
+print(safety_index(rain=12, snow=1.5, wind=6, feels_like=-3))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t13">
+<h3>13. 뉴스 댓글 감성 분석</h3>
+<span class="tag std">성취기준 연결: 인공지능·자연어 처리</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>과학기술 뉴스 댓글의 감성은 주제별로 어떻게 달라지는가?</p>
+<p class="section-title">탐구 설계</p><p>공개 댓글 또는 직접 만든 문장 데이터를 사용해 형태소 단위 전처리와 감성 분류를 실험한다.</p>
+<p class="section-title">예상 산출물</p><p>전처리 규칙, 감성 비율 그래프, 오분류 사례 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code13')">복사</button></p>
+<pre><code id="code13">import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+
+df = pd.read_csv(&#x27;comments_labeled.csv&#x27;)  # text, label
+model = Pipeline([
+    (&#x27;tfidf&#x27;, TfidfVectorizer(max_features=3000, ngram_range=(1,2))),
+    (&#x27;clf&#x27;, LogisticRegression(max_iter=1000))
+])
+model.fit(df[&#x27;text&#x27;], df[&#x27;label&#x27;])
+print(model.predict([&#x27;인공지능 기술이 편리하지만 개인정보 보호가 걱정된다&#x27;]))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t14">
+<h3>14. 학교 공지 챗봇 RAG 모형</h3>
+<span class="tag std">성취기준 연결: 인공지능·정보 검색</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>학교 공지 문서를 검색하여 질문에 근거 있는 답을 제시하는 챗봇을 만들 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>공지 문서를 문단 단위로 나누고 TF-IDF 유사도로 관련 문단을 검색한다.</p>
+<p class="section-title">예상 산출물</p><p>근거 문단 표시 챗봇, 검색 정확도 평가, 할루시네이션 방지 규칙</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code14')">복사</button></p>
+<pre><code id="code14">from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+docs = [
+    &#x27;기숙사 귀가 신청은 금요일 17시까지 제출합니다.&#x27;,
+    &#x27;정보 창의력 경진대회 신청 기간은 7월 10일까지입니다.&#x27;,
+    &#x27;과학탐구 발표회 예선은 강당에서 진행됩니다.&#x27;
+]
+q = &#x27;정보 경진대회는 언제까지 신청하나요?&#x27;
+vec = TfidfVectorizer().fit(docs + [q])
+X = vec.transform(docs + [q])
+scores = cosine_similarity(X[-1], X[:-1]).ravel()
+print(docs[scores.argmax()])</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t15">
+<h3>15. 얼굴 인식 없는 출결 보조 시스템</h3>
+<span class="tag std">성취기준 연결: 디지털 윤리·피지컬 컴퓨팅</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>개인 얼굴 데이터를 쓰지 않고도 출결 확인 절차를 효율화할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>QR, 난수 코드, 시간 제한 입력 방식 등 개인정보 최소 수집 설계를 비교한다.</p>
+<p class="section-title">예상 산출물</p><p>개인정보 영향 분석표, 프로토타입, 부정 출석 방지 아이디어</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code15')">복사</button></p>
+<pre><code id="code15">import secrets, time
+
+valid_code = secrets.token_hex(3).upper()
+start = time.time()
+print(&#x27;오늘의 출석 코드:&#x27;, valid_code)
+
+answer = input(&#x27;코드 입력: &#x27;).strip().upper()
+elapsed = time.time() - start
+if answer == valid_code and elapsed &lt;= 60:
+    print(&#x27;출석 확인&#x27;)
+else:
+    print(&#x27;확인 실패 또는 시간 초과&#x27;)</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t16">
+<h3>16. 암호 해시와 개인정보 보호 실험</h3>
+<span class="tag std">성취기준 연결: 정보보안·디지털 문화</span> <span class="tag level">난이도: 중급</span>
+<p class="section-title">연구 질문</p><p>같은 비밀번호라도 salt를 사용하면 해시 결과가 어떻게 달라지는가?</p>
+<p class="section-title">탐구 설계</p><p>SHA-256, salt, 무차별 대입 시간을 실험하고 안전한 저장 원칙을 정리한다.</p>
+<p class="section-title">예상 산출물</p><p>해시 실험 보고서, 보안 수칙 카드뉴스, 공격 시나리오와 방어</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code16')">복사</button></p>
+<pre><code id="code16">import hashlib, os
+
+def hash_password(password):
+    salt = os.urandom(16)
+    digest = hashlib.pbkdf2_hmac(&#x27;sha256&#x27;, password.encode(), salt, 100000)
+    return salt.hex(), digest.hex()
+
+for _ in range(3):
+    print(hash_password(&#x27;ScienceHigh!2026&#x27;))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t17">
+<h3>17. 그래프 이론 기반 동아리 매칭</h3>
+<span class="tag std">성취기준 연결: 알고리즘·최적화</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>학생 희망 순위와 동아리 정원을 고려하여 만족도가 높은 배정을 만들 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>희망 순위 점수를 정의하고 탐욕 알고리즘 또는 이분 매칭을 구현한다.</p>
+<p class="section-title">예상 산출물</p><p>배정 알고리즘, 만족도 지표, 공정성 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code17')">복사</button></p>
+<pre><code id="code17">students = {
+    &#x27;S1&#x27;:[&#x27;AI&#x27;,&#x27;Physics&#x27;,&#x27;Bio&#x27;], &#x27;S2&#x27;:[&#x27;Bio&#x27;,&#x27;AI&#x27;,&#x27;Chem&#x27;],
+    &#x27;S3&#x27;:[&#x27;AI&#x27;,&#x27;Chem&#x27;,&#x27;Physics&#x27;], &#x27;S4&#x27;:[&#x27;Physics&#x27;,&#x27;Bio&#x27;,&#x27;AI&#x27;]
+}
+capacity = {&#x27;AI&#x27;:2, &#x27;Physics&#x27;:1, &#x27;Bio&#x27;:1, &#x27;Chem&#x27;:1}
+assigned = {}
+for round_idx in range(3):
+    for s, prefs in students.items():
+        if s in assigned: continue
+        club = prefs[round_idx]
+        if capacity[club] &gt; 0:
+            assigned[s] = club
+            capacity[club] -= 1
+print(assigned)</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t18">
+<h3>18. 유전 알고리즘 시간표 최적화</h3>
+<span class="tag std">성취기준 연결: 알고리즘·최적화</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>교사·교실·과목 제약을 만족하면서 충돌이 적은 시간표를 자동 생성할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>시간표를 염색체로 표현하고 충돌 수를 적합도로 두어 세대를 반복한다.</p>
+<p class="section-title">예상 산출물</p><p>제약 조건 목록, 적합도 변화 그래프, 최종 시간표</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code18')">복사</button></p>
+<pre><code id="code18">import random
+
+classes = [&#x27;정보&#x27;,&#x27;수학&#x27;,&#x27;물리&#x27;,&#x27;화학&#x27;]
+slots = list(range(1, 9))
+
+def make_plan():
+    return {c: random.choice(slots) for c in classes}
+
+def penalty(plan):
+    return len(plan.values()) - len(set(plan.values()))
+
+pop = [make_plan() for _ in range(30)]
+for gen in range(50):
+    pop.sort(key=penalty)
+    parents = pop[:10]
+    children = []
+    for _ in range(20):
+        a, b = random.sample(parents, 2)
+        child = {c: random.choice([a[c], b[c]]) for c in classes}
+        if random.random() &lt; 0.2: child[random.choice(classes)] = random.choice(slots)
+        children.append(child)
+    pop = parents + children
+print(pop[0], &#x27;penalty=&#x27;, penalty(pop[0]))</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t19">
+<h3>19. 생명과학 실험 이미지 분류</h3>
+<span class="tag std">성취기준 연결: 인공지능·융합 탐구</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>현미경 이미지에서 세포 상태를 자동 분류할 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>공개 이미지 또는 직접 촬영한 비식별 이미지를 사용하여 밝기·윤곽 특징을 추출하고 분류한다.</p>
+<p class="section-title">예상 산출물</p><p>이미지 전처리 과정, 분류 정확도, 오분류 이미지 분석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code19')">복사</button></p>
+<pre><code id="code19">import cv2, glob
+import pandas as pd
+
+rows = []
+for path in glob.glob(&#x27;cell_images/*.png&#x27;):
+    img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    blur = cv2.GaussianBlur(img, (5,5), 0)
+    edges = cv2.Canny(blur, 50, 150)
+    rows.append({&#x27;file&#x27;:path, &#x27;mean&#x27;:img.mean(), &#x27;edge_pixels&#x27;:(edges&gt;0).sum()})
+features = pd.DataFrame(rows)
+print(features.head())</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+<article class="card" id="t20">
+<h3>20. 천문 관측 데이터로 변광성 탐색</h3>
+<span class="tag std">성취기준 연결: 데이터 과학·천문 융합</span> <span class="tag level">난이도: 심화</span>
+<p class="section-title">연구 질문</p><p>별의 밝기 시계열 데이터에서 주기적으로 변하는 천체를 찾을 수 있는가?</p>
+<p class="section-title">탐구 설계</p><p>관측 시각과 밝기 자료를 정리하고 이동평균, 피크 탐색, 주기 후보를 계산한다.</p>
+<p class="section-title">예상 산출물</p><p>광도 곡선, 주기 후보, 천문학적 해석</p>
+<p class="section-title">소논문 구성 예시</p>
+<ul><li>Ⅰ. 연구 동기와 문제 정의</li><li>Ⅱ. 관련 개념: 데이터 구조, 알고리즘, 모델 또는 컴퓨팅 시스템</li><li>Ⅲ. 데이터 수집·전처리·윤리 검토</li><li>Ⅳ. 구현 및 실험 결과</li><li>Ⅴ. 한계와 개선 방향</li></ul>
+<p class="section-title">예시 코드 <button class="btn copy" onclick="copyCode('code20')">복사</button></p>
+<pre><code id="code20">import pandas as pd
+import numpy as np
+
+df = pd.read_csv(&#x27;star_lightcurve.csv&#x27;)  # time, magnitude
+df[&#x27;smooth&#x27;] = df[&#x27;magnitude&#x27;].rolling(5, center=True).mean()
+# 간단한 주기 후보: 자기상관이 큰 시간 차이 탐색
+values = df[&#x27;magnitude&#x27;].fillna(df[&#x27;magnitude&#x27;].mean()).to_numpy()
+values = values - values.mean()
+autocorr = np.correlate(values, values, mode=&#x27;full&#x27;)[len(values)-1:]
+period_index = np.argmax(autocorr[5:80]) + 5
+print(&#x27;period candidate index:&#x27;, period_index)</code></pre>
+<table class="rubric"><tr><th>평가 요소</th><th>상</th><th>중</th><th>하</th></tr>
+<tr><td>문제 정의</td><td>과학고 맥락의 구체적 연구 질문 제시</td><td>주제는 명확하나 변수 정의가 일부 부족</td><td>탐구 가능성이 낮거나 범위가 모호</td></tr>
+<tr><td>정보 역량</td><td>데이터·알고리즘·시스템 개념을 근거 있게 활용</td><td>기본 기능 구현은 가능하나 분석 깊이가 보통</td><td>코드 실행 위주이며 해석이 부족</td></tr>
+<tr><td>윤리·보안</td><td>개인정보 최소 수집과 비식별화 원칙 반영</td><td>윤리 고려가 있으나 절차가 간단함</td><td>민감정보 처리 위험을 설명하지 못함</td></tr></table>
+</article>
+</div>
+<section class="intro" style="margin-top:20px">
+<h2>공통 작성 양식</h2>
+<ol>
+<li><b>제목:</b> 핵심 변수와 알고리즘이 드러나도록 쓴다.</li>
+<li><b>초록:</b> 연구 목적, 방법, 결과, 의의를 5~7문장으로 요약한다.</li>
+<li><b>연구 방법:</b> 데이터 출처, 수집 기간, 전처리 방법, 사용 라이브러리를 명시한다.</li>
+<li><b>결과:</b> 표와 그래프를 함께 제시하고 오차, 한계, 편향 가능성을 해석한다.</li>
+<li><b>결론:</b> 정보 성취기준과 연결하여 문제 해결 과정에서 배운 점을 정리한다.</li>
+</ol>
+<p class="note">권장 라이브러리: pandas, matplotlib, scikit-learn, OpenCV, MicroPython. 외부 데이터를 사용할 때는 출처와 수집 날짜를 반드시 기록한다.</p>
+</section>
+<div class="footer">과학고 정보 수업 프로젝트 소논문 주제 20개 · HTML 학습자료</div>
+</main>
+</body>
+</html>
