@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>사물 인터넷(IoT) 퀴즈</title>
+<style>
+  :root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#5d6b82;--accent:#2563eb;--ok:#15803d;--bad:#b91c1c;--soft:#eef4ff;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Malgun Gothic,Apple SD Gothic Neo,Noto Sans KR,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  header{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#1d4ed8,#06b6d4);color:white;padding:18px 24px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+  header h1{margin:0;font-size:24px} header p{margin:4px 0 0;font-size:14px;opacity:.95}
+  main{max-width:1100px;margin:22px auto;padding:0 16px 60px}
+  .info,.question,.result{background:var(--card);border-radius:18px;padding:20px;margin:16px 0;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #e7edf7}
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:14px}.info label{font-weight:700}.info input{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;margin-top:6px}
+  h2{margin:28px 0 10px;font-size:22px}.q-title{font-weight:800;font-size:17px;margin-bottom:10px}.badge{display:inline-block;background:var(--soft);color:#1d4ed8;border-radius:999px;padding:3px 10px;font-size:13px;margin-right:8px}
+  .option{display:block;padding:10px 12px;margin:8px 0;border:1px solid #d8e1ef;border-radius:12px;background:#fbfdff;cursor:pointer}.option:hover{background:#f1f7ff}.option input{margin-right:8px}
+  .buttons{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.buttons button{border:0;border-radius:12px;padding:13px 18px;font-weight:800;font-size:16px;cursor:pointer}.submit{background:var(--accent);color:white}.reset{background:#e2e8f0;color:#0f172a}.download{background:#0f766e;color:white}
+  .feedback{margin-top:12px;padding:13px;border-radius:12px;display:none}.correct{background:#ecfdf5;border:1px solid #bbf7d0;color:#14532d}.wrong{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d}.miss{background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12}
+  .answer-line{font-weight:800}.explain{margin-top:6px;color:#334155}.result{display:none}.score{font-size:26px;font-weight:900;color:#1d4ed8}.small{font-size:13px;color:var(--muted)}
+  @media(max-width:720px){.info{grid-template-columns:1fr}header h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>사물 인터넷(IoT) OX · 5지선다형 퀴즈</h1>
+  <p>OX 10문항 + 옳은 것 3개 고르는 5지선다형 10문항 · 자동 채점 · 상세 풀이 · TXT 저장</p>
+</header>
+<main>
+  <section class="info">
+    <div><label for="studentId">학번</label><input id="studentId" placeholder="예: 1101" /></div>
+    <div><label for="studentName">이름</label><input id="studentName" placeholder="예: 홍길동" /></div>
+  </section>
+
+  <h2>Ⅰ. OX 퀴즈 10문항</h2>
+  <div id="oxArea"></div>
+
+  <h2>Ⅱ. 옳은 것 3개를 모두 고르는 5지선다형 10문항</h2>
+  <p class="small">각 문항은 보기 5개 중 옳은 설명 3개, 틀린 설명 2개로 구성되어 있습니다. 반드시 3개를 선택하세요.</p>
+  <div id="multiArea"></div>
+
+  <div class="buttons">
+    <button class="submit" onclick="gradeQuiz()">제출하고 채점하기</button>
+    <button class="download" onclick="downloadTxt()">결과 TXT 저장</button>
+    <button class="reset" onclick="location.reload()">처음부터 다시 풀기</button>
+  </div>
+
+  <section id="result" class="result"></section>
+</main>
+<script>
+const oxQuestions = [
+  {q:'사물 인터넷은 센서, 네트워크, 소프트웨어를 이용하여 사물이 데이터를 수집·전송·처리하도록 연결하는 기술이다.', a:'O', e:'IoT는 사물이 인터넷 또는 네트워크에 연결되어 주변 상태를 감지하고 데이터를 주고받는 구조를 말한다.'},
+  {q:'IoT 기기는 반드시 사람이 직접 키보드로 데이터를 입력해야만 동작한다.', a:'X', e:'IoT 기기는 온도 센서, 조도 센서, 초음파 센서 등으로 데이터를 자동 수집할 수 있다.'},
+  {q:'스마트홈의 조명 자동 제어, 스마트팜의 온습도 관리, 웨어러블 건강 측정은 IoT 활용 사례에 해당한다.', a:'O', e:'생활, 농업, 의료 등 다양한 분야에서 사물이 상태를 감지하고 자동으로 제어하는 IoT가 활용된다.'},
+  {q:'센서가 수집한 데이터는 IoT 시스템에서 의사결정이나 자동 제어의 근거가 될 수 있다.', a:'O', e:'예를 들어 습도 데이터가 기준보다 낮으면 자동으로 물을 주는 식의 제어가 가능하다.'},
+  {q:'IoT 시스템에서는 보안이 중요하지 않다. 사물은 사람이 아니므로 개인정보와 무관하다.', a:'X', e:'CCTV, 위치 정보, 건강 정보, 생활 패턴 등 민감한 데이터가 포함될 수 있어 보안과 개인정보 보호가 매우 중요하다.'},
+  {q:'액추에이터는 센서가 감지한 결과나 제어 명령에 따라 실제 동작을 수행하는 장치이다.', a:'O', e:'모터, LED, 릴레이, 밸브 등이 액추에이터의 예이며, 감지 결과를 현실 세계의 동작으로 바꾼다.'},
+  {q:'IoT에서 클라우드는 대량의 데이터를 저장하거나 분석하는 데 활용될 수 있다.', a:'O', e:'여러 기기에서 모인 데이터를 클라우드에 저장하고 분석하면 패턴 파악이나 예측 서비스에 활용할 수 있다.'},
+  {q:'IoT 기기는 네트워크에 연결되므로 기본 비밀번호를 그대로 사용해도 안전하다.', a:'X', e:'기본 비밀번호는 쉽게 추측되거나 공개되어 있을 수 있으므로 반드시 강한 비밀번호로 변경해야 한다.'},
+  {q:'MQTT와 같은 경량 통신 방식은 제한된 성능의 IoT 기기에서 효율적인 데이터 전송에 사용될 수 있다.', a:'O', e:'MQTT는 작은 메시지를 효율적으로 주고받는 데 적합하여 IoT 환경에서 자주 사용된다.'},
+  {q:'IoT 시스템은 데이터를 모으기만 하면 되며, 데이터의 정확성이나 결측값은 고려할 필요가 없다.', a:'X', e:'센서 오류, 통신 끊김, 이상값이 있으면 잘못된 판단을 할 수 있으므로 데이터 품질 관리가 필요하다.'}
+];
+
+const multiQuestions = [
+  {q:'IoT 시스템의 구성 요소로 옳은 것을 모두 고르시오.', opts:['센서','반드시 대형 슈퍼컴퓨터','네트워크','인터넷 연결이 전혀 불가능한 종이 문서','데이터 처리 소프트웨어'], a:[0,2,4], e:['센서는 환경 정보를 수집한다.','IoT에 반드시 슈퍼컴퓨터가 필요한 것은 아니다.','네트워크는 기기와 서버 사이의 데이터 이동을 담당한다.','종이 문서는 IoT의 연결·감지·제어 구성 요소가 아니다.','소프트웨어는 데이터를 분석하거나 제어 명령을 만든다.']},
+  {q:'스마트팜 IoT 활용으로 옳은 것을 모두 고르시오.', opts:['날씨와 관계없이 센서 없이 항상 같은 시간에만 물을 준다.','토양 습도 센서로 물 부족 상태를 감지한다.','온도 데이터를 바탕으로 환풍기를 제어한다.','수집 데이터는 절대 저장하면 안 되며 분석할 수 없다.','조도 데이터를 이용해 보조 조명을 켠다.'], a:[1,2,4], e:['항상 같은 시간만 사용하는 방식은 IoT의 데이터 기반 제어와 거리가 멀다.','토양 습도 감지는 스마트팜의 핵심 활용이다.','온도 기반 자동 제어가 가능하다.','데이터 저장과 분석은 스마트팜 개선에 도움이 된다.','빛의 양에 따라 조명을 조절할 수 있다.']},
+  {q:'IoT 보안 관리 방법으로 옳은 것을 모두 고르시오.', opts:['기본 비밀번호를 변경한다.','모든 기기를 공개 Wi-Fi에 비밀번호 없이 연결한다.','센서 데이터는 어떤 경우에도 암호화할 필요가 없다.','펌웨어를 주기적으로 업데이트한다.','필요하지 않은 외부 접속 기능은 끈다.'], a:[0,3,4], e:['기본 비밀번호 변경은 기본 보안 조치이다.','공개 Wi-Fi 무보안 연결은 위험하다.','민감한 데이터는 암호화가 필요할 수 있다.','업데이트는 알려진 취약점을 줄인다.','불필요한 기능을 끄면 공격면이 줄어든다.']},
+  {q:'센서와 액추에이터 설명으로 옳은 것을 모두 고르시오.', opts:['센서는 항상 데이터를 출력하지 않고 물리적으로 움직이기만 한다.','온도 센서는 주변 온도를 측정한다.','액추에이터는 데이터를 감지하는 장치만 의미한다.','초음파 센서는 거리 측정에 활용될 수 있다.','모터는 제어 명령에 따라 움직이는 액추에이터가 될 수 있다.'], a:[1,3,4], e:['센서는 감지 데이터를 만드는 장치이다.','온도 센서는 환경 데이터를 수집한다.','액추에이터는 감지가 아니라 동작 수행 장치이다.','초음파 센서는 장애물 거리 측정에 자주 쓰인다.','모터는 명령을 실제 동작으로 바꾼다.']},
+  {q:'IoT 데이터 처리 과정으로 옳은 것을 모두 고르시오.', opts:['센서에서 데이터를 수집한다.','수집한 데이터는 무조건 삭제해야 하며 처리하면 안 된다.','네트워크를 통해 서버나 기기로 전송한다.','분석 결과에 따라 알림이나 제어 명령을 생성한다.','데이터 전송은 항상 종이 우편으로만 해야 한다.'], a:[0,2,3], e:['데이터 수집은 IoT의 시작 단계이다.','데이터는 목적에 맞게 안전하게 저장·처리할 수 있다.','전송은 IoT 연결 구조의 핵심이다.','분석 결과를 바탕으로 자동화가 가능하다.','IoT 데이터 전송은 네트워크 기반이다.']},
+  {q:'스마트시티 IoT 사례로 옳은 것을 모두 고르시오.', opts:['도로 상황을 전혀 측정하지 않고 모든 신호를 무작위로 바꾸기','교통량 센서 기반 신호 제어','공기질 센서 기반 미세먼지 모니터링','스마트 가로등의 밝기 자동 조절','도시 데이터는 시민 안전과 무관하므로 관리할 필요가 없음'], a:[1,2,3], e:['무작위 제어는 데이터 기반 IoT가 아니다.','교통량 감지는 스마트 교통에 활용된다.','공기질 데이터는 환경 관리에 활용된다.','가로등 자동 조절은 에너지 절약에 도움이 된다.','도시 데이터는 안전·환경·교통과 관련되어 관리가 필요하다.']},
+  {q:'IoT에서 개인정보 보호가 필요한 이유로 옳은 것을 모두 고르시오.', opts:['위치 정보가 생활 패턴을 드러낼 수 있다.','건강 측정 데이터가 민감한 정보가 될 수 있다.','IoT 데이터는 모두 의미 없는 숫자라서 보호할 필요가 없다.','개인정보 보호는 네트워크 기기와 전혀 관련이 없다.','스마트홈 사용 기록이 가족의 생활 습관을 보여 줄 수 있다.'], a:[0,1,4], e:['위치 정보는 개인의 이동 경로를 드러낼 수 있다.','건강 데이터는 민감 정보에 해당할 수 있다.','숫자 데이터도 개인을 식별하거나 추론하는 데 사용될 수 있다.','네트워크 기기일수록 개인정보 보호가 중요하다.','사용 기록은 생활 패턴 추정에 쓰일 수 있다.']},
+  {q:'엣지 컴퓨팅을 IoT에 적용할 때의 장점으로 옳은 것을 모두 고르시오.', opts:['모든 데이터를 반드시 먼 해외 서버로 보내야 한다.','엣지 컴퓨팅은 IoT 기기에서 어떤 계산도 하지 못하게 하는 기술이다.','기기 가까이에서 빠르게 처리할 수 있다.','서버로 보내는 데이터 양을 줄일 수 있다.','네트워크 지연이 줄어 실시간 제어에 유리할 수 있다.'], a:[2,3,4], e:['엣지 컴퓨팅은 가까운 곳에서 처리하는 방향이다.','계산을 금지하는 기술이 아니라 분산 처리 방식이다.','근처 장치에서 처리하면 반응 속도가 빨라진다.','필요한 데이터만 전송해 통신 부담을 줄일 수 있다.','지연 감소는 실시간 제어에 유리하다.']},
+  {q:'IoT 프로젝트 설계 시 고려할 점으로 옳은 것을 모두 고르시오.', opts:['어떤 데이터를 수집할지 정한다.','목적 없이 가능한 모든 개인정보를 무제한 수집한다.','배터리 사용 시간은 IoT 기기 설계와 무관하다.','데이터를 어떻게 안전하게 전송할지 정한다.','센서 오류와 결측값 처리 방법을 고려한다.'], a:[0,3,4], e:['목표에 맞는 데이터 정의가 필요하다.','목적 없는 과도한 개인정보 수집은 정보 윤리에 어긋난다.','배터리와 전력 관리는 IoT 설계에서 중요하다.','안전한 전송 방식은 보안의 핵심이다.','현실의 센서 데이터는 오류와 누락이 생길 수 있다.']},
+  {q:'IoT와 인공지능을 결합한 사례로 옳은 것을 모두 고르시오.', opts:['AI를 쓰면 센서와 데이터가 전혀 필요 없다.','센서 데이터를 이용해 고장 가능성을 예측한다.','사용 패턴을 학습해 에너지 사용량을 최적화한다.','인공지능은 IoT 데이터 분석에 절대 활용될 수 없다.','카메라 데이터를 분석해 이상 상황을 감지한다.'], a:[1,2,4], e:['AI 학습과 판단에는 데이터가 필요하다.','예지 정비는 IoT와 AI의 대표 활용이다.','사용 패턴 분석은 에너지 절약에 도움이 된다.','AI는 IoT 데이터 분석에 널리 활용될 수 있다.','영상 분석으로 안전 관리가 가능하다.']}
+];
+
+let graded = false;
+let lastReport = '';
+
+function makeQuestionHTML(type, item, idx){
+  const id = type + idx;
+  let html = `<section class="question" id="box-${id}"><div class="q-title"><span class="badge">${type==='ox'?'OX':'5지선다'}</span>${idx+1}. ${item.q}</div>`;
+  if(type==='ox'){
+    html += `<label class="option"><input type="radio" name="${id}" value="O">O</label><label class="option"><input type="radio" name="${id}" value="X">X</label>`;
+  }else{
+    item.opts.forEach((op,i)=>{ html += `<label class="option"><input type="checkbox" name="${id}" value="${i}">${i+1}. ${op}</label>`; });
+  }
+  html += `<div class="feedback" id="fb-${id}"></div></section>`;
+  return html;
+}
+
+document.getElementById('oxArea').innerHTML = oxQuestions.map((q,i)=>makeQuestionHTML('ox',q,i)).join('');
+document.getElementById('multiArea').innerHTML = multiQuestions.map((q,i)=>makeQuestionHTML('multi',q,i)).join('');
+
+function sameArray(a,b){ return a.length===b.length && a.slice().sort().join(',')===b.slice().sort().join(','); }
+function selectedValues(name){ return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x=>x.value); }
+function nowText(){
+  const d = new Date();
+  const p = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}-${p(d.getMinutes())}-${p(d.getSeconds())}`;
+}
+function safeName(s){ return (s||'미입력').trim().replace(/[\\/:*?"<>|\s]+/g,'_'); }
+
+function gradeQuiz(){
+  const sid = document.getElementById('studentId').value.trim();
+  const sname = document.getElementById('studentName').value.trim();
+  if(!sid || !sname){ alert('학번과 이름을 입력하세요.'); return; }
+  let score = 0, total = oxQuestions.length + multiQuestions.length;
+  let lines = [];
+  const stamp = nowText();
+  lines.push('사물 인터넷(IoT) 퀴즈 결과');
+  lines.push(`학번: ${sid}`); lines.push(`이름: ${sname}`); lines.push(`응시시각: ${stamp}`); lines.push('');
+
+  oxQuestions.forEach((item, i)=>{
+    const name = 'ox'+i;
+    const ans = selectedValues(name)[0] || '미응답';
+    const ok = ans === item.a;
+    if(ok) score++;
+    const fb = document.getElementById('fb-'+name);
+    fb.className = 'feedback ' + (ok?'correct':'wrong'); fb.style.display='block';
+    fb.innerHTML = `<div class="answer-line">${ok?'정답':'오답'} · 내 답: ${ans} · 정답: ${item.a}</div><div class="explain">${item.e}</div>`;
+    lines.push(`[OX ${i+1}] ${ok?'정답':'오답'}`); lines.push(`문제: ${item.q}`); lines.push(`내 답: ${ans}`); lines.push(`정답: ${item.a}`); lines.push(`해설: ${item.e}`); lines.push('');
+  });
+
+  multiQuestions.forEach((item, i)=>{
+    const name = 'multi'+i;
+    const ans = selectedValues(name).map(Number);
+    const ok = sameArray(ans, item.a);
+    if(ok) score++;
+    const ansText = ans.length? ans.map(n=>n+1).join(', ') : '미응답';
+    const correctText = item.a.map(n=>n+1).join(', ');
+    const detail = item.opts.map((op,j)=>`${j+1}. ${op} → ${item.a.includes(j)?'옳음':'틀림'}: ${item.e[j]}`).join('<br>');
+    const fb = document.getElementById('fb-'+name);
+    fb.className = 'feedback ' + (ok?'correct':(ans.length===3?'wrong':'miss')); fb.style.display='block';
+    fb.innerHTML = `<div class="answer-line">${ok?'정답':'오답'} · 내 선택: ${ansText} · 정답: ${correctText}</div><div class="explain">${detail}</div>`;
+    lines.push(`[5지선다 ${i+1}] ${ok?'정답':'오답'}`); lines.push(`문제: ${item.q}`); lines.push(`내 선택: ${ansText}`); lines.push(`정답: ${correctText}`); item.opts.forEach((op,j)=> lines.push(`${j+1}. ${op} → ${item.a.includes(j)?'옳음':'틀림'}: ${item.e[j]}`)); lines.push('');
+  });
+
+  const percent = Math.round(score/total*100);
+  document.getElementById('result').style.display='block';
+  document.getElementById('result').innerHTML = `<div class="score">점수: ${score} / ${total} (${percent}점)</div><p>채점이 완료되었습니다. 아래의 <b>결과 TXT 저장</b> 버튼을 누르면 파일이 저장됩니다.</p>`;
+  lines.splice(4,0,`점수: ${score}/${total} (${percent}점)`);
+  lastReport = lines.join('\n');
+  graded = true;
+  window.scrollTo({top:document.getElementById('result').offsetTop-100, behavior:'smooth'});
+}
+
+function downloadTxt(){
+  if(!graded){ alert('먼저 제출하고 채점하기를 눌러 주세요.'); return; }
+  const sid = safeName(document.getElementById('studentId').value);
+  const sname = safeName(document.getElementById('studentName').value);
+  const filename = `${sid}_${sname}_점수_사물인터넷_${nowText()}.txt`;
+  const blob = new Blob([lastReport], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = filename; a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
