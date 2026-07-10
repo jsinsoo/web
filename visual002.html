@@ -1,0 +1,2736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python 데이터 시각화 라이브러리 예제 모음</title>
+    <style>
+        body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f8f9fa; color: #212529; }
+        h1 { text-align: center; color: #0d6efd; border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
+        h2 { color: #198754; margin-top: 40px; border-left: 5px solid #198754; padding-left: 10px; }
+        h3 { color: #343a40; margin-top: 30px; border-bottom: 1px solid #ced4da; padding-bottom: 5px; }
+        h4 { color: #495057; }
+        pre { background-color: #fff; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', 'Courier New', monospace; }
+        code { color: #d63384; }
+        p { text-align: justify; }
+        .container { max-width: 960px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .note { background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 5px; padding: 15px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Python 데이터 시각화 라이브러리 예제 모음</h1>
+
+    <div class="note">
+        <h4>※ 한글 폰트 설정 안내</h4>
+        <p>Matplotlib, Seaborn, WordCloud 등 일부 라이브러리는 한글을 표시하기 위해 시스템에 설치된 폰트를 지정해야 합니다. 아래 코드는 Windows의 'Malgun Gothic', macOS의 'AppleGothic'을 사용하므로, 자신의 운영체제에 맞게 주석을 해제하거나 폰트 경로를 수정하여 사용하세요. Linux의 경우 'NanumGothic' 등 한글 폰트를 설치한 후 해당 폰트 이름을 지정해야 합니다.</p>
+        <pre><code>
+# 한글 폰트 설정 (Matplotlib, Seaborn)
+import matplotlib.pyplot as plt
+
+# Windows
+plt.rcParams['font.family'] = 'Malgun Gothic'
+# macOS
+# plt.rcParams['font.family'] = 'AppleGothic' 
+# Linux (Nanum 폰트 설치 후)
+# plt.rcParams['font.family'] = 'NanumGothic' 
+
+# 마이너스 부호 깨짐 방지
+plt.rcParams['axes.unicode_minus'] = False
+        </code></pre>
+    </div>
+
+    <!-- 1. Matplotlib -->
+    <section>
+        <h2>1. Matplotlib</h2>
+        <p>파이썬의 가장 대표적인 시각화 라이브러리로, 다양한 종류의 정적 그래프를 생성할 수 있습니다. 다른 라이브러리들의 기반이 되기도 합니다.</p>
+
+        <h3>1.1. 기본 꺾은선 그래프</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+
+# 한글 폰트 설정 (상단 안내 참고)
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+x = [2020, 2021, 2022, 2023, 2024]
+y = [100, 120, 150, 130, 160]
+
+plt.plot(x, y)
+plt.title('연도별 매출')
+plt.xlabel('연도')
+plt.ylabel('매출 (억 원)')
+plt.grid(True)
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.plot(x, y)</code>: x축과 y축 데이터를 받아 꺾은선 그래프를 그립니다.</li>
+            <li><code>plt.title()</code>, <code>plt.xlabel()</code>, <code>plt.ylabel()</code>: 그래프의 제목, x축, y축의 라벨을 설정합니다.</li>
+            <li><code>plt.grid(True)</code>: 그래프에 격자 무늬를 추가합니다.</li>
+            <li><code>plt.show()</code>: 완성된 그래프를 화면에 보여줍니다.</li>
+        </ul>
+
+        <h3>1.2. 기본 막대 그래프</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+products = ['A제품', 'B제품', 'C제품']
+sales = [250, 310, 190]
+
+plt.bar(products, sales, color='skyblue')
+plt.title('제품별 판매량')
+plt.ylabel('판매량 (개)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.bar(x, height)</code>: x축 위치와 막대의 높이를 받아 막대 그래프를 그립니다.</li>
+            <li><code>color</code> 속성을 사용하여 막대의 색상을 지정할 수 있습니다.</li>
+        </ul>
+
+        <h3>1.3. 수평 막대 그래프</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+cities = ['서울', '부산', '인천', '대구']
+population = [940, 330, 290, 230]
+
+plt.barh(cities, population, color='lightcoral')
+plt.title('주요 도시별 인구 (백만 명)')
+plt.xlabel('인구 (백만 명)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.barh(y, width)</code>: y축 위치와 막대의 너비를 받아 수평 막대 그래프를 그립니다.</li>
+        </ul>
+
+        <h3>1.4. 산점도 (Scatter Plot)</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+np.random.seed(0)
+study_time = np.random.rand(50) * 10
+scores = study_time * 8 + np.random.randn(50) * 5 + 10
+scores = np.clip(scores, 0, 100) # 점수를 0~100 사이로 제한
+
+plt.scatter(study_time, scores)
+plt.title('공부 시간과 시험 점수 관계')
+plt.xlabel('공부 시간 (시간)')
+plt.ylabel('시험 점수 (점)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>np.random.seed(0)</code>: 재현 가능한 랜덤 결과를 위해 시드를 고정합니다.</li>
+            <li><code>plt.scatter(x, y)</code>: x, y 좌표에 해당하는 위치에 점을 찍어 두 변수 간의 관계를 보여줍니다.</li>
+        </ul>
+
+        <h3>1.5. 원 그래프 (Pie Chart)</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+labels = ['삼성전자', 'LG에너지솔루션', 'SK하이닉스', '기타']
+sizes = [30, 20, 15, 35]
+colors = ['gold', 'yellowgreen', 'lightcoral', 'lightskyblue']
+explode = (0.1, 0, 0, 0) # 첫 번째 조각을 튀어나오게 설정
+
+plt.pie(sizes, explode=explode, labels=labels, colors=colors,
+        autopct='%1.1f%%', shadow=True, startangle=140)
+plt.axis('equal') # 원을 완전한 원 형태로 유지
+plt.title('국내 주식 시장 점유율')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.pie(sizes)</code>: 각 항목의 비율을 원 그래프로 나타냅니다.</li>
+            <li><code>labels</code>: 각 조각의 라벨을 지정합니다.</li>
+            <li><code>colors</code>: 각 조각의 색상을 지정합니다.</li>
+            <li><code>explode</code>: 특정 조각을 원의 중심에서 얼마나 튀어나오게 할지 설정합니다.</li>
+            <li><code>autopct</code>: 각 조각에 백분율을 표시하는 형식을 지정합니다.</li>
+            <li><code>shadow</code>: 그래프에 그림자 효과를 줍니다.</li>
+            <li><code>startangle</code>: 그래프가 시작되는 각도를 설정합니다.</li>
+            <li><code>plt.axis('equal')</code>: x, y축의 비율을 같게 하여 원이 찌그러지지 않게 합니다.</li>
+        </ul>
+        
+        <h3>1.6. 히스토그램</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+# 평균 70, 표준편차 10인 정규분포를 따르는 학생 100명의 점수 데이터 생성
+np.random.seed(1)
+scores = np.random.normal(70, 10, 100)
+
+plt.hist(scores, bins=10, edgecolor='black') # 10개의 구간으로 나눔
+plt.title('학생들 시험 점수 분포')
+plt.xlabel('점수')
+plt.ylabel('학생 수')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.hist(data, bins)</code>: 데이터의 분포를 막대 형태로 보여주는 히스토그램을 그립니다.</li>
+            <li><code>bins</code>: 데이터를 몇 개의 구간(막대)으로 나눌지 지정합니다.</li>
+            <li><code>edgecolor</code>: 각 막대의 테두리 색을 지정합니다.</li>
+        </ul>
+        
+        <h3>1.7. 여러 개 그래프 그리기 (Subplots)</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+x = np.linspace(0, 2 * np.pi, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6)) # 2행 1열의 서브플롯 생성
+
+fig.suptitle('삼각 함수 그래프')
+
+ax1.plot(x, y1, color='blue')
+ax1.set_ylabel('sin(x)')
+ax1.grid(True)
+
+ax2.plot(x, y2, color='red')
+ax2.set_xlabel('x')
+ax2.set_ylabel('cos(x)')
+ax2.grid(True)
+
+plt.tight_layout(rect=[0, 0.03, 1, 0.95]) # 제목과 겹치지 않게 레이아웃 조정
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.subplots(nrows, ncols)</code>: 여러 개의 그래프를 담을 수 있는 Figure와 Axes 객체를 생성합니다.</li>
+            <li><code>fig.suptitle()</code>: 전체 Figure의 제목을 설정합니다.</li>
+            <li><code>ax1.plot()</code>, <code>ax2.plot()</code>: 각 서브플롯(ax1, ax2)에 그래프를 그립니다.</li>
+            <li><code>ax1.set_ylabel()</code>: 각 서브플롯의 라벨을 개별적으로 설정합니다.</li>
+            <li><code>plt.tight_layout()</code>: 그래프 요소들이 겹치지 않도록 자동으로 레이아웃을 조정합니다.</li>
+        </ul>
+        
+        <h3>1.8. 박스 플롯 (Box Plot)</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+np.random.seed(10)
+data1 = np.random.normal(100, 10, 200)
+data2 = np.random.normal(90, 20, 200)
+data3 = np.random.normal(80, 30, 200)
+data = [data1, data2, data3]
+
+plt.boxplot(data, labels=['A그룹', 'B그룹', 'C그룹'])
+plt.title('그룹별 데이터 분포 (박스 플롯)')
+plt.ylabel('값')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.boxplot(data)</code>: 데이터의 사분위수(최솟값, 1사분위, 중앙값, 3사분위, 최댓값)를 시각적으로 보여줍니다. 이상치(outlier)를 파악하기 용이합니다.</li>
+            <li><code>labels</code>: 각 박스 플롯에 대한 라벨을 지정합니다.</li>
+        </ul>
+        
+        <h3>1.9. 꺾은선 그래프 스타일 변경</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 5, 7, 11]
+
+plt.plot(x, y, color='green', linestyle='--', marker='o', 
+         linewidth=2, markersize=8, label='프라임 넘버')
+
+plt.title('스타일이 적용된 꺾은선 그래프')
+plt.xlabel('X축')
+plt.ylabel('Y축')
+plt.legend() # 범례 표시
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>color</code>: 선 색상</li>
+            <li><code>linestyle</code>: 선 스타일 ('-', '--', ':', '-.')</li>
+            <li><code>marker</code>: 각 데이터 포인트에 표시할 마커 ('o', '^', 's', 'D')</li>
+            <li><code>linewidth</code>: 선 굵기</li>
+            <li><code>markersize</code>: 마커 크기</li>
+            <li><code>label</code>: 그래프의 범례에 표시될 이름</li>
+            <li><code>plt.legend()</code>: label로 지정한 범례를 그래프에 표시합니다.</li>
+        </ul>
+        
+        <h3>1.10. 그래프에 텍스트/화살표 추가하기</h3>
+        <pre><code>
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+x = [2020, 2021, 2022, 2023, 2024]
+y = [100, 120, 150, 90, 160]
+
+plt.plot(x, y, marker='o')
+plt.title('연도별 실적')
+plt.xlabel('연도')
+plt.ylabel('실적')
+
+# 텍스트 및 화살표 추가
+plt.annotate('급락 지점', xy=(2023, 90), xytext=(2022, 110),
+             arrowprops=dict(facecolor='black', shrink=0.05))
+
+plt.text(2020.5, 150, '꾸준한 성장세', fontsize=12, color='blue')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.annotate('text', xy, xytext, arrowprops)</code>: 특정 지점(xy)에 화살표로 주석을 답니다. 텍스트는 xytext 위치에 표시됩니다.</li>
+            <li><code>plt.text(x, y, 'text')</code>: 그래프의 특정 (x, y) 위치에 텍스트를 추가합니다.</li>
+        </ul>
+
+    </section>
+
+    <!-- 2. Seaborn -->
+    <section>
+        <h2>2. Seaborn</h2>
+        <p>Matplotlib을 기반으로 더 아름답고 통계적인 그래프를 쉽게 그릴 수 있게 해주는 라이브러리입니다.</p>
+
+        <h3>2.1. 기본 막대 그래프 (Count Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+data = {'요일': ['월', '화', '수', '목', '금', '토', '일', '월', '화', '수', '수']}
+df = pd.DataFrame(data)
+
+sns.countplot(x='요일', data=df, palette='viridis', order=['월','화','수','목','금','토','일'])
+plt.title('요일별 방문 횟수')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.countplot(x='column', data=df)</code>: 데이터프레임의 특정 열(column)에 있는 값들의 개수를 세어 막대 그래프로 보여줍니다.</li>
+            <li><code>palette</code>: 그래프의 색상 팔레트를 지정합니다.</li>
+             <li><code>order</code>: 막대그래프의 순서를 지정합니다.</li>
+        </ul>
+
+        <h3>2.2. 히트맵 (Heatmap)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+# 샘플 데이터 생성
+np.random.seed(0)
+data = np.random.rand(10, 12)
+months = [f'{i}월' for i in range(1, 13)]
+years = [f'20{i:02d}년' for i in range(15, 25)]
+df = pd.DataFrame(data, index=years, columns=months)
+
+plt.figure(figsize=(12, 8)) # 그래프 크기 조정
+sns.heatmap(df, annot=True, fmt='.1f', cmap='YlGnBu')
+plt.title('월별 데이터 히트맵')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plt.figure(figsize=(width, height))</code>: Matplotlib의 함수를 이용해 전체 그림의 크기를 조절할 수 있습니다.</li>
+            <li><code>sns.heatmap(data)</code>: 2차원 데이터를 색상으로 표현하는 히트맵을 그립니다. 데이터 간의 상관관계나 패턴을 파악하기 좋습니다.</li>
+            <li><code>annot=True</code>: 각 셀에 실제 값을 표시합니다.</li>
+            <li><code>fmt='.1f'</code>: 소수점 첫째 자리까지 값을 표시하는 서식입니다.</li>
+            <li><code>cmap</code>: 사용할 색상 맵(color map)을 지정합니다.</li>
+        </ul>
+
+        <h3>2.3. 상관관계 히트맵</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+# 샘플 데이터프레임 생성
+np.random.seed(1)
+data = {
+    '수학 점수': np.random.randint(50, 101, 100),
+    '영어 점수': np.random.randint(40, 101, 100),
+    '과학 점수': np.random.randint(60, 101, 100),
+    '공부 시간': np.random.uniform(1, 10, 100)
+}
+df = pd.DataFrame(data)
+df['과학 점수'] = (df['수학 점수'] * 0.5 + df['공부 시간'] * 2 + np.random.randn(100) * 5).clip(0, 100)
+
+corr = df.corr() # 데이터프레임의 상관계수 계산
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('과목 점수 및 공부 시간 상관관계')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>df.corr()</code>: Pandas 데이터프레임의 숫자형 열들 간의 상관계수를 계산하여 행렬 형태로 반환합니다.</li>
+            <li>상관계수 행렬을 히트맵으로 그리면 변수들 간의 관계를 한눈에 파악하기 용이합니다. (1에 가까울수록 강한 양의 상관관계, -1에 가까울수록 강한 음의 상관관계)</li>
+        </ul>
+
+        <h3>2.4. 분포도 (Distribution Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+np.random.seed(42)
+x = np.random.randn(100) * 15 + 75 # 평균 75, 표준편차 15인 데이터
+
+sns.displot(x, kde=True, rug=True, bins=20)
+plt.title('데이터 분포도 (displot)')
+plt.xlabel('값')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.displot(data)</code>: 데이터의 분포를 히스토그램과 밀도 곡선으로 함께 보여줍니다.</li>
+            <li><code>kde=True</code>: Kernel Density Estimate(커널 밀도 추정) 곡선을 함께 표시합니다.</li>
+            <li><code>rug=True</code>: 데이터의 실제 위치를 x축 위에 작은 선분(rug)으로 표시합니다.</li>
+        </ul>
+        
+        <h3>2.5. 박스 플롯 (Box Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+# Seaborn에 내장된 'tips' 데이터셋 사용
+tips = sns.load_dataset("tips")
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(x="day", y="total_bill", hue="smoker", data=tips, palette="Set3")
+plt.title('요일 및 흡연 여부별 식사 금액 (박스 플롯)')
+plt.xlabel('요일')
+plt.ylabel('식사 금액 ($)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.load_dataset("name")</code>: Seaborn이 제공하는 예제 데이터셋을 불러옵니다.</li>
+            <li><code>sns.boxplot(x, y, data)</code>: x축과 y축에 지정된 변수에 따라 그룹화된 박스 플롯을 그립니다.</li>
+            <li><code>hue</code>: 지정된 변수를 기준으로 색상을 다르게 하여 한 번 더 그룹화합니다.</li>
+        </ul>
+        
+        <h3>2.6. 바이올린 플롯 (Violin Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+tips = sns.load_dataset("tips")
+
+sns.violinplot(x="day", y="total_bill", data=tips, palette="muted")
+plt.title('요일별 식사 금액 분포 (바이올린 플롯)')
+plt.xlabel('요일')
+plt.ylabel('식사 금액 ($)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.violinplot(x, y, data)</code>: 박스 플롯과 데이터의 분포(KDE)를 함께 보여줍니다. 박스 플롯보다 데이터 분포의 상세한 형태를 파악하기 좋습니다.</li>
+        </ul>
+        
+        <h3>2.7. 관계도 (Relational Plot - scatter)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.relplot(x="total_bill", y="tip", hue="smoker", style="time", size="size",
+            data=tips, sizes=(15, 200))
+plt.title('식사 금액과 팁의 관계')
+plt.xlabel('총 식사 금액 ($)')
+plt.ylabel('팁 ($)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.relplot()</code>: 두 변수 간의 관계를 시각화합니다. 기본적으로 산점도(scatter plot)를 그립니다.</li>
+            <li><code>hue</code>, <code>style</code>, <code>size</code> 등의 속성을 이용해 여러 변수를 동시에 표현할 수 있습니다. (색상, 마커 모양, 마커 크기)</li>
+        </ul>
+        
+        <h3>2.8. 페어 플롯 (Pair Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+iris = sns.load_dataset("iris") # 붓꽃 데이터셋
+
+sns.pairplot(iris, hue="species", markers=["o", "s", "D"])
+plt.suptitle('붓꽃 데이터의 페어 플롯', y=1.02)
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.pairplot(data)</code>: 데이터프레임에 있는 모든 숫자형 변수 쌍에 대해 산점도를, 각 변수 자체에 대해서는 히스토그램(또는 KDE)을 그려줍니다. 데이터의 전반적인 관계와 분포를 파악하는 데 매우 유용합니다.</li>
+            <li><code>hue</code> 옵션으로 특정 카테고리 변수에 따라 색상을 구분할 수 있습니다.</li>
+        </ul>
+        
+        <h3>2.9. 조인트 플롯 (Joint Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+# 산점도와 각 축의 히스토그램을 함께 표시
+sns.jointplot(x="total_bill", y="tip", data=tips, kind="scatter") 
+plt.suptitle('식사 금액과 팁의 조인트 플롯', y=1.02)
+plt.show()
+
+# 육각(hex) 타일로 밀도를 표현
+sns.jointplot(x="total_bill", y="tip", data=tips, kind="hex")
+plt.suptitle('식사 금액과 팁의 조인트 플롯 (Hex)', y=1.02)
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.jointplot(x, y, data)</code>: 두 변수에 대한 산점도와 각 변수의 분포(히스토그램)를 동시에 보여줍니다.</li>
+            <li><code>kind</code> 속성으로 중앙의 그래프 종류를 변경할 수 있습니다. ('scatter', 'reg', 'kde', 'hex')</li>
+        </ul>
+        
+        <h3>2.10. 회귀선이 있는 산점도 (Regression Plot)</h3>
+        <pre><code>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+plt.figure(figsize=(8, 6))
+sns.regplot(x="total_bill", y="tip", data=tips, ci=95) # ci: 신뢰구간 95%
+plt.title('식사 금액과 팁의 관계 (회귀선 포함)')
+plt.xlabel('총 식사 금액 ($)')
+plt.ylabel('팁 ($)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>sns.regplot(x, y, data)</code>: 산점도와 함께 선형 회귀 분석 결과를 나타내는 회귀선을 그려줍니다.</li>
+            <li><code>ci</code>: 회귀선 주변의 신뢰구간을 표시할지 여부와 크기를 설정합니다.</li>
+        </ul>
+
+    </section>
+
+    <!-- 3. Pandas -->
+    <section>
+        <h2>3. Pandas</h2>
+        <p>데이터 분석을 위한 핵심 라이브러리지만, Matplotlib을 기반으로 한 간단한 시각화 기능도 내장하고 있어 빠르고 편리하게 그래프를 확인할 수 있습니다.</p>
+
+        <h3>3.1. 기본 꺾은선 그래프</h3>
+        <pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+s = pd.Series([1, 3, 5, 6, 8, 9], index=pd.to_datetime(['2024-01-01', '2024-02-01', '2024-03-01', '2024-04-01', '2024-05-01', '2024-06-01']))
+s.plot(title='월별 데이터', grid=True)
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>Pandas의 Series나 DataFrame 객체에 <code>.plot()</code> 메소드를 사용하면 바로 그래프를 그릴 수 있습니다.</li>
+            <li>인덱스가 x축, 값이 y축이 됩니다. 인덱스가 날짜/시간 타입이면 자동으로 시계열 그래프 형식에 맞게 그려줍니다.</li>
+        </ul>
+        
+        <h3>3.2. 데이터프레임 꺾은선 그래프</h3>
+        <pre><code>
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame(np.random.randn(10, 4).cumsum(axis=0),
+                  columns=['A', 'B', 'C', 'D'],
+                  index=np.arange(0, 100, 10))
+df.plot(figsize=(10,6), title='여러 데이터 계열의 꺾은선 그래프')
+plt.ylabel('값')
+plt.xlabel('시간')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>DataFrame에서 <code>.plot()</code>을 호출하면 각 열(column)이 별개의 꺾은선으로 그려집니다.</li>
+            <li>범례는 자동으로 열 이름으로 생성됩니다.</li>
+        </ul>
+        
+        <h3>3.3. 기본 막대 그래프</h3>
+        <pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame({'제품': ['A', 'B', 'C', 'D'],
+                   '판매량': [34, 55, 29, 41]})
+df.plot(kind='bar', x='제품', y='판매량', legend=False, rot=0)
+plt.title('제품별 판매량')
+plt.ylabel('판매량')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='bar')</code>: 막대 그래프를 그립니다.</li>
+            <li><code>x</code>, <code>y</code> 인자를 사용해 x축과 y축으로 사용할 열을 명시적으로 지정할 수 있습니다.</li>
+            <li><code>rot=0</code>: x축 라벨의 회전 각도를 0도로 설정합니다.</li>
+        </ul>
+        
+        <h3>3.4. 누적 막대 그래프</h3>
+        <pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame({
+    '1분기': [100, 150, 200],
+    '2분기': [120, 180, 210],
+    '3분기': [150, 200, 230],
+    '4분기': [130, 190, 220]
+}, index=['A팀', 'B팀', 'C팀'])
+
+df.plot(kind='bar', stacked=True, figsize=(10, 7))
+plt.title('팀별 분기 실적 (누적 막대)')
+plt.ylabel('실적')
+plt.xticks(rotation=0)
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='bar', stacked=True)</code>: 각 항목에 대한 값들을 누적하여 표시하는 누적 막대 그래프를 그립니다.</li>
+        </ul>
+
+        <h3>3.5. 수평 막대 그래프</h3>
+        <pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame({
+    '도시': ['서울', '부산', '인천', '대구'],
+    '면적': [605, 770, 1063, 883]
+})
+df.plot(kind='barh', x='도시', y='면적', color='tomato', legend=False)
+plt.title('주요 도시 면적 (km^{2})')
+plt.xlabel('면적 (km^{2})')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='barh')</code>: 수평 막대 그래프를 그립니다.</li>
+        </ul>
+        
+        <h3>3.6. 히스토그램</h3>
+        <pre><code>
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+data = pd.Series(np.random.normal(loc=170, scale=10, size=500))
+data.plot(kind='hist', bins=30, title='키 분포 히스토그램')
+plt.xlabel('키 (cm)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='hist')</code>: Series나 DataFrame 열의 데이터 분포를 히스토그램으로 그립니다.</li>
+            <li><code>bins</code> 인자로 구간의 개수를 조절할 수 있습니다.</li>
+        </ul>
+        
+        <h3>3.7. 여러 열의 히스토그램</h3>
+        <pre><code>
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame({
+    'A반': np.random.normal(75, 10, 100),
+    'B반': np.random.normal(80, 5, 100)
+})
+
+df.plot(kind='hist', bins=20, alpha=0.5, title='A반, B반 점수 분포')
+plt.xlabel('점수')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>DataFrame에서 <code>.plot(kind='hist')</code>를 사용하면 각 열에 대한 히스토그램이 겹쳐서 그려집니다.</li>
+            <li><code>alpha</code>: 투명도를 조절하여 겹치는 부분을 볼 수 있게 합니다.</li>
+        </ul>
+        
+        <h3>3.8. 박스 플롯</h3>
+        <pre><code>
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame(np.random.rand(10, 5), columns=['A', 'B', 'C', 'D', 'E'])
+df.plot(kind='box', title='데이터 그룹별 박스 플롯')
+plt.ylabel('값')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='box')</code>: 각 열의 데이터 분포를 박스 플롯으로 나타냅니다.</li>
+        </ul>
+        
+        <h3>3.9. 면적 그래프 (Area Plot)</h3>
+        <pre><code>
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame(np.random.rand(10, 4), columns=['A', 'B', 'C', 'D'])
+df.plot(kind='area', stacked=False, title='누적되지 않은 면적 그래프')
+plt.ylabel('값')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='area')</code>: 꺾은선 그래프의 아래 영역이 채워진 면적 그래프를 그립니다.</li>
+            <li>기본값은 <code>stacked=True</code>(누적)입니다. <code>stacked=False</code>로 설정하면 겹쳐서 그립니다.</li>
+        </ul>
+        
+        <h3>3.10. 산점도 (Scatter Plot)</h3>
+        <pre><code>
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+df = pd.DataFrame(np.random.rand(50, 4), columns=['a', 'b', 'c', 'd'])
+df['d'] = df['d'] * 150 # 마커 크기 조절을 위해 d값 확대
+
+df.plot(kind='scatter', x='a', y='b', c='c', s='d', colormap='viridis',
+        title='4개 변수를 표현하는 산점도')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot(kind='scatter', x, y)</code>: 두 변수 간의 관계를 산점도로 그립니다.</li>
+            <li><code>c</code>: 점의 색상을 결정할 다른 변수를 지정할 수 있습니다.</li>
+            <li><code>s</code>: 점의 크기를 결정할 다른 변수를 지정할 수 있습니다.</li>
+            <li><code>colormap</code>: c 옵션에 사용될 색상 맵을 지정합니다.</li>
+        </ul>
+    </section>
+
+    <!-- 4. Plotly -->
+    <section>
+        <h2>4. Plotly</h2>
+        <p>인터랙티브(Interactive)한 웹 기반 시각화를 만드는 데 특화된 라이브러리입니다. 마우스를 올리면 정보가 표시되고, 확대/축소/이동이 가능합니다.</p>
+        <div class="note">
+            <p>Plotly 코드를 실행하면 웹 브라우저가 자동으로 열리면서 그래프가 표시되거나, 주피터 노트북/코랩 환경에서는 셀 내부에 그래프가 그려집니다. 일반 파이썬 스크립트에서는 자동으로 브라우저가 열립니다.</p>
+        </div>
+
+        <h3>4.1. 기본 꺾은선 그래프</h3>
+        <pre><code>
+import plotly.express as px
+import pandas as pd
+
+df = pd.DataFrame(dict(
+    연도=[2020, 2021, 2022, 2023, 2024],
+    매출=[100, 130, 110, 160, 180]
+))
+
+fig = px.line(df, x="연도", y="매출", title="연도별 매출")
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>plotly.express</code> (보통 <code>px</code>로 축약)는 간단한 문법으로 복잡한 그래프를 만들 수 있게 해줍니다.</li>
+            <li><code>px.line(data_frame, x, y)</code>: 데이터프레임과 x, y축에 해당하는 열 이름을 지정하여 꺾은선 그래프를 만듭니다.</li>
+            <li><code>fig.show()</code>: 생성된 그래프를 표시합니다.</li>
+        </ul>
+
+        <h3>4.2. 기본 막대 그래프</h3>
+        <pre><code>
+import plotly.express as px
+import pandas as pd
+
+df = pd.DataFrame({
+    "과일": ["사과", "바나나", "오렌지", "사과", "바나나", "사과"],
+    "판매량": [10, 15, 7, 12, 10, 18],
+    "도시": ["서울", "부산", "서울", "부산", "서울", "부산"]
+})
+
+fig = px.bar(df, x="과일", y="판매량", color="도시", barmode="group",
+             title="도시별/과일별 판매량")
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.bar(...)</code>: 막대 그래프를 생성합니다.</li>
+            <li><code>color</code> 인자를 사용하면 지정된 열의 값에 따라 막대 색상을 다르게 할 수 있습니다.</li>
+            <li><code>barmode="group"</code>: color로 그룹화된 막대들을 옆으로 나란히 표시합니다. 기본값은 'relative'(누적)입니다.</li>
+        </ul>
+
+        <h3>4.3. 산점도 (Scatter Plot)</h3>
+        <pre><code>
+import plotly.express as px
+
+# Plotly에 내장된 iris 데이터셋 사용
+df = px.data.iris()
+
+fig = px.scatter(df, x="sepal_width", y="sepal_length", 
+                 color="species", size='petal_length', 
+                 hover_data=['petal_width'],
+                 title="붓꽃 종류에 따른 꽃받침 너비와 길이")
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.scatter(...)</code>: 산점도를 생성합니다.</li>
+            <li><code>size</code>: 점의 크기를 다른 변수 값에 따라 조절합니다.</li>
+            <li><code>hover_data</code>: 마우스를 점 위에 올렸을 때 추가로 표시할 정보의 열 리스트를 지정합니다.</li>
+        </ul>
+        
+        <h3>4.4. 원 그래프 (Pie Chart)</h3>
+        <pre><code>
+import plotly.express as px
+
+df = px.data.tips() # tips 데이터셋 사용
+fig = px.pie(df, values='tip', names='day', title='요일별 팁 분포',
+             hover_data=['total_bill'], labels={'day':'요일', 'tip':'팁'})
+fig.update_traces(textposition='inside', textinfo='percent+label')
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.pie(data_frame, values, names)</code>: <code>names</code> 열의 각 항목이 <code>values</code> 열에서 차지하는 비율을 원 그래프로 보여줍니다.</li>
+            <li><code>fig.update_traces(...)</code>: 생성된 그래프의 상세 속성을 변경합니다. 여기서는 텍스트 위치와 표시 정보(백분율+라벨)를 설정합니다.</li>
+        </ul>
+
+        <h3>4.5. 박스 플롯</h3>
+        <pre><code>
+import plotly.express as px
+
+df = px.data.tips()
+fig = px.box(df, x="smoker", y="total_bill", color="sex",
+             title="흡연 및 성별에 따른 식사 금액",
+             labels={"smoker":"흡연여부", "total_bill":"총 금액", "sex":"성별"})
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.box(...)</code>: x축 변수에 따른 y축 값의 분포를 박스 플롯으로 나타냅니다.</li>
+            <li><code>color</code> 인자로 추가적인 그룹화를 할 수 있습니다.</li>
+        </ul>
+        
+        <h3>4.6. 히스토그램</h3>
+        <pre><code>
+import plotly.express as px
+import numpy as np
+import pandas as pd
+
+np.random.seed(0)
+df = pd.DataFrame({'점수': np.random.randint(0, 101, size=200)})
+
+fig = px.histogram(df, x="점수", nbins=20, title="시험 점수 분포",
+                   marginal="rug") # 위쪽에 rug plot 추가
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.histogram(...)</code>: 데이터의 분포를 히스토그램으로 그립니다.</li>
+            <li><code>nbins</code>: 막대의 개수를 지정합니다.</li>
+            <li><code>marginal</code>: 그래프의 위쪽(y)이나 오른쪽(x) 여백에 추가적인 그래프를 그릴 수 있습니다. ('rug', 'box', 'violin')</li>
+        </ul>
+        
+        <h3>4.7. 3D 산점도</h3>
+        <pre><code>
+import plotly.express as px
+
+df = px.data.iris()
+fig = px.scatter_3d(df, x='sepal_length', y='sepal_width', z='petal_width',
+                    color='species', title="붓꽃 데이터 3D 산점도")
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.scatter_3d(data_frame, x, y, z)</code>: 3개의 변수를 사용하여 3차원 공간에 산점도를 그립니다. 마우스로 회전, 확대/축소가 가능합니다.</li>
+        </ul>
+
+        <h3>4.8. 지도 위에 산점도 표시 (Scatter on Map)</h3>
+        <pre><code>
+import plotly.express as px
+
+# 미국 도시 인구 데이터
+df = px.data.us_cities()
+
+fig = px.scatter_geo(df, lat="lat", lon="lon", hover_name="city", 
+                     size="population",
+                     scope='usa', # 지도의 범위를 미국으로 한정
+                     title='미국 주요 도시 인구')
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.scatter_geo(data_frame, lat, lon)</code>: 위도(lat)와 경도(lon) 데이터를 사용하여 지도 위에 점을 표시합니다.</li>
+            <li><code>hover_name</code>: 점 위에 마우스를 올렸을 때 표시될 이름을 지정합니다.</li>
+            <li><code>size</code>: 점의 크기를 다른 변수(여기서는 인구)에 따라 다르게 합니다.</li>
+            <li><code>scope</code>: 보여줄 지도의 범위를 지정합니다. ('usa', 'world', 'europe', 'asia' 등)</li>
+        </ul>
+        
+        <h3>4.9. 단계 구분도 (Choropleth Map)</h3>
+        <pre><code>
+import plotly.express as px
+import pandas as pd
+
+# Gapminder 데이터셋 사용
+df = px.data.gapminder().query("year==2007")
+
+fig = px.choropleth(df, locations="iso_alpha",
+                    color="lifeExp", # 색상은 기대수명
+                    hover_name="country", # 마우스 올리면 국가명 표시
+                    color_continuous_scale=px.colors.sequential.Plasma,
+                    title="2007년 국가별 기대 수명")
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.choropleth(...)</code>: 지역별 통계 데이터를 색상으로 구분하여 지도에 표시하는 단계 구분도를 만듭니다.</li>
+            <li><code>locations</code>: 국가/지역을 나타내는 코드(ISO ALPHA-3)가 담긴 열을 지정합니다.</li>
+            <li><code>color</code>: 각 지역의 색상을 결정할 통계 데이터가 담긴 열을 지정합니다.</li>
+            <li><code>color_continuous_scale</code>: 연속적인 데이터에 대한 색상 스케일을 지정합니다.</li>
+        </ul>
+
+        <h3>4.10. 타임라인 (Gantt Chart)</h3>
+        <pre><code>
+import plotly.express as px
+import pandas as pd
+
+df = pd.DataFrame([
+    dict(Task="프로젝트 기획", Start='2024-01-01', Finish='2024-01-15', Resource="기획팀"),
+    dict(Task="디자인 작업", Start='2024-01-10', Finish='2024-02-10', Resource="디자인팀"),
+    dict(Task="개발 착수", Start='2024-02-01', Finish='2024-04-30', Resource="개발팀"),
+    dict(Task="테스트 및 배포", Start='2024-05-01', Finish='2024-05-31', Resource="QA팀")
+])
+
+fig = px.timeline(df, x_start="Start", x_end="Finish", y="Task", color="Resource", title="프로젝트 간트 차트")
+fig.update_yaxes(autorange="reversed") # Task를 위에서부터 순서대로
+fig.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>px.timeline(data_frame, x_start, x_end, y)</code>: 시작일과 종료일 데이터를 사용하여 간트 차트와 유사한 타임라인을 생성합니다.</li>
+            <li><code>y</code>축에 작업(Task)을, <code>x</code>축에 시간을 표시합니다.</li>
+            <li><code>color</code>를 사용해 담당 리소스별로 색상을 구분할 수 있습니다.</li>
+        </ul>
+
+    </section>
+    
+    <!-- 5. Bokeh -->
+    <section>
+        <h2>5. Bokeh</h2>
+        <p>Plotly와 유사하게 웹 브라우저를 위한 인터랙티브 시각화를 만드는 라이브러리입니다. 대용량 데이터셋을 다루거나 스트리밍 데이터를 시각화하는 데 강점이 있습니다.</p>
+        <div class="note">
+            <p>Bokeh 코드를 실행하면 <code>output_file("filename.html")</code>로 지정된 HTML 파일이 생성되고, <code>show(p)</code> 함수가 이 파일을 웹 브라우저에서 자동으로 열어줍니다.</p>
+        </div>
+
+        <h3>5.1. 기본 꺾은선 그래프</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+
+# 출력할 HTML 파일 이름 지정
+output_file("bokeh_line.html")
+
+p = figure(width=800, height=400, title="월별 방문자 수")
+
+x = [1, 2, 3, 4, 5, 6]
+y = [6, 7, 2, 4, 5, 9]
+
+p.line(x, y, legend_label="방문자", line_width=2)
+p.xaxis.axis_label = "월"
+p.yaxis.axis_label = "방문자 (천 명)"
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>output_file("filename.html")</code>: 결과물이 저장될 HTML 파일의 이름을 설정합니다.</li>
+            <li><code>figure(...)</code>: 그래프를 그릴 도화지(플롯)를 생성합니다. 제목, 크기 등을 설정할 수 있습니다.</li>
+            <li><code>p.line(x, y, ...)</code>: 생성된 플롯 객체 <code>p</code>에 꺾은선 모양의 글리프(glyph)를 추가합니다.</li>
+            <li><code>p.xaxis.axis_label</code>: x축의 라벨을 설정합니다.</li>
+            <li><code>show(p)</code>: 완성된 플롯을 브라우저에서 보여줍니다.</li>
+        </ul>
+
+        <h3>5.2. 여러 선 그리기</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+
+output_file("bokeh_multi_line.html")
+
+p = figure(width=800, height=400, title="분기별 제품 판매량")
+
+x = [1, 2, 3, 4]
+y1 = [200, 250, 300, 320]
+y2 = [150, 180, 220, 260]
+
+p.line(x, y1, legend_label="A제품", line_color="blue", line_width=2)
+p.line(x, y2, legend_label="B제품", line_color="red", line_dash="dashed", line_width=2)
+
+p.legend.location = "top_left"
+p.xaxis.axis_label = "분기"
+p.yaxis.axis_label = "판매량"
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>하나의 플롯 객체에 <code>line()</code>, <code>circle()</code> 등 여러 그리기 메소드를 연속해서 호출하여 여러 그래프를 겹쳐 그릴 수 있습니다.</li>
+            <li><code>line_color</code>, <code>line_dash</code> 등의 속성으로 선의 스타일을 변경할 수 있습니다.</li>
+            <li><code>p.legend.location</code>: 범례의 위치를 지정합니다.</li>
+        </ul>
+
+        <h3>5.3. 산점도 (Scatter Plot)</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+import numpy as np
+
+output_file("bokeh_scatter.html")
+
+N = 100
+x = np.random.random(size=N) * 10
+y = np.random.random(size=N) * 10
+radii = np.random.random(size=N) * 1.5
+colors = ["#%02x%02x%02x" % (int(r), int(g), 150) for r, g in zip(50+2*x, 30+2*y)]
+
+p = figure(width=800, height=400, title="랜덤 데이터 산점도")
+p.scatter(x, y, radius=radii, fill_color=colors, fill_alpha=0.6, line_color=None)
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>p.scatter(x, y, ...)</code>: 산점도를 그립니다. Bokeh에서는 <code>circle</code>, <code>square</code> 등 다양한 마커 모양을 별도의 메소드로 제공합니다.</li>
+            <li><code>radius</code>: 각 점의 반지름을 지정합니다. (픽셀 단위가 아님)</li>
+            <li><code>fill_color</code>, <code>fill_alpha</code>: 점의 내부 색상과 투명도를 지정합니다.</li>
+        </ul>
+
+        <h3>5.4. 막대 그래프</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+
+output_file("bokeh_bar.html")
+
+fruits = ['사과', '배', '오렌지', '포도', '수박']
+counts = [5, 3, 4, 2, 6]
+
+p = figure(x_range=fruits, height=350, title="과일 판매 개수",
+           toolbar_location=None, tools="")
+
+p.vbar(x=fruits, top=counts, width=0.8)
+
+p.xgrid.grid_line_color = None
+p.y_range.start = 0
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>figure(x_range=categories)</code>: 범주형 데이터를 x축으로 사용하는 경우 <code>x_range</code>에 카테고리 리스트를 전달합니다.</li>
+            <li><code>p.vbar(x, top, width)</code>: 수직 막대 그래프를 그립니다. <code>x</code>는 카테고리, <code>top</code>은 막대의 높이, <code>width</code>는 막대의 너비를 의미합니다.</li>
+            <li><code>p.hbar(...)</code>를 사용하면 수평 막대 그래프를 그릴 수 있습니다.</li>
+        </ul>
+        
+        <h3>5.5. 인터랙티브 툴팁 (HoverTool)</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+from bokeh.models import ColumnDataSource, HoverTool
+
+output_file("bokeh_hover.html")
+
+source = ColumnDataSource(data=dict(
+    x=[1, 2, 3, 4, 5],
+    y=[2, 5, 8, 2, 7],
+    desc=['A', 'B', 'C', 'D', 'E'],
+))
+
+# 툴팁에 표시될 내용 정의: (라벨, @변수명)
+hover = HoverTool(tooltips=[
+    ("인덱스", "$index"),
+    ("(x,y)", "($x, $y)"),
+    ("설명", "@desc"),
+])
+
+p = figure(width=800, height=400, tools=[hover], title="마우스를 올려 정보를 확인하세요")
+
+p.circle('x', 'y', size=20, source=source)
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>ColumnDataSource</code>: Bokeh에서 데이터를 다루는 기본 형식입니다. 딕셔너리 형태로 데이터를 담아두면, 그래프에서 열 이름을 이용해 데이터에 접근할 수 있습니다.</li>
+            <li><code>HoverTool</code>: 마우스를 올렸을 때 나타나는 툴팁의 내용과 형식을 정의하는 객체입니다.</li>
+            <li><code>figure(tools=[...])</code>: 그래프에 포함할 도구들을 리스트로 전달합니다. 기본 도구 외에 직접 만든 <code>HoverTool</code> 객체를 추가합니다.</li>
+            <li><code>p.circle('x', 'y', source=source)</code>: <code>source</code> 객체에서 'x'열과 'y'열을 가져와 원을 그립니다.</li>
+        </ul>
+        
+        <h3>5.6. 패치(Patch)로 면적 채우기</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+
+output_file("bokeh_patch.html")
+
+p = figure(width=800, height=400)
+
+# 첫 번째 다각형
+p.patch([1, 2, 3, 4], [2, 3, 5, 4], alpha=0.5, line_width=2, color="navy")
+
+# 두 번째 다각형
+p.patch([3, 4, 5, 6], [4, 7, 5, 3], alpha=0.5, line_width=2, color="firebrick")
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>p.patch(x_coords, y_coords)</code>: x, y 좌표 리스트를 받아 닫힌 다각형을 그리고 내부를 채웁니다. 면적 그래프나 지도상의 특정 구역을 표시할 때 유용합니다.</li>
+        </ul>
+        
+        <h3>5.7. 대용량 데이터 시각화 (Datashader 연동)</h3>
+        <pre><code>
+# 이 예제는 datashader 라이브러리가 추가로 필요합니다. (pip install datashader)
+# 여기서는 개념을 설명하는 코드를 보여줍니다. 실제 실행을 위해서는 설치가 필요합니다.
+from bokeh.plotting import figure, show, output_file
+from bokeh.models import ColumnDataSource
+from datashader.bokeh_ext import InteractiveImage
+import pandas as pd
+import numpy as np
+
+output_file("bokeh_datashader.html")
+
+N = 1_000_000 # 100만개 데이터 포인트
+df = pd.DataFrame(dict(x=np.random.randn(N), y=np.random.randn(N)))
+source = ColumnDataSource(df)
+
+p = figure(tools='pan,wheel_zoom,reset', x_range=(-4, 4), y_range=(-4, 4))
+def image_callback(x_range, y_range, w, h):
+    # 이 부분에서 datashader가 현재 보이는 영역의 데이터를 이미지로 렌더링
+    from datashader import Canvas, transfer_functions as tf
+    cvs = Canvas(plot_width=w, plot_height=h, x_range=x_range, y_range=y_range)
+    agg = cvs.points(source, 'x', 'y')
+    img = tf.shade(agg)
+    return img
+
+InteractiveImage(p, image_callback)
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>Bokeh는 Datashader 라이브러리와 연동하여 수백만, 수억 개의 데이터 포인트도 웹 브라우저에서 버벅임 없이 시각화할 수 있습니다.</li>
+            <li>사용자가 확대/이동할 때마다 보이는 영역의 데이터만 Datashader가 이미지로 빠르게 렌더링하여 Bokeh 플롯에 전송하는 방식입니다.</li>
+            <li>위 코드는 그 원리를 보여주는 예시이며, <code>InteractiveImage</code>가 핵심적인 역할을 합니다.</li>
+        </ul>
+        
+        <h3>5.8. 연결된 그래프 (Linked Plots)</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+from bokeh.layouts import gridplot
+import numpy as np
+
+output_file("bokeh_linked.html")
+
+N = 300
+x = np.linspace(0, 4*np.pi, N)
+y0 = np.sin(x)
+y1 = np.cos(x)
+
+# 툴과 선택 동작을 공유할 소스 객체 생성
+source = dict(x=x, y0=y0, y1=y1)
+
+# 첫 번째 플롯
+s1 = figure(width=500, height=250, tools="pan,wheel_zoom,box_select,reset")
+s1.circle('x', 'y0', source=source)
+
+# 두 번째 플롯
+# x_range와 y_range를 s1과 공유하여 확대/이동이 함께 동작
+s2 = figure(width=500, height=250, x_range=s1.x_range, y_range=s1.y_range,
+            tools="pan,wheel_zoom,box_select,reset")
+s2.circle('x', 'y1', source=source, color="red")
+
+layout = gridplot([[s1], [s2]])
+show(layout)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>여러 플롯을 만들 때 <code>x_range</code>나 <code>y_range</code>를 공유하면, 한쪽 그래프에서 확대/축소/이동(pan/zoom)을 할 때 다른 그래프도 함께 연동됩니다.</li>
+            <li>또한, 동일한 <code>ColumnDataSource</code>를 사용하고 <code>box_select</code> 도구를 사용하면 한쪽 그래프에서 선택한 데이터가 다른 쪽 그래프에서도 함께 하이라이트됩니다.</li>
+            <li><code>gridplot</code>은 여러 플롯을 격자 형태로 배열해줍니다.</li>
+        </ul>
+        
+        <h3>5.9. 카테고리별 색상/마커 매핑</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+from bokeh.transform import factor_cmap, factor_mark
+from bokeh.sampledata.iris import flowers
+
+output_file("bokeh_mappers.html")
+
+SPECIES = ['setosa', 'versicolor', 'virginica']
+MARKERS = ['hex', 'circle_x', 'triangle']
+
+p = figure(width=800, height=400, title="붓꽃 데이터 (카테고리별 마커/색상)")
+
+p.scatter("petal_length", "sepal_width", source=flowers, fill_alpha=0.4, size=12,
+          legend_field="species",
+          marker=factor_mark('species', MARKERS, SPECIES),
+          color=factor_cmap('species', 'Category10_3', SPECIES))
+
+p.xaxis.axis_label = "꽃잎 길이"
+p.yaxis.axis_label = "꽃받침 너비"
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>factor_cmap</code>과 <code>factor_mark</code>는 범주형(categorical) 데이터에 따라 색상이나 마커 모양을 자동으로 매핑해주는 유용한 기능입니다.</li>
+            <li><code>factor_cmap('column', 'palette', 'categories')</code>: 'column'의 값에 따라 'categories' 리스트 순서대로 'palette'의 색상을 매핑합니다.</li>
+            <li><code>factor_mark('column', 'markers', 'categories')</code>: 'column'의 값에 따라 'categories' 리스트 순서대로 'markers' 리스트의 마커 모양을 매핑합니다.</li>
+        </ul>
+        
+        <h3>5.10. 수평 막대 그래프</h3>
+        <pre><code>
+from bokeh.plotting import figure, show, output_file
+from bokeh.models import ColumnDataSource
+
+output_file("bokeh_hbar.html")
+
+data = {'나라': ['미국', '중국', '일본', '독일', '한국'],
+        'GDP': [25.5, 18.0, 4.2, 4.0, 1.7]}
+source = ColumnDataSource(data=data)
+
+p = figure(y_range=data['나라'], height=400, width=700, title="주요 국가 GDP (조 달러)",
+           tools="", toolbar_location=None)
+
+p.hbar(y='나라', right='GDP', source=source, height=0.8)
+
+p.x_range.start = 0
+p.xaxis.axis_label = "GDP (조 달러)"
+p.xgrid.grid_line_color = None
+
+show(p)
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>p.hbar(y, right, ...)</code>: 수평 막대 그래프를 그립니다.</li>
+            <li><code>y</code>에 y축 카테고리를, <code>right</code>에 막대의 길이에 해당하는 값을 지정합니다.</li>
+        </ul>
+    </section>
+
+    <!-- 6. Altair -->
+    <section>
+        <h2>6. Altair</h2>
+        <p>선언적인(declarative) 문법을 사용하는 통계 시각화 라이브러리입니다. "어떻게" 그릴지가 아닌 "무엇을" 그릴지에 집중하여, 적은 코드로 다양한 그래프를 만들 수 있습니다. Vega-Lite라는 문법을 기반으로 합니다.</p>
+        <div class="note">
+            <p>Altair는 주피터 노트북/코랩 환경에서 사용하기에 가장 적합합니다. 일반 파이썬 스크립트에서 실행하려면 <code>chart.save('filename.html')</code>을 사용해 HTML 파일로 저장해야 합니다.</p>
+        </div>
+
+        <h3>6.1. 기본 산점도</h3>
+        <pre><code>
+import altair as alt
+import pandas as pd
+
+data = pd.DataFrame({'x': range(10),
+                     'y': [2, 7, 4, 1, 9, 5, 3, 6, 8, 0]})
+
+chart = alt.Chart(data).mark_point().encode(
+    x='x',
+    y='y'
+).properties(
+    title='기본 산점도'
+)
+
+# chart.show() # 주피터 환경이 아닐 경우 브라우저가 열릴 수 있음
+chart.save('altair_scatter.html') # HTML 파일로 저장
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>alt.Chart(data)</code>: 사용할 데이터프레임을 지정하여 차트 객체를 생성합니다.</li>
+            <li><code>.mark_point()</code>: 데이터를 점(point)으로 표시하도록 지정합니다. (<code>mark_bar</code>, <code>mark_line</code> 등)</li>
+            <li><code>.encode(...)</code>: 데이터의 열(column)을 그래프의 시각적 속성(x축, y축, 색상, 크기 등)에 어떻게 매핑할지 정의합니다.</li>
+            <li><code>.properties(...)</code>: 그래프의 제목, 크기 등 전반적인 속성을 설정합니다.</li>
+        </ul>
+
+        <h3>6.2. 기본 막대 그래프</h3>
+        <pre><code>
+import altair as alt
+import pandas as pd
+
+data = pd.DataFrame({'category': ['A', 'B', 'C', 'D'],
+                     'value': [28, 55, 43, 91]})
+
+chart = alt.Chart(data).mark_bar().encode(
+    x='category:N',  # :N은 Nominal(명목형) 데이터임을 명시
+    y='value:Q'      # :Q는 Quantitative(양적) 데이터임을 명시
+).properties(
+    title='카테고리별 값'
+)
+chart.save('altair_bar.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.encode()</code> 내에서 열 이름 뒤에 데이터 타입을 명시할 수 있습니다. (<code>:N</code>-명목형, <code>:O</code>-순서형, <code>:Q</code>-양적, <code>:T</code>-시간형)</li>
+            <li>이를 통해 Altair가 데이터를 더 적절하게 해석하고 축을 구성하도록 도울 수 있습니다.</li>
+        </ul>
+
+        <h3>6.3. 색상, 모양, 크기 인코딩</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+# Altair/Vega에서 제공하는 예제 데이터셋 로드
+source = data.cars()
+
+chart = alt.Chart(source).mark_circle(size=60).encode(
+    x='Horsepower:Q',
+    y='Miles_per_Gallon:Q',
+    color='Origin:N',
+    shape='Cylinders:N'
+).properties(
+    title='자동차 마력과 연비의 관계'
+)
+chart.save('altair_encoding.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>encode</code> 함수 내에서 <code>color</code>, <code>shape</code>, <code>size</code> 등의 속성을 추가하여 더 많은 차원의 데이터를 시각화할 수 있습니다.</li>
+            <li>여기서는 생산지(Origin)에 따라 색상을, 실린더(Cylinders) 개수에 따라 마커 모양을 다르게 표현했습니다.</li>
+        </ul>
+        
+        <h3>6.4. 꺾은선 그래프</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+source = data.stocks()
+
+chart = alt.Chart(source).mark_line().encode(
+    x='date:T', # :T는 Temporal(시간) 데이터임을 명시
+    y='price:Q',
+    color='symbol:N'
+).properties(
+    title='주식 가격 변동'
+)
+chart.save('altair_line.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.mark_line()</code>: 데이터를 선으로 연결하여 꺾은선 그래프를 만듭니다.</li>
+            <li><code>color='symbol:N'</code>을 통해 주식 심볼별로 다른 색상의 선을 그립니다.</li>
+        </ul>
+
+        <h3>6.5. 히스토그램</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+source = data.movies.url
+
+chart = alt.Chart(source).mark_bar().encode(
+    alt.X('IMDB_Rating:Q', bin=alt.Bin(maxbins=30), title='IMDB 평점'),
+    alt.Y('count()', title='영화 수')
+).properties(
+    title='영화 IMDB 평점 분포'
+)
+chart.save('altair_hist.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>히스토그램을 만들기 위해 x축 인코딩에서 <code>bin=True</code> 또는 <code>bin=alt.Bin(...)</code>을 설정합니다.</li>
+            <li>y축에는 <code>count()</code>를 지정하여 각 구간(bin)에 속하는 데이터의 개수를 세도록 합니다.</li>
+        </ul>
+        
+        <h3>6.6. 인터랙티브 툴팁</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+source = data.cars()
+
+chart = alt.Chart(source).mark_circle(size=60).encode(
+    x='Horsepower:Q',
+    y='Miles_per_Gallon:Q',
+    color='Origin:N',
+    tooltip=['Name', 'Origin', 'Horsepower', 'Miles_per_Gallon']
+).properties(
+    title='마우스를 올려 차량 정보를 확인하세요'
+)
+chart.save('altair_tooltip.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>encode</code> 함수에 <code>tooltip</code> 인자를 추가하고, 표시하고 싶은 열 이름의 리스트를 전달하면 간단하게 인터랙티브 툴팁이 활성화됩니다.</li>
+        </ul>
+        
+        <h3>6.7. 인터랙티브 선택 (Selection)</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+source = data.cars()
+
+# 인터랙션을 위한 selection 객체 생성
+interval = alt.selection_interval()
+
+base = alt.Chart(source).mark_point().encode(
+    y='Miles_per_Gallon',
+    color=alt.condition(interval, 'Origin', alt.value('lightgray'))
+).properties(
+    selection=interval
+)
+
+chart = base.encode(x='Acceleration') | base.encode(x='Horsepower')
+
+chart.save('altair_selection.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>Altair의 강력한 기능 중 하나로, 한 그래프에서의 사용자 인터랙션(클릭, 드래그)이 다른 그래프에 영향을 주도록 만들 수 있습니다.</li>
+            <li><code>alt.selection_interval()</code>: 드래그하여 영역을 선택하는 인터랙션을 정의합니다.</li>
+            <li><code>alt.condition(selection, true_value, false_value)</code>: selection이 활성화된(선택된) 데이터에는 <code>true_value</code>를, 그렇지 않은 데이터에는 <code>false_value</code>를 적용합니다. 여기서는 선택된 점들은 생산지별 색상을, 나머지는 회색으로 표시합니다.</li>
+            <li><code>|</code> 연산자를 사용해 두 차트를 나란히 배치했습니다.</li>
+        </ul>
+
+        <h3>6.8. 결합된 그래프 (Concatenation)</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+source = data.iris()
+
+base = alt.Chart(source)
+
+scatter_plot = base.mark_point().encode(
+    x='petalLength:Q',
+    y='petalWidth:Q',
+    color='species:N'
+)
+
+hist_plot = base.mark_bar().encode(
+    x='count()',
+    y='species:N',
+    color='species:N'
+)
+
+# & 연산자로 두 차트를 수직으로 결합
+chart = scatter_plot & hist_plot
+chart.save('altair_concat.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>&</code> 연산자는 두 차트를 수직으로(위아래로) 결합합니다.</li>
+            <li><code>|</code> 연산자는 두 차트를 수평으로(좌우로) 결합합니다.</li>
+        </ul>
+        
+        <h3>6.9. 회귀선 추가하기</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+source = data.iris()
+
+scatter_plot = alt.Chart(source).mark_circle().encode(
+    x='petalLength:Q',
+    y='petalWidth:Q'
+)
+
+# transform_regression을 이용해 회귀선 추가
+regression_line = scatter_plot.transform_regression(
+    'petalLength', 'petalWidth'
+).mark_line(color='red')
+
+chart = (scatter_plot + regression_line).properties(
+    title='붓꽃 꽃잎 길이와 너비의 관계 (회귀선 포함)'
+)
+chart.save('altair_regression.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>transform_regression(on, regression)</code>: 지정된 두 변수 간의 회귀 분석을 수행하고 그 결과를 데이터로 사용합니다.</li>
+            <li>기존 산점도(<code>scatter_plot</code>)와 회귀선 그래프(<code>regression_line</code>)를 <code>+</code> 연산자로 겹쳐서 그립니다.</li>
+        </ul>
+        
+        <h3>6.10. 지역별 단계 구분도</h3>
+        <pre><code>
+import altair as alt
+from vega_datasets import data
+
+# 미국 주별 실업률 데이터
+unemployment = data.unemployment.url 
+# 미국 주 경계 데이터 (topojson)
+states = alt.topo_feature(data.us_10m.url, 'states')
+
+chart = alt.Chart(states).mark_geoshape().encode(
+    color='rate:Q'
+).transform_lookup(
+    lookup='id',
+    from_=alt.LookupData(unemployment, 'id', ['rate'])
+).project(
+    type='albersUsa'
+).properties(
+    width=700,
+    height=400,
+    title='미국 주별 실업률'
+)
+chart.save('altair_choropleth.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>alt.topo_feature</code>: TopoJSON 형식의 지리 데이터를 불러옵니다.</li>
+            <li><code>mark_geoshape()</code>: 지리적 형태(주, 국가 등)를 그립니다.</li>
+            <li><code>transform_lookup</code>: 지리 데이터(states)와 통계 데이터(unemployment)를 공통된 키('id')를 기준으로 결합합니다. SQL의 JOIN과 유사한 기능입니다.</li>
+            <li><code>project(...)</code>: 지도 투영법을 지정합니다. 'albersUsa'는 미국 본토를 보기 좋게 보여주는 투영법입니다.</li>
+        </ul>
+    </section>
+    
+    <!-- 7. Folium -->
+    <section>
+        <h2>7. Folium</h2>
+        <p>Leaflet.js 라이브러리를 기반으로, 파이썬에서 인터랙티브한 지도를 쉽게 만들 수 있도록 도와줍니다. 지도 위에 마커, 원, 다각형 등을 추가하고 데이터를 시각화하는 데 특화되어 있습니다.</p>
+        <div class="note">
+            <p>Folium 코드를 실행하면 <code>map.save('filename.html')</code> 메소드로 지정된 HTML 파일이 생성됩니다. 이 파일을 웹 브라우저로 열어야 지도를 확인할 수 있습니다.</p>
+        </div>
+
+        <h3>7.1. 기본 지도 생성</h3>
+        <pre><code>
+import folium
+
+# 위도(latitude), 경도(longitude)를 지정하여 지도 생성
+# 서울 시청 위치
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+m.save('folium_basic_map.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.Map(location, zoom_start)</code>: 지도 객체를 생성합니다.</li>
+            <li><code>location</code>: 지도의 중심이 될 [위도, 경도] 리스트를 지정합니다.</li>
+            <li><code>zoom_start</code>: 초기 확대 레벨을 지정합니다. 숫자가 클수록 확대됩니다.</li>
+            <li><code>.save()</code> 메소드는 생성된 지도를 HTML 파일로 저장합니다.</li>
+        </ul>
+
+        <h3>7.2. 지도에 마커 추가하기</h3>
+        <pre><code>
+import folium
+
+m = folium.Map(location=[37.56, 126.97], zoom_start=12)
+
+# 기본 마커
+folium.Marker(
+    [37.5665, 126.9780],
+    popup='<i>서울 시청</i>',
+    tooltip='클릭해보세요!'
+).add_to(m)
+
+# 아이콘을 사용한 마커
+folium.Marker(
+    [37.5512, 126.9882],
+    popup='<b>남산서울타워</b>',
+    icon=folium.Icon(color='red', icon='info-sign')
+).add_to(m)
+
+m.save('folium_markers.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.Marker(location, popup, tooltip, icon)</code>: 특정 위치에 마커를 생성합니다.</li>
+            <li><code>popup</code>: 마커를 클릭했을 때 나타나는 팝업 창의 내용입니다. HTML 태그를 사용할 수 있습니다.</li>
+            <li><code>tooltip</code>: 마커에 마우스를 올렸을 때 나타나는 텍스트입니다.</li>
+            <li><code>icon</code>: 마커의 색상과 아이콘 모양을 지정합니다.</li>
+            <li>생성된 마커 객체를 <code>.add_to(map_object)</code>를 사용하여 지도에 추가합니다.</li>
+        </ul>
+
+        <h3>7.3. 지도 타일 변경하기</h3>
+        <pre><code>
+import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+# 기본 타일 (OpenStreetMap)
+folium.TileLayer('OpenStreetMap').add_to(m)
+
+# 흑백 스타일 타일
+folium.TileLayer('Stamen Toner').add_to(m)
+
+# 수채화 스타일 타일
+folium.TileLayer('Stamen Watercolor').add_to(m)
+
+# 위성사진 타일
+folium.TileLayer(
+    tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attr='Esri',
+    name='Esri Satellite',
+    overlay=False,
+    control=True
+).add_to(m)
+
+# 레이어 컨트롤 추가 (우측 상단에서 타일 변경 가능)
+folium.LayerControl().add_to(m)
+
+m.save('folium_tiles.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.TileLayer('TileName')</code>을 통해 다양한 스타일의 배경 지도를 추가할 수 있습니다. ('OpenStreetMap', 'Stamen Toner', 'Stamen Terrain', 'Stamen Watercolor' 등)</li>
+            <li>외부 지도 서비스의 URL을 직접 지정하여 타일 레이어를 추가할 수도 있습니다.</li>
+            <li><code>folium.LayerControl()</code>을 추가하면 여러 개의 타일 레이어와 오버레이를 사용자가 선택하여 켜고 끌 수 있는 컨트롤이 생깁니다.</li>
+        </ul>
+
+        <h3>7.4. 원(Circle) 마커 추가</h3>
+        <pre><code>
+import folium
+
+m = folium.Map(location=[37.52, 126.98], zoom_start=12)
+
+# Circle: 고정된 픽셀 크기의 원
+folium.Circle(
+    location=[37.5512, 126.9882],
+    radius=100,
+    color='crimson',
+    fill=False,
+    popup='Circle'
+).add_to(m)
+
+# CircleMarker: 확대/축소해도 크기가 변하지 않는 원
+folium.CircleMarker(
+    location=[37.5124, 127.0591],
+    radius=50,
+    color='#3186cc',
+    fill=True,
+    fill_color='#3186cc',
+    popup='CircleMarker'
+).add_to(m)
+
+m.save('folium_circles.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.Circle</code>: 반지름(<code>radius</code>)을 미터(meter) 단위로 지정하며, 지도를 확대/축소하면 원의 크기가 지도 스케일에 맞게 변합니다.</li>
+            <li><code>folium.CircleMarker</code>: 반지름(<code>radius</code>)을 픽셀(pixel) 단위로 지정하며, 지도를 확대/축소해도 원의 크기가 화면상에서 동일하게 유지됩니다.</li>
+        </ul>
+
+        <h3>7.5. 클릭 시 위도/경도 표시</h3>
+        <pre><code>
+import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=11)
+
+# 지도를 클릭하면 위도/경도를 보여주는 팝업 추가
+m.add_child(folium.LatLngPopup())
+
+# 지도를 클릭하면 해당 위치에 마커를 추가
+m.add_child(folium.ClickForMarker(popup="새 마커"))
+
+m.save('folium_click_event.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>m.add_child(...)</code>: 지도 객체에 자식 요소를 추가합니다.</li>
+            <li><code>folium.LatLngPopup()</code>: 지도를 클릭했을 때 해당 지점의 위도, 경도 좌표를 보여주는 팝업을 생성합니다.</li>
+            <li><code>folium.ClickForMarker()</code>: 지도를 클릭했을 때 해당 지점에 마커를 생성합니다.</li>
+        </ul>
+
+        <h3>7.6. GeoJSON 데이터 표시</h3>
+        <pre><code>
+import folium
+import requests # GeoJSON 데이터를 웹에서 가져오기 위해
+
+m = folium.Map(location=[36.5, 127.5], zoom_start=7)
+
+# 대한민국 시도 경계 GeoJSON 데이터 URL
+url = 'https://raw.githubusercontent.com/southkorea/southkorea-maps/master/kostat/2018/json/skorea-provinces-2018-geo.json'
+geo_data = requests.get(url).json()
+
+# GeoJSON 데이터 지도에 추가
+folium.GeoJson(
+    geo_data,
+    name='대한민국 시도'
+).add_to(m)
+
+folium.LayerControl().add_to(m)
+m.save('folium_geojson.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.GeoJson(data)</code>: GeoJSON 형식의 지리 데이터를 읽어 지도 위에 폴리곤(다각형), 라인, 점 등으로 표시합니다.</li>
+            <li>GeoJSON은 지리적 특징의 형태와 속성을 정의하는 표준 형식입니다.</li>
+            <li>여기서는 웹에 공개된 대한민국 행정구역 GeoJSON 파일을 직접 불러와 사용했습니다.</li>
+        </ul>
+        
+        <h3>7.7. 단계 구분도 (Choropleth)</h3>
+        <pre><code>
+import folium
+import pandas as pd
+import requests
+
+# 1. 지도 객체 생성
+m = folium.Map(location=[36, 127.5], zoom_start=7, tiles='CartoDB positron')
+
+# 2. 시도 경계 GeoJSON 데이터
+url = 'https://raw.githubusercontent.com/southkorea/southkorea-maps/master/kostat/2018/json/skorea-provinces-2018-geo.json'
+geo_data = requests.get(url).json()
+
+# 3. 시각화할 데이터 (예: 2023년 시도별 인구 데이터)
+data = {
+    'code': ['11', '26', '27', '28', '29', '30', '31', '36', '41', '42', '43', '44', '45', '46', '47', '48', '50'],
+    'province': ['서울특별시', '부산광역시', '대구광역시', '인천광역시', '광주광역시', '대전광역시', '울산광역시', '세종특별자치시', '경기도', '강원도', '충청북도', '충청남도', '전라북도', '전라남도', '경상북도', '경상남도', '제주특별자치도'],
+    'population': [9407540, 3300488, 2374960, 2997410, 1424619, 1444605, 1103661, 386525, 13630821, 1530052, 1593459, 2130188, 1754757, 1804423, 2554324, 3251769, 675883]
+}
+df = pd.DataFrame(data)
+df['code'] = df['code'].astype(str) # GeoJSON의 key와 타입 맞추기
+
+# 4. Choropleth 레이어 추가
+folium.Choropleth(
+    geo_data=geo_data,
+    data=df,
+    columns=['code', 'population'],
+    key_on='feature.properties.code', # GeoJSON 파일의 키
+    fill_color='YlGn',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='인구 수'
+).add_to(m)
+
+m.save('folium_choropleth.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.Choropleth(...)</code>: 지역별 통계치를 색상으로 표현하는 단계 구분도를 만듭니다.</li>
+            <li><code>geo_data</code>: 경계선 정보가 담긴 GeoJSON 데이터를 전달합니다.</li>
+            <li><code>data</code>: 시각화할 통계치가 담긴 Pandas DataFrame을 전달합니다.</li>
+            <li><code>columns</code>: DataFrame에서 사용할 키(key) 열과 값(value) 열을 지정합니다.</li>
+            <li><code>key_on</code>: GeoJSON 데이터의 각 feature와 통계 데이터를 연결할 키를 지정합니다. 보통 'feature.id' 또는 'feature.properties.키이름' 형식이 됩니다.</li>
+        </ul>
+
+        <h3>7.8. 히트맵</h3>
+        <pre><code>
+import folium
+from folium.plugins import HeatMap
+import numpy as np
+
+m = folium.Map(location=[37.55, 126.98], zoom_start=12)
+
+# 100개의 랜덤 좌표 데이터 생성
+n = 100
+data = np.random.randn(n, 2) * 0.05 + np.array([37.55, 126.98])
+
+# 히트맵 플러그인 사용
+HeatMap(data).add_to(m)
+
+m.save('folium_heatmap.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.plugins.HeatMap(data)</code>: 위도, 경도 좌표 리스트를 받아 데이터 포인트가 밀집된 지역을 붉게 표시하는 히트맵을 생성합니다.</li>
+            <li>데이터 형식은 <code>[[lat1, lon1], [lat2, lon2], ...]</code> 또는 <code>[[lat1, lon1, weight1], ...]</code> 입니다.</li>
+        </ul>
+        
+        <h3>7.9. 마커 클러스터링</h3>
+        <pre><code>
+import folium
+from folium.plugins import MarkerCluster
+import numpy as np
+
+m = folium.Map(location=[37.55, 126.98], zoom_start=11)
+
+# 500개의 랜덤 좌표 생성
+n = 500
+locations = np.random.randn(n, 2) * np.array([0.2, 0.4]) + np.array([37.55, 126.98])
+
+# 마커 클러스터 객체 생성
+marker_cluster = MarkerCluster().add_to(m)
+
+# 클러스터에 마커 추가
+for lat, lon in locations:
+    folium.Marker(location=[lat, lon], icon=None).add_to(marker_cluster)
+
+m.save('folium_marker_cluster.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.plugins.MarkerCluster</code>: 많은 수의 마커를 지도에 표시할 때, 가까이 있는 마커들을 그룹화하여 숫자로 보여주는 기능입니다.</li>
+            <li>지도를 확대하면 클러스터가 자동으로 풀리면서 개별 마커가 나타납니다.</li>
+            <li><code>MarkerCluster</code> 객체를 먼저 지도에 추가한 뒤, 개별 마커들을 <code>MarkerCluster</code> 객체에 추가하는 방식으로 사용합니다.</li>
+        </ul>
+
+        <h3>7.10. 미니맵(Minimap) 추가</h3>
+        <pre><code>
+import folium
+from folium.plugins import MiniMap
+
+m = folium.Map(location=[48.8566, 2.3522], zoom_start=10) # 프랑스 파리
+
+# 미니맵 플러그인 추가
+minimap = MiniMap(toggle_display=True, position='bottomright')
+m.add_child(minimap)
+
+folium.Marker([48.8584, 2.2945], popup="에펠탑").add_to(m)
+
+m.save('folium_minimap.html')
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>folium.plugins.MiniMap</code>: 지도 화면의 한쪽 구석에 현재 보이는 영역을 전체 지도에서 보여주는 작은 미니맵을 추가합니다.</li>
+            <li><code>toggle_display=True</code>: 미니맵을 켜고 끌 수 있는 버튼을 생성합니다.</li>
+            <li><code>position</code>: 미니맵이 표시될 위치를 지정합니다. ('topleft', 'topright', 'bottomleft', 'bottomright')</li>
+        </ul>
+    </section>
+
+    <!-- 8. GeoPandas -->
+    <section>
+        <h2>8. GeoPandas</h2>
+        <p>Pandas를 확장하여 지리/공간 데이터를 다룰 수 있게 만든 라이브러리입니다. 도형(geometry) 정보를 포함하는 GeoDataFrame을 사용하여 공간 연산 및 지도 시각화를 수행합니다. Matplotlib을 기반으로 동작합니다.</p>
+        <div class="note">
+            <p>GeoPandas는 <code>shapely</code>, <code>fiona</code>, <code>pyproj</code> 등 여러 의존성 라이브러리가 필요하여 설치가 다소 복잡할 수 있습니다. Anaconda 환경에서 설치하는 것을 권장합니다.</p>
+        </div>
+
+        <h3>8.1. 내장 데이터셋으로 기본 지도 그리기</h3>
+        <pre><code>
+
+import geopandas
+import matplotlib.pyplot as plt
+
+# 한글 폰트 설정 (Windows의 '맑은 고딕' 기준)
+plt.rcParams['font.family'] = 'Malgun Gothic'
+# 마이너스 부호 깨짐 방지
+plt.rcParams['axes.unicode_minus'] = False
+
+# 데이터셋의 전체 URL을 직접 지정합니다.
+url = "https://naturalearth.s3.amazonaws.com/110m_cultural/ne_110m_admin_0_countries.zip"
+world = geopandas.read_file(url)
+
+# 국가 이름이 저장된 열이 'name'이 아니라 'ADMIN'이므로 수정합니다.
+world = world[(world.ADMIN != "Antarctica")]
+
+# 지도 그리기
+world.plot(figsize=(12, 8))
+plt.title('세계 지도')
+plt.xlabel('경도')
+plt.ylabel('위도')
+plt.show()
+
+
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>geopandas.read_file(path)</code>: Shapefile(.shp), GeoJSON 등 다양한 벡터 형식의 공간 데이터를 읽어 GeoDataFrame으로 변환합니다.</li>
+            <li><code>geopandas.datasets.get_path(...)</code>: GeoPandas가 제공하는 예제 데이터셋의 경로를 가져옵니다.</li>
+            <li>GeoDataFrame 객체에 Pandas처럼 <code>.plot()</code> 메소드를 사용하면 지도(각 geometry)가 그려집니다.</li>
+        </ul>
+
+        <h3>8.2. 단계 구분도 (Choropleth Map)</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+# 한글 폰트 설정 (Windows의 '맑은 고딕' 기준)
+plt.rcParams['font.family'] = 'Malgun Gothic'
+# 마이너스 부호 깨짐 방지
+plt.rcParams['axes.unicode_minus'] = False
+
+# 1. [수정] 데이터셋의 전체 URL을 직접 지정하여 불러옵니다.
+url = "https://naturalearth.s3.amazonaws.com/110m_cultural/ne_110m_admin_0_countries.zip"
+world = geopandas.read_file(url)
+
+# (팁) 어떤 열이 있는지 확인하려면 아래 코드의 주석을 해제하고 실행해보세요.
+# print(world.columns)
+
+# 2. [수정] 인구를 기준으로 단계 구분도 그리기
+# 'column' 이름이 소문자 'pop_est'가 아닌 대문자 'POP_EST'이므로 수정합니다.
+world.plot(column='POP_EST', 
+           legend=True,
+           legend_kwds={'label': "추정 인구", 'orientation': "horizontal"},
+           figsize=(15, 10),
+           missing_kwds={"color": "lightgrey", "label": "정보 없음"}) # 데이터가 없는 국가는 회색으로 표시
+
+plt.title('세계 인구 분포')
+plt.show()
+
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>.plot()</code> 메소드에 <code>column</code> 인자로 특정 열을 지정하면, 해당 열의 값에 따라 각 geometry의 색상을 다르게 칠하는 단계 구분도를 그릴 수 있습니다.</li>
+            <li><code>legend=True</code>: 색상 범례를 표시합니다.</li>
+            <li><code>legend_kwds</code>: 범례에 대한 추가 옵션을 딕셔너리 형태로 전달합니다.</li>
+        </ul>
+
+        <h3>8.3. 특정 지역만 필터링하여 그리기</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+# 한글 폰트 설정
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+# 1. [수정] 데이터셋의 전체 URL을 직접 지정하여 불러옵니다.
+url = "https://naturalearth.s3.amazonaws.com/110m_cultural/ne_110m_admin_0_countries.zip"
+world = geopandas.read_file(url)
+
+# (팁) 데이터의 열 이름을 확인하려면 아래 코드의 주석을 해제하고 실행해보세요.
+# print(world.columns)
+
+# 2. [수정] 아시아 대륙만 필터링
+# 대륙 정보가 담긴 열 이름이 'continent'가 아닌 'CONTINENT'이므로 수정합니다.
+asia = world[world['CONTINENT'] == 'Asia']
+
+# 아시아 지도 그리기
+asia.plot(figsize=(10, 10))
+plt.title('아시아 대륙 지도')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>GeoDataFrame은 Pandas DataFrame과 동일한 방식으로 인덱싱 및 필터링이 가능합니다.</li>
+            <li><code>world['continent'] == 'Asia'</code> 조건으로 아시아 대륙에 속하는 국가들만 선택하여 새로운 GeoDataFrame을 만듭니다.</li>
+        </ul>
+
+        <h3>8.4. 여러 레이어 겹쳐 그리기</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+# 세계 지도와 도시 데이터 로드
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+cities = geopandas.read_file(geopandas.datasets.get_path('naturalearth_cities'))
+
+# 남미 대륙만 필터링
+south_america = world[world['continent'] == 'South America']
+
+# Matplotlib의 axes 객체를 이용하여 여러 레이어 겹치기
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+south_america.plot(ax=ax, color='lightgray', edgecolor='black')
+cities[cities.geometry.within(south_america.unary_union)].plot(ax=ax, marker='*', color='red', markersize=50)
+
+plt.title('남미 대륙과 주요 도시')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>subplots</code>로 생성한 Matplotlib의 <code>ax</code>(Axes) 객체를 <code>.plot(ax=ax)</code>에 전달하면 여러 GeoDataFrame을 동일한 축에 겹쳐 그릴 수 있습니다.</li>
+            <li><code>unary_union</code>: 모든 geometry를 하나로 합친 단일 geometry를 만듭니다.</li>
+            <li><code>cities.geometry.within(south_america.unary_union)</code>: 도시(Point)가 남미 대륙(Polygon) 내에 포함되는지 여부를 판단하여 남미의 도시들만 필터링합니다.</li>
+        </ul>
+
+        <h3>8.5. 지도 위에 좌표 표시하기</h3>
+        <pre><code>
+import geopandas
+from shapely.geometry import Point
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+# 서울시 지도 데이터 (예시, 실제 파일 경로 필요)
+# 여기서는 간단한 예시를 위해 세계 지도를 사용
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+korea = world[world.name == 'South Korea']
+
+# 서울, 부산의 좌표
+points_data = {
+    'city': ['서울', '부산'],
+    'geometry': [Point(126.9780, 37.5665), Point(129.0756, 35.1796)]
+}
+gdf_points = geopandas.GeoDataFrame(points_data, crs="EPSG:4326")
+
+fig, ax = plt.subplots(figsize=(10, 10))
+korea.plot(ax=ax, color='lightblue')
+gdf_points.plot(ax=ax, color='red', markersize=100)
+plt.title('지도 위에 특정 좌표 표시')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>shapely.geometry.Point(경도, 위도)</code>를 사용하여 좌표 점(Point) 객체를 만듭니다.</li>
+            <li>이 Point 객체 리스트를 <code>geometry</code> 열로 하는 GeoDataFrame을 생성할 수 있습니다.</li>
+            <li><code>crs="EPSG:4326"</code>: 생성된 데이터의 좌표 참조 시스템(CRS)을 WGS84(위도/경도)로 지정합니다.</li>
+        </ul>
+        
+        <h3>8.6. 공간 결합 (Spatial Join)</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+cities = geopandas.read_file(geopandas.datasets.get_path('naturalearth_cities'))
+
+# 도시(points)를 국가(polygons)에 공간적으로 결합
+# 각 도시가 어느 국가에 속하는지 찾기
+cities_with_country = geopandas.sjoin(cities, world, how="inner", op='within')
+
+# 인구가 1000만 이상인 도시가 속한 국가만 하이라이트
+megacities_countries = cities_with_country[cities_with_country.pop_max > 10000000]
+highlight_countries = world[world['name'].isin(megacities_countries['name_right'])]
+
+fig, ax = plt.subplots(1, 1, figsize=(15, 10))
+world.plot(ax=ax, color='#EEEEEE')
+highlight_countries.plot(ax=ax, color='skyblue', edgecolor='black')
+plt.title('인구 1000만 이상 도시가 있는 국가')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>geopandas.sjoin(gdf1, gdf2, how, op)</code>: 두 GeoDataFrame을 공간 관계를 기준으로 결합(join)합니다.</li>
+            <li><code>how="inner"</code>: 두 공간 데이터셋 간에 관계가 성립하는 데이터만 남깁니다.</li>
+            <li><code>op='within'</code>: 첫 번째 GeoDataFrame의 geometry가 두 번째 GeoDataFrame의 geometry 안에 완전히 포함되는(within) 경우를 기준으로 결합합니다.</li>
+        </ul>
+
+        <h3>8.7. 버퍼(Buffer) 생성하기</h3>
+        <pre><code>
+import geopandas
+from shapely.geometry import Point
+import matplotlib.pyplot as plt
+
+cities = geopandas.read_file(geopandas.datasets.get_path('naturalearth_cities'))
+paris = cities[cities.name == 'Paris'].copy()
+
+# 파리 좌표를 기준으로 버퍼 생성 (주의: 위도/경도(CRS:4326)에서의 버퍼는 부정확할 수 있음)
+# 정확한 계산을 위해 투영 좌표계로 변환 후 버퍼 생성
+paris_projected = paris.to_crs(epsg=3395) # Mercator 투영
+paris_buffer = paris_projected.buffer(10000) # 10km 버퍼 (단위: 미터)
+paris_buffer_wgs84 = paris_buffer.to_crs(epsg=4326) # 다시 WGS84로 변환
+
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+ax.set_title('파리 중심부 10km 반경')
+paris.plot(ax=ax, marker='*', color='red', markersize=100, zorder=2)
+geopandas.GeoSeries(paris_buffer_wgs84).plot(ax=ax, color='blue', alpha=0.3, zorder=1)
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>gdf.buffer(distance)</code>: geometry 주위로 지정된 거리만큼의 영역(버퍼)을 생성합니다.</li>
+            <li>**중요**: 정확한 거리 기반의 버퍼를 생성하려면, 위도/경도 좌표계(예: EPSG:4326)가 아닌, 미터(meter) 단위를 사용하는 투영 좌표계(예: Mercator, UTM)로 변환(<code>to_crs</code>)한 후 버퍼를 계산해야 합니다.</li>
+        </ul>
+        
+        <h3>8.8. 지도 투영법 변경</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+
+# 남극 대륙 제외
+world = world[(world.name != "Antarctica")]
+
+# 기본 (WGS84, Plate Carree)
+world.plot()
+plt.title('기본 투영 (Plate Carrée)')
+plt.show()
+
+# 메르카토르 투영법으로 변경
+world.to_crs("EPSG:3395").plot(figsize=(10,8))
+plt.title('메르카토르 투영 (Mercator Projection)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>gdf.to_crs(epsg_code or proj4_string)</code>: GeoDataFrame의 좌표 참조 시스템(CRS)을 다른 투영법으로 변환합니다.</li>
+            <li>'EPSG:3395'는 웹 지도에서 흔히 사용되는 구글 메르카토르 투영법의 코드입니다.</li>
+            <li>투영법에 따라 지도에 표시되는 각 국가/대륙의 형태와 면적이 왜곡되어 보일 수 있습니다.</li>
+        </ul>
+        
+        <h3>8.9. Dissolve: 경계 허물기</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+
+# 'continent' 열을 기준으로 국가 경계를 허물어 대륙 경계 만들기
+continents = world.dissolve(by='continent')
+
+continents.plot(figsize=(15, 10), edgecolor='black', cmap='Pastel1')
+plt.title('대륙별 경계 (Dissolve)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>gdf.dissolve(by='column')</code>: 지정된 열(<code>by</code>)의 값이 같은 모든 geometry들을 하나로 병합합니다.</li>
+            <li>이를 통해 개별 국가 폴리곤들을 합쳐 대륙 폴리곤을 만들 수 있습니다.</li>
+        </ul>
+        
+        <h3>8.10. 파일로 저장하기</h3>
+        <pre><code>
+import geopandas
+import matplotlib.pyplot as plt
+
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+africa = world[world['continent'] == 'Africa']
+
+# GeoDataFrame을 Shapefile 또는 GeoJSON으로 저장
+# Shapefile로 저장
+# africa.to_file("africa.shp", driver='ESRI Shapefile', encoding='utf-8')
+
+# GeoJSON으로 저장
+africa.to_file("africa.geojson", driver='GeoJSON')
+
+print("파일 저장이 완료되었습니다. (africa.geojson)")
+# 저장된 파일을 다시 불러와서 그려보기
+africa_loaded = geopandas.read_file("africa.geojson")
+africa_loaded.plot()
+plt.title("저장 후 다시 불러온 아프리카 지도")
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>gdf.to_file(filename, driver)</code>: GeoDataFrame을 파일로 저장합니다.</li>
+            <li><code>driver</code> 인자에 'ESRI Shapefile', 'GeoJSON' 등 원하는 파일 형식을 지정합니다.</li>
+            <li>Shapefile의 경우 한글 속성이 깨질 수 있으므로 <code>encoding='utf-8'</code>을 지정하는 것이 좋습니다.</li>
+        </ul>
+    </section>
+    
+    <!-- 9. WordCloud -->
+    <section>
+        <h2>9. WordCloud</h2>
+        <p>텍스트 데이터에서 단어의 빈도를 분석하여, 빈도가 높을수록 단어를 크게 표시하는 '워드 클라우드' 이미지를 생성하는 라이브러리입니다.</p>
+        <div class="note">
+            <p>한글 워드 클라우드를 만들려면 시스템에 설치된 한글 폰트의 경로를 <code>font_path</code>에 정확히 지정해야 합니다.</p>
+        </div>
+
+        <h3>9.1. 기본 워드 클라우드</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = "apple banana orange apple grape banana apple"
+
+# WordCloud 객체 생성
+wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+
+# 이미지 표시
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off') # 축 숨기기
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>WordCloud(...)</code>: 워드 클라우드 객체를 생성하며, 가로/세로 크기, 배경색 등 다양한 옵션을 설정합니다.</li>
+            <li><code>.generate(text)</code>: 공백으로 구분된 단어 문자열을 입력받아 워드 클라우드를 생성합니다.</li>
+            <li><code>plt.imshow(...)</code>: 생성된 워드 클라우드 이미지를 Matplotlib을 통해 화면에 표시합니다.</li>
+            <li><code>interpolation='bilinear'</code>: 이미지를 부드럽게 보이게 하는 보간법입니다.</li>
+        </ul>
+
+        <h3>9.2. 한글 워드 클라우드</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = "데이터 분석 시각화 파이썬 데이터 파이썬 시각화 분석 워드클라우드 예제"
+
+# 폰트 경로 지정 (Windows 예시, macOS/Linux는 경로 수정 필요)
+font_path = 'C:/Windows/Fonts/malgun.ttf' 
+
+wordcloud = WordCloud(
+    font_path=font_path,
+    width=800,
+    height=400,
+    background_color='white'
+).generate(text)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>한글을 지원하려면 <code>font_path</code> 인자에 시스템에 설치된 한글 폰트 파일(.ttf, .otf)의 전체 경로를 지정해야 합니다.</li>
+            <li>Windows: 'C:/Windows/Fonts/malgun.ttf' (맑은 고딕)</li>
+            <li>macOS: '/System/Library/Fonts/Supplemental/AppleGothic.ttf' (애플고딕)</li>
+        </ul>
+
+        <h3>9.3. 빈도수 기반 워드 클라우드</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from collections import Counter
+
+text_list = ['사과', '바나나', '사과', '포도', '오렌지', '바나나', '사과']
+
+# 단어 빈도수 계산
+counts = Counter(text_list)
+
+font_path = 'C:/Windows/Fonts/malgun.ttf'
+
+# generate 대신 generate_from_frequencies 사용
+wordcloud = WordCloud(
+    font_path=font_path,
+    width=800,
+    height=400,
+    background_color='white'
+).generate_from_frequencies(counts)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>collections.Counter</code>를 사용하면 리스트에 있는 각 항목의 빈도를 쉽게 계산하여 딕셔너리 형태로 얻을 수 있습니다.</li>
+            <li><code>.generate_from_frequencies(frequencies)</code>: {'단어': 빈도수} 형태의 딕셔너리를 입력받아 워드 클라우드를 생성합니다. <code>generate</code>보다 더 정교한 제어가 가능합니다.</li>
+        </ul>
+        
+        <h3>9.4. 불용어(Stopwords) 처리</h3>
+        <pre><code>
+from wordcloud import WordCloud, STOPWORDS
+import matplotlib.pyplot as plt
+
+text = "A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically. Modern computers can perform generic sets of operations known as programs."
+
+# 기본 제공되는 불용어 집합
+print(f"기본 불용어 개수: {len(STOPWORDS)}")
+
+# 사용자 정의 불용어 추가
+stopwords = set(STOPWORDS)
+stopwords.add("can")
+stopwords.add("known")
+
+wordcloud = WordCloud(
+    stopwords=stopwords,
+    background_color='white'
+).generate(text)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>stopwords</code>: 워드 클라우드에서 제외할 단어들의 집합(set)을 지정합니다.</li>
+            <li><code>wordcloud.STOPWORDS</code>는 'a', 'the', 'is' 등 의미 없는 기본 불용어들을 담고 있습니다. 여기에 원하는 단어를 추가하여 사용할 수 있습니다.</li>
+        </ul>
+
+        <h3>9.5. 모양(Mask) 적용하기</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+
+text = "Python is an interpreted, high-level and general-purpose programming language. Python's design philosophy emphasizes code readability with its notable use of significant indentation."
+
+# 모양으로 사용할 이미지 불러오기 (흰 배경에 검은색 모양)
+# 인터넷에서 'python logo silhouette' 검색 후 저장하여 사용
+try:
+    icon = Image.open("python_logo.png").convert("RGB")
+    mask = np.array(icon)
+except FileNotFoundError:
+    print("python_logo.png 파일을 찾을 수 없습니다. 예제 진행을 위해 기본 모양으로 대체합니다.")
+    x, y = np.ogrid[:300, :300]
+    mask = (x - 150) ** 2 + (y - 150) ** 2 > 130 ** 2
+    mask = 255 * mask.astype(int)
+
+
+wordcloud = WordCloud(
+    background_color='white',
+    mask=mask # 마스크 이미지 적용
+).generate(text)
+
+plt.figure(figsize=(8, 8))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>mask</code>: 워드 클라우드가 그려질 모양을 Numpy 배열 형태로 지정합니다.</li>
+            <li>일반적으로 <code>PIL (Pillow)</code> 라이브러리를 사용하여 원하는 모양의 이미지를 불러온 뒤, Numpy 배열로 변환하여 마스크로 사용합니다.</li>
+            <li>마스크 배열에서 값이 255(흰색)인 부분은 비워두고, 0(검은색)인 부분에 워드 클라우드를 그립니다.</li>
+        </ul>
+
+        <h3>9.6. 색상 함수(Color Func) 적용</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import random
+
+text = "color function example word cloud python visualization random color"
+
+# 랜덤 색상을 반환하는 함수 정의
+def random_color_func(word, font_size, position, orientation, random_state=None, **kwargs):
+    # HSL 색상 공간: 색상(0-360), 채도(0-100), 밝기(0-100)
+    return f"hsl(0, 0%, {random.randint(20, 80)}%)" # 검정~회색 톤
+
+wordcloud = WordCloud(
+    width=800, height=400,
+    color_func=random_color_func, # 색상 함수 지정
+    background_color='white'
+).generate(text)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>color_func</code>: 각 단어의 색상을 동적으로 결정하는 함수를 직접 정의하여 전달할 수 있습니다.</li>
+            <li>이 함수는 단어, 폰트 크기, 위치 등 여러 인자를 받아 색상 문자열(예: '#ff0000', 'rgb(255,0,0)', 'hsl(...)')을 반환해야 합니다.</li>
+        </ul>
+        
+        <h3>9.7. 최대 단어 수 및 폰트 크기 제한</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = "많은 텍스트 데이터가 있을 때 일부 단어만 표시하고 싶을 수 있습니다. 최대 단어 수를 제한하거나 폰트 크기 범위를 조절하여 가독성을 높일 수 있습니다."
+
+font_path = 'C:/Windows/Fonts/malgun.ttf'
+
+wordcloud = WordCloud(
+    font_path=font_path,
+    background_color='white',
+    max_words=10,         # 표시할 최대 단어 수
+    max_font_size=100,      # 가장 빈도가 높은 단어의 최대 폰트 크기
+    min_font_size=10        # 가장 빈도가 낮은 단어의 최소 폰트 크기
+).generate(text)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>max_words</code>: 워드 클라우드에 표시될 단어의 최대 개수를 제한합니다. 빈도가 높은 순서대로 잘립니다.</li>
+            <li><code>max_font_size</code>: 가장 중요한 단어의 폰트 크기를 지정합니다. 지정하지 않으면 이미지 크기에 맞춰 자동으로 조절됩니다.</li>
+            <li><code>min_font_size</code>: 가장 덜 중요한 단어의 폰트 크기를 지정합니다.</li>
+        </ul>
+        
+        <h3>9.8. 특정 색상 팔레트(Colormap) 사용</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = "WordCloud can be colored by a matplotlib colormap. There are many available colormaps like viridis, plasma, inferno, magma, and cividis."
+
+wordcloud = WordCloud(
+    width=800, height=400,
+    colormap='viridis', # Matplotlib의 colormap 이름 지정
+    background_color='white'
+).generate(text)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>colormap</code>: Matplotlib에서 제공하는 색상 맵 이름을 문자열로 지정하면, 단어의 위치나 순서에 따라 해당 팔레트의 색상이 자동으로 적용됩니다.</li>
+        </ul>
+        
+        <h3>9.9. 가로/세로 단어 비율 조절</h3>
+        <pre><code>
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = "You can control the ratio of horizontal to vertical words. A value of 1 means only horizontal words. A value of 0 means only vertical words."
+font_path = 'C:/Windows/Fonts/malgun.ttf'
+wordcloud = WordCloud(
+    font_path=font_path,
+    width=800, height=400,
+    prefer_horizontal=0.5, # 수평 단어 비율 (0.0 ~ 1.0)
+    background_color='black',
+    colormap='Pastel1'
+).generate(text + " 세로 단어 비율 조절 예제입니다.")
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>prefer_horizontal</code>: 수평으로 배치될 단어의 비율을 지정합니다. 값이 1.0이면 모든 단어가 수평으로, 0.0이면 모든 단어가 수직으로 배치됩니다. 기본값은 0.9입니다.</li>
+        </ul>
+        
+        <h3>9.10. 이미지 색상으로 워드 클라우드 색칠하기</h3>
+        <pre><code>
+from wordcloud import WordCloud, ImageColorGenerator
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+
+text = "This is a word cloud example that takes colors from an image. The color of each word is determined by the color of the underlying pixel in the source image."
+
+try:
+    # 색상을 가져올 원본 이미지
+    coloring = np.array(Image.open("parrot.png"))
+    
+    wordcloud = WordCloud(background_color="white", mask=coloring).generate(text)
+
+    # 이미지 색상 생성기
+    image_colors = ImageColorGenerator(coloring)
+    
+    plt.figure(figsize=(10,10))
+    # recolor 메소드를 사용하여 색상 적용
+    plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation="bilinear")
+    plt.axis("off")
+    plt.show()
+
+except FileNotFoundError:
+    print("parrot.png 파일을 찾을 수 없습니다. 이 예제는 실행할 수 없습니다.")
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>ImageColorGenerator(image_array)</code>: 이미지의 픽셀 색상 정보를 기반으로 단어 색상을 생성하는 객체를 만듭니다.</li>
+            <li>먼저 이미지를 마스크로 사용하여 워드 클라우드의 배치를 결정한 뒤, <code>recolor(color_func=image_colors)</code> 메소드를 호출하여 생성된 <code>ImageColorGenerator</code>를 적용합니다.</li>
+            <li>이를 통해 원본 이미지와 비슷한 색상 분포를 가진 워드 클라우드를 만들 수 있습니다.</li>
+        </ul>
+    </section>
+
+    <!-- 10. NetworkX -->
+    <section>
+        <h2>10. NetworkX</h2>
+        <p>네트워크(그래프)를 생성, 조작, 연구하기 위한 파이썬 라이브러리입니다. 노드(node)와 엣지(edge)로 구성된 복잡한 관계망을 시각화하고 분석하는 데 사용됩니다.</p>
+        <div class="note">
+            <p>NetworkX의 시각화는 Matplotlib을 기반으로 동작합니다. 따라서 한글을 표시하려면 Matplotlib의 폰트 설정이 필요합니다.</p>
+        </div>
+
+        <h3>10.1. 기본 네트워크 생성 및 시각화</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# 그래프 객체 생성
+G = nx.Graph()
+
+# 노드 추가
+G.add_node("A")
+G.add_nodes_from(["B", "C", "D"])
+
+# 엣지(연결선) 추가
+G.add_edge("A", "B")
+G.add_edges_from([("A", "C"), ("B", "C"), ("B", "D")])
+
+# 네트워크 그리기
+nx.draw(G, with_labels=True, node_color='skyblue', node_size=1500, font_size=20, font_weight='bold')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>nx.Graph()</code>: 방향성이 없는(undirected) 그래프 객체를 생성합니다.</li>
+            <li><code>G.add_node()</code> / <code>G.add_nodes_from()</code>: 그래프에 노드(점)를 추가합니다.</li>
+            <li><code>G.add_edge()</code> / <code>G.add_edges_from()</code>: 노드 간의 연결선(엣지)을 추가합니다.</li>
+            <li><code>nx.draw(G, ...)</code>: 생성된 그래프를 시각화합니다.</li>
+            <li><code>with_labels=True</code>: 각 노드에 라벨(이름)을 표시합니다.</li>
+        </ul>
+
+        <h3>10.2. 방향성 그래프 (DiGraph)</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+# 방향성 그래프 객체 생성
+G = nx.DiGraph()
+
+G.add_edges_from([('A', 'B'), ('A', 'C'), ('C', 'A'), ('B', 'D'), ('D', 'C')])
+
+# 화살표 스타일을 포함하여 그리기
+nx.draw(G, with_labels=True, node_color='lightcoral', node_size=1500,
+        font_size=15, arrowsize=20)
+plt.title('방향성 그래프 (DiGraph)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>nx.DiGraph()</code>: 엣지에 방향성이 있는(directed) 그래프 객체를 생성합니다. (A -> B와 B -> A가 다름)</li>
+            <li><code>nx.draw()</code>로 시각화하면 엣지에 화살표가 표시됩니다. <code>arrowsize</code>로 화살표 크기를 조절할 수 있습니다.</li>
+        </ul>
+
+        <h3>10.3. 가중치 그래프 (Weighted Graph)</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+G = nx.Graph()
+
+# 엣지에 'weight' 속성 추가
+G.add_edge('A', 'B', weight=6)
+G.add_edge('A', 'C', weight=2)
+G.add_edge('C', 'D', weight=1)
+G.add_edge('C', 'E', weight=5)
+G.add_edge('E', 'D', weight=8)
+G.add_edge('B', 'E', weight=2)
+
+# 가중치 값을 엣지 라벨로 표시
+pos = nx.spring_layout(G) # 노드 위치 고정
+edge_labels = nx.get_edge_attributes(G, 'weight')
+nx.draw(G, pos, with_labels=True, node_color='gold', node_size=1200)
+nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+
+plt.title('가중치 그래프 (Weighted Graph)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>엣지를 추가할 때 <code>weight</code> 등 추가적인 속성을 부여할 수 있습니다.</li>
+            <li><code>pos = nx.spring_layout(G)</code>: 노드들의 위치를 물리 시뮬레이션(용수철 모델)을 통해 보기 좋게 계산하여 반환합니다. 이를 고정해야 라벨과 그래프가 따로 그려지는 것을 방지할 수 있습니다.</li>
+            <li><code>nx.get_edge_attributes(G, 'name')</code>: 모든 엣지의 특정 속성('name') 값을 딕셔너리 형태로 가져옵니다.</li>
+            <li><code>nx.draw_networkx_edge_labels(...)</code>: 엣지 위에 라벨(여기서는 가중치)을 표시합니다.</li>
+        </ul>
+
+        <h3>10.4. 다양한 레이아웃 알고리즘</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+G = nx.karate_club_graph() # 가라테 클럽 데이터셋 로드
+
+fig, axes = plt.subplots(2, 2, figsize=(12, 12))
+
+# 1. Spring Layout
+pos_spring = nx.spring_layout(G)
+nx.draw(G, pos_spring, with_labels=True, ax=axes[0, 0])
+axes[0, 0].set_title('Spring Layout')
+
+# 2. Circular Layout
+pos_circular = nx.circular_layout(G)
+nx.draw(G, pos_circular, with_labels=True, ax=axes[0, 1])
+axes[0, 1].set_title('Circular Layout')
+
+# 3. Random Layout
+pos_random = nx.random_layout(G)
+nx.draw(G, pos_random, with_labels=True, ax=axes[1, 0])
+axes[1, 0].set_title('Random Layout')
+
+# 4. Spectral Layout
+pos_spectral = nx.spectral_layout(G)
+nx.draw(G, pos_spectral, with_labels=True, ax=axes[1, 1])
+axes[1, 1].set_title('Spectral Layout')
+
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>NetworkX는 다양한 노드 배치 레이아웃 알고리즘을 제공합니다.</li>
+            <li><code>spring_layout</code>: 노드 간 인력과 척력을 계산하여 배치 (일반적으로 가장 많이 사용)</li>
+            <li><code>circular_layout</code>: 노드를 원형으로 배치</li>
+            <li><code>random_layout</code>: 노드를 무작위로 배치</li>
+            <li><code>spectral_layout</code>: 그래프의 라플라시안 행렬을 이용해 배치</li>
+        </ul>
+        
+        <h3>10.5. 노드 크기/색상 커스터마이징</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+G = nx.karate_club_graph()
+
+# 각 노드의 'degree' (연결된 엣지 수) 계산
+degrees = [G.degree(n) * 100 for n in G.nodes()]
+
+# 각 노드가 속한 'club' 정보에 따라 색상 결정
+colors = ['skyblue' if G.nodes[n]['club'] == 'Mr. Hi' else 'lightcoral' for n in G.nodes()]
+
+pos = nx.spring_layout(G, seed=42)
+nx.draw(G, pos, with_labels=True, node_size=degrees, node_color=colors)
+plt.title('가라테 클럽 (Degree와 Club으로 시각화)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>G.degree(node)</code>: 특정 노드에 연결된 엣지의 개수(차수)를 반환합니다.</li>
+            <li><code>node_size</code>와 <code>node_color</code> 인자에 각 노드에 해당하는 값들의 리스트를 전달하면, 노드별로 다른 크기와 색상을 지정할 수 있습니다.</li>
+            <li>이를 통해 노드의 특징(중요도, 그룹 등)을 시각적으로 표현할 수 있습니다.</li>
+        </ul>
+
+        <h3>10.6. 완전 그래프 (Complete Graph)</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# 7개의 노드를 가진 완전 그래프 생성
+G = nx.complete_graph(7)
+
+nx.draw_circular(G, with_labels=True, node_color='plum', node_size=1000)
+plt.title('완전 그래프 (K7)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>nx.complete_graph(n)</code>: n개의 노드가 있는 완전 그래프(모든 노드가 서로 연결된 그래프)를 생성합니다.</li>
+            <li><code>nx.draw_circular()</code>는 <code>nx.circular_layout</code>을 사용하여 그리는 단축 함수입니다.</li>
+        </ul>
+        
+        <h3>10.7. 최단 경로 찾기 및 시각화</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+G = nx.karate_club_graph()
+pos = nx.spring_layout(G, seed=42)
+
+# 노드 0에서 33까지의 최단 경로 찾기
+path = nx.shortest_path(G, source=0, target=33)
+path_edges = list(zip(path, path[1:]))
+
+# 기본 그래프 그리기
+nx.draw(G, pos, with_labels=True, node_color='lightgray')
+
+# 경로에 해당하는 노드와 엣지 하이라이트
+nx.draw_networkx_nodes(G, pos, nodelist=path, node_color='red')
+nx.draw_networkx_edges(G, pos, edgelist=path_edges, edge_color='red', width=2)
+
+plt.title('최단 경로 시각화')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>nx.shortest_path(G, source, target)</code>: 시작(source) 노드부터 목표(target) 노드까지의 최단 경로에 포함된 노드 리스트를 반환합니다. (Dijkstra 알고리즘 사용)</li>
+            <li><code>nx.draw_networkx_nodes()</code>와 <code>nx.draw_networkx_edges()</code>를 사용하면 전체 그래프의 일부 요소만 선택하여 다른 스타일로 덧그릴 수 있습니다.</li>
+        </ul>
+
+        <h3>10.8. 소셜 네트워크 분석: 중심성(Centrality)</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+import pandas as pd
+
+G = nx.karate_club_graph()
+
+# Degree Centrality 계산
+degree_centrality = nx.degree_centrality(G)
+
+# 노드 사이즈를 중심성 값에 비례하도록 설정
+node_sizes = [v * 5000 for v in degree_centrality.values()]
+
+pos = nx.spring_layout(G, seed=42)
+nx.draw(G, pos, with_labels=True, node_size=node_sizes, node_color=list(degree_centrality.values()),
+        cmap=plt.cm.viridis)
+
+plt.title('가라테 클럽: 연결 중심성(Degree Centrality)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>중심성(Centrality)은 네트워크에서 각 노드가 얼마나 중요한지(중심에 있는지)를 측정하는 지표입니다.</li>
+            <li><code>nx.degree_centrality(G)</code>: 연결 중심성을 계산합니다. 각 노드가 전체 노드 중 몇 개와 직접 연결되어 있는지를 나타냅니다. 값이 클수록 '인맥이 넓은' 노드라 할 수 있습니다.</li>
+            <li>계산된 중심성 값을 <code>node_size</code>나 <code>node_color</code>에 매핑하여 영향력 있는 노드를 시각적으로 쉽게 파악할 수 있습니다.</li>
+        </ul>
+
+        <h3>10.9. Pandas DataFrame에서 그래프 생성</h3>
+        <pre><code>
+import networkx as nx
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# 샘플 데이터프레임 (From, To, Weight)
+df = pd.DataFrame({
+    'from': ['A', 'A', 'B', 'C', 'D'],
+    'to': ['B', 'C', 'D', 'E', 'A'],
+    'weight': [1, 2, 3, 4, 5]
+})
+
+# 데이터프레임으로부터 그래프 생성
+G = nx.from_pandas_edgelist(df, 'from', 'to', edge_attr='weight', create_using=nx.DiGraph())
+
+pos = nx.spring_layout(G, seed=1)
+nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=1000)
+edge_labels = nx.get_edge_attributes(G, 'weight')
+nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+
+plt.title('Pandas DataFrame에서 생성한 그래프')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li><code>nx.from_pandas_edgelist(df, source, target, edge_attr, create_using)</code>: Pandas DataFrame으로부터 바로 그래프를 생성하는 편리한 함수입니다.</li>
+            <li><code>source</code>, <code>target</code>: 시작 노드와 끝 노드를 나타내는 열 이름을 지정합니다.</li>
+            <li><code>edge_attr</code>: 엣지 속성(가중치 등)으로 사용할 열 이름을 지정합니다.</li>
+            <li><code>create_using</code>: 생성할 그래프의 종류를 지정합니다. (<code>nx.Graph</code>, <code>nx.DiGraph</code>)</li>
+        </ul>
+
+        <h3>10.10. 커뮤니티 탐지 및 시각화</h3>
+        <pre><code>
+# 이 예제는 'python-louvain' 라이브러리가 추가로 필요합니다. (pip install python-louvain)
+import networkx as nx
+import matplotlib.pyplot as plt
+import community as community_louvain
+
+G = nx.karate_club_graph()
+
+# Louvain 알고리즘으로 커뮤니티(군집) 탐지
+partition = community_louvain.best_partition(G)
+
+# 커뮤니티 ID에 따라 노드 색상 지정
+cmap = plt.cm.get_cmap('viridis', max(partition.values()) + 1)
+colors = [cmap(partition[node]) for node in G.nodes()]
+
+pos = nx.spring_layout(G, seed=42)
+nx.draw(G, pos, with_labels=True, node_color=colors, cmap=plt.cm.viridis)
+
+plt.title('가라테 클럽 커뮤니티 탐지 (Louvain)')
+plt.show()
+        </code></pre>
+        <h4>코드 설명</h4>
+        <ul>
+            <li>커뮤니티 탐지는 네트워크 내에서 서로 밀접하게 연결된 노드들의 그룹(군집)을 찾는 분석 기법입니다.</li>
+            <li>Louvain 알고리즘은 널리 사용되는 커뮤니티 탐지 알고리즘 중 하나입니다. (별도 라이브러리 설치 필요)</li>
+            <li><code>community_louvain.best_partition(G)</code>는 각 노드가 어떤 커뮤니티에 속하는지를 나타내는 딕셔너리(<code>{노드: 커뮤니티_ID}</code>)를 반환합니다.</li>
+            <li>탐지된 커뮤니티 ID를 노드 색상에 매핑하여 그룹 구조를 시각적으로 표현할 수 있습니다.</li>
+        </ul>
+    </section>
+
+</div>
+
+</body>
+</html>
