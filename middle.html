@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중학교 정보 영재 수업 소논문 주제 25선</title>
+<style>
+:root {
+  --navy:#10233f; --blue:#2563eb; --sky:#eaf2ff; --ink:#172033;
+  --muted:#64748b; --line:#dbe4f0; --paper:#ffffff; --bg:#f3f6fb;
+  --gold:#f59e0b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+header{background:linear-gradient(135deg,#0f2747,#1d4ed8);color:white;padding:54px 24px 46px}
+.header-inner{max-width:1280px;margin:auto}
+.eyebrow{font-size:.82rem;letter-spacing:.14em;font-weight:800;color:#bfdbfe}
+h1{margin:8px 0 12px;font-size:clamp(2rem,4vw,3.45rem);line-height:1.18}
+.subtitle{max-width:860px;color:#dbeafe;font-size:1.05rem}
+.summary{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.summary span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:8px 13px;border-radius:999px;font-size:.9rem}
+.toolbar-wrap{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.toolbar{max-width:1280px;margin:auto;padding:12px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search{flex:1;min-width:220px;padding:11px 14px;border:1px solid #cbd5e1;border-radius:10px;font-size:.95rem}
+.filter-btn,.action-btn{border:1px solid #cbd5e1;background:white;color:#334155;padding:9px 12px;border-radius:9px;cursor:pointer;font-weight:700}
+.filter-btn.active,.filter-btn:hover{background:var(--navy);color:white;border-color:var(--navy)}
+.action-btn{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+main{max-width:1280px;margin:32px auto;padding:0 20px 60px}
+.guide{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:25px;box-shadow:0 8px 28px rgba(15,35,63,.06)}
+.guide h2{margin:0 0 8px;color:var(--navy)}
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.guide-grid div{background:#f8fafc;border-radius:12px;padding:14px}
+.guide-grid strong{display:block;color:#1d4ed8;margin-bottom:3px}
+.result-line{display:flex;justify-content:space-between;align-items:center;margin:18px 2px;color:var(--muted);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.topic-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 7px 22px rgba(15,35,63,.055);transition:.2s}
+.topic-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(15,35,63,.11)}
+.card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.num{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:var(--navy);color:white;font-weight:900}
+.code{font-family:Consolas,monospace;color:#1d4ed8;background:#eff6ff;padding:4px 8px;border-radius:7px;font-weight:800}
+.area{margin-left:auto;font-size:.82rem;color:#7c2d12;background:#fffbeb;border:1px solid #fde68a;padding:4px 8px;border-radius:999px;font-weight:800}
+.topic-card h3{font-size:1.25rem;line-height:1.35;margin:16px 0 8px;color:#10233f}
+.desc{color:#475569;margin:0 0 15px}
+dl{margin:0;border-top:1px dashed #cbd5e1}
+dl div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 0;border-bottom:1px dashed #e2e8f0}
+dt{font-weight:900;color:#334155}
+dd{margin:0;color:#475569}
+.steps{margin-top:14px;padding:12px 14px;border-left:4px solid var(--blue);background:#f8fbff;border-radius:7px}
+.steps strong{display:block;color:#1d4ed8;font-size:.88rem}
+.steps span{font-size:.9rem;color:#475569}
+.hidden{display:none!important}
+footer{background:#0f172a;color:#cbd5e1;padding:32px 20px}
+footer .inner{max-width:1280px;margin:auto}
+footer strong{color:white}
+.note{font-size:.88rem;color:#94a3b8}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.guide-grid{grid-template-columns:1fr}dl div{grid-template-columns:1fr;gap:2px}.area{margin-left:0}}
+@media print{
+ .toolbar-wrap,.action-btn{display:none!important}
+ body{background:white}
+ header{padding:25px;background:white;color:black;border-bottom:2px solid #222}
+ .subtitle,.eyebrow{color:#333}
+ main{max-width:none;margin:15px;padding:0}
+ .grid{display:block}
+ .topic-card{break-inside:avoid;box-shadow:none;margin-bottom:12px}
+ footer{background:white;color:#333}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">2022 개정 교육과정 · 중학교 정보 · 영재교육</div>
+    <h1>중학생 정보과 영재 수업<br>소논문 주제 예시 25선</h1>
+    <p class="subtitle">컴퓨팅 시스템, 데이터, 알고리즘과 프로그래밍, 인공지능, 디지털 문화의 성취기준 흐름을 바탕으로 설계한 탐구형 연구 주제입니다. 단순 제작을 넘어 가설 설정, 실험, 데이터 분석, 윤리적 성찰이 이루어지도록 구성했습니다.</p>
+    <div class="summary">
+      <span>총 25개 주제</span><span>5개 영역</span><span>중학생 영재 수업</span><span>소논문·프로젝트·발표 연계</span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar-wrap">
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="주제, 성취기준, 도구, 핵심어 검색">
+    <button class="filter-btn active" data-filter="전체">전체</button>
+<button class="filter-btn" data-filter="컴퓨팅 시스템">컴퓨팅 시스템</button>
+<button class="filter-btn" data-filter="데이터">데이터</button>
+<button class="filter-btn" data-filter="알고리즘과 프로그래밍">알고리즘과 프로그래밍</button>
+<button class="filter-btn" data-filter="인공지능">인공지능</button>
+<button class="filter-btn" data-filter="디지털 문화">디지털 문화</button>
+    <button class="action-btn" onclick="window.print()">인쇄·PDF</button>
+  </div>
+</div>
+
+<main>
+  <section class="guide">
+    <h2>영재 수업 운영 방향</h2>
+    <p>각 주제는 학생이 스스로 문제를 좁히고, 데이터를 수집하거나 프로그램을 구현한 뒤, 결과를 근거로 해석하도록 설계했습니다. 한 주제를 6~10차시 프로젝트로 확장할 수 있습니다.</p>
+    <div class="guide-grid">
+      <div><strong>탐구성</strong>정답이 하나로 정해지지 않은 연구 질문을 설정합니다.</div>
+      <div><strong>실증성</strong>코드, 센서, 설문, 공공데이터 등을 이용해 근거를 만듭니다.</div>
+      <div><strong>성찰성</strong>성능뿐 아니라 개인정보, 편향, 저작권, 사회적 영향을 검토합니다.</div>
+    </div>
+  </section>
+
+  <div class="result-line"><span id="resultCount">25개 주제 표시</span><span>검색과 영역 필터를 함께 사용할 수 있습니다.</span></div>
+  <section class="grid" id="topicGrid">
+    
+    <article class="topic-card" data-area="컴퓨팅 시스템" data-text="[9정01-01] 컴퓨팅 시스템 컴퓨터는 어떻게 명령을 처리하는가? cpu·메모리·저장장치 사이의 데이터 이동 과정을 모형화하고, 프로그램 실행 속도에 영향을 주는 요인을 분석한다. 컴퓨터 구성 요소의 역할과 상호작용을 설명하고 간단한 처리 시간 모델을 설계할 수 있는가?">
+      <div class="card-top">
+        <span class="num">01</span>
+        <span class="code">[9정01-01]</span>
+        <span class="area">컴퓨팅 시스템</span>
+      </div>
+      <h3>컴퓨터는 어떻게 명령을 처리하는가?</h3>
+      <p class="desc">CPU·메모리·저장장치 사이의 데이터 이동 과정을 모형화하고, 프로그램 실행 속도에 영향을 주는 요인을 분석한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>컴퓨터 구성 요소의 역할과 상호작용을 설명하고 간단한 처리 시간 모델을 설계할 수 있는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, 작업 관리자, 간단한 벤치마크</dd></div>
+        <div><dt>예상 산출물</dt><dd>구성 요소 관계도, 실행 시간 비교표, 병목 원인 분석</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="컴퓨팅 시스템" data-text="[9정01-02] 컴퓨팅 시스템 스마트폰·노트북·마이크로컨트롤러의 계산 능력 비교 서로 다른 컴퓨팅 기기의 처리 성능, 전력 소비, 휴대성, 활용 목적을 비교하여 과제별 최적 기기를 제안한다. 동일한 문제라도 기기의 구조와 목적에 따라 해결 효율이 달라지는 이유는 무엇인가?">
+      <div class="card-top">
+        <span class="num">02</span>
+        <span class="code">[9정01-02]</span>
+        <span class="area">컴퓨팅 시스템</span>
+      </div>
+      <h3>스마트폰·노트북·마이크로컨트롤러의 계산 능력 비교</h3>
+      <p class="desc">서로 다른 컴퓨팅 기기의 처리 성능, 전력 소비, 휴대성, 활용 목적을 비교하여 과제별 최적 기기를 제안한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>동일한 문제라도 기기의 구조와 목적에 따라 해결 효율이 달라지는 이유는 무엇인가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>공개 사양 자료, Python, 스프레드시트</dd></div>
+        <div><dt>예상 산출물</dt><dd>기기 비교 지표, 레이더 차트, 활용 시나리오</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="컴퓨팅 시스템" data-text="[9정01-03] 컴퓨팅 시스템 센서 오차가 자동화 시스템의 판단에 미치는 영향 온도·조도·거리 센서 값을 반복 측정하고 평균, 분산, 오차 범위를 분석하여 신뢰도 높은 판단 기준을 설계한다. 센서 측정값의 흔들림을 줄이기 위한 가장 효과적인 방법은 무엇인가?">
+      <div class="card-top">
+        <span class="num">03</span>
+        <span class="code">[9정01-03]</span>
+        <span class="area">컴퓨팅 시스템</span>
+      </div>
+      <h3>센서 오차가 자동화 시스템의 판단에 미치는 영향</h3>
+      <p class="desc">온도·조도·거리 센서 값을 반복 측정하고 평균, 분산, 오차 범위를 분석하여 신뢰도 높은 판단 기준을 설계한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>센서 측정값의 흔들림을 줄이기 위한 가장 효과적인 방법은 무엇인가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>micro:bit 또는 Pico WH, 센서, Python</dd></div>
+        <div><dt>예상 산출물</dt><dd>측정 데이터셋, 오차 그래프, 보정 알고리즘</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="컴퓨팅 시스템" data-text="[9정01-04] 컴퓨팅 시스템 교실 환경 자동 제어 시스템 설계 온도·조도·소음 데이터를 입력받아 조건에 따라 led, 부저, 팬 등을 제어하는 피지컬 컴퓨팅 시스템을 구현한다. 여러 센서의 값을 함께 고려하면 단일 센서보다 더 합리적인 제어가 가능한가?">
+      <div class="card-top">
+        <span class="num">04</span>
+        <span class="code">[9정01-04]</span>
+        <span class="area">컴퓨팅 시스템</span>
+      </div>
+      <h3>교실 환경 자동 제어 시스템 설계</h3>
+      <p class="desc">온도·조도·소음 데이터를 입력받아 조건에 따라 LED, 부저, 팬 등을 제어하는 피지컬 컴퓨팅 시스템을 구현한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>여러 센서의 값을 함께 고려하면 단일 센서보다 더 합리적인 제어가 가능한가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>micro:bit, Raspberry Pi Pico WH, MakeCode 또는 MicroPython</dd></div>
+        <div><dt>예상 산출물</dt><dd>회로도, 제어 코드, 테스트 기록</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="컴퓨팅 시스템" data-text="[9정01-05] 컴퓨팅 시스템 학교생활 문제를 해결하는 사물인터넷 장치 분실물 알림, 교실 혼잡도, 화분 관리 등 학교 문제를 선택하여 센서와 통신 기능을 활용한 해결 장치를 설계한다. 실제 사용자가 필요로 하는 기능을 어떻게 컴퓨팅 시스템으로 구체화할 수 있는가?">
+      <div class="card-top">
+        <span class="num">05</span>
+        <span class="code">[9정01-05]</span>
+        <span class="area">컴퓨팅 시스템</span>
+      </div>
+      <h3>학교생활 문제를 해결하는 사물인터넷 장치</h3>
+      <p class="desc">분실물 알림, 교실 혼잡도, 화분 관리 등 학교 문제를 선택하여 센서와 통신 기능을 활용한 해결 장치를 설계한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>실제 사용자가 필요로 하는 기능을 어떻게 컴퓨팅 시스템으로 구체화할 수 있는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>센서, 무선 통신, 프로토타이핑 도구</dd></div>
+        <div><dt>예상 산출물</dt><dd>문제 정의서, 시제품, 사용자 평가</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="데이터" data-text="[9정02-01] 데이터 문자·그림·소리는 컴퓨터 안에서 어떻게 숫자가 되는가? 문자 인코딩, 비트맵 이미지, 디지털 음원의 표본화 원리를 실험하여 데이터 표현 방식에 따른 용량과 품질을 비교한다. 데이터 품질과 파일 크기 사이에는 어떤 관계가 있는가?">
+      <div class="card-top">
+        <span class="num">06</span>
+        <span class="code">[9정02-01]</span>
+        <span class="area">데이터</span>
+      </div>
+      <h3>문자·그림·소리는 컴퓨터 안에서 어떻게 숫자가 되는가?</h3>
+      <p class="desc">문자 인코딩, 비트맵 이미지, 디지털 음원의 표본화 원리를 실험하여 데이터 표현 방식에 따른 용량과 품질을 비교한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>데이터 품질과 파일 크기 사이에는 어떤 관계가 있는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, 이미지·음원 파일, Hex Viewer</dd></div>
+        <div><dt>예상 산출물</dt><dd>이진 표현 예시, 용량 비교, 품질 분석</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="데이터" data-text="[9정02-02] 데이터 우리 학교의 에너지 사용 데이터 수집 방법 비교 관찰, 설문, 센서, 공공데이터 등 여러 수집 방법을 비교하고 신뢰도와 비용을 고려한 수집 계획을 수립한다. 동일한 현상을 조사할 때 가장 정확하고 효율적인 데이터 수집 방법은 무엇인가?">
+      <div class="card-top">
+        <span class="num">07</span>
+        <span class="code">[9정02-02]</span>
+        <span class="area">데이터</span>
+      </div>
+      <h3>우리 학교의 에너지 사용 데이터 수집 방법 비교</h3>
+      <p class="desc">관찰, 설문, 센서, 공공데이터 등 여러 수집 방법을 비교하고 신뢰도와 비용을 고려한 수집 계획을 수립한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>동일한 현상을 조사할 때 가장 정확하고 효율적인 데이터 수집 방법은 무엇인가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>설문 도구, 센서, 공공데이터 포털</dd></div>
+        <div><dt>예상 산출물</dt><dd>수집 설계서, 데이터 사전, 윤리 점검표</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="데이터" data-text="[9정02-03] 데이터 급식 메뉴 데이터를 가장 잘 표현하는 구조는 무엇인가? 리스트, 딕셔너리, 표, 트리 구조로 급식 정보를 표현하고 검색·수정·집계의 편리성을 비교한다. 데이터의 목적에 따라 적합한 구조가 달라지는 이유는 무엇인가?">
+      <div class="card-top">
+        <span class="num">08</span>
+        <span class="code">[9정02-03]</span>
+        <span class="area">데이터</span>
+      </div>
+      <h3>급식 메뉴 데이터를 가장 잘 표현하는 구조는 무엇인가?</h3>
+      <p class="desc">리스트, 딕셔너리, 표, 트리 구조로 급식 정보를 표현하고 검색·수정·집계의 편리성을 비교한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>데이터의 목적에 따라 적합한 구조가 달라지는 이유는 무엇인가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, pandas, JSON</dd></div>
+        <div><dt>예상 산출물</dt><dd>구조별 예시, 연산 비교, 최적 구조 제안</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="데이터" data-text="[9정02-04] 데이터 학교 도서관 대출 데이터로 읽기 패턴 발견하기 익명화한 대출 데이터를 이용하여 인기 분야, 학년별 차이, 시기별 변화를 분석하고 독서 활동 개선 방안을 찾는다. 대출 기록 속에서 학생들의 독서 경향을 설명하는 패턴을 찾을 수 있는가?">
+      <div class="card-top">
+        <span class="num">09</span>
+        <span class="code">[9정02-04]</span>
+        <span class="area">데이터</span>
+      </div>
+      <h3>학교 도서관 대출 데이터로 읽기 패턴 발견하기</h3>
+      <p class="desc">익명화한 대출 데이터를 이용하여 인기 분야, 학년별 차이, 시기별 변화를 분석하고 독서 활동 개선 방안을 찾는다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>대출 기록 속에서 학생들의 독서 경향을 설명하는 패턴을 찾을 수 있는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>CSV, pandas, 통계 함수</dd></div>
+        <div><dt>예상 산출물</dt><dd>빈도표, 교차 분석, 독서 정책 제안</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="데이터" data-text="[9정02-05] 데이터 같은 데이터도 그래프에 따라 다르게 보일까? 막대그래프, 꺾은선그래프, 원그래프, 산점도 등으로 동일 데이터를 표현하고 해석의 차이와 왜곡 가능성을 분석한다. 어떤 시각화가 데이터의 의미를 가장 정확하게 전달하는가?">
+      <div class="card-top">
+        <span class="num">10</span>
+        <span class="code">[9정02-05]</span>
+        <span class="area">데이터</span>
+      </div>
+      <h3>같은 데이터도 그래프에 따라 다르게 보일까?</h3>
+      <p class="desc">막대그래프, 꺾은선그래프, 원그래프, 산점도 등으로 동일 데이터를 표현하고 해석의 차이와 왜곡 가능성을 분석한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>어떤 시각화가 데이터의 의미를 가장 정확하게 전달하는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Matplotlib, Plotly, 스프레드시트</dd></div>
+        <div><dt>예상 산출물</dt><dd>시각화 비교판, 왜곡 사례, 설계 원칙</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="알고리즘과 프로그래밍" data-text="[9정03-01] 알고리즘과 프로그래밍 학교 매점 대기 시간을 줄이기 위한 문제 분해 대기 행렬을 주문, 결제, 상품 전달 단계로 나누고 각 단계의 소요 시간을 측정하여 핵심 문제를 찾아낸다. 복잡한 생활 문제를 작은 문제로 나누면 해결 전략이 어떻게 선명해지는가?">
+      <div class="card-top">
+        <span class="num">11</span>
+        <span class="code">[9정03-01]</span>
+        <span class="area">알고리즘과 프로그래밍</span>
+      </div>
+      <h3>학교 매점 대기 시간을 줄이기 위한 문제 분해</h3>
+      <p class="desc">대기 행렬을 주문, 결제, 상품 전달 단계로 나누고 각 단계의 소요 시간을 측정하여 핵심 문제를 찾아낸다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>복잡한 생활 문제를 작은 문제로 나누면 해결 전략이 어떻게 선명해지는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>관찰 기록, 스프레드시트, 순서도</dd></div>
+        <div><dt>예상 산출물</dt><dd>문제 분해도, 원인 분석, 개선안</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="알고리즘과 프로그래밍" data-text="[9정03-02] 알고리즘과 프로그래밍 교내 최단 이동 경로 알고리즘 비교 학교 건물을 그래프로 표현하고 완전 탐색, 탐욕적 방법, 최단 경로 알고리즘의 결과와 효율을 비교한다. 항상 가장 가까운 곳을 선택하는 방법이 전체 최단 경로를 보장하는가?">
+      <div class="card-top">
+        <span class="num">12</span>
+        <span class="code">[9정03-02]</span>
+        <span class="area">알고리즘과 프로그래밍</span>
+      </div>
+      <h3>교내 최단 이동 경로 알고리즘 비교</h3>
+      <p class="desc">학교 건물을 그래프로 표현하고 완전 탐색, 탐욕적 방법, 최단 경로 알고리즘의 결과와 효율을 비교한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>항상 가장 가까운 곳을 선택하는 방법이 전체 최단 경로를 보장하는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, NetworkX 또는 직접 구현</dd></div>
+        <div><dt>예상 산출물</dt><dd>그래프 모델, 알고리즘 비교표, 경로 시각화</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="알고리즘과 프로그래밍" data-text="[9정03-03] 알고리즘과 프로그래밍 조건과 반복으로 만드는 스마트 분리배출 도우미 쓰레기 종류와 상태를 입력하면 분리배출 방법을 안내하는 프로그램을 설계하고 예외 상황을 처리한다. 복잡한 분류 규칙을 조건문과 반복문으로 정확히 표현하려면 어떻게 해야 하는가?">
+      <div class="card-top">
+        <span class="num">13</span>
+        <span class="code">[9정03-03]</span>
+        <span class="area">알고리즘과 프로그래밍</span>
+      </div>
+      <h3>조건과 반복으로 만드는 스마트 분리배출 도우미</h3>
+      <p class="desc">쓰레기 종류와 상태를 입력하면 분리배출 방법을 안내하는 프로그램을 설계하고 예외 상황을 처리한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>복잡한 분류 규칙을 조건문과 반복문으로 정확히 표현하려면 어떻게 해야 하는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python 또는 엔트리</dd></div>
+        <div><dt>예상 산출물</dt><dd>의사코드, 프로그램, 테스트 케이스</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="알고리즘과 프로그래밍" data-text="[9정03-04] 알고리즘과 프로그래밍 변수와 연산으로 구현하는 개인 탄소발자국 계산기 이동 거리, 전기 사용량, 일회용품 사용량 등을 입력받아 탄소 배출량을 추정하고 절감 시나리오를 계산한다. 사용자의 행동 변화가 예상 탄소 배출량에 얼마나 영향을 주는가?">
+      <div class="card-top">
+        <span class="num">14</span>
+        <span class="code">[9정03-04]</span>
+        <span class="area">알고리즘과 프로그래밍</span>
+      </div>
+      <h3>변수와 연산으로 구현하는 개인 탄소발자국 계산기</h3>
+      <p class="desc">이동 거리, 전기 사용량, 일회용품 사용량 등을 입력받아 탄소 배출량을 추정하고 절감 시나리오를 계산한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>사용자의 행동 변화가 예상 탄소 배출량에 얼마나 영향을 주는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, 공개 배출계수 자료</dd></div>
+        <div><dt>예상 산출물</dt><dd>계산식, 입력 프로그램, 시나리오 분석</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="알고리즘과 프로그래밍" data-text="[9정03-05] 알고리즘과 프로그래밍 함수 분해가 프로그램 품질에 미치는 영향 동일한 프로그램을 하나의 긴 코드와 여러 함수로 나눈 코드로 작성하고 가독성, 재사용성, 수정 시간을 비교한다. 함수로 구조화한 프로그램은 실제로 오류 수정과 기능 확장에 더 유리한가?">
+      <div class="card-top">
+        <span class="num">15</span>
+        <span class="code">[9정03-05]</span>
+        <span class="area">알고리즘과 프로그래밍</span>
+      </div>
+      <h3>함수 분해가 프로그램 품질에 미치는 영향</h3>
+      <p class="desc">동일한 프로그램을 하나의 긴 코드와 여러 함수로 나눈 코드로 작성하고 가독성, 재사용성, 수정 시간을 비교한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>함수로 구조화한 프로그램은 실제로 오류 수정과 기능 확장에 더 유리한가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, 코드 복잡도 지표</dd></div>
+        <div><dt>예상 산출물</dt><dd>두 버전 코드, 비교 실험, 코딩 규칙</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="알고리즘과 프로그래밍" data-text="[9정03-06] 알고리즘과 프로그래밍 디버깅 전략에 따른 오류 해결 시간 비교 출력 확인, 중단점, 로그 기록, 테스트 케이스 등 여러 디버깅 방법을 적용하여 오류 해결 효율을 비교한다. 초보 학습자에게 가장 효과적인 디버깅 절차는 무엇인가?">
+      <div class="card-top">
+        <span class="num">16</span>
+        <span class="code">[9정03-06]</span>
+        <span class="area">알고리즘과 프로그래밍</span>
+      </div>
+      <h3>디버깅 전략에 따른 오류 해결 시간 비교</h3>
+      <p class="desc">출력 확인, 중단점, 로그 기록, 테스트 케이스 등 여러 디버깅 방법을 적용하여 오류 해결 효율을 비교한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>초보 학습자에게 가장 효과적인 디버깅 절차는 무엇인가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python IDLE 또는 Thonny</dd></div>
+        <div><dt>예상 산출물</dt><dd>오류 유형표, 해결 시간 데이터, 디버깅 안내서</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="인공지능" data-text="[9정04-01] 인공지능 규칙 기반 프로그램과 인공지능의 차이 탐구 같은 분류 문제를 조건문 프로그램과 간단한 머신러닝 모델로 해결하여 필요한 데이터, 정확도, 설명 가능성을 비교한다. 규칙 기반 프로그램과 학습 기반 인공지능은 어떤 문제에서 각각 유리한가?">
+      <div class="card-top">
+        <span class="num">17</span>
+        <span class="code">[9정04-01]</span>
+        <span class="area">인공지능</span>
+      </div>
+      <h3>규칙 기반 프로그램과 인공지능의 차이 탐구</h3>
+      <p class="desc">같은 분류 문제를 조건문 프로그램과 간단한 머신러닝 모델로 해결하여 필요한 데이터, 정확도, 설명 가능성을 비교한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>규칙 기반 프로그램과 학습 기반 인공지능은 어떤 문제에서 각각 유리한가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, scikit-learn</dd></div>
+        <div><dt>예상 산출물</dt><dd>두 모델, 성능 비교, 적용 기준</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="인공지능" data-text="[9정04-02] 인공지능 이미지 분류 인공지능은 무엇을 보고 판단할까? 간단한 이미지 분류 모델을 만들고 배경, 밝기, 각도 변화에 따른 예측 결과를 분석하여 학습 데이터의 영향을 탐구한다. 인공지능의 예측은 대상의 본질적 특징과 배경 중 어느 것에 더 영향을 받는가?">
+      <div class="card-top">
+        <span class="num">18</span>
+        <span class="code">[9정04-02]</span>
+        <span class="area">인공지능</span>
+      </div>
+      <h3>이미지 분류 인공지능은 무엇을 보고 판단할까?</h3>
+      <p class="desc">간단한 이미지 분류 모델을 만들고 배경, 밝기, 각도 변화에 따른 예측 결과를 분석하여 학습 데이터의 영향을 탐구한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>인공지능의 예측은 대상의 본질적 특징과 배경 중 어느 것에 더 영향을 받는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Teachable Machine 또는 Python</dd></div>
+        <div><dt>예상 산출물</dt><dd>학습 데이터셋, 혼동행렬, 오류 사례</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="인공지능" data-text="[9정04-03] 인공지능 학교생활 불편 신고 자동 분류 모델 익명화한 예시 문장을 시설, 안전, 급식, 학습 등으로 분류하는 모델을 만들고 정확도와 활용 가능성을 평가한다. 인공지능을 활용하면 학교의 의견 처리 과정을 얼마나 효율화할 수 있는가?">
+      <div class="card-top">
+        <span class="num">19</span>
+        <span class="code">[9정04-03]</span>
+        <span class="area">인공지능</span>
+      </div>
+      <h3>학교생활 불편 신고 자동 분류 모델</h3>
+      <p class="desc">익명화한 예시 문장을 시설, 안전, 급식, 학습 등으로 분류하는 모델을 만들고 정확도와 활용 가능성을 평가한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>인공지능을 활용하면 학교의 의견 처리 과정을 얼마나 효율화할 수 있는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, 텍스트 벡터화, 분류 모델</dd></div>
+        <div><dt>예상 산출물</dt><dd>분류 모델, 정확도 분석, 서비스 화면</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="인공지능" data-text="[9정04-04] 인공지능 얼굴 인식 출석 시스템은 공정하고 안전한가? 얼굴 인식 출석 시스템의 편리성, 오류, 개인정보 침해, 편향 문제를 분석하고 대체 설계를 제안한다. 정확도가 높더라도 학교에서 얼굴 인식을 사용해도 되는가?">
+      <div class="card-top">
+        <span class="num">20</span>
+        <span class="code">[9정04-04]</span>
+        <span class="area">인공지능</span>
+      </div>
+      <h3>얼굴 인식 출석 시스템은 공정하고 안전한가?</h3>
+      <p class="desc">얼굴 인식 출석 시스템의 편리성, 오류, 개인정보 침해, 편향 문제를 분석하고 대체 설계를 제안한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>정확도가 높더라도 학교에서 얼굴 인식을 사용해도 되는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>문헌 조사, 설문, 윤리 영향 평가</dd></div>
+        <div><dt>예상 산출물</dt><dd>찬반 근거표, 위험 분석, 윤리 지침</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="디지털 문화" data-text="[9정05-01] 디지털 문화 생성형 인공지능 시대에 새롭게 등장하는 직업 탐구 ai 기술로 변화하는 직업의 업무, 필요한 역량, 인간의 역할을 조사하여 미래 진로 지도를 만든다. 인공지능은 직업을 없애는가, 아니면 새로운 역할을 만드는가?">
+      <div class="card-top">
+        <span class="num">21</span>
+        <span class="code">[9정05-01]</span>
+        <span class="area">디지털 문화</span>
+      </div>
+      <h3>생성형 인공지능 시대에 새롭게 등장하는 직업 탐구</h3>
+      <p class="desc">AI 기술로 변화하는 직업의 업무, 필요한 역량, 인간의 역할을 조사하여 미래 진로 지도를 만든다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>인공지능은 직업을 없애는가, 아니면 새로운 역할을 만드는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>직업정보 자료, 인터뷰, 생성형 AI 비교</dd></div>
+        <div><dt>예상 산출물</dt><dd>미래 직업 지도, 역량 분석, 진로 제안</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="디지털 문화" data-text="[9정05-02] 디지털 문화 온라인 토론에서 건강한 디지털 시민성 측정하기 댓글의 근거성, 존중, 사실 확인, 감정 표현을 기준으로 온라인 의사소통 사례를 분석하고 실천 규칙을 만든다. 좋은 온라인 토론을 판단하는 구체적인 기준은 무엇인가?">
+      <div class="card-top">
+        <span class="num">22</span>
+        <span class="code">[9정05-02]</span>
+        <span class="area">디지털 문화</span>
+      </div>
+      <h3>온라인 토론에서 건강한 디지털 시민성 측정하기</h3>
+      <p class="desc">댓글의 근거성, 존중, 사실 확인, 감정 표현을 기준으로 온라인 의사소통 사례를 분석하고 실천 규칙을 만든다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>좋은 온라인 토론을 판단하는 구체적인 기준은 무엇인가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>익명화된 댓글 자료, 내용 분석표</dd></div>
+        <div><dt>예상 산출물</dt><dd>평가 루브릭, 사례 분석, 실천 선언</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="디지털 문화" data-text="[9정05-03] 디지털 문화 비밀번호 길이와 보안성의 관계 실험 비밀번호 길이, 문자 종류, 반복 패턴에 따른 경우의 수와 추정 공격 시간을 비교하고 안전한 인증 방법을 제안한다. 복잡성보다 길이가 비밀번호 보안에 더 중요한 요인이 될 수 있는가?">
+      <div class="card-top">
+        <span class="num">23</span>
+        <span class="code">[9정05-03]</span>
+        <span class="area">디지털 문화</span>
+      </div>
+      <h3>비밀번호 길이와 보안성의 관계 실험</h3>
+      <p class="desc">비밀번호 길이, 문자 종류, 반복 패턴에 따른 경우의 수와 추정 공격 시간을 비교하고 안전한 인증 방법을 제안한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>복잡성보다 길이가 비밀번호 보안에 더 중요한 요인이 될 수 있는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>Python, 해시 함수, 경우의 수 계산</dd></div>
+        <div><dt>예상 산출물</dt><dd>보안 강도 계산기, 그래프, 사용 지침</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="디지털 문화" data-text="[9정05-04] 디지털 문화 학교 과제에서 저작권과 생성형 ai 출처 표시 기준 만들기 이미지, 글, 코드, 생성형 ai 결과물의 이용 사례를 조사하고 학생용 출처 표시 및 라이선스 안내 기준을 설계한다. 창작물의 종류에 따라 어떤 방식으로 출처와 ai 활용 사실을 표시해야 하는가?">
+      <div class="card-top">
+        <span class="num">24</span>
+        <span class="code">[9정05-04]</span>
+        <span class="area">디지털 문화</span>
+      </div>
+      <h3>학교 과제에서 저작권과 생성형 AI 출처 표시 기준 만들기</h3>
+      <p class="desc">이미지, 글, 코드, 생성형 AI 결과물의 이용 사례를 조사하고 학생용 출처 표시 및 라이선스 안내 기준을 설계한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>창작물의 종류에 따라 어떤 방식으로 출처와 AI 활용 사실을 표시해야 하는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>CC 라이선스 자료, 사례 분석</dd></div>
+        <div><dt>예상 산출물</dt><dd>출처 표시 양식, 판단 흐름도, 학교 지침</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+    <article class="topic-card" data-area="디지털 문화" data-text="[9정05-05] 디지털 문화 추천 알고리즘이 청소년의 선택에 미치는 영향 영상·음악·쇼핑 추천 서비스의 작동 방식을 조사하고 추천 결과가 관심, 소비, 정보 편식에 미치는 영향을 분석한다. 개인화 추천은 편리함을 높이는가, 선택의 다양성을 줄이는가?">
+      <div class="card-top">
+        <span class="num">25</span>
+        <span class="code">[9정05-05]</span>
+        <span class="area">디지털 문화</span>
+      </div>
+      <h3>추천 알고리즘이 청소년의 선택에 미치는 영향</h3>
+      <p class="desc">영상·음악·쇼핑 추천 서비스의 작동 방식을 조사하고 추천 결과가 관심, 소비, 정보 편식에 미치는 영향을 분석한다.</p>
+      <dl>
+        <div><dt>핵심 연구 질문</dt><dd>개인화 추천은 편리함을 높이는가, 선택의 다양성을 줄이는가?</dd></div>
+        <div><dt>권장 도구·자료</dt><dd>사용 기록 일지, 설문, 추천 결과 비교</dd></div>
+        <div><dt>예상 산출물</dt><dd>추천 편향 분석, 시각화, 개선 정책</dd></div>
+      </dl>
+      <div class="steps">
+        <strong>권장 연구 절차</strong>
+        <span>문제 정의 → 자료 수집 → 설계·구현 → 실험 → 결과 분석 → 윤리·한계 성찰</span>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="inner">
+    <strong>활용 안내</strong>
+    <p>주제명은 학생의 관심과 학교 환경에 맞게 수정할 수 있습니다. 실제 연구에서는 개인정보 비식별화, 저작권 확인, 안전한 센서 실험, 인공지능 결과의 한계 검토가 필요합니다.</p>
+    <p class="note">교육과정 참고: 국가교육과정정보센터(NCIC)의 2022 개정 교육과정 자료. 본 자료의 연구 주제와 설명은 영재 수업 활용을 위해 재구성한 예시입니다.</p>
+  </div>
+</footer>
+
+<script>
+const search = document.getElementById('search');
+const buttons = [...document.querySelectorAll('.filter-btn')];
+const cards = [...document.querySelectorAll('.topic-card')];
+const resultCount = document.getElementById('resultCount');
+let currentFilter = '전체';
+
+function applyFilter() {
+  const keyword = search.value.trim().toLowerCase();
+  let visible = 0;
+  cards.forEach(card => {
+    const areaOK = currentFilter === '전체' || card.dataset.area === currentFilter;
+    const textOK = !keyword || card.dataset.text.includes(keyword);
+    const show = areaOK && textOK;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  resultCount.textContent = `${visible}개 주제 표시`;
+}
+
+buttons.forEach(btn => btn.addEventListener('click', () => {
+  currentFilter = btn.dataset.filter;
+  buttons.forEach(b => b.classList.toggle('active', b === btn));
+  applyFilter();
+}));
+search.addEventListener('input', applyFilter);
+</script>
+</body>
+</html>
