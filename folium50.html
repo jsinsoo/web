@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folium 데이터 시각화 예제 50선</title>
+<style>
+:root {
+  --bg:#f4f7fb; --panel:#ffffff; --text:#172033; --muted:#64748b;
+  --line:#dbe3ef; --accent:#2563eb; --code:#101827;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif;
+}
+.topbar {
+  position:sticky; top:0; z-index:1000; display:flex; gap:8px;
+  align-items:center; padding:8px 12px; background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--line);
+}
+.topbar select, .topbar input {
+  border:1px solid var(--line); border-radius:8px; padding:7px 9px;
+  background:white; font:inherit;
+}
+.topbar select { width:135px; }
+.topbar input { flex:1; max-width:330px; }
+.hero {
+  max-width:1180px; margin:0 auto; padding:34px 20px 18px;
+}
+.hero h1 { margin:0 0 12px; font-size:clamp(26px,4vw,42px); }
+.hero p { margin:6px 0; color:var(--muted); line-height:1.7; }
+.install {
+  margin-top:18px; padding:15px 18px; background:var(--code); color:#e5edf8;
+  border-radius:12px; overflow:auto;
+}
+.grid {
+  max-width:1180px; margin:0 auto; padding:14px 20px 50px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); gap:18px;
+}
+.example-card {
+  background:var(--panel); border:1px solid var(--line); border-radius:15px;
+  padding:18px; box-shadow:0 5px 18px rgba(15,23,42,.05);
+}
+.card-head {
+  display:flex; justify-content:space-between; gap:12px; align-items:flex-start;
+  margin-bottom:12px;
+}
+.card-head h2 { margin:7px 0 0; font-size:19px; }
+.badge {
+  display:inline-block; color:var(--accent); background:#eaf1ff;
+  border-radius:999px; padding:4px 9px; font-size:12px; font-weight:700;
+}
+.copy-btn {
+  border:0; background:var(--accent); color:white; border-radius:8px;
+  padding:7px 10px; cursor:pointer; white-space:nowrap;
+}
+pre {
+  margin:0; padding:15px; border-radius:11px; background:var(--code);
+  color:#e6edf7; overflow:auto; line-height:1.55; font-size:13px;
+}
+.hidden { display:none !important; }
+footer {
+  max-width:1180px; margin:0 auto; padding:0 20px 35px;
+  color:var(--muted); line-height:1.7;
+}
+@media (max-width:600px) {
+  .grid { grid-template-columns:1fr; padding-left:10px; padding-right:10px; }
+  .hero { padding-left:14px; padding-right:14px; }
+  .topbar { align-items:stretch; flex-wrap:wrap; }
+  .topbar input { max-width:none; width:100%; }
+}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <select id="categoryFilter" aria-label="범주 선택">
+    <option value="전체">전체 범주</option>
+    <option value="기초">기초</option>
+<option value="마커">마커</option>
+<option value="원·도형">원·도형</option>
+<option value="경로">경로</option>
+<option value="군집·밀도">군집·밀도</option>
+<option value="GeoJSON">GeoJSON</option>
+<option value="단계 구분도">단계 구분도</option>
+<option value="레이어">레이어</option>
+<option value="플러그인">플러그인</option>
+<option value="상호작용">상호작용</option>
+<option value="꾸미기">꾸미기</option>
+<option value="실전">실전</option>
+  </select>
+  <input id="searchInput" type="search" placeholder="예제 제목 또는 코드 검색">
+  <span id="countInfo">50개</span>
+</nav>
+
+<header class="hero">
+  <h1>Folium 데이터 시각화 예제 50선</h1>
+  <p>기본 지도, 마커, 원과 다각형, 이동 경로, 군집화, 열지도, GeoJSON, 단계 구분도, 플러그인과 종합 실전 예제를 한 자료에 정리했습니다.</p>
+  <p>각 코드는 실행 후 같은 폴더에 HTML 지도를 저장합니다. 저장된 파일을 웹 브라우저로 열면 상호작용형 지도를 확인할 수 있습니다.</p>
+  <div class="install"><code>py -m pip install folium pandas</code></div>
+</header>
+
+<main class="grid" id="exampleGrid">
+
+    <article class="example-card" data-category="기초" id="ex-1">
+      <div class="card-head">
+        <div>
+          <span class="badge">기초</span>
+          <h2>01. 서울 중심 기본 지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-1">코드 복사</button>
+      </div>
+      <pre><code id="code-1">import folium
+
+m = folium.Map(
+    location=[37.5665, 126.9780],
+    zoom_start=12
+)
+m.save(&quot;01_basic_map.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="기초" id="ex-2">
+      <div class="card-head">
+        <div>
+          <span class="badge">기초</span>
+          <h2>02. 지도 크기와 확대 수준 설정</h2>
+        </div>
+        <button class="copy-btn" data-target="code-2">코드 복사</button>
+      </div>
+      <pre><code id="code-2">import folium
+
+m = folium.Map(
+    location=[35.8242, 127.1480],
+    zoom_start=13,
+    width=&quot;100%&quot;,
+    height=&quot;600px&quot;
+)
+m.save(&quot;02_map_size.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="기초" id="ex-3">
+      <div class="card-head">
+        <div>
+          <span class="badge">기초</span>
+          <h2>03. CartoDB Positron 배경 지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-3">코드 복사</button>
+      </div>
+      <pre><code id="code-3">import folium
+
+m = folium.Map(
+    location=[37.5665, 126.9780],
+    zoom_start=11,
+    tiles=&quot;CartoDB positron&quot;
+)
+m.save(&quot;03_positron.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="기초" id="ex-4">
+      <div class="card-head">
+        <div>
+          <span class="badge">기초</span>
+          <h2>04. CartoDB Dark Matter 배경 지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-4">코드 복사</button>
+      </div>
+      <pre><code id="code-4">import folium
+
+m = folium.Map(
+    location=[35.1796, 129.0756],
+    zoom_start=12,
+    tiles=&quot;CartoDB dark_matter&quot;
+)
+m.save(&quot;04_dark_map.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="기초" id="ex-5">
+      <div class="card-head">
+        <div>
+          <span class="badge">기초</span>
+          <h2>05. 여러 배경 지도 전환</h2>
+        </div>
+        <button class="copy-btn" data-target="code-5">코드 복사</button>
+      </div>
+      <pre><code id="code-5">import folium
+
+m = folium.Map(
+    location=[36.3504, 127.3845],
+    zoom_start=11,
+    tiles=None
+)
+
+folium.TileLayer(&quot;OpenStreetMap&quot;, name=&quot;일반 지도&quot;).add_to(m)
+folium.TileLayer(&quot;CartoDB positron&quot;, name=&quot;밝은 지도&quot;).add_to(m)
+folium.TileLayer(&quot;CartoDB dark_matter&quot;, name=&quot;어두운 지도&quot;).add_to(m)
+folium.LayerControl().add_to(m)
+
+m.save(&quot;05_tile_layers.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-6">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>06. 기본 마커 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-6">코드 복사</button>
+      </div>
+      <pre><code id="code-6">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+folium.Marker(
+    location=[37.5665, 126.9780],
+    popup=&quot;서울특별시청&quot;
+).add_to(m)
+
+m.save(&quot;06_marker.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-7">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>07. 마커에 툴팁 추가</h2>
+        </div>
+        <button class="copy-btn" data-target="code-7">코드 복사</button>
+      </div>
+      <pre><code id="code-7">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+folium.Marker(
+    [37.5665, 126.9780],
+    tooltip=&quot;마우스를 올려 보세요&quot;,
+    popup=&quot;서울특별시청&quot;
+).add_to(m)
+
+m.save(&quot;07_tooltip.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-8">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>08. 색상 아이콘 마커</h2>
+        </div>
+        <button class="copy-btn" data-target="code-8">코드 복사</button>
+      </div>
+      <pre><code id="code-8">import folium
+
+m = folium.Map(location=[35.8242, 127.1480], zoom_start=13)
+
+folium.Marker(
+    [35.8242, 127.1480],
+    popup=&quot;전주시&quot;,
+    icon=folium.Icon(color=&quot;green&quot;, icon=&quot;info-sign&quot;)
+).add_to(m)
+
+m.save(&quot;08_colored_marker.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-9">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>09. 여러 도시 마커 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-9">코드 복사</button>
+      </div>
+      <pre><code id="code-9">import folium
+
+cities = [
+    [&quot;서울&quot;, 37.5665, 126.9780],
+    [&quot;부산&quot;, 35.1796, 129.0756],
+    [&quot;대전&quot;, 36.3504, 127.3845],
+    [&quot;광주&quot;, 35.1595, 126.8526]
+]
+
+m = folium.Map(location=[36.3, 127.8], zoom_start=7)
+
+for name, lat, lon in cities:
+    folium.Marker(
+        [lat, lon],
+        popup=name,
+        tooltip=name
+    ).add_to(m)
+
+m.save(&quot;09_city_markers.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-10">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>10. HTML 팝업 마커</h2>
+        </div>
+        <button class="copy-btn" data-target="code-10">코드 복사</button>
+      </div>
+      <pre><code id="code-10">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+popup_html = &#x27;&#x27;&#x27;
+&lt;h3&gt;서울특별시청&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;위도:&lt;/b&gt; 37.5665&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;경도:&lt;/b&gt; 126.9780&lt;/p&gt;
+&#x27;&#x27;&#x27;
+
+folium.Marker(
+    [37.5665, 126.9780],
+    popup=folium.Popup(popup_html, max_width=300)
+).add_to(m)
+
+m.save(&quot;10_html_popup.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-11">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>11. 사용자 정의 글자 아이콘</h2>
+        </div>
+        <button class="copy-btn" data-target="code-11">코드 복사</button>
+      </div>
+      <pre><code id="code-11">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+icon_html = &#x27;&#x27;&#x27;
+&lt;div style=&quot;
+    font-size:20px;
+    color:white;
+    background:#2b7bba;
+    border-radius:50%;
+    width:36px;
+    height:36px;
+    text-align:center;
+    line-height:36px;&quot;&gt;
+    학
+&lt;/div&gt;
+&#x27;&#x27;&#x27;
+
+folium.Marker(
+    [37.5665, 126.9780],
+    icon=folium.DivIcon(html=icon_html),
+    tooltip=&quot;학교 위치&quot;
+).add_to(m)
+
+m.save(&quot;11_div_icon.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-12">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>12. 데이터프레임으로 마커 생성</h2>
+        </div>
+        <button class="copy-btn" data-target="code-12">코드 복사</button>
+      </div>
+      <pre><code id="code-12">import pandas as pd
+import folium
+
+df = pd.DataFrame({
+    &quot;장소&quot;: [&quot;서울&quot;, &quot;부산&quot;, &quot;대구&quot;],
+    &quot;위도&quot;: [37.5665, 35.1796, 35.8714],
+    &quot;경도&quot;: [126.9780, 129.0756, 128.6014]
+})
+
+m = folium.Map(location=[36.2, 128.0], zoom_start=7)
+
+for _, row in df.iterrows():
+    folium.Marker(
+        [row[&quot;위도&quot;], row[&quot;경도&quot;]],
+        popup=row[&quot;장소&quot;]
+    ).add_to(m)
+
+m.save(&quot;12_dataframe_markers.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="마커" id="ex-13">
+      <div class="card-head">
+        <div>
+          <span class="badge">마커</span>
+          <h2>13. 값에 따라 마커 색상 변경</h2>
+        </div>
+        <button class="copy-btn" data-target="code-13">코드 복사</button>
+      </div>
+      <pre><code id="code-13">import pandas as pd
+import folium
+
+df = pd.DataFrame({
+    &quot;지역&quot;: [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;],
+    &quot;위도&quot;: [37.57, 37.55, 37.53, 37.51],
+    &quot;경도&quot;: [126.98, 127.00, 127.02, 127.04],
+    &quot;위험도&quot;: [20, 45, 70, 90]
+})
+
+def get_color(value):
+    if value &gt;= 80:
+        return &quot;red&quot;
+    elif value &gt;= 50:
+        return &quot;orange&quot;
+    return &quot;green&quot;
+
+m = folium.Map(location=[37.54, 127.01], zoom_start=12)
+
+for _, row in df.iterrows():
+    folium.Marker(
+        [row[&quot;위도&quot;], row[&quot;경도&quot;]],
+        popup=f&#x27;{row[&quot;지역&quot;]}: {row[&quot;위험도&quot;]}&#x27;,
+        icon=folium.Icon(color=get_color(row[&quot;위험도&quot;]))
+    ).add_to(m)
+
+m.save(&quot;13_marker_by_value.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="원·도형" id="ex-14">
+      <div class="card-head">
+        <div>
+          <span class="badge">원·도형</span>
+          <h2>14. 원형 마커</h2>
+        </div>
+        <button class="copy-btn" data-target="code-14">코드 복사</button>
+      </div>
+      <pre><code id="code-14">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+folium.CircleMarker(
+    location=[37.5665, 126.9780],
+    radius=12,
+    popup=&quot;원형 마커&quot;,
+    fill=True,
+    fill_opacity=0.7
+).add_to(m)
+
+m.save(&quot;14_circle_marker.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="원·도형" id="ex-15">
+      <div class="card-head">
+        <div>
+          <span class="badge">원·도형</span>
+          <h2>15. 실제 거리 반경 원</h2>
+        </div>
+        <button class="copy-btn" data-target="code-15">코드 복사</button>
+      </div>
+      <pre><code id="code-15">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=13)
+
+folium.Circle(
+    location=[37.5665, 126.9780],
+    radius=1000,
+    popup=&quot;반경 1km&quot;,
+    fill=True,
+    fill_opacity=0.25
+).add_to(m)
+
+m.save(&quot;15_radius_circle.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="원·도형" id="ex-16">
+      <div class="card-head">
+        <div>
+          <span class="badge">원·도형</span>
+          <h2>16. 값에 따른 원 크기</h2>
+        </div>
+        <button class="copy-btn" data-target="code-16">코드 복사</button>
+      </div>
+      <pre><code id="code-16">import folium
+
+data = [
+    [&quot;서울&quot;, 37.5665, 126.9780, 950],
+    [&quot;부산&quot;, 35.1796, 129.0756, 340],
+    [&quot;대전&quot;, 36.3504, 127.3845, 150]
+]
+
+m = folium.Map(location=[36.3, 127.8], zoom_start=7)
+
+for name, lat, lon, value in data:
+    folium.CircleMarker(
+        [lat, lon],
+        radius=value / 50,
+        popup=f&quot;{name}: {value}&quot;,
+        fill=True,
+        fill_opacity=0.6
+    ).add_to(m)
+
+m.save(&quot;16_proportional_circles.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="원·도형" id="ex-17">
+      <div class="card-head">
+        <div>
+          <span class="badge">원·도형</span>
+          <h2>17. 사각형 영역 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-17">코드 복사</button>
+      </div>
+      <pre><code id="code-17">import folium
+
+m = folium.Map(location=[37.56, 126.98], zoom_start=13)
+
+bounds = [
+    [37.55, 126.96],
+    [37.58, 127.00]
+]
+
+folium.Rectangle(
+    bounds=bounds,
+    popup=&quot;분석 대상 영역&quot;,
+    fill=True,
+    fill_opacity=0.25
+).add_to(m)
+
+m.save(&quot;17_rectangle.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="원·도형" id="ex-18">
+      <div class="card-head">
+        <div>
+          <span class="badge">원·도형</span>
+          <h2>18. 다각형 영역 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-18">코드 복사</button>
+      </div>
+      <pre><code id="code-18">import folium
+
+m = folium.Map(location=[37.56, 126.98], zoom_start=13)
+
+polygon_points = [
+    [37.55, 126.96],
+    [37.58, 126.97],
+    [37.57, 127.01],
+    [37.54, 127.00]
+]
+
+folium.Polygon(
+    locations=polygon_points,
+    popup=&quot;사용자 정의 구역&quot;,
+    fill=True,
+    fill_opacity=0.3
+).add_to(m)
+
+m.save(&quot;18_polygon.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="경로" id="ex-19">
+      <div class="card-head">
+        <div>
+          <span class="badge">경로</span>
+          <h2>19. 두 지점 연결선</h2>
+        </div>
+        <button class="copy-btn" data-target="code-19">코드 복사</button>
+      </div>
+      <pre><code id="code-19">import folium
+
+m = folium.Map(location=[36.4, 128.0], zoom_start=7)
+
+route = [
+    [37.5665, 126.9780],
+    [35.1796, 129.0756]
+]
+
+folium.PolyLine(
+    route,
+    weight=5,
+    tooltip=&quot;서울-부산 연결&quot;
+).add_to(m)
+
+m.save(&quot;19_polyline.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="경로" id="ex-20">
+      <div class="card-head">
+        <div>
+          <span class="badge">경로</span>
+          <h2>20. 여러 도시 이동 경로</h2>
+        </div>
+        <button class="copy-btn" data-target="code-20">코드 복사</button>
+      </div>
+      <pre><code id="code-20">import folium
+
+route = [
+    [37.5665, 126.9780],
+    [36.3504, 127.3845],
+    [35.1595, 126.8526],
+    [35.1796, 129.0756]
+]
+
+m = folium.Map(location=[36.2, 127.7], zoom_start=7)
+
+folium.PolyLine(
+    route,
+    weight=4,
+    opacity=0.8,
+    tooltip=&quot;도시 순회 경로&quot;
+).add_to(m)
+
+for index, point in enumerate(route, start=1):
+    folium.Marker(
+        point,
+        tooltip=f&quot;{index}번째 지점&quot;
+    ).add_to(m)
+
+m.save(&quot;20_multi_route.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="경로" id="ex-21">
+      <div class="card-head">
+        <div>
+          <span class="badge">경로</span>
+          <h2>21. 점선 경로</h2>
+        </div>
+        <button class="copy-btn" data-target="code-21">코드 복사</button>
+      </div>
+      <pre><code id="code-21">import folium
+
+m = folium.Map(location=[37.56, 126.99], zoom_start=13)
+
+folium.PolyLine(
+    [[37.55, 126.97], [37.58, 127.02]],
+    weight=4,
+    dash_array=&quot;10, 10&quot;,
+    tooltip=&quot;점선 경로&quot;
+).add_to(m)
+
+m.save(&quot;21_dashed_route.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="경로" id="ex-22">
+      <div class="card-head">
+        <div>
+          <span class="badge">경로</span>
+          <h2>22. AntPath 움직이는 경로</h2>
+        </div>
+        <button class="copy-btn" data-target="code-22">코드 복사</button>
+      </div>
+      <pre><code id="code-22">import folium
+from folium.plugins import AntPath
+
+m = folium.Map(location=[36.2, 127.7], zoom_start=7)
+
+route = [
+    [37.5665, 126.9780],
+    [36.3504, 127.3845],
+    [35.1796, 129.0756]
+]
+
+AntPath(
+    route,
+    delay=800,
+    weight=5
+).add_to(m)
+
+m.save(&quot;22_ant_path.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="군집·밀도" id="ex-23">
+      <div class="card-head">
+        <div>
+          <span class="badge">군집·밀도</span>
+          <h2>23. 마커 군집화</h2>
+        </div>
+        <button class="copy-btn" data-target="code-23">코드 복사</button>
+      </div>
+      <pre><code id="code-23">import folium
+from folium.plugins import MarkerCluster
+
+locations = [
+    [&quot;서울역&quot;, 37.5547, 126.9707],
+    [&quot;시청역&quot;, 37.5657, 126.9771],
+    [&quot;종각역&quot;, 37.5702, 126.9831],
+    [&quot;을지로입구역&quot;, 37.5660, 126.9826]
+]
+
+m = folium.Map(location=[37.563, 126.978], zoom_start=13)
+cluster = MarkerCluster().add_to(m)
+
+for name, lat, lon in locations:
+    folium.Marker(
+        [lat, lon],
+        popup=name
+    ).add_to(cluster)
+
+m.save(&quot;23_marker_cluster.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="군집·밀도" id="ex-24">
+      <div class="card-head">
+        <div>
+          <span class="badge">군집·밀도</span>
+          <h2>24. 빠른 마커 군집화</h2>
+        </div>
+        <button class="copy-btn" data-target="code-24">코드 복사</button>
+      </div>
+      <pre><code id="code-24">import random
+import folium
+from folium.plugins import FastMarkerCluster
+
+random.seed(42)
+
+points = [
+    [37.55 + random.uniform(-0.08, 0.08),
+     126.98 + random.uniform(-0.08, 0.08)]
+    for _ in range(1000)
+]
+
+m = folium.Map(location=[37.55, 126.98], zoom_start=11)
+FastMarkerCluster(points).add_to(m)
+
+m.save(&quot;24_fast_marker_cluster.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="군집·밀도" id="ex-25">
+      <div class="card-head">
+        <div>
+          <span class="badge">군집·밀도</span>
+          <h2>25. 기본 열지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-25">코드 복사</button>
+      </div>
+      <pre><code id="code-25">import folium
+from folium.plugins import HeatMap
+
+heat_data = [
+    [37.5665, 126.9780, 10],
+    [37.5700, 126.9820, 30],
+    [37.5600, 126.9900, 20],
+    [37.5500, 126.9700, 40]
+]
+
+m = folium.Map(location=[37.56, 126.98], zoom_start=13)
+HeatMap(heat_data).add_to(m)
+
+m.save(&quot;25_heatmap.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="군집·밀도" id="ex-26">
+      <div class="card-head">
+        <div>
+          <span class="badge">군집·밀도</span>
+          <h2>26. 가중치 열지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-26">코드 복사</button>
+      </div>
+      <pre><code id="code-26">import pandas as pd
+import folium
+from folium.plugins import HeatMap
+
+df = pd.DataFrame({
+    &quot;위도&quot;: [37.5665, 37.5700, 37.5600, 37.5500],
+    &quot;경도&quot;: [126.9780, 126.9820, 126.9900, 126.9700],
+    &quot;인구&quot;: [100, 400, 250, 700]
+})
+
+m = folium.Map(location=[37.56, 126.98], zoom_start=13)
+
+HeatMap(
+    df[[&quot;위도&quot;, &quot;경도&quot;, &quot;인구&quot;]].values.tolist(),
+    radius=25,
+    blur=18
+).add_to(m)
+
+m.save(&quot;26_weighted_heatmap.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="군집·밀도" id="ex-27">
+      <div class="card-head">
+        <div>
+          <span class="badge">군집·밀도</span>
+          <h2>27. 시간 변화 열지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-27">코드 복사</button>
+      </div>
+      <pre><code id="code-27">import folium
+from folium.plugins import HeatMapWithTime
+
+time_data = [
+    [[37.56, 126.97, 0.4], [37.57, 126.98, 0.8]],
+    [[37.56, 126.98, 0.7], [37.57, 126.99, 0.9]],
+    [[37.55, 126.99, 0.9], [37.58, 127.00, 0.6]]
+]
+
+m = folium.Map(location=[37.565, 126.985], zoom_start=13)
+
+HeatMapWithTime(
+    time_data,
+    index=[&quot;1일&quot;, &quot;2일&quot;, &quot;3일&quot;],
+    auto_play=True,
+    radius=25
+).add_to(m)
+
+m.save(&quot;27_heatmap_with_time.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="GeoJSON" id="ex-28">
+      <div class="card-head">
+        <div>
+          <span class="badge">GeoJSON</span>
+          <h2>28. GeoJSON 다각형 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-28">코드 복사</button>
+      </div>
+      <pre><code id="code-28">import folium
+
+geojson_data = {
+    &quot;type&quot;: &quot;Feature&quot;,
+    &quot;properties&quot;: {&quot;name&quot;: &quot;분석 구역&quot;},
+    &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Polygon&quot;,
+        &quot;coordinates&quot;: [[
+            [126.96, 37.55],
+            [127.00, 37.55],
+            [127.00, 37.58],
+            [126.96, 37.58],
+            [126.96, 37.55]
+        ]]
+    }
+}
+
+m = folium.Map(location=[37.565, 126.98], zoom_start=13)
+folium.GeoJson(geojson_data).add_to(m)
+
+m.save(&quot;28_geojson_polygon.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="GeoJSON" id="ex-29">
+      <div class="card-head">
+        <div>
+          <span class="badge">GeoJSON</span>
+          <h2>29. GeoJSON 스타일 지정</h2>
+        </div>
+        <button class="copy-btn" data-target="code-29">코드 복사</button>
+      </div>
+      <pre><code id="code-29">import folium
+
+geojson_data = {
+    &quot;type&quot;: &quot;Feature&quot;,
+    &quot;properties&quot;: {&quot;name&quot;: &quot;녹지 보호 구역&quot;},
+    &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Polygon&quot;,
+        &quot;coordinates&quot;: [[
+            [126.96, 37.55],
+            [127.00, 37.55],
+            [127.00, 37.58],
+            [126.96, 37.58],
+            [126.96, 37.55]
+        ]]
+    }
+}
+
+m = folium.Map(location=[37.565, 126.98], zoom_start=13)
+
+folium.GeoJson(
+    geojson_data,
+    style_function=lambda feature: {
+        &quot;fillColor&quot;: &quot;green&quot;,
+        &quot;color&quot;: &quot;darkgreen&quot;,
+        &quot;weight&quot;: 3,
+        &quot;fillOpacity&quot;: 0.35
+    }
+).add_to(m)
+
+m.save(&quot;29_geojson_style.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="GeoJSON" id="ex-30">
+      <div class="card-head">
+        <div>
+          <span class="badge">GeoJSON</span>
+          <h2>30. GeoJSON 툴팁과 팝업</h2>
+        </div>
+        <button class="copy-btn" data-target="code-30">코드 복사</button>
+      </div>
+      <pre><code id="code-30">import folium
+
+geojson_data = {
+    &quot;type&quot;: &quot;FeatureCollection&quot;,
+    &quot;features&quot;: [{
+        &quot;type&quot;: &quot;Feature&quot;,
+        &quot;properties&quot;: {
+            &quot;name&quot;: &quot;A구역&quot;,
+            &quot;population&quot;: 12500
+        },
+        &quot;geometry&quot;: {
+            &quot;type&quot;: &quot;Polygon&quot;,
+            &quot;coordinates&quot;: [[
+                [126.96, 37.55],
+                [127.00, 37.55],
+                [127.00, 37.58],
+                [126.96, 37.58],
+                [126.96, 37.55]
+            ]]
+        }
+    }]
+}
+
+m = folium.Map(location=[37.565, 126.98], zoom_start=13)
+
+folium.GeoJson(
+    geojson_data,
+    tooltip=folium.GeoJsonTooltip(
+        fields=[&quot;name&quot;, &quot;population&quot;],
+        aliases=[&quot;구역&quot;, &quot;인구&quot;]
+    ),
+    popup=folium.GeoJsonPopup(
+        fields=[&quot;name&quot;, &quot;population&quot;]
+    )
+).add_to(m)
+
+m.save(&quot;30_geojson_tooltip.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="GeoJSON" id="ex-31">
+      <div class="card-head">
+        <div>
+          <span class="badge">GeoJSON</span>
+          <h2>31. GeoJSON 강조 효과</h2>
+        </div>
+        <button class="copy-btn" data-target="code-31">코드 복사</button>
+      </div>
+      <pre><code id="code-31">import folium
+
+geojson_data = {
+    &quot;type&quot;: &quot;Feature&quot;,
+    &quot;properties&quot;: {&quot;name&quot;: &quot;강조 구역&quot;},
+    &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Polygon&quot;,
+        &quot;coordinates&quot;: [[
+            [126.96, 37.55],
+            [127.00, 37.55],
+            [127.00, 37.58],
+            [126.96, 37.58],
+            [126.96, 37.55]
+        ]]
+    }
+}
+
+m = folium.Map(location=[37.565, 126.98], zoom_start=13)
+
+folium.GeoJson(
+    geojson_data,
+    style_function=lambda feature: {
+        &quot;fillColor&quot;: &quot;skyblue&quot;,
+        &quot;color&quot;: &quot;blue&quot;,
+        &quot;weight&quot;: 2
+    },
+    highlight_function=lambda feature: {
+        &quot;fillColor&quot;: &quot;yellow&quot;,
+        &quot;color&quot;: &quot;red&quot;,
+        &quot;weight&quot;: 5
+    },
+    tooltip=&quot;마우스를 올려 보세요&quot;
+).add_to(m)
+
+m.save(&quot;31_geojson_highlight.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="단계 구분도" id="ex-32">
+      <div class="card-head">
+        <div>
+          <span class="badge">단계 구분도</span>
+          <h2>32. 간단한 단계 구분도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-32">코드 복사</button>
+      </div>
+      <pre><code id="code-32">import pandas as pd
+import folium
+
+geojson_data = {
+    &quot;type&quot;: &quot;FeatureCollection&quot;,
+    &quot;features&quot;: [
+        {
+            &quot;type&quot;: &quot;Feature&quot;,
+            &quot;properties&quot;: {&quot;code&quot;: &quot;A&quot;, &quot;name&quot;: &quot;A구역&quot;},
+            &quot;geometry&quot;: {
+                &quot;type&quot;: &quot;Polygon&quot;,
+                &quot;coordinates&quot;: [[
+                    [126.95, 37.54], [126.98, 37.54],
+                    [126.98, 37.57], [126.95, 37.57],
+                    [126.95, 37.54]
+                ]]
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Feature&quot;,
+            &quot;properties&quot;: {&quot;code&quot;: &quot;B&quot;, &quot;name&quot;: &quot;B구역&quot;},
+            &quot;geometry&quot;: {
+                &quot;type&quot;: &quot;Polygon&quot;,
+                &quot;coordinates&quot;: [[
+                    [126.98, 37.54], [127.01, 37.54],
+                    [127.01, 37.57], [126.98, 37.57],
+                    [126.98, 37.54]
+                ]]
+            }
+        }
+    ]
+}
+
+df = pd.DataFrame({
+    &quot;code&quot;: [&quot;A&quot;, &quot;B&quot;],
+    &quot;value&quot;: [25, 80]
+})
+
+m = folium.Map(location=[37.555, 126.98], zoom_start=13)
+
+folium.Choropleth(
+    geo_data=geojson_data,
+    data=df,
+    columns=[&quot;code&quot;, &quot;value&quot;],
+    key_on=&quot;feature.properties.code&quot;,
+    fill_color=&quot;YlOrRd&quot;,
+    legend_name=&quot;위험 지수&quot;
+).add_to(m)
+
+m.save(&quot;32_choropleth.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="단계 구분도" id="ex-33">
+      <div class="card-head">
+        <div>
+          <span class="badge">단계 구분도</span>
+          <h2>33. 단계 구분도 경계선 조정</h2>
+        </div>
+        <button class="copy-btn" data-target="code-33">코드 복사</button>
+      </div>
+      <pre><code id="code-33">import pandas as pd
+import folium
+
+# korea_sido.geojson 파일과 지역별 통계 CSV를 준비합니다.
+df = pd.read_csv(&quot;region_data.csv&quot;)
+
+m = folium.Map(location=[36.3, 127.8], zoom_start=7)
+
+folium.Choropleth(
+    geo_data=&quot;korea_sido.geojson&quot;,
+    data=df,
+    columns=[&quot;지역코드&quot;, &quot;인구&quot;],
+    key_on=&quot;feature.properties.CTPRVN_CD&quot;,
+    fill_color=&quot;PuBuGn&quot;,
+    fill_opacity=0.75,
+    line_opacity=0.5,
+    line_weight=2,
+    legend_name=&quot;지역별 인구&quot;
+).add_to(m)
+
+m.save(&quot;33_choropleth_boundary.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="단계 구분도" id="ex-34">
+      <div class="card-head">
+        <div>
+          <span class="badge">단계 구분도</span>
+          <h2>34. 단계 구분도와 마커 결합</h2>
+        </div>
+        <button class="copy-btn" data-target="code-34">코드 복사</button>
+      </div>
+      <pre><code id="code-34">import pandas as pd
+import folium
+
+df = pd.read_csv(&quot;region_data.csv&quot;)
+
+m = folium.Map(location=[36.3, 127.8], zoom_start=7)
+
+folium.Choropleth(
+    geo_data=&quot;korea_sido.geojson&quot;,
+    data=df,
+    columns=[&quot;지역코드&quot;, &quot;인구&quot;],
+    key_on=&quot;feature.properties.CTPRVN_CD&quot;,
+    fill_color=&quot;YlGnBu&quot;,
+    legend_name=&quot;인구&quot;
+).add_to(m)
+
+folium.Marker(
+    [37.5665, 126.9780],
+    popup=&quot;서울&quot;,
+    tooltip=&quot;서울&quot;
+).add_to(m)
+
+folium.Marker(
+    [35.1796, 129.0756],
+    popup=&quot;부산&quot;,
+    tooltip=&quot;부산&quot;
+).add_to(m)
+
+m.save(&quot;34_choropleth_markers.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="레이어" id="ex-35">
+      <div class="card-head">
+        <div>
+          <span class="badge">레이어</span>
+          <h2>35. 범주별 FeatureGroup</h2>
+        </div>
+        <button class="copy-btn" data-target="code-35">코드 복사</button>
+      </div>
+      <pre><code id="code-35">import folium
+
+m = folium.Map(location=[37.56, 126.98], zoom_start=13)
+
+schools = folium.FeatureGroup(name=&quot;학교&quot;)
+parks = folium.FeatureGroup(name=&quot;공원&quot;)
+
+folium.Marker(
+    [37.57, 126.97],
+    popup=&quot;A학교&quot;
+).add_to(schools)
+
+folium.Marker(
+    [37.55, 126.99],
+    popup=&quot;B학교&quot;
+).add_to(schools)
+
+folium.Marker(
+    [37.56, 127.00],
+    popup=&quot;중앙공원&quot;,
+    icon=folium.Icon(color=&quot;green&quot;)
+).add_to(parks)
+
+schools.add_to(m)
+parks.add_to(m)
+folium.LayerControl().add_to(m)
+
+m.save(&quot;35_feature_groups.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="레이어" id="ex-36">
+      <div class="card-head">
+        <div>
+          <span class="badge">레이어</span>
+          <h2>36. 여러 데이터 레이어 제어</h2>
+        </div>
+        <button class="copy-btn" data-target="code-36">코드 복사</button>
+      </div>
+      <pre><code id="code-36">import folium
+from folium.plugins import HeatMap
+
+m = folium.Map(location=[37.56, 126.98], zoom_start=13)
+
+marker_layer = folium.FeatureGroup(name=&quot;관측 지점&quot;)
+heat_layer = folium.FeatureGroup(name=&quot;밀도 지도&quot;)
+
+for point in [[37.56, 126.97], [37.57, 126.98], [37.55, 126.99]]:
+    folium.Marker(point).add_to(marker_layer)
+
+HeatMap([
+    [37.56, 126.97, 10],
+    [37.57, 126.98, 30],
+    [37.55, 126.99, 20]
+]).add_to(heat_layer)
+
+marker_layer.add_to(m)
+heat_layer.add_to(m)
+folium.LayerControl(collapsed=False).add_to(m)
+
+m.save(&quot;36_multi_layers.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="플러그인" id="ex-37">
+      <div class="card-head">
+        <div>
+          <span class="badge">플러그인</span>
+          <h2>37. 미니맵 추가</h2>
+        </div>
+        <button class="copy-btn" data-target="code-37">코드 복사</button>
+      </div>
+      <pre><code id="code-37">import folium
+from folium.plugins import MiniMap
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+MiniMap(
+    toggle_display=True,
+    position=&quot;bottomright&quot;
+).add_to(m)
+
+m.save(&quot;37_minimap.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="플러그인" id="ex-38">
+      <div class="card-head">
+        <div>
+          <span class="badge">플러그인</span>
+          <h2>38. 전체 화면 버튼</h2>
+        </div>
+        <button class="copy-btn" data-target="code-38">코드 복사</button>
+      </div>
+      <pre><code id="code-38">import folium
+from folium.plugins import Fullscreen
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+Fullscreen(
+    position=&quot;topright&quot;,
+    title=&quot;전체 화면&quot;,
+    title_cancel=&quot;전체 화면 종료&quot;,
+    force_separate_button=True
+).add_to(m)
+
+m.save(&quot;38_fullscreen.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="플러그인" id="ex-39">
+      <div class="card-head">
+        <div>
+          <span class="badge">플러그인</span>
+          <h2>39. 거리 측정 도구</h2>
+        </div>
+        <button class="copy-btn" data-target="code-39">코드 복사</button>
+      </div>
+      <pre><code id="code-39">import folium
+from folium.plugins import MeasureControl
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+MeasureControl(
+    position=&quot;topleft&quot;,
+    primary_length_unit=&quot;kilometers&quot;,
+    primary_area_unit=&quot;sqmeters&quot;
+).add_to(m)
+
+m.save(&quot;39_measure_control.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="플러그인" id="ex-40">
+      <div class="card-head">
+        <div>
+          <span class="badge">플러그인</span>
+          <h2>40. 마우스 좌표 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-40">코드 복사</button>
+      </div>
+      <pre><code id="code-40">import folium
+from folium.plugins import MousePosition
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+MousePosition(
+    position=&quot;bottomleft&quot;,
+    separator=&quot; / &quot;,
+    prefix=&quot;좌표:&quot;
+).add_to(m)
+
+m.save(&quot;40_mouse_position.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="플러그인" id="ex-41">
+      <div class="card-head">
+        <div>
+          <span class="badge">플러그인</span>
+          <h2>41. 지도에 그리기 도구</h2>
+        </div>
+        <button class="copy-btn" data-target="code-41">코드 복사</button>
+      </div>
+      <pre><code id="code-41">import folium
+from folium.plugins import Draw
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+Draw(
+    export=True,
+    position=&quot;topleft&quot;
+).add_to(m)
+
+m.save(&quot;41_draw_tools.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="플러그인" id="ex-42">
+      <div class="card-head">
+        <div>
+          <span class="badge">플러그인</span>
+          <h2>42. 위치 검색 도구</h2>
+        </div>
+        <button class="copy-btn" data-target="code-42">코드 복사</button>
+      </div>
+      <pre><code id="code-42">import folium
+from folium.plugins import Geocoder
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+Geocoder(
+    collapsed=False,
+    position=&quot;topright&quot;,
+    add_marker=True
+).add_to(m)
+
+m.save(&quot;42_geocoder.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="상호작용" id="ex-43">
+      <div class="card-head">
+        <div>
+          <span class="badge">상호작용</span>
+          <h2>43. 스크롤 확대 비활성화</h2>
+        </div>
+        <button class="copy-btn" data-target="code-43">코드 복사</button>
+      </div>
+      <pre><code id="code-43">import folium
+
+m = folium.Map(
+    location=[37.5665, 126.9780],
+    zoom_start=12,
+    scrollWheelZoom=False,
+    dragging=True
+)
+
+m.save(&quot;43_disable_scroll_zoom.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="상호작용" id="ex-44">
+      <div class="card-head">
+        <div>
+          <span class="badge">상호작용</span>
+          <h2>44. 지도 범위 자동 맞춤</h2>
+        </div>
+        <button class="copy-btn" data-target="code-44">코드 복사</button>
+      </div>
+      <pre><code id="code-44">import folium
+
+points = [
+    [37.5665, 126.9780],
+    [35.1796, 129.0756],
+    [35.1595, 126.8526]
+]
+
+m = folium.Map()
+
+for point in points:
+    folium.Marker(point).add_to(m)
+
+m.fit_bounds(points)
+m.save(&quot;44_fit_bounds.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="상호작용" id="ex-45">
+      <div class="card-head">
+        <div>
+          <span class="badge">상호작용</span>
+          <h2>45. 클릭한 위치의 위도·경도 표시</h2>
+        </div>
+        <button class="copy-btn" data-target="code-45">코드 복사</button>
+      </div>
+      <pre><code id="code-45">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+m.add_child(
+    folium.LatLngPopup()
+)
+
+m.save(&quot;45_latlng_popup.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="상호작용" id="ex-46">
+      <div class="card-head">
+        <div>
+          <span class="badge">상호작용</span>
+          <h2>46. 클릭 위치에 마커 생성</h2>
+        </div>
+        <button class="copy-btn" data-target="code-46">코드 복사</button>
+      </div>
+      <pre><code id="code-46">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+m.add_child(
+    folium.ClickForMarker(
+        popup=&quot;새로 선택한 위치&quot;
+    )
+)
+
+m.save(&quot;46_click_for_marker.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="꾸미기" id="ex-47">
+      <div class="card-head">
+        <div>
+          <span class="badge">꾸미기</span>
+          <h2>47. 지도 위 제목 추가</h2>
+        </div>
+        <button class="copy-btn" data-target="code-47">코드 복사</button>
+      </div>
+      <pre><code id="code-47">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+title_html = &#x27;&#x27;&#x27;
+&lt;h3 style=&quot;
+    position:fixed;
+    top:10px;
+    left:50px;
+    z-index:9999;
+    background:white;
+    padding:10px;
+    border:2px solid gray;
+    border-radius:8px;&quot;&gt;
+    서울 주요 시설 지도
+&lt;/h3&gt;
+&#x27;&#x27;&#x27;
+
+m.get_root().html.add_child(folium.Element(title_html))
+m.save(&quot;47_map_title.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="꾸미기" id="ex-48">
+      <div class="card-head">
+        <div>
+          <span class="badge">꾸미기</span>
+          <h2>48. 범례 직접 추가</h2>
+        </div>
+        <button class="copy-btn" data-target="code-48">코드 복사</button>
+      </div>
+      <pre><code id="code-48">import folium
+
+m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
+
+legend_html = &#x27;&#x27;&#x27;
+&lt;div style=&quot;
+    position:fixed;
+    bottom:40px;
+    left:40px;
+    width:150px;
+    background:white;
+    border:2px solid gray;
+    z-index:9999;
+    padding:10px;&quot;&gt;
+    &lt;b&gt;범례&lt;/b&gt;&lt;br&gt;
+    &lt;span style=&quot;color:red;&quot;&gt;●&lt;/span&gt; 위험&lt;br&gt;
+    &lt;span style=&quot;color:orange;&quot;&gt;●&lt;/span&gt; 주의&lt;br&gt;
+    &lt;span style=&quot;color:green;&quot;&gt;●&lt;/span&gt; 안전
+&lt;/div&gt;
+&#x27;&#x27;&#x27;
+
+m.get_root().html.add_child(folium.Element(legend_html))
+m.save(&quot;48_custom_legend.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="실전" id="ex-49">
+      <div class="card-head">
+        <div>
+          <span class="badge">실전</span>
+          <h2>49. CSV 파일 기반 학교 지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-49">코드 복사</button>
+      </div>
+      <pre><code id="code-49">import pandas as pd
+import folium
+from folium.plugins import MarkerCluster
+
+# schools.csv 열: 학교명, 위도, 경도, 학생수
+df = pd.read_csv(&quot;schools.csv&quot;, encoding=&quot;utf-8-sig&quot;)
+
+m = folium.Map(
+    location=[df[&quot;위도&quot;].mean(), df[&quot;경도&quot;].mean()],
+    zoom_start=11
+)
+
+cluster = MarkerCluster(name=&quot;학교&quot;).add_to(m)
+
+for _, row in df.iterrows():
+    popup = (
+        f&#x27;&lt;b&gt;{row[&quot;학교명&quot;]}&lt;/b&gt;&lt;br&gt;&#x27;
+        f&#x27;학생 수: {row[&quot;학생수&quot;]}명&#x27;
+    )
+
+    folium.CircleMarker(
+        location=[row[&quot;위도&quot;], row[&quot;경도&quot;]],
+        radius=max(5, row[&quot;학생수&quot;] / 100),
+        popup=folium.Popup(popup, max_width=250),
+        tooltip=row[&quot;학교명&quot;],
+        fill=True,
+        fill_opacity=0.7
+    ).add_to(cluster)
+
+folium.LayerControl().add_to(m)
+m.save(&quot;49_school_map.html&quot;)</code></pre>
+    </article>
+    
+    <article class="example-card" data-category="실전" id="ex-50">
+      <div class="card-head">
+        <div>
+          <span class="badge">실전</span>
+          <h2>50. 종합 대시보드형 지도</h2>
+        </div>
+        <button class="copy-btn" data-target="code-50">코드 복사</button>
+      </div>
+      <pre><code id="code-50">import pandas as pd
+import folium
+from folium.plugins import (
+    MarkerCluster,
+    HeatMap,
+    MiniMap,
+    Fullscreen,
+    MeasureControl
+)
+
+df = pd.DataFrame({
+    &quot;장소&quot;: [&quot;A지점&quot;, &quot;B지점&quot;, &quot;C지점&quot;, &quot;D지점&quot;],
+    &quot;위도&quot;: [37.56, 37.57, 37.55, 37.58],
+    &quot;경도&quot;: [126.97, 126.99, 127.00, 126.98],
+    &quot;측정값&quot;: [30, 80, 55, 95]
+})
+
+m = folium.Map(
+    location=[df[&quot;위도&quot;].mean(), df[&quot;경도&quot;].mean()],
+    zoom_start=13,
+    tiles=None
+)
+
+folium.TileLayer(&quot;OpenStreetMap&quot;, name=&quot;일반 지도&quot;).add_to(m)
+folium.TileLayer(&quot;CartoDB positron&quot;, name=&quot;밝은 지도&quot;).add_to(m)
+
+marker_group = folium.FeatureGroup(name=&quot;측정 지점&quot;)
+heat_group = folium.FeatureGroup(name=&quot;열지도&quot;)
+
+cluster = MarkerCluster().add_to(marker_group)
+
+for _, row in df.iterrows():
+    folium.CircleMarker(
+        [row[&quot;위도&quot;], row[&quot;경도&quot;]],
+        radius=row[&quot;측정값&quot;] / 10,
+        popup=f&#x27;{row[&quot;장소&quot;]}: {row[&quot;측정값&quot;]}&#x27;,
+        tooltip=row[&quot;장소&quot;],
+        fill=True,
+        fill_opacity=0.7
+    ).add_to(cluster)
+
+HeatMap(
+    df[[&quot;위도&quot;, &quot;경도&quot;, &quot;측정값&quot;]].values.tolist(),
+    radius=25
+).add_to(heat_group)
+
+marker_group.add_to(m)
+heat_group.add_to(m)
+
+MiniMap().add_to(m)
+Fullscreen().add_to(m)
+MeasureControl().add_to(m)
+folium.LayerControl(collapsed=False).add_to(m)
+
+m.fit_bounds(df[[&quot;위도&quot;, &quot;경도&quot;]].values.tolist())
+m.save(&quot;50_integrated_map.html&quot;)</code></pre>
+    </article>
+    
+</main>
+
+<footer>
+  <b>실행 안내:</b> 코드를 <code>example.py</code>로 저장하고 실행하거나, 주피터 노트북·구글 코랩의 셀에서 실행합니다.
+  단계 구분도 예제 중 외부 GeoJSON·CSV를 사용하는 코드는 파일의 실제 열 이름과 속성 이름에 맞게 수정해야 합니다.
+</footer>
+
+<script>
+const categoryFilter = document.getElementById("categoryFilter");
+const searchInput = document.getElementById("searchInput");
+const cards = [...document.querySelectorAll(".example-card")];
+const countInfo = document.getElementById("countInfo");
+
+function filterCards() {
+  const category = categoryFilter.value;
+  const keyword = searchInput.value.trim().toLowerCase();
+  let count = 0;
+
+  cards.forEach(card => {
+    const categoryMatch = category === "전체" || card.dataset.category === category;
+    const textMatch = card.innerText.toLowerCase().includes(keyword);
+    const visible = categoryMatch && textMatch;
+    card.classList.toggle("hidden", !visible);
+    if (visible) count++;
+  });
+
+  countInfo.textContent = `${count}개`;
+}
+
+categoryFilter.addEventListener("change", filterCards);
+searchInput.addEventListener("input", filterCards);
+
+document.querySelectorAll(".copy-btn").forEach(button => {
+  button.addEventListener("click", async () => {
+    const code = document.getElementById(button.dataset.target).innerText;
+    try {
+      await navigator.clipboard.writeText(code);
+      const oldText = button.textContent;
+      button.textContent = "복사 완료";
+      setTimeout(() => button.textContent = oldText, 1000);
+    } catch (error) {
+      button.textContent = "복사 실패";
+    }
+  });
+});
+</script>
+</body>
+</html>
