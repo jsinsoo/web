@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 개정 교육과정 정보융합탐구 1학기 수업계획</title>
+  <style>
+    :root{
+      --navy:#17324d;
+      --blue:#2f6fed;
+      --sky:#eaf3ff;
+      --mint:#eafaf4;
+      --green:#2a9d6f;
+      --orange:#f4a261;
+      --red:#e76f51;
+      --purple:#7b61ff;
+      --text:#243447;
+      --muted:#6b7a8c;
+      --line:#dce6f0;
+      --white:#ffffff;
+      --bg:#f4f8fc;
+      --shadow:0 12px 30px rgba(23,50,77,.10);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(47,111,237,.10), transparent 32%),
+        linear-gradient(180deg,#f8fbff 0%,#f3f8fc 100%);
+      line-height:1.7;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(220,230,240,.9);
+    }
+
+    .topbar-inner{
+      max-width:1200px;
+      margin:auto;
+      padding:12px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand{
+      font-weight:900;
+      color:var(--navy);
+      letter-spacing:-.5px;
+    }
+
+    .nav{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      text-decoration:none;
+      color:var(--navy);
+      background:#f6f9fd;
+      border:1px solid var(--line);
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:.9rem;
+      font-weight:700;
+    }
+
+    .nav a:hover{
+      background:var(--sky);
+      color:var(--blue);
+    }
+
+    .hero{
+      max-width:1200px;
+      margin:34px auto 24px;
+      padding:0 20px;
+    }
+
+    .hero-card{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#17324d 0%,#24598b 55%,#2f6fed 100%);
+      color:white;
+      border-radius:28px;
+      padding:48px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      width:280px;
+      height:280px;
+      right:-70px;
+      top:-70px;
+      border-radius:50%;
+      background:rgba(255,255,255,.10);
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:160px;
+      height:160px;
+      right:120px;
+      bottom:-80px;
+      border-radius:50%;
+      background:rgba(255,255,255,.07);
+    }
+
+    .badge{
+      display:inline-block;
+      padding:7px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.25);
+      font-size:.92rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    h1{
+      margin:0 0 14px;
+      font-size:clamp(2rem,4vw,3.6rem);
+      line-height:1.18;
+      letter-spacing:-1.8px;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0;
+      color:#eaf3ff;
+      font-size:1.06rem;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:28px;
+      position:relative;
+      z-index:2;
+    }
+
+    .stat{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.55rem;
+      line-height:1.2;
+    }
+
+    main{
+      max-width:1200px;
+      margin:auto;
+      padding:0 20px 60px;
+    }
+
+    section{
+      margin-top:30px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:14px;
+    }
+
+    .section-head h2{
+      margin:0;
+      color:var(--navy);
+      font-size:1.7rem;
+      letter-spacing:-.8px;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .overview-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .overview-item{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .overview-item .icon{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      font-size:1.3rem;
+      margin-bottom:12px;
+      background:var(--sky);
+    }
+
+    .overview-item h3{
+      margin:0 0 8px;
+      color:var(--navy);
+    }
+
+    .overview-item p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:900px;
+    }
+
+    thead th{
+      position:sticky;
+      top:58px;
+      background:var(--navy);
+      color:white;
+      padding:14px 12px;
+      text-align:center;
+      font-size:.95rem;
+      border-right:1px solid rgba(255,255,255,.12);
+    }
+
+    tbody td{
+      padding:14px 12px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      background:white;
+    }
+
+    tbody tr:nth-child(even) td{
+      background:#f9fbfe;
+    }
+
+    tbody tr:hover td{
+      background:#eef5ff;
+    }
+
+    td.center{
+      text-align:center;
+      font-weight:800;
+      color:var(--navy);
+      white-space:nowrap;
+    }
+
+    .standard{
+      display:inline-block;
+      background:#edf3ff;
+      color:var(--blue);
+      border:1px solid #cfe0ff;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:800;
+      margin:2px 2px 2px 0;
+      white-space:nowrap;
+    }
+
+    .product{
+      font-weight:700;
+      color:#3f5d75;
+    }
+
+    .assessment-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:14px;
+      padding:20px;
+    }
+
+    .assessment{
+      border-radius:18px;
+      padding:18px;
+      border:1px solid var(--line);
+      background:#fbfdff;
+    }
+
+    .assessment strong{
+      display:block;
+      font-size:1.65rem;
+      color:var(--blue);
+      margin-bottom:4px;
+    }
+
+    .assessment h3{
+      margin:0 0 6px;
+      font-size:1rem;
+      color:var(--navy);
+    }
+
+    .assessment p{
+      margin:0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .projects{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .project{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      transition:.2s;
+    }
+
+    .project:hover{
+      transform:translateY(-3px);
+    }
+
+    .project span{
+      display:inline-block;
+      font-size:.8rem;
+      font-weight:800;
+      color:var(--green);
+      background:var(--mint);
+      padding:4px 9px;
+      border-radius:999px;
+      margin-bottom:8px;
+    }
+
+    .project h3{
+      margin:0;
+      font-size:1rem;
+      color:var(--navy);
+    }
+
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:12px;
+      padding:22px;
+    }
+
+    .flow-step{
+      position:relative;
+      text-align:center;
+      background:#f7faff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px 10px;
+      font-weight:800;
+      color:var(--navy);
+    }
+
+    .flow-step:not(:last-child)::after{
+      content:"→";
+      position:absolute;
+      right:-10px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--blue);
+      font-size:1.2rem;
+      z-index:2;
+    }
+
+    .note{
+      margin-top:24px;
+      background:linear-gradient(135deg,#fff8e9,#fffdf8);
+      border:1px solid #f5dca8;
+      border-radius:20px;
+      padding:22px;
+      color:#73551d;
+    }
+
+    .note strong{
+      color:#5b4216;
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:30px 20px 45px;
+      font-size:.9rem;
+    }
+
+    .print-btn{
+      border:0;
+      background:var(--blue);
+      color:white;
+      font-weight:800;
+      padding:10px 16px;
+      border-radius:12px;
+      cursor:pointer;
+      box-shadow:0 8px 18px rgba(47,111,237,.22);
+    }
+
+    .print-btn:hover{
+      filter:brightness(.95);
+    }
+
+    @media(max-width:900px){
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .overview-grid,.projects{grid-template-columns:1fr 1fr}
+      .assessment-grid{grid-template-columns:1fr 1fr}
+      .flow{grid-template-columns:repeat(2,1fr)}
+      .flow-step::after{display:none}
+      .hero-card{padding:34px 24px}
+    }
+
+    @media(max-width:600px){
+      .topbar-inner{align-items:flex-start;flex-direction:column}
+      .nav{display:none}
+      .stats,.overview-grid,.projects,.assessment-grid,.flow{grid-template-columns:1fr}
+      .section-head{align-items:flex-start;flex-direction:column}
+      .hero{margin-top:18px}
+      h1{font-size:2.1rem}
+    }
+
+    @media print{
+      .topbar,.print-btn{display:none}
+      body{background:white}
+      .hero{margin-top:0}
+      .hero-card,.card,.overview-item,.project{box-shadow:none}
+      section{break-inside:avoid}
+      thead th{position:static}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">정보융합탐구 · 1학기 교육과정</div>
+      <nav class="nav">
+        <a href="#overview">운영 개요</a>
+        <a href="#plan">차시 계획</a>
+        <a href="#assessment">수행평가</a>
+        <a href="#projects">주제 예시</a>
+        <a href="#flow">수업 흐름</a>
+      </nav>
+      <button class="print-btn" onclick="window.print()">인쇄하기</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-card">
+      <div class="badge">2022 개정 교육과정 · 고등학교 융합 선택</div>
+      <h1>정보융합탐구<br>1학기 수업계획</h1>
+      <p>
+        문제 발견에서 데이터 분석, 알고리즘 구현, 인공지능 활용, 정보윤리,
+        결과 공유까지 이어지는 학생 주도형 프로젝트 수업안입니다.
+      </p>
+
+      <div class="stats">
+        <div class="stat"><strong>17주</strong><span>학기 운영</span></div>
+        <div class="stat"><strong>주 2시간</strong><span>수업 시수</span></div>
+        <div class="stat"><strong>총 34차시</strong><span>프로젝트 중심</span></div>
+        <div class="stat"><strong>5단계</strong><span>탐구·구현·개선·공유</span></div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section id="overview">
+      <div class="section-head">
+        <div>
+          <h2>운영 개요</h2>
+          <p>정보기술과 다양한 교과를 연결하여 실제 문제를 해결합니다.</p>
+        </div>
+      </div>
+
+      <div class="overview-grid">
+        <article class="overview-item">
+          <div class="icon">🔎</div>
+          <h3>문제 발견</h3>
+          <p>생활과 사회에서 해결할 문제를 찾고 구체적인 탐구 질문으로 발전시킵니다.</p>
+        </article>
+        <article class="overview-item">
+          <div class="icon">📊</div>
+          <h3>데이터 활용</h3>
+          <p>공공데이터, API, 센서 자료를 수집하고 전처리·분석·시각화합니다.</p>
+        </article>
+        <article class="overview-item">
+          <div class="icon">💻</div>
+          <h3>정보기술 구현</h3>
+          <p>프로그래밍, 알고리즘, 인공지능 기술을 활용해 해결 방안을 구현합니다.</p>
+        </article>
+        <article class="overview-item">
+          <div class="icon">🛠️</div>
+          <h3>검증과 개선</h3>
+          <p>실행 결과와 성능을 점검하고 오류와 한계를 찾아 반복적으로 개선합니다.</p>
+        </article>
+        <article class="overview-item">
+          <div class="icon">🛡️</div>
+          <h3>정보윤리</h3>
+          <p>개인정보, 저작권, 알고리즘 편향과 책임 있는 정보기술 활용을 탐구합니다.</p>
+        </article>
+        <article class="overview-item">
+          <div class="icon">🎤</div>
+          <h3>공유와 성찰</h3>
+          <p>보고서, 포스터, 발표 자료로 결과를 공유하고 탐구 과정을 성찰합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="plan">
+      <div class="section-head">
+        <div>
+          <h2>주차별 수업계획</h2>
+          <p>1학기 17주, 총 34차시 기준</p>
+        </div>
+      </div>
+
+      <div class="card table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>주</th>
+              <th>차시</th>
+              <th>수업 내용</th>
+              <th>관련 성취기준</th>
+              <th>주요 산출물</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="center">1주</td>
+              <td class="center">1~2</td>
+              <td>정보융합탐구 과목 이해, 교육과정 소개, 우수 탐구 사례 분석</td>
+              <td><span class="standard">12정융01-01</span></td>
+              <td class="product">탐구 아이디어 기록지</td>
+            </tr>
+            <tr>
+              <td class="center">2주</td>
+              <td class="center">3~4</td>
+              <td>학교생활과 지역사회에서 해결이 필요한 문제 발견 및 생각 펼치기</td>
+              <td><span class="standard">12정융01-01</span></td>
+              <td class="product">문제 발견 목록</td>
+            </tr>
+            <tr>
+              <td class="center">3주</td>
+              <td class="center">5~6</td>
+              <td>탐구 주제 선정, 연구 질문 구체화, 탐구 가능성 검토</td>
+              <td><span class="standard">12정융01-01</span></td>
+              <td class="product">문제 정의서</td>
+            </tr>
+            <tr>
+              <td class="center">4주</td>
+              <td class="center">7~8</td>
+              <td>탐구 절차 설계, 역할 분담, 일정 계획, 예상 결과 설정</td>
+              <td><span class="standard">12정융01-02</span></td>
+              <td class="product">탐구계획서</td>
+            </tr>
+            <tr>
+              <td class="center">5주</td>
+              <td class="center">9~10</td>
+              <td>공공데이터, API, 센서 데이터 탐색 및 자료의 신뢰성 판단</td>
+              <td><span class="standard">12정융01-02</span><span class="standard">12정융03-01</span></td>
+              <td class="product">데이터 조사표</td>
+            </tr>
+            <tr>
+              <td class="center">6주</td>
+              <td class="center">11~12</td>
+              <td>데이터 수집, 결측값·중복값·이상값 확인과 전처리</td>
+              <td><span class="standard">12정융01-02</span><span class="standard">12정융02-01</span></td>
+              <td class="product">정제 데이터와 전처리 코드</td>
+            </tr>
+            <tr>
+              <td class="center">7주</td>
+              <td class="center">13~14</td>
+              <td>판다스를 활용한 기초 통계 분석과 데이터 구조 이해</td>
+              <td><span class="standard">12정융02-01</span></td>
+              <td class="product">기초 분석표</td>
+            </tr>
+            <tr>
+              <td class="center">8주</td>
+              <td class="center">15~16</td>
+              <td>그래프와 지도를 활용한 데이터 시각화, 의미 있는 경향 해석</td>
+              <td><span class="standard">12정융02-01</span></td>
+              <td class="product">그래프·지도 시각화</td>
+            </tr>
+            <tr>
+              <td class="center">9주</td>
+              <td class="center">17~18</td>
+              <td>문제 해결 절차를 순서도, 의사코드, 조건과 반복 구조로 표현</td>
+              <td><span class="standard">12정융02-01</span></td>
+              <td class="product">알고리즘 설계서</td>
+            </tr>
+            <tr>
+              <td class="center">10주</td>
+              <td class="center">19~20</td>
+              <td>파이썬을 활용한 핵심 기능 구현 및 입력·처리·출력 구조 설계</td>
+              <td><span class="standard">12정융02-01</span></td>
+              <td class="product">프로그램 1차 구현물</td>
+            </tr>
+            <tr>
+              <td class="center">11주</td>
+              <td class="center">21~22</td>
+              <td>분류·회귀·군집화 등 인공지능 기초 원리 이해와 프로젝트 적용</td>
+              <td><span class="standard">12정융02-01</span></td>
+              <td class="product">인공지능 모델 실습 결과</td>
+            </tr>
+            <tr>
+              <td class="center">12주</td>
+              <td class="center">23~24</td>
+              <td>프로그램과 모델의 성능 평가, 오류 분석, 한계점 찾기</td>
+              <td><span class="standard">12정융02-02</span></td>
+              <td class="product">성능 비교표와 오류 기록</td>
+            </tr>
+            <tr>
+              <td class="center">13주</td>
+              <td class="center">25~26</td>
+              <td>중간 발표, 동료 피드백, 교사 피드백을 통한 개선 방향 설정</td>
+              <td><span class="standard">12정융02-02</span><span class="standard">12정융03-02</span></td>
+              <td class="product">중간 발표 자료</td>
+            </tr>
+            <tr>
+              <td class="center">14주</td>
+              <td class="center">27~28</td>
+              <td>기능 개선, 모델 조정, 사용자 편의성과 결과 신뢰성 보완</td>
+              <td><span class="standard">12정융02-02</span></td>
+              <td class="product">개선된 최종 구현물</td>
+            </tr>
+            <tr>
+              <td class="center">15주</td>
+              <td class="center">29~30</td>
+              <td>개인정보 보호, 저작권, 인공지능 편향과 사회적 영향 분석</td>
+              <td><span class="standard">12정융03-01</span></td>
+              <td class="product">정보윤리 분석 보고서</td>
+            </tr>
+            <tr>
+              <td class="center">16주</td>
+              <td class="center">31~32</td>
+              <td>탐구 과정, 데이터, 구현 결과, 한계와 개선 방향을 보고서로 정리</td>
+              <td><span class="standard">12정융03-02</span></td>
+              <td class="product">최종 탐구보고서</td>
+            </tr>
+            <tr>
+              <td class="center">17주</td>
+              <td class="center">33~34</td>
+              <td>최종 발표, 질의응답, 동료 평가, 자기 성찰 및 포트폴리오 완성</td>
+              <td><span class="standard">12정융03-02</span></td>
+              <td class="product">발표 자료와 성찰 기록</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="assessment">
+      <div class="section-head">
+        <div>
+          <h2>수행평가 운영 예시</h2>
+          <p>과정과 결과를 균형 있게 평가하는 구성</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="assessment-grid">
+          <article class="assessment">
+            <strong>20%</strong>
+            <h3>탐구계획서</h3>
+            <p>문제 정의, 연구 질문, 계획의 구체성</p>
+          </article>
+          <article class="assessment">
+            <strong>20%</strong>
+            <h3>데이터 활용</h3>
+            <p>자료 수집, 전처리, 분석과 해석</p>
+          </article>
+          <article class="assessment">
+            <strong>25%</strong>
+            <h3>프로그램 구현</h3>
+            <p>알고리즘, 코드, 인공지능 적용</p>
+          </article>
+          <article class="assessment">
+            <strong>20%</strong>
+            <h3>탐구보고서</h3>
+            <p>과정 기록, 결과, 한계와 개선안</p>
+          </article>
+          <article class="assessment">
+            <strong>15%</strong>
+            <h3>발표와 협업</h3>
+            <p>의사소통, 질의응답, 역할 수행</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <h2>프로젝트 주제 예시</h2>
+          <p>학교생활·지역사회·과학 탐구와 연결할 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="projects">
+        <article class="project"><span>환경</span><h3>교실 이산화탄소 농도와 환기 시점 분석</h3></article>
+        <article class="project"><span>에너지</span><h3>태양광 발전량을 활용한 학교 에너지 자립 탐구</h3></article>
+        <article class="project"><span>안전</span><h3>기상·미세먼지 데이터를 활용한 등교 안전 지수</h3></article>
+        <article class="project"><span>인공지능</span><h3>학생 생활 데이터를 활용한 분류 모델 비교</h3></article>
+        <article class="project"><span>교통</span><h3>지역 교통사고 위험지역 시각화와 예측</h3></article>
+        <article class="project"><span>급식</span><h3>학교 급식 잔반 감소를 위한 데이터 분석</h3></article>
+        <article class="project"><span>보건</span><h3>수면·운동·학습 시간의 관계 분석</h3></article>
+        <article class="project"><span>사물인터넷</span><h3>센서를 활용한 교실 환경 자동 관리 장치</h3></article>
+        <article class="project"><span>정보윤리</span><h3>생성형 인공지능 활용과 저작권·편향 분석</h3></article>
+      </div>
+    </section>
+
+    <section id="flow">
+      <div class="section-head">
+        <div>
+          <h2>학기 운영 흐름</h2>
+          <p>탐구 결과보다 과정의 기록과 개선을 중요하게 다룹니다.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="flow">
+          <div class="flow-step">문제 발견</div>
+          <div class="flow-step">탐구 설계</div>
+          <div class="flow-step">데이터 수집</div>
+          <div class="flow-step">분석·시각화</div>
+          <div class="flow-step">구현·개선</div>
+          <div class="flow-step">발표·성찰</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>운영 참고:</strong>
+        학교 행사, 시험 기간, 학생의 사전 프로그래밍 수준에 따라 데이터 분석 실습과
+        프로젝트 구현 차시는 조정할 수 있습니다. 한 학기 동안 하나의 큰 프로젝트를
+        완성하거나, 기초 실습과 소규모 프로젝트를 병행하는 방식으로 운영할 수 있습니다.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    2022 개정 교육과정 고등학교 「정보융합탐구」 1학기 수업계획 예시
+  </footer>
+</body>
+</html>
