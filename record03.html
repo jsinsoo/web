@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2022 개정 교육과정 정보 과세특 15세트 3회</title>
+<style>
+:root {
+  --bg:#f7f8fb; --card:#fff; --text:#172033; --muted:#667085;
+  --line:#dbe2ea; --primary:#155e75;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  color:var(--text);
+  line-height:1.75;
+  background:linear-gradient(145deg,#ecfeff 0%,#f8fafc 50%,#fdf2f8 100%);
+}
+header{
+  position:sticky; top:0; z-index:20;
+  background:rgba(255,255,255,.95);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
+  box-shadow:0 5px 22px rgba(15,23,42,.06);
+}
+.header-inner{
+  max-width:1180px; margin:auto; padding:18px 24px;
+  display:flex; justify-content:space-between; align-items:center;
+  gap:18px; flex-wrap:wrap;
+}
+h1{margin:0;font-size:clamp(23px,3vw,34px);letter-spacing:-.8px}
+.subtitle{margin-top:4px;color:var(--muted);font-size:14px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{
+  border:0;border-radius:10px;padding:9px 13px;cursor:pointer;
+  font:700 13px inherit;color:#fff;background:var(--primary);
+  transition:.18s ease;
+}
+button:hover{transform:translateY(-1px);filter:brightness(.95)}
+button.secondary{background:#dff4f7;color:#124c5c}
+main{max-width:1180px;margin:auto;padding:28px 24px 60px}
+.notice{
+  padding:17px 20px;margin-bottom:22px;border:1px solid var(--line);
+  border-radius:18px;background:rgba(255,255,255,.9);color:#475467;
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(470px,1fr));gap:20px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:20px;box-shadow:0 12px 30px rgba(15,23,42,.07);
+  break-inside:avoid;
+}
+.card-head{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--line);padding-bottom:12px;gap:12px;
+}
+.card-head h2{margin:0;font-size:22px}
+.card-head h2 span{
+  display:inline-grid;place-items:center;width:43px;height:43px;
+  margin-right:8px;border-radius:13px;background:#dff4f7;
+  color:var(--primary);font-size:17px;
+}
+ol{list-style:none;margin:15px 0 0;padding:0}
+li{padding:14px 0;border-bottom:1px dashed #d7deea}
+li:last-child{border-bottom:0;padding-bottom:2px}
+.unit{
+  display:inline-flex;padding:4px 9px;border-left:5px solid var(--c);
+  border-radius:7px;font-size:12px;font-weight:800;color:var(--c);
+  background:color-mix(in srgb,var(--c) 10%,white);
+}
+li p{margin:8px 0 0;word-break:keep-all}
+.toast{
+  position:fixed;right:22px;bottom:22px;z-index:50;padding:12px 16px;
+  border-radius:12px;background:#172033;color:#fff;opacity:0;
+  transform:translateY(10px);transition:.22s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:720px){
+  .grid{grid-template-columns:1fr}
+  main,.header-inner{padding-left:14px;padding-right:14px}
+  .card{padding:16px}
+}
+@media print{
+  header{position:static;box-shadow:none}
+  .actions,.card-head button,.notice{display:none!important}
+  body{background:#fff}
+  main{max-width:none;padding:0}
+  .grid{display:block}
+  .card{box-shadow:none;margin-bottom:14px;page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>2022 개정 교육과정 정보 과세특</h1>
+      <div class="subtitle">1회·2회와 다른 내용으로 구성한 15세트 · 총 75문장 · 3회</div>
+    </div>
+    <div class="actions">
+      <button class="secondary" onclick="copyAll()">전체 복사</button>
+      <button onclick="window.print()">인쇄하기</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="notice">
+    각 세트는 1단원부터 5단원까지 한 문장씩 구성되어 있습니다.
+    1회와 2회의 문장과 겹치지 않도록 학습 요소와 표현을 새롭게 구성했습니다.
+  </section>
+  <section class="grid">
+    <article class="card" id="set-1">
+      <div class="card-head">
+        <h2><span>01</span> 세트</h2>
+        <button onclick="copySet(1)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>컴퓨팅 시스템에서 입력 장치와 출력 장치가 사용자와 정보를 주고받는 과정을 실제 사례와 연결하여 설명하는 능력이 뛰어남.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>분석 목적에 맞게 필요한 데이터를 선별하고 불필요한 항목을 제거하여 자료의 활용도를 높이는 능력이 우수함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>알고리즘의 시작과 종료 조건을 명확히 설정하고 실행 순서를 빠짐없이 구성하는 논리적 사고력이 돋보임.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능이 데이터에서 규칙을 학습하는 과정을 이해하고 예측 결과가 생성되는 원리를 구체적으로 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>온라인 공동체에서 지켜야 할 예절과 규범을 이해하고 갈등 상황에서도 존중과 배려를 바탕으로 소통함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-2">
+      <div class="card-head">
+        <h2><span>02</span> 세트</h2>
+        <button onclick="copySet(2)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>컴퓨터의 저장 장치가 자료를 보관하고 불러오는 원리를 이해하며 용량과 속도의 차이를 비교하여 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터의 범위와 단위를 확인하고 서로 다른 자료를 동일한 기준으로 변환하여 정확하게 비교함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>연산자의 우선순위와 논리식을 정확히 적용하여 조건에 맞는 결과를 산출하는 프로그램을 구현함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>학습 데이터의 양과 다양성이 인공지능 모델의 정확도에 미치는 영향을 탐구하고 구체적인 근거를 제시함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>타인의 사진과 글을 온라인에 게시할 때 동의와 공개 범위를 확인하는 책임 있는 태도를 실천함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-3">
+      <div class="card-head">
+        <h2><span>03</span> 세트</h2>
+        <button onclick="copySet(3)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>라우터와 스위치의 역할을 구분하고 여러 장치가 네트워크에서 연결되는 구조를 체계적으로 이해함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터를 정렬하고 그룹별로 요약하여 전체 자료 속에서 의미 있는 차이와 공통점을 발견함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>중첩 반복과 조건 처리를 활용하여 여러 경우를 탐색하고 요구 조건을 만족하는 해를 효율적으로 찾음.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>분류 모델이 새로운 데이터를 범주로 판단하는 과정을 이해하고 예측 오류가 발생하는 이유를 분석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>디지털 콘텐츠를 재가공할 때 원작자의 의도와 이용 조건을 고려하여 올바른 활용 방안을 선택함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-4">
+      <div class="card-head">
+        <h2><span>04</span> 세트</h2>
+        <button onclick="copySet(4)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>네트워크에서 패킷이 목적지까지 이동하는 과정을 이해하고 전송 중 발생할 수 있는 지연과 손실을 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터의 최댓값·최솟값·평균을 계산하고 수치의 차이가 의미하는 바를 실제 문제와 연결하여 해석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>사용자 요구를 입력·처리·출력 단계로 나누어 프로그램 기능을 구체화하고 구현 계획을 체계적으로 수립함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>회귀 모델이 수치형 결과를 예측하는 원리를 이해하고 실제값과 예측값의 차이를 분석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>개인정보를 요구하는 온라인 서비스의 필요성과 위험성을 검토하고 최소한의 정보만 제공하는 태도를 보임.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-5">
+      <div class="card-head">
+        <h2><span>05</span> 세트</h2>
+        <button onclick="copySet(5)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>임베디드 시스템이 특정 목적에 맞게 하드웨어와 소프트웨어를 결합하는 방식을 생활 속 장치로 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>그래프의 축 범위와 간격에 따라 정보가 다르게 보일 수 있음을 이해하고 왜곡 없는 시각화를 구성함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>프로그램에서 발생하는 문법 오류와 논리 오류를 구분하고 각각에 맞는 수정 방법을 적용함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능 모델의 성능을 단일 점수만으로 판단하지 않고 다양한 평가 결과를 함께 살펴보는 태도가 우수함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>온라인에서 접한 자극적인 정보일수록 원문과 다른 자료를 교차 확인하며 신중하게 판단함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-6">
+      <div class="card-head">
+        <h2><span>06</span> 세트</h2>
+        <button onclick="copySet(6)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>다중 사용자 환경에서 운영체제가 작업을 나누어 처리하는 원리를 이해하고 자원 관리의 중요성을 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터를 날짜·지역·범주별로 나누어 분석하고 조건에 따른 변화 양상을 세밀하게 파악함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>함수 이름과 변수 이름을 기능에 맞게 작성하여 코드의 의미를 쉽게 전달하고 유지보수성을 높임.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>추천 시스템이 사용자의 과거 행동을 바탕으로 콘텐츠를 제안하는 원리를 이해하고 장단점을 분석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>온라인 추천과 맞춤형 광고가 개인의 선택에 미치는 영향을 이해하고 주체적인 정보 소비 태도를 보임.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-7">
+      <div class="card-head">
+        <h2><span>07</span> 세트</h2>
+        <button onclick="copySet(7)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>컴퓨팅 시스템의 병목 현상을 이해하고 처리 속도를 제한하는 요소를 찾아 개선 방향을 제안함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>자료의 빈도와 비율을 계산하여 집단별 특징을 비교하고 수치에 근거한 설명을 제시함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>같은 기능을 여러 방법으로 구현한 뒤 코드 길이와 실행 과정을 비교하여 적절한 방식을 선택함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능 학습에서 정답이 포함된 데이터와 포함되지 않은 데이터의 차이를 명확하게 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>공용 컴퓨터와 무선 네트워크를 사용할 때 계정 보호와 로그아웃의 중요성을 알고 안전 수칙을 실천함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-8">
+      <div class="card-head">
+        <h2><span>08</span> 세트</h2>
+        <button onclick="copySet(8)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>웹 서비스가 브라우저의 요청과 서버의 응답으로 동작하는 과정을 단계별로 이해하고 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>분석 결과에서 예외적인 값이 나타난 원인을 원자료와 수집 과정에서 찾아 합리적으로 해석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>프로그램의 기능을 작은 단위로 시험하고 결과를 기록하여 오류를 빠르게 발견하는 습관이 우수함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>이미지 인식 인공지능이 픽셀의 특징을 학습하여 대상을 구분하는 과정을 이해하고 활용 사례를 탐구함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>메신저와 사회관계망서비스에서 개인정보가 노출될 수 있는 상황을 파악하고 예방 방법을 제시함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-9">
+      <div class="card-head">
+        <h2><span>09</span> 세트</h2>
+        <button onclick="copySet(9)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>가상화 기술이 하나의 물리적 장치에서 여러 실행 환경을 제공하는 원리를 이해하고 활용 가능성을 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터를 시계열 순서로 정리하여 시간에 따른 증가·감소와 반복 패턴을 정확하게 분석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>사용자 인터페이스의 흐름을 고려하여 입력 순서와 결과 표시 방법을 이해하기 쉽게 설계함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>음성 인식 인공지능이 소리를 데이터로 변환하고 언어 정보를 추출하는 과정을 탐구함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>온라인 활동 중 문제가 발생했을 때 증거를 보존하고 신뢰할 수 있는 어른이나 기관에 도움을 요청하는 방법을 이해함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-10">
+      <div class="card-head">
+        <h2><span>10</span> 세트</h2>
+        <button onclick="copySet(10)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>시스템의 장애에 대비해 자료를 복제하고 복구하는 방법을 이해하며 백업의 필요성을 구체적으로 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>자료 수집 시 질문의 표현과 조사 대상의 선택이 결과에 영향을 줄 수 있음을 이해하고 편향을 줄이려 노력함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>프로그래밍 언어의 내장 기능과 외부 모듈을 적절히 활용하여 복잡한 기능을 효율적으로 구현함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>생성형 인공지능이 기존 데이터를 바탕으로 새로운 결과를 만드는 원리를 이해하고 결과의 정확성을 검토함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>생성형 인공지능의 결과를 사용할 때 사실 확인과 출처 검토, 저작권 확인이 필요함을 인식함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-11">
+      <div class="card-head">
+        <h2><span>11</span> 세트</h2>
+        <button onclick="copySet(11)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>컴퓨팅 장치 간 호환성을 위해 표준이 필요함을 이해하고 공통 규약이 정보 교환에 미치는 영향을 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>분석 과정에서 사용한 계산식과 처리 기준을 기록하여 다른 사람이 동일한 결과를 확인할 수 있도록 함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>입력 자료가 많아질 때 실행 시간이 어떻게 변하는지 관찰하고 알고리즘의 효율을 경험적으로 비교함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능이 잘못된 학습 자료를 사용하면 부정확한 결과를 낼 수 있음을 사례를 통해 분석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>악성 프로그램과 피싱의 특징을 이해하고 의심스러운 링크와 첨부 파일을 구별하는 능력을 보임.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-12">
+      <div class="card-head">
+        <h2><span>12</span> 세트</h2>
+        <button onclick="copySet(12)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>스마트 환경에서 센서 데이터가 실시간으로 처리되는 과정을 이해하고 자동 제어의 장점을 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>두 변수 사이의 관계를 산점도로 표현하고 관계의 방향과 강도를 신중하게 해석함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>프로그램의 실행 과정을 표 형태로 추적하여 변수값의 변화를 확인하고 오류 원인을 정확히 찾음.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능 의사결정 과정의 설명 가능성이 중요한 이유를 이해하고 사용자가 결과를 납득할 수 있는 방안을 탐구함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>정보 접근성이 낮은 사람을 위한 자막·음성 안내·쉬운 화면 구성의 필요성을 이해하고 포용적 기술을 제안함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-13">
+      <div class="card-head">
+        <h2><span>13</span> 세트</h2>
+        <button onclick="copySet(13)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>컴퓨팅 시스템의 에너지 사용과 환경 영향을 살펴보고 효율적인 장치 활용 방안을 탐구함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>분석 결과를 과장하지 않고 확인된 사실과 추정한 내용을 구분하여 신뢰성 있게 보고함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>다른 사람의 코드를 읽고 기능을 파악한 뒤 필요한 부분을 수정하여 협업 문제를 해결함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능 자동화가 직업과 사회 구조에 미치는 영향을 여러 관점에서 분석하고 대응 방안을 제시함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>디지털 기술 이용 과정에서 생기는 편리함과 위험을 함께 살펴 균형 잡힌 판단을 내리는 능력이 우수함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-14">
+      <div class="card-head">
+        <h2><span>14</span> 세트</h2>
+        <button onclick="copySet(14)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>여러 센서와 장치가 동시에 작동하는 시스템에서 데이터 충돌과 처리 순서의 중요성을 이해함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터를 표준화하여 값의 크기가 다른 변수들을 공정하게 비교하는 방법을 이해하고 적용함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>완성한 프로그램을 사용자 관점에서 시험하고 불편한 부분을 찾아 기능과 화면 구성을 개선함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능 프로젝트에서 수집한 자료와 모델 결과를 연결하여 결론의 타당성을 논리적으로 설명함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>온라인에서 다른 의견을 접했을 때 공격적인 표현을 피하고 근거를 바탕으로 자신의 생각을 전달함.</p>
+        </li>
+        </ol>
+    </article>
+    
+    <article class="card" id="set-15">
+      <div class="card-head">
+        <h2><span>15</span> 세트</h2>
+        <button onclick="copySet(15)">세트 복사</button>
+      </div>
+      <ol>
+        <li>
+          <div class="unit" style="--c:#155e75">1단원 컴퓨팅 시스템</div>
+          <p>컴퓨팅 시스템을 구성하는 요소의 역할과 한계를 종합하여 목적에 적합한 시스템 구성을 제안함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#047857">2단원 데이터</div>
+          <p>데이터 분석 전 과정에서 자료의 출처와 품질을 점검하며 결과에 대한 책임 있는 태도를 유지함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#6d28d9">3단원 알고리즘과 프로그래밍</div>
+          <p>문제 해결에 사용한 알고리즘을 글과 코드로 설명하고 개선 과정까지 체계적으로 정리함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#a16207">4단원 인공지능</div>
+          <p>인공지능을 활용한 해결 방안과 전통적인 방법을 비교하여 적용 가능성과 한계를 균형 있게 평가함.</p>
+        </li>
+        
+        <li>
+          <div class="unit" style="--c:#be185d">5단원 디지털 문화</div>
+          <p>디지털 사회의 구성원으로서 권리뿐 아니라 책임도 중요함을 이해하고 윤리적 행동을 지속적으로 실천함.</p>
+        </li>
+        </ol>
+    </article>
+    </section>
+</main>
+
+<div class="toast" id="toast">복사되었습니다.</div>
+
+<script>
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1500);
+}
+function setText(n){
+  const card=document.getElementById('set-'+n);
+  const ps=[...card.querySelectorAll('li p')];
+  return n+'세트\n'+ps.map((p,i)=>(i+1)+'. '+p.textContent.trim()).join('\n');
+}
+function fallback(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;
+  ta.style.position='fixed';
+  ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  ta.remove();
+  toast('복사되었습니다.');
+}
+async function copySet(n){
+  const text=setText(n);
+  try{
+    await navigator.clipboard.writeText(text);
+    toast(n+'세트가 복사되었습니다.');
+  }catch(e){
+    fallback(text);
+  }
+}
+async function copyAll(){
+  const text=Array.from({length:15},(_,i)=>setText(i+1)).join('\n\n');
+  try{
+    await navigator.clipboard.writeText(text);
+    toast('전체 15세트가 복사되었습니다.');
+  }catch(e){
+    fallback(text);
+  }
+}
+</script>
+</body>
+</html>
