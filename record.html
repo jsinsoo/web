@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정보과세특</title>
+
+<style>
+html, body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+}
+
+/* 상단 메뉴 */
+#top{
+    height:36px;
+    padding:4px 8px;
+    border-bottom:1px solid #ccc;
+    background:#f5f5f5;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+/* 아주 작은 드롭다운 */
+#fileSelect{
+    width:330px;
+    height:24px;
+    font-size:12px;
+}
+
+#teacherMail{
+    font-size:12px;
+    font-weight:bold;
+    color:#17324d;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+#teacherMail:hover{
+    color:#2f6fa3;
+    text-decoration:underline;
+}
+
+/* 본문 */
+#main{
+    width:100%;
+    height:calc(100vh - 36px);
+    border:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="top">
+    <select id="fileSelect"
+            onchange="loadPage(this.value)">
+
+<option value="record01.html">01. 정보과세특1</option>
+<option value="record02.html">02. 정보과세특2</option>
+<option value="record03.html">03. 정보과세특3</option>
+<option value="record04.html">04. 정보과세특4</option>
+<option value="record05.html">05. 정보과세특5</option>
+<option value="record06.html">06. 정보과세특6</option>
+<option value="record07.html">07. 정보과세특7</option>
+
+    </select>
+
+<a id="teacherMail"
+   href="https://mail.google.com/mail/?view=cm&fs=1&to=onstar6395@js.hs.kr"
+   target="_blank"
+   style="font-size:12px;font-weight:bold;text-decoration:none;color:#17324d;">
+    📧 선생님 Gmail: onstar6395@js.hs.kr
+</a>
+
+</div>
+
+<iframe
+    id="main"
+    src="record01.html">
+</iframe>
+
+<script>
+function loadPage(file){
+    document.getElementById("main").src = file;
+}
+</script>
+
+</body>
+</html>
