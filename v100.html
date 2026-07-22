@@ -1,0 +1,606 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>데이터 시각화 라이브러리 100 예제</title>
+<style>body{font-family:'Malgun Gothic',Arial;max-width:1100px;margin:auto;padding:25px;line-height:1.7;background:#f6f8fb}h1,h2{color:#17365d}section,details{background:white;padding:16px;margin:15px 0;border-radius:10px}summary{font-weight:bold;cursor:pointer}pre{white-space:pre-wrap;background:#202124;color:#eee;padding:15px;border-radius:8px;overflow:auto}code{background:#eaf1f8;padding:2px 5px}</style></head><body>
+<h1>데이터 시각화 라이브러리별 활용 예제 100개</h1>
+<p>각 라이브러리마다 10개 주제를 제시합니다. 일부 예제는 핵심 실행 구조를 공통으로 보여 주므로, 제목에 맞게 그래프 함수와 데이터를 바꾸어 확장하세요.</p>
+<h2>설치</h2><pre>pip install matplotlib seaborn pandas plotly bokeh altair folium geopandas wordcloud networkx shapely</pre>
+<section><h2>Matplotlib — 예제 10개</h2><p><code>import matplotlib.pyplot as plt</code></p><details><summary>1. 선 그래프</summary><p><b>목적:</b> Matplotlib으로 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>2. 막대그래프</summary><p><b>목적:</b> Matplotlib으로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>3. 가로 막대그래프</summary><p><b>목적:</b> Matplotlib으로 가로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>4. 산점도</summary><p><b>목적:</b> Matplotlib으로 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>5. 히스토그램</summary><p><b>목적:</b> Matplotlib으로 히스토그램을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>6. 원 그래프</summary><p><b>목적:</b> Matplotlib으로 원 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>7. 상자 그림</summary><p><b>목적:</b> Matplotlib으로 상자 그림을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>8. 영역 그래프</summary><p><b>목적:</b> Matplotlib으로 영역 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>9. 여러 선 그래프</summary><p><b>목적:</b> Matplotlib으로 여러 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details><details><summary>10. 오차 막대 그래프</summary><p><b>목적:</b> Matplotlib으로 오차 막대 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+x=["월","화","수","목","금"]; y=[12,18,15,22,20]
+plt.plot(x,y,marker="o")
+plt.title("주간 방문자 수"); plt.xlabel("요일"); plt.ylabel("명")
+plt.show()</pre></details></section><section><h2>Seaborn — 예제 10개</h2><p><code>import seaborn as sns</code></p><details><summary>1. 산점도</summary><p><b>목적:</b> Seaborn으로 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>2. 선 그래프</summary><p><b>목적:</b> Seaborn으로 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>3. 막대그래프</summary><p><b>목적:</b> Seaborn으로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>4. 히스토그램</summary><p><b>목적:</b> Seaborn으로 히스토그램을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>5. KDE 분포</summary><p><b>목적:</b> Seaborn으로 KDE 분포을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>6. 상자 그림</summary><p><b>목적:</b> Seaborn으로 상자 그림을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>7. 바이올린 플롯</summary><p><b>목적:</b> Seaborn으로 바이올린 플롯을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>8. 히트맵</summary><p><b>목적:</b> Seaborn으로 히트맵을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>9. 쌍 그래프</summary><p><b>목적:</b> Seaborn으로 쌍 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details><details><summary>10. 범주별 막대그래프</summary><p><b>목적:</b> Seaborn으로 범주별 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import seaborn as sns
+import pandas as pd
+df=pd.DataFrame({"반":["1반","1반","2반","2반"],"점수":[70,85,78,92]})
+sns.barplot(data=df,x="반",y="점수")
+plt.title("반별 점수"); plt.show()</pre></details></section><section><h2>Pandas — 예제 10개</h2><p><code>import pandas as pd</code></p><details><summary>1. 선 그래프</summary><p><b>목적:</b> Pandas으로 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>2. 막대그래프</summary><p><b>목적:</b> Pandas으로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>3. 가로 막대그래프</summary><p><b>목적:</b> Pandas으로 가로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>4. 영역 그래프</summary><p><b>목적:</b> Pandas으로 영역 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>5. 히스토그램</summary><p><b>목적:</b> Pandas으로 히스토그램을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>6. 상자 그림</summary><p><b>목적:</b> Pandas으로 상자 그림을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>7. 산점도</summary><p><b>목적:</b> Pandas으로 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>8. 원 그래프</summary><p><b>목적:</b> Pandas으로 원 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>9. 누적 막대그래프</summary><p><b>목적:</b> Pandas으로 누적 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details><details><summary>10. CSV 데이터 그래프</summary><p><b>목적:</b> Pandas으로 CSV 데이터 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+df.plot(x="월",y="판매량",kind="bar",legend=False)
+plt.title("월별 판매량"); plt.ylabel("개"); plt.show()</pre></details></section><section><h2>Plotly — 예제 10개</h2><p><code>import plotly.express as px</code></p><details><summary>1. 선 그래프</summary><p><b>목적:</b> Plotly으로 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>2. 막대그래프</summary><p><b>목적:</b> Plotly으로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>3. 산점도</summary><p><b>목적:</b> Plotly으로 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>4. 원 그래프</summary><p><b>목적:</b> Plotly으로 원 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>5. 히스토그램</summary><p><b>목적:</b> Plotly으로 히스토그램을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>6. 상자 그림</summary><p><b>목적:</b> Plotly으로 상자 그림을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>7. 바이올린 플롯</summary><p><b>목적:</b> Plotly으로 바이올린 플롯을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>8. 트리맵</summary><p><b>목적:</b> Plotly으로 트리맵을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>9. 버블 차트</summary><p><b>목적:</b> Plotly으로 버블 차트을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details><details><summary>10. 지도 산점도</summary><p><b>목적:</b> Plotly으로 지도 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import plotly.express as px
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+fig=px.line(df,x="월",y="판매량",markers=True,title="월별 판매량")
+fig.show()
+fig.write_html("plotly_example.html")</pre></details></section><section><h2>Bokeh — 예제 10개</h2><p><code>from bokeh.plotting import figure, show</code></p><details><summary>1. 선 그래프</summary><p><b>목적:</b> Bokeh으로 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>2. 막대그래프</summary><p><b>목적:</b> Bokeh으로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>3. 산점도</summary><p><b>목적:</b> Bokeh으로 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>4. 원형 마커</summary><p><b>목적:</b> Bokeh으로 원형 마커을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>5. 히스토그램</summary><p><b>목적:</b> Bokeh으로 히스토그램을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>6. 여러 선</summary><p><b>목적:</b> Bokeh으로 여러 선을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>7. 영역 그래프</summary><p><b>목적:</b> Bokeh으로 영역 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>8. 시간 그래프</summary><p><b>목적:</b> Bokeh으로 시간 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>9. 도구 설명 산점도</summary><p><b>목적:</b> Bokeh으로 도구 설명 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details><details><summary>10. HTML 저장</summary><p><b>목적:</b> Bokeh으로 HTML 저장을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from bokeh.plotting import figure, show
+from bokeh.io import output_file
+output_file("bokeh_example.html")
+p=figure(title="월별 판매량",x_axis_label="월",y_axis_label="판매량")
+p.line([1,2,3,4],[12,18,15,22],line_width=2)
+p.circle([1,2,3,4],[12,18,15,22],size=10)
+show(p)</pre></details></section><section><h2>Altair — 예제 10개</h2><p><code>import altair as alt</code></p><details><summary>1. 막대그래프</summary><p><b>목적:</b> Altair으로 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>2. 선 그래프</summary><p><b>목적:</b> Altair으로 선 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>3. 산점도</summary><p><b>목적:</b> Altair으로 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>4. 색상 산점도</summary><p><b>목적:</b> Altair으로 색상 산점도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>5. 히스토그램</summary><p><b>목적:</b> Altair으로 히스토그램을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>6. 상자 그림</summary><p><b>목적:</b> Altair으로 상자 그림을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>7. 영역 그래프</summary><p><b>목적:</b> Altair으로 영역 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>8. 누적 막대그래프</summary><p><b>목적:</b> Altair으로 누적 막대그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>9. 도구 설명</summary><p><b>목적:</b> Altair으로 도구 설명을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details><details><summary>10. 인터랙티브 그래프</summary><p><b>목적:</b> Altair으로 인터랙티브 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import altair as alt
+import pandas as pd
+df=pd.DataFrame({"월":["1월","2월","3월","4월"],"판매량":[12,18,15,22]})
+chart=alt.Chart(df).mark_line(point=True).encode(x="월",y="판매량",tooltip=["월","판매량"]).properties(title="월별 판매량")
+chart.save("altair_example.html")
+chart.show()</pre></details></section><section><h2>Folium — 예제 10개</h2><p><code>import folium</code></p><details><summary>1. 기본 지도</summary><p><b>목적:</b> Folium으로 기본 지도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>2. 마커</summary><p><b>목적:</b> Folium으로 마커을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>3. 팝업</summary><p><b>목적:</b> Folium으로 팝업을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>4. 툴팁</summary><p><b>목적:</b> Folium으로 툴팁을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>5. 원 마커</summary><p><b>목적:</b> Folium으로 원 마커을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>6. 원</summary><p><b>목적:</b> Folium으로 원을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>7. 선</summary><p><b>목적:</b> Folium으로 선을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>8. 다각형</summary><p><b>목적:</b> Folium으로 다각형을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>9. 히트맵</summary><p><b>목적:</b> Folium으로 히트맵을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details><details><summary>10. HTML 저장</summary><p><b>목적:</b> Folium으로 HTML 저장을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import folium
+m=folium.Map(location=[35.1595,126.8526], zoom_start=13)
+folium.Marker([35.1595,126.8526], popup="광주 중심").add_to(m)
+m.save("folium_example.html")
+print("folium_example.html 파일을 브라우저로 여세요.")</pre></details></section><section><h2>GeoPandas — 예제 10개</h2><p><code>import geopandas as gpd</code></p><details><summary>1. GeoDataFrame 만들기</summary><p><b>목적:</b> GeoPandas으로 GeoDataFrame 만들기을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>2. 점 지도</summary><p><b>목적:</b> GeoPandas으로 점 지도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>3. 경계 읽기</summary><p><b>목적:</b> GeoPandas으로 경계 읽기을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>4. 단계구분도</summary><p><b>목적:</b> GeoPandas으로 단계구분도을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>5. 범례</summary><p><b>목적:</b> GeoPandas으로 범례을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>6. 좌표계 확인</summary><p><b>목적:</b> GeoPandas으로 좌표계 확인을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>7. 좌표계 변환</summary><p><b>목적:</b> GeoPandas으로 좌표계 변환을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>8. 공간 결합</summary><p><b>목적:</b> GeoPandas으로 공간 결합을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>9. 면적 계산</summary><p><b>목적:</b> GeoPandas으로 면적 계산을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details><details><summary>10. 파일 저장</summary><p><b>목적:</b> GeoPandas으로 파일 저장을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
+plt.rc("font", family="Malgun Gothic")
+gdf=gpd.GeoDataFrame({"장소":["학교","도서관"],"인원":[30,20]},geometry=[Point(126.85,35.16),Point(126.86,35.17)],crs="EPSG:4326")
+gdf.plot(column="인원",legend=True,markersize=150)
+plt.title("장소별 인원"); plt.show()</pre></details></section><section><h2>WordCloud — 예제 10개</h2><p><code>from wordcloud import WordCloud</code></p><details><summary>1. 기본 워드클라우드</summary><p><b>목적:</b> WordCloud으로 기본 워드클라우드을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>2. 빈도 딕셔너리</summary><p><b>목적:</b> WordCloud으로 빈도 딕셔너리을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>3. 한글 글꼴</summary><p><b>목적:</b> WordCloud으로 한글 글꼴을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>4. 배경색</summary><p><b>목적:</b> WordCloud으로 배경색을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>5. 최대 단어 수</summary><p><b>목적:</b> WordCloud으로 최대 단어 수을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>6. 마스크 이미지</summary><p><b>목적:</b> WordCloud으로 마스크 이미지을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>7. 불용어</summary><p><b>목적:</b> WordCloud으로 불용어을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>8. 색상 함수</summary><p><b>목적:</b> WordCloud으로 색상 함수을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>9. 파일 저장</summary><p><b>목적:</b> WordCloud으로 파일 저장을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details><details><summary>10. 텍스트 파일 읽기</summary><p><b>목적:</b> WordCloud으로 텍스트 파일 읽기을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+font_path=r"C:\Windows\Fonts\malgun.ttf"
+text="데이터 시각화 파이썬 데이터 분석 그래프 그래프 그래프"
+wc=WordCloud(font_path=font_path, background_color="white", width=800, height=400).generate(text)
+plt.imshow(wc); plt.axis("off"); plt.show()</pre></details></section><section><h2>NetworkX — 예제 10개</h2><p><code>import networkx as nx</code></p><details><summary>1. 노드</summary><p><b>목적:</b> NetworkX으로 노드을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>2. 간선</summary><p><b>목적:</b> NetworkX으로 간선을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>3. 방향 그래프</summary><p><b>목적:</b> NetworkX으로 방향 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>4. 가중치</summary><p><b>목적:</b> NetworkX으로 가중치을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>5. 최단 경로</summary><p><b>목적:</b> NetworkX으로 최단 경로을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>6. 연결 요소</summary><p><b>목적:</b> NetworkX으로 연결 요소을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>7. 연결 중심성</summary><p><b>목적:</b> NetworkX으로 연결 중심성을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>8. 매개 중심성</summary><p><b>목적:</b> NetworkX으로 매개 중심성을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>9. 랜덤 그래프</summary><p><b>목적:</b> NetworkX으로 랜덤 그래프을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details><details><summary>10. 친구 관계 분석</summary><p><b>목적:</b> NetworkX으로 친구 관계 분석을(를) 출력하는 기본 예제입니다.</p><p><b>핵심:</b> 실행 후 그래프 창 또는 HTML 파일에서 결과를 확인합니다.</p><pre>import matplotlib.pyplot as plt
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
+import networkx as nx
+G=nx.Graph()
+G.add_edges_from([("민수","지수"),("지수","현우"),("현우","서연"),("민수","현우")])
+pos=nx.spring_layout(G, seed=7)
+nx.draw_networkx_nodes(G,pos,node_size=1800)
+nx.draw_networkx_edges(G,pos,width=2)
+nx.draw_networkx_labels(G,pos,font_family="Malgun Gothic",font_size=13)
+plt.axis("off"); plt.show()</pre></details></section></body></html>
