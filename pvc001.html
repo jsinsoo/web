@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보과학 융합 발명 프로젝트 20선 (파이썬 코드 포함)</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --code-text: #f8fafc;
+        }
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        .badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .flow-step {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .step-label {
+            font-weight: 700;
+            color: var(--text-primary);
+            display: inline-block;
+            width: 120px;
+        }
+        .step-content {
+            color: var(--text-secondary);
+        }
+        .code-container {
+            margin-top: 16px;
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .code-header {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        pre {
+            margin: 0;
+            padding: 12px;
+            overflow-x: auto;
+            max-height: 250px;
+        }
+        code {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: var(--code-text);
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>정보과학 융합 발명 프로젝트 20선 (시뮬레이션 코드)</h1>
+        <div class="grid">
+
+            <!-- 프로젝트 1 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">1. 스마트 재활용 쓰레기 자동 분류기</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">혼합 쓰레기 수거로 인한 재활용률 저하 및 분류 인력 부족.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">투입된 물체 감지 수치에 따라 분입구가 열려 자동 분류.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">쓰레기 객체가 센서를 지나 재질별 위치로 분기 이동.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">If-Else 조건문 기반 재질 코드 매핑 및 분류.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">100개 무작위 객체 투입 시 분류 정확도(%) 및 처리 시간 측정.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">미인식 객체 발생 시 예외 처리(Try-Except)로 일반 쓰레기함 이송.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle, random
+
+t = turtle.Turtle()
+t.speed(3)
+
+# 1: 플라스틱(-100), 2: 캔(0), 3: 종이(100)
+waste_type = random.choice([1, 2, 3])
+t.penup()
+t.goto(0, 200) # 투입구
+t.pendown()
+
+# 센서 판별 알고리즘
+if waste_type == 1:
+    target_x, color = -100, "blue"
+elif waste_type == 2:
+    target_x, color = 0, "red"
+else:
+    target_x, color = 100, "yellow"
+
+t.color(color)
+t.goto(0, 0) # 센서 위치
+t.goto(target_x, -150) # 자동 분류 분기점 이동
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 2 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">2. 자율주행 스마트 주차 안내 시스템</h2>
+                        <span class="badge">Web VPython</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">주차장 내 빈 공간 탐색 지연으로 인한 정체 및 에너지 소비.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">입구 센서가 최단 거리의 빈 주차면을 산출해 차를 자율 유도.</span></div>
+                    <div class="flow-step"><span class="step-label">3. VPython 시뮬레이션</span><span class="step-content">3D 주차장 격자망에서 차량 객체가 빈 주차 공간으로 이동.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">최단 거리 Euclidean distance 계산 알고리즘.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">주차 완료까지 소요된 총 이동 거리 및 소요 시간.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">주차 구역 충돌 방지 안전거리(0.5m) 피드백 제어 반영.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Web VPython Code</div>
+<pre><code>from vpython import *
+
+# 주차면 좌표 (x, y, z)
+slots = [vector(-5,0,0), vector(0,0,0), vector(5,0,0)]
+occupied = [True, False, True] # 2번 자리가 비어있음
+
+# 차량 및 주차장 생성
+car = box(pos=vector(0,0,-10), size=vector(2,1,4), color=color.cyan)
+
+# 최단 빈 공간 탐색
+target = None
+for i in range(len(slots)):
+    if not occupied[i]:
+        target = slots[i]
+        break
+
+# 자율주행 이동
+while mag(car.pos - target) &gt; 0.1:
+    rate(30)
+    dir = norm(target - car.pos)
+    car.pos += dir * 0.2
+print("주차 완료")</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 3 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">3. 태양 추적형 스마트 솔라 패널</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">고정식 태양광 패널의 일조각 변화에 따른 발전 효율 저하.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">조도 센서 차이값을 측정하여 항상 태양을 직각으로 추적.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">태양(원) 이동에 따라 패널(거북이)이 각도를 회전하며 일치.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">태양 좌표 기반 `towards()` 각도 추적 비례 제어.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">시간 흐름에 따른 태양-패널 간 입사각 오차(deg) 측정.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">순간적 미세 모터 떨림을 방지하기 위한 데드존(Deadzone) 적용.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle, math
+
+sun = turtle.Turtle()
+sun.shape("circle"); sun.color("orange"); sun.penup()
+
+panel = turtle.Turtle()
+panel.shape("square"); panel.shapesize(0.5, 4); panel.color("blue")
+
+# 태양 궤적 이동 및 패널 추적
+for angle in range(30, 150, 10):
+    rad = math.radians(angle)
+    sun.goto(200 * math.cos(rad), 200 * math.sin(rad))
+    
+    # 패널 각도 보정
+    target_angle = panel.towards(sun)
+    panel.setheading(target_angle)
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 4 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">4. 지능형 교차로 가변 신호 제어기</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">차량이 없는 도로에도 동일하게 배정되는 고정 신호주기 낭비.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">차선별 대기 차량 수에 맞춰 신호 시간을 가변 조절.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">대기 차량 수 산출 후 신호등 색상 및 유치시간 변경.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">Queue 길이 기반 동적 파라미터(Green Light Time) 계산.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">고정 신호 대비 차량당 평균 교차로 대기시간(초) 감소량.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">긴급 차량 감지 시 최우선 신호 부여(Priority Queue) 로직 추가.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle, random, time
+
+light = turtle.Turtle()
+light.shape("circle")
+
+# A, B 도로 대기 차량 수 무작위 생성
+queue_A = random.randint(1, 10)
+queue_B = random.randint(1, 10)
+
+# 가변 신호 시간 계산 (차량 당 1.5초)
+time_A = queue_A * 1.5
+
+# A 도로 초록불 유휴
+light.color("green")
+print(f"A도로 차량 {queue_A}대: 신호 {time_A}초 유지")
+time.sleep(1) # 시뮬레이션용 지연
+
+light.color("red")
+print("신호 변경")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 5 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">5. 실내 미세먼지 자동 환기 및 차단 창문</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">실내 CO2 증가와 외부 미세먼지 사이 환기 시점 판단 어려움.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">실내외 공기질 수치를 동시 계산해 창문 자동 개폐.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">창문 객체(Line)가 수치 비교 조건에 따라 열림/닫힘 연출.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">다중 조건문 의사결정(Decision Tree) 알고리즘.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">환기 후 실내 공기질 지수(AQI) 정상화 소요 시간.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">우천 감지 시 창문 강제 닫힘 조건문 우선순위 최상위 배정.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+window = turtle.Turtle()
+window.pensize(5)
+
+in_co2 = 1200     # 실내 CO2 (높음)
+out_pm25 = 25     # 외부 미세먼지 (양호)
+
+# 환기 여부 판단 로직
+if in_co2 &gt; 1000 and out_pm25 &lt; 35:
+    action = "OPEN"
+else:
+    action = "CLOSE"
+
+if action == "OPEN":
+    window.color("blue")
+    window.forward(100) # 창문 열림
+else:
+    window.color("red")
+    window.dot(20) # 창문 닫힘
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 6 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">6. 화재 감지 및 초동 진화 드론</h2>
+                        <span class="badge">Web VPython</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">대형 건물/산불 발생 시 소방대원 진입 지연 및 초기 진압 실패.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">열원 좌표 추적 후 최단 거리 비행하여 초기 진화.</span></div>
+                    <div class="flow-step"><span class="step-label">3. VPython 시뮬레이션</span><span class="step-content">3D 공간 내 발화점 생성 시 드론 객체의 추적 비행.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">3차원 위치 벡터 차 기반 비행 방향 계산.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">화재 발생 알림 후 발화점 도달까지 소요 시간.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">풍향 및 풍속 벡터 변수를 반영한 위치 보정 알고리즘.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Web VPython Code</div>
+<pre><code>from vpython import *
+
+fire = sphere(pos=vector(10, 5, 8), radius=1, color=color.red)
+drone = cone(pos=vector(0,0,0), axis=vector(0,1,0), radius=0.5, color=color.yellow)
+
+# 드론 이동 알고리즘
+while mag(drone.pos - fire.pos) &gt; 1.0:
+    rate(20)
+    velocity = norm(fire.pos - drone.pos) * 0.5
+    drone.pos += velocity
+
+print("화재 지점 도달 - 소화탄 발사")</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 7 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">7. 독거노인 낙상 감지 스마트 밴드</h2>
+                        <span class="badge">Web VPython</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">낙상 사고 발생 시 의식 불명으로 구조 요청 불가능.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">급격한 가속도 및 기울기 변화 감지 시 SOS 자동 송신.</span></div>
+                    <div class="flow-step"><span class="step-label">3. VPython 시뮬레이션</span><span class="step-content">인체 3D 객체의 기울어짐 속도로 낙상 여부 감지.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">가속도 변화율(Jerk) 및 임계값(Threshold) 비교.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">일상 동작(앉기)과 낙상 구분 정확도(True Positive Rate).</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">낙상 후 10초간 무이동 지속 조건 추가로 오탐지 차단.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Web VPython Code</div>
+<pre><code>from vpython import *
+
+person = cylinder(pos=vector(0,0,0), axis=vector(0,5,0), radius=0.5)
+accel = 25.0 # 가속도 센서 입력값 (m/s^2)
+
+# 낙상 임계값 19.6m/s^2 초과 여부 검사
+if accel &gt; 19.6:
+    person.axis = vector(5, 0, 0) # 쓰러짐
+    person.color = color.red
+    print("EMERGENCY: 낙상 감지!")
+else:
+    print("정상 보행")</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 8 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">8. 빗물 감지 자동 차양 빨래 건조대</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">외출 시 갑작스러운 비로 야외 건조 중인 세탁물 오염.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">수분 감지 시 차양막이 자동으로 펼쳐져 세탁물 보호.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">빗물 입자 감지 시 차양막(사각형) 전개 시각화.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">센서 센싱값의 이동 평균(Moving Average) 계산.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">빗물 감지 시점부터 차양막 완전 폐쇄까지 반응 시간.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">고습도 안개로 인한 오작동 방지 연속 2초 감지 로직 적용.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+cover = turtle.Turtle()
+rain_sensor = 80 # 수분 센서 수치 (0~100)
+
+if rain_sensor &gt; 50:
+    cover.penup()
+    cover.goto(-100, 50)
+    cover.begin_fill()
+    cover.color("gray")
+    for _ in range(2):
+        cover.forward(200); cover.right(90)
+        cover.forward(50); cover.right(90)
+    cover.end_fill()
+    print("비 감지: 차양막 작동")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 9 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">9. 해양 부유 쓰레기 자동 수거 로봇</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">해수면 부유 쓰레기로 인한 미세플라스틱 및 생태계 파괴.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">구역 내 부유 쓰레기 위치 탐지 후 최단 거리 자율 수거.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">수거 로봇 거북이가 화면의 쓰레기들을 찾아 순회.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">탐욕 알고리즘(Greedy) 기반 가까운 객체 우선 방문.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">모든 쓰레기 수거 시 이동한 총 경로 거리(px) 측정.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">배터리 잔량 15% 이하 시 출발지 자동 복귀 기능 추가.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle, math
+
+boat = turtle.Turtle()
+boat.shape("triangle")
+
+# 쓰레기 좌표 목록
+trashes = [(50, 80), (-100, 50), (30, -120)]
+
+for trash in trashes:
+    # 가장 가까운 쓰레기로 이동
+    boat.setheading(boat.towards(trash[0], trash[1]))
+    boat.goto(trash[0], trash[1])
+    boat.dot(10, "white") # 수거 완료 표현
+print("구역 내 수거 완료")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 10 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">10. 택배 물류 자동 분류 컨베이어</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">택배 물동량 폭증 시 수작업 분류로 인한 파손 및 오배송.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">운송장 코드를 스캔해 푸셔(Pusher)가 해당 레일로 분기.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">컨베이어를 따라 이동하다 코드에 따라 Y축 이동.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">해시 테이블(Hash) 목적지 코드 매핑 및 레일 분기.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">분당 처리 물동량(TPM) 및 오분류율 측정.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">컨베이어 병목 시 이동 속도를 동적으로 조절하는 감속 로직.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+box = turtle.Turtle()
+box.shape("square")
+
+item_code = "SEOUL" # 운송장 데이터
+dest_map = {"SEOUL": 100, "BUSAN": 0, "DAEGU": -100}
+
+# 레일 이동 시뮬레이션
+box.penup()
+box.goto(-200, 0)
+box.goto(0, 0) # 스캐너 위치
+
+# 목적지 분기
+target_y = dest_map.get(item_code, 0)
+box.goto(100, target_y)
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 11 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">11. 시각장애인용 스마트 지팡이</h2>
+                        <span class="badge">Web VPython</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">기존 지팡이로는 상반신 높이의 장애물 감지 불가.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">초음파 센서로 상/하방 감지 후 거리별 햅틱 진동 경고.</span></div>
+                    <div class="flow-step"><span class="step-label">3. VPython 시뮬레이션</span><span class="step-content">3D 장애물 영역 접근 시 지팡이 색상 및 신호 변경.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">거리 역비례 진동 주파수 변환 알고리즘.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">장애물 감지 반응 시간 및 오탐지율 데이터.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">내리막 계단 감지를 위한 하향 각도 감지 로직 반영.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Web VPython Code</div>
+<pre><code>from vpython import *
+
+cane = cylinder(pos=vector(0,0,0), axis=vector(0,2,0), radius=0.1)
+obstacle = box(pos=vector(0,1.5,2), size=vector(1,1,1), color=color.gray(0.5))
+
+dist = obstacle.pos.z - cane.pos.z
+
+if dist &lt; 3.0: # 3m 이내 장애물 감지
+    cane.color = color.red
+    haptic_freq = 100 / dist
+    print(f"경고! 전방 장애물 {dist}m - 진동 강도: {haptic_freq:.1f}Hz")</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 12 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">12. 스마트 팜 토양 관수 시스템</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">과도한 관수로 인한 용수 낭비 및 뿌리 썩음 발생.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">구역별 토양 수분을 측정하여 부족 구역만 정량 급수.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">구역별 수분도 상태 시각화 및 노즐 이동 관수.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">수분 임계값 이하시 On/Off 피드백 제어.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">정속 관수 대비 용수 절감률(%) 측정.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">강수 예보 연동 시 급수 시점 자동 연기 기능.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+pump = turtle.Turtle()
+soil_moisture = [20, 55, 15] # 구역별 습도(%)
+
+for i, moisture in enumerate(soil_moisture):
+    pump.penup()
+    pump.goto((i - 1) * 100, 0)
+    
+    if moisture &lt; 30: # 습도 부족 시 급수
+        pump.color("blue")
+        pump.pendown()
+        pump.circle(20)
+        print(f"{i+1}구역 급수 실행")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 13 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">13. 조류 충돌 방지 스마트 유리창</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">투명 유리창에 야생 조류가 충돌하여 사망하는 사고.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">조류 접근 감지 시 순간 도트 패턴을 가시화.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">새(Turtle)가 다가오면 유리창에 패턴 격자 생성.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">접근 속도 및 거리 벡터 임계값 판단.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">조류 회피 행동 유발 성공률 데이터.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">주/야간 조도에 맞추어 패턴 명암비 자동 조정.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+bird = turtle.Turtle(); window_pattern = turtle.Turtle()
+bird.penup(); bird.goto(-200, 0)
+
+# 새 접근 시뮬레이션
+bird.goto(-50, 0)
+
+# 거리 100 이하 감지 시 패턴 가시화
+if bird.distance(0, 0) &lt; 100:
+    window_pattern.penup()
+    for x in range(-40, 50, 20):
+        for y in range(-40, 50, 20):
+            window_pattern.goto(x, y)
+            window_pattern.dot(5, "black")
+    print("조류 접근! 방지 패턴 표시")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 14 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">14. 스쿨존 스마트 횡단보도 차단기</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">스쿨존 보행자의 무단횡단 및 돌발 진입 사고.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">보행 신호 적색 시 물리 차단 바(Bar) 하강.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">신호등 색상에 따라 차단 바 승강 연출.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">유한 상태 머신(FSM) 인터락 제어 logic.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">차단기 작동 후 횡단보도 침범 건수 감소율.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">손 끼임 방지 끼임 감지 시 자동 반전 승상 로직.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+bar = turtle.Turtle()
+bar.pensize(8)
+
+signal = "RED" # 보행자 신호
+
+if signal == "RED":
+    bar.color("red")
+    bar.forward(100) # 차단막 내려옴
+    print("보행 금지: 차단기 작동")
+else:
+    bar.color("green")
+    bar.left(90); bar.forward(100) # 차단기 열림
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 15 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">15. 지진 감지 가스/전기 자동 차단기</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">지진 발생 후 가스 누출 등으로 인한 2차 대형 화재.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">P파 진동 감지 시 메인 가스 밸브 차단.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">진동 파형 시각화 및 밸브 회전 닫힘 연출.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">파형 진폭 임계값 초과 순간 밸브 릴레이 차단.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">P파 감지 후 차단까지 골든타임 측정(초).</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">일상 충격 오탐 방지를 위한 고주파 필터링 적용.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle, math
+
+wave = turtle.Turtle()
+valve = turtle.Turtle()
+
+# 지진 파형 수치 입력 시뮬레이션
+quake_intensity = 6.5 # 규모
+
+if quake_intensity &gt; 5.0:
+    # 밸브 닫기 시각화
+    valve.shape("square")
+    valve.color("red")
+    valve.shapesize(0.5, 3)
+    valve.right(90) # 차단
+    print("지진 감지: 가스 밸브 즉시 차단")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 16 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">16. 도서관 오배치 도서 탐지 로봇</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">잘못된 위치의 책으로 인한 이용자 검색 불편.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">서가 청구기호를 순차 스캔하여 순서 오류 도서 탐지.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">로봇 거북이가 서가를 따라 이동하며 번호 검사.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">선형 탐색 정렬 검사(Ascending Order Check).</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">100권 당 오배치 도서 탐지 정확도.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">오배치 도서의 원래 정위치 서가 안내 기능 추가.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+scanner = turtle.Turtle()
+books = [101, 102, 105, 103, 106] # 103번 오배치
+
+prev = 0
+for i, book in enumerate(books):
+    scanner.goto(i * 30, 0)
+    if book &lt; prev:
+        scanner.dot(15, "red")
+        print(f"오배치 도서 발견: 번호 {book}")
+    else:
+        scanner.dot(10, "green")
+    prev = book
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 17 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">17. 신선도 유지 스마트 무인 택배함</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">냉장 택배의 방치로 인한 식품 변질 문제.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">품목 데이터 파싱 후 내부 온도 능동 제어.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">택배함 셀 상태 및 온도 모니터링 시각화.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">목표 온도 유지 On/Off 릴레이 제어.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">외기온 상승 시 보관함 내부 온도 유지 성능.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">수령 지연 시 수령인에게 재촉 알림 유도 logic.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+box = turtle.Turtle()
+is_fresh_food = True
+current_temp = 12 # 현재 12도
+
+if is_fresh_food and current_temp &gt; 4:
+    box.color("blue") # 냉장 모드 가동
+    box.begin_fill()
+    for _ in range(4): box.forward(50); box.left(90)
+    box.end_fill()
+    print("신선 식품 감지: 냉장기 가동 (목표 4도)")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 18 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">18. 탁도 감지 텀블러 자동 세척기</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">덜 닦인 세제로 인한 위생 및 건강 위협.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">세척 배출수의 탁도를 감지해 세척 횟수 동적 결정.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">세척 회차별 탁도 감소 그래프 시각화.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">탁도 수치 조건 만족 시까지 반복 Loop.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">고정 시간 세척 대비 세척 용수 절감량.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">용기 깊이에 맞춰 노즐 이동 높이 조절 로직.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+cleaner = turtle.Turtle()
+turbidity = 80 # 초기 탁도
+wash_count = 0
+
+while turbidity &gt; 10: # 탁도 10 이하까지 세척
+    wash_count += 1
+    turbidity -= 25 # 세척 1회당 탁도 감소
+    cleaner.goto(wash_count * 30, turbidity)
+    cleaner.dot(10, "blue")
+
+print(f"총 {wash_count}회 세척 후 완료 (탁도 {turbidity})")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 19 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">19. 휠체어 능동 수평 유지 경사로 시트</h2>
+                        <span class="badge">Web VPython</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">경사로 이동 시 탑승자 기울어짐 및 전복 불안감.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">지면 경사각을 측정해 시트를 역방향 보정 회전.</span></div>
+                    <div class="flow-step"><span class="step-label">3. VPython 시뮬레이션</span><span class="step-content">경사면을 오르는 휠체어 시트 수평 유지 보정.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">자이로 각도 피드백 상쇄 역운동학 계산.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">경사각 15도 주행 시 시트 수평 정밀도(deg).</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">노면 턱 진입 시 과도 제어 방지용 댐핑 필터.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Web VPython Code</div>
+<pre><code>from vpython import *
+
+ground_angle = radians(15) # 경사도 15도
+wheelchair = box(pos=vector(0,0,0), size=vector(3,0.5,2), color=color.gray(0.5))
+seat = box(pos=vector(0,1,0), size=vector(2,0.2,2), color=color.red)
+
+# 차체 경사 적용
+wheelchair.rotate(angle=ground_angle, axis=vector(0,0,1))
+
+# 시트 능동 수평 역회전 보정
+seat.rotate(angle=-ground_angle, axis=vector(0,0,1))
+print("시트 수평 보정 완료")</code></pre>
+                </div>
+            </div>
+
+            <!-- 프로젝트 20 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">20. 공공도서관 좌석 점유 자동 관리기</h2>
+                        <span class="badge">Python Turtle</span>
+                    </div>
+                    <div class="flow-step"><span class="step-label">1. 문제 발견</span><span class="step-content">좌석에 물건만 두고 장시간 자리를 비우는 독점 문제.</span></div>
+                    <div class="flow-step"><span class="step-label">2. 발명 아이디어</span><span class="step-content">좌석 인체 센서 연동 이석 타임아웃 시 자동 퇴실.</span></div>
+                    <div class="flow-step"><span class="step-label">3. Turtle 시뮬레이션</span><span class="step-content">좌석 그리드 상의 이석 시간 카운트다운 표시.</span></div>
+                    <div class="flow-step"><span class="step-label">4. 알고리즘 적용</span><span class="step-content">타이머 상태 머신(State Machine) 카운트다운.</span></div>
+                    <div class="flow-step"><span class="step-label">5. 데이터 측정</span><span class="step-content">좌석 회전율 증가폭 및 자동 회수 건수.</span></div>
+                    <div class="flow-step"><span class="step-label">6. 개선</span><span class="step-content">외출 버튼 입력 시 유예시간(30분) 예외 로직 부여.</span></div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Turtle Code</div>
+<pre><code>import turtle
+
+seat = turtle.Turtle()
+seat.shape("square"); seat.shapesize(2, 2)
+
+is_occupied = False # 사람 없음
+absence_time = 40  # 40분째 이석 중 (기준 30분)
+
+if not is_occupied and absence_time &gt; 30:
+    seat.color("green") # 사용 가능 전환
+    print("이석 시간 초과: 자동 퇴실 처리 (좌석 개방)")
+else:
+    seat.color("red")
+turtle.done()</code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
