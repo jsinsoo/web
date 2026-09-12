@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>인접 리스트 구분 A형·B형·C형 30문항</title>
+<style>
+:root {
+  --bg:#f6f8fb; --card:#fff; --ink:#182230; --muted:#64748b;
+  --line:#dbe3ee; --good:#0f766e; --bad:#b42318; --accent:#3157d5;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;background:var(--bg);color:var(--ink);line-height:1.68}
+header{position:sticky;top:0;z-index:5;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar{max-width:1180px;margin:auto;padding:10px 18px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.toolbar strong{margin-right:auto}
+select,input,textarea,button{font:inherit}
+select,.smallbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px}
+.smallbtn{cursor:pointer}
+main{max-width:1180px;margin:24px auto;padding:0 18px 80px}
+.hero{background:linear-gradient(135deg,#eef3ff,#fff);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px}
+.hero h1{margin:.1em 0 .35em;font-size:clamp(1.5rem,3vw,2.2rem)}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.summary>div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+section{margin:26px 0 38px}
+.section-title{display:flex;align-items:end;gap:10px;border-bottom:2px solid var(--line);padding-bottom:8px}
+.section-title h2{margin:0}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 3px 12px #1831530b}
+.qhead{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.badge{font-size:.86rem;padding:4px 9px;border-radius:999px;background:#eef3ff;color:#2343a6;font-weight:700}
+pre{background:#111827;color:#f8fafc;border-radius:12px;padding:16px;overflow:auto;white-space:pre;tab-size:4}
+.answerbox{width:100%;min-height:84px;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fbfdff}
+.feedback{display:none;margin-top:12px;border-radius:10px;padding:12px}
+.feedback.good{display:block;background:#ecfdf3;border:1px solid #abefc6;color:#067647}
+.feedback.bad{display:block;background:#fff1f0;border:1px solid #fecdca;color:#b42318}
+.solution{display:none;margin-top:10px;padding:12px 14px;border-left:4px solid var(--accent);background:#f7f9ff;border-radius:8px}
+.solution.show{display:block}
+.controls{position:sticky;bottom:0;background:#ffffffee;backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 0;margin-top:26px}
+.controls-inner{max-width:1180px;margin:auto;padding:0 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.primary{border:0;background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-weight:700;cursor:pointer}
+.secondary{border:1px solid var(--line);background:#fff;padding:10px 16px;border-radius:10px;cursor:pointer}
+.score{font-weight:800;margin-left:auto}
+.note{color:var(--muted);font-size:.94rem}
+details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-top:12px}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+th{background:#f2f5fa}
+@media(max-width:760px){.summary{grid-template-columns:1fr}.score{width:100%;margin-left:0}}
+@media print{header,.controls,.answerbox,.smallbtn{display:none!important}body{background:#fff}.qcard{box-shadow:none;break-inside:avoid}.solution{display:block}}
+</style>
+</head>
+<body>
+<header>
+  <div class="toolbar">
+    <strong>인접 리스트 구분 학습</strong>
+    <select id="jump">
+      <option value="">단원 이동</option>
+      <option value="intro">핵심 개념</option>
+      <option value="A형">A형 10문항</option>
+      <option value="B형">B형 10문항</option>
+      <option value="C형">C형 10문항</option>
+    </select>
+    <button class="smallbtn" onclick="window.print()">인쇄/PDF</button>
+    <button class="smallbtn" onclick="toggleAllSolutions()">전체 풀이 보기/숨기기</button>
+  </div>
+</header>
+
+<main>
+<section id="intro" class="hero">
+  <h1>A형·B형·C형 인접 리스트 출력 문제 30문항</h1>
+  <p>각 문항의 Python 코드를 읽고 <b>print()의 출력 결과</b>를 그대로 작성하세요. 제출하면 자동 채점되고, 각 문항의 정오답과 상세 풀이가 표시되며 TXT 결과 파일이 저장됩니다.</p>
+  <div class="summary">
+    <div><b>A형</b><br>숫자 정점 + 리스트 안의 리스트<br><span class="note">무방향: 양쪽 모두 저장</span></div>
+    <div><b>B형</b><br>문자 정점 + 딕셔너리<br><span class="note">부모 → 자식만 저장</span></div>
+    <div><b>C형</b><br>문자 정점 + 딕셔너리<br><span class="note">무방향: 양쪽 모두 저장</span></div>
+  </div>
+  <details open>
+    <summary><b>시험에서 꼭 구별할 핵심</b></summary>
+    <table>
+      <tr><th>유형</th><th>핵심 코드</th><th>의미</th></tr>
+      <tr><td>A형</td><td><code>graph[a].append(b)<br>graph[b].append(a)</code></td><td>숫자 정점의 모든 이웃을 리스트 기반 인접 리스트에 저장</td></tr>
+      <tr><td>B형</td><td><code>tree[parent].append(child)</code></td><td>부모에서 자식 방향만 저장한 루트 트리의 자식 목록</td></tr>
+      <tr><td>C형</td><td><code>graph[a].append(b)<br>graph[b].append(a)</code></td><td>문자 정점의 모든 이웃을 딕셔너리 기반 인접 리스트에 저장</td></tr>
+    </table>
+  </details>
+</section>
+
+<div id="quiz"></div>
+</main>
+
+<div class="controls">
+  <div class="controls-inner">
+    <label>학번 <input id="studentNo" placeholder="예: 1100" style="width:120px"></label>
+    <label>이름 <input id="studentName" placeholder="이름" style="width:120px"></label>
+    <button class="primary" onclick="gradeQuiz()">채점 및 TXT 저장</button>
+    <button class="secondary" onclick="resetQuiz()">초기화</button>
+    <div class="score" id="scoreText">미채점</div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"type": "A형", "num": 1, "code": "n = 4\nedges = [(0, 1), (0, 2), (1, 3)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1, 2], [0, 3], [0], [1]]", "explanation": "이 코드는 정점 0부터 3까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1, 2], [0, 3], [0], [1]] 입니다."}, {"type": "A형", "num": 2, "code": "n = 5\nedges = [(0, 1), (1, 2), (1, 3), (3, 4)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1], [0, 2, 3], [1], [1, 4], [3]]", "explanation": "이 코드는 정점 0부터 4까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1], [0, 2, 3], [1], [1, 4], [3]] 입니다."}, {"type": "A형", "num": 3, "code": "n = 6\nedges = [(0, 1), (0, 2), (2, 3), (2, 4), (4, 5)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1, 2], [0], [0, 3, 4], [2], [2, 5], [4]]", "explanation": "이 코드는 정점 0부터 5까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1, 2], [0], [0, 3, 4], [2], [2, 5], [4]] 입니다."}, {"type": "A형", "num": 4, "code": "n = 5\nedges = [(0, 2), (0, 4), (1, 2), (2, 3)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[2, 4], [2], [0, 1, 3], [2], [0]]", "explanation": "이 코드는 정점 0부터 4까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[2, 4], [2], [0, 1, 3], [2], [0]] 입니다."}, {"type": "A형", "num": 5, "code": "n = 6\nedges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1], [0, 2], [1, 3], [2, 4], [3, 5], [4]]", "explanation": "이 코드는 정점 0부터 5까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1], [0, 2], [1, 3], [2, 4], [3, 5], [4]] 입니다."}, {"type": "A형", "num": 6, "code": "n = 7\nedges = [(0, 1), (0, 2), (1, 3), (1, 4), (2, 5), (2, 6)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1, 2], [0, 3, 4], [0, 5, 6], [1], [1], [2], [2]]", "explanation": "이 코드는 정점 0부터 6까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1, 2], [0, 3, 4], [0, 5, 6], [1], [1], [2], [2]] 입니다."}, {"type": "A형", "num": 7, "code": "n = 6\nedges = [(0, 3), (1, 3), (2, 3), (3, 4), (3, 5)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[3], [3], [3], [0, 1, 2, 4, 5], [3], [3]]", "explanation": "이 코드는 정점 0부터 5까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[3], [3], [3], [0, 1, 2, 4, 5], [3], [3]] 입니다."}, {"type": "A형", "num": 8, "code": "n = 5\nedges = [(0, 1), (0, 3), (1, 2), (2, 4)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1, 3], [0, 2], [1, 4], [0], [2]]", "explanation": "이 코드는 정점 0부터 4까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1, 3], [0, 2], [1, 4], [0], [2]] 입니다."}, {"type": "A형", "num": 9, "code": "n = 6\nedges = [(0, 2), (0, 5), (1, 2), (2, 3), (3, 4)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[2, 5], [2], [0, 1, 3], [2, 4], [3], [0]]", "explanation": "이 코드는 정점 0부터 5까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[2, 5], [2], [0, 1, 3], [2, 4], [3], [0]] 입니다."}, {"type": "A형", "num": 10, "code": "n = 6\nedges = [(0, 1), (0, 2), (1, 4), (2, 3), (2, 5)]\ngraph = [[] for _ in range(n)]\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "[[1, 2], [0, 4], [0, 3, 5], [2], [1], [2]]", "explanation": "이 코드는 정점 0부터 5까지를 바깥 리스트의 인덱스로 사용합니다. 각 간선 (a, b)에 대해 graph[a]에 b를, graph[b]에 a를 모두 추가하므로 무방향 그래프의 리스트 기반 인접 리스트가 만들어집니다. 간선을 입력된 순서대로 처리하면 출력은 [[1, 2], [0, 4], [0, 3, 5], [2], [1], [2]] 입니다."}, {"type": "B형", "num": 1, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F']\nedges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'), ('C', 'F')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'A': ['B', 'C'], 'B': ['D', 'E'], 'C': ['F'], 'D': [], 'E': [], 'F': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'A': ['B', 'C'], 'B': ['D', 'E'], 'C': ['F'], 'D': [], 'E': [], 'F': []} 입니다."}, {"type": "B형", "num": 2, "code": "nodes = ['A', 'B', 'C', 'D', 'E']\nedges = [('A', 'B'), ('A', 'C'), ('C', 'D'), ('C', 'E')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'A': ['B', 'C'], 'B': [], 'C': ['D', 'E'], 'D': [], 'E': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'A': ['B', 'C'], 'B': [], 'C': ['D', 'E'], 'D': [], 'E': []} 입니다."}, {"type": "B형", "num": 3, "code": "nodes = ['R', 'A', 'B', 'C', 'D', 'E']\nedges = [('R', 'A'), ('R', 'B'), ('A', 'C'), ('A', 'D'), ('B', 'E')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'R': ['A', 'B'], 'A': ['C', 'D'], 'B': ['E'], 'C': [], 'D': [], 'E': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'R': ['A', 'B'], 'A': ['C', 'D'], 'B': ['E'], 'C': [], 'D': [], 'E': []} 입니다."}, {"type": "B형", "num": 4, "code": "nodes = ['P', 'Q', 'R', 'S', 'T']\nedges = [('P', 'Q'), ('P', 'R'), ('Q', 'S'), ('S', 'T')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'P': ['Q', 'R'], 'Q': ['S'], 'R': [], 'S': ['T'], 'T': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'P': ['Q', 'R'], 'Q': ['S'], 'R': [], 'S': ['T'], 'T': []} 입니다."}, {"type": "B형", "num": 5, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']\nedges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'E'), ('C', 'F'), ('F', 'G')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'A': ['B', 'C'], 'B': ['D'], 'C': ['E', 'F'], 'D': [], 'E': [], 'F': ['G'], 'G': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'A': ['B', 'C'], 'B': ['D'], 'C': ['E', 'F'], 'D': [], 'E': [], 'F': ['G'], 'G': []} 입니다."}, {"type": "B형", "num": 6, "code": "nodes = ['M', 'N', 'O', 'P', 'Q', 'R']\nedges = [('M', 'N'), ('M', 'O'), ('N', 'P'), ('N', 'Q'), ('O', 'R')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'M': ['N', 'O'], 'N': ['P', 'Q'], 'O': ['R'], 'P': [], 'Q': [], 'R': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'M': ['N', 'O'], 'N': ['P', 'Q'], 'O': ['R'], 'P': [], 'Q': [], 'R': []} 입니다."}, {"type": "B형", "num": 7, "code": "nodes = ['K', 'L', 'M', 'N', 'O']\nedges = [('K', 'L'), ('L', 'M'), ('L', 'N'), ('N', 'O')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'K': ['L'], 'L': ['M', 'N'], 'M': [], 'N': ['O'], 'O': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'K': ['L'], 'L': ['M', 'N'], 'M': [], 'N': ['O'], 'O': []} 입니다."}, {"type": "B형", "num": 8, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F']\nedges = [('A', 'B'), ('B', 'C'), ('B', 'D'), ('D', 'E'), ('D', 'F')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'A': ['B'], 'B': ['C', 'D'], 'C': [], 'D': ['E', 'F'], 'E': [], 'F': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'A': ['B'], 'B': ['C', 'D'], 'C': [], 'D': ['E', 'F'], 'E': [], 'F': []} 입니다."}, {"type": "B형", "num": 9, "code": "nodes = ['H', 'I', 'J', 'K', 'L', 'M']\nedges = [('H', 'I'), ('H', 'J'), ('I', 'K'), ('J', 'L'), ('J', 'M')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'H': ['I', 'J'], 'I': ['K'], 'J': ['L', 'M'], 'K': [], 'L': [], 'M': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'H': ['I', 'J'], 'I': ['K'], 'J': ['L', 'M'], 'K': [], 'L': [], 'M': []} 입니다."}, {"type": "B형", "num": 10, "code": "nodes = ['S', 'A', 'B', 'C', 'D', 'E', 'F']\nedges = [('S', 'A'), ('S', 'B'), ('A', 'C'), ('A', 'D'), ('B', 'E'), ('E', 'F')]\n\ntree = {node: [] for node in nodes}\n\nfor parent, child in edges:\n    tree[parent].append(child)\n\nprint(tree)", "answer": "{'S': ['A', 'B'], 'A': ['C', 'D'], 'B': ['E'], 'C': [], 'D': [], 'E': ['F'], 'F': []}", "explanation": "이 코드는 각 튜플을 (부모, 자식)으로 해석합니다. tree[parent].append(child)만 실행하므로 자식에서 부모 방향은 저장하지 않습니다. 따라서 루트 트리의 '자식 목록'이 딕셔너리로 만들어집니다. 출력은 {'S': ['A', 'B'], 'A': ['C', 'D'], 'B': ['E'], 'C': [], 'D': [], 'E': ['F'], 'F': []} 입니다."}, {"type": "C형", "num": 1, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F']\nedges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'), ('C', 'F')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B'], 'F': ['C']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B'], 'F': ['C']} 입니다."}, {"type": "C형", "num": 2, "code": "nodes = ['A', 'B', 'C', 'D', 'E']\nedges = [('A', 'B'), ('A', 'D'), ('B', 'C'), ('C', 'E')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'A': ['B', 'D'], 'B': ['A', 'C'], 'C': ['B', 'E'], 'D': ['A'], 'E': ['C']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'A': ['B', 'D'], 'B': ['A', 'C'], 'C': ['B', 'E'], 'D': ['A'], 'E': ['C']} 입니다."}, {"type": "C형", "num": 3, "code": "nodes = ['P', 'Q', 'R', 'S', 'T']\nedges = [('P', 'Q'), ('P', 'R'), ('Q', 'S'), ('R', 'T')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'P': ['Q', 'R'], 'Q': ['P', 'S'], 'R': ['P', 'T'], 'S': ['Q'], 'T': ['R']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'P': ['Q', 'R'], 'Q': ['P', 'S'], 'R': ['P', 'T'], 'S': ['Q'], 'T': ['R']} 입니다."}, {"type": "C형", "num": 4, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F']\nedges = [('A', 'D'), ('B', 'D'), ('C', 'D'), ('D', 'E'), ('E', 'F')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'A': ['D'], 'B': ['D'], 'C': ['D'], 'D': ['A', 'B', 'C', 'E'], 'E': ['D', 'F'], 'F': ['E']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'A': ['D'], 'B': ['D'], 'C': ['D'], 'D': ['A', 'B', 'C', 'E'], 'E': ['D', 'F'], 'F': ['E']} 입니다."}, {"type": "C형", "num": 5, "code": "nodes = ['K', 'L', 'M', 'N', 'O']\nedges = [('K', 'L'), ('L', 'M'), ('L', 'N'), ('N', 'O')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'K': ['L'], 'L': ['K', 'M', 'N'], 'M': ['L'], 'N': ['L', 'O'], 'O': ['N']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'K': ['L'], 'L': ['K', 'M', 'N'], 'M': ['L'], 'N': ['L', 'O'], 'O': ['N']} 입니다."}, {"type": "C형", "num": 6, "code": "nodes = ['H', 'I', 'J', 'K', 'L', 'M']\nedges = [('H', 'I'), ('H', 'J'), ('I', 'K'), ('J', 'L'), ('J', 'M')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'H': ['I', 'J'], 'I': ['H', 'K'], 'J': ['H', 'L', 'M'], 'K': ['I'], 'L': ['J'], 'M': ['J']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'H': ['I', 'J'], 'I': ['H', 'K'], 'J': ['H', 'L', 'M'], 'K': ['I'], 'L': ['J'], 'M': ['J']} 입니다."}, {"type": "C형", "num": 7, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']\nedges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'E'), ('C', 'F'), ('F', 'G')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'E', 'F'], 'D': ['B'], 'E': ['C'], 'F': ['C', 'G'], 'G': ['F']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'E', 'F'], 'D': ['B'], 'E': ['C'], 'F': ['C', 'G'], 'G': ['F']} 입니다."}, {"type": "C형", "num": 8, "code": "nodes = ['U', 'V', 'W', 'X', 'Y']\nedges = [('U', 'V'), ('V', 'W'), ('W', 'X'), ('X', 'Y')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'U': ['V'], 'V': ['U', 'W'], 'W': ['V', 'X'], 'X': ['W', 'Y'], 'Y': ['X']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'U': ['V'], 'V': ['U', 'W'], 'W': ['V', 'X'], 'X': ['W', 'Y'], 'Y': ['X']} 입니다."}, {"type": "C형", "num": 9, "code": "nodes = ['A', 'B', 'C', 'D', 'E', 'F']\nedges = [('A', 'B'), ('A', 'F'), ('B', 'C'), ('C', 'D'), ('D', 'E')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'A': ['B', 'F'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['D'], 'F': ['A']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'A': ['B', 'F'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['D'], 'F': ['A']} 입니다."}, {"type": "C형", "num": 10, "code": "nodes = ['R', 'S', 'T', 'U', 'V', 'W']\nedges = [('R', 'S'), ('R', 'T'), ('S', 'U'), ('T', 'V'), ('T', 'W')]\n\ngraph = {node: [] for node in nodes}\n\nfor a, b in edges:\n    graph[a].append(b)\n    graph[b].append(a)\n\nprint(graph)", "answer": "{'R': ['S', 'T'], 'S': ['R', 'U'], 'T': ['R', 'V', 'W'], 'U': ['S'], 'V': ['T'], 'W': ['T']}", "explanation": "이 코드는 문자열 정점을 딕셔너리의 키로 사용합니다. 각 간선 (a, b)에 대해 a의 목록에 b를 넣고 b의 목록에도 a를 넣으므로 무방향 그래프의 딕셔너리 기반 인접 리스트가 됩니다. 출력은 {'R': ['S', 'T'], 'S': ['R', 'U'], 'T': ['R', 'V', 'W'], 'U': ['S'], 'V': ['T'], 'W': ['T']} 입니다."}];
+
+function esc(s) {
+  return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+function render() {
+  const root = document.getElementById("quiz");
+  let html = "";
+  for (const type of ["A형","B형","C형"]) {
+    const qs = QUESTIONS.filter(q => q.type === type);
+    const desc = type==="A형"
+      ? "숫자 정점 · 리스트 기반 · 무방향 인접 리스트"
+      : type==="B형"
+      ? "문자 정점 · 딕셔너리 · 부모→자식만 저장"
+      : "문자 정점 · 딕셔너리 기반 · 무방향 인접 리스트";
+    html += `<section id="${type}"><div class="section-title"><h2>${type}</h2><span class="note">${desc}</span></div>`;
+    for (const q of qs) {
+      const idx = QUESTIONS.indexOf(q);
+      html += `
+      <article class="qcard">
+        <div class="qhead"><h3>${q.type} ${q.num}번</h3><span class="badge">출력 결과 쓰기</span></div>
+        <p>다음 Python 코드를 실행했을 때 출력 결과를 쓰시오.</p>
+        <pre><code>${esc(q.code)}</code></pre>
+        <textarea class="answerbox" id="ans-${idx}" placeholder="print()의 출력 결과를 입력하세요."></textarea>
+        <div class="feedback" id="fb-${idx}"></div>
+        <div class="solution" id="sol-${idx}">
+          <b>정답</b>
+          <pre><code>${esc(q.answer)}</code></pre>
+          <b>상세 풀이</b>
+          <p>${esc(q.explanation)}</p>
+        </div>
+      </article>`;
+    }
+    html += "</section>";
+  }
+  root.innerHTML = html;
+}
+
+function normalize(s) {
+  return s
+    .trim()
+    .replace(/[“”]/g,'"')
+    .replace(/[‘’]/g,"'")
+    .replace(/"/g,"'")
+    .replace(/\s+/g,"")
+    .replace(/,]/g,"]")
+    .replace(/,}/g,"}");
+}
+
+function safeFilePart(s) {
+  return (s || "미입력").replace(/[\\/:*?"<>|\s]+/g, "_").slice(0,40);
+}
+
+function stamp() {
+  const d = new Date();
+  const p = n => String(n).padStart(2,"0");
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+
+function gradeQuiz() {
+  let correct = 0;
+  const lines = [];
+  const no = document.getElementById("studentNo").value.trim();
+  const name = document.getElementById("studentName").value.trim();
+
+  if (!no || !name) {
+    alert("학번과 이름을 먼저 입력하세요.");
+    return;
+  }
+
+  lines.push("인접리스트구분 자동채점 결과");
+  lines.push(`학번: ${no}`);
+  lines.push(`이름: ${name}`);
+  lines.push(`응시시각: ${new Date().toLocaleString("ko-KR")}`);
+  lines.push("");
+
+  QUESTIONS.forEach((q, i) => {
+    const raw = document.getElementById(`ans-${i}`).value;
+    const ok = normalize(raw) === normalize(q.answer);
+    if (ok) correct++;
+
+    const fb = document.getElementById(`fb-${i}`);
+    fb.className = "feedback " + (ok ? "good" : "bad");
+    fb.innerHTML = ok ? "✓ 정답입니다." : "✗ 오답입니다. 아래 정답과 풀이를 확인하세요.";
+    document.getElementById(`sol-${i}`).classList.add("show");
+
+    lines.push(`[${q.type} ${q.num}번] ${ok ? "정답" : "오답"}`);
+    lines.push(`학생 답: ${raw || "(미응답)"}`);
+    lines.push(`정답: ${q.answer}`);
+    lines.push(`풀이: ${q.explanation}`);
+    lines.push("");
+  });
+
+  const score = Math.round(correct / QUESTIONS.length * 100);
+  document.getElementById("scoreText").textContent = `점수 ${score}점 · ${correct}/${QUESTIONS.length} 정답`;
+  lines.unshift(`점수: ${score}점 (${correct}/${QUESTIONS.length})`,"");
+
+  const blob = new Blob(["\ufeff" + lines.join("\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${safeFilePart(no)}_${safeFilePart(name)}_${score}_인접리스트구분_${stamp()}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function resetQuiz() {
+  if (!confirm("모든 답안과 채점 결과를 초기화할까요?")) return;
+  document.querySelectorAll(".answerbox").forEach(x => x.value = "");
+  document.querySelectorAll(".feedback").forEach(x => {x.className="feedback"; x.textContent="";});
+  document.querySelectorAll(".solution").forEach(x => x.classList.remove("show"));
+  document.getElementById("scoreText").textContent = "미채점";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+let allShown = false;
+function toggleAllSolutions() {
+  allShown = !allShown;
+  document.querySelectorAll(".solution").forEach(x => x.classList.toggle("show", allShown));
+}
+
+document.getElementById("jump").addEventListener("change", e => {
+  if (!e.target.value) return;
+  document.getElementById(e.target.value).scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+render();
+</script>
+</body>
+</html>
