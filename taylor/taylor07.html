@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매친(Machin) 공식 파이썬 구현 상세 설명</title>
+
+<!-- MathJax v3 자동 렌더링 -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<style>
+  :root {
+    --primary-color: #0284c7;
+    --primary-dark: #0369a1;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #334155;
+    --border-color: #e2e8f0;
+    --highlight-bg: #f0f9ff;
+    --code-bg: #0f172a;
+    --code-text: #f8fafc;
+  }
+
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+    line-height: 1.75;
+    color: var(--text-color);
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: var(--bg-color);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  h1 {
+    color: #0f172a;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    color: #64748b;
+    font-size: 1.05rem;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    border-bottom: 2px solid #e0f2fe;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 18px;
+  }
+
+  .formula-box {
+    background-color: var(--highlight-bg);
+    border-left: 4px solid var(--primary-color);
+    padding: 16px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 1.05rem;
+  }
+
+  p {
+    margin-bottom: 12px;
+    word-break: keep-all;
+  }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  /* 파이썬 코드 블록 스타일링 */
+  pre {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 16px 0;
+  }
+
+  code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  }
+
+  .inline-code {
+    background-color: #f1f5f9;
+    color: #0284c7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  /* 코드 구문 하이라이트 표현 */
+  .keyword { color: #f472b6; font-weight: bold; }
+  .def { color: #38bdf8; font-weight: bold; }
+  .comment { color: #94a3b8; font-style: italic; }
+  .number { color: #facc15; }
+  .string { color: #4ade80; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+  }
+
+  th, td {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 700;
+  }
+
+  mjx-container {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    vertical-align: middle !important;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>매친(Machin) 공식 파이썬 구현 상세 설명</h1>
+  <div class="subtitle">기본 실수 연산부터 고정밀 무한 자릿수 정수 스케일링 구현까지</div>
+</header>
+
+<!-- 1. 수학적 원리 요약 -->
+<section class="card">
+  <h2 class="card-title">1. 구현을 위한 핵심 수학 공식</h2>
+  <p>매친 공식은 아래의 역탄젠트 조합식을 기반으로 원주율 $\pi$를 산출합니다.</p>
+  
+  <div class="formula-box">
+    $$\pi = 16 \arctan\left(\frac{1}{5}\right) - 4 \arctan\left(\frac{1}{239}\right)$$
+  </div>
+
+  <p>여기서 $\arctan(x)$는 테일러 급수(매클로린 전개)를 이용해 다음과 같은 무한 다항식으로 표현됩니다.</p>
+
+  <div class="formula-box">
+    $$\arctan(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1} x^{2n+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots$$
+  </div>
+</section>
+
+<!-- 2. 기본 구현 (float 기반) -->
+<section class="card">
+  <h2 class="card-title">2. 기본 파이썬 코드 (부동소수점 `float` 방식)</h2>
+  <p>파이썬의 기본 <span class="inline-code">float</span> 타입을 사용하는 가장 직관적인 형태의 코드입니다.</p>
+
+<pre><code><span class="keyword">import</span> math
+
+<span class="keyword">def</span> <span class="def">arctan_series</span>(x, terms=<span class="number">10</span>):
+    <span class="comment"># arctan(x)의 테일러 급수 계산</span>
+    result = <span class="number">0.0</span>
+    <span class="keyword">for</span> n <span class="keyword">in</span> range(terms):
+        term = ((-<span class="number">1</span>) ** n) * (x ** (<span class="number">2</span> * n + <span class="number">1</span>)) / (<span class="number">2</span> * n + <span class="number">1</span>)
+        result += term
+    <span class="keyword">return</span> result
+
+<span class="keyword">def</span> <span class="def">calculate_pi_float</span>(terms=<span class="number">10</span>):
+    <span class="comment"># 매친 공식 적용: pi = 16*arctan(1/5) - 4*arctan(1/239)</span>
+    arctan_5 = arctan_series(<span class="number">1</span> / <span class="number">5</span>, terms)
+    arctan_239 = arctan_series(<span class="number">1</span> / <span class="number">239</span>, terms)
+    <span class="keyword">return</span> <span class="number">16</span> * arctan_5 - <span class="number">4</span> * arctan_239
+
+<span class="comment"># 실행 결과 출력</span>
+pi_approx = calculate_pi_float(terms=<span class="number">10</span>)
+print(f<span class="string">"계산된 파이값 : {pi_approx:.15f}"</span>)
+print(f<span class="string">"실제 math.pi  : {math.pi:.15f}"</span>)
+print(f<span class="string">"절대 오차     : {abs(pi_approx - math.pi):.15e}"</span>)
+</code></pre>
+
+  <h3>상세 라인별 설명</h3>
+  <ul>
+    <li><span class="inline-code">arctan_series(x, terms)</span>: 테일러 급수의 $n=0$부터 <span class="inline-code">terms-1</span>까지 $n$번째 항을 계산하여 누적합니다.</li>
+    <li><span class="inline-code">(-1) ** n</span>: 교대급수의 부호($+1, -1, +1, -1, \dots$)를 결정합니다.</li>
+    <li><span class="inline-code">x ** (2 * n + 1) / (2 * n + 1)</span>: $x^{2n+1} / (2n+1)$ 항을 직접 연산합니다.</li>
+    <li><span class="inline-code">terms=10</span>: 단 10개의 항만 더해도 64비트 부동소수점이 표현할 수 있는 한계 정밀도(소수점 아래 약 15~17자리)에 완전히 도달합니다.</li>
+  </ul>
+</section>
+
+<!-- 3. 초고정밀 무한 자릿수 정수 스케일링 방식 -->
+<section class="card">
+  <h2 class="card-title">3. 고정밀 무한 자릿수 파이썬 코드 (정수 스케일링 기법)</h2>
+  <p>부동소수점 오차 한계를 극복하기 위해 파이썬의 **임의 정밀도 정수 연산(Arbitrary Precision Integer)**을 활용합니다. $10^{\text{digits}}$를 곱하여 소수점을 정수로 스케일링합니다.</p>
+
+<pre><code><span class="keyword">def</span> <span class="def">arctan_integer</span>(x, digits):
+    <span class="comment"># 부동소수점 오차 방지를 위해 10^(digits + extra) 배를 곱해 정수 연산 수행</span>
+    extra_precision = <span class="number">10</span>
+    scale = <span class="number">10</span> ** (digits + extra_precision)
+    
+    x_sq = x * x
+    term = scale // x  # 첫 번째 항: scale / x
+    total = term
+    n = <span class="number">1</span>
+    
+    <span class="keyword">while</span> term &gt; <span class="number">0</span>:
+        term //= x_sq   # 다음 x^(2n+1) 항목을 구하기 위해 x^2으로 정수 나눗셈
+        divisor = <span class="number">2</span> * n + <span class="number">1</span>
+        current_term = term // divisor
+        
+        <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">1</span>:
+            total -= current_term
+        <span class="keyword">else</span>:
+            total += current_term
+            
+        n += <span class="number">1</span>
+        
+    <span class="keyword">return</span> total
+
+<span class="keyword">def</span> <span class="def">machin_pi_high_precision</span>(digits=<span class="number">100</span>):
+    <span class="comment"># pi = 16 * arctan(1/5) - 4 * arctan(1/239)</span>
+    term_a = arctan_integer(<span class="number">5</span>, digits)
+    term_b = arctan_integer(<span class="number">239</span>, digits)
+    
+    pi_scaled = <span class="number">16</span> * term_a - <span class="number">4</span> * term_b
+    
+    <span class="comment"># 여분 정밀도(extra_precision=10)를 제거</span>
+    pi_scaled //= <span class="number">10</span> ** <span class="number">10</span>
+    
+    <span class="comment"># 문자열 변환 후 소수점 삽입</span>
+    pi_str = str(pi_scaled)
+    <span class="keyword">return</span> f<span class="string">"{pi_str[0]}.{pi_str[1:digits+1]}"</span>
+
+<span class="comment"># 소수점 아래 100자리 파이 계산 실행</span>
+target_digits = <span class="number">100</span>
+pi_100 = machin_pi_high_precision(target_digits)
+print(f<span class="string">"--- 소수점 {target_digits}자리 파이 ---"</span>)
+print(pi_100)
+</code></pre>
+
+  <h3>고정밀 알고리즘 동작 원리 분석</h3>
+  <ol>
+    <li>
+      <strong>스케일링 Factor (<span class="inline-code">scale = 10 ** (digits + 10)</span>)</strong>:
+      <br>모든 실수를 $10^{100+10}$ 만큼 크게 만들어 소수점 아래 자릿수를 정수 영역으로 올려 처리합니다.
+    </li>
+    <li>
+      <strong>점화식을 통한 효율적 승수 계산 (<span class="inline-code">term //= x_sq</span>)</strong>:
+      <br>매 루프마다 $x^{2n+1}$을 매번 제곱 연산하지 않고, 이전 항을 $x^2$으로 나누어 연산 속도를 $\mathcal{O}(N)$ 수준으로 단축시킵니다.
+    </li>
+    <li>
+      <strong>Guard Digits (여분 자릿수 보정)</strong>:
+      <br>나눗셈 반올림 오차가 누적되는 것을 막기 위해 목표 자릿수보다 10자리 많은 공간(<span class="inline-code">extra_precision</span>)에서 정수 연산을 진행한 뒤 최종 단계에서 잘라냅니다.
+    </li>
+  </ol>
+</section>
+
+<!-- 4. 두 방식의 비교 분석 -->
+<section class="card">
+  <h2 class="card-title">4. 구현 방식별 성능 비교</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>부동소수점 (`float`) 방식</th>
+        <th>정수 스케일링 (`int`) 방식</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>최대 정밀도</strong></td>
+        <td>소수점 약 15~17자리 (IEEE 754 한계)</td>
+        <td><strong>무제한 (수천~수백만 자리 가능)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>연산 속도</strong></td>
+        <td>하드웨어 가속으로 수 마이크로초 단위</td>
+        <td>자릿수에 비례하여 정수 계산 시간 증가</td>
+      </tr>
+      <tr>
+        <td><strong>주요 용도</strong></td>
+        <td>일반적인 공학 시뮬레이션 및 그래픽스</td>
+        <td>수학적 검증, 성능 벤치마킹, 암호학</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>

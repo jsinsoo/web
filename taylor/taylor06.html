@@ -1,0 +1,1048 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>테일러 급수를 활용하면 쉬워지는 수학 이야기 100가지</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--blue:#2458d3;--ink:#182238;--line:#dbe4f2;--soft:#eef4ff;--green:#08765a}
+*{box-sizing:border-box}body{margin:0;background:#f6f8fc;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.72}
+header{background:linear-gradient(135deg,#142b64,#377ce5);color:#fff;padding:42px 20px}.wrap{max-width:1200px;margin:auto}h1{margin:0 0 8px;font-size:2.15rem}
+.toolbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);padding:10px 18px}.tools{max-width:1200px;margin:auto;display:flex;gap:8px;flex-wrap:wrap}
+input,select{padding:10px;border:1px solid #b9c7dc;border-radius:8px;min-width:230px}button{border:0;border-radius:8px;background:var(--blue);color:#fff;padding:10px 14px;cursor:pointer}
+main{max-width:1200px;margin:20px auto;padding:0 18px}.intro,.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px #17233a12}.intro{padding:24px;margin-bottom:18px}
+.formula,.math{background:#f9fbff;border-left:5px solid var(--blue);padding:9px 13px;overflow:auto}.notice{background:#fff8df;border:1px solid #edda91;padding:13px;border-radius:9px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{padding:20px;position:relative}.card h3{margin:0 45px 7px 0;color:#173f98}.n{position:absolute;right:15px;top:15px;font-weight:700;color:#7b879b}
+.pill{display:inline-block;background:var(--soft);border-radius:999px;padding:2px 9px;font-size:.84rem;margin:0 4px 7px 0}.use{background:#edf9f5;color:#075f49}
+details{border-top:1px solid var(--line);padding-top:8px}summary{cursor:pointer;color:#2458d3;font-weight:700}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:1.7rem}}
+@media print{.toolbar{display:none}body{background:#fff}.grid{display:block}.card,.intro{box-shadow:none;border:1px solid #ddd;break-inside:avoid;margin:10px 0}details{display:block}details>p{display:block}}
+</style></head><body>
+<header><div class="wrap"><h1>테일러 급수를 활용하면 쉬워지는 수학 이야기 100가지</h1>
+<p>“왜 테일러 급수를 배우는가?”를 극한·미적분·삼각함수·로그·무한급수·물리·통계·컴퓨터 계산까지 100개의 연결 이야기로 살펴봅니다.</p></div></header>
+<div class="toolbar"><div class="tools">
+<input id="q" placeholder="검색: 극한, sin, 물리, Newton…" oninput="filterCards()">
+<select id="cat" onchange="filterCards()"><option value="">전체 분야</option><option>함수와 근사의 직관</option><option>극한이 쉬워지는 이야기</option><option>미분·적분이 쉬워지는 이야기</option><option>근삿값 계산이 쉬워지는 이야기</option><option>무한급수와 상수가 쉬워지는 이야기</option><option>삼각함수가 쉬워지는 이야기</option><option>지수·로그가 쉬워지는 이야기</option><option>물리·공학이 쉬워지는 이야기</option><option>확률·통계·데이터가 쉬워지는 이야기</option><option>컴퓨터·수치해석이 쉬워지는 이야기</option></select>
+<button onclick="window.print()">인쇄 / PDF</button>
+</div></div>
+<main>
+<section class="intro">
+<h2>테일러 급수의 한 문장 아이디어</h2>
+<p><b>복잡한 함수를 내가 계산하기 쉬운 다항식으로 바꾸는 것</b>입니다. \(x=a\) 가까이에서 함수의 높이, 기울기, 곡률, 더 높은 변화 정보를 차례로 맞춥니다.</p>
+<div class="formula">\[
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n+R_n(x)
+\]</div>
+<p>그래서 테일러 급수는 단순한 “급수 공식”이 아니라 <b>극한 계산기, 근삿값 계산기, 선형화 도구, 오차 분석 도구, 수치해석의 출발점</b>으로 볼 수 있습니다.</p>
+<div class="notice"><b>주의:</b> 급수와 함수가 같다고 사용할 때는 수렴 범위와 나머지항을 확인해야 합니다. 또한 \(O(x^n)\)을 이용한 작은값 근사는 해당 전개점 근처에서의 설명입니다.</div>
+</section>
+<div class="grid">
+<article class="card" data-cat="함수와 근사의 직관" data-search="곡선을 다항식으로 바꾸기 복잡한 곡선도 한 점 가까이에서는 상수·직선·포물선의 합처럼 다룰 수 있다. 그래프 계산, 근삿값">
+ <div class="n">001</div>
+ <h3>곡선을 다항식으로 바꾸기</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">그래프 계산, 근삿값</div>
+ <div class="math">\[f(x)\approx f(a)+f'(a)(x-a)+\frac{f''(a)}{2}(x-a)^2\]</div>
+ <p>복잡한 곡선도 한 점 가까이에서는 상수·직선·포물선의 합처럼 다룰 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="접선 공식이 테일러 급수의 1차 근사 미분에서 배우는 접선 근사는 사실 테일러 다항식의 첫 두 항이다. 선형화">
+ <div class="n">002</div>
+ <h3>접선 공식이 테일러 급수의 1차 근사</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">선형화</div>
+ <div class="math">\[f(x)\approx f(a)+f'(a)(x-a)\]</div>
+ <p>미분에서 배우는 접선 근사는 사실 테일러 다항식의 첫 두 항이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="2차 근사는 곡률까지 본다 1차 근사가 놓치는 휘어짐을 2차항이 보정한다. 최적화, 오차 분석">
+ <div class="n">003</div>
+ <h3>2차 근사는 곡률까지 본다</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">최적화, 오차 분석</div>
+ <div class="math">\[f(x)\approx f(a)+f'(a)h+\frac12f''(a)h^2\]</div>
+ <p>1차 근사가 놓치는 휘어짐을 2차항이 보정한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="왜 팩토리얼이 나타날까? n차항을 n번 미분하면 n!이 생기므로 계수에 1/n!이 필요하다. 테일러 계수 이해">
+ <div class="n">004</div>
+ <h3>왜 팩토리얼이 나타날까?</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">테일러 계수 이해</div>
+ <div class="math">\[\frac{d^n}{dx^n}(x-a)^n=n!\]</div>
+ <p>n차항을 n번 미분하면 n!이 생기므로 계수에 1/n!이 필요하다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="매클로린 급수는 중심이 0 0 주변의 정보만으로 함수를 표현한다. 기본 급수">
+ <div class="n">005</div>
+ <h3>매클로린 급수는 중심이 0</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">기본 급수</div>
+ <div class="math">\[f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n\]</div>
+ <p>0 주변의 정보만으로 함수를 표현한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="전개 중심을 옮기면 계산이 쉬워진다 계산하려는 값에 가까운 곳을 중심으로 잡으면 적은 항으로도 정확해진다. 수치 계산">
+ <div class="n">006</div>
+ <h3>전개 중심을 옮기면 계산이 쉬워진다</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\ln x=(x-1)-\frac{(x-1)^2}{2}+\cdots\]</div>
+ <p>계산하려는 값에 가까운 곳을 중심으로 잡으면 적은 항으로도 정확해진다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="짝함수는 짝수차 항만 대칭성 때문에 홀수차 계수가 모두 0이 된다. 함수 대칭">
+ <div class="n">007</div>
+ <h3>짝함수는 짝수차 항만</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">함수 대칭</div>
+ <div class="math">\[\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots\]</div>
+ <p>대칭성 때문에 홀수차 계수가 모두 0이 된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="홀함수는 홀수차 항만 원점대칭 때문에 짝수차 계수가 모두 0이다. 함수 대칭">
+ <div class="n">008</div>
+ <h3>홀함수는 홀수차 항만</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">함수 대칭</div>
+ <div class="math">\[\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots\]</div>
+ <p>원점대칭 때문에 짝수차 계수가 모두 0이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="함수의 국소 정보가 모여 전체 모양을 만든다 한 점에서의 모든 미분 정보를 차례로 쌓아 함수의 모습을 복원한다. 해석학의 핵심 직관">
+ <div class="n">009</div>
+ <h3>함수의 국소 정보가 모여 전체 모양을 만든다</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">해석학의 핵심 직관</div>
+ <div class="math">\[f(a),f'(a),f''(a),\ldots\]</div>
+ <p>한 점에서의 모든 미분 정보를 차례로 쌓아 함수의 모습을 복원한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="함수와 근사의 직관" data-search="나머지항은 근사의 오차표 몇 항까지 계산하면 얼마나 틀릴지 추정할 수 있다. 오차 보증">
+ <div class="n">010</div>
+ <h3>나머지항은 근사의 오차표</h3>
+ <div class="pill">함수와 근사의 직관</div><div class="pill use">오차 보증</div>
+ <div class="math">\[R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}\]</div>
+ <p>몇 항까지 계산하면 얼마나 틀릴지 추정할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="sin x / x 극한 0/0 꼴을 복잡한 변형 없이 바로 1로 읽을 수 있다. 삼각함수 극한">
+ <div class="n">011</div>
+ <h3>sin x / x 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">삼각함수 극한</div>
+ <div class="math">\[\frac{\sin x}{x}=1-\frac{x^2}{6}+O(x^4)\]</div>
+ <p>0/0 꼴을 복잡한 변형 없이 바로 1로 읽을 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="1-cos x 극한 분자에서 상수항이 소거되고 가장 낮은 차수만 보면 된다. 극한">
+ <div class="n">012</div>
+ <h3>1-cos x 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">극한</div>
+ <div class="math">\[\frac{1-\cos x}{x^2}=\frac12-\frac{x^2}{24}+\cdots\]</div>
+ <p>분자에서 상수항이 소거되고 가장 낮은 차수만 보면 된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="지수함수의 기본 극한 분자와 분모의 최저차항을 비교하면 답이 즉시 나온다. 미분계수">
+ <div class="n">013</div>
+ <h3>지수함수의 기본 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">미분계수</div>
+ <div class="math">\[\frac{e^x-1}{x}=1+\frac{x}{2}+\cdots\]</div>
+ <p>분자와 분모의 최저차항을 비교하면 답이 즉시 나온다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="로그의 기본 극한 로그도 다항식처럼 극한을 계산할 수 있다. 로그 극한">
+ <div class="n">014</div>
+ <h3>로그의 기본 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">로그 극한</div>
+ <div class="math">\[\frac{\ln(1+x)}x=1-\frac{x}{2}+\cdots\]</div>
+ <p>로그도 다항식처럼 극한을 계산할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="tan x / x 극한 삼각함수 항등식 없이도 1을 얻는다. 삼각함수 극한">
+ <div class="n">015</div>
+ <h3>tan x / x 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">삼각함수 극한</div>
+ <div class="math">\[\frac{\tan x}{x}=1+\frac{x^2}{3}+\cdots\]</div>
+ <p>삼각함수 항등식 없이도 1을 얻는다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="고차 소거 극한 앞의 항이 의도적으로 소거되면 다음 남는 항이 극한값을 결정한다. 고난도 극한">
+ <div class="n">016</div>
+ <h3>고차 소거 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">고난도 극한</div>
+ <div class="math">\[\frac{e^x-1-x}{x^2}=\frac12+\frac{x}{6}+\cdots\]</div>
+ <p>앞의 항이 의도적으로 소거되면 다음 남는 항이 극한값을 결정한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="sin x-x의 극한 세제곱항을 바로 읽어 복잡한 로피탈 반복을 피할 수 있다. 고차 극한">
+ <div class="n">017</div>
+ <h3>sin x-x의 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">고차 극한</div>
+ <div class="math">\[\frac{\sin x-x}{x^3}=-\frac16+O(x^2)\]</div>
+ <p>세제곱항을 바로 읽어 복잡한 로피탈 반복을 피할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="ln(1+x)-x의 극한 1차항 소거 뒤 2차항이 답을 결정한다. 고차 극한">
+ <div class="n">018</div>
+ <h3>ln(1+x)-x의 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">고차 극한</div>
+ <div class="math">\[\frac{\ln(1+x)-x}{x^2}=-\frac12+O(x)\]</div>
+ <p>1차항 소거 뒤 2차항이 답을 결정한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="arctan x의 극한 역삼각함수도 급수로 바꾸면 다항식 극한이 된다. 역삼각함수">
+ <div class="n">019</div>
+ <h3>arctan x의 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">역삼각함수</div>
+ <div class="math">\[\frac{\arctan x-x}{x^3}=-\frac13+O(x^2)\]</div>
+ <p>역삼각함수도 급수로 바꾸면 다항식 극한이 된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="극한이 쉬워지는 이야기" data-search="일반 거듭제곱 극한 실수 지수의 미분계수를 한 줄로 확인한다. 일반화">
+ <div class="n">020</div>
+ <h3>일반 거듭제곱 극한</h3>
+ <div class="pill">극한이 쉬워지는 이야기</div><div class="pill use">일반화</div>
+ <div class="math">\[\frac{(1+x)^\alpha-1}{x}=\alpha+O(x)\]</div>
+ <p>실수 지수의 미분계수를 한 줄로 확인한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="e^x의 미분 항별 미분하면 같은 급수가 다시 나타난다. 미분">
+ <div class="n">021</div>
+ <h3>e^x의 미분</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">미분</div>
+ <div class="math">\[\frac{d}{dx}\sum_{n=0}^\infty\frac{x^n}{n!}=\sum_{n=0}^\infty\frac{x^n}{n!}\]</div>
+ <p>항별 미분하면 같은 급수가 다시 나타난다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="sin의 미분이 cos 미분 공식이 급수의 항별 미분으로 보인다. 미분">
+ <div class="n">022</div>
+ <h3>sin의 미분이 cos</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">미분</div>
+ <div class="math">\[\frac{d}{dx}\left(x-\frac{x^3}{3!}+\cdots\right)=1-\frac{x^2}{2!}+\cdots\]</div>
+ <p>미분 공식이 급수의 항별 미분으로 보인다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="cos의 미분이 -sin 부호와 차수가 자연스럽게 이어진다. 미분">
+ <div class="n">023</div>
+ <h3>cos의 미분이 -sin</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">미분</div>
+ <div class="math">\[\frac{d}{dx}\left(1-\frac{x^2}{2!}+\cdots\right)=-x+\frac{x^3}{3!}-\cdots\]</div>
+ <p>부호와 차수가 자연스럽게 이어진다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="ln 급수를 미분하면 기하급수 로그와 기하급수의 관계가 드러난다. 미분">
+ <div class="n">024</div>
+ <h3>ln 급수를 미분하면 기하급수</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">미분</div>
+ <div class="math">\[\frac{d}{dx}\ln(1+x)=1-x+x^2-\cdots=\frac1{1+x}\]</div>
+ <p>로그와 기하급수의 관계가 드러난다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="arctan 급수의 미분 역삼각함수의 도함수를 급수로 확인한다. 미분">
+ <div class="n">025</div>
+ <h3>arctan 급수의 미분</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">미분</div>
+ <div class="math">\[(\arctan x)'=1-x^2+x^4-\cdots=\frac1{1+x^2}\]</div>
+ <p>역삼각함수의 도함수를 급수로 확인한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="e^x의 적분 항별 적분으로 정적분을 계산한다. 적분">
+ <div class="n">026</div>
+ <h3>e^x의 적분</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">적분</div>
+ <div class="math">\[\int_0^x e^t\,dt=x+\frac{x^2}{2!}+\cdots=e^x-1\]</div>
+ <p>항별 적분으로 정적분을 계산한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="cos 적분 삼각함수 적분 공식이 급수로 연결된다. 적분">
+ <div class="n">027</div>
+ <h3>cos 적분</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">적분</div>
+ <div class="math">\[\int_0^x\cos t\,dt=x-\frac{x^3}{3!}+\cdots=\sin x\]</div>
+ <p>삼각함수 적분 공식이 급수로 연결된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="sin 적분 적분 결과의 구조를 눈으로 확인한다. 적분">
+ <div class="n">028</div>
+ <h3>sin 적분</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">적분</div>
+ <div class="math">\[\int_0^x\sin t\,dt=\frac{x^2}{2!}-\frac{x^4}{4!}+\cdots=1-\cos x\]</div>
+ <p>적분 결과의 구조를 눈으로 확인한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="항별 미분으로 새 급수 만들기 기하급수를 한 번 미분하면 계수 n이 등장한다. 생성함수">
+ <div class="n">029</div>
+ <h3>항별 미분으로 새 급수 만들기</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">생성함수</div>
+ <div class="math">\[\frac1{(1-x)^2}=1+2x+3x^2+\cdots\]</div>
+ <p>기하급수를 한 번 미분하면 계수 n이 등장한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="미분·적분이 쉬워지는 이야기" data-search="항별 적분으로 새 급수 만들기 기하급수를 적분하면 조화형 계수 1/n이 생긴다. 무한급수">
+ <div class="n">030</div>
+ <h3>항별 적분으로 새 급수 만들기</h3>
+ <div class="pill">미분·적분이 쉬워지는 이야기</div><div class="pill use">무한급수</div>
+ <div class="math">\[-\ln(1-x)=x+\frac{x^2}{2}+\frac{x^3}{3}+\cdots\]</div>
+ <p>기하급수를 적분하면 조화형 계수 1/n이 생긴다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="e의 계산 계산기 없이도 항을 더해 e를 원하는 정확도로 구한다. 상수 계산">
+ <div class="n">031</div>
+ <h3>e의 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">상수 계산</div>
+ <div class="math">\[e=1+1+\frac1{2!}+\frac1{3!}+\cdots\]</div>
+ <p>계산기 없이도 항을 더해 e를 원하는 정확도로 구한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="sin 0.1 계산 작은 값에서는 두 항만으로도 매우 정확하다. 수치 계산">
+ <div class="n">032</div>
+ <h3>sin 0.1 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\sin0.1\approx0.1-\frac{0.1^3}{6}\]</div>
+ <p>작은 값에서는 두 항만으로도 매우 정확하다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="cos 0.1 계산 곱셈 몇 번으로 삼각함수 값을 근사한다. 수치 계산">
+ <div class="n">033</div>
+ <h3>cos 0.1 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\cos0.1\approx1-\frac{0.1^2}{2}\]</div>
+ <p>곱셈 몇 번으로 삼각함수 값을 근사한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="ln 1.1 계산 로그표 없이 로그를 계산하는 원리를 보여준다. 수치 계산">
+ <div class="n">034</div>
+ <h3>ln 1.1 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\ln1.1\approx0.1-\frac{0.1^2}{2}+\frac{0.1^3}{3}\]</div>
+ <p>로그표 없이 로그를 계산하는 원리를 보여준다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="sqrt(1.04) 계산 제곱근을 덧셈·곱셈으로 바꾼다. 수치 계산">
+ <div class="n">035</div>
+ <h3>sqrt(1.04) 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\sqrt{1+x}\approx1+\frac{x}{2}-\frac{x^2}{8}\]</div>
+ <p>제곱근을 덧셈·곱셈으로 바꾼다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="1/1.02 계산 나눗셈도 기하급수로 근사할 수 있다. 수치 계산">
+ <div class="n">036</div>
+ <h3>1/1.02 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\frac1{1+x}=1-x+x^2-\cdots\]</div>
+ <p>나눗셈도 기하급수로 근사할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="2^0.01 계산 거듭제곱을 지수함수의 선형 근사로 바꾼다. 수치 계산">
+ <div class="n">037</div>
+ <h3>2^0.01 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[2^x=e^{x\ln2}\approx1+x\ln2\]</div>
+ <p>거듭제곱을 지수함수의 선형 근사로 바꾼다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="arctan 0.1 계산 역삼각함수도 간단한 다항식으로 계산된다. 수치 계산">
+ <div class="n">038</div>
+ <h3>arctan 0.1 계산</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치 계산</div>
+ <div class="math">\[\arctan x\approx x-\frac{x^3}{3}\]</div>
+ <p>역삼각함수도 간단한 다항식으로 계산된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="근사 차수를 늘리면 정확도가 좋아진다 필요한 정확도에 맞춰 계산량을 조절할 수 있다. 수치해석">
+ <div class="n">039</div>
+ <h3>근사 차수를 늘리면 정확도가 좋아진다</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">수치해석</div>
+ <div class="math">\[T_1(x),T_2(x),T_3(x),\ldots\]</div>
+ <p>필요한 정확도에 맞춰 계산량을 조절할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="근삿값 계산이 쉬워지는 이야기" data-search="가까운 중심을 선택하는 요령 x가 a와 가까울수록 (x-a)의 거듭제곱이 빨리 작아진다. 계산 효율">
+ <div class="n">040</div>
+ <h3>가까운 중심을 선택하는 요령</h3>
+ <div class="pill">근삿값 계산이 쉬워지는 이야기</div><div class="pill use">계산 효율</div>
+ <div class="math">\[f(x)=\sum\frac{f^{(n)}(a)}{n!}(x-a)^n\]</div>
+ <p>x가 a와 가까울수록 (x-a)의 거듭제곱이 빨리 작아진다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="기하급수 공식 가장 기본적인 멱급수가 여러 공식의 출발점이다. 무한급수">
+ <div class="n">041</div>
+ <h3>기하급수 공식</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">무한급수</div>
+ <div class="math">\[1+x+x^2+\cdots=\frac1{1-x}\]</div>
+ <p>가장 기본적인 멱급수가 여러 공식의 출발점이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="교대 조화급수와 ln2 로그 급수에 x=1을 넣으면 유명한 상수 공식이 나온다. 상수">
+ <div class="n">042</div>
+ <h3>교대 조화급수와 ln2</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">상수</div>
+ <div class="math">\[\ln2=1-\frac12+\frac13-\frac14+\cdots\]</div>
+ <p>로그 급수에 x=1을 넣으면 유명한 상수 공식이 나온다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="gregory-leibniz π 공식 arctan 급수에 x=1을 넣으면 π가 무한급수로 나타난다. 원주율">
+ <div class="n">043</div>
+ <h3>Gregory-Leibniz π 공식</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">원주율</div>
+ <div class="math">\[\frac\pi4=1-\frac13+\frac15-\frac17+\cdots\]</div>
+ <p>arctan 급수에 x=1을 넣으면 π가 무한급수로 나타난다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="더 빠른 ln2 급수 artanh 형태를 이용하면 항이 훨씬 빨리 작아진다. 수렴속도">
+ <div class="n">044</div>
+ <h3>더 빠른 ln2 급수</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">수렴속도</div>
+ <div class="math">\[\ln2=2\left(\frac13+\frac{1}{3\cdot3^3}+\frac{1}{5\cdot3^5}+\cdots\right)\]</div>
+ <p>artanh 형태를 이용하면 항이 훨씬 빨리 작아진다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="sqrt2의 이항급수 일반화된 이항정리가 무리수 계산으로 연결된다. 무리수">
+ <div class="n">045</div>
+ <h3>sqrt2의 이항급수</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">무리수</div>
+ <div class="math">\[\sqrt2=1+\frac12-\frac18+\frac1{16}-\cdots\]</div>
+ <p>일반화된 이항정리가 무리수 계산으로 연결된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="1/(1-r)^2 공식 기하급수를 미분해 가중합을 구한다. 급수 합">
+ <div class="n">046</div>
+ <h3>1/(1-r)^2 공식</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">급수 합</div>
+ <div class="math">\[1+2r+3r^2+\cdots=\frac1{(1-r)^2}\]</div>
+ <p>기하급수를 미분해 가중합을 구한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="n r^n의 합 미분 후 r을 곱하면 복잡해 보이는 합이 닫힌식이 된다. 급수 합">
+ <div class="n">047</div>
+ <h3>n r^n의 합</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">급수 합</div>
+ <div class="math">\[\sum_{n=1}^\infty nr^n=\frac{r}{(1-r)^2}\]</div>
+ <p>미분 후 r을 곱하면 복잡해 보이는 합이 닫힌식이 된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="홀수항만 뽑아내기 급수에서 홀수차 부분만 자동으로 추출할 수 있다. 급수 조작">
+ <div class="n">048</div>
+ <h3>홀수항만 뽑아내기</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">급수 조작</div>
+ <div class="math">\[\frac{F(x)-F(-x)}2\]</div>
+ <p>급수에서 홀수차 부분만 자동으로 추출할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="짝수항만 뽑아내기 짝수차 부분을 손쉽게 분리한다. 급수 조작">
+ <div class="n">049</div>
+ <h3>짝수항만 뽑아내기</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">급수 조작</div>
+ <div class="math">\[\frac{F(x)+F(-x)}2\]</div>
+ <p>짝수차 부분을 손쉽게 분리한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="무한급수와 상수가 쉬워지는 이야기" data-search="수렴 반지름의 의미 테일러 급수가 어디까지 함수를 제대로 표현하는지 알려주는 거리이다. 수렴">
+ <div class="n">050</div>
+ <h3>수렴 반지름의 의미</h3>
+ <div class="pill">무한급수와 상수가 쉬워지는 이야기</div><div class="pill use">수렴</div>
+ <div class="math">\[|x-a|<R\]</div>
+ <p>테일러 급수가 어디까지 함수를 제대로 표현하는지 알려주는 거리이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="작은각 sin θ 라디안으로 작은 각을 재면 sin 값이 각 자체와 거의 같다. 작은각 근사">
+ <div class="n">051</div>
+ <h3>작은각 sin θ</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">작은각 근사</div>
+ <div class="math">\[\sin\theta\approx\theta\]</div>
+ <p>라디안으로 작은 각을 재면 sin 값이 각 자체와 거의 같다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="작은각 cos θ 각이 작을 때 cos의 감소량은 θ²/2 정도다. 작은각 근사">
+ <div class="n">052</div>
+ <h3>작은각 cos θ</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">작은각 근사</div>
+ <div class="math">\[\cos\theta\approx1-\frac{\theta^2}{2}\]</div>
+ <p>각이 작을 때 cos의 감소량은 θ²/2 정도다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="작은각 tan θ 기울기와 각도를 간단히 연결한다. 작은각 근사">
+ <div class="n">053</div>
+ <h3>작은각 tan θ</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">작은각 근사</div>
+ <div class="math">\[\tan\theta\approx\theta\]</div>
+ <p>기울기와 각도를 간단히 연결한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="sin x / x의 sinc 모양 x=0의 겉보기 0/0 문제를 자연스럽게 메운다. 연속확장">
+ <div class="n">054</div>
+ <h3>sin x / x의 sinc 모양</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">연속확장</div>
+ <div class="math">\[\frac{\sin x}{x}=1-\frac{x^2}{6}+\frac{x^4}{120}-\cdots\]</div>
+ <p>x=0의 겉보기 0/0 문제를 자연스럽게 메운다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="1-cos x의 크기 작은 각에서 코사인 차이는 2차 크기임을 알 수 있다. 오차 차수">
+ <div class="n">055</div>
+ <h3>1-cos x의 크기</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">오차 차수</div>
+ <div class="math">\[1-\cos x\approx\frac{x^2}{2}\]</div>
+ <p>작은 각에서 코사인 차이는 2차 크기임을 알 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="sin과 cos의 위상 관계 미분할 때 두 급수가 서로 순환하는 구조가 보인다. 주기함수">
+ <div class="n">056</div>
+ <h3>sin과 cos의 위상 관계</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">주기함수</div>
+ <div class="math">\[\sin x=x-\frac{x^3}{6}+\cdots,\quad \cos x=1-\frac{x^2}{2}+\cdots\]</div>
+ <p>미분할 때 두 급수가 서로 순환하는 구조가 보인다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="sin은 홀함수 급수에 홀수 거듭제곱만 있다는 사실만으로 즉시 확인된다. 대칭">
+ <div class="n">057</div>
+ <h3>sin은 홀함수</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">대칭</div>
+ <div class="math">\[\sin(-x)=-\sin x\]</div>
+ <p>급수에 홀수 거듭제곱만 있다는 사실만으로 즉시 확인된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="cos는 짝함수 짝수 거듭제곱만 있으므로 즉시 확인된다. 대칭">
+ <div class="n">058</div>
+ <h3>cos는 짝함수</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">대칭</div>
+ <div class="math">\[\cos(-x)=\cos x\]</div>
+ <p>짝수 거듭제곱만 있으므로 즉시 확인된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="tan의 첫 비선형 보정 tan x와 x의 차이가 처음에는 세제곱 크기임을 알 수 있다. 근사 오차">
+ <div class="n">059</div>
+ <h3>tan의 첫 비선형 보정</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">근사 오차</div>
+ <div class="math">\[\tan x=x+\frac{x^3}{3}+O(x^5)\]</div>
+ <p>tan x와 x의 차이가 처음에는 세제곱 크기임을 알 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="삼각함수가 쉬워지는 이야기" data-search="삼각함수 계산기의 기본 아이디어 범위를 줄인 뒤 다항식으로 계산하는 것이 수치 알고리즘의 기본 아이디어다. 컴퓨터 계산">
+ <div class="n">060</div>
+ <h3>삼각함수 계산기의 기본 아이디어</h3>
+ <div class="pill">삼각함수가 쉬워지는 이야기</div><div class="pill use">컴퓨터 계산</div>
+ <div class="math">\[\sin x\approx x-\frac{x^3}{3!}+\frac{x^5}{5!}\]</div>
+ <p>범위를 줄인 뒤 다항식으로 계산하는 것이 수치 알고리즘의 기본 아이디어다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="복리와 연속성장의 근사 작은 성장률에서 지수성장을 다항식으로 해석할 수 있다. 성장 모델">
+ <div class="n">061</div>
+ <h3>복리와 연속성장의 근사</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">성장 모델</div>
+ <div class="math">\[e^x\approx1+x+\frac{x^2}{2}\]</div>
+ <p>작은 성장률에서 지수성장을 다항식으로 해석할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="e^x가 항상 자기 미분과 같은 이유 항별 미분 후 지수가 하나씩 내려가며 원래 급수로 돌아온다. 지수함수">
+ <div class="n">062</div>
+ <h3>e^x가 항상 자기 미분과 같은 이유</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">지수함수</div>
+ <div class="math">\[e^x=\sum\frac{x^n}{n!}\]</div>
+ <p>항별 미분 후 지수가 하나씩 내려가며 원래 급수로 돌아온다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="a^x의 테일러 급수 모든 밑의 지수함수를 e^x 하나로 통일한다. 지수함수">
+ <div class="n">063</div>
+ <h3>a^x의 테일러 급수</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">지수함수</div>
+ <div class="math">\[a^x=1+(\ln a)x+\frac{(\ln a)^2x^2}{2!}+\cdots\]</div>
+ <p>모든 밑의 지수함수를 e^x 하나로 통일한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="ln(1+x)의 선형화 작은 비율 변화에서 로그 변화량과 상대 변화량이 거의 같다. 로그">
+ <div class="n">064</div>
+ <h3>ln(1+x)의 선형화</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">로그</div>
+ <div class="math">\[\ln(1+x)\approx x\]</div>
+ <p>작은 비율 변화에서 로그 변화량과 상대 변화량이 거의 같다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="로그의 2차 보정 선형 근사의 오차 방향과 크기를 알 수 있다. 로그">
+ <div class="n">065</div>
+ <h3>로그의 2차 보정</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">로그</div>
+ <div class="math">\[\ln(1+x)\approx x-\frac{x^2}{2}\]</div>
+ <p>선형 근사의 오차 방향과 크기를 알 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="e^x와 1+x 비교 0 근처에서 지수함수가 접선보다 위로 휘는 이유가 2차항에 보인다. 볼록성">
+ <div class="n">066</div>
+ <h3>e^x와 1+x 비교</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">볼록성</div>
+ <div class="math">\[e^x=1+x+\frac{x^2}{2}+\cdots\]</div>
+ <p>0 근처에서 지수함수가 접선보다 위로 휘는 이유가 2차항에 보인다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="ln(1+x)와 x 비교 0 근처 양의 x에서 로그가 x보다 작은 이유를 볼 수 있다. 부등식">
+ <div class="n">067</div>
+ <h3>ln(1+x)와 x 비교</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">부등식</div>
+ <div class="math">\[\ln(1+x)=x-\frac{x^2}{2}+\cdots\]</div>
+ <p>0 근처 양의 x에서 로그가 x보다 작은 이유를 볼 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="로그를 급수로 계산하기 적절한 변수변환으로 빠르게 수렴하는 로그 계산식을 만들 수 있다. 수치해석">
+ <div class="n">068</div>
+ <h3>로그를 급수로 계산하기</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">수치해석</div>
+ <div class="math">\[\ln\frac{1+x}{1-x}=2\left(x+\frac{x^3}{3}+\cdots\right)\]</div>
+ <p>적절한 변수변환으로 빠르게 수렴하는 로그 계산식을 만들 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="지수 감쇠의 근사 작은 시간 동안의 감쇠량을 쉽게 계산한다. 감쇠 모델">
+ <div class="n">069</div>
+ <h3>지수 감쇠의 근사</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">감쇠 모델</div>
+ <div class="math">\[e^{-x}\approx1-x+\frac{x^2}{2}\]</div>
+ <p>작은 시간 동안의 감쇠량을 쉽게 계산한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="지수·로그가 쉬워지는 이야기" data-search="복잡한 지수 합성함수 기본 급수에 x²을 대입하는 것만으로 전개된다. 합성함수">
+ <div class="n">070</div>
+ <h3>복잡한 지수 합성함수</h3>
+ <div class="pill">지수·로그가 쉬워지는 이야기</div><div class="pill use">합성함수</div>
+ <div class="math">\[e^{x^2}=1+x^2+\frac{x^4}{2!}+\cdots\]</div>
+ <p>기본 급수에 x²을 대입하는 것만으로 전개된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="단진자의 작은각 근사 비선형 단진자 방정식을 단순한 조화진동 방정식으로 바꾼다. 역학">
+ <div class="n">071</div>
+ <h3>단진자의 작은각 근사</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">역학</div>
+ <div class="math">\[\sin\theta\approx\theta\]</div>
+ <p>비선형 단진자 방정식을 단순한 조화진동 방정식으로 바꾼다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="스프링 근처의 퍼텐셜 평형점에서는 1차항이 0이 되어 많은 시스템이 스프링처럼 보인다. 역학">
+ <div class="n">072</div>
+ <h3>스프링 근처의 퍼텐셜</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">역학</div>
+ <div class="math">\[U(x)\approx U(x_0)+\frac12U''(x_0)(x-x_0)^2\]</div>
+ <p>평형점에서는 1차항이 0이 되어 많은 시스템이 스프링처럼 보인다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="상대론적 에너지의 저속 근사 v가 c보다 매우 작으면 고전역학 항이 나타난다. 상대론">
+ <div class="n">073</div>
+ <h3>상대론적 에너지의 저속 근사</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">상대론</div>
+ <div class="math">\[\frac1{\sqrt{1-v^2/c^2}}\approx1+\frac12\frac{v^2}{c^2}\]</div>
+ <p>v가 c보다 매우 작으면 고전역학 항이 나타난다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="길이의 작은 변화 피타고라스식 제곱근을 간단한 보정식으로 바꾼다. 공학 근사">
+ <div class="n">074</div>
+ <h3>길이의 작은 변화</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">공학 근사</div>
+ <div class="math">\[\sqrt{L^2+x^2}\approx L+\frac{x^2}{2L}\]</div>
+ <p>피타고라스식 제곱근을 간단한 보정식으로 바꾼다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="작은 진동의 보편성 안정 평형점 주변에서는 서로 다른 시스템도 비슷한 2차 모델을 갖는다. 진동">
+ <div class="n">075</div>
+ <h3>작은 진동의 보편성</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">진동</div>
+ <div class="math">\[V(x)\approx V(x_0)+\frac12V''(x_0)(x-x_0)^2\]</div>
+ <p>안정 평형점 주변에서는 서로 다른 시스템도 비슷한 2차 모델을 갖는다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="파동의 위상 근사 작은 위상 변화가 신호에 미치는 영향을 선형화한다. 파동">
+ <div class="n">076</div>
+ <h3>파동의 위상 근사</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">파동</div>
+ <div class="math">\[\sin(\omega t+\varepsilon)\approx\sin\omega t+\varepsilon\cos\omega t\]</div>
+ <p>작은 위상 변화가 신호에 미치는 영향을 선형화한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="열팽창의 선형 근사 작은 온도 변화에서는 복잡한 관계도 1차식으로 처리할 수 있다. 공학">
+ <div class="n">077</div>
+ <h3>열팽창의 선형 근사</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">공학</div>
+ <div class="math">\[L(T+\Delta T)\approx L(T)+L'(T)\Delta T\]</div>
+ <p>작은 온도 변화에서는 복잡한 관계도 1차식으로 처리할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="센서 보정의 선형화 작동점 근처에서 비선형 센서를 직선 모델로 바꾼다. 제어·계측">
+ <div class="n">078</div>
+ <h3>센서 보정의 선형화</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">제어·계측</div>
+ <div class="math">\[y(x)\approx y(x_0)+y'(x_0)(x-x_0)\]</div>
+ <p>작동점 근처에서 비선형 센서를 직선 모델로 바꾼다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="비선형 회로의 소신호 모델 트랜지스터·다이오드의 작동점 주변 해석이 쉬워진다. 전자공학">
+ <div class="n">079</div>
+ <h3>비선형 회로의 소신호 모델</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">전자공학</div>
+ <div class="math">\[I(V)\approx I(V_0)+I'(V_0)(V-V_0)\]</div>
+ <p>트랜지스터·다이오드의 작동점 주변 해석이 쉬워진다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="물리·공학이 쉬워지는 이야기" data-search="오차 전파의 1차 근사 입력 오차가 출력에 얼마나 영향을 주는지 빠르게 추정한다. 측정">
+ <div class="n">080</div>
+ <h3>오차 전파의 1차 근사</h3>
+ <div class="pill">물리·공학이 쉬워지는 이야기</div><div class="pill use">측정</div>
+ <div class="math">\[\Delta f\approx f'(x)\Delta x\]</div>
+ <p>입력 오차가 출력에 얼마나 영향을 주는지 빠르게 추정한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="로그우도의 근사 최댓값 근처에서 로그우도가 포물선처럼 보여 추정 이론이 단순해진다. 통계">
+ <div class="n">081</div>
+ <h3>로그우도의 근사</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">통계</div>
+ <div class="math">\[\ell(\theta)\approx\ell(\hat\theta)+\frac12\ell''(\hat\theta)(\theta-\hat\theta)^2\]</div>
+ <p>최댓값 근처에서 로그우도가 포물선처럼 보여 추정 이론이 단순해진다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="정규근사의 배경 모멘트생성함수의 로그를 전개하면 평균·분산 항이 앞에 나타난다. 확률">
+ <div class="n">082</div>
+ <h3>정규근사의 배경</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">확률</div>
+ <div class="math">\[\log M(t)\text{를 }t=0\text{에서 전개}\]</div>
+ <p>모멘트생성함수의 로그를 전개하면 평균·분산 항이 앞에 나타난다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="델타 방법의 핵심 확률변수의 복잡한 변환을 선형 근사해 분산을 추정한다. 통계">
+ <div class="n">083</div>
+ <h3>델타 방법의 핵심</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">통계</div>
+ <div class="math">\[g(X)\approx g(\mu)+g'(\mu)(X-\mu)\]</div>
+ <p>확률변수의 복잡한 변환을 선형 근사해 분산을 추정한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="분산 근사 1차 테일러 근사를 제곱해 얻는 대표적인 통계 공식이다. 통계">
+ <div class="n">084</div>
+ <h3>분산 근사</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">통계</div>
+ <div class="math">\[\operatorname{Var}(g(X))\approx[g'(\mu)]^2\operatorname{Var}(X)\]</div>
+ <p>1차 테일러 근사를 제곱해 얻는 대표적인 통계 공식이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="로그 수익률과 단순 수익률 수익률이 작을 때 두 값이 왜 비슷한지 설명한다. 금융수학">
+ <div class="n">085</div>
+ <h3>로그 수익률과 단순 수익률</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">금융수학</div>
+ <div class="math">\[\ln(1+r)=r-\frac{r^2}{2}+\cdots\]</div>
+ <p>수익률이 작을 때 두 값이 왜 비슷한지 설명한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="엔트로피 근처의 2차 근사 확률분포의 작은 변화가 정보량에 미치는 영향을 분석한다. 정보이론">
+ <div class="n">086</div>
+ <h3>엔트로피 근처의 2차 근사</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">정보이론</div>
+ <div class="math">\[f(p+\delta)\approx f(p)+f'(p)\delta+\frac12f''(p)\delta^2\]</div>
+ <p>확률분포의 작은 변화가 정보량에 미치는 영향을 분석한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="최소제곱의 2차 모델 다변수 테일러 전개가 최적화 알고리즘의 기본 모델이 된다. 최적화">
+ <div class="n">087</div>
+ <h3>최소제곱의 2차 모델</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">최적화</div>
+ <div class="math">\[f(x+h)\approx f(x)+\nabla f^\top h+\frac12h^\top Hh\]</div>
+ <p>다변수 테일러 전개가 최적화 알고리즘의 기본 모델이 된다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="newton 방법 근을 찾을 때 곡선을 접선으로 바꾸어 다음 값을 계산한다. 수치해석">
+ <div class="n">088</div>
+ <h3>Newton 방법</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">수치해석</div>
+ <div class="math">\[f(x+h)\approx f(x)+f'(x)h\]</div>
+ <p>근을 찾을 때 곡선을 접선으로 바꾸어 다음 값을 계산한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="newton 최적화 기울기를 0으로 만드는 2차 근사에서 newton step이 나온다. 최적화">
+ <div class="n">089</div>
+ <h3>Newton 최적화</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">최적화</div>
+ <div class="math">\[\nabla f(x+h)\approx\nabla f(x)+Hh\]</div>
+ <p>기울기를 0으로 만드는 2차 근사에서 Newton step이 나온다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="확률·통계·데이터가 쉬워지는 이야기" data-search="민감도 분석 데이터가 조금 바뀔 때 결과가 얼마나 변하는지 정량화한다. 데이터 분석">
+ <div class="n">090</div>
+ <h3>민감도 분석</h3>
+ <div class="pill">확률·통계·데이터가 쉬워지는 이야기</div><div class="pill use">데이터 분석</div>
+ <div class="math">\[f(x+\Delta x)-f(x)\approx f'(x)\Delta x\]</div>
+ <p>데이터가 조금 바뀔 때 결과가 얼마나 변하는지 정량화한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="컴퓨터가 sin을 계산하는 방법 초월함수를 덧셈과 곱셈의 반복으로 바꿀 수 있다. 알고리즘">
+ <div class="n">091</div>
+ <h3>컴퓨터가 sin을 계산하는 방법</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">알고리즘</div>
+ <div class="math">\[\sin x\approx x-\frac{x^3}{6}+\frac{x^5}{120}\]</div>
+ <p>초월함수를 덧셈과 곱셈의 반복으로 바꿀 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="컴퓨터가 exp를 계산하는 방법 범위 축소와 다항식 근사를 결합해 빠르게 계산한다. 알고리즘">
+ <div class="n">092</div>
+ <h3>컴퓨터가 exp를 계산하는 방법</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">알고리즘</div>
+ <div class="math">\[e^x\approx1+x+\frac{x^2}{2!}+\cdots\]</div>
+ <p>범위 축소와 다항식 근사를 결합해 빠르게 계산한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="horner 방법과 테일러 다항식 다항식을 중첩 형태로 계산하면 곱셈 횟수를 줄일 수 있다. 계산 효율">
+ <div class="n">093</div>
+ <h3>Horner 방법과 테일러 다항식</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">계산 효율</div>
+ <div class="math">\[a_0+x(a_1+x(a_2+\cdots))\]</div>
+ <p>다항식을 중첩 형태로 계산하면 곱셈 횟수를 줄일 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="절단오차 무한급수를 유한 항에서 끊었을 때 생기는 오차를 수학적으로 관리한다. 오차 분석">
+ <div class="n">094</div>
+ <h3>절단오차</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">오차 분석</div>
+ <div class="math">\[f(x)-T_n(x)=R_n(x)\]</div>
+ <p>무한급수를 유한 항에서 끊었을 때 생기는 오차를 수학적으로 관리한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="교대급수의 빠른 오차 추정 sin·cos 같은 교대급수에서는 다음 항의 크기로 오차를 쉽게 제한한다. 오차 분석">
+ <div class="n">095</div>
+ <h3>교대급수의 빠른 오차 추정</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">오차 분석</div>
+ <div class="math">\[|R_n|\le |a_{n+1}|\]</div>
+ <p>sin·cos 같은 교대급수에서는 다음 항의 크기로 오차를 쉽게 제한한다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="범위 축소 큰 입력을 작은 r로 바꾼 뒤 테일러 근사를 적용하면 효율적이다. 수치 알고리즘">
+ <div class="n">096</div>
+ <h3>범위 축소</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">수치 알고리즘</div>
+ <div class="math">\[e^x=e^k e^r\]</div>
+ <p>큰 입력을 작은 r로 바꾼 뒤 테일러 근사를 적용하면 효율적이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="미분방정식의 국소 해 방정식이 도함수를 알려주면 계수를 차례로 계산해 해를 만들 수 있다. 미분방정식">
+ <div class="n">097</div>
+ <h3>미분방정식의 국소 해</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">미분방정식</div>
+ <div class="math">\[y(x)=y(a)+y'(a)h+\frac{y''(a)}{2}h^2+\cdots\]</div>
+ <p>방정식이 도함수를 알려주면 계수를 차례로 계산해 해를 만들 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="euler 방법과 테일러 euler 방법은 테일러 급수를 1차에서 자른 수치해법이다. 수치해석">
+ <div class="n">098</div>
+ <h3>Euler 방법과 테일러</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">수치해석</div>
+ <div class="math">\[y(x+h)=y(x)+hy'(x)+O(h^2)\]</div>
+ <p>Euler 방법은 테일러 급수를 1차에서 자른 수치해법이다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="2차 수치법의 아이디어 더 많은 테일러 항을 반영하면 더 높은 정확도를 얻는다. 수치해석">
+ <div class="n">099</div>
+ <h3>2차 수치법의 아이디어</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">수치해석</div>
+ <div class="math">\[y(x+h)=y(x)+hy'(x)+\frac{h^2}{2}y''(x)+O(h^3)\]</div>
+ <p>더 많은 테일러 항을 반영하면 더 높은 정확도를 얻는다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article>
+<article class="card" data-cat="컴퓨터·수치해석이 쉬워지는 이야기" data-search="자동미분과 고차 도함수 함수의 고차 미분 정보를 계산하면 고차 근사와 민감도 분석에 활용할 수 있다. 컴퓨터 수학">
+ <div class="n">100</div>
+ <h3>자동미분과 고차 도함수</h3>
+ <div class="pill">컴퓨터·수치해석이 쉬워지는 이야기</div><div class="pill use">컴퓨터 수학</div>
+ <div class="math">\[f,f',f'',\ldots\]</div>
+ <p>함수의 고차 미분 정보를 계산하면 고차 근사와 민감도 분석에 활용할 수 있다.</p>
+ <details><summary>왜 쉬워지는가?</summary>
+ <p>원래 함수나 식을 전개점 가까이에서 <b>다항식</b>으로 바꾸면, 극한·미분·적분·근삿값 계산을 거듭제곱의 사칙연산으로 처리할 수 있습니다. 필요한 정확도까지만 항을 사용하고 나머지항으로 오차를 판단합니다.</p>
+ </details>
+</article></div></main>
+<script>
+function filterCards(){
+ const q=document.getElementById('q').value.toLowerCase(), c=document.getElementById('cat').value;
+ document.querySelectorAll('.card').forEach(e=>{
+   const okq=e.dataset.search.includes(q), okc=!c||e.dataset.cat===c;
+   e.style.display=okq&&okc?'block':'none';
+ });
+}
+</script></body></html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>테일러 급수로 쉽게 해결되는 수학 이야기 100선</title>
+
+<!-- MathJax v3 자동 렌더링 스크립트 -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<style>
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+    line-height: 1.75;
+    color: #2d3748;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #f8fafc;
+  }
+  h1 {
+    color: #1e3a8a;
+    text-align: center;
+    border-bottom: 4px solid #2563eb;
+    padding-bottom: 18px;
+    margin-bottom: 40px;
+    font-size: 2.1em;
+    letter-spacing: -0.5px;
+  }
+  .category-title {
+    color: #1e40af;
+    background: #eff6ff;
+    padding: 12px 18px;
+    border-left: 5px solid #2563eb;
+    border-radius: 6px;
+    margin-top: 45px;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  ol {
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 18px;
+    padding-bottom: 6px;
+  }
+  .story-title {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 1.08em;
+  }
+  .story-desc {
+    color: #475569;
+    font-size: 0.96em;
+    margin-top: 4px;
+    word-break: keep-all;
+  }
+  
+  /* MathJax 수식 깨짐 및 모바일 Overflow 방지 설정 */
+  mjx-container {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    vertical-align: middle !important;
+    padding: 2px 0;
+  }
+  mjx-container[jax="CHTML"][display="true"] {
+    margin: 0.8em 0 !important;
+  }
+</style>
+</head>
+<body>
+
+<h1>테일러 급수로 쉽게 해결되는 수학 이야기 100선</h1>
+
+<h2 class="category-title">I. 초등함수 근사 및 상수의 발견 (1~15)</h2>
+<ol>
+  <li>
+    <span class="story-title">자연상수 $e$의 정밀 계산</span>
+    <div class="story-desc">$e^x$의 테일러 전개에 $x=1$을 대입하여 $e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \cdots$ 형태의 신속히 수렴하는 무한급수를 얻습니다.</div>
+  </li>
+  <li>
+    <span class="story-title">원주율 $\pi$를 구하는 아크탄젠트 급수</span>
+    <div class="story-desc">$\arctan(x)$ 급수에 $x=1$ 또는 $x=\frac{1}{\sqrt{3}}$을 대입하여 라이프니츠 및 매친 공식으로 $\pi$를 소수점 아래까지 정확히 계산합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">삼각함수의 소각 근사 ($\sin x \approx x$)</span>
+    <div class="story-desc">각도 $x$가 매우 작을 때 2차 이상의 고차항을 무시함으로써 단순화된 선형 관계를 도출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">코사인의 2차 다항 근사 ($\cos x \approx 1 - \frac{x^2}{2}$)</span>
+    <div class="story-desc">코사인 함수를 이차식으로 변환하여 오차 범위를 극도로 줄이면서 미적분 연산을 단순화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">자연로그 $\ln(2)$의 계산</span>
+    <div class="story-desc">$\ln(1+x)$의 메르카토르 급수를 활용하여 복잡한 로그값을 가산 연산만으로 산출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">제곱근 $\sqrt{1+x}$의 빠른 근사</span>
+    <div class="story-desc">이항급수 전개를 통해 $\sqrt{1.02} \approx 1 + \frac{0.02}{2} = 1.01$과 같이 루트 계산을 암산 수준으로 바꿉니다.</div>
+  </li>
+  <li>
+    <span class="story-title">지수함수 $e^x$의 컴퓨터 내부 연산</span>
+    <div class="story-desc">계산기가 초월함수 $e^x$를 사칙연산(다항식 계산)만으로 손쉽게 처리하도록 변환합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">쌍곡선함수 $\sinh(x), \cosh(x)$의 급수화</span>
+    <div class="story-desc">지수함수의 대칭성을 다항식 짝수항/홀수항으로 분리하여 손쉽게 해석합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">등비급수 공식을 통한 분수 함수 전개</span>
+    <div class="story-desc">$\frac{1}{1-x} = 1 + x + x^2 + \cdots$ 형태를 이용하여 분수식을 무한 다항식으로 바꿉니다.</div>
+  </li>
+  <li>
+    <span class="story-title">일반화된 이항정리 $(1+x)^\alpha$</span>
+    <div class="story-desc">지수가 실수나 음수일 때도 테일러 전식을 통해 무한 이항급수로 확장합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">미소 변화에 따른 비율 계산 $\ln(1+x) \approx x$</span>
+    <div class="story-desc">경제학이나 통계학에서 1 미만의 미세한 변화율을 로그를 통해 선형으로 근사합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">람베르트 W 함수(Lambert W function)의 근사</span>
+    <div class="story-desc">초월방정식 $xe^x = y$의 역함수를 테일러 급수로 나타내어 실근을 찾아냅니다.</div>
+  </li>
+  <li>
+    <span class="story-title">역사인 $\arcsin(x)$의 다항식 계산</span>
+    <div class="story-desc">역삼각함수를 이항정리 응용을 통해 급수 표현하여 삼각방정식의 역산 오차를 계산합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">지수적 감쇄 $e^{-\lambda t}$의 초기 변화량 산출</span>
+    <div class="story-desc">방사성 반감기나 약물 반감기 초기의 일정한 감소 속도를 선형으로 단순화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">탄젠트 함수 $\tan(x)$의 베르누이 수 전개</span>
+    <div class="story-desc">복잡한 $\tan(x)$ 함수를 베르누이 수 $B_n$을 조합한 테일러 급수로 매끄럽게 표현합니다.</div>
+  </li>
+</ol>
+
+<h2 class="category-title">II. 로피탈 정리 없는 부정형 극한 해결 (16~30)</h2>
+<ol start="16">
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{\sin x}{x} = 1$ 증명</span>
+    <div class="story-desc">$\sin x = x - \frac{x^3}{6} + \cdots$를 분자에 대입해 $x$로 나누면 $1$만 남음을 즉시 확인합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}$ 계산</span>
+    <div class="story-desc">$\cos x \approx 1 - \frac{x^2}{2}$를 대입하면 미분 과정 없이 극한값이 바로 도출됩니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{e^x - 1 - x}{x^2} = \frac{1}{2}$ 해석</span>
+    <div class="story-desc">$e^x = 1 + x + \frac{x^2}{2} + \cdots$에서 앞항을 상쇄시켜 오차의 분모 소거 과정을 정교하게 보여줍니다.</div>
+  </li>
+  <li>
+    <span class="story-title">복잡한 $\frac{0}{0}$ 꼴 극한에서의 미분 횟수 절감</span>
+    <div class="story-desc">로피탈 정리를 여러 번 써서 계산이 꼬이는 문제를 차수 비교만으로 단번에 해결합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{\tan x - x}{x^3} = \frac{1}{3}$ 도출</span>
+    <div class="story-desc">$\tan x = x + \frac{x^3}{3} + \cdots$ 전개를 사용해 분모의 $x^3$과 깔끔하게 약분합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{\ln(1+x) - x}{x^2} = -\frac{1}{2}$ 계산</span>
+    <div class="story-desc">자연로그 급수의 2차항을 이용해 극한의 수렴 속도를 직관적으로 판별합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">삼각함수와 지수함수가 섞인 극한</span>
+    <div class="story-desc">$\frac{e^x - \cos x}{\sin x}$ 같은 복합 극한 문제에서 주요 차수항만 추출해 해결합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{\arcsin x - x}{x^3} = \frac{1}{6}$ 계산</span>
+    <div class="story-desc">역삼각함수 미분식이 아닌 급수 전개식을 대입하여 3차항의 계수를 간단히 추출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} (1+x)^{1/x} = e$의 상세 유도</span>
+    <div class="story-desc">로그를 취한 뒤 $\ln(1+x)$의 테일러 전개를 이용해 지수 극한의 본질을 파악합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">쌍곡선 극한 $\lim_{x \to 0} \frac{\cosh x - 1}{x^2} = \frac{1}{2}$</span>
+    <div class="story-desc">$\cosh x$의 짝수 차수 급수를 적용하여 코사인 함수와의 대칭적 결과성을 확인합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">차수 차이에 의한 극한값의 발산/수렴 판정</span>
+    <div class="story-desc">분자와 분모의 최저차수 항을 비교함으로써 극한의 존재 여부를 한눈에 알아챕니다.</div>
+  </li>
+  <li>
+    <span class="story-title">$\lim_{x \to 0} \frac{x - \sin x}{x - \tan x}$ 비율 구하기</span>
+    <div class="story-desc">$\sin x$의 3차항($-1/6$)과 $\tan x$의 3차항($1/3$)의 비율만으로 답이 $-1/2$임을 구합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">점근적 동등성(Asymptotic Equivalence) 증명</span>
+    <div class="story-desc">$x \to 0$ 근방에서 서로 다른 두 함수가 실질적으로 같은 다항 행동을 보임을 입증합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">무한대 $x \to \infty$에서의 다항식 대 지수함수 발산 속도</span>
+    <div class="story-desc">테일러 급수항의 무한한 증가성을 통해 지수함수가 그 어떤 다항식보다 빨리 자람을 보여줍니다.</div>
+  </li>
+  <li>
+    <span class="story-title">고차 섭동(Perturbation) 극한의 빠른 처리</span>
+    <div class="story-desc">미소 변수가 포함된 계의 미분식 극한을 무한급수 다항식의 정합으로 풀어냅니다.</div>
+  </li>
+</ol>
+
+<h2 class="category-title">III. 물리학 및 자연과학 근사 모델링 (31~55)</h2>
+<ol start="31">
+  <li>
+    <span class="story-title">단진자의 주기 공식 유도</span>
+    <div class="story-desc">운동방정식 $\frac{\mathrm{d}^2\theta}{\mathrm{d}t^2} + \frac{g}{L}\sin\theta = 0$에서 $\sin\theta \approx \theta$로 선형화하여 조화진동 주기 $T=2\pi\sqrt{L/g}$를 얻습니다.</div>
+  </li>
+  <li>
+    <span class="story-title">상대성이론의 운동에너지 근사 ($E = mc^2 + \frac{1}{2}mv^2$)</span>
+    <div class="story-desc">상대론적 에너지 $E = \gamma mc^2$를 $v/c \ll 1$ 조건에서 전개해 고전 뉴턴 운동에너지를 복원합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">고도에 따른 중력 가속도 근사</span>
+    <div class="story-desc">$g(h) = g_0 \left(\frac{R}{R+h}\right)^2 \approx g_0 \left(1 - \frac{2h}{R}\right)$로 지구 표면 인근의 중력 감소를 선형화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">플랑크 법칙에서 레이리-진스 법칙 유도</span>
+    <div class="story-desc">흑체 복사 공식 $e^{h\nu/kT} - 1 \approx \frac{h\nu}{kT}$로 급수 전개하여 저주파 영역의 고전 물리학 공식을 도출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">전기 쌍극자(Dipole) 전위 계산</span>
+    <div class="story-desc">두 점전하에 의한 거리를 테일러 전개하여 거리의 제곱에 반비례하는 ($1/r^2$) 전위 형태를 단순화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">전자기학의 다중극 전개(Multipole Expansion)</span>
+    <div class="story-desc">복잡한 전하 분포의 전위를 단극자, 쌍극자, 사극자 항의 테일러 급수 합으로 나누어 해석합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">파동방정식의 소각 근사 및 스넬의 법칙 변형</span>
+    <div class="story-desc">입사각이 작은 광학계에서 굴절각을 선형화하여 파동 전달 구조를 단순하게 다룹니다.</div>
+  </li>
+  <li>
+    <span class="story-title">양자역학의 WKB 근사법</span>
+    <div class="story-desc">플랑크 상수 $\hbar$가 매우 작다는 점을 이용해 파동함수를 위치에 대한 급수로 풀어냅니다.</div>
+  </li>
+  <li>
+    <span class="story-title">열전도 방정식의 국소적 평형 근사</span>
+    <div class="story-desc">온도 분포 $T(x+\Delta x)$를 테일러 전개하여 푸리에 열전도 법칙과 차분 방정식을 세웁니다.</div>
+  </li>
+  <li>
+    <span class="story-title">렌즈의 구면수차(Spherical Aberration) 해석</span>
+    <div class="story-desc">$\sin\theta \approx \theta - \frac{\theta^3}{6}$의 3차항을 포함시킴으로써 렌즈 초점이 어긋나는 구면수차 오차를 계산합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">비선형 복원력을 가진 용수철 진동</span>
+    <div class="story-desc">복원력 $F(x)$를 테일러 전개하여 선형 항목(스프링 상수)과 3차 비선형항(더핑 진동자)을 구분합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">실제 기체의 반데르발스 상태 방정식 근사</span>
+    <div class="story-desc">압축인자를 테일러/비리얼 전개하여 이상기체 상태 방정식과의 차이를 단계별로 보정합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">유체역학의 섭동 이론(Perturbation Theory)</span>
+    <div class="story-desc">나비에-스톡스 방정식의 유속을 미소 변수의 테일러 급수로 나누어 유체의 난류 전이를 근사합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">도플러 효과의 저속 영역 선형 근사</span>
+    <div class="story-desc">음원과 관측자의 속도가 음속보다 훨씬 작을 때 주파수 변화를 일차 함수로 나타냅니다.</div>
+  </li>
+  <li>
+    <span class="story-title">드브로이 물질파의 상대론적 보정</span>
+    <div class="story-desc">고속 입자의 운동량을 테일러 전개하여 전자기학 모형에서의 파장 변화 보정값을 구합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">천체물리학의 신성 광도 변화 모델링</span>
+    <div class="story-desc">별의 정적 가열 반응 시 복사 에너지를 시간 변수로 급수 전개하여 광도 곡선의 정점을 예측합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">대기압 변화에 따른 높이별 기압 근사</span>
+    <div class="story-desc">볼츠만 지수 분포 $e^{-mgh/kT}$를 고도 $h$에 대해 선형화하여 저고도에서의 대기압을 손쉽게 산출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">회절 격자 및 슬릿 간섭의 위상차 근사</span>
+    <div class="story-desc">슬릿 간 거리에 비해 스크린이 멀리 있을 때 경로차 $\Delta L$을 테일러 전개로 $\Delta L \approx d\sin\theta$로 근사합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">회전하는 강체의 코리올리 힘 선형화</span>
+    <div class="story-desc">위도에 따른 회전속도 차이를 테일러 전개하여 기상학의 Beta-plane 근사식을 세웁니다.</div>
+  </li>
+  <li>
+    <span class="story-title">양자역학의 미세 구조(Fine Structure) 섭동 전개</span>
+    <div class="story-desc">수소 원자 에너지 수준을 미세구조 상수에 대해 급수 전개하여 미세한 에너지 갈라짐을 계산합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">RLC 회로의 과도 응답 선형 근사</span>
+    <div class="story-desc">비선형 소자가 포함된 회로의 동작을 특정 동작점 근처에서 테일러 급수로 선형 회로 모델링합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">자기장 계산 시 비오-사바르 법칙의 근사</span>
+    <div class="story-desc">원거리 자기장을 계산할 때 거리 인자를 급수화하여 거리에 따른 자장의 감쇄 속도를 해석합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">통계물리학의 분배함수(Partition Function) 고온 전개</span>
+    <div class="story-desc">$T \to \infty$ 조건에서 $\beta = 1/kT$를 급수 전개하여 열역학적 에너지를 손쉽게 유도합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">열역학적 엔트로피의 농도 변화 근사</span>
+    <div class="story-desc">혼합 엔트로피 식 $\ln(x)$를 묽은 용액 상태에서 $x \approx 1$ 근방의 테일러 급수로 단순화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">자성체의 퀴리-바이스 법칙 유도</span>
+    <div class="story-desc">자화율 함수 $\tanh(x)$를 고온 영역에서 테일러 전개하여 온도가 자성에 미치는 영향 공식을 이끌어냅니다.</div>
+  </li>
+</ol>
+
+<h2 class="category-title">IV. 미적분, 적분 불가능 함수 및 특수함수 (56~75)</h2>
+<ol start="56">
+  <li>
+    <span class="story-title">정규분포 적분 $\int e^{-x^2} \mathrm{d}x$ (오차함수 erf) 계산</span>
+    <div class="story-desc">원형 적분이 불가능한 $e^{-x^2}$을 급수 전개하여 항별 적분함으로써 특정 구간의 확률을 정밀히 구합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">프레넬 적분 $\int \cos(x^2) \mathrm{d}x$의 정밀 계산</span>
+    <div class="story-desc">광학 회절 현상에 등장하는 함수를 항별 적분 급수로 바꾸어 수치표를 작성합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">사인 적분 $\int \frac{\sin x}{x} \mathrm{d}x$ (Si 함수) 급수 표현</span>
+    <div class="story-desc">신호 처리의 필수 함수인 $\mathrm{Si}(x)$를 테일러 급수로 항별 적분하여 산출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">타원 적분(Elliptic Integrals)과 진자의 정확한 주기</span>
+    <div class="story-desc">진폭이 큰 단진자의 주기를 구하기 위해 타원 적분식을 급수 전개하여 고차 보정항을 찾아냅니다.</div>
+  </li>
+  <li>
+    <span class="story-title">감마 함수 $\Gamma(x)$의 스털링 근사(Stirling's Approximation)</span>
+    <div class="story-desc">큰 $n$에 대한 팩토리얼 $\ln(n!) \approx n\ln n - n$을 감마 함수 로그의 테일러 전개로 유도합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">리만 제타 함수 $\zeta(s)$의 국소 급수 해석</span>
+    <div class="story-desc">특정 점 근처에서 제타 함수를 테일러/로랑 전개하여 정수론적 성질을 추적합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">로그 적분 함수 $\mathrm{Li}(x)$ 근사</span>
+    <div class="story-desc">소수 정리(Prime Number Theorem)에 핵심적인 로그 적분을 급수화하여 소수 개수를 근사합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">베셀 함수(Bessel Functions)의 원점 근처 급수해</span>
+    <div class="story-desc">원통형 파동의 미분방정식을 테일러-프로베니우스 급수해법으로 해를 도출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">르장드르 다항식(Legendre Polynomials) 생성함수 전개</span>
+    <div class="story-desc">전위식 $\frac{1}{\sqrt{1 - 2xt + t^2}}$의 테일러 급수 계수로 직교 다항식을 정의합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">에르미트 다항식(Hermite Polynomials) 유도</span>
+    <div class="story-desc">양자역학의 조화 진동자 파동함수 해를 미분 연산자의 급수 전개로 도출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">라게르 다항식(Laguerre Polynomials) 전개</span>
+    <div class="story-desc">수소 원자의 반경 방향 파동방정식을 풀어내기 위해 무한급수 형태의 다항식을 유도합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">에어리 함수(Airy Function) 급수해</span>
+    <div class="story-desc">무지개의 빛 회절 및 전자의 터널링 현상을 설명하는 미분방정식을 테일러 급수로 해결합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">비선형 적분 방정식의 근사 정해</span>
+    <div class="story-desc">손으로 풀 수 없는 형태의 피적분함수를 전개하여 원하는 정확도만큼 정적분값을 계산합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">적분 불가능한 초월함수의 오차 한계 설정</span>
+    <div class="story-desc">교대급수 판정법을 통해 테일러 급수 적분 시 오차가 $N+1$번째 항보다 작음을 보장합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">프레넬 회절 적분식의 급수 계산</span>
+    <div class="story-desc">파동의 회절 패턴 강도를 테일러 급수의 합을 이용해 컴퓨터 시뮬레이션으로 형상화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">지수 적분 함수 $\mathrm{Ei}(x)$의 전개</span>
+    <div class="story-desc">열전달 및 원자력 노심 해석에 쓰이는 $\int \frac{e^t}{t} \mathrm{d}t$ 함수를 급수 다항식으로 변환합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">베르누이 수(Bernoulli Numbers)와 탄젠트 급수</span>
+    <div class="story-desc">$\frac{x}{e^x - 1}$의 테일러 전개 계수로서 베르누이 수를 정의하고 복잡한 조합론을 해결합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">오일러-마스케로니 상수 $\gamma$ 관련 급수</span>
+    <div class="story-desc">조화급수와 자연로그의 차이값을 자연로그 급수 전개를 통해 정밀하게 추정합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">초지수 함수(Hypergeometric Functions)의 근사</span>
+    <div class="story-desc">수학의 거의 모든 특수함수를 테일러 급수 형태의 초지수 급수로 통합 관리합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">디라크 델타 함수의 가우스 평활화 급수</span>
+    <div class="story-desc">이상적인 델타 함수를 정규분포 함수들의 테일러 전개 한계로 해석합니다.</div>
+  </li>
+</ol>
+
+<h2 class="category-title">V. 수치해석, 컴퓨터 과학 및 알고리즘 (76~88)</h2>
+<ol start="76">
+  <li>
+    <span class="story-title">뉴턴-랩슨법(Newton-Raphson Method) 수렴성 유도</span>
+    <div class="story-desc">$f(x) \approx f(x_0) + f'(x_0)(x - x_0) = 0$에서 1차 테일러 전개를 이용해 해의 접선 점근 공식을 유도합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">유한차분법(FDM)의 미분계수 근사</span>
+    <div class="story-desc">$f(x+h)$와 $f(x-h)$의 테일러 전개를 빼거나 더해서 중앙 차분 공식 $f'(x) \approx \frac{f(x+h)-f(x-h)}{2h}$ 및 오차 $\mathcal{O}(h^2)$을 증명합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">오일러 방법(Euler's Method)의 수치적 오차 분석</span>
+    <div class="story-desc">미분방정식 수치해석 시 1차 전개만 사용할 때 발생하는 지역 절단 오차가 $\mathcal{O}(h^2)$임을 밝힙니다.</div>
+  </li>
+  <li>
+    <span class="story-title">룬게-쿠타법(Runge-Kutta 4th Order) 유도</span>
+    <div class="story-desc">미분계수를 여러 지점에서 계산해 4차 테일러 급수의 정확도($\mathcal{O}(h^4)$)와 맞추어 오차를 비약적으로 줄입니다.</div>
+  </li>
+  <li>
+    <span class="story-title">롬베르크 적분법(Romberg Integration)의 리차드슨 외삽</span>
+    <div class="story-desc">테일러 오차항 $Ah^2 + Bh^4 + \cdots$의 특정 차수항을 연산으로 제거해 수치 적분의 정확도를 높입니다.</div>
+  </li>
+  <li>
+    <span class="story-title">경사하강법(Gradient Descent)의 1차 근사원리</span>
+    <div class="story-desc">손실 함수 $L(\theta)$를 현 위치에서 1차 테일러 전개하여 가장 빠르게 감소하는 기울기 반대 방향을 찾아냅니다.</div>
+  </li>
+  <li>
+    <span class="story-title">헤시안(Hessian) 행렬을 이용한 2차 최적화 (뉴턴 방법)</span>
+    <div class="story-desc">다변수 함수의 2차 테일러 전개를 이용해 극솟점 위치를 최단 횟수로 예측합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">GPU/CPU의 Fast Math 라이브러리 삼각함수 구현</span>
+    <div class="story-desc">하드웨어 레벨에서 초월함수 연산 시간을 줄이기 위해 최적 차수의 테일러 다항식(또는 파데 근사)을 시프트 연산과 결합합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">딥러닝 GELU/SiLU 활성화 함수의 고속 연산</span>
+    <div class="story-desc">인공지능 모델 학습 시 오차함수나 시그모이드 연산을 급수 전개식으로 단순화하여 가속합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">보간법(Polynomial Interpolation)의 오차 항 산출</span>
+    <div class="story-desc">라그랑주 보간 다항식이 원래 함수와 얼마나 차이나는지 테일러 정리를 통해 오차 한계식을 도출합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">심프슨 공식(Simpson's Rule) 오차 평가</span>
+    <div class="story-desc">이차함수로 적분 구간을 연결할 때 오차항이 $h^4$에 비례함을 4차 테일러 전개로 입증합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">부동소수점 자릿수 손실(Cancellation) 방지</span>
+    <div class="story-desc">$1 - \cos x$처럼 $x \to 0$일 때 발생하는 자리 빼기 오차를 테일러 급수 다항식으로 바꾸어 예방합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">신호 처리의 소신호 해석(Small-Signal Analysis)</span>
+    <div class="story-desc">트랜지스터 및 다이오드의 비선형 $I\text{--}V$ 곡선을 동작점(DC) 근처에서 테일러 전개하여 AC 선형 회로로 바꿔 분석합니다.</div>
+  </li>
+</ol>
+
+<h2 class="category-title">VI. 복소수, 선형대수 및 고급 수학 (89~100)</h2>
+<ol start="89">
+  <li>
+    <span class="story-title">오일러 공식 $e^{i\theta} = \cos\theta + i\sin\theta$ 완전 증명</span>
+    <div class="story-desc">$e^z$ 전개식에 $z = i\theta$를 대입하고 실수부와 허수부를 묶어 각각 $\cos\theta$와 $\sin\theta$의 급수와 일치함을 보여줍니다.</div>
+  </li>
+  <li>
+    <span class="story-title">세상에서 가장 아름다운 공식 $e^{i\pi} + 1 = 0$</span>
+    <div class="story-desc">오일러 급수 결과에 $\theta = \pi$를 대입함으로써 수학의 5대 상수($e, i, \pi, 1, 0$)를 하나의 식에 묶습니다.</div>
+  </li>
+  <li>
+    <span class="story-title">행렬 지수함수 $e^A$의 정의와 시스템 미분방정식 해법</span>
+    <div class="story-desc">선형 미분방정식계 $\dot{x} = Ax$의 해를 $e^{At} = I + At + \frac{A^2 t^2}{2!} + \cdots$ 테일러 급수 형태로 즉시 표기합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">해석함수(Analytic Function)의 유일성 정리</span>
+    <div class="story-desc">복소수 영역에서 한 점의 테일러 급수 계수를 알면 영역 전체의 함수값을 유일하게 결정함을 증명합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">로랑 급수(Laurent Series)와 유수 정리(Residue Theorem)</span>
+    <div class="story-desc">특이점(Singularity) 근처에서 음수 차수를 포함한 테일러 확장형을 통해 복소 정적분을 단항 계수 계산으로 끝냅니다.</div>
+  </li>
+  <li>
+    <span class="story-title">무한곱 공식(Euler's Sine Product Formula) 유도</span>
+    <div class="story-desc">$\sin x$의 테일러 급수 근들과 다항식 인수분해의 대응을 통해 무한곱 성질을 유도합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">음함수 정리(Implicit Function Theorem)의 국소적 선형화</span>
+    <div class="story-desc">$F(x,y)=0$ 꼴의 복잡한 음함수를 국소적으로 테일러 전개하여 $y = g(x)$ 다항식 형태로 바꿉니다.</div>
+  </li>
+  <li>
+    <span class="story-title">동역학계(Dynamical Systems)의 분기점(Bifurcation) 분석</span>
+    <div class="story-desc">고정점(Fixed Point) 주위에서 위상 공간 변화를 테일러 급수의 최고차항 변형을 통해 카오스 전이를 판별합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">리만 수면(Riemann Surface) 분기점 주변 해법</span>
+    <div class="story-desc">다층 복소 평면 위에서 다가함수의 연속성을 테일러-프위죄(Puiseux) 급수로 연장해 해결합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">테일러 정리를 이용한 평균값 정리의 일반화</span>
+    <div class="story-desc">롤의 정리와 평균값 정리를 고차 미분 오차항(라그랑주 잔여항) 형태로 확장 증명합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">카오스 이론의 랴푸노프 지수(Lyapunov Exponent) 산출</span>
+    <div class="story-desc">초기 조건의 미소한 차이 $\delta x(t)$의 지수적 발산을 1차 테일러 근사로 추적하여 시스템의 예측 불가능성을 정량화합니다.</div>
+  </li>
+  <li>
+    <span class="story-title">미분형식(Differential Forms) 및 다변수 테일러 전개</span>
+    <div class="story-desc">다변수 함수 $f(x,y,z)$를 그래디언트와 헤시안 기반의 텐서 테일러 급수로 확장하여 고차원 기하학적 곡면을 완벽히 모델링합니다.</div>
+  </li>
+</ol>
+
+</body>
+</html>

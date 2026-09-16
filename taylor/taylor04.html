@@ -1,0 +1,863 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매친 공식으로 원주율 근사값 구하기</title>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: #f5f7fb;
+    color: #222;
+    line-height: 1.8;
+}
+
+header {
+    background: linear-gradient(135deg, #173b6c, #2867a8);
+    color: white;
+    padding: 42px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 12px;
+    font-size: 2.1rem;
+}
+
+header p {
+    margin: 0;
+    opacity: 0.95;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+nav select {
+    width: min(600px, 95%);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+}
+
+main {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 18px 60px;
+}
+
+section {
+    background: white;
+    margin: 24px 0;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+
+h2 {
+    color: #174b7a;
+    border-bottom: 3px solid #dbeaf7;
+    padding-bottom: 8px;
+}
+
+h3 {
+    color: #245d8f;
+}
+
+.formula {
+    background: #eef6ff;
+    border-left: 6px solid #2878bd;
+    padding: 18px;
+    margin: 18px 0;
+    text-align: center;
+    font-size: 1.15rem;
+    overflow-x: auto;
+}
+
+.point {
+    background: #fff8dc;
+    border-left: 6px solid #e0a800;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.success {
+    background: #eaf8ee;
+    border-left: 6px solid #299447;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+code {
+    font-family: Consolas, monospace;
+}
+
+pre {
+    background: #17202a;
+    color: #f8f8f2;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-x: auto;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #eaf3fb;
+}
+
+.step {
+    display: inline-block;
+    background: #245d8f;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+button {
+    background: #245d8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    padding: 30px;
+}
+
+@media print {
+    nav, button {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    section {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>매친 공식으로 원주율 π 근사값 구하기</h1>
+    <p>Machin Formula · arctan 급수 · Python 구현 · 오차 분석</p>
+</header>
+
+<nav>
+<select onchange="location.href=this.value">
+    <option value="#">학습 내용 선택</option>
+    <option value="#s1">1. 원주율 π</option>
+    <option value="#s2">2. 매친 공식</option>
+    <option value="#s3">3. arctan 급수</option>
+    <option value="#s4">4. 계산 원리</option>
+    <option value="#s5">5. 기본 Python 코드</option>
+    <option value="#s6">6. 코드 상세 설명</option>
+    <option value="#s7">7. 계산 과정 출력</option>
+    <option value="#s8">8. math.pi와 비교</option>
+    <option value="#s9">9. 고정밀 계산</option>
+    <option value="#s10">10. 핵심 정리</option>
+</select>
+</nav>
+
+<main>
+
+<section id="s1">
+<h2>1. 원주율 π란?</h2>
+
+<p>
+원주율 \(\pi\)는 원의 둘레와 지름의 비이다.
+</p>
+
+<div class="formula">
+\[
+\pi =
+\frac{\text{원의 둘레}}{\text{원의 지름}}
+\]
+</div>
+
+<p>원주율은 무리수이므로 소수 표현이 끝없이 계속된다.</p>
+
+<div class="formula">
+\[
+\pi =
+3.141592653589793238462643383279\cdots
+\]
+</div>
+
+<p>
+따라서 컴퓨터에서는 \(\pi\)의 값을 정확하게 끝까지 저장할 수 없으며,
+필요한 자릿수까지 <strong>근사값</strong>을 계산한다.
+</p>
+</section>
+
+
+<section id="s2">
+<h2>2. 매친(Machin) 공식</h2>
+
+<p>
+1706년 영국의 수학자 John Machin은 역탄젠트 함수를 이용하여
+원주율을 빠르게 계산할 수 있는 공식을 사용하였다.
+</p>
+
+<div class="formula">
+\[
+\boxed{
+\frac{\pi}{4}
+=
+4\tan^{-1}\left(\frac15\right)
+-
+\tan^{-1}\left(\frac1{239}\right)
+}
+\]
+</div>
+
+<p>양변에 4를 곱하면 다음과 같다.</p>
+
+<div class="formula">
+\[
+\boxed{
+\pi =
+16\tan^{-1}\left(\frac15\right)
+-
+4\tan^{-1}\left(\frac1{239}\right)
+}
+\]
+</div>
+
+<div class="point">
+<strong>핵심 아이디어</strong><br>
+따라서 \(\tan^{-1}(1/5)\)와 \(\tan^{-1}(1/239)\)를
+충분히 정확하게 계산할 수 있다면 원주율도 계산할 수 있다.
+</div>
+</section>
+
+
+<section id="s3">
+<h2>3. arctan의 테일러 급수</h2>
+
+<p>
+역탄젠트 함수는 다음과 같은 무한급수로 표현할 수 있다.
+</p>
+
+<div class="formula">
+\[
+\tan^{-1}x
+=
+x-\frac{x^3}{3}
++\frac{x^5}{5}
+-\frac{x^7}{7}
++\frac{x^9}{9}
+-\cdots
+\]
+</div>
+
+<p>시그마 기호를 사용하면 다음과 같다.</p>
+
+<div class="formula">
+\[
+\boxed{
+\tan^{-1}x
+=
+\sum_{n=0}^{\infty}
+(-1)^n
+\frac{x^{2n+1}}{2n+1}
+}
+\qquad (|x|\le 1)
+\]
+</div>
+
+<table>
+<tr>
+<th>n</th>
+<th>항</th>
+</tr>
+<tr>
+<td>0</td>
+<td>\(x\)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>\(-x^3/3\)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>\(+x^5/5\)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>\(-x^7/7\)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>\(+x^9/9\)</td>
+</tr>
+</table>
+
+<p>
+부호가
+<strong>+, −, +, −, ...</strong>
+순서로 반복된다는 것이 중요하다.
+</p>
+</section>
+
+
+<section id="s4">
+<h2>4. 매친 공식의 계산 원리</h2>
+
+<h3><span class="step">1</span>\(\tan^{-1}(1/5)\) 계산</h3>
+
+<div class="formula">
+\[
+\tan^{-1}\left(\frac15\right)
+=
+\frac15
+-\frac{1}{3\cdot5^3}
++\frac{1}{5\cdot5^5}
+-\frac{1}{7\cdot5^7}
++\cdots
+\]
+</div>
+
+<h3><span class="step">2</span>\(\tan^{-1}(1/239)\) 계산</h3>
+
+<div class="formula">
+\[
+\tan^{-1}\left(\frac1{239}\right)
+=
+\frac1{239}
+-\frac{1}{3\cdot239^3}
++\frac{1}{5\cdot239^5}
+-\cdots
+\]
+</div>
+
+<h3><span class="step">3</span>매친 공식에 대입</h3>
+
+<div class="formula">
+\[
+\pi
+\approx
+16A-4B
+\]
+
+\[
+A=\tan^{-1}\left(\frac15\right),
+\qquad
+B=\tan^{-1}\left(\frac1{239}\right)
+\]
+</div>
+
+<div class="success">
+\(1/239\)는 매우 작은 수이므로 거듭제곱하면 항의 크기가 매우 빠르게
+작아진다. 이것이 매친 공식이 원주율 계산에 효과적인 이유 중 하나이다.
+</div>
+</section>
+
+
+<section id="s5">
+<h2>5. 기본 Python 코드</h2>
+
+<pre><code>def arctan(x, terms):
+    total = 0.0
+
+    for n in range(terms):
+        term = (-1) ** n * x ** (2*n + 1) / (2*n + 1)
+        total += term
+
+    return total
+
+
+terms = 20
+
+a = arctan(1/5, terms)
+b = arctan(1/239, terms)
+
+pi = 16*a - 4*b
+
+print("매친 공식으로 구한 π =", pi)</code></pre>
+
+<h3>실행 결과 예</h3>
+
+<pre><code>매친 공식으로 구한 π = 3.1415926535897936</code></pre>
+
+<p>
+일반적인 Python의 <code>float</code> 정밀도 범위에서는
+실제 \(\pi\)와 매우 가까운 값을 얻을 수 있다.
+</p>
+</section>
+
+
+<section id="s6">
+<h2>6. Python 코드 한 줄씩 상세 설명</h2>
+
+<h3>① 함수 정의</h3>
+
+<pre><code>def arctan(x, terms):</code></pre>
+
+<p>
+\(x\)와 계산할 급수의 항 개수 <code>terms</code>를 받아
+\(\tan^{-1}(x)\)의 근사값을 계산한다.
+</p>
+
+
+<h3>② 합계 초기화</h3>
+
+<pre><code>total = 0.0</code></pre>
+
+<p>
+각 항의 값을 차례대로 더하기 위해 합계를 0으로 시작한다.
+</p>
+
+
+<h3>③ 반복</h3>
+
+<pre><code>for n in range(terms):</code></pre>
+
+<p>
+\(n=0,1,2,\ldots,\text{terms}-1\)까지 반복한다.
+</p>
+
+
+<h3>④ 급수의 한 항 계산</h3>
+
+<pre><code>term = (-1) ** n * x ** (2*n + 1) / (2*n + 1)</code></pre>
+
+<p>이 코드는 수학식</p>
+
+<div class="formula">
+\[
+(-1)^n
+\frac{x^{2n+1}}{2n+1}
+\]
+</div>
+
+<p>을 그대로 Python으로 표현한 것이다.</p>
+
+<table>
+<tr>
+<th>Python 표현</th>
+<th>수학적 의미</th>
+</tr>
+<tr>
+<td><code>(-1) ** n</code></td>
+<td>\((-1)^n\), 부호를 번갈아 변경</td>
+</tr>
+<tr>
+<td><code>2*n + 1</code></td>
+<td>1, 3, 5, 7, ...</td>
+</tr>
+<tr>
+<td><code>x ** (2*n + 1)</code></td>
+<td>\(x^{2n+1}\)</td>
+</tr>
+<tr>
+<td><code>/ (2*n + 1)</code></td>
+<td>\(2n+1\)로 나누기</td>
+</tr>
+</table>
+
+
+<h3>⑤ 현재 항 더하기</h3>
+
+<pre><code>total += term</code></pre>
+
+<p>다음 연산과 같다.</p>
+
+<pre><code>total = total + term</code></pre>
+
+
+<h3>⑥ 계산 결과 반환</h3>
+
+<pre><code>return total</code></pre>
+
+
+<h3>⑦ 두 역탄젠트 계산</h3>
+
+<pre><code>a = arctan(1/5, terms)
+b = arctan(1/239, terms)</code></pre>
+
+<p>즉,</p>
+
+<div class="formula">
+\[
+a\approx\tan^{-1}(1/5)
+\]
+
+\[
+b\approx\tan^{-1}(1/239)
+\]
+</div>
+
+
+<h3>⑧ 매친 공식 적용</h3>
+
+<pre><code>pi = 16*a - 4*b</code></pre>
+
+<div class="formula">
+\[
+\boxed{\pi\approx16a-4b}
+\]
+</div>
+</section>
+
+
+<section id="s7">
+<h2>7. 각 항의 계산 과정 확인하기</h2>
+
+<p>
+학생들이 급수가 실제로 어떻게 누적되는지 확인하려면 다음 코드를 사용할 수 있다.
+</p>
+
+<pre><code>def arctan(x, terms):
+    total = 0.0
+
+    for n in range(terms):
+        term = (-1)**n * x**(2*n+1) / (2*n+1)
+        total += term
+
+        print(
+            f"n={n:2d}",
+            f"term={term:.15f}",
+            f"sum={total:.15f}"
+        )
+
+    return total
+
+
+print("arctan(1/5) 계산")
+a = arctan(1/5, 10)
+
+print()
+
+print("arctan(1/239) 계산")
+b = arctan(1/239, 10)
+
+pi = 16*a - 4*b
+
+print()
+print("π 근사값 =", pi)</code></pre>
+
+<p>
+이 코드를 실행하면 각 단계에서
+<strong>현재 항(term)</strong>과
+<strong>누적합(sum)</strong>을 확인할 수 있다.
+</p>
+</section>
+
+
+<section id="s8">
+<h2>8. Python의 math.pi와 오차 비교</h2>
+
+<pre><code>import math
+
+
+def arctan(x, terms):
+    total = 0.0
+
+    for n in range(terms):
+        total += (-1)**n * x**(2*n+1) / (2*n+1)
+
+    return total
+
+
+for terms in [1, 2, 3, 5, 10, 20]:
+
+    pi_approx = (
+        16 * arctan(1/5, terms)
+        - 4 * arctan(1/239, terms)
+    )
+
+    error = abs(math.pi - pi_approx)
+
+    print(
+        f"{terms:2d}항",
+        f"π ≈ {pi_approx:.16f}",
+        f"오차 = {error:.3e}"
+    )</code></pre>
+
+<h3>관찰할 점</h3>
+
+<p>
+급수의 항을 많이 사용할수록 일반적으로 원주율의 근사값이
+실제 값에 가까워진다.
+</p>
+
+<div class="formula">
+\[
+\text{절대오차}
+=
+|\pi_{\text{실제}}-\pi_{\text{근사}}|
+\]
+</div>
+
+<p>
+오차가 0에 가까울수록 더 정확한 근사이다.
+</p>
+</section>
+
+
+<section id="s9">
+<h2>9. Decimal을 이용한 고정밀 원주율 계산</h2>
+
+<p>
+<code>float</code>는 표현 가능한 자릿수에 제한이 있다.
+더 많은 자릿수를 계산하려면 <code>decimal</code> 모듈을 사용할 수 있다.
+</p>
+
+<pre><code>from decimal import Decimal, getcontext
+
+getcontext().prec = 100
+
+
+def arctan_inverse(q):
+    q = Decimal(q)
+
+    x = Decimal(1) / q
+    x2 = x * x
+
+    term = x
+    total = term
+
+    n = 1
+
+    while True:
+        term *= -x2
+
+        add = term / Decimal(2*n + 1)
+
+        if add == 0:
+            break
+
+        total += add
+        n += 1
+
+    return total
+
+
+pi = (
+    Decimal(16) * arctan_inverse(5)
+    - Decimal(4) * arctan_inverse(239)
+)
+
+print(pi)</code></pre>
+
+<h3>계산되는 값</h3>
+
+<pre><code>3.14159265358979323846264338327950288419716939937510...</code></pre>
+
+<div class="point">
+<strong>중요</strong><br>
+<code>getcontext().prec = 100</code>은 Decimal 계산에서 사용할
+정밀도를 약 100자리로 지정한다.
+</div>
+</section>
+
+
+<section>
+<h2>10. 왜 1/5와 1/239가 좋은가?</h2>
+
+<p>arctan 급수에서 항은 대략 다음 형태이다.</p>
+
+<div class="formula">
+\[
+\frac{x^{2n+1}}{2n+1}
+\]
+</div>
+
+<p>
+\(0&lt;|x|&lt;1\)일 때 \(x\)를 계속 거듭제곱하면 값이 작아진다.
+</p>
+
+<p>예를 들어 \(x=1/5\)라면</p>
+
+<div class="formula">
+\[
+\frac15,\quad
+\frac1{5^3},\quad
+\frac1{5^5},\quad
+\frac1{5^7},\ldots
+\]
+</div>
+
+<p>이고, \(x=1/239\)라면 더욱 빠르게 작아진다.</p>
+
+<div class="formula">
+\[
+\frac1{239},\quad
+\frac1{239^3},\quad
+\frac1{239^5},\ldots
+\]
+</div>
+
+<p>
+따라서 적은 수의 항만 계산해도 상당히 정확한 값을 얻을 수 있다.
+</p>
+</section>
+
+
+<section>
+<h2>11. 알고리즘으로 정리하기</h2>
+
+<pre><code>[시작]
+
+   ↓
+
+계산할 항의 수 결정
+
+   ↓
+
+arctan(1/5) 급수 계산
+
+   ↓
+
+arctan(1/239) 급수 계산
+
+   ↓
+
+π = 16 × arctan(1/5)
+    - 4 × arctan(1/239)
+
+   ↓
+
+π 근사값 출력
+
+   ↓
+
+실제 π와 오차 비교
+
+   ↓
+
+[종료]</code></pre>
+</section>
+
+
+<section id="s10">
+<h2>12. 핵심 정리</h2>
+
+<table>
+<tr>
+<th>개념</th>
+<th>내용</th>
+</tr>
+
+<tr>
+<td>매친 공식</td>
+<td>
+\(\pi=16\tan^{-1}(1/5)-4\tan^{-1}(1/239)\)
+</td>
+</tr>
+
+<tr>
+<td>arctan 급수</td>
+<td>
+\(\displaystyle
+\tan^{-1}x=
+\sum_{n=0}^{\infty}
+(-1)^n\frac{x^{2n+1}}{2n+1}
+\)
+</td>
+</tr>
+
+<tr>
+<td>Python 핵심</td>
+<td>
+반복문을 이용하여 급수의 각 항을 차례대로 누적한다.
+</td>
+</tr>
+
+<tr>
+<td>정확도</td>
+<td>
+계산하는 항의 수를 늘리면 근사값의 정확도가 높아진다.
+</td>
+</tr>
+
+<tr>
+<td>고정밀 계산</td>
+<td>
+많은 소수 자릿수가 필요하면 Decimal을 사용할 수 있다.
+</td>
+</tr>
+</table>
+
+<div class="success">
+<strong>한 문장 정리</strong><br><br>
+
+매친 공식은 작은 수에 대한 arctan 급수를 이용하여
+
+\[
+\boxed{
+\pi =
+16\tan^{-1}\left(\frac15\right)
+-
+4\tan^{-1}\left(\frac1{239}\right)
+}
+\]
+
+를 계산함으로써 원주율의 매우 정확한 근사값을 얻는 방법이다.
+</div>
+
+<button onclick="window.print()">인쇄 / PDF 저장</button>
+
+</section>
+
+</main>
+
+<footer>
+매친 공식 · 테일러 급수 · 원주율 근사 · Python 수치 계산
+</footer>
+
+</body>
+</html>
+```

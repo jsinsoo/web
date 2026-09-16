@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>복소수 지수 상세 설명</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--navy:#173f78;--blue:#2867b2;--ink:#172231;--muted:#5d6876;--line:#dfe6ee;--soft:#f6f8fb;--green:#edf9f1;--yellow:#fff8e7;--red:#fff0f0}
+*{box-sizing:border-box} body{margin:0;font-family:"Malgun Gothic","Noto Sans KR",sans-serif;color:var(--ink);line-height:1.78}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:38px 22px}
+.wrap,main{max-width:1050px;margin:auto} h1{margin:0 0 8px} header p{margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{padding:10px 20px;display:flex;gap:7px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--navy);background:var(--soft);padding:5px 9px;border-radius:8px}
+main{padding:25px 20px 60px} h2{border-left:5px solid var(--blue);padding-left:12px;margin-top:36px}
+.card{border:1px solid var(--line);border-radius:14px;padding:20px;margin:15px 0;box-shadow:0 3px 14px rgba(0,0,0,.045)}
+.key{background:#eef5ff;border-left:5px solid var(--blue);padding:17px;border-radius:10px;margin:14px 0}
+.step{background:var(--soft);padding:12px 15px;border-radius:9px;margin:8px 0}
+.good{background:var(--green);padding:15px;border-radius:10px}.warn{background:var(--yellow);padding:15px;border-radius:10px}
+.danger{background:var(--red);padding:15px;border-radius:10px}
+.answer{font-weight:700;color:var(--navy)}
+table{width:100%;border-collapse:collapse;margin:14px 0}th,td{border:1px solid var(--line);padding:10px;text-align:center}th{background:var(--soft)}
+.badge{display:inline-block;background:#e8eef7;border-radius:999px;padding:2px 9px;font-size:.88rem}
+@media print{nav{display:none}.card{box-shadow:none;break-inside:avoid}header{background:white;color:black;border-bottom:2px solid #222}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>복소수 지수 상세 설명</h1>
+<p>자연수 지수에서 실수 지수를 지나 복소수 지수 \(a^z\)까지 확장하는 원리</p>
+</div></header>
+<nav><div class="wrap">
+<a href="#road">확장 흐름</a><a href="#exp">복소지수함수</a><a href="#aiz">양의 밑</a>
+<a href="#euler">오일러 공식</a><a href="#complexbase">복소수 밑</a><a href="#examples">예제 5개</a><a href="#summary">핵심 정리</a>
+</div></nav>
+<main>
+
+<section id="road">
+<h2>1. 지수는 어떻게 복소수까지 확장되는가?</h2>
+<p>지수의 범위는 지수법칙을 가능한 한 유지하도록 점차 넓혀 간다.</p>
+<table>
+<tr><th>단계</th><th>지수</th><th>예</th><th>핵심 아이디어</th></tr>
+<tr><td>1</td><td>자연수</td><td>\(2^3\)</td><td>같은 수의 반복 곱셈</td></tr>
+<tr><td>2</td><td>정수</td><td>\(2^{-3}\)</td><td>역수와 \(a^0=1\)</td></tr>
+<tr><td>3</td><td>유리수</td><td>\(2^{2/3}\)</td><td>근호와 연결</td></tr>
+<tr><td>4</td><td>실수</td><td>\(2^\pi\)</td><td>극한 또는 \(e^{x\ln a}\)</td></tr>
+<tr><td>5</td><td>복소수</td><td>\(2^{1+i}\)</td><td>복소 지수함수와 로그</td></tr>
+</table>
+<div class="key">
+복소수 지수의 핵심은 반복 곱셈이 아니라 <strong>지수함수 \(e^z\)</strong>이다.
+복소수 \(z=x+iy\)에 대하여
+\[
+e^z=e^{x+iy}=e^x(\cos y+i\sin y)
+\]
+로 정의한다.
+</div>
+</section>
+
+<section id="exp">
+<h2>2. 복소 지수함수 \(e^z\)</h2>
+<p>복소수 \(z=x+iy\)를 생각하자. 실수부는 \(x\), 허수부는 \(y\)이다.</p>
+\[
+e^{x+iy}=e^x e^{iy}.
+\]
+<p>여기서 오일러 공식</p>
+\[
+e^{iy}=\cos y+i\sin y
+\]
+<p>를 사용하면</p>
+<div class="key">
+\[
+\boxed{e^{x+iy}=e^x(\cos y+i\sin y)}
+\]
+</div>
+<p>이 식은 두 역할을 분명하게 보여 준다.</p>
+<div class="step"><strong>실수부 \(x\):</strong> \(e^x\)가 복소수의 크기를 결정한다.</div>
+<div class="step"><strong>허수부 \(y\):</strong> \(\cos y+i\sin y\)가 복소평면에서 회전 각도를 결정한다.</div>
+<p>따라서 복소 지수함수는 <strong>크기 변화와 회전</strong>을 동시에 표현한다고 볼 수 있다.</p>
+</section>
+
+<section id="aiz">
+<h2>3. 양의 실수 \(a\)의 복소수 지수 \(a^z\)</h2>
+<p>\(a>0\)이면 실수 로그 \(\ln a\)가 하나의 실수로 정해지므로 정의가 간단하다.</p>
+<div class="key">
+\[
+\boxed{a^z=e^{z\ln a}}\qquad(a>0,\;z\in\mathbb C)
+\]
+</div>
+<p>\(z=x+iy\)를 대입하면</p>
+\[
+a^{x+iy}=e^{(x+iy)\ln a}
+=e^{x\ln a}e^{iy\ln a}.
+\]
+따라서
+\[
+\boxed{
+a^{x+iy}
+=a^x\{\cos(y\ln a)+i\sin(y\ln a)\}
+}
+\]
+가 된다.
+<div class="good">
+<strong>해석:</strong> \(a^x\)는 크기를 결정하고, \(y\ln a\)는 복소평면에서의 회전각을 결정한다.
+</div>
+</section>
+
+<section id="euler">
+<h2>4. 왜 \(e^{i\theta}=\cos\theta+i\sin\theta\)인가?</h2>
+<p>지수함수, 코사인, 사인의 멱급수를 비교하면 자연스럽게 얻어진다.</p>
+\[
+e^z=1+z+\frac{z^2}{2!}+\frac{z^3}{3!}+\cdots
+\]
+<p>\(z=i\theta\)를 대입하고 \(i^2=-1,\;i^3=-i,\;i^4=1\)을 이용하면 실수 부분과 허수 부분이 나뉜다.</p>
+\[
+e^{i\theta}
+=\left(1-\frac{\theta^2}{2!}+\frac{\theta^4}{4!}-\cdots\right)
++i\left(\theta-\frac{\theta^3}{3!}+\frac{\theta^5}{5!}-\cdots\right).
+\]
+<p>괄호 안은 각각 \(\cos\theta\), \(\sin\theta\)의 급수이므로</p>
+\[
+\boxed{e^{i\theta}=\cos\theta+i\sin\theta}.
+\]
+<div class="card">
+<h3>특별한 경우: 오일러 항등식</h3>
+\[
+e^{i\pi}=\cos\pi+i\sin\pi=-1
+\]
+따라서
+\[
+\boxed{e^{i\pi}+1=0}.
+\]
+</div>
+</section>
+
+<section id="complexbase">
+<h2>5. 밑까지 복소수이면 왜 더 조심해야 하는가?</h2>
+<p>양의 실수 밑 \(a>0\)에서는 \(\ln a\)를 하나로 정할 수 있었다. 그러나 \(w\neq0\)인 복소수는</p>
+\[
+w=re^{i(\theta+2\pi k)},\qquad k\in\mathbb Z
+\]
+처럼 같은 수의 편각을 \(\theta+2\pi k\)로 무수히 많이 나타낼 수 있다.</p>
+<p>따라서 복소로그는</p>
+\[
+\log w=\ln r+i(\theta+2\pi k),\qquad k\in\mathbb Z
+\]
+처럼 여러 값을 갖는다. 그러므로 일반적인 복소수 밑에 대해</p>
+\[
+w^z=e^{z\log w}
+\]
+도 여러 값을 가질 수 있다.</p>
+<div class="warn">
+<strong>주값(principal value)</strong>만 사용하고 싶다면 주편각 \(\operatorname{Arg}w\)를 하나의 구간(보통 \((-\pi,\pi]\))에서 선택하고
+\[
+\operatorname{Log}w=\ln|w|+i\operatorname{Arg}w,\qquad
+w^z:=e^{z\operatorname{Log}w}
+\]
+로 정의한다. 이때는 “모든 값”이 아니라 선택한 로그 가지(branch)에 따른 값이다.
+</div>
+<div class="danger">
+\(0^z\)는 위의 복소로그 공식으로 정의할 수 없다. 특히 \(0^0\), \(0^{iy}\), 음의 실수부를 가진 지수 등은 단순히 \(e^{z\log0}\)로 처리하면 안 된다.
+</div>
+</section>
+
+<section id="examples">
+<h2>6. 단계별 예시문제 5개</h2>
+
+<div class="card">
+<span class="badge">예제 1 · 순허수 지수</span>
+<h3>\(e^{i\pi/2}\)의 값을 구하시오.</h3>
+<div class="step">① 오일러 공식 사용:
+\[
+e^{i\theta}=\cos\theta+i\sin\theta
+\]</div>
+<div class="step">② \(\theta=\pi/2\) 대입:
+\[
+e^{i\pi/2}=\cos\frac\pi2+i\sin\frac\pi2
+\]</div>
+<div class="step">③ 삼각함수 값:
+\[
+0+i(1)=i
+\]</div>
+<p class="answer">정답: \(\boxed{i}\)</p>
+</div>
+
+<div class="card">
+<span class="badge">예제 2 · 실수부+허수부</span>
+<h3>\(e^{1+i\pi}\)의 값을 구하시오.</h3>
+<div class="step">① 지수를 분리:
+\[
+e^{1+i\pi}=e\cdot e^{i\pi}
+\]</div>
+<div class="step">② 오일러 공식:
+\[
+e^{i\pi}=-1
+\]</div>
+<div class="step">③ 계산:
+\[
+e^{1+i\pi}=-e
+\]</div>
+<p class="answer">정답: \(\boxed{-e}\)</p>
+</div>
+
+<div class="card">
+<span class="badge">예제 3 · 양의 실수 밑</span>
+<h3>\(2^i\)를 삼각함수 형태로 나타내시오.</h3>
+<div class="step">① 정의:
+\[
+2^i=e^{i\ln2}
+\]</div>
+<div class="step">② 오일러 공식 적용:
+\[
+e^{i\ln2}=\cos(\ln2)+i\sin(\ln2)
+\]</div>
+<p class="answer">정답:
+\[
+\boxed{2^i=\cos(\ln2)+i\sin(\ln2)}
+\]
+</p>
+<p>특히 \(|2^i|=1\)이다. 순허수 지수는 여기서 크기를 바꾸지 않고 회전만 만든다.</p>
+</div>
+
+<div class="card">
+<span class="badge">예제 4 · \(a^{x+iy}\)</span>
+<h3>\(4^{2+i}\)를 삼각함수 형태로 나타내시오.</h3>
+<div class="step">① 공식:
+\[
+a^{x+iy}=a^x\{\cos(y\ln a)+i\sin(y\ln a)\}
+\]</div>
+<div class="step">② \(a=4,x=2,y=1\):
+\[
+4^{2+i}=4^2\{\cos(\ln4)+i\sin(\ln4)\}
+\]</div>
+<div class="step">③ \(4^2=16\):
+\[
+4^{2+i}=16\{\cos(\ln4)+i\sin(\ln4)\}
+\]</div>
+<p class="answer">정답:
+\[
+\boxed{16(\cos(\ln4)+i\sin(\ln4))}
+\]
+</p>
+<p>이 복소수의 크기는 \(16\), 편각은 \(\ln4\) (mod \(2\pi\))이다.</p>
+</div>
+
+<div class="card">
+<span class="badge">예제 5 · 복소수 밑과 다가성</span>
+<h3>\((-1)^{1/2}\)을 복소로그 관점에서 설명하시오.</h3>
+<div class="step">① \(-1\)의 편각은
+\[
+\pi+2\pi k,\qquad k\in\mathbb Z
+\]
+이므로
+\[
+\log(-1)=i(\pi+2\pi k).
+\]</div>
+<div class="step">② 지수 정의:
+\[
+(-1)^{1/2}
+=e^{\frac12\,i(\pi+2\pi k)}
+=e^{i(\pi/2+\pi k)}.
+\]</div>
+<div class="step">③ \(k\)의 짝홀에 따라:
+\[
+e^{i\pi/2}=i,\qquad e^{i3\pi/2}=-i.
+\]</div>
+<p class="answer">가능한 값: \(\boxed{i,\,-i}\)</p>
+<p>주로그 \(\operatorname{Log}(-1)=i\pi\)만 선택하여 계산한 <strong>주값</strong>은 \(i\)이다.</p>
+</div>
+</section>
+
+<section>
+<h2>7. 복소 지수함수의 중요한 성질</h2>
+<div class="card">
+<h3>① 주기성</h3>
+\[
+e^{z+2\pi i}=e^z
+\]
+<p>왜냐하면 \(e^{2\pi i}=1\)이기 때문이다. 따라서 실수 지수함수와 달리 복소 지수함수는 허수 방향으로 \(2\pi i\)의 주기를 갖는다.</p>
+</div>
+<div class="card">
+<h3>② 크기</h3>
+\(z=x+iy\)이면
+\[
+|e^z|=e^x.
+\]
+<p>허수부 \(y\)는 크기에 영향을 주지 않고 회전에 영향을 준다.</p>
+</div>
+<div class="card">
+<h3>③ 양의 실수 밑의 경우</h3>
+\(a>0\)이면
+\[
+|a^{x+iy}|=a^x.
+\]
+<p>즉 실수부가 크기를, 허수부가 각도를 결정한다.</p>
+</div>
+</section>
+
+<section id="summary">
+<h2>8. 핵심 공식 한눈에 보기</h2>
+<div class="key">
+\[
+\boxed{e^{i\theta}=\cos\theta+i\sin\theta}
+\]
+\[
+\boxed{e^{x+iy}=e^x(\cos y+i\sin y)}
+\]
+\[
+\boxed{a^z=e^{z\ln a}}\qquad(a>0)
+\]
+\[
+\boxed{
+a^{x+iy}
+=a^x\{\cos(y\ln a)+i\sin(y\ln a)\}
+}
+\]
+</div>
+<table>
+<tr><th>표현</th><th>의미</th></tr>
+<tr><td>\(e^x\)</td><td>크기 변화</td></tr>
+<tr><td>\(e^{iy}\)</td><td>복소평면에서 회전</td></tr>
+<tr><td>\(e^{x+iy}\)</td><td>크기 변화 + 회전</td></tr>
+<tr><td>\(a^{x+iy}\), \(a>0\)</td><td>크기 \(a^x\), 회전각 \(y\ln a\)</td></tr>
+<tr><td>\(w^z\), \(w\in\mathbb C\setminus\{0\}\)</td><td>복소로그의 여러 값 때문에 다가성이 나타날 수 있음</td></tr>
+</table>
+<div class="good">
+<strong>학습 흐름:</strong>
+자연수 지수의 반복 곱셈 → 정수 지수의 역수 → 유리수 지수의 근호 →
+실수 지수의 연속적 확장 → \(e^{i\theta}\)의 회전 →
+\(e^{x+iy}\) → \(a^{x+iy}\) → 복소로그를 이용한 \(w^z\).
+</div>
+</section>
+
+</main>
+</body>
+</html>

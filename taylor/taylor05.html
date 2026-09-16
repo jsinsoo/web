@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>여러 가지 함수의 테일러 급수 100선</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--b:#2457d6;--ink:#182238;--line:#dce4f1;--soft:#f2f6ff}
+*{box-sizing:border-box} body{margin:0;background:#f6f8fc;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.65}
+header{background:linear-gradient(135deg,#142b65,#3478e5);color:#fff;padding:38px 20px}.wrap{max-width:1180px;margin:auto}
+h1{margin:0;font-size:2.15rem}.lead{max-width:900px}.toolbar{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--line);padding:10px 18px}
+.tools{max-width:1180px;margin:auto;display:flex;gap:8px;flex-wrap:wrap}.tools input,.tools select{padding:10px;border:1px solid #b9c7dd;border-radius:8px;min-width:220px}
+button{padding:10px 14px;border:0;border-radius:8px;background:var(--b);color:white;cursor:pointer}
+main{max-width:1180px;margin:20px auto;padding:0 18px}.intro,.card{background:#fff;border-radius:13px;box-shadow:0 2px 9px #15254b12}
+.intro{padding:22px;margin-bottom:20px}.group{margin:30px 0 12px;color:#183e96;border-bottom:3px solid #dbe7ff;padding-bottom:7px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{padding:19px;position:relative;overflow:hidden}
+.card h3{margin:0 0 7px;padding-right:50px;color:#173f9f}.num{position:absolute;right:14px;top:13px;font-weight:bold;color:#6b7891}
+.meta{display:flex;gap:7px;flex-wrap:wrap}.meta span{background:var(--soft);border-radius:999px;padding:3px 9px;font-size:.9rem}
+.formula{overflow:auto;border-left:4px solid var(--b);background:#fafcff;padding:5px 10px;margin:12px 0}.note{background:#fff8dc;border:1px solid #f0df9a;padding:13px;border-radius:9px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:1.7rem}}
+@media print{.toolbar{display:none}body{background:#fff}.card,.intro{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.grid{display:block}.card{margin:10px 0}}
+</style></head><body>
+<header><div class="wrap"><h1>여러 가지 함수의 테일러 급수 100선</h1>
+<p class="lead">매클로린 급수부터 중심이 \(a=1\)인 테일러 급수, 지수·삼각·로그·역삼각·유리·이항·복합함수까지 100개를 한 페이지에서 비교합니다.</p></div></header>
+<div class="toolbar"><div class="tools">
+<input id="q" placeholder="함수 또는 설명 검색" oninput="filterCards()">
+<select id="cat" onchange="filterCards()"><option value="">전체 분야</option>
+<option>지수·쌍곡함수</option><option>삼각함수</option><option>로그·역삼각함수</option><option>유리함수·기하급수</option><option>이항급수·거듭제곱</option><option>복합·결합함수</option></select>
+<button onclick="window.print()">인쇄 / PDF</button></div></div>
+<main>
+<section class="intro">
+<h2>테일러 급수 기본 공식</h2>
+<div class="formula">\[
+f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
+\quad\text{(나머지항이 0으로 수렴하는 범위에서)}
+\]</div>
+<p>\(a=0\)이면 <b>매클로린 급수</b>입니다. 아래의 “수렴”은 표시된 전개가 함수와 일치하는 대표적인 실수 범위를 뜻합니다. 끝점은 함수별로 별도 조건이 있을 수 있습니다.</p>
+<div class="note"><b>학습 순서:</b> 기본 급수 암기 → \(x\) 치환 → 상수배·곱셈 → 미분·적분 → 전개 중심 이동의 순서로 보면 100개 식이 서로 연결됩니다.</div>
+</section>
+<div class="grid"><h2 class="group" id="g1">지수·쌍곡함수</h2>
+<article class="card" data-text="지수·쌍곡함수 e^x f^{(n)}(0)=1">
+<div class="num">001</div>
+<h3>\(f(x)=e^x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^x = 1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(f^{(n)}(0)=1\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^{-x} e^{-x}=e^u,\ u=-x">
+<div class="num">002</div>
+<h3>\(f(x)=e^{-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{-x} = 1-x+\frac{x^2}{2!}-\frac{x^3}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^{-x}=e^u,\ u=-x\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^{2x} e^u에\ u=2x">
+<div class="num">003</div>
+<h3>\(f(x)=e^{2x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{2x} = 1+2x+\frac{(2x)^2}{2!}+\frac{(2x)^3}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^u에\ u=2x\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^{3x} e^u에\ u=3x">
+<div class="num">004</div>
+<h3>\(f(x)=e^{3x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{3x} = 1+3x+\frac{(3x)^2}{2!}+\frac{(3x)^3}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^u에\ u=3x\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^{x^2} e^u에\ u=x^2">
+<div class="num">005</div>
+<h3>\(f(x)=e^{x^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{x^2} = 1+x^2+\frac{x^4}{2!}+\frac{x^6}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^u에\ u=x^2\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^{-x^2} 가우스 함수">
+<div class="num">006</div>
+<h3>\(f(x)=e^{-x^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{-x^2} = 1-x^2+\frac{x^4}{2!}-\frac{x^6}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(가우스 함수\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 xe^x e^x의 급수에 x를 곱함">
+<div class="num">007</div>
+<h3>\(f(x)=xe^x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ xe^x = x+x^2+\frac{x^3}{2!}+\frac{x^4}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^x의 급수에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 x^2e^x e^x의 급수에 x^2을 곱함">
+<div class="num">008</div>
+<h3>\(f(x)=x^2e^x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ x^2e^x = x^2+x^3+\frac{x^4}{2!}+\frac{x^5}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^x의 급수에 x^2을 곱함\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 \sinh x \sinh x=(e^x-e^{-x})/2">
+<div class="num">009</div>
+<h3>\(f(x)=\sinh x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sinh x = x+\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sinh x=(e^x-e^{-x})/2\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 \cosh x \cosh x=(e^x+e^{-x})/2">
+<div class="num">010</div>
+<h3>\(f(x)=\cosh x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cosh x = 1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cosh x=(e^x+e^{-x})/2\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 \sinh(2x) \sinh u에\ u=2x">
+<div class="num">011</div>
+<h3>\(f(x)=\sinh(2x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sinh(2x) = 2x+\frac{(2x)^3}{3!}+\frac{(2x)^5}{5!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sinh u에\ u=2x\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 \cosh(2x) \cosh u에\ u=2x">
+<div class="num">012</div>
+<h3>\(f(x)=\cosh(2x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cosh(2x) = 1+\frac{(2x)^2}{2!}+\frac{(2x)^4}{4!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cosh u에\ u=2x\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^{x-1} 중심이\ a=1인 테일러 급수">
+<div class="num">013</div>
+<h3>\(f(x)=e^{x-1}\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{x-1} = 1+(x-1)+\frac{(x-1)^2}{2!}+\frac{(x-1)^3}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(중심이\ a=1인 테일러 급수\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 e^x e^x=e\,e^{x-1}">
+<div class="num">014</div>
+<h3>\(f(x)=e^x\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^x = e\left[1+(x-1)+\frac{(x-1)^2}{2!}+\cdots\right] \]</div>
+<p><b>만드는 방법:</b> \(e^x=e\,e^{x-1}\)</p>
+</article>
+<article class="card" data-text="지수·쌍곡함수 2^x 2^x=e^{x\ln2}">
+<div class="num">015</div>
+<h3>\(f(x)=2^x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ 2^x = 1+(\ln2)x+\frac{(\ln2)^2x^2}{2!}+\frac{(\ln2)^3x^3}{3!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(2^x=e^{x\ln2}\)</p>
+</article><h2 class="group" id="g16">삼각함수</h2>
+<article class="card" data-text="삼각함수 \sin x 홀수차 항만">
+<div class="num">016</div>
+<h3>\(f(x)=\sin x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin x = x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(홀수차 항만\)</p>
+</article>
+<article class="card" data-text="삼각함수 \cos x 짝수차 항만">
+<div class="num">017</div>
+<h3>\(f(x)=\cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cos x = 1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(짝수차 항만\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin(2x) \sin u,\ u=2x">
+<div class="num">018</div>
+<h3>\(f(x)=\sin(2x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin(2x) = 2x-\frac{(2x)^3}{3!}+\frac{(2x)^5}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sin u,\ u=2x\)</p>
+</article>
+<article class="card" data-text="삼각함수 \cos(2x) \cos u,\ u=2x">
+<div class="num">019</div>
+<h3>\(f(x)=\cos(2x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cos(2x) = 1-\frac{(2x)^2}{2!}+\frac{(2x)^4}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cos u,\ u=2x\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin(x^2) \sin u,\ u=x^2">
+<div class="num">020</div>
+<h3>\(f(x)=\sin(x^2)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin(x^2) = x^2-\frac{x^6}{3!}+\frac{x^{10}}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sin u,\ u=x^2\)</p>
+</article>
+<article class="card" data-text="삼각함수 \cos(x^2) \cos u,\ u=x^2">
+<div class="num">021</div>
+<h3>\(f(x)=\cos(x^2)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cos(x^2) = 1-\frac{x^4}{2!}+\frac{x^8}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cos u,\ u=x^2\)</p>
+</article>
+<article class="card" data-text="삼각함수 x sin x \sin x에 x를 곱함">
+<div class="num">022</div>
+<h3>\(f(x)=x sin x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ x sin x = x^2-\frac{x^4}{3!}+\frac{x^6}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sin x에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="삼각함수 x cos x \cos x에 x를 곱함">
+<div class="num">023</div>
+<h3>\(f(x)=x cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ x cos x = x-\frac{x^3}{2!}+\frac{x^5}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cos x에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin x/x x=0에서는 극한값 1로 연속확장">
+<div class="num">024</div>
+<h3>\(f(x)=\sin x/x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin x/x = 1-\frac{x^2}{3!}+\frac{x^4}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x=0에서는 극한값 1로 연속확장\)</p>
+</article>
+<article class="card" data-text="삼각함수 (1-cos x)/x^2 x=0에서는 극한값 1/2">
+<div class="num">025</div>
+<h3>\(f(x)=(1-cos x)/x^2\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ (1-cos x)/x^2 = \frac12-\frac{x^2}{4!}+\frac{x^4}{6!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x=0에서는 극한값 1/2\)</p>
+</article>
+<article class="card" data-text="삼각함수 \tan x |x|&lt;\pi/2">
+<div class="num">026</div>
+<h3>\(f(x)=\tan x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<\pi/2</span></div>
+<div class="formula">\[ \tan x = x+\frac{x^3}{3}+\frac{2x^5}{15}+\frac{17x^7}{315}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(|x|<\pi/2\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sec x |x|&lt;\pi/2">
+<div class="num">027</div>
+<h3>\(f(x)=\sec x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<\pi/2</span></div>
+<div class="formula">\[ \sec x = 1+\frac{x^2}{2}+\frac{5x^4}{24}+\frac{61x^6}{720}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(|x|<\pi/2\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin x+cos x 두 기본 급수를 더함">
+<div class="num">028</div>
+<h3>\(f(x)=\sin x+cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin x+cos x = 1+x-\frac{x^2}{2!}-\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(두 기본 급수를 더함\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin x-cos x 두 기본 급수를 뺌">
+<div class="num">029</div>
+<h3>\(f(x)=\sin x-cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin x-cos x = -1+x+\frac{x^2}{2!}-\frac{x^3}{3!}-\frac{x^4}{4!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(두 기본 급수를 뺌\)</p>
+</article>
+<article class="card" data-text="삼각함수 2 sin x \sin x 급수의 2배">
+<div class="num">030</div>
+<h3>\(f(x)=2 sin x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ 2 sin x = 2x-\frac{2x^3}{3!}+\frac{2x^5}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sin x 급수의 2배\)</p>
+</article>
+<article class="card" data-text="삼각함수 3 cos x \cos x 급수의 3배">
+<div class="num">031</div>
+<h3>\(f(x)=3 cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ 3 cos x = 3-\frac{3x^2}{2!}+\frac{3x^4}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cos x 급수의 3배\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin(x-1) a=1">
+<div class="num">032</div>
+<h3>\(f(x)=\sin(x-1)\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin(x-1) = (x-1)-\frac{(x-1)^3}{3!}+\frac{(x-1)^5}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1\)</p>
+</article>
+<article class="card" data-text="삼각함수 \cos(x-1) a=1">
+<div class="num">033</div>
+<h3>\(f(x)=\cos(x-1)\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cos(x-1) = 1-\frac{(x-1)^2}{2!}+\frac{(x-1)^4}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1\)</p>
+</article>
+<article class="card" data-text="삼각함수 \sin(pi*x) \sin u,\ u=\pi x">
+<div class="num">034</div>
+<h3>\(f(x)=\sin(pi*x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \sin(pi*x) = \pi x-\frac{\pi^3x^3}{3!}+\frac{\pi^5x^5}{5!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\sin u,\ u=\pi x\)</p>
+</article>
+<article class="card" data-text="삼각함수 \cos(pi*x) \cos u,\ u=\pi x">
+<div class="num">035</div>
+<h3>\(f(x)=\cos(pi*x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ \cos(pi*x) = 1-\frac{\pi^2x^2}{2!}+\frac{\pi^4x^4}{4!}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\cos u,\ u=\pi x\)</p>
+</article><h2 class="group" id="g36">로그·역삼각함수</h2>
+<article class="card" data-text="로그·역삼각함수 \ln(1+x) 기하급수를 적분">
+<div class="num">036</div>
+<h3>\(f(x)=\ln(1+x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1<x\le1</span></div>
+<div class="formula">\[ \ln(1+x) = x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(기하급수를 적분\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(1-x) \ln(1+x)에 x\to -x">
+<div class="num">037</div>
+<h3>\(f(x)=\ln(1-x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1\le x<1</span></div>
+<div class="formula">\[ \ln(1-x) = -x-\frac{x^2}{2}-\frac{x^3}{3}-\frac{x^4}{4}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\ln(1+x)에 x\to -x\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln\frac{1+x}{1-x} 두 로그 급수의 차">
+<div class="num">038</div>
+<h3>\(f(x)=\ln\frac{1+x}{1-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \ln\frac{1+x}{1-x} = 2\left(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\right) \]</div>
+<p><b>만드는 방법:</b> \(두 로그 급수의 차\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln x a=1">
+<div class="num">039</div>
+<h3>\(f(x)=\ln x\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: 0<x\le2</span></div>
+<div class="formula">\[ \ln x = (x-1)-\frac{(x-1)^2}{2}+\frac{(x-1)^3}{3}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \log_2(1+x) 밑변환">
+<div class="num">040</div>
+<h3>\(f(x)=\log_2(1+x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1<x\le1</span></div>
+<div class="formula">\[ \log_2(1+x) = \frac1{\ln2}\left(x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots\right) \]</div>
+<p><b>만드는 방법:</b> \(밑변환\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \arctan x 1/(1+x^2)를 적분">
+<div class="num">041</div>
+<h3>\(f(x)=\arctan x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1</span></div>
+<div class="formula">\[ \arctan x = x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(1/(1+x^2)를 적분\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \arctan(2x) 치환">
+<div class="num">042</div>
+<h3>\(f(x)=\arctan(2x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1/2</span></div>
+<div class="formula">\[ \arctan(2x) = 2x-\frac{(2x)^3}{3}+\frac{(2x)^5}{5}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(치환\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \arcsin x 도함수 (1-x^2)^{-1/2}를 적분">
+<div class="num">043</div>
+<h3>\(f(x)=\arcsin x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1</span></div>
+<div class="formula">\[ \arcsin x = x+\frac{x^3}{6}+\frac{3x^5}{40}+\frac{5x^7}{112}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(도함수 (1-x^2)^{-1/2}를 적분\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \operatorname{artanh}x 1/(1-x^2)를 적분">
+<div class="num">044</div>
+<h3>\(f(x)=\operatorname{artanh}x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \operatorname{artanh}x = x+\frac{x^3}{3}+\frac{x^5}{5}+\frac{x^7}{7}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(1/(1-x^2)를 적분\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 x\ln(1+x) \ln(1+x)에 x를 곱함">
+<div class="num">045</div>
+<h3>\(f(x)=x\ln(1+x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1<x\le1</span></div>
+<div class="formula">\[ x\ln(1+x) = x^2-\frac{x^3}{2}+\frac{x^4}{3}-\frac{x^5}{4}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\ln(1+x)에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(1+x^2) x\to x^2">
+<div class="num">046</div>
+<h3>\(f(x)=\ln(1+x^2)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1\ (끝점 주의)</span></div>
+<div class="formula">\[ \ln(1+x^2) = x^2-\frac{x^4}{2}+\frac{x^6}{3}-\frac{x^8}{4}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^2\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(1+2x) x\to2x">
+<div class="num">047</div>
+<h3>\(f(x)=\ln(1+2x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1/2<x\le1/2</span></div>
+<div class="formula">\[ \ln(1+2x) = 2x-\frac{(2x)^2}{2}+\frac{(2x)^3}{3}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to2x\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(2+x) \ln2+\ln(1+x/2)">
+<div class="num">048</div>
+<h3>\(f(x)=\ln(2+x)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -2<x\le2</span></div>
+<div class="formula">\[ \ln(2+x) = \ln2+\frac{x}{2}-\frac{x^2}{8}+\frac{x^3}{24}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\ln2+\ln(1+x/2)\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \arctan(x^2) x\to x^2">
+<div class="num">049</div>
+<h3>\(f(x)=\arctan(x^2)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1</span></div>
+<div class="formula">\[ \arctan(x^2) = x^2-\frac{x^6}{3}+\frac{x^{10}}5-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^2\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \arcsin(x^2) x\to x^2">
+<div class="num">050</div>
+<h3>\(f(x)=\arcsin(x^2)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1</span></div>
+<div class="formula">\[ \arcsin(x^2) = x^2+\frac{x^6}{6}+\frac{3x^{10}}{40}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^2\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(1-x^2) x\to -x^2">
+<div class="num">051</div>
+<h3>\(f(x)=\ln(1-x^2)\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \ln(1-x^2) = -x^2-\frac{x^4}{2}-\frac{x^6}{3}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to -x^2\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln\sqrt{1+x} \frac12\ln(1+x)">
+<div class="num">052</div>
+<h3>\(f(x)=\ln\sqrt{1+x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1<x\le1</span></div>
+<div class="formula">\[ \ln\sqrt{1+x} = \frac{x}{2}-\frac{x^2}{4}+\frac{x^3}{6}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\frac12\ln(1+x)\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \arctan x/x x=0에서 연속확장">
+<div class="num">053</div>
+<h3>\(f(x)=\arctan x/x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|\le1</span></div>
+<div class="formula">\[ \arctan x/x = 1-\frac{x^2}{3}+\frac{x^4}{5}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x=0에서 연속확장\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(1+x)/x x=0에서 연속확장">
+<div class="num">054</div>
+<h3>\(f(x)=\ln(1+x)/x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1<x\le1</span></div>
+<div class="formula">\[ \ln(1+x)/x = 1-\frac{x}{2}+\frac{x^2}{3}-\frac{x^3}{4}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x=0에서 연속확장\)</p>
+</article>
+<article class="card" data-text="로그·역삼각함수 \ln(1+x)-x 선형항 제거">
+<div class="num">055</div>
+<h3>\(f(x)=\ln(1+x)-x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: -1<x\le1</span></div>
+<div class="formula">\[ \ln(1+x)-x = -\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(선형항 제거\)</p>
+</article><h2 class="group" id="g56">유리함수·기하급수</h2>
+<article class="card" data-text="유리함수·기하급수 \frac1{1-x} 기하급수의 기본">
+<div class="num">056</div>
+<h3>\(f(x)=\frac1{1-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{1-x} = 1+x+x^2+x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(기하급수의 기본\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1+x} x\to -x">
+<div class="num">057</div>
+<h3>\(f(x)=\frac1{1+x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{1+x} = 1-x+x^2-x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to -x\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1-2x} 공비 2x">
+<div class="num">058</div>
+<h3>\(f(x)=\frac1{1-2x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1/2</span></div>
+<div class="formula">\[ \frac1{1-2x} = 1+2x+4x^2+8x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(공비 2x\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1+x^2} x\to -x^2">
+<div class="num">059</div>
+<h3>\(f(x)=\frac1{1+x^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{1+x^2} = 1-x^2+x^4-x^6+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to -x^2\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1-x^2} x\to x^2">
+<div class="num">060</div>
+<h3>\(f(x)=\frac1{1-x^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{1-x^2} = 1+x^2+x^4+x^6+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^2\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac{x}{1-x} 기하급수에 x를 곱함">
+<div class="num">061</div>
+<h3>\(f(x)=\frac{x}{1-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac{x}{1-x} = x+x^2+x^3+x^4+\cdots \]</div>
+<p><b>만드는 방법:</b> \(기하급수에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac{x}{1+x} 기하급수에 x를 곱함">
+<div class="num">062</div>
+<h3>\(f(x)=\frac{x}{1+x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac{x}{1+x} = x-x^2+x^3-x^4+\cdots \]</div>
+<p><b>만드는 방법:</b> \(기하급수에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{2-x} \frac12(1-x/2)^{-1}">
+<div class="num">063</div>
+<h3>\(f(x)=\frac1{2-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<2</span></div>
+<div class="formula">\[ \frac1{2-x} = \frac12+\frac{x}{4}+\frac{x^2}{8}+\frac{x^3}{16}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\frac12(1-x/2)^{-1}\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{2+x} \frac12(1+x/2)^{-1}">
+<div class="num">064</div>
+<h3>\(f(x)=\frac1{2+x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<2</span></div>
+<div class="formula">\[ \frac1{2+x} = \frac12-\frac{x}{4}+\frac{x^2}{8}-\frac{x^3}{16}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\frac12(1+x/2)^{-1}\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{(1-x)^2} 기하급수를 미분">
+<div class="num">065</div>
+<h3>\(f(x)=\frac1{(1-x)^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{(1-x)^2} = 1+2x+3x^2+4x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(기하급수를 미분\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{(1+x)^2} x\to -x">
+<div class="num">066</div>
+<h3>\(f(x)=\frac1{(1+x)^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{(1+x)^2} = 1-2x+3x^2-4x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to -x\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac{x}{(1-x)^2} 앞 급수에 x를 곱함">
+<div class="num">067</div>
+<h3>\(f(x)=\frac{x}{(1-x)^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac{x}{(1-x)^2} = x+2x^2+3x^3+4x^4+\cdots \]</div>
+<p><b>만드는 방법:</b> \(앞 급수에 x를 곱함\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{(1-x)^3} 반복 미분">
+<div class="num">068</div>
+<h3>\(f(x)=\frac1{(1-x)^3}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{(1-x)^3} = 1+3x+6x^2+10x^3+15x^4+\cdots \]</div>
+<p><b>만드는 방법:</b> \(반복 미분\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1-x^3} x\to x^3">
+<div class="num">069</div>
+<h3>\(f(x)=\frac1{1-x^3}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{1-x^3} = 1+x^3+x^6+x^9+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^3\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1+x^3} x\to x^3">
+<div class="num">070</div>
+<h3>\(f(x)=\frac1{1+x^3}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{1+x^3} = 1-x^3+x^6-x^9+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^3\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{x} a=1,\ 1/x=1/[1+(x-1)]">
+<div class="num">071</div>
+<h3>\(f(x)=\frac1{x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: |x-1|<1</span></div>
+<div class="formula">\[ \frac1{x} = 1-(x-1)+(x-1)^2-(x-1)^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1,\ 1/x=1/[1+(x-1)]\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{1+x} a=1">
+<div class="num">072</div>
+<h3>\(f(x)=\frac1{1+x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: |x-1|<2</span></div>
+<div class="formula">\[ \frac1{1+x} = \frac12-\frac{x-1}{4}+\frac{(x-1)^2}{8}-\frac{(x-1)^3}{16}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac1{3-x} \frac13(1-x/3)^{-1}">
+<div class="num">073</div>
+<h3>\(f(x)=\frac1{3-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<3</span></div>
+<div class="formula">\[ \frac1{3-x} = \frac13+\frac{x}{9}+\frac{x^2}{27}+\frac{x^3}{81}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\frac13(1-x/3)^{-1}\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac{x^2}{1-x} 기하급수에 x^2을 곱함">
+<div class="num">074</div>
+<h3>\(f(x)=\frac{x^2}{1-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac{x^2}{1-x} = x^2+x^3+x^4+x^5+\cdots \]</div>
+<p><b>만드는 방법:</b> \(기하급수에 x^2을 곱함\)</p>
+</article>
+<article class="card" data-text="유리함수·기하급수 \frac{1+x}{1-x} 1+2x/(1-x)">
+<div class="num">075</div>
+<h3>\(f(x)=\frac{1+x}{1-x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac{1+x}{1-x} = 1+2x+2x^2+2x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(1+2x/(1-x)\)</p>
+</article><h2 class="group" id="g76">이항급수·거듭제곱</h2>
+<article class="card" data-text="이항급수·거듭제곱 (1+x)^{1/2} 일반화된 이항급수">
+<div class="num">076</div>
+<h3>\(f(x)=(1+x)^{1/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1+x)^{1/2} = 1+\frac{x}{2}-\frac{x^2}{8}+\frac{x^3}{16}-\frac{5x^4}{128}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(일반화된 이항급수\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1-x)^{1/2} x\to -x">
+<div class="num">077</div>
+<h3>\(f(x)=(1-x)^{1/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1-x)^{1/2} = 1-\frac{x}{2}-\frac{x^2}{8}-\frac{x^3}{16}-\frac{5x^4}{128}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to -x\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+x)^{-1/2} \alpha=-1/2">
+<div class="num">078</div>
+<h3>\(f(x)=(1+x)^{-1/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1+x)^{-1/2} = 1-\frac{x}{2}+\frac{3x^2}{8}-\frac{5x^3}{16}+\frac{35x^4}{128}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=-1/2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1-x)^{-1/2} \alpha=-1/2">
+<div class="num">079</div>
+<h3>\(f(x)=(1-x)^{-1/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1-x)^{-1/2} = 1+\frac{x}{2}+\frac{3x^2}{8}+\frac{5x^3}{16}+\frac{35x^4}{128}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=-1/2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+x)^{3/2} \alpha=3/2">
+<div class="num">080</div>
+<h3>\(f(x)=(1+x)^{3/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1+x)^{3/2} = 1+\frac{3x}{2}+\frac{3x^2}{8}-\frac{x^3}{16}+\frac{3x^4}{128}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=3/2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+x)^{-2} \alpha=-2">
+<div class="num">081</div>
+<h3>\(f(x)=(1+x)^{-2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1+x)^{-2} = 1-2x+3x^2-4x^3+5x^4-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=-2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+x)^{-3} \alpha=-3">
+<div class="num">082</div>
+<h3>\(f(x)=(1+x)^{-3}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1+x)^{-3} = 1-3x+6x^2-10x^3+15x^4-\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=-3\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 \sqrt{1+x^2} x\to x^2">
+<div class="num">083</div>
+<h3>\(f(x)=\sqrt{1+x^2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \sqrt{1+x^2} = 1+\frac{x^2}{2}-\frac{x^4}{8}+\frac{x^6}{16}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 \frac1{\sqrt{1+x^2}} x\to x^2">
+<div class="num">084</div>
+<h3>\(f(x)=\frac1{\sqrt{1+x^2}}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{\sqrt{1+x^2}} = 1-\frac{x^2}{2}+\frac{3x^4}{8}-\frac{5x^6}{16}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to x^2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 \frac1{\sqrt{1-x^2}} \arcsin x의 도함수">
+<div class="num">085</div>
+<h3>\(f(x)=\frac1{\sqrt{1-x^2}}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ \frac1{\sqrt{1-x^2}} = 1+\frac{x^2}{2}+\frac{3x^4}{8}+\frac{5x^6}{16}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\arcsin x의 도함수\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 \sqrt{4+x} 2\sqrt{1+x/4}">
+<div class="num">086</div>
+<h3>\(f(x)=\sqrt{4+x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<4</span></div>
+<div class="formula">\[ \sqrt{4+x} = 2+\frac{x}{4}-\frac{x^2}{64}+\frac{x^3}{512}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(2\sqrt{1+x/4}\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 \frac1{\sqrt{4+x}} \frac12(1+x/4)^{-1/2}">
+<div class="num">087</div>
+<h3>\(f(x)=\frac1{\sqrt{4+x}}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<4</span></div>
+<div class="formula">\[ \frac1{\sqrt{4+x}} = \frac12-\frac{x}{16}+\frac{3x^2}{256}-\frac{5x^3}{2048}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\frac12(1+x/4)^{-1/2}\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+2x)^{1/2} x\to2x">
+<div class="num">088</div>
+<h3>\(f(x)=(1+2x)^{1/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1/2</span></div>
+<div class="formula">\[ (1+2x)^{1/2} = 1+x-\frac{x^2}{2}+\frac{x^3}{2}-\frac{5x^4}{8}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to2x\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+2x)^{-1/2} x\to2x">
+<div class="num">089</div>
+<h3>\(f(x)=(1+2x)^{-1/2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1/2</span></div>
+<div class="formula">\[ (1+2x)^{-1/2} = 1-x+\frac{3x^2}{2}-\frac{5x^3}{2}+\frac{35x^4}{8}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(x\to2x\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1-x)^{-2} \alpha=-2">
+<div class="num">090</div>
+<h3>\(f(x)=(1-x)^{-2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1-x)^{-2} = 1+2x+3x^2+4x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=-2\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1-x)^{-3} \alpha=-3">
+<div class="num">091</div>
+<h3>\(f(x)=(1-x)^{-3}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: |x|<1</span></div>
+<div class="formula">\[ (1-x)^{-3} = 1+3x+6x^2+10x^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(\alpha=-3\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1+x)^5 유한 이항정리">
+<div class="num">092</div>
+<h3>\(f(x)=(1+x)^5\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ (1+x)^5 = 1+5x+10x^2+10x^3+5x^4+x^5 \]</div>
+<p><b>만드는 방법:</b> \(유한 이항정리\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 (1-x)^5 유한 이항정리">
+<div class="num">093</div>
+<h3>\(f(x)=(1-x)^5\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ (1-x)^5 = 1-5x+10x^2-10x^3+5x^4-x^5 \]</div>
+<p><b>만드는 방법:</b> \(유한 이항정리\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 \sqrt{x} a=1">
+<div class="num">094</div>
+<h3>\(f(x)=\sqrt{x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: |x-1|<1</span></div>
+<div class="formula">\[ \sqrt{x} = 1+\frac{x-1}{2}-\frac{(x-1)^2}{8}+\frac{(x-1)^3}{16}-\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1\)</p>
+</article>
+<article class="card" data-text="이항급수·거듭제곱 x^{-2} a=1">
+<div class="num">095</div>
+<h3>\(f(x)=x^{-2}\)</h3>
+<div class="meta"><span>전개 중심 \(a=1\)</span><span>수렴: |x-1|<1</span></div>
+<div class="formula">\[ x^{-2} = 1-2(x-1)+3(x-1)^2-4(x-1)^3+\cdots \]</div>
+<p><b>만드는 방법:</b> \(a=1\)</p>
+</article><h2 class="group" id="g96">복합·결합함수</h2>
+<article class="card" data-text="복합·결합함수 e^x\sin x 두 급수의 곱">
+<div class="num">096</div>
+<h3>\(f(x)=e^x\sin x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^x\sin x = x+x^2+\frac{x^3}{3}-\frac{x^5}{30}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(두 급수의 곱\)</p>
+</article>
+<article class="card" data-text="복합·결합함수 e^x\cos x 두 급수의 곱">
+<div class="num">097</div>
+<h3>\(f(x)=e^x\cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^x\cos x = 1+x-\frac{x^3}{3}-\frac{x^4}{6}-\frac{x^5}{30}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(두 급수의 곱\)</p>
+</article>
+<article class="card" data-text="복합·결합함수 e^{-x}\sin x 두 급수의 곱">
+<div class="num">098</div>
+<h3>\(f(x)=e^{-x}\sin x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{-x}\sin x = x-x^2+\frac{x^3}{3}-\frac{x^5}{30}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(두 급수의 곱\)</p>
+</article>
+<article class="card" data-text="복합·결합함수 e^{-x}\cos x 두 급수의 곱">
+<div class="num">099</div>
+<h3>\(f(x)=e^{-x}\cos x\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수</span></div>
+<div class="formula">\[ e^{-x}\cos x = 1-x+\frac{x^3}{3}-\frac{x^4}{6}+\frac{x^5}{30}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(두 급수의 곱\)</p>
+</article>
+<article class="card" data-text="복합·결합함수 \frac{e^x-1}{x} e^x-1을 x로 나눔">
+<div class="num">100</div>
+<h3>\(f(x)=\frac{e^x-1}{x}\)</h3>
+<div class="meta"><span>전개 중심 \(a=0\)</span><span>수렴: 모든 실수(0에서 연속확장)</span></div>
+<div class="formula">\[ \frac{e^x-1}{x} = 1+\frac{x}{2!}+\frac{x^2}{3!}+\frac{x^3}{4!}+\cdots \]</div>
+<p><b>만드는 방법:</b> \(e^x-1을 x로 나눔\)</p>
+</article></div>
+</main>
+<script>
+function filterCards(){
+ const q=document.getElementById('q').value.toLowerCase();
+ const c=document.getElementById('cat').value;
+ document.querySelectorAll('.card').forEach(x=>{
+   const okq=x.dataset.text.toLowerCase().includes(q);
+   const okc=!c || x.dataset.text.includes(c);
+   x.style.display=(okq&&okc)?'block':'none';
+ });
+}
+</script></body></html>

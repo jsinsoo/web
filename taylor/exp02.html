@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>유리수 지수에서 분모가 음의 정수인 경우</title>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]},
+  svg: {fontCache: 'global'}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--ink:#182230;--muted:#5b6573;--line:#dfe5ec;--soft:#f6f8fb;--accent:#2457a6;--warn:#fff7e6}
+*{box-sizing:border-box} body{margin:0;font-family:"Malgun Gothic","Noto Sans KR",sans-serif;color:var(--ink);background:#fff;line-height:1.75}
+header{background:linear-gradient(135deg,#173f78,#2c67b1);color:white;padding:38px 20px}
+header .wrap,main{max-width:1040px;margin:auto} h1{margin:0 0 8px;font-size:2rem} header p{margin:0;opacity:.94}
+main{padding:28px 20px 60px} nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 0;z-index:2}
+nav .wrap{max-width:1040px;margin:auto;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:var(--accent);text-decoration:none;padding:6px 10px;background:var(--soft);border-radius:8px}
+section{margin:30px 0} h2{border-left:5px solid var(--accent);padding-left:12px;margin-top:36px} h3{margin-top:24px}
+.card{border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0;background:#fff;box-shadow:0 3px 14px rgba(20,35,55,.05)}
+.key{background:#eef5ff;border-left:5px solid var(--accent);padding:16px 18px;border-radius:10px}
+.warn{background:var(--warn);border:1px solid #efd596;padding:16px 18px;border-radius:10px}
+.step{background:var(--soft);padding:12px 16px;border-radius:9px;margin:8px 0}
+.answer{font-weight:700;color:#173f78}.tag{display:inline-block;background:#e8eef7;padding:2px 8px;border-radius:999px;font-size:.88rem}
+table{width:100%;border-collapse:collapse;margin:16px 0} th,td{border:1px solid var(--line);padding:10px;text-align:center} th{background:var(--soft)}
+code{background:#f2f4f7;padding:2px 5px;border-radius:5px}
+@media print{nav{display:none}.card{box-shadow:none;break-inside:avoid} header{background:white;color:black;border-bottom:2px solid #222}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>유리수 지수에서 ‘분모가 음의 정수’인 경우</h1>
+<p>표준형으로 바꾸는 이유부터 근호 표현, 역수 관계, 정의역 주의점까지 단계별 학습</p>
+</div></header>
+<nav><div class="wrap">
+<a href="#concept">핵심 개념</a><a href="#why">왜 분모를 양수로?</a><a href="#examples">예시 5문제</a><a href="#summary">정리</a>
+</div></nav>
+<main>
+<section id="concept">
+<h2>1. 먼저 알아야 할 핵심</h2>
+<div class="key">
+유리수는 보통 \(\displaystyle \frac{m}{n}\;(m\in\mathbb Z,\;n\in\mathbb N)\)처럼 <strong>분모를 양의 정수</strong>로 두어 나타냅니다.
+따라서 \(\displaystyle \frac{m}{-n}\)이 보이면
+\[
+\frac{m}{-n}=-\frac{m}{n}=\frac{-m}{n}
+\]
+으로 바꾸어 생각합니다.
+</div>
+
+<p>즉, “분모가 음수인 유리수 지수”라는 별도의 새로운 지수 정의가 필요한 것은 아닙니다. 음의 부호를 분자 또는 분수 전체 앞으로 옮겨 <strong>분모가 양수인 표준적인 유리수 지수</strong>로 바꾸면 됩니다.</p>
+
+<div class="card">
+<h3>예: \(\displaystyle a^{\frac{2}{-3}}\)</h3>
+\[
+\frac{2}{-3}=-\frac23
+\]
+따라서
+\[
+a^{\frac{2}{-3}}=a^{-\frac23}
+=\frac{1}{a^{2/3}}
+=\frac{1}{\sqrt[3]{a^2}}.
+\]
+<p>핵심은 <strong>분모의 음수 부호가 지수 전체를 음수로 만든다</strong>는 점입니다.</p>
+</div>
+
+<table>
+<tr><th>처음 표현</th><th>표준형</th><th>거듭제곱·근호 표현</th></tr>
+<tr><td>\(\frac{2}{-3}\)</td><td>\(-\frac23\)</td><td>\(\displaystyle a^{-2/3}=\frac1{\sqrt[3]{a^2}}\)</td></tr>
+<tr><td>\(\frac{-2}{-3}\)</td><td>\(\frac23\)</td><td>\(\displaystyle a^{2/3}=\sqrt[3]{a^2}\)</td></tr>
+<tr><td>\(\frac{3}{-4}\)</td><td>\(-\frac34\)</td><td>\(\displaystyle a^{-3/4}=\frac1{\sqrt[4]{a^3}}\)</td></tr>
+</table>
+</section>
+
+<section id="why">
+<h2>2. 왜 분모를 양의 정수로 정리하는가?</h2>
+<p>\(\frac{2}{-3}\), \(-\frac23\), \(\frac{-2}{3}\)은 모두 같은 유리수입니다. 표현을 하나로 통일하지 않으면 같은 지수를 서로 다른 경우처럼 취급하기 쉽습니다. 그래서 유리수 \(\frac mn\)을 사용할 때 보통 \(n>0\)으로 정합니다.</p>
+
+<div class="step"><strong>1단계:</strong> 분모의 음의 부호를 밖으로 이동한다. \(\displaystyle \frac{m}{-n}=-\frac mn\)</div>
+<div class="step"><strong>2단계:</strong> 음의 지수 법칙을 적용한다. \(\displaystyle a^{-r}=\frac1{a^r}\)</div>
+<div class="step"><strong>3단계:</strong> 양의 유리수 지수를 근호로 바꾼다. \(\displaystyle a^{m/n}=\sqrt[n]{a^m}\)</div>
+
+<div class="key">
+따라서 \(a>0,\;m\in\mathbb Z,\;n\in\mathbb N\)일 때
+\[
+\boxed{
+a^{\frac{m}{-n}}
+=a^{-\frac mn}
+=\frac{1}{a^{m/n}}
+=\frac{1}{\sqrt[n]{a^m}}
+}
+\]
+단, 지수의 분자 자체도 음수라면 부호가 두 번 바뀔 수 있습니다.
+\[
+a^{\frac{-m}{-n}}=a^{m/n}.
+\]
+</div>
+
+<div class="warn">
+<strong>주의 1.</strong> \(\displaystyle \frac{2}{-3}\)을 \(\frac{-2}{-3}\)으로 바꾸면 안 됩니다. 분모의 부호를 양수로 바꾸려면 <strong>분자에도 동시에 \(-1\)을 곱해야</strong> 하므로 \(\frac{2}{-3}=\frac{-2}{3}\)입니다.<br><br>
+<strong>주의 2.</strong> 고등학교에서 실수 지수까지 일관되게 확장할 때는 일반적으로 밑을 \(a>0\)으로 두는 것이 안전합니다. 특정 유리수 지수에서는 음의 밑도 실수값을 가질 수 있지만, 모든 실수 지수에 대해 일관된 실수 범위 정의를 하려면 \(a>0\)을 사용합니다.<br><br>
+<strong>주의 3.</strong> 음의 지수는 역수를 만들므로 밑이 0인 경우 \(0^{-r}\)는 정의되지 않습니다.
+</div>
+</section>
+
+<section id="examples">
+<h2>3. 예시문제 5개 · 단계별 상세 풀이</h2>
+
+<div class="card">
+<span class="tag">예시 1 · 기본</span>
+<h3>문제 1. \(\displaystyle 8^{\frac{1}{-3}}\)의 값을 구하시오.</h3>
+<div class="step"><strong>① 지수의 부호 정리</strong>
+\[
+\frac1{-3}=-\frac13
+\]
+따라서 \(\displaystyle 8^{1/(-3)}=8^{-1/3}\).</div>
+<div class="step"><strong>② 음의 지수를 역수로 변환</strong>
+\[
+8^{-1/3}=\frac1{8^{1/3}}
+\]</div>
+<div class="step"><strong>③ 유리수 지수를 근호로 변환</strong>
+\[
+8^{1/3}=\sqrt[3]{8}=2
+\]</div>
+<div class="step"><strong>④ 최종 계산</strong>
+\[
+8^{1/(-3)}=\frac12
+\]</div>
+<p class="answer">정답: \(\boxed{\frac12}\)</p>
+</div>
+
+<div class="card">
+<span class="tag">예시 2 · 분자가 2</span>
+<h3>문제 2. \(\displaystyle 27^{\frac{2}{-3}}\)의 값을 구하시오.</h3>
+<div class="step"><strong>① 표준형으로 정리</strong>
+\[
+\frac2{-3}=-\frac23
+\]</div>
+<div class="step"><strong>② 음의 지수 처리</strong>
+\[
+27^{-2/3}=\frac1{27^{2/3}}
+\]</div>
+<div class="step"><strong>③ 분모 3은 세제곱근을 뜻함</strong>
+\[
+27^{2/3}=(\sqrt[3]{27})^2=3^2=9
+\]</div>
+<div class="step"><strong>④ 역수 계산</strong>
+\[
+27^{2/(-3)}=\frac19
+\]</div>
+<p class="answer">정답: \(\boxed{\frac19}\)</p>
+</div>
+
+<div class="card">
+<span class="tag">예시 3 · 분자와 분모가 모두 음수</span>
+<h3>문제 3. \(\displaystyle 16^{\frac{-3}{-4}}\)의 값을 구하시오.</h3>
+<div class="step"><strong>① 두 음수의 부호 정리</strong>
+\[
+\frac{-3}{-4}=\frac34
+\]
+이번에는 지수 자체가 양수입니다.</div>
+<div class="step"><strong>② 유리수 지수 적용</strong>
+\[
+16^{3/4}=(\sqrt[4]{16})^3
+\]</div>
+<div class="step"><strong>③ 근호 계산</strong>
+\[
+\sqrt[4]{16}=2
+\]</div>
+<div class="step"><strong>④ 거듭제곱</strong>
+\[
+2^3=8
+\]</div>
+<p class="answer">정답: \(\boxed{8}\)</p>
+<p>이 문제는 “분모가 음수이면 무조건 역수”라고 외우면 틀리기 쉽습니다. <strong>분수 전체의 부호부터 판단</strong>해야 합니다.</p>
+</div>
+
+<div class="card">
+<span class="tag">예시 4 · 문자식</span>
+<h3>문제 4. \(x>0\)일 때 \(\displaystyle x^{\frac{3}{-2}}\)를 근호를 사용하여 나타내시오.</h3>
+<div class="step"><strong>① 지수 정리</strong>
+\[
+\frac3{-2}=-\frac32
+\]</div>
+<div class="step"><strong>② 음의 지수 → 역수</strong>
+\[
+x^{-3/2}=\frac1{x^{3/2}}
+\]</div>
+<div class="step"><strong>③ 유리수 지수 → 근호</strong>
+\[
+x^{3/2}=(\sqrt{x})^3=x\sqrt{x}
+\]</div>
+<div class="step"><strong>④ 정리</strong>
+\[
+x^{3/(-2)}=\frac1{x\sqrt{x}}
+\]
+또는
+\[
+\frac1{\sqrt{x^3}}
+\]
+로 나타낼 수 있습니다.</div>
+<p class="answer">정답: \(\boxed{\frac1{x\sqrt{x}}}\)</p>
+</div>
+
+<div class="card">
+<span class="tag">예시 5 · 지수법칙 통합</span>
+<h3>문제 5. \(a>0\)일 때 \(\displaystyle a^{\frac{5}{-6}}\times a^{\frac13}\)을 간단히 하시오.</h3>
+<div class="step"><strong>① 첫 번째 지수의 분모 부호 정리</strong>
+\[
+\frac5{-6}=-\frac56
+\]
+따라서
+\[
+a^{5/(-6)}a^{1/3}=a^{-5/6}a^{1/3}.
+\]</div>
+<div class="step"><strong>② 같은 밑의 곱셈은 지수를 더함</strong>
+\[
+a^{-5/6+1/3}
+\]</div>
+<div class="step"><strong>③ 통분</strong>
+\[
+-\frac56+\frac13
+=-\frac56+\frac26
+=-\frac36
+=-\frac12
+\]</div>
+<div class="step"><strong>④ 음의 유리수 지수 정리</strong>
+\[
+a^{-1/2}=\frac1{a^{1/2}}=\frac1{\sqrt a}
+\]</div>
+<p class="answer">정답: \(\boxed{\frac1{\sqrt a}}\)</p>
+</div>
+</section>
+
+<section id="summary">
+<h2>4. 한눈에 정리</h2>
+<div class="key">
+\[
+\boxed{\frac{m}{-n}=-\frac mn}
+\]
+\[
+\boxed{a^{m/(-n)}=a^{-m/n}}
+\]
+\[
+\boxed{a^{-m/n}=\frac1{a^{m/n}}}
+\]
+\[
+\boxed{a^{-m/n}=\frac1{\sqrt[n]{a^m}}}
+\qquad(a>0)
+\]
+</div>
+
+<table>
+<tr><th>지수</th><th>부호 정리</th><th>결과</th></tr>
+<tr><td>\(\frac{1}{-2}\)</td><td>\(-\frac12\)</td><td>\(\frac1{\sqrt a}\)</td></tr>
+<tr><td>\(\frac{2}{-3}\)</td><td>\(-\frac23\)</td><td>\(\frac1{\sqrt[3]{a^2}}\)</td></tr>
+<tr><td>\(\frac{-2}{-3}\)</td><td>\(\frac23\)</td><td>\(\sqrt[3]{a^2}\)</td></tr>
+<tr><td>\(\frac{3}{-4}\)</td><td>\(-\frac34\)</td><td>\(\frac1{\sqrt[4]{a^3}}\)</td></tr>
+</table>
+
+<div class="warn">
+<strong>가장 중요한 판단 순서</strong><br>
+① 분수 지수의 부호를 먼저 정리한다 →
+② 지수가 음수이면 역수를 취한다 →
+③ 양의 유리수 지수 부분을 근호로 바꾼다 →
+④ 계산하고 지수법칙과 일치하는지 확인한다.
+</div>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,947 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>테일러 급수를 활용한 공식 증명 100선</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--blue:#2357cf;--ink:#172136;--line:#dbe3f1;--soft:#f2f6ff;--green:#08755a}
+*{box-sizing:border-box}body{margin:0;background:#f6f8fc;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.7}
+header{background:linear-gradient(135deg,#142b64,#3478e5);color:white;padding:40px 20px}.wrap{max-width:1180px;margin:auto}
+h1{margin:0 0 8px;font-size:2.15rem}.toolbar{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--line);padding:10px 18px}
+.tools{max-width:1180px;margin:auto;display:flex;gap:8px;flex-wrap:wrap}.tools input,.tools select{padding:10px;border:1px solid #bac7dc;border-radius:8px;min-width:230px}
+button{border:0;border-radius:8px;background:var(--blue);color:#fff;padding:10px 14px;cursor:pointer}
+main{max-width:1180px;margin:20px auto;padding:0 18px}.intro,.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px #17233a12}
+.intro{padding:24px;margin-bottom:18px}.formula{background:#f9fbff;border-left:5px solid var(--blue);padding:10px 15px;overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{padding:20px;position:relative}.card h3{color:#183f99;padding-right:50px;margin:0 0 5px}
+.badge{position:absolute;right:15px;top:15px;font-weight:bold;color:#77849b}.tag{display:inline-block;background:#edf3ff;padding:2px 9px;border-radius:999px;font-size:.88rem}
+.box{margin-top:10px;border:1px solid var(--line);border-radius:9px;padding:11px;overflow:auto}.result{margin-top:10px;background:#edf9f5;border-left:5px solid var(--green);padding:10px 13px;overflow:auto}
+.cond{background:#fff8df;padding:8px 11px;border-radius:8px}.warn{background:#fff8df;border:1px solid #eedb93;border-radius:9px;padding:13px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:1.65rem}}
+@media print{.toolbar{display:none}body{background:white}.grid{display:block}.card,.intro{box-shadow:none;border:1px solid #ddd;break-inside:avoid;margin:10px 0}}
+</style></head><body>
+<header><div class="wrap"><h1>테일러 급수를 활용한 여러 가지 공식 증명 100선</h1>
+<p>극한, 기본 무한급수, 근사 공식, 상수 계산, 미분·적분 및 물리의 작은각 근사까지 테일러 전개로 연결합니다.</p></div></header>
+<div class="toolbar"><div class="tools">
+<input id="q" placeholder="예: sin, 극한, ln, 근사" oninput="fil()">
+<select id="cat" onchange="fil()"><option value="">전체 분야</option><option value="극한 공식">극한 공식</option><option value="기본 급수·항등식">기본 급수·항등식</option><option value="근사 공식">근사 공식</option><option value="상수·무한급수 공식">상수·무한급수 공식</option><option value="미적분·응용 공식">미적분·응용 공식</option></select>
+<button onclick="window.print()">인쇄 / PDF</button></div></div>
+<main><section class="intro">
+<h2>증명의 기본 도구</h2>
+<div class="formula">\[
+f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
+\qquad
+\left(\lim_{n\to\infty}R_n(x)=0\text{인 범위}\right)
+\]</div>
+<p>각 항목은 <b>① 출발 급수 → ② 대입·미분·적분·나눗셈·극한 등의 계산 → ③ 공식 도출</b> 순서로 구성했습니다. \(O(x^n)\)은 \(x\to0\)에서 \(x^n\) 정도 이하의 크기를 갖는 나머지항을 간단히 나타냅니다.</p>
+<div class="warn"><b>중요:</b> 테일러 전개는 수렴구간과 나머지항 조건을 확인해야 합니다. 또한 “작은 \(x\)”에서 얻은 부등식은 별도의 전역 증명 없이 모든 \(x\)로 확대하면 안 됩니다.</div>
+</section><div class="grid">
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\sin x}{x}=1 극한 공식">
+<div class="badge">001</div>
+<h3>\(\lim_{x\to0}\frac{\sin x}{x}=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\sin x}{x}=1-\frac{x^2}{6}+O(x^4)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\sin x}{x}=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12 극한 공식">
+<div class="badge">002</div>
+<h3>\(\lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{1-\cos x}{x^2}=\frac12-\frac{x^2}{24}+O(x^4)\to\frac12\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{e^x-1}{x}=1 극한 공식">
+<div class="badge">003</div>
+<h3>\(\lim_{x\to0}\frac{e^x-1}{x}=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=1+x+\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{e^x-1}{x}=1+\frac{x}{2}+O(x^2)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{e^x-1}{x}=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\ln(1+x)}x=1 극한 공식">
+<div class="badge">004</div>
+<h3>\(\lim_{x\to0}\frac{\ln(1+x)}x=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\ln(1+x)}x=1-\frac{x}{2}+O(x^2)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\ln(1+x)}x=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\tan x}{x}=1 극한 공식">
+<div class="badge">005</div>
+<h3>\(\lim_{x\to0}\frac{\tan x}{x}=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\tan x=x+\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\tan x}{x}=1+\frac{x^2}{3}+O(x^4)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\tan x}{x}=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\arctan x}{x}=1 극한 공식">
+<div class="badge">006</div>
+<h3>\(\lim_{x\to0}\frac{\arctan x}{x}=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\arctan x}{x}=1-\frac{x^2}{3}+O(x^4)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\arctan x}{x}=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\arcsin x}{x}=1 극한 공식">
+<div class="badge">007</div>
+<h3>\(\lim_{x\to0}\frac{\arcsin x}{x}=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arcsin x=x+\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\arcsin x}{x}=1+\frac{x^2}{6}+O(x^4)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\arcsin x}{x}=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\sinh x}{x}=1 극한 공식">
+<div class="badge">008</div>
+<h3>\(\lim_{x\to0}\frac{\sinh x}{x}=1\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sinh x=x+\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\sinh x}{x}=1+\frac{x^2}{6}+O(x^4)\to1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\sinh x}{x}=1\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\cosh x-1}{x^2}=\frac12 극한 공식">
+<div class="badge">009</div>
+<h3>\(\lim_{x\to0}\frac{\cosh x-1}{x^2}=\frac12\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cosh x=1+\frac{x^2}{2}+\frac{x^4}{24}+O(x^6)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\cosh x-1}{x^2}=\frac12+\frac{x^2}{24}+O(x^4)\to\frac12\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\cosh x-1}{x^2}=\frac12\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{e^x-1-x}{x^2}=\frac12 극한 공식">
+<div class="badge">010</div>
+<h3>\(\lim_{x\to0}\frac{e^x-1-x}{x^2}=\frac12\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=1+x+\frac{x^2}{2}+\frac{x^3}{6}+O(x^4)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{e^x-1-x}{x^2}=\frac12+\frac{x}{6}+O(x^2)\to\frac12\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{e^x-1-x}{x^2}=\frac12\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\sin x-x}{x^3}=-\frac16 극한 공식">
+<div class="badge">011</div>
+<h3>\(\lim_{x\to0}\frac{\sin x-x}{x^3}=-\frac16\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\sin x-x}{x^3}=-\frac16+\frac{x^2}{120}+O(x^4)\to-\frac16\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\sin x-x}{x^3}=-\frac16\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\tan x-x}{x^3}=\frac13 극한 공식">
+<div class="badge">012</div>
+<h3>\(\lim_{x\to0}\frac{\tan x-x}{x^3}=\frac13\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\tan x=x+\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\tan x-x}{x^3}=\frac13+O(x^2)\to\frac13\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\tan x-x}{x^3}=\frac13\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{x-\ln(1+x)}{x^2}=\frac12 극한 공식">
+<div class="badge">013</div>
+<h3>\(\lim_{x\to0}\frac{x-\ln(1+x)}{x^2}=\frac12\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{x-\ln(1+x)}{x^2}=\frac12-\frac{x}{3}+O(x^2)\to\frac12\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{x-\ln(1+x)}{x^2}=\frac12\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\arctan x-x}{x^3}=-\frac13 극한 공식">
+<div class="badge">014</div>
+<h3>\(\lim_{x\to0}\frac{\arctan x-x}{x^3}=-\frac13\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\arctan x-x}{x^3}=-\frac13+O(x^2)\to-\frac13\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\arctan x-x}{x^3}=-\frac13\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\arcsin x-x}{x^3}=\frac16 극한 공식">
+<div class="badge">015</div>
+<h3>\(\lim_{x\to0}\frac{\arcsin x-x}{x^3}=\frac16\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arcsin x=x+\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\arcsin x-x}{x^3}=\frac16+O(x^2)\to\frac16\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\arcsin x-x}{x^3}=\frac16\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\sqrt{1+x}-1}{x}=\frac12 극한 공식">
+<div class="badge">016</div>
+<h3>\(\lim_{x\to0}\frac{\sqrt{1+x}-1}{x}=\frac12\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sqrt{1+x}=1+\frac{x}{2}-\frac{x^2}{8}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\sqrt{1+x}-1}{x}=\frac12-\frac{x}{8}+O(x^2)\to\frac12\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\sqrt{1+x}-1}{x}=\frac12\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{(1+x)^\alpha-1}{x}=\alpha 극한 공식">
+<div class="badge">017</div>
+<h3>\(\lim_{x\to0}\frac{(1+x)^\alpha-1}{x}=\alpha\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)}2x^2+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{(1+x)^\alpha-1}{x}=\alpha+O(x)\to\alpha\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{(1+x)^\alpha-1}{x}=\alpha\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{a^x-1}{x}=\ln a 극한 공식">
+<div class="badge">018</div>
+<h3>\(\lim_{x\to0}\frac{a^x-1}{x}=\ln a\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[a^x=e^{x\ln a}=1+x\ln a+O(x^2)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{a^x-1}{x}=\ln a+O(x)\to\ln a\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{a^x-1}{x}=\ln a\]</div>
+<p class="cond"><b>조건:</b> \(a>0\)</p>
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{\ln(1+x)-x+x^2/2}{x^3}=\frac13 극한 공식">
+<div class="badge">019</div>
+<h3>\(\lim_{x\to0}\frac{\ln(1+x)-x+x^2/2}{x^3}=\frac13\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{\ln(1+x)-x+x^2/2}{x^3}=\frac13+O(x)\to\frac13\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{\ln(1+x)-x+x^2/2}{x^3}=\frac13\]</div>
+
+</article>
+<article class="card" data-cat="극한 공식" data-search="\lim_{x\to0}\frac{1-\cos x-x^2/2}{x^4}=-\frac1{24} 극한 공식">
+<div class="badge">020</div>
+<h3>\(\lim_{x\to0}\frac{1-\cos x-x^2/2}{x^4}=-\frac1{24}\)</h3>
+<p class="tag">극한 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{1-\cos x-x^2/2}{x^4}=-\frac1{24}+O(x^2)\)</p></div>
+<div class="result"><b>③ 결론</b>\[\lim_{x\to0}\frac{1-\cos x-x^2/2}{x^4}=-\frac1{24}\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="e^x=\sum_{n=0}^\infty\frac{x^n}{n!} 기본 급수·항등식">
+<div class="badge">021</div>
+<h3>\(e^x=\sum_{n=0}^\infty\frac{x^n}{n!}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[f^{(n)}(x)=e^x,\quad f^{(n)}(0)=1\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(T_n(x)=\sum_{k=0}^n\frac{x^k}{k!},\ R_n\to0\)</p></div>
+<div class="result"><b>③ 결론</b>\[e^x=1+x+\frac{x^2}{2!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\sin x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{(2n+1)!} 기본 급수·항등식">
+<div class="badge">022</div>
+<h3>\(\sin x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{(2n+1)!}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin0=0,\cos0=1,\ -\sin0=0,\ -\cos0=-1\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(도함수 값이 4주기로 반복된다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\cos x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n}}{(2n)!} 기본 급수·항등식">
+<div class="badge">023</div>
+<h3>\(\cos x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n}}{(2n)!}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos0=1,\ -\sin0=0,\ -\cos0=-1,\ \sin0=0\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(짝수차 항만 남고 부호가 교대한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\sinh x=\sum_{n=0}^\infty\frac{x^{2n+1}}{(2n+1)!} 기본 급수·항등식">
+<div class="badge">024</div>
+<h3>\(\sinh x=\sum_{n=0}^\infty\frac{x^{2n+1}}{(2n+1)!}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\sinh x=(e^x-e^{-x})/2\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(두 지수급수의 홀수차 항만 남는다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sinh x=x+\frac{x^3}{3!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\cosh x=\sum_{n=0}^\infty\frac{x^{2n}}{(2n)!} 기본 급수·항등식">
+<div class="badge">025</div>
+<h3>\(\cosh x=\sum_{n=0}^\infty\frac{x^{2n}}{(2n)!}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\cosh x=(e^x+e^{-x})/2\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(두 지수급수의 짝수차 항만 남는다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cosh x=1+\frac{x^2}{2!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac1{1-x}=\sum_{n=0}^\infty x^n 기본 급수·항등식">
+<div class="badge">026</div>
+<h3>\(\frac1{1-x}=\sum_{n=0}^\infty x^n\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[f(x)=(1-x)^{-1}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(f^{(n)}(0)=n!\Rightarrow f^{(n)}(0)/n!=1\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{1-x}=1+x+x^2+\cdots\]</div>
+<p class="cond"><b>조건:</b> \(|x|<1\)</p>
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac1{1+x}=\sum_{n=0}^\infty(-1)^nx^n 기본 급수·항등식">
+<div class="badge">027</div>
+<h3>\(\frac1{1+x}=\sum_{n=0}^\infty(-1)^nx^n\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1{1+x}=\frac1{1-(-x)}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(기하급수에 x\mapsto -x를 대입한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{1+x}=1-x+x^2-\cdots\]</div>
+<p class="cond"><b>조건:</b> \(|x|<1\)</p>
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\ln(1+x)=\sum_{n=1}^\infty(-1)^{n+1}\frac{x^n}{n} 기본 급수·항등식">
+<div class="badge">028</div>
+<h3>\(\ln(1+x)=\sum_{n=1}^\infty(-1)^{n+1}\frac{x^n}{n}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1{1+x}=1-x+x^2-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(0부터 x까지 항별 적분한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots\]</div>
+<p class="cond"><b>조건:</b> \(-1<x\le1\)</p>
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\arctan x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{2n+1} 기본 급수·항등식">
+<div class="badge">029</div>
+<h3>\(\arctan x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{2n+1}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1{1+x^2}=1-x^2+x^4-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(0부터 x까지 항별 적분한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\arctan x=x-\frac{x^3}{3}+\frac{x^5}{5}-\cdots\]</div>
+<p class="cond"><b>조건:</b> \(|x|\le1\)</p>
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="(1+x)^\alpha=\sum_{n=0}^\infty{\alpha\choose n}x^n 기본 급수·항등식">
+<div class="badge">030</div>
+<h3>\((1+x)^\alpha=\sum_{n=0}^\infty{\alpha\choose n}x^n\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[f^{(n)}(0)=\alpha(\alpha-1)\cdots(\alpha-n+1)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\frac{f^{(n)}(0)}{n!}={\alpha\choose n}\)</p></div>
+<div class="result"><b>③ 결론</b>\[(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\cdots\]</div>
+<p class="cond"><b>조건:</b> \(|x|<1\)</p>
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac1{(1-x)^2}=\sum_{n=0}^\infty(n+1)x^n 기본 급수·항등식">
+<div class="badge">031</div>
+<h3>\(\frac1{(1-x)^2}=\sum_{n=0}^\infty(n+1)x^n\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1{1-x}=1+x+x^2+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(양변을 미분: (1-x)^{-2}=1+2x+3x^2+\cdots\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{(1-x)^2}=1+2x+3x^2+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac1{(1-x)^3}=\sum_{n=0}^\infty\binom{n+2}{2}x^n 기본 급수·항등식">
+<div class="badge">032</div>
+<h3>\(\frac1{(1-x)^3}=\sum_{n=0}^\infty\binom{n+2}{2}x^n\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[(1-x)^{-2}=1+2x+3x^2+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(한 번 더 미분하고 2로 나눈다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{(1-x)^3}=1+3x+6x^2+10x^3+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\ln\frac{1+x}{1-x}=2\sum_{n=0}^\infty\frac{x^{2n+1}}{2n+1} 기본 급수·항등식">
+<div class="badge">033</div>
+<h3>\(\ln\frac{1+x}{1-x}=2\sum_{n=0}^\infty\frac{x^{2n+1}}{2n+1}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)-\ln(1-x)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(두 로그 급수를 빼면 짝수차 항이 소거된다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln\frac{1+x}{1-x}=2(x+x^3/3+x^5/5+\cdots)\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\operatorname{artanh}x=\sum_{n=0}^\infty\frac{x^{2n+1}}{2n+1} 기본 급수·항등식">
+<div class="badge">034</div>
+<h3>\(\operatorname{artanh}x=\sum_{n=0}^\infty\frac{x^{2n+1}}{2n+1}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\operatorname{artanh}x=\frac12\ln\frac{1+x}{1-x}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(바로 앞 공식을 2로 나눈다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\operatorname{artanh}x=x+x^3/3+x^5/5+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\arcsin x=x+\frac{x^3}{6}+\frac{3x^5}{40}+\cdots 기본 급수·항등식">
+<div class="badge">035</div>
+<h3>\(\arcsin x=x+\frac{x^3}{6}+\frac{3x^5}{40}+\cdots\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[(\arcsin x)'=(1-x^2)^{-1/2}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\((1-u)^{-1/2}의 이항급수에 u=x^2를 넣고 적분한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\arcsin x=x+\frac{x^3}{6}+\frac{3x^5}{40}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac{\sin x}{x}=1-\frac{x^2}{3!}+\frac{x^4}{5!}-\cdots 기본 급수·항등식">
+<div class="badge">036</div>
+<h3>\(\frac{\sin x}{x}=1-\frac{x^2}{3!}+\frac{x^4}{5!}-\cdots\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x\ne0에서 x로 나누고 x=0은 극한으로 연속확장한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\operatorname{sinc}x=1-\frac{x^2}{6}+\frac{x^4}{120}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac{1-\cos x}{x^2}=\frac12-\frac{x^2}{24}+\cdots 기본 급수·항등식">
+<div class="badge">037</div>
+<h3>\(\frac{1-\cos x}{x^2}=\frac12-\frac{x^2}{24}+\cdots\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[1-\cos x=\frac{x^2}{2!}-\frac{x^4}{4!}+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x^2으로 나눈다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac{1-\cos x}{x^2}=\frac12-\frac{x^2}{24}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac{e^x-1}{x}=1+\frac{x}{2!}+\frac{x^2}{3!}+\cdots 기본 급수·항등식">
+<div class="badge">038</div>
+<h3>\(\frac{e^x-1}{x}=1+\frac{x}{2!}+\frac{x^2}{3!}+\cdots\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x-1=x+\frac{x^2}{2!}+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x로 나눈다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac{e^x-1}{x}=1+\frac{x}{2}+\frac{x^2}{6}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\ln x=\sum_{n=1}^\infty(-1)^{n+1}\frac{(x-1)^n}{n} 기본 급수·항등식">
+<div class="badge">039</div>
+<h3>\(\ln x=\sum_{n=1}^\infty(-1)^{n+1}\frac{(x-1)^n}{n}\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln x=\ln(1+(x-1))\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\ln(1+u) 급수에 u=x-1을 대입한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln x=(x-1)-\frac{(x-1)^2}{2}+\cdots\]</div>
+<p class="cond"><b>조건:</b> \(|x-1|<1\)</p>
+</article>
+<article class="card" data-cat="기본 급수·항등식" data-search="\frac1x=\sum_{n=0}^\infty(-1)^n(x-1)^n 기본 급수·항등식">
+<div class="badge">040</div>
+<h3>\(\frac1x=\sum_{n=0}^\infty(-1)^n(x-1)^n\)</h3>
+<p class="tag">기본 급수·항등식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1x=\frac1{1+(x-1)}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(기하급수에 u=-(x-1)을 사용한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1x=1-(x-1)+(x-1)^2-\cdots\]</div>
+<p class="cond"><b>조건:</b> \(|x-1|<1\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="e^x\approx1+x 근사 공식">
+<div class="badge">041</div>
+<h3>\(e^x\approx1+x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=1+x+\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(|x|\text{가 작으면 }x^2\text{ 이상을 생략}\)</p></div>
+<div class="result"><b>③ 결론</b>\[e^x\approx1+x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="e^{-x}\approx1-x 근사 공식">
+<div class="badge">042</div>
+<h3>\(e^{-x}\approx1-x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^{-x}=1-x+\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(2차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[e^{-x}\approx1-x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\sin x\approx x 근사 공식">
+<div class="badge">043</div>
+<h3>\(\sin x\approx x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(작은 각에서 3차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sin x\approx x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\cos x\approx1-\frac{x^2}{2} 근사 공식">
+<div class="badge">044</div>
+<h3>\(\cos x\approx1-\frac{x^2}{2}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(4차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cos x\approx1-\frac{x^2}{2}\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\tan x\approx x 근사 공식">
+<div class="badge">045</div>
+<h3>\(\tan x\approx x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\tan x=x+\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(3차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\tan x\approx x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\ln(1+x)\approx x 근사 공식">
+<div class="badge">046</div>
+<h3>\(\ln(1+x)\approx x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(2차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln(1+x)\approx x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="(1+x)^\alpha\approx1+\alpha x 근사 공식">
+<div class="badge">047</div>
+<h3>\((1+x)^\alpha\approx1+\alpha x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)}2x^2+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(2차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[(1+x)^\alpha\approx1+\alpha x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\sqrt{1+x}\approx1+\frac{x}{2} 근사 공식">
+<div class="badge">048</div>
+<h3>\(\sqrt{1+x}\approx1+\frac{x}{2}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sqrt{1+x}=1+\frac{x}{2}-\frac{x^2}{8}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(2차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sqrt{1+x}\approx1+\frac{x}{2}\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\frac1{1+x}\approx1-x 근사 공식">
+<div class="badge">049</div>
+<h3>\(\frac1{1+x}\approx1-x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1{1+x}=1-x+x^2+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(2차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{1+x}\approx1-x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\frac1{\sqrt{1+x}}\approx1-\frac{x}{2} 근사 공식">
+<div class="badge">050</div>
+<h3>\(\frac1{\sqrt{1+x}}\approx1-\frac{x}{2}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[(1+x)^{-1/2}=1-\frac{x}{2}+\frac{3x^2}{8}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(2차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{\sqrt{1+x}}\approx1-\frac{x}{2}\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\arctan x\approx x 근사 공식">
+<div class="badge">051</div>
+<h3>\(\arctan x\approx x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(3차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\arctan x\approx x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\arcsin x\approx x 근사 공식">
+<div class="badge">052</div>
+<h3>\(\arcsin x\approx x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arcsin x=x+\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(3차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\arcsin x\approx x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\sinh x\approx x 근사 공식">
+<div class="badge">053</div>
+<h3>\(\sinh x\approx x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sinh x=x+\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(3차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sinh x\approx x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\cosh x\approx1+\frac{x^2}{2} 근사 공식">
+<div class="badge">054</div>
+<h3>\(\cosh x\approx1+\frac{x^2}{2}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cosh x=1+\frac{x^2}{2}+\frac{x^4}{24}+O(x^6)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(4차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cosh x\approx1+\frac{x^2}{2}\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\sqrt{a^2+x^2}\approx a+\frac{x^2}{2a} 근사 공식">
+<div class="badge">055</div>
+<h3>\(\sqrt{a^2+x^2}\approx a+\frac{x^2}{2a}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[a\sqrt{1+x^2/a^2}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\sqrt{1+u}=1+u/2+O(u^2)를 사용\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sqrt{a^2+x^2}\approx a+\frac{x^2}{2a}\]</div>
+<p class="cond"><b>조건:</b> \(a>0,\ |x|\ll a\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\frac1{a+x}\approx\frac1a-\frac{x}{a^2} 근사 공식">
+<div class="badge">056</div>
+<h3>\(\frac1{a+x}\approx\frac1a-\frac{x}{a^2}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac1a(1+x/a)^{-1}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\((1+u)^{-1}=1-u+O(u^2)\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{a+x}\approx\frac1a-\frac{x}{a^2}\]</div>
+<p class="cond"><b>조건:</b> \(|x|\ll|a|\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\ln(a+x)\approx\ln a+\frac{x}{a} 근사 공식">
+<div class="badge">057</div>
+<h3>\(\ln(a+x)\approx\ln a+\frac{x}{a}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(a+x)=\ln a+\ln(1+x/a)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(\ln(1+u)=u+O(u^2)\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln(a+x)\approx\ln a+\frac{x}{a}\]</div>
+<p class="cond"><b>조건:</b> \(a>0\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="(a+x)^n\approx a^n+na^{n-1}x 근사 공식">
+<div class="badge">058</div>
+<h3>\((a+x)^n\approx a^n+na^{n-1}x\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[a^n(1+x/a)^n\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(이항급수의 1차항까지 사용\)</p></div>
+<div class="result"><b>③ 결론</b>\[(a+x)^n\approx a^n+na^{n-1}x\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="\frac{\sin x}{x}\approx1-\frac{x^2}{6} 근사 공식">
+<div class="badge">059</div>
+<h3>\(\frac{\sin x}{x}\approx1-\frac{x^2}{6}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\frac{\sin x}{x}=1-\frac{x^2}{6}+\frac{x^4}{120}+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(4차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac{\sin x}{x}\approx1-\frac{x^2}{6}\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="근사 공식" data-search="1-\cos x\approx\frac{x^2}{2} 근사 공식">
+<div class="badge">060</div>
+<h3>\(1-\cos x\approx\frac{x^2}{2}\)</h3>
+<p class="tag">근사 공식</p>
+<div class="box"><b>① 출발 급수</b>\[1-\cos x=\frac{x^2}{2}-\frac{x^4}{24}+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(4차 이상을 생략\)</p></div>
+<div class="result"><b>③ 결론</b>\[1-\cos x\approx\frac{x^2}{2}\]</div>
+<p class="cond"><b>조건:</b> \(x가 충분히 작을 때\)</p>
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="e=\sum_{n=0}^\infty\frac1{n!} 상수·무한급수 공식">
+<div class="badge">061</div>
+<h3>\(e=\sum_{n=0}^\infty\frac1{n!}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=\sum x^n/n!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[e=1+1+\frac1{2!}+\frac1{3!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="e^{-1}=\sum_{n=0}^\infty\frac{(-1)^n}{n!} 상수·무한급수 공식">
+<div class="badge">062</div>
+<h3>\(e^{-1}=\sum_{n=0}^\infty\frac{(-1)^n}{n!}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=\sum x^n/n!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=-1을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[e^{-1}=1-1+\frac1{2!}-\frac1{3!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\pi=4\sum_{n=0}^\infty\frac{(-1)^n}{2n+1} 상수·무한급수 공식">
+<div class="badge">063</div>
+<h3>\(\pi=4\sum_{n=0}^\infty\frac{(-1)^n}{2n+1}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-x^3/3+x^5/5-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1,\ \arctan1=\pi/4\)</p></div>
+<div class="result"><b>③ 결론</b>\[\pi=4(1-\frac13+\frac15-\frac17+\cdots)\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\frac{\pi}{6}=\frac12+\frac1{48}+\frac3{1280}+\cdots 상수·무한급수 공식">
+<div class="badge">064</div>
+<h3>\(\frac{\pi}{6}=\frac12+\frac1{48}+\frac3{1280}+\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arcsin x=x+x^3/6+3x^5/40+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1/2,\ \arcsin(1/2)=\pi/6\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac{\pi}{6}=\frac12+\frac1{48}+\frac3{1280}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\ln2=1-\frac12+\frac13-\frac14+\cdots 상수·무한급수 공식">
+<div class="badge">065</div>
+<h3>\(\ln2=1-\frac12+\frac13-\frac14+\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-x^2/2+x^3/3-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln2=1-\frac12+\frac13-\frac14+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\ln2=2(\frac13+\frac1{3^3 3}+\frac1{3^5 5}+\cdots) 상수·무한급수 공식">
+<div class="badge">066</div>
+<h3>\(\ln2=2(\frac13+\frac1{3^3 3}+\frac1{3^5 5}+\cdots)\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln\frac{1+x}{1-x}=2(x+x^3/3+\cdots)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1/3이면 (1+x)/(1-x)=2\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln2=2\sum_{n=0}^\infty\frac{1}{(2n+1)3^{2n+1}}\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\ln3=2(\frac12+\frac1{3\cdot2^3}+\frac1{5\cdot2^5}+\cdots) 상수·무한급수 공식">
+<div class="badge">067</div>
+<h3>\(\ln3=2(\frac12+\frac1{3\cdot2^3}+\frac1{5\cdot2^5}+\cdots)\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln\frac{1+x}{1-x}=2(x+x^3/3+\cdots)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1/2이면 비가 3\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln3=2\sum_{n=0}^\infty\frac1{(2n+1)2^{2n+1}}\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\arctan1=\frac\pi4 상수·무한급수 공식">
+<div class="badge">068</div>
+<h3>\(\arctan1=\frac\pi4\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-x^3/3+x^5/5-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac\pi4=1-\frac13+\frac15-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\sinh1=\sum_{n=0}^\infty\frac1{(2n+1)!} 상수·무한급수 공식">
+<div class="badge">069</div>
+<h3>\(\sinh1=\sum_{n=0}^\infty\frac1{(2n+1)!}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sinh x=x+x^3/3!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sinh1=1+\frac1{3!}+\frac1{5!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\cosh1=\sum_{n=0}^\infty\frac1{(2n)!} 상수·무한급수 공식">
+<div class="badge">070</div>
+<h3>\(\cosh1=\sum_{n=0}^\infty\frac1{(2n)!}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cosh x=1+x^2/2!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cosh1=1+\frac1{2!}+\frac1{4!}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\sqrt2=1+\frac12-\frac18+\frac1{16}-\frac5{128}+\cdots 상수·무한급수 공식">
+<div class="badge">071</div>
+<h3>\(\sqrt2=1+\frac12-\frac18+\frac1{16}-\frac5{128}+\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sqrt{1+x}=1+x/2-x^2/8+x^3/16-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1은 이항급수의 경계에서 수렴\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sqrt2=1+\frac12-\frac18+\frac1{16}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\frac1{\sqrt2}=1-\frac12+\frac38-\frac5{16}+\cdots 상수·무한급수 공식">
+<div class="badge">072</div>
+<h3>\(\frac1{\sqrt2}=1-\frac12+\frac38-\frac5{16}+\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[(1+x)^{-1/2}=1-x/2+3x^2/8-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1에서 경계수렴을 이용\)</p></div>
+<div class="result"><b>③ 결론</b>\[\frac1{\sqrt2}=1-\frac12+\frac38-\frac5{16}+\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\ln\frac32=\frac12-\frac1{8}+\frac1{24}-\frac1{64}+\cdots 상수·무한급수 공식">
+<div class="badge">073</div>
+<h3>\(\ln\frac32=\frac12-\frac1{8}+\frac1{24}-\frac1{64}+\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-x^2/2+x^3/3-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1/2을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln\frac32=\sum_{n=1}^\infty\frac{(-1)^{n+1}}{n2^n}\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\arctan\frac12=\frac12-\frac1{24}+\frac1{160}-\cdots 상수·무한급수 공식">
+<div class="badge">074</div>
+<h3>\(\arctan\frac12=\frac12-\frac1{24}+\frac1{160}-\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-x^3/3+x^5/5-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1/2을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\arctan\frac12=\frac12-\frac1{24}+\frac1{160}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="e^{1/2}=1+\frac12+\frac1{8}+\frac1{48}+\cdots 상수·무한급수 공식">
+<div class="badge">075</div>
+<h3>\(e^{1/2}=1+\frac12+\frac1{8}+\frac1{48}+\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=\sum x^n/n!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1/2을 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sqrt e=\sum_{n=0}^\infty\frac1{2^n n!}\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\sin1=1-\frac1{3!}+\frac1{5!}-\cdots 상수·무한급수 공식">
+<div class="badge">076</div>
+<h3>\(\sin1=1-\frac1{3!}+\frac1{5!}-\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-x^3/3!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1 라디안 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sin1=1-\frac1{6}+\frac1{120}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\cos1=1-\frac1{2!}+\frac1{4!}-\cdots 상수·무한급수 공식">
+<div class="badge">077</div>
+<h3>\(\cos1=1-\frac1{2!}+\frac1{4!}-\cdots\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos x=1-x^2/2!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=1 라디안 대입\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cos1=1-\frac12+\frac1{24}-\cdots\]</div>
+
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\frac1{1-r}=\sum_{n=0}^\infty r^n 상수·무한급수 공식">
+<div class="badge">078</div>
+<h3>\(\frac1{1-r}=\sum_{n=0}^\infty r^n\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[(1-x)^{-1}=1+x+x^2+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x=r로 이름만 바꾼다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[1+r+r^2+\cdots=\frac1{1-r}\]</div>
+<p class="cond"><b>조건:</b> \(|r|<1\)</p>
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\sum_{n=1}^\infty nr^{n-1}=\frac1{(1-r)^2} 상수·무한급수 공식">
+<div class="badge">079</div>
+<h3>\(\sum_{n=1}^\infty nr^{n-1}=\frac1{(1-r)^2}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sum_{n=0}^\infty r^n=(1-r)^{-1}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(r에 대해 미분한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[1+2r+3r^2+\cdots=\frac1{(1-r)^2}\]</div>
+<p class="cond"><b>조건:</b> \(|r|<1\)</p>
+</article>
+<article class="card" data-cat="상수·무한급수 공식" data-search="\sum_{n=1}^\infty nr^n=\frac{r}{(1-r)^2} 상수·무한급수 공식">
+<div class="badge">080</div>
+<h3>\(\sum_{n=1}^\infty nr^n=\frac{r}{(1-r)^2}\)</h3>
+<p class="tag">상수·무한급수 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sum nr^{n-1}=(1-r)^{-2}\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(양변에 r을 곱한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[r+2r^2+3r^3+\cdots=\frac{r}{(1-r)^2}\]</div>
+<p class="cond"><b>조건:</b> \(|r|<1\)</p>
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\cosh^2x-\sinh^2x=1 미적분·응용 공식">
+<div class="badge">081</div>
+<h3>\(\cosh^2x-\sinh^2x=1\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cosh x=1+x^2/2!+\cdots,\ \sinh x=x+x^3/3!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(급수를 곱해 계수를 비교하면 모든 양의 차수 항이 소거된다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cosh^2x-\sinh^2x=1\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="e^xe^{-x}=1 미적분·응용 공식">
+<div class="badge">082</div>
+<h3>\(e^xe^{-x}=1\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=\sum x^n/n!,\ e^{-x}=\sum(-x)^n/n!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(코시 곱에서 x^k의 계수는 \frac1{k!}\sum_{j=0}^k\binom{k}{j}(-1)^j=(1-1)^k/k!\)</p></div>
+<div class="result"><b>③ 결론</b>\[e^xe^{-x}=1\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\sin(-x)=-\sin x 미적분·응용 공식">
+<div class="badge">083</div>
+<h3>\(\sin(-x)=-\sin x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-x^3/3!+x^5/5!-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x를 -x로 바꾸면 모든 홀수차 항의 부호가 바뀐다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sin(-x)=-\sin x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\cos(-x)=\cos x 미적분·응용 공식">
+<div class="badge">084</div>
+<h3>\(\cos(-x)=\cos x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos x=1-x^2/2!+x^4/4!-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(x를 -x로 바꾸어도 짝수차 항은 변하지 않는다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cos(-x)=\cos x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\sinh(-x)=-\sinh x 미적분·응용 공식">
+<div class="badge">085</div>
+<h3>\(\sinh(-x)=-\sinh x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sinh x=x+x^3/3!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(홀수차 항만 존재한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sinh(-x)=-\sinh x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\cosh(-x)=\cosh x 미적분·응용 공식">
+<div class="badge">086</div>
+<h3>\(\cosh(-x)=\cosh x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cosh x=1+x^2/2!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(짝수차 항만 존재한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\cosh(-x)=\cosh x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\frac{d}{dx}e^x=e^x 미적분·응용 공식">
+<div class="badge">087</div>
+<h3>\(\frac{d}{dx}e^x=e^x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=\sum_{n=0}^\infty x^n/n!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(항별 미분하면 \sum_{n=1}^\infty nx^{n-1}/n!=\sum_{m=0}^\infty x^m/m!\)</p></div>
+<div class="result"><b>③ 결론</b>\[(e^x)'=e^x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\frac{d}{dx}\sin x=\cos x 미적분·응용 공식">
+<div class="badge">088</div>
+<h3>\(\frac{d}{dx}\sin x=\cos x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=\sum(-1)^n x^{2n+1}/(2n+1)!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(항별 미분하면 \sum(-1)^n x^{2n}/(2n)!\)</p></div>
+<div class="result"><b>③ 결론</b>\[(\sin x)'=\cos x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\frac{d}{dx}\cos x=-\sin x 미적분·응용 공식">
+<div class="badge">089</div>
+<h3>\(\frac{d}{dx}\cos x=-\sin x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos x=\sum(-1)^n x^{2n}/(2n)!\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(상수항은 사라지고 항별 미분 후 지수를 정리한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[(\cos x)'=-\sin x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\int_0^x e^t\,dt=e^x-1 미적분·응용 공식">
+<div class="badge">090</div>
+<h3>\(\int_0^x e^t\,dt=e^x-1\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^t=1+t+t^2/2!+\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(0부터 x까지 항별 적분하면 x+x^2/2!+x^3/3!+\cdots\)</p></div>
+<div class="result"><b>③ 결론</b>\[\int_0^x e^t\,dt=e^x-1\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\int_0^x\cos t\,dt=\sin x 미적분·응용 공식">
+<div class="badge">091</div>
+<h3>\(\int_0^x\cos t\,dt=\sin x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\cos t=1-t^2/2!+t^4/4!-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(항별 적분하면 x-x^3/3!+x^5/5!-\cdots\)</p></div>
+<div class="result"><b>③ 결론</b>\[\int_0^x\cos t\,dt=\sin x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\int_0^x\sin t\,dt=1-\cos x 미적분·응용 공식">
+<div class="badge">092</div>
+<h3>\(\int_0^x\sin t\,dt=1-\cos x\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin t=t-t^3/3!+t^5/5!-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(항별 적분하면 x^2/2!-x^4/4!+\cdots\)</p></div>
+<div class="result"><b>③ 결론</b>\[\int_0^x\sin t\,dt=1-\cos x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\frac{d}{dx}\ln(1+x)=\frac1{1+x} 미적분·응용 공식">
+<div class="badge">093</div>
+<h3>\(\frac{d}{dx}\ln(1+x)=\frac1{1+x}\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-x^2/2+x^3/3-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(항별 미분하면 1-x+x^2-x^3+\cdots\)</p></div>
+<div class="result"><b>③ 결론</b>\[(\ln(1+x))'=\frac1{1+x}\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\frac{d}{dx}\arctan x=\frac1{1+x^2} 미적분·응용 공식">
+<div class="badge">094</div>
+<h3>\(\frac{d}{dx}\arctan x=\frac1{1+x^2}\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\arctan x=x-x^3/3+x^5/5-\cdots\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(항별 미분하면 1-x^2+x^4-\cdots\)</p></div>
+<div class="result"><b>③ 결론</b>\[(\arctan x)'=\frac1{1+x^2}\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\sin x&lt;x\quad(x&gt;0\text{ 작음}) 미적분·응용 공식">
+<div class="badge">095</div>
+<h3>\(\sin x<x\quad(x>0\text{ 작음})\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin x=x-\frac{x^3}{6}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(충분히 작은 양의 x에서는 첫 보정항 -x^3/6이 지배한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sin x<x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\tan x&gt;x\quad(x&gt;0\text{ 작음}) 미적분·응용 공식">
+<div class="badge">096</div>
+<h3>\(\tan x>x\quad(x>0\text{ 작음})\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\tan x=x+\frac{x^3}{3}+O(x^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(충분히 작은 양의 x에서는 첫 보정항 +x^3/3이 지배한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\tan x>x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\ln(1+x)&lt;x\quad(x&gt;0\text{ 작음}) 미적분·응용 공식">
+<div class="badge">097</div>
+<h3>\(\ln(1+x)<x\quad(x>0\text{ 작음})\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\ln(1+x)=x-\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(첫 보정항이 음수이다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\ln(1+x)<x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="e^x&gt;1+x\quad(x\ne0\text{ 근방}) 미적분·응용 공식">
+<div class="badge">098</div>
+<h3>\(e^x>1+x\quad(x\ne0\text{ 근방})\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[e^x=1+x+\frac{x^2}{2}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(0 근방에서는 양의 2차항이 선형 근사보다 위에 놓이게 한다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[e^x>1+x\]</div>
+
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\sqrt{1+x}&lt;1+\frac{x}{2}\quad(x&gt;0) 미적분·응용 공식">
+<div class="badge">099</div>
+<h3>\(\sqrt{1+x}<1+\frac{x}{2}\quad(x>0)\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sqrt{1+x}=1+\frac{x}{2}-\frac{x^2}{8}+O(x^3)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(0 근방에서 첫 보정항이 음수이다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\sqrt{1+x}<1+\frac{x}{2}\]</div>
+<p class="cond"><b>조건:</b> \(x>0\text{의 0 근방}\)</p>
+</article>
+<article class="card" data-cat="미적분·응용 공식" data-search="\text{단진자의 작은각 근사: }\sin\theta\approx\theta 미적분·응용 공식">
+<div class="badge">100</div>
+<h3>\(\text{단진자의 작은각 근사: }\sin\theta\approx\theta\)</h3>
+<p class="tag">미적분·응용 공식</p>
+<div class="box"><b>① 출발 급수</b>\[\sin\theta=\theta-\theta^3/6+O(\theta^5)\]</div>
+<div class="box"><b>② 전개·계산</b><p>\(|\theta|\ll1에서 세제곱 이상을 무시하면 운동방정식이 선형화된다.\)</p></div>
+<div class="result"><b>③ 결론</b>\[\theta''+\frac{g}{L}\sin\theta=0\ \Rightarrow\ \theta''+\frac{g}{L}\theta\approx0\]</div>
+
+</article></div></main>
+<script>
+function fil(){
+ const q=document.getElementById('q').value.toLowerCase(), c=document.getElementById('cat').value;
+ document.querySelectorAll('.card').forEach(el=>{
+  const ok=el.dataset.search.toLowerCase().includes(q)&&(!c||el.dataset.cat===c);
+  el.style.display=ok?'block':'none';
+ });
+}
+</script></body></html>
