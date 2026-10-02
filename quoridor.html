@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>쿼리도 · 컴퓨터 대전</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#101921;color:#ecf1f5;font-family:system-ui,'Apple SD Gothic Neo','Nanum Gothic',sans-serif}main{max-width:980px;margin:auto;padding:28px 18px}header{display:flex;justify-content:space-between;align-items:center;gap:16px}h1{margin:0;font-size:30px}header p{color:#aabac9;margin:8px 0 20px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px}.board{background:#1b2934;border:1px solid #334652;border-radius:20px;padding:14px}canvas{display:none;width:100%;height:auto;touch-action:manipulation;border-radius:12px}aside{background:#1b2934;border:1px solid #334652;border-radius:20px;padding:22px;height:fit-content}button{font:inherit;border:1px solid #526573;background:#263947;color:#ecf1f5;border-radius:10px;padding:12px 15px;cursor:pointer}button:hover{background:#354c5d}button:focus-visible{outline:3px solid #f9d879;outline-offset:3px}button.active{background:#f9d879;color:#17212a;border-color:#f9d879}.modes{display:grid;gap:8px;margin:20px 0}.counts{display:flex;justify-content:space-between;gap:10px}.counts div{padding:12px;background:#101921;border-radius:10px;flex:1}.counts strong{font-size:24px;display:block;margin-top:5px}.blue{color:#71b9ff}.red{color:#ff9c90}#status{min-height:52px;font-weight:650;line-height:1.6}small,li{color:#bac9d5;line-height:1.7}ul{padding-left:18px;font-size:14px}h2{font-size:16px;margin-top:24px}.badge{font-size:12px;letter-spacing:2px;color:#f9d879;margin-bottom:7px}#restart{white-space:nowrap}@media(max-width:730px){.layout{grid-template-columns:1fr}aside{padding:18px}.modes{grid-template-columns:repeat(3,1fr)}main{padding:18px 12px}h1{font-size:25px}.board{padding:7px}header p{font-size:13px}}</style></head>
+<body><main><header><div><div class="badge">QUORIDOR / TACTICAL AI</div><h1>한 수 앞의 길</h1><p>벽을 놓고, 길을 찾고, 반대편에 먼저 도착하세요.</p></div><button id="restart">새 게임</button></header><p id="runNotice" style="padding:14px;background:#453a1c;color:#fff0bf;border-radius:10px;line-height:1.7">이 안내가 계속 보이거나 버튼이 반응하지 않으면 JavaScript가 실행되지 않은 상태입니다. 파일을 다운로드한 뒤 크롬·엣지에서 직접 열어 주세요. 미리보기에서는 게임 실행이 제한될 수 있습니다.</p><div class="layout"><section class="board" aria-label="쿼리도 게임판"><svg id="staticBoard" viewBox="0 0 620 620" style="display:block;width:100%;height:auto" role="img" aria-label="쿼리도 초기 게임판"><rect width="620" height="620" fill="#dbc9a8"/><rect x="18" y="18" width="56" height="56" fill="#faf3e5"/><rect x="84" y="18" width="56" height="56" fill="#faf3e5"/><rect x="150" y="18" width="56" height="56" fill="#faf3e5"/><rect x="216" y="18" width="56" height="56" fill="#faf3e5"/><rect x="282" y="18" width="56" height="56" fill="#faf3e5"/><rect x="348" y="18" width="56" height="56" fill="#faf3e5"/><rect x="414" y="18" width="56" height="56" fill="#faf3e5"/><rect x="480" y="18" width="56" height="56" fill="#faf3e5"/><rect x="546" y="18" width="56" height="56" fill="#faf3e5"/><rect x="18" y="84" width="56" height="56" fill="#faf3e5"/><rect x="84" y="84" width="56" height="56" fill="#faf3e5"/><rect x="150" y="84" width="56" height="56" fill="#faf3e5"/><rect x="216" y="84" width="56" height="56" fill="#faf3e5"/><rect x="282" y="84" width="56" height="56" fill="#faf3e5"/><rect x="348" y="84" width="56" height="56" fill="#faf3e5"/><rect x="414" y="84" width="56" height="56" fill="#faf3e5"/><rect x="480" y="84" width="56" height="56" fill="#faf3e5"/><rect x="546" y="84" width="56" height="56" fill="#faf3e5"/><rect x="18" y="150" width="56" height="56" fill="#faf3e5"/><rect x="84" y="150" width="56" height="56" fill="#faf3e5"/><rect x="150" y="150" width="56" height="56" fill="#faf3e5"/><rect x="216" y="150" width="56" height="56" fill="#faf3e5"/><rect x="282" y="150" width="56" height="56" fill="#faf3e5"/><rect x="348" y="150" width="56" height="56" fill="#faf3e5"/><rect x="414" y="150" width="56" height="56" fill="#faf3e5"/><rect x="480" y="150" width="56" height="56" fill="#faf3e5"/><rect x="546" y="150" width="56" height="56" fill="#faf3e5"/><rect x="18" y="216" width="56" height="56" fill="#faf3e5"/><rect x="84" y="216" width="56" height="56" fill="#faf3e5"/><rect x="150" y="216" width="56" height="56" fill="#faf3e5"/><rect x="216" y="216" width="56" height="56" fill="#faf3e5"/><rect x="282" y="216" width="56" height="56" fill="#faf3e5"/><rect x="348" y="216" width="56" height="56" fill="#faf3e5"/><rect x="414" y="216" width="56" height="56" fill="#faf3e5"/><rect x="480" y="216" width="56" height="56" fill="#faf3e5"/><rect x="546" y="216" width="56" height="56" fill="#faf3e5"/><rect x="18" y="282" width="56" height="56" fill="#faf3e5"/><rect x="84" y="282" width="56" height="56" fill="#faf3e5"/><rect x="150" y="282" width="56" height="56" fill="#faf3e5"/><rect x="216" y="282" width="56" height="56" fill="#faf3e5"/><rect x="282" y="282" width="56" height="56" fill="#faf3e5"/><rect x="348" y="282" width="56" height="56" fill="#faf3e5"/><rect x="414" y="282" width="56" height="56" fill="#faf3e5"/><rect x="480" y="282" width="56" height="56" fill="#faf3e5"/><rect x="546" y="282" width="56" height="56" fill="#faf3e5"/><rect x="18" y="348" width="56" height="56" fill="#faf3e5"/><rect x="84" y="348" width="56" height="56" fill="#faf3e5"/><rect x="150" y="348" width="56" height="56" fill="#faf3e5"/><rect x="216" y="348" width="56" height="56" fill="#faf3e5"/><rect x="282" y="348" width="56" height="56" fill="#faf3e5"/><rect x="348" y="348" width="56" height="56" fill="#faf3e5"/><rect x="414" y="348" width="56" height="56" fill="#faf3e5"/><rect x="480" y="348" width="56" height="56" fill="#faf3e5"/><rect x="546" y="348" width="56" height="56" fill="#faf3e5"/><rect x="18" y="414" width="56" height="56" fill="#faf3e5"/><rect x="84" y="414" width="56" height="56" fill="#faf3e5"/><rect x="150" y="414" width="56" height="56" fill="#faf3e5"/><rect x="216" y="414" width="56" height="56" fill="#faf3e5"/><rect x="282" y="414" width="56" height="56" fill="#faf3e5"/><rect x="348" y="414" width="56" height="56" fill="#faf3e5"/><rect x="414" y="414" width="56" height="56" fill="#faf3e5"/><rect x="480" y="414" width="56" height="56" fill="#faf3e5"/><rect x="546" y="414" width="56" height="56" fill="#faf3e5"/><rect x="18" y="480" width="56" height="56" fill="#faf3e5"/><rect x="84" y="480" width="56" height="56" fill="#faf3e5"/><rect x="150" y="480" width="56" height="56" fill="#faf3e5"/><rect x="216" y="480" width="56" height="56" fill="#faf3e5"/><rect x="282" y="480" width="56" height="56" fill="#faf3e5"/><rect x="348" y="480" width="56" height="56" fill="#faf3e5"/><rect x="414" y="480" width="56" height="56" fill="#faf3e5"/><rect x="480" y="480" width="56" height="56" fill="#faf3e5"/><rect x="546" y="480" width="56" height="56" fill="#faf3e5"/><rect x="18" y="546" width="56" height="56" fill="#faf3e5"/><rect x="84" y="546" width="56" height="56" fill="#faf3e5"/><rect x="150" y="546" width="56" height="56" fill="#faf3e5"/><rect x="216" y="546" width="56" height="56" fill="#faf3e5"/><rect x="282" y="546" width="56" height="56" fill="#faf3e5"/><rect x="348" y="546" width="56" height="56" fill="#faf3e5"/><rect x="414" y="546" width="56" height="56" fill="#faf3e5"/><rect x="480" y="546" width="56" height="56" fill="#faf3e5"/><rect x="546" y="546" width="56" height="56" fill="#faf3e5"/><circle cx="310" cy="574" r="21" fill="#297fcc" stroke="white" stroke-width="3"/><text x="310" y="579" text-anchor="middle" fill="white" font-size="15">나</text><circle cx="310" cy="46" r="21" fill="#d85c4d" stroke="white" stroke-width="3"/><text x="310" y="51" text-anchor="middle" fill="white" font-size="15">AI</text></svg><canvas id="board" width="620" height="620" role="img" aria-label="9×9 쿼리도 게임판. 초록 점으로 이동하고 칸 사이 교차점에 벽을 놓으세요."></canvas></section><aside><div id="status" role="status" aria-live="polite">게임 실행 대기 중입니다.</div><div class="counts"><div><span class="blue">나 · 파랑</span><strong id="humanCount">10</strong><small>남은 벽</small></div><div><span class="red">컴퓨터</span><strong id="aiCount">10</strong><small>남은 벽</small></div></div><div class="modes" aria-label="행동 선택"><button data-mode="M" class="active" aria-pressed="true">말 이동</button><button data-mode="H" aria-pressed="false">가로 벽</button><button data-mode="V" aria-pressed="false">세로 벽</button></div><small id="hint">초록 점이 표시된 칸을 클릭하세요.</small><h2>플레이 방법</h2><ul><li>나는 맨 위 줄, 컴퓨터는 맨 아래 줄에 도착하면 승리합니다.</li><li>한 차례에 말 이동 또는 벽 설치 중 하나를 합니다.</li><li>벽은 두 칸 길이입니다. 겹치거나 교차할 수 없으며, 도착하는 길을 완전히 막을 수 없습니다.</li><li>상대 말은 뛰어넘을 수 있습니다. 뒤가 막혀 있다면 옆으로 이동할 수 있습니다.</li></ul><small>강화 AI: 최대 3수 앞의 대응·점프·경로·벽 소모를 비교합니다. 탐색량과 기기 속도에 따라 깊이가 달라집니다.</small></aside></div></main>
+<script>
+(() => {
+'use strict';
+const N=9,P=46,S=66,key=p=>p.join(','),wk=w=>w.join(','),same=(a,b)=>a[0]===b[0]&&a[1]===b[1];
+function blocked(a,b,walls){if(a[0]===b[0]){const c=Math.min(a[1],b[1]);return [a[0]-1,a[0]].some(r=>walls.has(wk(['V',r,c])));}const r=Math.min(a[0],b[0]);return [a[1]-1,a[1]].some(c=>walls.has(wk(['H',r,c])));}
+function neighbors(p,walls){return [[p[0]-1,p[1]],[p[0]+1,p[1]],[p[0],p[1]-1],[p[0],p[1]+1]].filter(q=>q.every(x=>x>=0&&x<N)&&!blocked(p,q,walls));}
+function distance(start,goal,walls){const queue=[[start,0]],seen=new Set([key(start)]);for(let i=0;i<queue.length;i++){const [p,d]=queue[i];if(p[0]===goal)return d;for(const q of neighbors(p,walls))if(!seen.has(key(q))){seen.add(key(q));queue.push([q,d+1]);}}return Infinity;}
+function moves(me,other,walls){const result=new Map();for(const q of neighbors(me,walls)){if(!same(q,other)){result.set(key(q),q);continue;}const dr=other[0]-me[0],dc=other[1]-me[1],jump=[other[0]+dr,other[1]+dc],next=neighbors(other,walls);if(next.some(p=>same(p,jump)))result.set(key(jump),jump);else for(const p of next)if(!same(p,me)&&((dr&&p[0]===other[0])||(dc&&p[1]===other[1])))result.set(key(p),p);}return [...result.values()];}
+function legalWall(w,walls,pos){const [d,r,c]=w;if(r<0||r>7||c<0||c>7||walls.has(wk(w))||walls.has(wk([d==='H'?'V':'H',r,c])))return false;const overlaps=d==='H'?[[d,r,c-1],[d,r,c+1]]:[[d,r-1,c],[d,r+1,c]];if(overlaps.some(x=>walls.has(wk(x))))return false;const trial=new Set(walls);trial.add(wk(w));return Number.isFinite(distance(pos[0],0,trial))&&Number.isFinite(distance(pos[1],8,trial));}
+const canvas=document.getElementById('board'),ctx=canvas.getContext('2d'),statusEl=document.getElementById('status');let pos,walls,remaining,turn,over,mode='M',timer=null,hover=null;
+function draw(message){ctx.clearRect(0,0,620,620);ctx.fillStyle='#dbc9a8';ctx.fillRect(0,0,620,620);for(let r=0;r<N;r++)for(let c=0;c<N;c++){ctx.fillStyle=r===0?'#e3eddf':r===8?'#efdbd2':'#faf3e5';ctx.fillRect(P+c*S-28,P+r*S-28,56,56);}if(turn===0&&!over)for(const [r,c]of moves(pos[0],pos[1],walls)){ctx.beginPath();ctx.arc(P+c*S,P+r*S,7,0,Math.PI*2);ctx.fillStyle='#388657';ctx.fill();}for(const value of walls)paintWall(value.split(',').map((x,i)=>i?Number(x):x),'#59432c');if(hover&&mode!=='M'&&turn===0&&!over)paintWall(hover,remaining[0]>0&&legalWall(hover,walls,pos)?'#488d70aa':'#cd4c4c99');for(let i=0;i<2;i++){const [r,c]=pos[i];ctx.beginPath();ctx.arc(P+c*S,P+r*S,21,0,Math.PI*2);ctx.fillStyle=i?'#d85c4d':'#297fcc';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='white';ctx.stroke();ctx.fillStyle='white';ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(i?'AI':'나',P+c*S,P+r*S);}if(message!==undefined)statusEl.textContent=message;document.getElementById('humanCount').textContent=remaining[0];document.getElementById('aiCount').textContent=remaining[1];}
+function paintWall([d,r,c],color){ctx.strokeStyle=color;ctx.lineWidth=8;ctx.lineCap='round';ctx.beginPath();if(d==='H'){ctx.moveTo(P+c*S-28,P+(r+.5)*S);ctx.lineTo(P+(c+1)*S+28,P+(r+.5)*S);}else{ctx.moveTo(P+(c+.5)*S,P+r*S-28);ctx.lineTo(P+(c+.5)*S,P+(r+1)*S+28);}ctx.stroke();}
+function reset(){canvas.style.display='block';document.getElementById('staticBoard').style.display='none';document.getElementById('runNotice').style.display='none';if(timer!==null)clearTimeout(timer);timer=null;pos=[[8,4],[0,4]];walls=new Set();remaining=[10,10];turn=0;over=false;hover=null;setMode('M');draw('내 차례 · 반대편으로 길을 찾아보세요.');}
+function setMode(value){mode=value;hover=null;document.querySelectorAll('[data-mode]').forEach(b=>{const active=b.dataset.mode===mode;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});document.getElementById('hint').textContent=mode==='M'?'초록 점이 표시된 칸을 클릭하세요.':'칸 사이 교차점을 클릭하세요. 벽은 두 칸을 가로막습니다.';if(pos)draw();}
+function eventPosition(e){const rect=canvas.getBoundingClientRect();return [(e.clientX-rect.left)*620/rect.width,(e.clientY-rect.top)*620/rect.height];}
+function wallAt(x,y){return [mode,Math.round((y-P)/S-.5),Math.round((x-P)/S-.5)];}
+canvas.addEventListener('pointermove',e=>{if(mode==='M'||turn!==0||over)return;const [x,y]=eventPosition(e);hover=wallAt(x,y);draw();});canvas.addEventListener('pointerleave',()=>{hover=null;draw();});
+canvas.addEventListener('click',e=>{if(turn!==0||over)return;const [x,y]=eventPosition(e);if(mode==='M'){const target=[Math.round((y-P)/S),Math.round((x-P)/S)];if(!moves(pos[0],pos[1],walls).some(p=>same(p,target))){draw('초록 점이 있는 칸으로 이동하세요.');return;}pos[0]=target;}else{const w=wallAt(x,y);if(!remaining[0]){draw('남은 벽이 없습니다. 말을 이동하세요.');return;}if(!legalWall(w,walls,pos)){draw('벽이 겹치거나 교차하거나, 길을 막는 위치입니다.');return;}walls.add(wk(w));remaining[0]--;}hover=null;if(finish())return;turn=1;draw('컴퓨터가 대응 수를 분석 중…');timer=setTimeout(ai,220);});
+function finish(){if(pos[0][0]===0||pos[1][0]===8){over=true;draw(pos[0][0]===0?'🎉 승리! 먼저 반대편에 도착했습니다.':'컴퓨터 승리! 새 게임으로 다시 도전해 보세요.');return true;}return false;}
+// Beam-limited alpha-beta search. A ply is one player's action.
+function tacticalDistance(start,other,goal,ws){
+ const queue=[[start,0]],seen=new Set([key(start)]);
+ for(let i=0;i<queue.length;i++){const [p,d]=queue[i];if(p[0]===goal)return d;
+  for(const q of moves(p,other,ws))if(!seen.has(key(q))){seen.add(key(q));queue.push([q,d+1]);}}
+ return distance(start,goal,ws);
+}
+function evaluateState(st){
+ if(st.p[1][0]===8)return 100000;
+ if(st.p[0][0]===0)return -100000;
+ const hd=tacticalDistance(st.p[0],st.p[1],0,st.w),ad=tacticalDistance(st.p[1],st.p[0],8,st.w);
+ return (hd-ad)*100+(st.n[1]-st.n[0])*7+
+ (moves(st.p[1],st.p[0],st.w).length-moves(st.p[0],st.p[1],st.w).length)*2;
+}
+function applyAction(st,action,player){
+ const next={p:st.p.map(p=>p.slice()),w:st.w,n:st.n.slice()};
+ if(action.type==='move')next.p[player]=action.p.slice();
+ else{next.w=new Set(st.w);next.w.add(wk(action.w));next.n[player]--;}
+ return next;
+}
+function shortestRoute(start,goal,ws){
+ const queue=[start],previous=new Map([[key(start),null]]);let end=null;
+ for(let i=0;i<queue.length;i++){const p=queue[i];if(p[0]===goal){end=p;break;}
+ for(const q of neighbors(p,ws))if(!previous.has(key(q))){previous.set(key(q),p);queue.push(q);}}
+ const route=[];while(end){route.push(end);end=previous.get(key(end));}return route.reverse();
+}
+function candidateWalls(st,full){
+ if(full){const all=[];for(const d of ['H','V'])for(let r=0;r<8;r++)for(let c=0;c<8;c++)all.push([d,r,c]);return all;}
+ const candidates=new Map();
+ function add(d,r,c){if(r>=0&&r<8&&c>=0&&c<8)candidates.set(wk([d,r,c]),[d,r,c]);}
+ // Include walls across the first part of both shortest paths, not just beside the pawns.
+ for(let player=0;player<2;player++){
+  const path=shortestRoute(st.p[player],player===0?0:8,st.w).slice(0,6);
+  for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i];
+   if(a[0]!==b[0]){const r=Math.min(a[0],b[0]);add('H',r,a[1]);add('H',r,a[1]-1);}
+   else{const c=Math.min(a[1],b[1]);add('V',a[0],c);add('V',a[0]-1,c);}}
+  const [r,c]=st.p[player];for(const d of ['H','V'])for(const rr of [r-1,r])for(const cc of [c-1,c])add(d,rr,cc);
+ }return [...candidates.values()];
+}
+function orderedActions(st,player,limit,full,deadline){
+ const ranked=[];
+ for(const p of moves(st.p[player],st.p[1-player],st.w)){
+  const action={type:'move',p},next=applyAction(st,action,player);
+  ranked.push({action,next,score:evaluateState(next)});
+ }
+ const goal=player===0?0:8,winning=ranked.filter(x=>x.next.p[player][0]===goal);
+ if(winning.length)return winning;
+ if(st.n[player]>0)for(const w of candidateWalls(st,full)){
+  if(Date.now()>deadline)break;
+  if(!legalWall(w,st.w,st.p))continue;
+  const action={type:'wall',w},next=applyAction(st,action,player);
+  ranked.push({action,next,score:evaluateState(next)});
+ }
+ ranked.sort((a,b)=>player===1?b.score-a.score:a.score-b.score);
+ // Retain movement alternatives even if many walls have similar immediate scores.
+ const selected=ranked.slice(0,limit);
+ for(const item of ranked.filter(x=>x.action.type==='move').slice(0,2))if(!selected.includes(item))selected.push(item);
+ return selected;
+}
+function chooseAction(st,budget=1600){
+ const deadline=Date.now()+budget;
+ const roots=orderedActions(st,1,14,true,deadline);
+ let selected=roots[0].action,completedDepth=0;
+ const cache=new Map();
+ function search(state,player,depth,alpha,beta){
+  if(Date.now()>deadline)throw new Error('search-time-limit');
+  if(state.p[0][0]===0||state.p[1][0]===8){const v=evaluateState(state);return v>0?v+depth*100:v-depth*100;}
+  if(depth===0)return evaluateState(state);
+  const id=player+'|'+depth+'|'+state.p.map(key).join(';')+'|'+state.n.join(',')+'|'+[...state.w].sort().join(';');
+  if(cache.has(id))return cache.get(id);
+  const originalAlpha=alpha,originalBeta=beta;
+  let value=player===1?-Infinity:Infinity,cut=false;
+  for(const item of orderedActions(state,player,6,false,deadline)){
+   const v=search(item.next,1-player,depth-1,alpha,beta);
+   if(player===1){value=Math.max(value,v);alpha=Math.max(alpha,value);}
+   else{value=Math.min(value,v);beta=Math.min(beta,value);}
+   if(beta<=alpha){cut=true;break;}
+  }
+  if(!cut&&value>originalAlpha&&value<originalBeta)cache.set(id,value);return value;
+ }
+ for(let depth=1;depth<=3;depth++){
+  let best=-Infinity,choice=selected;
+  try{for(const item of roots){const v=search(item.next,0,depth-1,-Infinity,Infinity);
+   if(v>best){best=v;choice=item.action;}}
+   selected=choice;completedDepth=depth;
+  }catch(e){if(e.message!=='search-time-limit')throw e;break;}
+  if(best>=100000)break;
+ }
+ return {action:selected,depth:completedDepth};
+}
+function ai(){
+ timer=null;
+ const decision=chooseAction({p:pos.map(p=>p.slice()),w:new Set(walls),n:remaining.slice()});
+ const action=decision.action;
+ if(action.type==='wall'){walls.add(wk(action.w));remaining[1]--;}
+ else pos[1]=action.p;
+ if(!finish()){turn=0;draw('내 차례 · 컴퓨터가 대응 수를 탐색했습니다.');}
+}
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));document.getElementById('restart').addEventListener('click',reset);reset();
+})();
+</script></body></html>
