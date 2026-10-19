@@ -1,0 +1,127 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>재귀와 동적 계획법 — 6개 코드 과정 출력</title><style>:root{font-family:'Malgun Gothic',Arial,sans-serif;color:#17243a;background:#eef3fa}*{box-sizing:border-box}body{margin:0}header{background:#15345b;color:white;padding:18px 24px}h1{font-size:24px;margin:0 0 6px}header p{margin:0;color:#d8e8ff}main{max-width:1550px;margin:auto;padding:18px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}select,input,button{font:inherit;padding:9px 12px;border:1px solid #b6c6d9;border-radius:8px;background:white}button{cursor:pointer;background:#1c5b9c;color:white;border:0}button:hover{background:#124577}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:white;border-radius:12px;box-shadow:0 3px 15px #193b6312;padding:16px;min-width:0}h2{font-size:19px;margin:0 0 12px}pre{background:#102039;color:#e8f3ff;padding:16px;border-radius:9px;overflow:auto;font:14px/1.65 Consolas,'Malgun Gothic',monospace;white-space:pre;tab-size:4}#code{max-height:670px}#output{max-height:670px;min-height:450px}.note{font-size:14px;color:#52667c;margin:10px 0}.summary{background:#e8f3ff;border-radius:9px;padding:12px;margin-top:12px;line-height:1.7}.buttons{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:13px}footer{text-align:center;padding:18px;color:#52667c}@media(max-width:850px){.layout{grid-template-columns:1fr}pre{font-size:12px}#output{min-height:300px}}@media print{header{background:white;color:black}.toolbar,.buttons{display:none}.layout{display:block}.panel{box-shadow:none;border:1px solid #ddd;margin-bottom:12px}pre{max-height:none!important;white-space:pre-wrap;color:black;background:#f6f6f6}}</style></head><body><header><h1>재귀 · 메모이제이션 · 동적 계획법 — 6개 코드 과정 출력</h1><p>코드와 실행 과정을 나란히 확인하는 정보과학 학습 자료</p></header><main><div class="toolbar"><label for="topic">학습 코드</label><select id="topic"><option value="0">01. 일반 재귀 피보나치</option><option value="1">02. 메모이제이션 피보나치</option><option value="2">03. DP 테이블 피보나치</option><option value="3">04. 계단 오르기 DP</option><option value="4">05. 일반 재귀 vs 메모이제이션</option><option value="5">06. 상향식 피보나치 (변수 2개)</option></select><label for="n">n =</label><input id="n" type="number" min="0" max="20" value="6" style="width:78px"><button id="run">과정 출력</button><button id="copy">출력 복사</button><button id="save">TXT 저장</button><button onclick="window.print()">인쇄 / PDF</button></div><p class="note" id="hint"></p><div class="layout"><section class="panel"><h2>파이썬 코드</h2><pre id="code"></pre></section><section class="panel"><h2>실행 과정 및 결과</h2><pre id="output" aria-live="polite"></pre><div class="summary" id="summary"></div></section></div></main><footer>학습용 실행 추적 시뮬레이터 · Python 코드의 실행 순서와 동일한 계산 과정을 JavaScript로 재현</footer><script>
+const codes=[`count = 0
+
+def fib(n, depth=0):
+    global count
+    count += 1
+    indent = "  " * depth
+    print(indent + f"호출: fib({n})")
+    if n <= 1:
+        print(indent + f"반환: fib({n}) = {n}")
+        return n
+    left = fib(n-1, depth+1)
+    right = fib(n-2, depth+1)
+    result = left + right
+    print(indent + f"계산: fib({n}) = {left} + {right} = {result}")
+    return result
+
+print("최종 결과:", fib(N))
+print("호출 횟수:", count)`,`memo = {0: 0, 1: 1}
+count = 0
+
+def fib(n, depth=0):
+    global count
+    count += 1
+    indent = "  " * depth
+    print(indent + f"호출: fib({n})")
+    if n in memo:
+        print(indent + f"재사용: memo[{n}] = {memo[n]}")
+        return memo[n]
+    left = fib(n-1, depth+1)
+    right = fib(n-2, depth+1)
+    memo[n] = left + right
+    print(indent + f"계산: fib({n}) = {left} + {right} = {memo[n]}")
+    print(indent + f"저장: memo[{n}] = {memo[n]}")
+    return memo[n]
+
+print("최종 결과:", fib(N))
+print("호출 횟수:", count)
+print("최종 memo:", memo)`,`def fib_dp(n):
+    if n <= 1:
+        print(f"fib({n}) = {n}")
+        return n
+    dp = [0] * (n+1)
+    dp[1] = 1
+    print("초기 DP 테이블:", dp)
+    for i in range(2, n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+        print(f"{i}단계: dp[{i}] = dp[{i-1}] + dp[{i-2}]")
+        print(f"       = {dp[i-1]} + {dp[i-2]} = {dp[i]}")
+        print("DP 테이블:", dp)
+    return dp[n]
+
+print("최종 결과:", fib_dp(N))`,`def stairs(n):
+    if n <= 1:
+        print(f"계단 {n}칸: 1가지")
+        return 1
+    dp = [0] * (n+1)
+    dp[0] = dp[1] = 1
+    print("초기 DP 테이블:", dp)
+    for i in range(2, n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+        print(f"{i}단계: dp[{i}] = dp[{i-1}] + dp[{i-2}]")
+        print(f"       = {dp[i-1]} + {dp[i-2]} = {dp[i]}")
+        print("DP 테이블:", dp)
+    return dp[n]
+
+print("최종 결과:", stairs(N))`,`plain_count = 0
+memo_count = 0
+memo = {0: 0, 1: 1}
+
+def plain(n, depth=0):
+    global plain_count
+    plain_count += 1
+    indent = "  " * depth
+    print(indent + f"호출: plain({n})")
+    if n <= 1:
+        print(indent + f"반환: {n}")
+        return n
+    left = plain(n-1, depth+1)
+    right = plain(n-2, depth+1)
+    result = left + right
+    print(indent + f"계산: plain({n}) = {left} + {right} = {result}")
+    return result
+
+def fast(n, depth=0):
+    global memo_count
+    memo_count += 1
+    indent = "  " * depth
+    print(indent + f"호출: fast({n})")
+    if n in memo:
+        print(indent + f"재사용: memo[{n}] = {memo[n]}")
+        return memo[n]
+    left = fast(n-1, depth+1)
+    right = fast(n-2, depth+1)
+    memo[n] = left + right
+    print(indent + f"계산: fast({n}) = {left} + {right} = {memo[n]}")
+    print(indent + f"저장: memo[{n}] = {memo[n]}")
+    return memo[n]
+
+print("일반 재귀 결과:", plain(N))
+print("일반 재귀 호출 횟수:", plain_count)
+print("메모이제이션 결과:", fast(N))
+print("메모이제이션 호출 횟수:", memo_count)
+print("최종 memo:", memo)`,`def bottom_up(n):
+    if n <= 1:
+        print(f"fib({n}) = {n}")
+        return n
+    a, b = 0, 1
+    print(f"초기값: a = {a}, b = {b}")
+    for i in range(2, n+1):
+        print(f"{i}단계: fib({i}) = {a} + {b} = {a+b}")
+        a, b = b, a+b
+        print(f"       변경 후: a = {a}, b = {b}")
+    return b
+
+print("최종 결과:", bottom_up(N))`];
+const hints=['일반 재귀는 동일한 값을 여러 번 계산합니다. n이 크면 출력이 매우 길어집니다.','이미 계산한 값을 딕셔너리에서 재사용하여 중복 계산을 방지합니다.','작은 값부터 DP 리스트를 채워 나갑니다.','한 번에 1칸 또는 2칸씩 오르는 경우의 수입니다.','두 알고리즘의 호출 과정을 차례대로 출력하고 호출 횟수를 비교합니다.','직전 두 값만 저장하는 공간 복잡도 O(1) 방식입니다.'];
+const $=id=>document.getElementById(id);const fmt=a=>'['+a.join(', ')+']';const memoFmt=m=>'{'+Object.keys(m).sort((a,b)=>a-b).map(k=>`${k}: ${m[k]}`).join(', ')+'}';
+function trace(kind,n){let lines=[],count=0,memo={0:0,1:1},plainCount=0,memoCount=0;const log=s=>lines.push(s);function plain(k,d,name){plainCount++;let ind='  '.repeat(d);log(ind+`호출: ${name}(${k})`);if(k<=1){log(ind+`반환: ${name==='fib'?`fib(${k}) = ${k}`:k}`);return k}let a=plain(k-1,d+1,name),b=plain(k-2,d+1,name);log(ind+`계산: ${name}(${k}) = ${a} + ${b} = ${a+b}`);return a+b}function fast(k,d,name){memoCount++;let ind='  '.repeat(d);log(ind+`호출: ${name}(${k})`);if(Object.hasOwn(memo,k)){log(ind+`재사용: memo[${k}] = ${memo[k]}`);return memo[k]}let a=fast(k-1,d+1,name),b=fast(k-2,d+1,name);memo[k]=a+b;log(ind+`계산: ${name}(${k}) = ${a} + ${b} = ${memo[k]}`);log(ind+`저장: memo[${k}] = ${memo[k]}`);return memo[k]}
+if(kind===0){let v=plain(n,0,'fib');log(`최종 결과: ${v}`);log(`호출 횟수: ${plainCount}`);return [lines,`fib(${n}) = ${v} · 호출 ${plainCount}회 · 시간 O(2ⁿ)`]}
+if(kind===1){let v=fast(n,0,'fib');log(`최종 결과: ${v}`);log(`호출 횟수: ${memoCount}`);log(`최종 memo: ${memoFmt(memo)}`);return [lines,`fib(${n}) = ${v} · 호출 ${memoCount}회 · 시간 O(n)`]}
+if(kind===4){log('========== 일반 재귀 ==========');let a=plain(n,0,'plain');log('========== 메모이제이션 ==========');let b=fast(n,0,'fast');log('========== 최종 비교 ==========');log(`일반 재귀 결과: ${a}`);log(`일반 재귀 호출 횟수: ${plainCount}`);log(`메모이제이션 결과: ${b}`);log(`메모이제이션 호출 횟수: ${memoCount}`);log(`최종 memo: ${memoFmt(memo)}`);return [lines,`일반 재귀 ${plainCount}회 → 메모이제이션 ${memoCount}회 · 결과 ${a}`]}
+if(kind===5){if(n<=1){log(`fib(${n}) = ${n}`);log(`최종 결과: ${n}`);return [lines,`fib(${n}) = ${n}`]}let a=0,b=1;log(`초기값: a = ${a}, b = ${b}`);for(let i=2;i<=n;i++){log(`${i}단계: fib(${i}) = ${a} + ${b} = ${a+b}`);[a,b]=[b,a+b];log(`       변경 후: a = ${a}, b = ${b}`)}log(`최종 결과: ${b}`);return [lines,`fib(${n}) = ${b} · 덧셈 ${n-1}회 · 공간 O(1)`]}
+if(n<=1){let v=kind===3?1:n;log(kind===3?`계단 ${n}칸: 1가지`:`fib(${n}) = ${n}`);log(`최종 결과: ${v}`);return [lines,`결과 ${v}`]}let dp=Array(n+1).fill(0);dp[1]=1;if(kind===3)dp[0]=1;log(`초기 DP 테이블: ${fmt(dp)}`);for(let i=2;i<=n;i++){dp[i]=dp[i-1]+dp[i-2];log(`${i}단계: dp[${i}] = dp[${i-1}] + dp[${i-2}]`);log(`       = ${dp[i-1]} + ${dp[i-2]} = ${dp[i]}`);log(`DP 테이블: ${fmt(dp)}`)}log(`최종 결과: ${dp[n]}`);return [lines,`${kind===3?'계단 오르기':'피보나치'} ${n}단계 = ${dp[n]} · 덧셈 ${n-1}회`]
+}
+function render(){let kind=+$('topic').value,n=Number($('n').value);if(!Number.isInteger(n)||n<0||n>20){$('output').textContent='n은 0~20 사이의 정수로 입력하세요.';return} $('code').textContent=codes[kind].replaceAll('N',String(n));$('hint').textContent=hints[kind];let [lines,summary]=trace(kind,n);$('output').textContent=lines.join('\n');$('summary').textContent=summary;$('output').scrollTop=0} $('run').onclick=render;$('topic').onchange=()=>{let k=+$('topic').value;$('n').value=k===0||k===4?6:k===3?5:10;render()};$('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('output').textContent);alert('출력을 복사했습니다.')}catch(e){alert('브라우저에서 복사가 제한되었습니다.')}};$('save').onclick=()=>{let k=+$('topic').value,blob=new Blob([`코드 ${k+1}\n\n${$('code').textContent}\n\n실행 결과\n${$('output').textContent}`],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`DP_${String(k+1).padStart(2,'0')}_과정출력.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};render();
+</script></body></html>
